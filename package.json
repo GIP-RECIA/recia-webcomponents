@@ -1,0 +1,66 @@
+{
+  "name": "ui-mediacentre",
+  "version": "0.0.1",
+  "private": false,
+  "main": "dist/ui-mediacentre.min.js",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "prebuild": "babel node_modules/@vue/web-component-wrapper/dist/vue-wc-wrapper.js -o node_modules/@vue/web-component-wrapper/dist/vue-wc-wrapper.js",
+    "build": "vue-cli-service build --name ui-mediacentre --target wc 'src/components/*.vue'",
+    "buildDev": "vue-cli-service build --name ui-mediacentre --target wc 'src/components/*.vue'",
+    "lint": "vue-cli-service lint",
+    "publish": "npm publish"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/vue-fontawesome": "^2.0.2",
+    "@vue/cli": "^4.5.13",
+    "core-js": "^3.12.1",
+    "debounce": "^1.2.1",
+    "oidc-client": "^1.11.5",
+    "vue": "^2.6.12",
+    "vue-i18n": "^8.24.4",
+    "vue-loader": "^15.9.6"
+  },
+  "devDependencies": {
+    "@uportal/open-id-connect": "^1.36.0",
+    "@vue/cli-plugin-babel": "^4.5.13",
+    "@vue/cli-plugin-eslint": "^4.5.13",
+    "@vue/cli-service": "^4.5.13",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^7.9.0",
+    "node-sass": "^6.0.0",
+    "sass-loader": "^10.0.0",
+    "vue-template-compiler": "^2.6.12"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "description": "UI du Médiacentre en Vue.js pour le GIP-Recia.",
+  "author": "Anaël",
+  "license": "ISC"
+}
