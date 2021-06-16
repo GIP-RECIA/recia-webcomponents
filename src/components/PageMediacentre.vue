@@ -12,9 +12,26 @@
 <script>
 import ListeRessourcesMediacentre from "./ListeRessourcesMediacentre";
 import MenuMediacentre from "./MenuMediacentre";
+import i18n from "../i18n";
+
 export default {
   name: "page-mediacentre",
-  components: {MenuMediacentre, ListeRessourcesMediacentre}
+  components: {
+    menuMediacentre: MenuMediacentre,
+    listeRessourcesMediacentre: ListeRessourcesMediacentre
+  },
+  data: function() {
+    return {
+      ressources: [],
+      erreur: '',
+      chargement: false
+    };
+  },
+  methods: {
+    t: function (key) {
+      return i18n.t('message.' + this.$options.name + '.' + key); // 'message.page-ressource.{key}
+    }
+  }
 }
 </script>
 

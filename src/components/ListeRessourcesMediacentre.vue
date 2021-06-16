@@ -7,8 +7,18 @@
 </template>
 
 <script>
+import i18n from "../i18n";
+
 export default {
-  name: "liste-ressources-mediacentre"
+  name: "liste-ressources-mediacentre",
+  data: function() {
+    return {};
+  },
+  methods: {
+    t: function (key) {
+      return i18n.t('message.' + this.$options.name + '.' + key); // 'message.page-ressource.{key}
+    }
+  }
 }
 </script>
 
