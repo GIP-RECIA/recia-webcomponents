@@ -1,13 +1,13 @@
 {
-  "name": "ui-mediacentre",
+  "name": "@gip-recia/mediacentre-ui",
   "version": "0.0.1",
   "private": false,
-  "main": "dist/ui-mediacentre.min.js",
+  "main": "dist/mediacentre-ui.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "prebuild": "babel node_modules/@vue/web-component-wrapper/dist/vue-wc-wrapper.js -o node_modules/@vue/web-component-wrapper/dist/vue-wc-wrapper.js",
-    "build": "vue-cli-service build --name ui-mediacentre --target wc 'src/components/*.vue'",
-    "buildDev": "vue-cli-service build --name ui-mediacentre --target wc 'src/components/*.vue'",
+    "build": "vue-cli-service build --name mediacentre-ui --target wc 'src/components/*.vue'",
+    "buildDev": "vue-cli-service build --name mediacentre-ui --target wc 'src/components/*.vue'",
     "lint": "vue-cli-service lint",
     "publish": "npm publish"
   },
@@ -62,5 +62,9 @@
   ],
   "description": "UI du Médiacentre en Vue.js pour le GIP-Recia.",
   "author": "Anaël",
-  "license": "ISC"
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": "git://github.com/GIP-RECIA/Mediacentre-UI.git"
 }
