@@ -20,8 +20,19 @@ export default {
     menuMediacentre: MenuMediacentre,
     listeRessourcesMediacentre: ListeRessourcesMediacentre
   },
+  props: {
+    baseApiUrl: {
+      type: String,
+      default: process.env.VUE_APP_BASE_API_URI
+    },
+    userInfoApiUrl: {
+      type: String,
+      default: process.env.VUE_APP_USER_INFO_API_URI
+    }
+  },
   data: function() {
     return {
+      filtre: '',
       ressources: [],
       erreur: '',
       chargement: false
@@ -30,6 +41,9 @@ export default {
   methods: {
     t: function (key) {
       return i18n.t('message.' + this.$options.name + '.' + key); // 'message.page-ressource.{key}
+    },
+    changementFiltre(selection) {
+      this.filtre = selection;
     }
   }
 }

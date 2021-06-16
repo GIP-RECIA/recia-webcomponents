@@ -7,7 +7,9 @@
 
     },
     "menu-mediacentre": {
-
+      "ressources": "Ressources",
+      "toutes-ressources": "Toutes les ressources",
+      "mes-favoris": "Mes favoris"
     }
   }
 }
