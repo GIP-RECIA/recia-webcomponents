@@ -97,4 +97,10 @@ export default {
   width: 18px;
   height: 18px;
 }
+
+@media (max-width: 770px) {
+  .cadre-menu-mediacentre {
+    text-align: center;
+  }
+}
 </style>

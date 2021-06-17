@@ -89,4 +89,15 @@ export default {
   width: 100%;
   height: 100%;
 }
+
+@media (max-width: 770px) {
+  .cadre-page-mediacentre {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .aside-page-mediacentre {
+    max-width: 100%;
+  }
+}
 </style>
