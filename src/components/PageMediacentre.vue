@@ -16,6 +16,7 @@
 import ListeRessourcesMediacentre from "./ListeRessourcesMediacentre";
 import MenuMediacentre from "./MenuMediacentre";
 import i18n from "../i18n";
+import {getMediacentreRessources} from "../services/serviceMediacentreTest";
 
 export default {
   name: "page-mediacentre",
@@ -47,16 +48,27 @@ export default {
     },
     changementFiltre(selection) {
       this.filtre = selection;
+    },
+    getRessources() {
+      this.chargement = true;
+      getMediacentreRessources(
+          this.baseApiUrl + '',
+          this.userInfoApiUrl
+      ).then(
+          value => {
+            this.ressources = value;
+            this.chargement = false;
+          }
+      ).catch(
+          error => {
+            this.erreur = error.toString();
+            this.chargement = false;
+          }
+      )
     }
   },
   mounted() {
-    for (let i = 0; i < 10; i++) {
-      this.ressources.push(
-          {
-            idRessource: i
-          }
-      );
-    }
+    this.getRessources();
   }
 }
 </script>
