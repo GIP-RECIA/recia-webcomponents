@@ -4,7 +4,10 @@
       <menu-mediacentre/>
     </aside>
     <main class="main-page-mediacentre">
-      <liste-ressources-mediacentre/>
+      <liste-ressources-mediacentre
+        v-bind:ressources="ressources"
+        v-bind:chargement="chargement"
+      />
     </main>
   </div>
 </template>
@@ -44,6 +47,15 @@ export default {
     },
     changementFiltre(selection) {
       this.filtre = selection;
+    }
+  },
+  mounted() {
+    for (let i = 0; i < 10; i++) {
+      this.ressources.push(
+          {
+            idRessource: i
+          }
+      );
     }
   }
 }
