@@ -1,5 +1,5 @@
 <template>
-  <div class="cadre-carte-ressource-mediacentre">
+  <div class="cadre-carte-ressource-mediacentre" v-bind:style="'background-image: url(\'' + ressource.backgroundImageUrl + '\');' ">
     <p>
       {{ ressource.idRessource }}
     </p>
@@ -27,7 +27,14 @@ export default {
 
 <style scoped>
 .cadre-carte-ressource-mediacentre {
-  margin: 30px;
-  padding: 50px;
+  width: 30%;
+  max-width: 538px;
+  min-width: 260px;
+  height: 230px;
+  margin: 20px 12px 20px 12px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-color: rgba(243,243,243,1);
 }
 </style>

@@ -35,10 +35,10 @@ export default {
   border-radius: 3px;
   box-shadow: 0 1px 3px #00000054;
   background-color: #fff;
-  padding: 7px;
   min-height: 269px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  padding: 22px 7px 22px 7px;
 }
 </style>
