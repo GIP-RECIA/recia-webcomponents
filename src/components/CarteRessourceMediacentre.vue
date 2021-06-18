@@ -120,6 +120,7 @@ export default {
   width: 48px;
   color: #b4b4b4;
   padding: 0;
+  cursor:pointer;
 }
 
 .icone-favorite-carte-ressource-mediacentre {
