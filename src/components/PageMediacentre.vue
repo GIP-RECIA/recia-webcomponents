@@ -5,8 +5,9 @@
     </aside>
     <main class="main-page-mediacentre">
       <liste-ressources-mediacentre
-        v-bind:ressources="ressources"
-        v-bind:chargement="chargement"
+          v-bind:filtre="filtre"
+          v-bind:ressources="ressources"
+          v-bind:chargement="chargement"
       />
     </main>
   </div>
@@ -16,7 +17,7 @@
 import ListeRessourcesMediacentre from "./ListeRessourcesMediacentre";
 import MenuMediacentre from "./MenuMediacentre";
 import i18n from "../i18n";
-import {getMediacentreRessources} from "../services/serviceMediacentreTest";
+import {addFavorite, getMediacentreRessources, removeFavorite} from "../services/serviceMediacentreTest";
 
 export default {
   name: "page-mediacentre",
@@ -65,6 +66,12 @@ export default {
             this.chargement = false;
           }
       )
+    },
+    ajouterFavoris(idRessource) {
+      addFavorite(idRessource);
+    },
+    retirerFavoris(idRessource) {
+      removeFavorite(idRessource);
     }
   },
   mounted() {

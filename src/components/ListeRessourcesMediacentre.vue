@@ -3,6 +3,7 @@
     <carte-ressource-mediacentre
         v-for="ressource in ressources"
         :key="ressource.idRessource"
+        v-bind:filtre="filtre"
         v-bind:ressource="ressource"
     />
   </div>
@@ -16,6 +17,7 @@ export default {
   name: "liste-ressources-mediacentre",
   components: {CarteRessourceMediacentre},
   props: {
+    filtre: String,
     ressources: Array,
     chargement: Boolean
   },
@@ -25,6 +27,12 @@ export default {
   methods: {
     t: function (key) {
       return i18n.t('message.' + this.$options.name + '.' + key); // 'message.page-ressource.{key}
+    },
+    ajouterFavoris(idRessource) {
+      this.$parent.ajouterFavoris(idRessource);
+    },
+    retirerFavoris(idRessource) {
+      this.$parent.retirerFavoris(idRessource);
     }
   }
 }

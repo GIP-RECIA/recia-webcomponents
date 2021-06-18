@@ -3,6 +3,7 @@
       class="cadre-carte-ressource-mediacentre"
       @mouseover="isOpened = true"
       @mouseout="isOpened = false"
+      v-if="affichable() === true"
   >
     <div class="action-zone-carte-ressource-mediacentre">
       <button class="icone-bouton-carte-ressource-mediacentre" @click="toggleFavoris">
@@ -52,6 +53,7 @@ export default {
     FontAwesomeIcon
   },
   props: {
+    filtre: String,
     ressource: Object
   },
   data: function () {
@@ -60,6 +62,9 @@ export default {
       isFavorite: false
     }
   },
+  mounted() {
+    this.isFavorite = this.ressource.favorite;
+  },
   methods: {
     t: function (key) {
       return i18n.t('message.' + this.$options.name + '.' + key); // 'message.page-ressource.{key}
@@ -67,8 +72,18 @@ export default {
     toggleFavoris() {
       if (this.isFavorite === false) {
         this.isFavorite = true;
+        this.$parent.ajouterFavoris(this.ressource.idRessource);
       } else {
         this.isFavorite = false;
+        this.$parent.retirerFavoris(this.ressource.idRessource);
+      }
+    },
+    affichable() {
+      switch (this.filtre) {
+        case 'favoris':
+          return this.isFavorite;
+        default:
+          return true;
       }
     }
   }
