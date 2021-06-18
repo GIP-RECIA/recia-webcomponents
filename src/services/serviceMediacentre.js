@@ -1,7 +1,7 @@
 import oidc from "@uportal/open-id-connect";
 
 async function getMediacentreRessources(
-    ressourcesDiffusablesApiUrl,
+    mediacentreApiUrl,
     userInfoApiUrl
 ) {
     const options = {
@@ -14,7 +14,7 @@ async function getMediacentreRessources(
     };
 
     return await fetch(
-        ressourcesDiffusablesApiUrl,
+        mediacentreApiUrl,
         options
     ).then(
         (response) => {
