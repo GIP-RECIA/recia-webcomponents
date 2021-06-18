@@ -80,12 +80,12 @@ export default {
 }
 
 .aside-page-mediacentre {
-  max-width: 25%;
+  max-width: min(25%, 290px);
   width: 100%;
 }
 
 .main-page-mediacentre {
-  max-width: 75%;
+  max-width: max(75%, calc(100% - 290px));
   width: 100%;
   height: 100%;
 }
