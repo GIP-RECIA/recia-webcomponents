@@ -1,4 +1,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faRedo } from '@fortawesome/free-solid-svg-icons'
+import {faExternalLinkAlt, faStar as faStarFas} from '@fortawesome/free-solid-svg-icons'
+import {faStar as faStarFar} from '@fortawesome/free-regular-svg-icons'
 
-library.add(faRedo);
+library.add(faStarFas);
+library.add(faStarFar);
+library.add(faExternalLinkAlt);
