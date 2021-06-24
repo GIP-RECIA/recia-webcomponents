@@ -14,7 +14,7 @@ async function getMediacentreRessources(
     for (let i = 0; i < 100; i++) {
         ressources.push(
             {
-                idRessource: i,
+                idRessource: 'id_' + i,
                 titre: 'Titre',
                 typePresentation: 'Type présentation',
                 nomEditeur: 'Nom éditeur',
