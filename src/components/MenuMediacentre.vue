@@ -54,11 +54,7 @@ export default {
   },
   data: function() {
     return {
-      filtre: 'tout',
-      fonctionsFiltres: {
-        'tout': function () { return true; },
-        'favoris': function (ressource) { return ressource.favorite; }
-      }
+      filtre: 'tout'
     };
   },
   mounted() {
@@ -70,7 +66,7 @@ export default {
       return i18n.t('message.' + this.$options.name + '.' + key); // 'message.page-ressource.{key}
     },
     changementFiltre: function () {
-      this.$parent.changementFiltre(this.fonctionsFiltres[this.filtre]);
+      this.$parent.changementFiltre(this.filtre);
     },
   }
 }
