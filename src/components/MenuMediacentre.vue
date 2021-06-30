@@ -48,6 +48,9 @@ import i18n from "../i18n";
 
 export default {
   name: "menu-mediacentre",
+  props: {
+    filtres: Array
+  },
   data: function() {
     return {
       filtre: 'tout',

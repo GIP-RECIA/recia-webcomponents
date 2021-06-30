@@ -1,12 +1,14 @@
 <template>
   <div class="cadre-page-mediacentre">
     <aside class="aside-page-mediacentre">
-      <menu-mediacentre/>
+      <menu-mediacentre
+          v-bind:filtres="filtres"
+      />
     </aside>
     <main class="main-page-mediacentre">
       <liste-ressources-mediacentre
           v-bind:filtre="filtre"
-          v-bind:ressources="Array.from(ressources.values())"
+          v-bind:ressources="ressources"
           v-bind:chargement="chargement"
       />
     </main>
@@ -42,8 +44,9 @@ export default {
   },
   data: function() {
     return {
-      filtre: function () { return true; },
-      ressources: new Map(),
+      filtre: '',
+      ressources: [],
+      filtres: [],
       erreur: '',
       chargement: false
     };
@@ -62,11 +65,8 @@ export default {
           this.userInfoApiUrl
       ).then(
           value => {
-            value.forEach(
-                ressource => {
-                  this.ressources.set(ressource.idRessource, ressource);
-                }
-            )
+            this.ressources = value.ressources;
+            this.filtres = value.categoriesFiltres;
             this.chargement = false;
           }
       ).catch(
@@ -77,11 +77,9 @@ export default {
       )
     },
     ajouterFavoris(idRessource) {
-      this.ressources.get(idRessource).favorite = true;
       addFavorite(idRessource);
     },
     retirerFavoris(idRessource) {
-      this.ressources.get(idRessource).favorite = false;
       removeFavorite(idRessource);
     }
   },
