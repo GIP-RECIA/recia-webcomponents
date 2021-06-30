@@ -17,7 +17,7 @@ export default {
   name: "liste-ressources-mediacentre",
   components: {CarteRessourceMediacentre},
   props: {
-    filtre: Function,
+    filtre: String,
     ressources: Array,
     chargement: Boolean
   },
