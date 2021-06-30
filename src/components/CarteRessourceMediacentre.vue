@@ -9,7 +9,7 @@
       <button class="icone-bouton-carte-ressource-mediacentre" @click="toggleFavoris">
         <font-awesome-icon
             class="icone-favorite-carte-ressource-mediacentre"
-            :icon="[isFavorite ? 'fas' : 'far', 'star']"
+            :icon="[ressource.favorite ? 'fas' : 'far', 'star']"
         />
       </button>
       <a class="icone-bouton-carte-ressource-mediacentre" :href="ressource.lien" target="_blank">
@@ -53,38 +53,27 @@ export default {
     FontAwesomeIcon
   },
   props: {
-    filtre: String,
+    filtre: Function,
     ressource: Object
   },
   data: function () {
     return {
-      isOpened: false,
-      isFavorite: false
+      isOpened: false
     }
-  },
-  mounted() {
-    this.isFavorite = this.ressource.favorite;
   },
   methods: {
     t: function (key) {
       return i18n.t('message.' + this.$options.name + '.' + key); // 'message.page-ressource.{key}
     },
     toggleFavoris() {
-      if (this.isFavorite === false) {
-        this.isFavorite = true;
+      if (this.ressource.favorite === false) {
         this.$parent.ajouterFavoris(this.ressource.idRessource);
       } else {
-        this.isFavorite = false;
         this.$parent.retirerFavoris(this.ressource.idRessource);
       }
     },
     affichable() {
-      switch (this.filtre) {
-        case 'favoris':
-          return this.isFavorite;
-        default:
-          return true;
-      }
+      return this.filtre(this.ressource);
     }
   }
 }

@@ -14,7 +14,7 @@
               value="tout"
               checked
               class="radio-bouton-menu-mediacentre"
-              v-model="selection"
+              v-model="filtre"
               @change="changementFiltre"
           >
           <span>
@@ -31,7 +31,7 @@
               name="ressources"
               value="favoris"
               class="radio-bouton-menu-mediacentre"
-              v-model="selection"
+              v-model="filtre"
               @change="changementFiltre"
           >
           <span>
@@ -50,7 +50,11 @@ export default {
   name: "menu-mediacentre",
   data: function() {
     return {
-      selection: 'tout'
+      filtre: 'tout',
+      fonctionsFiltres: {
+        'tout': function () { return true; },
+        'favoris': function (ressource) { return ressource.favorite; }
+      }
     };
   },
   mounted() {
@@ -61,7 +65,7 @@ export default {
       return i18n.t('message.' + this.$options.name + '.' + key); // 'message.page-ressource.{key}
     },
     changementFiltre: function () {
-      this.$parent.changementFiltre(this.selection);
+      this.$parent.changementFiltre(this.fonctionsFiltres[this.filtre]);
     },
   }
 }

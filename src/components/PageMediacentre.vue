@@ -6,7 +6,7 @@
     <main class="main-page-mediacentre">
       <liste-ressources-mediacentre
           v-bind:filtre="filtre"
-          v-bind:ressources="ressources"
+          v-bind:ressources="Array.from(ressources.values())"
           v-bind:chargement="chargement"
       />
     </main>
@@ -42,8 +42,8 @@ export default {
   },
   data: function() {
     return {
-      filtre: '',
-      ressources: [],
+      filtre: function () { return true; },
+      ressources: new Map(),
       erreur: '',
       chargement: false
     };
@@ -62,7 +62,11 @@ export default {
           this.userInfoApiUrl
       ).then(
           value => {
-            this.ressources = value;
+            value.forEach(
+                ressource => {
+                  this.ressources.set(ressource.idRessource, ressource);
+                }
+            )
             this.chargement = false;
           }
       ).catch(
@@ -73,9 +77,11 @@ export default {
       )
     },
     ajouterFavoris(idRessource) {
+      this.ressources.get(idRessource).favorite = true;
       addFavorite(idRessource);
     },
     retirerFavoris(idRessource) {
+      this.ressources.get(idRessource).favorite = false;
       removeFavorite(idRessource);
     }
   },
