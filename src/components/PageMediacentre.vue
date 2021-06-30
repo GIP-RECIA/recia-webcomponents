@@ -17,7 +17,8 @@
 import ListeRessourcesMediacentre from "./ListeRessourcesMediacentre";
 import MenuMediacentre from "./MenuMediacentre";
 import i18n from "../i18n";
-import {addFavorite, getMediacentreRessources, removeFavorite} from "../services/serviceMediacentreTest";
+import {addFavorite, removeFavorite} from "../services/serviceMediacentreTest";
+import {getMediacentreRessources} from "../services/serviceMediacentre";
 
 export default {
   name: "page-mediacentre",
@@ -29,6 +30,10 @@ export default {
     baseApiUrl: {
       type: String,
       default: process.env.VUE_APP_BASE_API_URI
+    },
+    mediacentreApiUrl: {
+      type: String,
+      default: process.env.VUE_APP_MEDIACENTRE
     },
     userInfoApiUrl: {
       type: String,
@@ -53,7 +58,7 @@ export default {
     getRessources() {
       this.chargement = true;
       getMediacentreRessources(
-          this.baseApiUrl + '',
+          this.baseApiUrl + this.mediacentreApiUrl,
           this.userInfoApiUrl
       ).then(
           value => {
