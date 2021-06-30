@@ -9,10 +9,10 @@
       <button class="icone-bouton-carte-ressource-mediacentre" @click="toggleFavoris">
         <font-awesome-icon
             class="icone-favorite-carte-ressource-mediacentre"
-            :icon="[ressource.favorite ? 'fas' : 'far', 'star']"
+            :icon="[isFavorite ? 'fas' : 'far', 'star']"
         />
       </button>
-      <a class="icone-bouton-carte-ressource-mediacentre" :href="ressource.lien" target="_blank">
+      <a class="icone-bouton-carte-ressource-mediacentre" :href="ressource.urlAccesRessource" target="_blank">
         <font-awesome-icon
             class="icone-link-carte-ressource-mediacentre"
             :icon="['fas', 'external-link-alt']"
@@ -21,7 +21,7 @@
     </div>
     <div
         class="background-carte-ressource-mediacentre"
-        v-bind:style="'background-image: url(\'' + ressource.backgroundImageUrl + '\');'"
+        v-bind:style="'background-image: url(\'' + ressource.urlVignette + '\');'"
     ></div>
     <div
         class="block-info-carte-ressource-mediacentre"
@@ -30,10 +30,10 @@
       <h3
           class="titre-carte-ressource-mediacentre"
           :class="{opened: isOpened}"
-      >{{ ressource.titre }}</h3>
+      >{{ ressource.nomRessource }}</h3>
       <p
           class="texte-carte-ressource-mediacentre"
-      ><i>{{ ressource.typePresentation }}</i><br>{{ ressource.description }}</p>
+      ><i>{{ premiereLettreCapitale(ressource.typePresentation.nom) }}</i><br>{{ ressource.description }}</p>
       <p class="footer-carte-ressource-mediacentre">
         <span class="nom-editeur-carte-ressource-mediacentre">{{ ressource.nomEditeur }}</span>
         <span class="id-ressource-carte-ressource-mediacentre">{{ ressource.idRessource }}</span>
@@ -53,27 +53,41 @@ export default {
     FontAwesomeIcon
   },
   props: {
-    filtre: Function,
+    filtre: String,
     ressource: Object
   },
   data: function () {
     return {
-      isOpened: false
+      isOpened: false,
+      isFavorite: false
     }
+  },
+  mounted() {
+    this.isFavorite = this.ressource.favorite;
   },
   methods: {
     t: function (key) {
       return i18n.t('message.' + this.$options.name + '.' + key); // 'message.page-ressource.{key}
     },
     toggleFavoris() {
-      if (this.ressource.favorite === false) {
+      if (this.isFavorite === false) {
+        this.isFavorite = true;
         this.$parent.ajouterFavoris(this.ressource.idRessource);
       } else {
+        this.isFavorite = false;
         this.$parent.retirerFavoris(this.ressource.idRessource);
       }
     },
     affichable() {
-      return this.filtre(this.ressource);
+      switch (this.filtre) {
+        case 'favoris':
+          return this.isFavorite;
+        default:
+          return true;
+      }
+    },
+    premiereLettreCapitale(s) {
+      return s.charAt(0).toUpperCase() + s.slice(1);
     }
   }
 }
@@ -192,5 +206,9 @@ export default {
   background-position: center;
   background-size: contain;
   background-color: rgba(243,243,243,1);
+}
+
+.texte-carte-ressource-mediacentre {
+  font-size: smaller;
 }
 </style>
