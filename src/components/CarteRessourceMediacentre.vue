@@ -78,7 +78,7 @@ export default {
         this.$parent.retirerFavoris(this.ressource.idRessource);
       }
     },
-    affichable() {
+    affichable() { // TODO: IMPLÉMENTER UNE FONCTION QUI VÉRIFIE QUE LA RESSOURCE EST AFFICHABLE SELON LE FILTRE SÉLECTIONNÉ
       switch (this.filtre) {
         case 'favoris':
           return this.isFavorite;

@@ -12,6 +12,7 @@
           v-bind:chargement="chargement"
       />
     </main>
+    <!-- TODO: AJOUT DU MENU DE GESTIONNAIRE DE RESSOURCE, EN BOUTON FLOTTANT EN BAS À DROITE -->
   </div>
 </template>
 
@@ -76,10 +77,10 @@ export default {
           }
       )
     },
-    ajouterFavoris(idRessource) {
+    ajouterFavoris(idRessource) { // TODO: IMPLÉMENTER L'AJOUT AUX FAVORIS VIA COMMUNICATION AVEC L'API
       addFavorite(idRessource);
     },
-    retirerFavoris(idRessource) {
+    retirerFavoris(idRessource) { // TODO: IMPLÉMENTER LA SUPPRESSION DES FAVORIS VIA COMMUNICATION AVEC L'API
       removeFavorite(idRessource);
     }
   },

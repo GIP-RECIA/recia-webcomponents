@@ -1,5 +1,6 @@
 <template>
   <div class="cadre-menu-mediacentre">
+    <!-- TODO: MENU DÉROULANT POUR CHAQUE FILTRE, CF TODO D'IMPLEM DES FILTRES DYNAMIQUES -->
     <h3 class="titre-menu-mediacentre">
       {{ t('ressources').toUpperCase() }}
     </h3>
@@ -62,6 +63,7 @@ export default {
   },
   mounted() {
     this.changementFiltre();
+    console.log(this.filtres); // TODO: IMPLÉMENTER L'AFFICHAGE DYNAMIQUE DES FILTRES EN FONCTION DE CETTE PROPRIÉTÉ
   },
   methods: {
     t: function (key) {
