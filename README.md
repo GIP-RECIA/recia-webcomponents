@@ -12,7 +12,7 @@ UI de paramétrage d'établissement en Vue.js
 1. Installation via npm :
 
 ```sh
-npm install @gip-recia/param-etab-ui
+npm install @gip-recia/param-etab
 ```
 
 2. Importation du composant :
@@ -20,13 +20,13 @@ npm install @gip-recia/param-etab-ui
 Dans un module JavaScript :
 
 ```js
-import '@gip-recia/param-etab-ui';
+import '@gip-recia/param-etab';
 ```
 
 Dans une page HTML :
 
 ```html
-<script src="./dist/param-etab-ui.min.js"></script>
+<script src="./dist/param-etab.min.js"></script>
 ```
 
 ## Paramètres
