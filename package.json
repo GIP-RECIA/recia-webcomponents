@@ -1,14 +1,14 @@
 {
-  "name": "@gip-recia/param-etab-ui",
+  "name": "@gip-recia/param-etab",
   "type": "module",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "UI de paramétrage établissement en VueJS.",
   "files": [
     "dist"
   ],
   "keywords": [
     "gip-recia",
-    "param-etab-ui"
+    "param-etab"
   ],
   "homepage": "https://github.com/GIP-RECIA/param-etab-ui/#README.md",
   "bugs": {
@@ -16,12 +16,12 @@
   },
   "license": "Apache-2.0",
   "author": "Indah Juliani <indah.juliani@recia.fr>",
-  "main": "./dist/param-etab-ui.umd.cjs",
-  "module": "./dist/param-etab-ui.js",
+  "main": "./dist/param-etab.umd.cjs",
+  "module": "./dist/param-etab.js",
   "exports": {
     ".": {
-      "import": "./dist/param-etab-ui.js",
-      "require": "./dist/param-etab-ui.umd.cjs"
+      "import": "./dist/param-etab.js",
+      "require": "./dist/param-etab.umd.cjs"
     }
   },
   "repository": {
@@ -35,7 +35,7 @@
     "start": "concurrently --kill-others \"npm run dev\" \"npm run json\"",
     "dev": "vite --host",
     "build": "run-p type-check build-only && npm run build:min",
-    "build:min": "npm exec terser -- -c -m --module dist/param-etab-ui.js > dist/param-etab-ui.min.js",
+    "build:min": "npm exec terser -- -c -m --module dist/param-etab.js > dist/param-etab.min.js",
     "preview": "vite preview",
     "json": "json-server --watch ./src/data/api.json",
     "lint": "eslint --ext .js,.vue --ignore-path .eslintignore --fix src",
