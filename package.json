@@ -54,7 +54,7 @@
     "cropperjs": "^1.6.1",
     "regenerator-runtime": "^0.14.0",
     "vite-plugin-css-injected-by-js": "^3.3.0",
-    "vue": "^3.3.10",
+    "vue": "^3.4.15",
     "vue-advanced-cropper": "^2.8.8",
     "vue-cropperjs": "^5.0.0",
     "vue-i18n": "^9.9.0",
