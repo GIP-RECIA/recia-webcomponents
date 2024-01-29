@@ -26,24 +26,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/GIP-RECIA/param-etab-ui.git"
+    "url": "git+https://github.com/GIP-RECIA/param-etab-ui.git"
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "start": "concurrently --kill-others \"npm run dev\" \"npm run json\"",
     "dev": "vite --host",
     "build": "run-p type-check build-only && npm run build:min",
     "build:min": "npm exec terser -- -c -m --module dist/param-etab.js > dist/param-etab.min.js",
     "preview": "vite preview",
-    "json": "json-server --watch ./src/data/api.json",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --noEmit",
     "lint": "eslint --ext .js,.vue --ignore-path .eslintignore --fix src",
     "format:check": "prettier --check src/",
     "format": "prettier --write src/",
-    "prepare": "husky install",
-    "build-only": "vite build",
-    "type-check": "vue-tsc --noEmit"
+    "prepare": "husky install"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
@@ -55,10 +53,7 @@
     "regenerator-runtime": "^0.14.1",
     "vite-plugin-css-injected-by-js": "^3.3.1",
     "vue": "^3.4.15",
-    "vue-advanced-cropper": "^2.8.8",
-    "vue-cropperjs": "^5.0.0",
     "vue-i18n": "^9.9.0",
-    "vue-rx": "^6.2.0",
     "vue-sweetalert2": "^5.0.5",
     "vuejs-clipper": "^4.1.0"
   },
@@ -72,12 +67,10 @@
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/eslint-config-typescript": "^12.0.0",
     "@vue/tsconfig": "^0.5.1",
-    "concurrently": "^8.2.2",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-vue": "^9.20.1",
     "husky": "^8.0.3",
-    "json-server": "^0.17.4",
     "lint-staged": "^15.2.0",
     "npm-run-all": "^4.1.5",
     "prettier": "3.2.4",
