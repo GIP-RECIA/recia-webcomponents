@@ -69,7 +69,7 @@
     "@tsconfig/node20": "^20.1.2",
     "@types/node": "^20.11.10",
     "@vitejs/plugin-vue": "^4.5.1",
-    "@vue/eslint-config-prettier": "^8.0.0",
+    "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/eslint-config-typescript": "^12.0.0",
     "@vue/tsconfig": "^0.4.0",
     "concurrently": "^8.2.2",
