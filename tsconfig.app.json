@@ -3,12 +3,11 @@
   "include": ["src/types/d/*.d.ts", "src/**/*", "src/**/*.vue", "src/locales/*.json"],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
+    "noEmit": false,
     "composite": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    },
-    "allowJs": true,
-    "noImplicitAny": false
+    }
   }
 }
