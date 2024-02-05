@@ -53,7 +53,7 @@
     "regenerator-runtime": "^0.14.1",
     "vite-plugin-css-injected-by-js": "^3.3.1",
     "vue": "^3.4.15",
-    "vue-i18n": "^9.9.0",
+    "vue-i18n": "^9.9.1",
     "vue-sweetalert2": "^5.0.5",
     "vuejs-clipper": "^4.1.0"
   },
