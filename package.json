@@ -46,7 +46,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
-    "@fortawesome/vue-fontawesome": "^3.0.5",
+    "@fortawesome/vue-fontawesome": "^3.0.6",
     "@uportal/open-id-connect": "^1.40.2",
     "axios": "^1.6.7",
     "cropperjs": "^1.6.1",
