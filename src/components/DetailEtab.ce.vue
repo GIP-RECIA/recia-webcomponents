@@ -38,7 +38,6 @@ watchEffect((): void => {
 async function fetchDetailData(id: string) {
   if (id != '') {
     try {
-      //const response = await axios.get(`/test/api/${id}`);
       const response = await getDetailEtab(props.baseApiUrl + props.paramEtabApi + id);
       details.value = response.data;
       getDetailsAsString.value = JSON.stringify(details.value);
@@ -47,11 +46,6 @@ async function fetchDetailData(id: string) {
     }
   }
 }
-
-const handleUpdated = async ({ urlEtab }) => {
-  const res = await axios.get(urlEtab);
-  details.value = res.data;
-};
 
 async function updateInfo() {
   console.warn(details.value);
@@ -88,7 +82,6 @@ const isButtonDisabled = computed(() => {
       :id-etab="details.id"
       :base-api-url="baseApiUrl"
       :user-info-api-url="userInfoApiUrl"
-      @updated="handleUpdated"
     >
       <teleport to="body"></teleport
     ></image-cropper>

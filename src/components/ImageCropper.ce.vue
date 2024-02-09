@@ -25,6 +25,14 @@ const fileReader = new FileReader();
 const open = ref<boolean>(false);
 const prevImg = ref<any>(null);
 let cropper: any = null;
+let imageEtab = ref<string | null>(props.imageUrl);
+
+watch(
+  () => props.imageUrl,
+  () => {
+    imageEtab.value = props.imageUrl;
+  },
+);
 
 fileReader.onload = (event: ProgressEvent<FileReader>) => {
   imageSrc.value = event?.target?.result;
@@ -114,7 +122,11 @@ const cropImage = () => {
     const url = `/test/api/fileUpload/${props.idEtab}`;
 
     try {
-      await uploadLogo(props.baseApiUrl + url, formData, props.userInfoApiUrl);
+      const response = await uploadLogo(props.baseApiUrl + url, formData, props.userInfoApiUrl);
+
+      // Assuming the response from the server contains the URL of the uploaded image
+      imageEtab.value = response.data;
+
       closeModal();
       Swal.fire({
         title: 'Sauvegardé',
@@ -141,7 +153,7 @@ const cropImage = () => {
       <button class="edit-logo" @click="open = true"></button>
     </div>
     <div class="avatar-preview">
-      <img class="imagePreview" :src="imageUrl" alt="" width="270" height="120" />
+      <img class="imagePreview" :src="imageEtab" alt="" width="270" height="120" />
     </div>
   </div>
 
@@ -159,7 +171,7 @@ const cropImage = () => {
         </div>
         <div class="previewImg">
           <div ref="prevImg" id="previewImg">
-            <img :src="imageUrl" alt="" width="270" height="120" />
+            <img :src="imageEtab" alt="" width="270" height="120" />
           </div>
         </div>
       </div>
