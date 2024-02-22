@@ -10,17 +10,11 @@ import { I18nInjectionKey } from 'vue-i18n';
 provide(I18nInjectionKey, i18n);
 
 defineProps<{
-  baseApiUrl: string;
   paramEtabApi: string;
   userInfoApiUrl: string;
 }>();
 </script>
 
 <template>
-  <page-param-etab
-    id="app"
-    :base-api-url="baseApiUrl"
-    :param-etab-api="paramEtabApi"
-    :user-info-api-url="userInfoApiUrl"
-  ></page-param-etab>
+  <page-param-etab id="app" :param-etab-api="paramEtabApi" :user-info-api-url="userInfoApiUrl"></page-param-etab>
 </template>

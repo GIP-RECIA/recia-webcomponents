@@ -12,15 +12,13 @@ const nameEtabSelected = ref<string>('');
 const findEtab = ref<any[]>([]);
 
 const props = defineProps<{
-  baseApiUrl: string;
   paramEtabApi: string;
   userInfoApiUrl: string;
 }>();
 
 onMounted(async () => {
-  //const res = await axios.get("/test/api/parametab/");
   try {
-    const res = await getParametab(props.baseApiUrl + props.paramEtabApi, props.userInfoApiUrl);
+    const res = await getParametab(props.paramEtabApi, props.userInfoApiUrl);
     parametab.value = res.data;
     // List of etablissement
     etabJson.value = JSON.stringify(parametab.value.listEtab);
@@ -131,7 +129,6 @@ function select(payload: CustomEvent, isBoolean: boolean) {
     <div class="detail">
       <detail-etab
         :detail="currentEtab"
-        :base-api-url="baseApiUrl"
         :param-etab-api="paramEtabApi"
         :user-info-api-url="userInfoApiUrl"
       ></detail-etab>

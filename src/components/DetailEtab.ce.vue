@@ -24,7 +24,6 @@ const details = ref<StructureDetail>({
 
 const props = defineProps<{
   detail: string;
-  baseApiUrl: string;
   paramEtabApi: string;
   userInfoApiUrl: string;
 }>();
@@ -38,7 +37,7 @@ watchEffect((): void => {
 async function fetchDetailData(id: string) {
   if (id != '') {
     try {
-      const response = await getDetailEtab(props.baseApiUrl + props.paramEtabApi + id);
+      const response = await getDetailEtab(props.paramEtabApi + id);
       details.value = response.data;
       getDetailsAsString.value = JSON.stringify(details.value);
     } catch (error) {
@@ -49,9 +48,8 @@ async function fetchDetailData(id: string) {
 
 async function updateInfo() {
   console.warn(details.value);
-  const dataJson = `/test/api/updateV2/${props.detail}`;
   try {
-    await updateEtab(props.baseApiUrl + dataJson, details.value, props.userInfoApiUrl);
+    await updateEtab(props.paramEtabApi + `/update/${props.detail}`, details.value, props.userInfoApiUrl);
     Swal.fire({
       title: 'Sauvegardé',
       icon: 'success',
@@ -80,7 +78,7 @@ const isButtonDisabled = computed(() => {
       :detail-etab="getDetailsAsString"
       :image-url="details.structLogo"
       :id-etab="details.id"
-      :base-api-url="baseApiUrl"
+      :param-etab-api="paramEtabApi"
       :user-info-api-url="userInfoApiUrl"
     >
       <teleport to="body"></teleport
@@ -97,6 +95,7 @@ const isButtonDisabled = computed(() => {
           class="input-field"
           type="text"
           :placeholder="m('nom-personnalise-placeholder')"
+          :maxlength="56"
           v-model="details.structCustomDisplayName"
         />
         <span>{{ m('nom-personnalise-titre') }}</span>
@@ -114,5 +113,4 @@ const isButtonDisabled = computed(() => {
 </template>
 <style>
 @import '../assets/detailList.css';
-/* @import '../assets/list.css'; */
 </style>

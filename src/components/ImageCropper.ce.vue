@@ -13,7 +13,7 @@ const props = defineProps<{
   imageUrl: string | null;
   idEtab: string | undefined;
   detailEtab: string;
-  baseApiUrl: string;
+  paramEtabApi: string;
   userInfoApiUrl: string;
 }>();
 
@@ -38,7 +38,7 @@ fileReader.onload = (event: ProgressEvent<FileReader>) => {
   imageSrc.value = event?.target?.result;
 };
 
-const fileChanged = (e) => {
+const fileChanged = (e: any) => {
   const files = e.target.files || e.dataTransfer.files;
   if (files.length) {
     selectedFile.value = files[0];
@@ -108,7 +108,7 @@ const closeModal = () => {
 };
 
 const cropImage = () => {
-  cropper.getCroppedCanvas().toBlob(async (blob) => {
+  cropper.getCroppedCanvas().toBlob(async (blob: any) => {
     const formData = new FormData();
 
     // append DTO as JSON string
@@ -119,10 +119,13 @@ const cropImage = () => {
 
     // append image file
     formData.append('file', blob, 'logo.' + blob.type.split('/')[1]);
-    const url = `/test/api/fileUpload/${props.idEtab}`;
 
     try {
-      const response = await uploadLogo(props.baseApiUrl + url, formData, props.userInfoApiUrl);
+      const response = await uploadLogo(
+        props.paramEtabApi + `/logoupload/${props.idEtab}`,
+        formData,
+        props.userInfoApiUrl,
+      );
 
       // Assuming the response from the server contains the URL of the uploaded image
       imageEtab.value = response.data;
