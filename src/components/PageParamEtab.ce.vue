@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { getParametab } from '@/services/serviceParametab';
 import { showError } from '@/utils/errorUtils';
-import { computed, onBeforeUnmount, onMounted, onUpdated, ref } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
 const parametab = ref<any>([]);
 const etabJson = ref<string>('');
@@ -31,32 +31,6 @@ onMounted(async () => {
   window.addEventListener('resize', handleResize);
 });
 
-onUpdated(() => {
-  let id = document.getElementById(currentEtab.value);
-  if (id != null) {
-    id.classList.add('active');
-  } else {
-    const findName = filteredName();
-    nameEtabSelected.value = findName;
-  }
-  let listEtab: HTMLElement | null = document.querySelector('.list');
-  let activeElement: HTMLElement | null = document.querySelector('.content .active');
-
-  if (listEtab) {
-    if (activeElement) {
-      let scrollTop = activeElement.offsetTop - listEtab.offsetTop;
-      let scrollBottom = scrollTop + activeElement.offsetHeight;
-      let maxScrollTop = listEtab.scrollHeight - listEtab.offsetHeight;
-      if (scrollTop < 0) {
-        scrollTop = 0;
-      } else if (scrollBottom > listEtab.offsetHeight) {
-        scrollTop = maxScrollTop;
-      }
-      listEtab.scrollTop = scrollTop;
-    }
-  }
-});
-
 onBeforeUnmount(() => {
   window.removeEventListener('resize', handleResize);
 });
@@ -69,19 +43,24 @@ const handleResize = () => {
   windowWidth.value = window.innerWidth;
 };
 
-function filteredName() {
+const filteredName = () => {
   let name: any = '';
   if (!etabJson.value) {
-    return [];
+    return;
   }
   name = findEtab.value.find((etab: any) => etab.idSiren.toString() === currentEtab.value);
-  if (name) {
-    return name.etabName;
-  } else {
+  if (!name) {
     currentEtab.value = findEtab.value[0].idSiren;
-    return findEtab.value[0].etabName;
+    name = findEtab.value[0].etabName;
+  } else {
+    name = name.etabName;
   }
-}
+  nameEtabSelected.value = name;
+};
+
+watch(currentEtab, () => {
+  filteredName();
+});
 
 function select(payload: CustomEvent, isBoolean: boolean) {
   let getID = payload.detail[0].idSiren;

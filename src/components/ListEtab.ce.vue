@@ -15,6 +15,7 @@ const props = defineProps<{
 
 const emit = defineEmits<(e: 'selectEtab', payload: any, isSelected: boolean) => void>();
 let input: Ref<string> = ref('');
+const el = ref<HTMLElement>();
 
 function filteredList(): any[] {
   if (!props.dataJson) {
@@ -23,7 +24,11 @@ function filteredList(): any[] {
   const jsonData = JSON.parse(props.dataJson);
   const filteredData = jsonData.filter((etab: any) => etab.etabName.toLowerCase().includes(input.value.toLowerCase()));
 
-  // return filteredData.sort((a: any, b: any) => a.etabName.localeCompare(b.etabName));
+  setTimeout(() => {
+    const target: HTMLElement | null = el.value != null ? el.value.querySelector('.content .active') : null;
+    target?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
   return filteredData;
 }
 
@@ -38,7 +43,7 @@ const filteredData = computed(() => filteredList());
   <div class="search-bar">
     <input v-model="input" :class="classInput" type="text" :placeholder="m('recherche')" />
   </div>
-  <div :class="classDiv">
+  <div :class="classDiv" ref="el">
     <ul class="content">
       <li v-for="etab in filteredData" :id="etab.idSiren" :key="etab">
         <button :class="[classLi, etab.idSiren == dataCurrent ? 'active' : '']" @click="selected(etab)">
@@ -75,8 +80,8 @@ const filteredData = computed(() => filteredList());
 
 .input-search {
   display: block;
-  width: 350px;
-  margin: 20px auto;
+  width: 100%;
+  margin: 10px auto 20px;
   padding: 10px 45px;
   background: white;
   background-size: 15px 15px;
@@ -93,8 +98,8 @@ const filteredData = computed(() => filteredList());
   color: #757575;
   font-family: 'FontAwesome', sans-serif;
   position: absolute;
-  left: 80px; /* Adjust this value based on your preference */
-  top: 27px;
+  left: 1rem; /* Adjust this value based on your preference */
+  top: 26%;
 }
 
 .item {
@@ -147,10 +152,6 @@ ul .etab:hover {
   display: flex;
 }
 
-.search-bar .input-search {
-  width: fit-content;
-}
-
 @media (max-width: 1023px) {
   .person-list {
     display: none;
@@ -200,7 +201,7 @@ ul .etab:hover {
 }
 
 .list-etab ul {
-  max-height: 100vh;
+  max-height: 85vh;
   list-style: none;
   text-align: left;
   padding-left: 0px;

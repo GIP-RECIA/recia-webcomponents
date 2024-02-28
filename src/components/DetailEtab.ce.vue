@@ -2,7 +2,6 @@
 import type { StructureDetail } from '../types/structureType';
 import { getDetailEtab, updateEtab } from '@/services/serviceParametab';
 import { showError } from '@/utils/errorUtils';
-import axios from 'axios';
 import Swal from 'sweetalert2';
 import { computed, ref, watchEffect } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -20,7 +19,6 @@ const details = ref<StructureDetail>({
   structLogo: '',
   structSiteWeb: '',
 });
-// const details = ref<any[]>([]);
 
 const props = defineProps<{
   detail: string;
