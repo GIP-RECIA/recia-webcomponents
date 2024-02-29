@@ -1,7 +1,4 @@
 <script setup lang="ts">
-// import '../main';
-import '../assets/detailList.css';
-import '../assets/list.css';
 import i18n from '@/i18n';
 import 'cropperjs/dist/cropper.css';
 import { provide } from 'vue';
@@ -16,5 +13,5 @@ defineProps<{
 </script>
 
 <template>
-  <page-param-etab id="app" :param-etab-api="paramEtabApi" :user-info-api-url="userInfoApiUrl"></page-param-etab>
+  <page-param-etab :param-etab-api="paramEtabApi" :user-info-api-url="userInfoApiUrl"></page-param-etab>
 </template>

@@ -1,12 +1,4 @@
-@import './base.css';
-
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin-bottom: 25px;
-  flex-wrap: wrap;
-}
+@import './base.scss';
 
 .list {
   flex: 1 30%;

@@ -58,24 +58,11 @@ const filteredData = computed(() => filteredList());
   </div>
 </template>
 
-<style>
-@import '../assets/base.css';
-
-.list {
-  flex: 1 30%;
-  background-color: white;
-  border-radius: 5px;
-  margin: 10px;
-  overflow-y: scroll;
-  /* box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12); */
-}
+<style lang="scss">
+@import '../assets/base.scss';
 
 .text {
   text-align: center;
-}
-
-.bold {
-  font-weight: bold;
 }
 
 .input-search {
@@ -125,10 +112,10 @@ const filteredData = computed(() => filteredList());
 
 ul {
   padding-left: 0px;
-}
 
-ul .etab:hover {
-  background: #eeeeee;
+  .etab:hover {
+    background: #eeeeee;
+  }
 }
 
 .error {
@@ -174,7 +161,20 @@ ul .etab:hover {
   }
 }
 
-.search-etab {
+.list-etab {
+  width: 100%;
+
+  ul {
+    max-height: 85vh;
+    list-style: none;
+    text-align: left;
+    padding-left: 0px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+}
+
+.input-search-mobile {
   width: 100%;
   height: 30px;
   border: 2px solid lightgray;
@@ -183,40 +183,30 @@ ul .etab:hover {
   background-size: 15px 15px;
   border-radius: 5px;
 }
+
 .options {
   width: 100%;
-}
 
-.list-etab {
-  width: 100%;
-}
-.options ul {
-  list-style: none;
-  text-align: left;
-  padding-left: 0px;
-  max-height: 180px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  top: 10px;
-}
+  ul {
+    list-style: none;
+    text-align: left;
+    padding-left: 0px;
+    max-height: 180px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    top: 10px;
 
-.list-etab ul {
-  max-height: 85vh;
-  list-style: none;
-  text-align: left;
-  padding-left: 0px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
+    .opt-list {
+      width: 100%;
+      border-bottom: 1px solid lightgray;
+      padding: 10px;
+      cursor: pointer;
+    }
 
-.options ul .opt-list {
-  width: 100%;
-  border-bottom: 1px solid lightgray;
-  padding: 10px;
-  cursor: pointer;
-}
-.options ul .opt-list:hover {
-  background: #d4d4d4;
-  font-weight: bold;
+    .opt-list:hover {
+      background: #d4d4d4;
+      font-weight: bold;
+    }
+  }
 }
 </style>

@@ -109,6 +109,83 @@ const isButtonDisabled = computed(() => {
     </div>
   </div>
 </template>
-<style>
-@import '../assets/detailList.css';
+<style lang="scss">
+@import '../assets/base.scss';
+
+.title-info {
+  margin: 15px auto;
+  padding: 5px 15px;
+  background-color: #eeeeee;
+  font-weight: bold;
+  font-size: medium;
+}
+
+.warn {
+  font-style: italic;
+  font-size: small;
+  left: 3px;
+  top: 5px;
+}
+
+.infos {
+  flex-grow: 1;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  padding-top: 5px;
+
+  input {
+    order: 2;
+    outline: none;
+    top: 0.08rem;
+  }
+}
+
+.label > span {
+  color: cadetblue;
+  display: block;
+  font-size: 0.875rem;
+  margin-top: 0.625rem;
+  order: 1;
+  transition: all 0.25s;
+  font-weight: 500;
+}
+
+.input-field {
+  border: 0;
+  border-bottom: 2px solid #eee;
+}
+
+.input-field:focus {
+  border-bottom: 2px solid cadetblue;
+}
+
+.input-field:disabled {
+  cursor: not-allowed;
+}
+
+.btn-valider {
+  padding: 5px;
+  width: 20%;
+  border-radius: 10px;
+  background-color: cadetblue;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 20px;
+  border: transparent;
+}
+
+.btn-valider:disabled {
+  color: #757575;
+  background-color: #d6d6d6;
+  cursor: not-allowed;
+}
+
+*:disabled {
+  color: black;
+}
 </style>

@@ -193,7 +193,7 @@ const cropImage = () => {
   </div>
 </template>
 
-<style>
+<style lang="scss">
 @import 'cropperjs/dist/cropper.css';
 .btn-selectImg,
 .btn-cropImg,
@@ -302,66 +302,66 @@ button.close {
   margin: 50px auto; */
   flex: 1 20%;
   text-align: center;
-}
 
-.avatar-upload .avatar-edit {
-  position: absolute;
-  z-index: 1;
-  top: calc(50% - 70px);
-  right: calc(50% - 65px - 80px); /* adjust the 60px value as needed */
-}
+  .avatar-edit {
+    position: absolute;
+    z-index: 1;
+    top: calc(50% - 70px);
+    right: calc(50% - 65px - 80px); /* adjust the 60px value as needed */
+  }
 
-.avatar-upload .avatar-edit input {
-  display: none;
-}
+  .avatar-edit input {
+    display: none;
+  }
 
-.avatar-upload .avatar-edit input + .edit-logo {
-  display: inline-block;
-  width: 34px;
-  height: 34px;
-  margin-bottom: 0;
-  border-radius: 100%;
-  background: #ffffff;
-  border: 1px solid transparent;
-  box-shadow: 0px 2px 4px 3px rgba(0, 0, 0, 0.18);
-  cursor: pointer;
-  font-weight: normal;
-  transition: all 0.2s ease-in-out;
-}
+  .avatar-edit input + .edit-logo {
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 0;
+    border-radius: 100%;
+    background: #ffffff;
+    border: 1px solid transparent;
+    box-shadow: 0px 2px 4px 3px rgba(0, 0, 0, 0.18);
+    cursor: pointer;
+    font-weight: normal;
+    transition: all 0.2s ease-in-out;
+  }
 
-.avatar-upload .avatar-edit input + .edit-logo:hover {
-  background: #f1f1f1;
-  border-color: #d6d6d6;
-}
+  .avatar-edit input + .edit-logo:hover {
+    background: #f1f1f1;
+    border-color: #d6d6d6;
+  }
 
-.avatar-upload .avatar-edit input + .edit-logo:after {
-  content: '\f040';
-  font-family: 'FontAwesome';
-  color: #757575;
-  position: absolute;
-  top: 10px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  margin: auto;
-}
+  .avatar-edit input + .edit-logo:after {
+    content: '\f040';
+    font-family: 'FontAwesome';
+    color: #757575;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: auto;
+  }
 
-.avatar-upload .imagePreview {
-  /* width: auto;
-  height: auto; */
-  position: relative;
-  border: 3px solid #eef0f8;
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
-  border-radius: 3px;
-}
+  .imagePreview {
+    /* width: auto;
+    height: auto; */
+    position: relative;
+    border: 3px solid #eef0f8;
+    box-shadow: 0px 0.5px 2.5px 1px rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+  }
 
-.avatar-upload .avatar-preview > div {
-  width: 100%;
-  height: 100%;
-  border-radius: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  .avatar-preview > div {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 }
 
 .clipper {
