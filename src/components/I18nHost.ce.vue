@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import i18n from '@/i18n';
-import 'cropperjs/dist/cropper.css';
 import { provide } from 'vue';
 import { I18nInjectionKey } from 'vue-i18n';
 
