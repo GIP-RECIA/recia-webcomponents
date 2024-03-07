@@ -8,9 +8,14 @@ provide(I18nInjectionKey, i18n);
 defineProps<{
   paramEtabApi: string;
   userInfoApiUrl: string;
+  defaultLogoIcon: string;
 }>();
 </script>
 
 <template>
-  <page-param-etab :param-etab-api="paramEtabApi" :user-info-api-url="userInfoApiUrl"></page-param-etab>
+  <page-param-etab
+    :param-etab-api="paramEtabApi"
+    :user-info-api-url="userInfoApiUrl"
+    :default-logo-icon="defaultLogoIcon"
+  ></page-param-etab>
 </template>

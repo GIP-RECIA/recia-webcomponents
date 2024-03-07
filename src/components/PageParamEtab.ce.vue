@@ -14,6 +14,7 @@ const findEtab = ref<any[]>([]);
 const props = defineProps<{
   paramEtabApi: string;
   userInfoApiUrl: string;
+  defaultLogoIcon: string;
 }>();
 
 onMounted(async () => {
@@ -110,6 +111,7 @@ function select(payload: CustomEvent, isBoolean: boolean) {
         :detail="currentEtab"
         :param-etab-api="paramEtabApi"
         :user-info-api-url="userInfoApiUrl"
+        :default-logo-icon="defaultLogoIcon"
       ></detail-etab>
     </div>
   </div>

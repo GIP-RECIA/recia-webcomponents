@@ -15,6 +15,7 @@ const props = defineProps<{
   detailEtab: string;
   paramEtabApi: string;
   userInfoApiUrl: string;
+  defaultLogoIcon: string;
 }>();
 
 const imageInput = ref<any>(null);

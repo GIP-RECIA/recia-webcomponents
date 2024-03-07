@@ -24,6 +24,7 @@ const props = defineProps<{
   detail: string;
   paramEtabApi: string;
   userInfoApiUrl: string;
+  defaultLogoIcon: string;
 }>();
 
 watchEffect((): void => {
@@ -78,6 +79,7 @@ const isButtonDisabled = computed(() => {
       :id-etab="details.id"
       :param-etab-api="paramEtabApi"
       :user-info-api-url="userInfoApiUrl"
+      :default-logo-icon="defaultLogoIcon"
     >
       <teleport to="body"></teleport
     ></image-cropper>
