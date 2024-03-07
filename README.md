@@ -39,12 +39,12 @@ document.body.appendChild(paramEtab);
 
 | Nom                 |   Type   | Obligatoire | Default | Description                                |
 | ------------------- | :------: | :---------: | :-----: | ------------------------------------------ |
-| `base-api-url`      | `string` |    `oui`    |         | URL de l'API REST de param etab            |
 | `param-etab-api`    | `string` |    `oui`    |         | URI de la route GET de param etab          |
 | `user-info-api-url` | `string` |    `oui`    |         | URL de l'API des informations utilisateurs |
+| `default-logo-icon` | `string` |    `oui`    |         | URL de logo etab par défaut                |
 
 <br/>
 
 ```html
-<param-etab base-api-url="" param-etab-api="" user-info-api-url="" />
+<param-etab base-api-url="" param-etab-api="" user-info-api-url="" default-logo-icon=""/>
 ```
