@@ -3,6 +3,8 @@
 - [param-etab](#param-etab)
   - [Installation](#installation)
   - [Paramètres](#paramètres)
+  - [Variables CSS](#variables-css)
+    - [Modification de style](#modification-de-style)
 
 UI de paramétrage d'établissement en Vue.js
 
@@ -48,3 +50,14 @@ document.body.appendChild(paramEtab);
 ```html
 <param-etab base-api-url="" param-etab-api="" user-info-api-url="" default-logo-icon=""/>
 ```
+
+## Variables CSS
+
+### Modification de style
+
+Variables CSS peuvent être définis pour personnaliser le webcomponent :
+
+| Nom                                                   | Description                                                   |
+| ----------------------------------------------------- | ------------------------------------------------------------- |
+| `--param-etab-button-background-color`                | Permet de modifier la couleur de fond des boutons             |
+| `--param-etab-button-text-color`                      | Permet de modifier la couleur de texte des boutons            |
