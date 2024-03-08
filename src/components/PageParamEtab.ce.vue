@@ -121,10 +121,15 @@ function select(payload: CustomEvent, isBoolean: boolean) {
 
 #app {
   max-width: 1280px;
-  max-height: 100vh;
+  // max-height: 100vh;
+  height: 80vh;
   margin: 0 auto;
   padding: 2rem;
   font-weight: normal;
+}
+
+#app > div {
+  margin: 10px;
 }
 
 a,
@@ -165,8 +170,6 @@ a,
   flex: 1 30%;
   background-color: white;
   border-radius: 5px;
-  margin: 10px;
-  padding: 10px;
   overflow-y: hidden;
   box-shadow:
     0 1px 2px 0 rgba(0, 0, 0, 0.12),
@@ -177,7 +180,6 @@ a,
   flex-grow: 2;
   background-color: white;
   border-radius: 5px;
-  margin: 10px;
   max-height: 100%;
   height: max-content;
   box-shadow:

@@ -85,8 +85,8 @@ const filteredData = computed(() => filteredList());
   color: #757575;
   font-family: 'FontAwesome', sans-serif;
   position: absolute;
-  left: 1rem; /* Adjust this value based on your preference */
-  top: 26%;
+  left: 1.6rem; /* Adjust this value based on your preference */
+  top: 32%;
 }
 
 .item {
@@ -137,6 +137,7 @@ ul {
   top: 0;
   z-index: 1;
   display: flex;
+  padding: 10px;
 }
 
 @media (max-width: 1023px) {

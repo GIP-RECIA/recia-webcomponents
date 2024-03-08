@@ -199,8 +199,10 @@ const cropImage = () => {
 .btn-selectImg,
 .btn-cropImg,
 .btn-close {
-  padding: 5px;
+  padding: 8px;
   cursor: pointer;
+  border-radius: 10px;
+  border: none;
 }
 
 .buttons > button {
