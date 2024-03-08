@@ -167,7 +167,7 @@ const cropImage = () => {
     <input id="idEtab" type="hidden" name="idEtab" :value="idEtab" />
     <div>
       <div class="close">
-        <button type="button" class="close" @click="closeModal">x</button>
+        <button type="button" class="close" @click="closeModal"></button>
       </div>
       <div class="images">
         <div v-show="imageSrc" class="cropImg">
@@ -203,6 +203,19 @@ const cropImage = () => {
   cursor: pointer;
   border-radius: 10px;
   border: none;
+  color: var(--param-etab-button-text-color);
+}
+
+.btn-selectImg {
+  background-color: #888888;
+}
+
+.btn-close {
+  background-color: #d0d0d0;
+}
+
+.btn-cropImg {
+  background-color: var(--param-etab-button-background-color);
 }
 
 .buttons > button {
@@ -264,14 +277,18 @@ const cropImage = () => {
 button.close {
   border: 0;
   opacity: 0.4;
-  /* background: transparent; */
-  background: darkgrey;
+  background: transparent;
   font-weight: bold;
   line-height: 1;
   padding-right: 8px;
   padding-left: 8px;
   border-radius: 100%;
   height: 20px;
+}
+
+button.close::after {
+  content: '\f00d';
+  font-family: 'FontAwesome', sans-serif;
 }
 
 .buttons {

@@ -52,6 +52,7 @@ async function updateInfo() {
     Swal.fire({
       title: 'Sauvegardé',
       icon: 'success',
+      confirmButtonColor: '#37b61d',
     });
   } catch (error) {
     showError(error.response.data);
@@ -148,7 +149,7 @@ const isButtonDisabled = computed(() => {
 }
 
 .label > span {
-  color: cadetblue;
+  color: #a5a5a5;
   display: block;
   font-size: 0.875rem;
   margin-top: 0.625rem;
@@ -163,7 +164,7 @@ const isButtonDisabled = computed(() => {
 }
 
 .input-field:focus {
-  border-bottom: 2px solid cadetblue;
+  border-bottom: 2px solid var(--param-etab-button-background-color);
 }
 
 .input-field:disabled {
@@ -174,8 +175,8 @@ const isButtonDisabled = computed(() => {
   padding: 5px;
   width: 20%;
   border-radius: 10px;
-  background-color: cadetblue;
-  color: white;
+  background-color: var(--param-etab-button-background-color);
+  color: var(--param-etab-button-text-color);
   cursor: pointer;
   margin-bottom: 20px;
   border: transparent;

@@ -1,4 +1,4 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faChevronDown, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faMagnifyingGlass, faChevronDown);
+library.add(faMagnifyingGlass, faChevronDown, faXmark);
