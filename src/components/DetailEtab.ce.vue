@@ -3,11 +3,12 @@ import type { StructureDetail } from '../types/structureType';
 import { getDetailEtab, updateEtab } from '@/services/serviceParametab';
 import { showError } from '@/utils/errorUtils';
 import Swal from 'sweetalert2';
-import { computed, ref, watchEffect } from 'vue';
+import { computed, onMounted, ref, watch, watchEffect } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 const m = (key: string): string => t(`detail-etab.${key}`);
+const tmp = ref<{ customName: string | undefined; siteWeb: string | undefined }>({ customName: '', siteWeb: '' });
 const getDetailsAsString = ref<string>('');
 const details = ref<StructureDetail>({
   id: '',
@@ -27,11 +28,20 @@ const props = defineProps<{
   defaultLogoIcon: string;
 }>();
 
+const initForm = (): void => {
+  tmp.value = {
+    customName: details.value.structCustomDisplayName,
+    siteWeb: details.value.structSiteWeb,
+  };
+};
+
 watchEffect((): void => {
   void (async () => {
     await fetchDetailData(props.detail);
   })();
 });
+
+watch(details, (): void => initForm());
 
 async function fetchDetailData(id: string) {
   if (id != '') {
@@ -59,12 +69,17 @@ async function updateInfo() {
   }
 }
 
-const isButtonDisabled = computed(() => {
-  return (
-    (details.value.structCustomDisplayName === null || details.value.structCustomDisplayName === '') &&
-    (details.value.structSiteWeb === null || details.value.structSiteWeb === '')
-  );
+const isButtonDisabled = computed<boolean>(() => {
+  const hasCustomName = tmp.value.customName != undefined && tmp.value.customName.trim().length > 0;
+  const CustomNameHasChanged = tmp.value.customName != details.value.structCustomDisplayName;
+
+  const hasSiteWeb = tmp.value.siteWeb != undefined && tmp.value.siteWeb.trim().length > 0;
+  const siteWebHasChanged = tmp.value.siteWeb != details.value.structSiteWeb;
+
+  return (hasCustomName && CustomNameHasChanged) || (hasSiteWeb && siteWebHasChanged);
 });
+
+onMounted((): void => initForm());
 </script>
 
 <template>
@@ -97,16 +112,16 @@ const isButtonDisabled = computed(() => {
           type="text"
           :placeholder="m('nom-personnalise-placeholder')"
           :maxlength="56"
-          v-model="details.structCustomDisplayName"
+          v-model="tmp.customName"
         />
         <span>{{ m('nom-personnalise-titre') }}</span>
       </label>
       <label class="label">
-        <input class="input-field" type="text" :placeholder="m('lien-placeholder')" v-model="details.structSiteWeb" />
+        <input class="input-field" type="text" :placeholder="m('lien-placeholder')" v-model="tmp.siteWeb" />
         <span>{{ m('lien') }}</span>
       </label>
       <br />
-      <button :disabled="isButtonDisabled" class="btn-valider" @click="updateInfo">
+      <button :disabled="!isButtonDisabled" class="btn-valider" @click="updateInfo">
         {{ m('valider') }}
       </button>
     </div>
@@ -151,8 +166,8 @@ const isButtonDisabled = computed(() => {
 .label > span {
   color: #a5a5a5;
   display: block;
-  font-size: 0.875rem;
-  margin-top: 0.625rem;
+  font-size: 0.875em;
+  margin-top: 0.625em;
   order: 1;
   transition: all 0.25s;
   font-weight: 500;
