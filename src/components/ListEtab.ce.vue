@@ -69,7 +69,7 @@ const filteredData = computed(() => filteredList());
   display: block;
   width: 100%;
   margin: 10px auto 20px;
-  padding: 10px 45px;
+  padding: 10px 0px 10px 35px;
   background: white;
   background-size: 15px 15px;
   font-size: 16px;
@@ -85,7 +85,7 @@ const filteredData = computed(() => filteredList());
   color: #757575;
   font-family: 'FontAwesome', sans-serif;
   position: absolute;
-  left: 1.6rem; /* Adjust this value based on your preference */
+  left: 20px;
   top: 32%;
 }
 
@@ -158,7 +158,7 @@ ul {
     font-family: 'FontAwesome', sans-serif;
     position: absolute;
     left: 20px; /* Adjust this value based on your preference */
-    top: 3px;
+    top: 12px;
   }
 }
 
@@ -166,7 +166,7 @@ ul {
   width: 100%;
 
   ul {
-    max-height: 85vh;
+    max-height: 65vh;
     list-style: none;
     text-align: left;
     padding-left: 0px;
@@ -195,7 +195,6 @@ ul {
     max-height: 180px;
     overflow-y: scroll;
     overflow-x: hidden;
-    top: 10px;
 
     .opt-list {
       width: 100%;

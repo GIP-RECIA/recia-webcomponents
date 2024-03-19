@@ -164,7 +164,7 @@ const isButtonDisabled = computed(() => {
 }
 
 .input-field:focus {
-  border-bottom: 2px solid var(--param-etab-button-background-color);
+  border-bottom: 2px solid var(--param-etab-input-text-focus-color, #25b2f3);
 }
 
 .input-field:disabled {
@@ -175,8 +175,8 @@ const isButtonDisabled = computed(() => {
   padding: 5px;
   width: 20%;
   border-radius: 10px;
-  background-color: var(--param-etab-button-background-color);
-  color: var(--param-etab-button-text-color);
+  background-color: var(--param-etab-button-background-color, #25b2f3);
+  color: var(--param-etab-button-text-color, #ffffff);
   cursor: pointer;
   margin-bottom: 20px;
   border: transparent;

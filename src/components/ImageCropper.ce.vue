@@ -90,6 +90,7 @@ watch(
           background: false,
           zoomable: true,
           preview: prevImg.value,
+          modal: false,
         });
       }
     }
@@ -135,6 +136,7 @@ const cropImage = () => {
       Swal.fire({
         title: 'Sauvegardé',
         icon: 'success',
+        confirmButtonColor: '#37b61d',
       });
     } catch (error) {
       closeModal();
@@ -186,9 +188,6 @@ const cropImage = () => {
         <button v-show="imageSrc" class="btn-cropImg" @click="cropImage">
           {{ m('appliquer') }}
         </button>
-        <button class="btn-close" @click="closeModal">
-          {{ m('fermer') }}
-        </button>
       </div>
     </div>
   </div>
@@ -197,25 +196,24 @@ const cropImage = () => {
 <style lang="scss">
 @import 'cropperjs/dist/cropper.css';
 .btn-selectImg,
-.btn-cropImg,
-.btn-close {
+.btn-cropImg {
   padding: 8px;
   cursor: pointer;
   border-radius: 10px;
   border: none;
-  color: var(--param-etab-button-text-color);
+  color: var(--param-etab-button-text-color, #ffffff);
 }
 
 .btn-selectImg {
+  background-color: #a5a5a5;
+}
+
+.btn-selectImg:hover {
   background-color: #888888;
 }
 
-.btn-close {
-  background-color: #d0d0d0;
-}
-
 .btn-cropImg {
-  background-color: var(--param-etab-button-background-color);
+  background-color: var(--param-etab-button-background-color, #25b2f3);
 }
 
 .buttons > button {
@@ -224,7 +222,7 @@ const cropImage = () => {
 
 .cropImg {
   flex: 1;
-  padding-right: 10px;
+  margin-bottom: 10px;
 }
 
 .previewImg {
@@ -237,7 +235,7 @@ const cropImage = () => {
   height: 120px;
   overflow: hidden;
   margin: auto;
-  border: 0 solid #eee;
+  border: solid #d0d0d0;
   border-radius: 4px;
 }
 
@@ -277,13 +275,13 @@ const cropImage = () => {
 button.close {
   border: 0;
   opacity: 0.4;
-  background: transparent;
+  background: #d0d0d0;
   font-weight: bold;
   line-height: 1;
   padding-right: 8px;
   padding-left: 8px;
   border-radius: 100%;
-  height: 20px;
+  height: 25px;
 }
 
 button.close::after {

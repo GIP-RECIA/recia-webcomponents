@@ -174,6 +174,7 @@ a,
   box-shadow:
     0 1px 2px 0 rgba(0, 0, 0, 0.12),
     0 1px 2px 0 rgba(0, 0, 0, 0.12);
+  height: 78vh;
 }
 
 .detail {

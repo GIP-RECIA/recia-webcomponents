@@ -16,5 +16,8 @@ const { VITE_BASE_API_URL, VITE_PARAMETAB_API_URI, VITE_USER_INFO_API_URI, VITE_
   /* Couleurs des boutons */
   --param-etab-button-background-color: #25b2f3;
   --param-etab-button-text-color: #ffffff;
+
+  /* Input text focus */
+  --param-etab-input-text-focus-color: #25b2f3;
 }
 </style>
