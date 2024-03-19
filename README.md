@@ -61,3 +61,4 @@ Variables CSS peuvent être définis pour personnaliser le webcomponent :
 | ----------------------------------------------------- | ------------------------------------------------------------- |
 | `--param-etab-button-background-color`                | Permet de modifier la couleur de fond des boutons             |
 | `--param-etab-button-text-color`                      | Permet de modifier la couleur de texte des boutons            |
+| `--param-etab-input-text-focus-color`                 | Permet de modifier la couleur du focus du texte saisi         |
