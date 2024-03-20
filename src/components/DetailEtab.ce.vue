@@ -58,7 +58,11 @@ async function fetchDetailData(id: string) {
 async function updateInfo() {
   console.warn(details.value);
   try {
-    await updateEtab(props.paramEtabApi + `/update/${props.detail}`, details.value, props.userInfoApiUrl);
+    await updateEtab(
+      props.paramEtabApi + `/update/${props.detail}`,
+      { ...details.value, structCustomDisplayName: tmp.value.customName, structSiteWeb: tmp.value.siteWeb },
+      props.userInfoApiUrl,
+    );
     Swal.fire({
       title: 'Sauvegardé',
       icon: 'success',
