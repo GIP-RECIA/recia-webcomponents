@@ -8,7 +8,7 @@ export type StructureDetail = {
     ENTStructureSiteWeb?: Array<{}>;
     ENTStructureJointure?: Array<{}>;
   }>;
-  structCustomDisplayName?: string;
-  structLogo?: string;
-  structSiteWeb?: string;
+  structCustomDisplayName: string | null;
+  structLogo: string | null;
+  structSiteWeb: string | null;
 };

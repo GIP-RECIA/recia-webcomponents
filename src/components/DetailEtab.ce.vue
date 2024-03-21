@@ -8,7 +8,7 @@ import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 const m = (key: string): string => t(`detail-etab.${key}`);
-const tmp = ref<{ customName: string | undefined; siteWeb: string | undefined }>({ customName: '', siteWeb: '' });
+const tmp = ref<{ customName: string | null; siteWeb: string | null }>({ customName: '', siteWeb: '' });
 const getDetailsAsString = ref<string>('');
 const details = ref<StructureDetail>({
   id: '',
@@ -58,9 +58,13 @@ async function fetchDetailData(id: string) {
 async function updateInfo() {
   console.warn(details.value);
   try {
+    const structCustomDisplayName =
+      tmp.value.customName && tmp.value.customName.trim().length > 0 ? tmp.value.customName : null;
+    const structSiteWeb = tmp.value.siteWeb && tmp.value.siteWeb.trim().length > 0 ? tmp.value.siteWeb : null;
+
     await updateEtab(
       props.paramEtabApi + `/update/${props.detail}`,
-      { ...details.value, structCustomDisplayName: tmp.value.customName, structSiteWeb: tmp.value.siteWeb },
+      { ...details.value, structCustomDisplayName, structSiteWeb },
       props.userInfoApiUrl,
     );
     Swal.fire({
@@ -68,19 +72,26 @@ async function updateInfo() {
       icon: 'success',
       confirmButtonColor: '#37b61d',
     });
-  } catch (error) {
+  } catch (error: any) {
     showError(error.response.data);
   }
 }
 
 const isButtonDisabled = computed<boolean>(() => {
-  const hasCustomName = tmp.value.customName != undefined && tmp.value.customName.trim().length > 0;
-  const CustomNameHasChanged = tmp.value.customName != details.value.structCustomDisplayName;
+  const structCustomDisplayName =
+    tmp.value.customName && tmp.value.customName.trim().length > 0 ? tmp.value.customName : null;
+  const structSiteWeb = tmp.value.siteWeb && tmp.value.siteWeb.trim().length > 0 ? tmp.value.siteWeb : null;
 
-  const hasSiteWeb = tmp.value.siteWeb != undefined && tmp.value.siteWeb.trim().length > 0;
-  const siteWebHasChanged = tmp.value.siteWeb != details.value.structSiteWeb;
+  let checkCustomName = true;
+  const customNameHasChanged = structCustomDisplayName != details.value.structCustomDisplayName;
+  if (details.value.structCustomDisplayName != null)
+    checkCustomName = checkCustomName && structCustomDisplayName != null;
 
-  return (hasCustomName && CustomNameHasChanged) || (hasSiteWeb && siteWebHasChanged);
+  let checkSiteWeb = true;
+  const siteWebHasChanged = structSiteWeb != details.value.structSiteWeb;
+  if (details.value.structSiteWeb != null) checkSiteWeb = checkSiteWeb && structSiteWeb != null;
+
+  return checkCustomName && checkSiteWeb && (customNameHasChanged || siteWebHasChanged);
 });
 
 onMounted((): void => initForm());
