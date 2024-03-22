@@ -56,17 +56,17 @@ async function fetchDetailData(id: string) {
 }
 
 async function updateInfo() {
-  console.warn(details.value);
   try {
     const structCustomDisplayName =
       tmp.value.customName && tmp.value.customName.trim().length > 0 ? tmp.value.customName : null;
     const structSiteWeb = tmp.value.siteWeb && tmp.value.siteWeb.trim().length > 0 ? tmp.value.siteWeb : null;
 
-    await updateEtab(
+    const response = await updateEtab(
       props.paramEtabApi + `/update/${props.detail}`,
       { ...details.value, structCustomDisplayName, structSiteWeb },
       props.userInfoApiUrl,
     );
+    details.value = response.data;
     Swal.fire({
       title: 'Sauvegardé',
       icon: 'success',
