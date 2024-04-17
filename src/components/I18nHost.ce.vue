@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ref, watch, computed, onMounted } from 'vue'
 import { getChangeEtab } from '@/services/serviceChangeEtab'
 
@@ -64,7 +65,9 @@ const structures = computed(() => parseStructs())
     <div>
       <div class="modal-header">
         <h1>Changer de structure</h1>
-        <button type="button" class="btnClose" @click="closeModal">x</button>
+        <button class="btnClose" @click="closeModal">
+          <font-awesome-icon :icon="['fa', 'xmark']" />
+        </button>
       </div>
 
       <span class="current">Structure courante: {{ currentEtab }}</span>
@@ -91,6 +94,10 @@ const structures = computed(() => parseStructs())
 </template>
 
 <style>
+label {
+  font-size: 14px;
+}
+
 .current {
   align-self: flex-start;
   font-size: 15px;
@@ -125,7 +132,7 @@ legend {
 }
 
 h1 {
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .modal {
@@ -158,17 +165,17 @@ h1 {
 }
 
 .btnClose {
-  border: 0;
   opacity: 0.4;
-  background: #d0d0d0;
   font-weight: bold;
   line-height: 1;
-  padding-right: 8px;
-  padding-left: 8px;
-  border-radius: 100%;
-  height: 25px;
   cursor: pointer;
   margin-left: auto;
+  width: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: none;
 }
 
 .btnSubmit {
