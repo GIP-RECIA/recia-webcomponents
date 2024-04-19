@@ -195,8 +195,8 @@ h1 {
   padding: 7px;
   width: 28%;
   border-radius: 5px;
-  background-color: var(--param-etab-button-background-color, #25b2f3);
-  color: var(--param-etab-button-text-color, #ffffff);
+  background-color: var(--change-etab-button-background-color, #25b2f3);
+  color: var(--change-etab-button-text-color, #ffffff);
   cursor: pointer;
   margin-top: 15px;
   margin-bottom: 15px;

@@ -20,3 +20,11 @@ const toggleShow = () => {
     :user-info-api-url="VITE_USER_INFO_API_URI"
   ></change-etab>
 </template>
+
+<style>
+:root {
+  /* Couleurs des boutons */
+  --change-etab-button-background-color: #25b2f3;
+  --change-etab-button-text-color: #ffffff;
+}
+</style>
