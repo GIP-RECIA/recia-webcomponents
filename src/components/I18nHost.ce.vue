@@ -16,8 +16,7 @@ let showState = ref<boolean>(props.show)
 const checked = ref<string>('')
 const changeetab = ref<any>([])
 const etabJson = ref<string>('')
-const currentEtab = ref<string>('')
-const findEtab = ref<any>([])
+const structCurrent = ref<any>([])
 
 const closeModal = () => {
   showState.value = false
@@ -29,9 +28,8 @@ onMounted(async () => {
     const res = await getChangeEtab(props.changeEtabApi, props.userInfoApiUrl)
     changeetab.value = res.data
     // List of structures
-    etabJson.value = JSON.stringify(changeetab.value.listEtab)
-    currentEtab.value = changeetab.value.currentStruct
-    checked.value = currentEtab.value
+    etabJson.value = JSON.stringify(changeetab.value.sirenStructures)
+    structCurrent.value = changeetab.value.structCurrent
   } catch (error: any) {
     console.error('error : ', error.response.data)
   }
@@ -56,13 +54,17 @@ function parseStructs(): any {
 }
 
 const structures = computed(() => parseStructs())
+
+const isButtonDisabled = computed<boolean>(() => {
+  return checked.value === ''
+})
 </script>
 
 <template>
   <!-- Modal -->
 
-  <div v-if="showState" @input="emit('update:show')" class="modal">
-    <div>
+  <div v-if="showState" @input="emit('update:show')" class="modal-mask">
+    <div class="modal-component">
       <div class="modal-header">
         <h1>Changer de structure</h1>
         <button class="btnClose" @click="closeModal">
@@ -70,25 +72,26 @@ const structures = computed(() => parseStructs())
         </button>
       </div>
 
-      <span class="current">Structure courante: {{ currentEtab }}</span>
-      <form action="" method="post" class="formChange">
-        <fieldset>
-          <legend>Sélectionnez une autre structure à laquelle vous reconnecter :</legend>
-          <div class="list-struct">
-            <div v-for="data in structures" :key="data.idSiren" class="struct">
-              <input
-                type="radio"
-                name=""
-                :id="data.idSiren"
-                :value="data.idSiren"
-                v-model="checked"
-              />
-              <label :for="data.idSiren"> {{ data.etabName }}</label>
+      <div class="modal-content">
+        <span class="current"
+          >Structure courante: {{ structCurrent.displayName }}
+          <small>({{ structCurrent.code }})</small></span
+        >
+        <form action="" method="post" class="formChange">
+          <fieldset>
+            <legend>Sélectionnez une autre structure à laquelle vous reconnecter :</legend>
+            <div class="list-struct">
+              <div v-for="data in structures" :key="data.id" class="struct">
+                <input type="radio" name="" :id="data.id" :value="data.id" v-model="checked" />
+                <label :for="data.id">
+                  {{ data.displayName }} <small> ({{ data.code }}) </small></label
+                >
+              </div>
             </div>
-          </div>
-        </fieldset>
-        <button type="submit" class="btnSubmit">Changer de structure</button>
-      </form>
+          </fieldset>
+          <button :disabled="isButtonDisabled" class="btnSubmit">Changer de structure</button>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -116,7 +119,7 @@ legend {
   border-bottom: 1px solid #e5e5e5;
 }
 .list-struct {
-  height: 250px;
+  max-height: 50%;
   overflow-y: scroll;
 }
 .struct {
@@ -127,6 +130,10 @@ legend {
   display: flex;
 }
 
+.modal-content {
+  width: 100%;
+  display: grid;
+}
 .formChange {
   align-self: flex-start;
 }
@@ -135,7 +142,7 @@ h1 {
   font-size: 22px;
 }
 
-.modal {
+.modal-mask {
   position: fixed;
   float: left;
   top: 0;
@@ -150,7 +157,7 @@ h1 {
   z-index: 999;
 }
 
-.modal > div {
+.modal-component {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -176,6 +183,12 @@ h1 {
   align-items: center;
   background-color: transparent;
   border: none;
+}
+
+.btnSubmit:disabled {
+  color: #757575;
+  background-color: #d6d6d6;
+  cursor: not-allowed;
 }
 
 .btnSubmit {
