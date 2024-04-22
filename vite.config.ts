@@ -1,5 +1,5 @@
 import { fileURLToPath, URL } from 'node:url'
-
+import vueI18n from '@intlify/unplugin-vue-i18n/vite'
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
@@ -12,10 +12,11 @@ export default ({ mode }: { mode: string }) => {
       vue({
         template: {
           compilerOptions: {
-            isCustomElement: (tag) => ['change-etab'].includes(tag)
+            isCustomElement: (tag) => ['change-etab', 'page-change-etab'].includes(tag)
           }
         }
-      })
+      }),
+      vueI18n({})
     ],
     resolve: {
       alias: {

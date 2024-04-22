@@ -1,0 +1,8 @@
+{
+  "change-etab": {
+    "title": "Changer de structure",
+    "struct-current": "Structure courante : ",
+    "legend": "Sélectionnez une autre structure à laquelle vous reconnecter :",
+    "valid-button": "Changer de structure"
+  }
+}
