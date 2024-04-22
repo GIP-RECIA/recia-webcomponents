@@ -1,39 +1,63 @@
-# change-etab-ui-project
+# change-etab
 
-This template should help get you started developing with Vue 3 in Vite.
+- [change-etab](#change-etab)
+  - [Installation](#installation)
+  - [Paramètres](#paramètres)
+  - [Variables CSS](#variables-css)
+    - [Modification de style](#modification-de-style)
 
-## Recommended IDE Setup
+UI de change d'établissement en Vue.js
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Installation
 
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+1. Installation via npm :
 
 ```sh
-npm install
+npm install @gip-recia/change-etab
 ```
 
-### Compile and Hot-Reload for Development
+2. Importation du composant :
 
-```sh
-npm run dev
+Dans un module JavaScript :
+
+```js
+import '@gip-recia/change-etab'
 ```
 
-### Type-Check, Compile and Minify for Production
+Dans une page HTML :
 
-```sh
-npm run build
+```html
+<script src="./path/to/change-etab.min.js"></script>
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+3. Ajout du composant sur une page HTML :
 
-```sh
-npm run lint
+```js
+const changeEtab = document.createElement('change-etab')
+document.body.appendChild(changeEtab)
 ```
+
+## Paramètres
+
+| Nom                 |   Type    | Obligatoire | Default | Description                                |
+| ------------------- | :-------: | :---------: | :-----: | ------------------------------------------ |
+| `show`              | `boolean` |    `oui`    |         | activer/désactiver la modal                |
+| `change-etab-api`   | `string`  |    `oui`    |         | URI de la route GET de change etab         |
+| `user-info-api-url` | `string`  |    `oui`    |         | URL de l'API des informations utilisateurs |
+
+<br/>
+
+```html
+<change-etab show="" change-etab-api="" user-info-api-url="" />
+```
+
+## Variables CSS
+
+### Modification de style
+
+Variables CSS peuvent être définis pour personnaliser le webcomponent :
+
+| Nom                                     | Description                                        |
+| --------------------------------------- | -------------------------------------------------- |
+| `--change-etab-button-background-color` | Permet de modifier la couleur de fond des boutons  |
+| `--change-etab-button-text-color`       | Permet de modifier la couleur de texte des boutons |
