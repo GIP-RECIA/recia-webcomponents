@@ -595,9 +595,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gip-recia/xxx@workspace:.":
+"@gip-recia/mediacentre-ui@workspace:.":
   version: 0.0.0-use.local
-  resolution: "@gip-recia/xxx@workspace:."
+  resolution: "@gip-recia/mediacentre-ui@workspace:."
   dependencies:
     "@commitlint/cli": "npm:^19.2.2"
     "@commitlint/config-conventional": "npm:^19.2.2"

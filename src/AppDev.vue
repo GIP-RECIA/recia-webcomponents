@@ -3,7 +3,7 @@ const { VITE_BASE_API_URL, VITE_USER_INFO_API_URI } = import.meta.env;
 </script>
 
 <template>
-  <xxx :base-api-url="VITE_BASE_API_URL" :user-info-api-url="VITE_USER_INFO_API_URI" />
+  <mediacentre-ui :base-api-url="VITE_BASE_API_URL" :user-info-api-url="VITE_USER_INFO_API_URI" />
 </template>
 
 <style lang="scss">

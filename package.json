@@ -1,7 +1,7 @@
 {
-  "name": "@gip-recia/xxx",
-  "description": "",
-  "version": "0.0.0",
+  "name": "@gip-recia/mediacentre-ui",
+  "description": "UI du Médiacentre en Vue.js pour le GIP-Recia.",
+  "version": "0.0.2",
   "type": "module",
   "files": [
     "dist"
@@ -9,23 +9,23 @@
   "keywords": [
     "gip-recia"
   ],
-  "homepage": "https://github.com/GIP-RECIA/xxx",
+  "homepage": "https://github.com/GIP-RECIA/Mediacentre-UI",
   "bugs": {
-    "url": "https://github.com/GIP-RECIA/xxx/issues"
+    "url": "https://github.com/GIP-RECIA/Mediacentre-UI/issues"
   },
   "license": "Apache-2.0",
   "contributors": [],
-  "main": "./dist/xxx.umd.cjs",
-  "module": "./dist/xxx.js",
+  "main": "./dist/Mediacentre-UI.umd.cjs",
+  "module": "./dist/Mediacentre-UI.js",
   "exports": {
     ".": {
-      "import": "./dist/xxx.js",
-      "require": "./dist/xxx.cjs"
+      "import": "./dist/Mediacentre-UI.js",
+      "require": "./dist/Mediacentre-UI.cjs"
     }
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GIP-RECIA/xxx.git"
+    "url": "git+https://github.com/GIP-RECIA/Mediacentre-UI.git"
   },
   "publishConfig": {
     "access": "public"
@@ -33,7 +33,7 @@
   "scripts": {
     "dev": "vite --host",
     "build": "run-p type-check \"build-only {@}\" -- && yarn build:min",
-    "build:min": "npm exec terser -- -c -m --module dist/xxx.js > dist/xxx.min.js",
+    "build:min": "npm exec terser -- -c -m --module dist/Mediacentre-UI.js > dist/Mediacentre-UI.min.js",
     "clean": "find . -name node_modules -type d -prune -o -name cache -type d -o -name dist -type d | xargs rm -rf",
     "preview": "vite preview",
     "test:unit": "vitest",

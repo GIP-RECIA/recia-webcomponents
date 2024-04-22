@@ -1,15 +1,7 @@
-# template-webcomponent-vue3
 
-1. Remplacez tous les `xxx` par le nom du projet/dépôt git.
-2. Installez les dépendances `yarn`.
-3. Initialisez husky `yarn prepare`.
-4. Initialisez le fichier d'environnement `yarn predev`.
+# mediacentre-ui
 
----
-
-# xxx
-
-- [xxx](#xxx)
+- [mediacentre-ui](#mediacentre-ui)
   - [Installation](#installation)
   - [Paramètres](#paramètres)
   - [Variables CSS](#variables-css)
@@ -20,7 +12,7 @@
 1. Installation via npm :
 
 ```sh
-npm install @gip-recia/xxx
+npm install @gip-recia/mediacentre-ui
 ```
 
 2. Importation du composant :
@@ -28,19 +20,19 @@ npm install @gip-recia/xxx
 Dans un module JavaScript :
 
 ```js
-import '@gip-recia/xxx';
+import '@gip-recia/mediacentre-ui';
 ```
 
 Dans une page HTML :
 
 ```html
-<script src="./path/to/xxx.min.js"></script>
+<script src="./path/to/mediacentre-ui.min.js"></script>
 ```
 
 3. Ajout du composant sur une page HTML :
 
 ```js
-const component = document.createElement('xxx');
+const component = document.createElement('mediacentre-ui');
 document.body.appendChild(component);
 ```
 
@@ -56,7 +48,7 @@ Propriétés disponibles :
 <br/>
 
 ```html
-<xxx
+<mediacentre-ui
   base-api-url=""
   user-info-api-url=""
 />
