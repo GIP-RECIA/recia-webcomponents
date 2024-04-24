@@ -1,3 +1,4 @@
+import pkg from './package.json'
 import { fileURLToPath, URL } from 'node:url'
 import vueI18n from '@intlify/unplugin-vue-i18n/vite'
 import { defineConfig, loadEnv } from 'vite'
@@ -22,6 +23,20 @@ export default ({ mode }: { mode: string }) => {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url))
       }
+    },
+    server: {
+      hmr: {
+        path: 'ws'
+      }
+    },
+    build: {
+      lib: {
+        entry: './src/main.ts',
+        name: pkg.name
+      }
+    },
+    define: {
+      'process.env': process.env
     }
   })
 }

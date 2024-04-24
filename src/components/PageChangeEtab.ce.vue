@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { getChangeEtab } from '@/services/serviceChangeEtab'
+import { getChangeEtab, updateCurrentStruct } from '@/services/serviceChangeEtab'
 import { useI18n } from 'vue-i18n'
 
 import { ref, watch, computed, onMounted } from 'vue'
@@ -58,6 +58,23 @@ function parseStructs(): any {
   return listStructs
 }
 
+async function updateStruct() {
+  try {
+    const confirmed = confirm(m('change-confirm'))
+    if (confirmed) {
+      console.log('urlApi: ', props.changeEtabApi + checked.value)
+      console.log('userInfoApiUrl: ', props.userInfoApiUrl)
+      const res = await updateCurrentStruct(
+        props.changeEtabApi + checked.value,
+        props.userInfoApiUrl
+      )
+      console.log('resp : ', res.data)
+    }
+  } catch (error) {
+    console.log('error: ', error)
+  }
+}
+
 const structures = computed(() => parseStructs())
 
 const isButtonDisabled = computed<boolean>(() => {
@@ -82,7 +99,7 @@ const isButtonDisabled = computed<boolean>(() => {
           >{{ m('struct-current') }} {{ structCurrent.displayName }}
           <small>({{ structCurrent.code }})</small></span
         >
-        <form action="" method="post" class="formChange">
+        <div class="formChange">
           <fieldset>
             <legend>{{ m('legend') }}</legend>
             <div class="list-struct">
@@ -94,8 +111,10 @@ const isButtonDisabled = computed<boolean>(() => {
               </div>
             </div>
           </fieldset>
-          <button :disabled="isButtonDisabled" class="btnSubmit">{{ m('valid-button') }}</button>
-        </form>
+          <button :disabled="isButtonDisabled" class="btnSubmit" @click="updateStruct">
+            {{ m('valid-button') }}
+          </button>
+        </div>
       </div>
     </div>
   </div>

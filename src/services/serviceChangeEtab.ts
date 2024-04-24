@@ -21,4 +21,13 @@ const getChangeEtab = async (url: string, userInfoApiUrl: string) => {
   })
 }
 
-export { getChangeEtab }
+const updateCurrentStruct = async (url: string, userInfoApiUrl: string) => {
+  return await axios.put(`${url}`, null, {
+    headers: {
+      Authorization: `Bearer ${await getToken(userInfoApiUrl)}`,
+      'content-type': 'application/jwt'
+    }
+  })
+}
+
+export { getChangeEtab, updateCurrentStruct }
