@@ -37,7 +37,9 @@ export type Ressource = {
 
   urlAccesRessource: string;
 
-  urlSourceEtquette: string;
+  urlSourceEtiquette: string;
+
+  urlVignette: string | undefined;
 
   validateurTech: string;
 
