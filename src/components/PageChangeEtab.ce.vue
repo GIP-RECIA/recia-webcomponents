@@ -62,13 +62,11 @@ async function updateStruct() {
   try {
     const confirmed = confirm(m('change-confirm'))
     if (confirmed) {
-      console.log('urlApi: ', props.changeEtabApi + checked.value)
-      console.log('userInfoApiUrl: ', props.userInfoApiUrl)
       const res = await updateCurrentStruct(
         props.changeEtabApi + checked.value,
         props.userInfoApiUrl
       )
-      console.log('resp : ', res.data)
+      location.replace(res.data.redirectUrl + `/Logout`)
     }
   } catch (error) {
     console.log('error: ', error)
