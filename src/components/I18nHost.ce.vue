@@ -12,5 +12,5 @@ defineProps<{
 </script>
 
 <template>
-  <div></div>
+  <page-mediacentre />
 </template>
