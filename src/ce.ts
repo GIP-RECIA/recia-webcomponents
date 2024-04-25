@@ -26,8 +26,8 @@ const register = () => {
   customElements.define('carte-ressource', CarteRessource);
   customElements.define('mediacentre-ui', I18nHost);
   customElements.define('liste-ressources', ListeRessources);
-  customElements.define('menu', Menu);
-  customElements.define('page', Page);
+  customElements.define('menu-mediacentre', Menu);
+  customElements.define('page-mediacentre', Page);
 };
 
 export { CarteRessource, I18nHost, ListeRessources, Menu, Page, register };

@@ -14,7 +14,9 @@ export default ({ mode }: { mode: string }) => {
       vue({
         template: {
           compilerOptions: {
-            isCustomElement: (tag) => ['mediacentre-ui'].includes(tag),
+            isCustomElement: (tag) => ['mediacentre-ui', 'page-mediacentre'
+              , 'menu-mediacentre', 'liste-ressources', 'carte-ressource'
+            ].includes(tag),
           },
         },
       }),
