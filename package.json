@@ -1,11 +1,40 @@
 {
-  "name": "change-etab-ui-project",
-  "version": "0.0.0",
-  "private": true,
+  "name": "@gip-recia/change-etab",
+  "version": "1.0.0",
   "type": "module",
+  "description": "UI de change établissement en VueJS.",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "gip-recia",
+    "change-etab"
+  ],
+  "homepage": "https://github.com/GIP-RECIA/change-etab-ui/#README.md",
+  "bugs": {
+    "url": "https://github.com/GIP-RECIA/change-etab-ui/issues"
+  },
+  "license": "Apache-2.0",
+  "author": "Indah Juliani <indah.juliani@recia.fr>",
+  "main": "./dist/change-etab.umd.cjs",
+  "module": "./dist/change-etab.js",
+  "exports": {
+    ".": {
+      "import": "./dist/change-etab.js",
+      "require": "./dist/change-etab.umd.cjs"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GIP-RECIA/change-etab-ui.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "vite --host",
-    "build": "run-p type-check \"build-only {@}\" --",
+    "build": "run-p type-check build-only && npm run build:min",
+    "build:min": "npm exec terser -- -c -m --module dist/change-etab.js > dist/change-etab.min.js",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
