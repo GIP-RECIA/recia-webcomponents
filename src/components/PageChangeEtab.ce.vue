@@ -33,10 +33,10 @@ onMounted(async () => {
     const res = await getChangeEtab(props.changeEtabApi, props.userInfoApiUrl)
     changeetab.value = res.data
     // List of structures
-    etabJson.value = JSON.stringify(changeetab.value.sirenStructures)
+    etabJson.value = changeetab.value.sirenStructures
     structCurrent.value = changeetab.value.structCurrent
   } catch (error: any) {
-    console.error('error : ', error.response.data)
+    console.error('error : ', error.res.data)
   }
 })
 
@@ -48,14 +48,12 @@ watch(
 )
 watch(checked, () => console.log('checked.val : ', checked.value))
 
-function parseStructs(): any {
+function listStructs(): any {
   if (!etabJson.value) {
     return []
   }
 
-  const listStructs = JSON.parse(etabJson.value)
-
-  return listStructs
+  return etabJson.value
 }
 
 async function updateStruct() {
@@ -73,7 +71,7 @@ async function updateStruct() {
   }
 }
 
-const structures = computed(() => parseStructs())
+const structures = computed(() => listStructs())
 
 const isButtonDisabled = computed<boolean>(() => {
   return checked.value === ''
@@ -139,6 +137,7 @@ legend {
   padding: 0;
   font-size: 18px;
   border-bottom: 1px solid #e5e5e5;
+  width: 100%;
 }
 .list-struct {
   max-height: 50%;
