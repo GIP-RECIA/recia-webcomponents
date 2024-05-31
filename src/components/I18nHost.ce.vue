@@ -4,7 +4,6 @@ import { provide } from 'vue';
 import { I18nInjectionKey } from 'vue-i18n';
 
 provide(I18nInjectionKey, i18n);
-
 defineProps<{
   baseApiUrl: string;
   userInfoApiUrl: string;
@@ -12,5 +11,5 @@ defineProps<{
 </script>
 
 <template>
-  <page-mediacentre />
+  <page-mediacentre :base-api-url="baseApiUrl" :user-info-api-url="userInfoApiUrl" />
 </template>
