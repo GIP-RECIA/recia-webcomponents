@@ -4,7 +4,7 @@
     "no-resources": "You don't have any resources."
   },
   "menu-mediacentre": {
-    "resources": "Resources",
+    "title": "MediaCentre",
     "all-resources": "All resources",
     "my-favorites": "My favorites"
   }
