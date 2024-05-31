@@ -1,4 +1,5 @@
 import type { DomaineEnseignement } from './DomaineEnseignementType.ts';
+import type { IdEtablissement } from './IdEtablissementType.ts';
 import type { NiveauEducatif } from './NiveauEducatifType.ts';
 import type { TypePedagogique } from './TypePedagogiqueType.ts';
 import type { TypePresentation } from '@/types/TypePresentationType.ts';
@@ -11,11 +12,7 @@ export type Ressource = {
 
   idEditeur: string;
 
-  idEtablissement: {
-    id: string;
-    uai: string;
-    nom: string | undefined;
-  };
+  idEtablissement: Array<IdEtablissement>;
 
   idRessource: string;
 
@@ -31,7 +28,7 @@ export type Ressource = {
 
   typePedagogique: Array<TypePedagogique>;
 
-  typePresentation: Array<TypePresentation>;
+  typePresentation: TypePresentation;
 
   typologieDocument: Array<TypologieDocument>;
 
