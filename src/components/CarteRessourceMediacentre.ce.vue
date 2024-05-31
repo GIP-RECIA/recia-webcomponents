@@ -7,19 +7,13 @@ import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const i18n = useI18n();
+const isFavorite = ref<boolean>(false);
 
 const props = defineProps<{
-  filtre: string;
   ressource: Ressource;
   userInfoApiUrl: string;
   baseApiUrl: string;
 }>();
-
-const isOpened = ref<boolean>(false);
-const isFavorite = ref<boolean>(false);
-
-//   // voir pour set si la ressource est en favori
-//   //isFavorite.value = ressource.favorite;
 
 onMounted((): void => {
   setUserInfoApiUrl(props.userInfoApiUrl);
@@ -50,172 +44,148 @@ const retirerFavoris = async (idRessource: string) => {
     console.log(error);
   }
 };
-
-// affichable() {
-//     // TODO: IMPLÉMENTER UNE FONCTION QUI VÉRIFIE QUE LA RESSOURCE EST AFFICHABLE SELON LE FILTRE SÉLECTIONNÉ
-//     switch (this.filtre) {
-//       case 'favoris':
-//         return this.isFavorite;
-//       default:
-//         return true;
-//     }
-//   },
 </script>
 
 <template>
-  <div class="cadre-carte-ressource-mediacentre" @mouseover="isOpened = true" @mouseout="isOpened = false">
-    <!-- v-if="affichable() === true" -->
-    <div class="action-zone-carte-ressource-mediacentre">
-      <button class="icone-bouton-carte-ressource-mediacentre" @click="toggleFavoris">
-        <font-awesome-icon
-          class="icone-favorite-carte-ressource-mediacentre"
-          :icon="[isFavorite ? 'fas' : 'far', 'star']"
-        />
-      </button>
-      <a class="icone-bouton-carte-ressource-mediacentre" :href="ressource.urlAccesRessource" target="_blank">
-        <font-awesome-icon class="icone-link-carte-ressource-mediacentre" :icon="['fas', 'arrow-up-from-square']" />
-      </a>
+  <a :href="ressource.urlAccesRessource" target="_blank">
+    <div class="cadre-carte-ressource-mediacentre">
+      <div class="background-carte-ressource-mediacentre">
+        <div class="action-zone-carte-ressource-mediacentre">
+          <button class="icone-bouton-carte-ressource-mediacentre" @click.prevent="toggleFavoris">
+            <font-awesome-icon
+              class="icone-favorite-carte-ressource-mediacentre"
+              :icon="[isFavorite ? 'fas' : 'far', 'star']"
+            />
+          </button>
+        </div>
+        <img class="resource-image" :src="props.ressource.urlVignette" :alt="ressource.nomRessource" />
+      </div>
+      <div class="resource-name">
+        <h5>
+          {{ ressource.nomRessource }}
+        </h5>
+        <div class="icone-bouton-carte-ressource-mediacentre">
+          <button style="background: none; border: none">
+            <font-awesome-icon class="info-icon" :icon="['fas', 'circle-info']" />
+          </button>
+        </div>
+      </div>
     </div>
-    <div
-      class="background-carte-ressource-mediacentre"
-      :style="'background-image: url(\'' + props.ressource.urlVignette + '\');'"
-    ></div>
-    <div class="block-info-carte-ressource-mediacentre" :class="{ opened: isOpened }">
-      <h3 class="titre-carte-ressource-mediacentre" :class="{ opened: isOpened }">{{ ressource.nomRessource }}</h3>
-      <p class="texte-carte-ressource-mediacentre">
-        <!-- voir si besoin d'afficher tous les types de présentation -->
-        <i class="type-presentation-ressource-mediacentre">{{ $props.ressource.typePresentation[0].nom }}</i>
-        <br />
-        {{ ressource.description }}
-      </p>
-      <p class="footer-carte-ressource-mediacentre">
-        <span class="nom-editeur-carte-ressource-mediacentre">{{ ressource.nomEditeur }}</span>
-        <span class="id-ressource-carte-ressource-mediacentre">{{ ressource.idRessource }}</span>
-      </p>
-    </div>
-  </div>
+  </a>
 </template>
 
-<style>
+<style lang="scss">
+a {
+  text-decoration: none;
+}
+
 .cadre-carte-ressource-mediacentre {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 30%;
   max-width: 538px;
   min-width: 260px;
-  height: 230px;
+  height: 250px;
   margin: 20px 12px 20px 12px;
-  position: relative;
   overflow: hidden;
-  box-shadow: 0 1px 3px #00000054;
+  cursor: pointer;
+  border-radius: 15px;
+  border-top: 0.9em solid $ui-mediacentre-primary-color;
+  box-shadow:
+    13px 13px 39px #c1c1c1,
+    -13px -13px 39px #ffffff;
+  background-color: #ffffff;
+}
+
+.background-carte-ressource-mediacentre {
+  position: relative;
+  width: 90%;
+  height: 90%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+  overflow: hidden;
+  padding: 1em;
 }
 
 .action-zone-carte-ressource-mediacentre {
   position: absolute;
-  width: 100%;
+  width: 90%;
   height: 48px;
   line-height: 48px;
   z-index: 1;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: right;
 }
 
 .icone-bouton-carte-ressource-mediacentre {
+  display: flex;
+  justify-content: center;
   background: none;
   border: none;
-  height: 48px;
-  width: 48px;
+  height: fit-content;
+  width: fit-content;
   color: #b4b4b4;
   padding: 0;
   cursor: pointer;
 }
 
+.icone-help-carte-ressource-mediacentre {
+  display: flex;
+  justify-content: center;
+  background: none;
+  border: none;
+  height: 48px;
+  width: 48px;
+  padding: 0;
+  cursor: pointer;
+}
 .icone-favorite-carte-ressource-mediacentre {
-  width: 50%;
-  height: 50%;
+  width: 1.8em;
+  height: 1.8em;
 }
 
-.icone-link-carte-ressource-mediacentre {
-  width: 40%;
-  height: 40%;
+.icone-info-carte-ressource-mediacentre {
+  width: 60%;
+  height: 60%;
 }
 
-.block-info-carte-ressource-mediacentre {
-  position: absolute;
-  display: flex;
-  flex-flow: column;
-  -moz-transform: translateY(175px);
-  -ms-transform: translateY(175px);
-  -webkit-transform: translateY(175px);
-  transform: translateY(175px);
-  -webkit-transition: all 0.15s cubic-bezier(0.67, 0.2, 0.53, 0.91);
-  -o-transition: all 0.15s cubic-bezier(0.67, 0.2, 0.53, 0.91);
-  transition: all 0.15s cubic-bezier(0.67, 0.2, 0.53, 0.91);
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: calc(100% - 24px);
-  background: rgba(0, 0, 0, 0.5);
-  padding: 12px;
-  z-index: 0;
-  color: white;
-  text-align: left;
-  font-family: 'Roboto Condensed', sans-serif;
-}
-
-.block-info-carte-ressource-mediacentre.opened {
-  -moz-transform: translateY(0);
-  -ms-transform: translateY(0);
-  -webkit-transform: translateY(0);
-}
-
-.titre-carte-ressource-mediacentre {
-  margin-top: 6px;
-  margin-bottom: 5px;
-  transition: all 0.15s cubic-bezier(0.67, 0.2, 0.53, 0.91);
-}
-
-.titre-carte-ressource-mediacentre.opened {
-  margin-top: 38px;
-  margin-bottom: 5px;
-}
-
-.type-presentation-ressource-mediacentre {
-  text-transform: capitalize;
-}
-
-.footer-carte-ressource-mediacentre {
-  margin-top: auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: end;
-  font-size: smaller;
-}
-
-.nom-editeur-carte-ressource-mediacentre {
-  font-weight: bold;
-}
-
-.id-ressource-carte-ressource-mediacentre {
-  font-size: smaller;
-  color: #000;
-}
-
-.id-ressource-carte-ressource-mediacentre::before {
-  content: 'Ref : ';
-}
-
-.background-carte-ressource-mediacentre {
-  position: absolute;
+.resource-image {
   width: 100%;
   height: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  background-color: rgba(243, 243, 243, 1);
+  object-fit: contain;
+  object-position: center;
 }
 
-.texte-carte-ressource-mediacentre {
-  font-size: smaller;
+.info-icon {
+  width: 1.5em;
+  height: 1.5em;
+  color: black;
+}
+.resource-name {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0 0.5em;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 500;
+  position: relative;
+  max-width: 538px;
+
+  h5 {
+    color: black;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* Nombre de lignes à afficher */
+    -webkit-box-orient: vertical;
+    overflow: hidden; /* Cache le contenu qui dépasse */
+    text-overflow: ellipsis; /* Ajoute des points de suspension */
+  }
 }
 </style>
