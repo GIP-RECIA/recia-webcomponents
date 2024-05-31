@@ -6,8 +6,8 @@ const instance = axios.create({
   timeout: import.meta.env.VITE_AXIOS_TIMEOUT,
 });
 
-let token: string | undefined = undefined;
-let timeout: number | undefined = undefined;
+let token: string | undefined;
+let timeout: number | undefined;
 let renewToken: any;
 
 const init = async () => {
@@ -17,22 +17,22 @@ const init = async () => {
       decoded: { exp, iat },
     } = await getToken();
     token = `Bearer ${encoded}`;
-    timeout = (exp - iat) * 1000 * 0.75;
+    timeout = (exp - iat) * 750;
     renewToken = throttle(async () => {
       try {
         const { encoded } = await getToken();
         token = `Bearer ${encoded}`;
       } catch (e) {
-        // nothing to do
+        console.error('Something unexpected has occured while renewing the token', e);
       }
     }, timeout);
   } catch (e) {
-    // nothing to do
+    console.error('Something unexpected has occured while getting the token', e);
   }
 };
 
 instance.interceptors.request.use(async (config) => {
-  if (timeout == undefined) await init();
+  if (!timeout) await init();
   else await renewToken();
   config.headers['Authorization'] = token;
 
