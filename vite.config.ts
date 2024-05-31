@@ -14,9 +14,14 @@ export default ({ mode }: { mode: string }) => {
       vue({
         template: {
           compilerOptions: {
-            isCustomElement: (tag) => ['mediacentre-ui', 'page-mediacentre'
-              , 'menu-mediacentre', 'liste-ressources', 'carte-ressource'
-            ].includes(tag),
+            isCustomElement: (tag) =>
+              [
+                'mediacentre-ui',
+                'page-mediacentre',
+                'menu-mediacentre',
+                'liste-ressources',
+                'carte-ressource',
+              ].includes(tag),
           },
         },
       }),
@@ -37,9 +42,17 @@ export default ({ mode }: { mode: string }) => {
         entry: './src/main.ts',
         name: pkg.name,
       },
+      sourcemap: true,
     },
     define: {
       'process.env': process.env,
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@import "@/assets/scss/global.scss";`,
+        },
+      },
     },
   });
 };
