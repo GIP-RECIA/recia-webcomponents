@@ -1,4 +1,4 @@
 export type Filtre = {
-  id: number;
+  id: string;
   nom: string;
 };
