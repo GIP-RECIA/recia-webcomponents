@@ -8,6 +8,7 @@ const isModalOpen = ref(false);
 const resourceTitle = ref<string>('');
 const resourceEditor = ref<string>('');
 const resourceDescription = ref<string | undefined>();
+
 const props = defineProps<{
   filtre: String;
   ressources: Array<Ressource>;
@@ -33,7 +34,7 @@ const openModal = (event: CustomEvent): void => {
       :baseApiUrl="baseApiUrl"
       :userInfoApiUrl="userInfoApiUrl"
       @openModal="openModal"
-    />ss
+    />
     <resource-info-modal
       v-show="isModalOpen"
       @close="isModalOpen = false"

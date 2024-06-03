@@ -17,10 +17,7 @@ const activeCategory = ref('tout');
 onMounted(() => {});
 
 const changementFiltre = (idFiltre: string, idCategorie: string) => {
-  console.log('valeur du filtre sélectionné dans le menu : ', idFiltre);
-  console.log('clé du filtre sélectionné dans le menu : ', idCategorie);
   filtre.value = idFiltre;
-  console.log(filtre.value);
   if (idFiltre == 'tout' || idFiltre == 'favoris') {
     showSubCategories(idCategorie);
   }

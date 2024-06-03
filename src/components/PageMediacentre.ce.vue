@@ -57,8 +57,6 @@ const getFavoris = async (): Promise<void> => {
   chargement.value = true;
   try {
     let reponse = await getFavorites(props.baseApiUrl);
-    // ressources.value = reponse.data;
-    console.log('ressources favorites : ', ressources.value);
   } catch (error: any) {
     console.log(error);
   } finally {
@@ -97,10 +95,6 @@ const getResourcesByFilter = (filtre: string, idCategorie: string): void => {
   }
   chargement.value = false;
 };
-
-// watch(filteredResources, (newValue) => {
-//   console.log(newValue);
-// });
 
 const getFiltres = async (): Promise<void> => {
   chargement.value = true;
