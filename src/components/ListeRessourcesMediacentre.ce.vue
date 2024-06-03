@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import type { Ressource } from '@/types/RessourceType.ts';
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
-
+const isModalOpen = ref(false);
+const resourceTitle = ref<string>('');
+const resourceEditor = ref<string>('');
+const resourceDescription = ref<string | undefined>();
 const props = defineProps<{
   filtre: String;
   ressources: Array<Ressource>;
@@ -11,6 +15,13 @@ const props = defineProps<{
   baseApiUrl: string;
   userInfoApiUrl: string;
 }>();
+
+const openModal = (event: CustomEvent): void => {
+  isModalOpen.value = true;
+  resourceTitle.value = event.detail[0];
+  resourceEditor.value = event.detail[1];
+  resourceDescription.value = event.detail[2];
+};
 </script>
 
 <template>
@@ -21,6 +32,14 @@ const props = defineProps<{
       :ressource="ressource"
       :baseApiUrl="baseApiUrl"
       :userInfoApiUrl="userInfoApiUrl"
+      @openModal="openModal"
+    />ss
+    <resource-info-modal
+      v-show="isModalOpen"
+      @close="isModalOpen = false"
+      :title="resourceTitle"
+      :editor="resourceEditor"
+      :description="resourceDescription"
     />
   </div>
 

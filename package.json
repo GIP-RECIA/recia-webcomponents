@@ -73,6 +73,7 @@
     "@vue/eslint-config-typescript": "^13.0.0",
     "@vue/test-utils": "^2.4.5",
     "@vue/tsconfig": "^0.5.1",
+    "@vueuse/core": "^10.10.0",
     "axios": "^1.6.8",
     "dotenv": "^16.4.5",
     "dotenv-checker": "^1.1.5",

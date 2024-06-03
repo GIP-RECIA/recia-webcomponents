@@ -21,6 +21,7 @@ export default ({ mode }: { mode: string }) => {
                 'menu-mediacentre',
                 'liste-ressources',
                 'carte-ressource',
+                'resource-info-modal',
               ].includes(tag),
           },
         },

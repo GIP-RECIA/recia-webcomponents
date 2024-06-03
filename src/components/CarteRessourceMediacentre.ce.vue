@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ResourceInfoModal from './ResourceInfoModalMediacentre.ce.vue';
 import { addFavorite, removeFavorite } from '@/services/ServiceMediacentre.ts';
 import type { Ressource } from '@/types/RessourceType.ts';
 import { setUserInfoApiUrl } from '@/utils/soffitUtils.ts';
@@ -64,8 +65,12 @@ const retirerFavoris = async (idRessource: string) => {
         <h5>
           {{ ressource.nomRessource }}
         </h5>
-        <div class="icone-bouton-carte-ressource-mediacentre">
-          <button style="background: none; border: none">
+        <div>
+          <button
+            class="icone-bouton-carte-ressource-mediacentre"
+            @click.prevent="$emit('openModal', ressource.nomRessource, ressource.nomEditeur, ressource.description)"
+            style="background: none; border: none"
+          >
             <font-awesome-icon class="info-icon" :icon="['fas', 'circle-info']" />
           </button>
         </div>
