@@ -40,5 +40,5 @@ export type Ressource = {
 
   validateurTech: string;
 
-  description: string;
+  description?: string;
 };
