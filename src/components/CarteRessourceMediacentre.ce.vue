@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import ResourceInfoModal from './ResourceInfoModalMediacentre.ce.vue';
 import { addFavorite, removeFavorite } from '@/services/ServiceMediacentre.ts';
 import type { Ressource } from '@/types/RessourceType.ts';
-import { setUserInfoApiUrl } from '@/utils/soffitUtils.ts';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const i18n = useI18n();
@@ -12,13 +10,8 @@ const isFavorite = ref<boolean>(false);
 
 const props = defineProps<{
   ressource: Ressource;
-  userInfoApiUrl: string;
   baseApiUrl: string;
 }>();
-
-onMounted((): void => {
-  setUserInfoApiUrl(props.userInfoApiUrl);
-});
 
 const toggleFavoris = (): void => {
   if (isFavorite.value === false) {
