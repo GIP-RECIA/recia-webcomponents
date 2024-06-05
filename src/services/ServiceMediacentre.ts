@@ -1,6 +1,7 @@
 import { CustomError } from '@/utils/CustomError';
 import { instance } from '@/utils/axiosUtils.ts';
 import { getToken } from '@/utils/soffitUtils';
+import type { AxiosError } from 'axios';
 
 const getResources = async (baseApiUrl: string, groupsApiUrl: string) => {
   try {
@@ -8,7 +9,11 @@ const getResources = async (baseApiUrl: string, groupsApiUrl: string) => {
     const response = await instance.post(`${baseApiUrl}`, { isMemberOf: decoded.isMemberOf });
     return response;
   } catch (e: any) {
-    throw new CustomError(e.message, e.statusCode);
+    if (e.response) {
+      throw new CustomError(e.response.data.message, e.response.status);
+    } else {
+      throw new CustomError(e.message, e.statusCode);
+    }
   }
 };
 
