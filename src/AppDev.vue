@@ -1,9 +1,13 @@
 <script setup lang="ts">
-const { VITE_MEDIACENTRE_API_URL, VITE_USER_INFO_API_URI } = import.meta.env;
+const { VITE_MEDIACENTRE_API_URL, VITE_USER_INFO_API_URI, VITE_USER_RIGHTS_API_URI } = import.meta.env;
 </script>
 
 <template>
-  <mediacentre-ui :baseApiUrl="VITE_MEDIACENTRE_API_URL" :userInfoApiUrl="VITE_USER_INFO_API_URI" />
+  <mediacentre-ui
+    :baseApiUrl="VITE_MEDIACENTRE_API_URL"
+    :userInfoApiUrl="VITE_USER_INFO_API_URI"
+    :userRightsApiUrl="VITE_USER_RIGHTS_API_URI"
+  />
 </template>
 
 <style lang="scss">

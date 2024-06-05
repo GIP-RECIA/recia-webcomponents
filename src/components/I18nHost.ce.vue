@@ -7,9 +7,14 @@ provide(I18nInjectionKey, i18n);
 defineProps<{
   baseApiUrl: string;
   userInfoApiUrl: string;
+  userRightsApiUrl: string;
 }>();
 </script>
 
 <template>
-  <page-mediacentre :base-api-url="baseApiUrl" :user-info-api-url="userInfoApiUrl" />
+  <page-mediacentre
+    :base-api-url="baseApiUrl"
+    :user-info-api-url="userInfoApiUrl"
+    :user-rights-api-url="userRightsApiUrl"
+  />
 </template>
