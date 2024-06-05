@@ -1,20 +1,24 @@
+import { CustomError } from '@/utils/CustomError';
 import { instance } from '@/utils/axiosUtils.ts';
+import { getToken } from '@/utils/soffitUtils';
 
-const getResources = async (baseApiUrl: string) => {
-  const response = await instance.get(`${baseApiUrl}`);
-  console.log('ressources recuperées : ', response);
-  return response;
+const getResources = async (baseApiUrl: string, groupsApiUrl: string) => {
+  try {
+    const { decoded } = await getToken(groupsApiUrl);
+    const response = await instance.post(`${baseApiUrl}`, { isMemberOf: decoded.isMemberOf });
+    return response;
+  } catch (e: any) {
+    throw new CustomError(e.message, e.statusCode);
+  }
 };
 
 const getFilters = async (baseApiUrl: string) => {
   const response = await instance.get(`${baseApiUrl}/filters`);
-  console.log('les filtres reçu du back :', response);
   return response;
 };
 
 const getFavorites = async (baseApiUrl: string) => {
   const response = await instance.get(`${baseApiUrl}/favorites`);
-  console.log('ressources favorites recuperées : ', response);
   return response;
 };
 

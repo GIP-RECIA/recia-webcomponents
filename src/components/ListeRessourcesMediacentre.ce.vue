@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Ressource } from '@/types/RessourceType.ts';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
@@ -10,12 +10,17 @@ const resourceEditor = ref<string>('');
 const resourceDescription = ref<string | undefined>();
 
 const props = defineProps<{
-  filtre: String;
+  filtre: string;
   ressources: Array<Ressource>;
-  chargement: Boolean;
+  chargement: boolean;
   baseApiUrl: string;
   userInfoApiUrl: string;
+  erreur: string;
 }>();
+
+const isError = computed<boolean>(() => {
+  return props.erreur !== '';
+});
 
 const openModal = (event: CustomEvent): void => {
   isModalOpen.value = true;
@@ -45,7 +50,8 @@ const openModal = (event: CustomEvent): void => {
   </div>
 
   <div class="cadre-liste-ressources-mediacentre" v-else>
-    <p>{{ t('liste-ressources-mediacentre.no-resources') }}</p>
+    <p v-if="isError">{{ erreur }}</p>
+    <p v-else>{{ t('liste-ressources-mediacentre.no-resources') }}</p>
   </div>
 </template>
 

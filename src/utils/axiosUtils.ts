@@ -1,52 +1,48 @@
+import { CustomError } from './CustomError.ts';
 import { getToken } from './soffitUtils.ts';
 import axios from 'axios';
-import throttle from 'lodash.throttle';
+
+const isDev: boolean = import.meta.env.DEV;
 
 const instance = axios.create({
   timeout: import.meta.env.VITE_AXIOS_TIMEOUT,
 });
 
 let token: string | undefined;
-let timeout: number | undefined;
-let renewToken: any;
 
-const init = async () => {
+const initToken = async (apiUrl: string): Promise<void> => {
   try {
     const {
       encoded,
-      decoded: { exp, iat },
-    } = await getToken();
+      decoded: { exp, iat, sub },
+    } = await getToken(apiUrl);
     token = `Bearer ${encoded}`;
-    timeout = (exp - iat) * 750;
-    renewToken = throttle(async () => {
+    const timeout = (exp - iat) * 1000 * 0.75;
+
+    // relance la methode a interval regulier
+    setInterval(async () => {
       try {
-        const { encoded } = await getToken();
+        const {
+          encoded,
+          decoded: { sub },
+        } = await getToken(apiUrl);
         token = `Bearer ${encoded}`;
-      } catch (e) {
-        console.error('Something unexpected has occured while renewing the token', e);
+
+        // vite detecte l'env
+        if (isDev) console.debug('Token has been renewed');
+      } catch (es: any) {
+        console.error('Unable to renew token', es);
+        throw new CustomError(es.message, es.statusCode);
       }
     }, timeout);
-  } catch (e) {
-    console.error('Something unexpected has occured while getting the token', e);
+  } catch (e: any) {
+    throw new CustomError(e.message, e.statusCode);
   }
 };
 
 instance.interceptors.request.use(async (config) => {
-  if (!timeout) await init();
-  else await renewToken();
   config.headers['Authorization'] = token;
-
   return config;
 });
 
-const errorHandler = (e: any): void => {
-  if (axios.isAxiosError(e)) {
-    console.error(e.message);
-  } else if (e instanceof Error) {
-    console.error(e.message);
-  } else {
-    console.error(e);
-  }
-};
-
-export { instance, errorHandler };
+export { instance, initToken };
