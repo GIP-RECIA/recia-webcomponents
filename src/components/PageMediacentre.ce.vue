@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { getFavorites, getFilters, getResources } from '../services/ServiceMediacentre.ts';
-import { setUserInfoApiUrl } from '../utils/soffitUtils.ts';
+import { setError } from '@/services/ServiceErreurMediacentre.ts';
 import { getFilters as filtrage } from '@/services/ServiceFiltreMediacentre.ts';
 import type { Filtres } from '@/types/FiltresType.ts';
 // import { addFavorite, removeFavorite } from '../services/ServiceMediacentreTest.ts';
 import type { Ressource } from '@/types/RessourceType.ts';
+import { initToken } from '@/utils/axiosUtils.ts';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
@@ -16,30 +17,38 @@ const filtres = ref<Array<Filtres>>([]);
 const chargement = ref<boolean>(false);
 const chargementApp = ref<boolean>(false);
 const filteredResources = ref<Array<Ressource>>([]);
+const erreur = ref<string>('');
+
 const props = defineProps<{
   baseApiUrl: string;
   userInfoApiUrl: string;
+  userRightsApiUrl: string;
 }>();
 
 onMounted(async (): Promise<void> => {
-  setUserInfoApiUrl(props.userInfoApiUrl);
-  await getRessources();
-  await getFiltres();
-  getResourcesByFilter(filtre.value, '');
+  try {
+    chargementApp.value = true;
+    await initToken(props.userInfoApiUrl);
+    await getRessources();
+    await getFiltres();
+    getResourcesByFilter(filtre.value, '');
+    chargementApp.value = false;
+  } catch (e: any) {
+    chargementApp.value = false;
+    erreur.value = setError(e.statusCode);
+  }
 });
 
 const getRessources = async (): Promise<void> => {
   chargement.value = true;
   try {
-    let reponse = await getResources(props.baseApiUrl);
+    let reponse = await getResources(props.baseApiUrl, props.userRightsApiUrl);
     ressources.value = reponse.data;
   } catch (error: any) {
-    console.log(error);
+    chargement.value = false;
+    throw error;
   } finally {
     chargement.value = false;
-    if (chargementApp.value == false) {
-      chargementApp.value = true;
-    }
   }
 };
 
@@ -58,7 +67,7 @@ const getFavoris = async (): Promise<void> => {
   try {
     let reponse = await getFavorites(props.baseApiUrl);
   } catch (error: any) {
-    console.log(error);
+    console.error(error);
   } finally {
     chargement.value = false;
   }
@@ -91,7 +100,7 @@ const getResourcesByFilter = (filtre: string, idCategorie: string): void => {
         break;
     }
   } catch (error: any) {
-    console.log(error);
+    console.error(error);
   }
   chargement.value = false;
 };
@@ -102,7 +111,7 @@ const getFiltres = async (): Promise<void> => {
     let reponse = await getFilters(props.baseApiUrl);
     filtres.value = filtrage(ressources.value, reponse.data);
   } catch (error: any) {
-    console.log(error);
+    console.error(error);
   } finally {
     chargement.value = false;
   }
@@ -110,7 +119,7 @@ const getFiltres = async (): Promise<void> => {
 </script>
 
 <template>
-  <div v-if="!chargementApp" class="spinner-container">
+  <div v-if="chargementApp" class="spinner-container">
     <div class="spinner-element">
       <font-awesome-icon icon="fa-solid fa-circle-notch" class="fa-spinner" />
     </div>
@@ -129,6 +138,7 @@ const getFiltres = async (): Promise<void> => {
           :chargement="chargement"
           :baseApiUrl="baseApiUrl"
           :userInfoApiUrl="userInfoApiUrl"
+          :erreur="erreur"
         />
       </main>
     </div>
@@ -197,3 +207,4 @@ const getFiltres = async (): Promise<void> => {
   }
 }
 </style>
+import { HttpStatusCode } from 'axios';
