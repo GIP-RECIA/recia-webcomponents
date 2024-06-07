@@ -45,7 +45,7 @@ export type Ressource = {
   isFavorite: boolean;
 };
 
-export function createRessourceFromJson(jsonData: any): Ressource {
+export function createResourceFromJson(jsonData: any): Ressource {
   return {
     ...jsonData,
     isFavorite: jsonData.isFavorite ?? false,
