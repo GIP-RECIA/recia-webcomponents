@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Filtres } from '@/types/FiltresType';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { capitalize, defineEmits, onMounted, ref } from 'vue';
+import { capitalize, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps<{
@@ -11,17 +11,15 @@ const props = defineProps<{
 
 const { t } = useI18n();
 const filtre = ref(props.checked || '');
-const emit = defineEmits(['update-checked']);
 const activeCategory = ref('tout');
 
-onMounted(() => {});
+const emit = defineEmits(['update-checked']);
 
 const changementFiltre = (idFiltre: string, idCategorie: string) => {
   filtre.value = idFiltre;
   if (idFiltre == 'tout' || idFiltre == 'favoris') {
     showSubCategories(idCategorie);
   }
-
   emit('update-checked', idFiltre, idCategorie);
 };
 

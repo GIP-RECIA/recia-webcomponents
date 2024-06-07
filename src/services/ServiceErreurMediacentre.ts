@@ -1,6 +1,7 @@
 import i18n from '@/plugins/i18n.ts';
 
 const { t } = i18n.global;
+
 const setError = (statusCode: number) => {
   let errorMessage;
   switch (statusCode) {
@@ -20,8 +21,6 @@ const setError = (statusCode: number) => {
       errorMessage = 'error-messages.400';
       break;
   }
-  console.log(errorMessage);
-  console.log(t(errorMessage));
   return t(errorMessage);
 };
 
