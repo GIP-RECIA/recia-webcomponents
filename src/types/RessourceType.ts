@@ -41,4 +41,13 @@ export type Ressource = {
   validateurTech: string;
 
   description?: string;
+
+  isFavorite: boolean;
 };
+
+export function createRessourceFromJson(jsonData: any): Ressource {
+  return {
+    ...jsonData,
+    isFavorite: jsonData.isFavorite ?? false,
+  };
+}
