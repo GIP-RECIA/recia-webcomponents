@@ -1,4 +1,3 @@
-
 # mediacentre-ui
 
 - [mediacentre-ui](#mediacentre-ui)
@@ -40,18 +39,17 @@ document.body.appendChild(component);
 
 Propriétés disponibles :
 
-| Nom                 |   Type   | Obligatoire | Default | Description                                |
-| ------------------- | :------: | :---------: | :-----: | ------------------------------------------ |
-| `base-api-url`      | `string` |    `oui`    |         | URL de l'API REST                          |
-| `user-info-api-url` | `string` |    `oui`    |         | URL de l'API des informations utilisateurs |
+| Nom                               |   Type   | Obligatoire | Default | Description                                                              |
+| --------------------------------- | :------: | :---------: | :-----: | ------------------------------------------------------------------------ |
+| `base-api-url`                    | `string` |    `oui`    |         | URL de l'API REST MediaCentre                                            |
+| `user-info-api-url`               | `string` |    `oui`    |         | URL de l'API des informations utilisateurs                               |
+| `user-rights-api-url`             | `string` |    `oui`    |         | URL de l'API des droits utilisateurs                                     |
+| `user-resource-favorites-api-url` | `string` |    `oui`    |         | URL de l'API des preferences utilisateurs (ici les ressources favorites) |
 
 <br/>
 
 ```html
-<mediacentre-ui
-  base-api-url=""
-  user-info-api-url=""
-/>
+<mediacentre-ui base-api-url="" user-info-api-url="" user-rights-api-url="" user-resource-favorites-api-url="" />
 ```
 
 ## Variables CSS
@@ -60,6 +58,6 @@ Propriétés disponibles :
 
 Plusieurs variables CSS peuvent être définis pour personnaliser le webcomponent :
 
-| Nom | Description |
-| --- | ----------- |
-| ``  |             |
+| Nom                            | Description                                  |
+| ------------------------------ | -------------------------------------------- |
+| `ui-mediacentre-primary-color` | couleur associée au domaine de l'utilisateur |
