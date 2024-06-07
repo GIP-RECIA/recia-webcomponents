@@ -4,10 +4,12 @@ import { provide } from 'vue';
 import { I18nInjectionKey } from 'vue-i18n';
 
 provide(I18nInjectionKey, i18n);
+
 defineProps<{
   baseApiUrl: string;
   userInfoApiUrl: string;
   userRightsApiUrl: string;
+  userResourceFavoritesApiUrl: string;
 }>();
 </script>
 
@@ -16,5 +18,6 @@ defineProps<{
     :base-api-url="baseApiUrl"
     :user-info-api-url="userInfoApiUrl"
     :user-rights-api-url="userRightsApiUrl"
+    :user-resource-favorites-api-url="userResourceFavoritesApiUrl"
   />
 </template>

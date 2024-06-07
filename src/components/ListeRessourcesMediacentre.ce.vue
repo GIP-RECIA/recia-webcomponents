@@ -9,6 +9,8 @@ const resourceTitle = ref<string>('');
 const resourceEditor = ref<string>('');
 const resourceDescription = ref<string | undefined>();
 
+const emit = defineEmits(['update-favorite']);
+
 const props = defineProps<{
   filtre: string;
   ressources: Array<Ressource>;
@@ -28,17 +30,26 @@ const openModal = (event: CustomEvent): void => {
   resourceEditor.value = event.detail[1];
   resourceDescription.value = event.detail[2];
 };
+
+const sendUpdateFavorite = (event: CustomEvent) => {
+  const idResource = event.detail[0];
+  const isFavorite = event.detail[1];
+  emit('update-favorite', idResource, isFavorite);
+};
 </script>
 
 <template>
   <div class="cadre-liste-ressources-mediacentre" v-if="ressources.length > 0">
     <carte-ressource
       v-for="ressource in ressources"
+      v-show="filtre != 'favoris' || ressource.isFavorite != false"
       :key="ressource.idRessource"
       :ressource="ressource"
       :baseApiUrl="baseApiUrl"
       :userInfoApiUrl="userInfoApiUrl"
       @openModal="openModal"
+      @updateFav="sendUpdateFavorite"
+      :filtre="filtre"
     />
     <resource-info-modal
       v-show="isModalOpen"

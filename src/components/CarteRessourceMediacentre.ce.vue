@@ -2,41 +2,20 @@
 import { addFavorite, removeFavorite } from '@/services/ServiceMediacentre.ts';
 import type { Ressource } from '@/types/RessourceType.ts';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const i18n = useI18n();
-const isFavorite = ref<boolean>(false);
 
 const props = defineProps<{
   ressource: Ressource;
   baseApiUrl: string;
+  filtre: string;
 }>();
 
+const emit = defineEmits(['updateFav', 'openModal']);
+
 const toggleFavoris = (): void => {
-  if (isFavorite.value === false) {
-    isFavorite.value = true;
-    ajouterFavoris(props.ressource.idRessource);
-  } else {
-    isFavorite.value = false;
-    retirerFavoris(props.ressource.idRessource);
-  }
-};
-
-const ajouterFavoris = async (idRessource: string) => {
-  try {
-    await addFavorite(props.baseApiUrl, idRessource);
-  } catch (error: any) {
-    console.log(error);
-  }
-};
-
-const retirerFavoris = async (idRessource: string) => {
-  try {
-    await removeFavorite(props.baseApiUrl, idRessource);
-  } catch (error: any) {
-    console.log(error);
-  }
+  emit('updateFav', props.ressource.idRessource, props.ressource.isFavorite == false || undefined ? true : false);
 };
 </script>
 
@@ -48,7 +27,7 @@ const retirerFavoris = async (idRessource: string) => {
           <button class="icone-bouton-carte-ressource-mediacentre" @click.prevent="toggleFavoris">
             <font-awesome-icon
               class="icone-favorite-carte-ressource-mediacentre"
-              :icon="[isFavorite ? 'fas' : 'far', 'star']"
+              :icon="[ressource.isFavorite ? 'fas' : 'far', 'star']"
             />
           </button>
         </div>

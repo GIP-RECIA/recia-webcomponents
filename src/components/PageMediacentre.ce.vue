@@ -1,41 +1,56 @@
 <script setup lang="ts">
-import { getFavorites, getFilters, getResources } from '../services/ServiceMediacentre.ts';
+import {
+  addFavorite,
+  getFavorites,
+  getFilters,
+  getResources,
+  initFav,
+  removeFavorite,
+} from '../services/ServiceMediacentre.ts';
 import { setError } from '@/services/ServiceErreurMediacentre.ts';
 import { getFilters as filtrage } from '@/services/ServiceFiltreMediacentre.ts';
 import type { Filtres } from '@/types/FiltresType.ts';
 // import { addFavorite, removeFavorite } from '../services/ServiceMediacentreTest.ts';
-import type { Ressource } from '@/types/RessourceType.ts';
+import { type Ressource, createResourceFromJson } from '@/types/RessourceType.ts';
 import { initToken } from '@/utils/axiosUtils.ts';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
+
 const filtre = ref('tout');
-const ressources = ref<Array<Ressource>>([]);
 const filtres = ref<Array<Filtres>>([]);
+const ressources = ref<Array<Ressource>>([]);
+const filteredResources = ref<Array<Ressource>>([]);
+
 const chargement = ref<boolean>(false);
 const chargementApp = ref<boolean>(false);
-const filteredResources = ref<Array<Ressource>>([]);
+
 const erreur = ref<string>('');
 
 const props = defineProps<{
   baseApiUrl: string;
   userInfoApiUrl: string;
   userRightsApiUrl: string;
+  userResourceFavoritesApiUrl: string;
 }>();
 
 onMounted(async (): Promise<void> => {
   try {
     chargementApp.value = true;
+
     await initToken(props.userInfoApiUrl);
+    initFav();
     await getRessources();
+    await setFavoris();
     await getFiltres();
+
     getResourcesByFilter(filtre.value, '');
-    chargementApp.value = false;
   } catch (e: any) {
-    chargementApp.value = false;
     erreur.value = setError(e.statusCode);
+  } finally {
+    chargementApp.value = false;
   }
 });
 
@@ -43,10 +58,11 @@ const getRessources = async (): Promise<void> => {
   chargement.value = true;
   try {
     let reponse = await getResources(props.baseApiUrl, props.userRightsApiUrl);
-    ressources.value = reponse.data;
-  } catch (error: any) {
-    chargement.value = false;
-    throw error;
+    const res = reponse.data;
+
+    ressources.value = res.map(createResourceFromJson);
+  } catch (e: any) {
+    console.error(e);
   } finally {
     chargement.value = false;
   }
@@ -62,10 +78,43 @@ const updateFiltre = (value: CustomEvent): void => {
   }
 };
 
+const setFavoris = async (): Promise<void> => {
+  try {
+    const idResourceFavorites: Array<string> = await getFavorites(props.userResourceFavoritesApiUrl);
+
+    const resourceFavorites = ressources.value.filter((res) => idResourceFavorites.includes(res.idRessource));
+
+    resourceFavorites.forEach((res) => (res.isFavorite = true));
+  } catch (e: any) {
+    console.error(e);
+  }
+};
+
+const updateFavori = (event: CustomEvent) => {
+  const idResource = event.detail[0];
+  const isFavorite = event.detail[1];
+
+  const resourceFavorite = ressources.value.find((res) => res.idRessource == idResource);
+  resourceFavorite!.isFavorite = isFavorite;
+  try {
+    if (isFavorite) {
+      addFavorite(props.userResourceFavoritesApiUrl, idResource);
+    } else {
+      removeFavorite(props.userResourceFavoritesApiUrl, idResource);
+    }
+  } catch (e: any) {
+    console.error(e);
+  }
+};
+
 const getFavoris = async (): Promise<void> => {
   chargement.value = true;
   try {
-    let reponse = await getFavorites(props.baseApiUrl);
+    const idResourceFavorites: Array<string> = await getFavorites(props.userResourceFavoritesApiUrl);
+    filteredResources.value = ressources.value.filter((ressource) =>
+      idResourceFavorites.includes(ressource.idRessource),
+    );
+    filteredResources.value.forEach((res) => (res.isFavorite = true));
   } catch (error: any) {
     console.error(error);
   } finally {
@@ -101,8 +150,9 @@ const getResourcesByFilter = (filtre: string, idCategorie: string): void => {
     }
   } catch (error: any) {
     console.error(error);
+  } finally {
+    chargement.value = false;
   }
-  chargement.value = false;
 };
 
 const getFiltres = async (): Promise<void> => {
@@ -139,6 +189,7 @@ const getFiltres = async (): Promise<void> => {
           :baseApiUrl="baseApiUrl"
           :userInfoApiUrl="userInfoApiUrl"
           :erreur="erreur"
+          @update-favorite="updateFavori"
         />
       </main>
     </div>
