@@ -68,26 +68,29 @@ const sendUpdateFavorite = (event: CustomEvent) => {
 
 <style>
 .cadre-liste-ressources-mediacentre {
-  min-width: fit-content;
-  max-width: 100%;
-  max-height: calc(100vh - 6em);
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  grid-template-rows: auto auto 1fr 1fr 1fr auto auto;
-  gap: 3em;
-  row-gap: 1em;
-  align-items: center;
-  justify-content: center;
-  justify-items: center;
-  padding: 2em 4em;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-rows: 1fr;
+  grid-gap: 3em;
   overflow-y: scroll;
+  padding: 0.5em 0.5em 1.5em 1em;
+  margin-left: 3em;
+  height: auto;
+  box-sizing: border-box;
+  max-height: 100%;
 }
 
-@media (max-height: 770px) {
+@media only screen and (max-width: 770px) {
   .cadre-liste-ressources-mediacentre {
-    height: auto;
-    width: auto;
-    margin-bottom: 3em;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    overflow-y: scroll;
   }
 }
 </style>

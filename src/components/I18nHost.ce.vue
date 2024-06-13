@@ -21,3 +21,11 @@ defineProps<{
     :user-resource-favorites-api-url="userResourceFavoritesApiUrl"
   />
 </template>
+
+<style>
+page-mediacentre {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+</style>

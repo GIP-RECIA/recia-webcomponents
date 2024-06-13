@@ -24,15 +24,19 @@ const changementFiltre = (idFiltre: string, idCategorie: string) => {
 };
 
 const showSubCategories = (idCategory: string): void => {
-  activeCategory.value = idCategory;
+  if (idCategory !== 'tout' && idCategory !== 'favoris' && activeCategory.value == idCategory) {
+    activeCategory.value = '';
+  } else {
+    activeCategory.value = idCategory;
+  }
 };
 </script>
 
 <template>
   <div class="cadre-menu-mediacentre">
-    <h2 class="titre-menu-mediacentre menu-toggle" id="menu-titre">
-      {{ t('menu-mediacentre.title').toUpperCase() }}
-    </h2>
+    <button class="titre-menu-mediacentre menu-toggle" id="menu-titre">
+      <h1>{{ t('menu-mediacentre.title').toUpperCase() }}</h1>
+    </button>
     <div class="categories-container">
       <button
         active
@@ -42,9 +46,7 @@ const showSubCategories = (idCategory: string): void => {
         value="tout"
         @click="changementFiltre('tout', 'tout')"
       >
-        <span>
-          <h3>{{ capitalize(t('menu-mediacentre.all-resources')) }}</h3>
-        </span>
+        <h3>{{ capitalize(t('menu-mediacentre.all-resources')) }}</h3>
       </button>
 
       <button
@@ -54,12 +56,10 @@ const showSubCategories = (idCategory: string): void => {
         value="favoris"
         @click="changementFiltre('favoris', 'favoris')"
       >
-        <span>
-          <h3>{{ capitalize(t('menu-mediacentre.my-favorites')) }}</h3>
-        </span>
+        <h3>{{ capitalize(t('menu-mediacentre.my-favorites')) }}</h3>
       </button>
 
-      <div v-for="(category, index) in filtres" :key="index" :id="category.filterEnum" style="height: 100%">
+      <div v-for="(category, index) in filtres" :key="index" :id="category.filterEnum" class="test">
         <button
           class="sub-categories-container"
           :class="[activeCategory == category.name ? 'active' : '']"
@@ -89,17 +89,15 @@ const showSubCategories = (idCategory: string): void => {
 
 <style lang="scss">
 .cadre-menu-mediacentre {
-  max-height: 70%;
-  text-align: left;
-  margin-left: 5vh;
-  background-color: #f3f3f3;
+  max-height: 100%;
+  text-align: center;
+  background-color: #ffffff;
   width: min-content;
   border-radius: 1em;
-
+  box-shadow: 0px 10px 15px -7px rgba(0, 0, 0, 0.1);
   overflow-y: hidden;
-  box-shadow:
-    13px 13px 39px #c1c1c1,
-    13px 13px 39px #ffffff;
+  display: flex;
+  flex-direction: column;
 
   & :only-child {
     box-sizing: border-box;
@@ -112,34 +110,44 @@ const showSubCategories = (idCategory: string): void => {
   font-weight: bold;
   padding: 1em;
   margin: 0;
+  border: none;
+  background-color: #ffffff;
+  flex-shrink: 0;
 }
 
 .sub-categories-container {
   display: flex;
   flex-direction: row;
   align-items: center;
+  text-align: center;
   justify-content: space-between;
-  background-color: #f3f3f3;
+  background-color: #ffffff;
   width: 100%;
   padding: 0 1em;
   border-radius: 0.7em;
   border: none;
+  border-top: 0.7em solid transparent;
   color: black;
+  flex-shrink: 0;
   &:hover {
-    background-color: #ccc;
+    background-color: #f3f3f3;
     cursor: pointer;
   }
   &.active {
-    border-top: 0.7em solid $ui-mediacentre-primary-color;
+    border-color: $ui-mediacentre-primary-color;
     border-radius: 0.5em 0.5em 0 0;
-    background-color: #f3f3f3;
-    cursor: none;
+    background-color: #ffffff;
 
     .caret-menu-icon {
       transform: rotate(90deg);
       transition: transform 0.3s ease;
     }
   }
+}
+
+.without-sub-cat {
+  padding-left: 1em;
+  justify-content: start;
 }
 
 .caret-menu-icon {
@@ -149,7 +157,7 @@ const showSubCategories = (idCategory: string): void => {
 }
 
 .sub-category-container {
-  background-color: #f3f3f3;
+  background-color: #ffffff;
   width: 100%;
   border-collapse: collapse;
   border: none;
@@ -157,12 +165,12 @@ const showSubCategories = (idCategory: string): void => {
   color: black;
   border-radius: 0.7em;
   &:hover {
-    background-color: #e2e2e2;
+    background-color: #f3f3f3;
     cursor: pointer;
   }
   &.active {
-    background-color: #ebebeb;
-    border: 0.1em solid #e5e5e5d8;
+    background-color: #f8f8f8;
+    border: 0.1em solid rgba(#f8f8f8, 0.5);
     color: black;
   }
 }
@@ -171,22 +179,28 @@ const showSubCategories = (idCategory: string): void => {
   padding: 0;
   max-height: 0;
   visibility: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
   transition:
-    max-height 0.3s ease,
-    visibility 0.3s ease;
+    max-height 0s ease,
+    visibility 0.1s ease;
+
+  flex-grow: 1;
 
   &.active {
-    max-height: 60vh;
+    max-height: 60%;
     visibility: visible;
     transition:
-      max-height 0.5s ease,
+      max-height 0.3s ease,
       visibility 0.3s ease;
   }
 }
 
 .categories-container {
   border-collapse: collapse;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
 }
 
 @media (max-width: 770px) {

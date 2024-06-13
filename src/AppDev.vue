@@ -30,8 +30,14 @@ body {
 
 #app {
   height: 100%;
+  width: 100%;
 }
 
+mediacentre-ui {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
 /* Variables */
 :root {
   background-color: #ffffff;

@@ -20,32 +20,31 @@ const toggleFavoris = (): void => {
 </script>
 
 <template>
-  <a :href="ressource.urlAccesRessource" target="_blank">
-    <div class="cadre-carte-ressource-mediacentre">
-      <div class="background-carte-ressource-mediacentre">
-        <div class="action-zone-carte-ressource-mediacentre">
-          <button class="icone-bouton-carte-ressource-mediacentre" @click.prevent="toggleFavoris">
-            <font-awesome-icon
-              class="icone-favorite-carte-ressource-mediacentre"
-              :icon="[ressource.isFavorite ? 'fas' : 'far', 'star']"
-            />
-          </button>
-        </div>
-        <img class="resource-image" :src="props.ressource.urlVignette" :alt="ressource.nomRessource" />
+  <a :href="ressource.urlAccesRessource" target="_blank" class="cadre-carte-ressource-mediacentre">
+    <div class="background-carte-ressource-mediacentre">
+      <div class="action-zone-carte-ressource-mediacentre">
+        <button class="icone-bouton-carte-ressource-mediacentre" @click.prevent="toggleFavoris">
+          <font-awesome-icon
+            class="icone-favorite-carte-ressource-mediacentre"
+            :icon="[ressource.isFavorite ? 'fas' : 'far', 'star']"
+            :class="ressource.isFavorite ? 'fav' : 'noFav'"
+          />
+        </button>
       </div>
-      <div class="resource-name">
-        <h5>
-          {{ ressource.nomRessource }}
-        </h5>
-        <div>
-          <button
-            class="icone-bouton-carte-ressource-mediacentre"
-            @click.prevent="$emit('openModal', ressource.nomRessource, ressource.nomEditeur, ressource.description)"
-            style="background: none; border: none"
-          >
-            <font-awesome-icon class="info-icon" :icon="['fas', 'circle-info']" />
-          </button>
-        </div>
+      <img class="resource-image" :src="props.ressource.urlVignette" :alt="ressource.nomRessource" />
+    </div>
+    <div class="resource-name">
+      <h5>
+        {{ ressource.nomRessource }}
+      </h5>
+      <div>
+        <button
+          class="icone-bouton-carte-ressource-mediacentre"
+          @click.prevent="$emit('openModal', ressource.nomRessource, ressource.nomEditeur, ressource.description)"
+          style="background: none; border: none"
+        >
+          <font-awesome-icon class="info-icon" :icon="['fas', 'circle-info']" />
+        </button>
       </div>
     </div>
   </a>
@@ -60,25 +59,20 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 30%;
-  max-width: 538px;
-  min-width: 260px;
+  width: 250px;
   height: 250px;
-  margin: 20px 12px 20px 12px;
   overflow: hidden;
   cursor: pointer;
   border-radius: 15px;
   border-top: 0.9em solid $ui-mediacentre-primary-color;
-  box-shadow:
-    13px 13px 39px #c1c1c1,
-    -13px -13px 39px #ffffff;
   background-color: #ffffff;
+  box-shadow:
+    0px 0px 28px -8px rgba(0, 0, 0, 0.1),
+    100px 100px 100px -100px rgba(0, 0, 0, 0.1);
 }
 
 .background-carte-ressource-mediacentre {
   position: relative;
-  width: 90%;
-  height: 90%;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -86,17 +80,16 @@ a {
   background-color: rgb(255, 255, 255);
   overflow: hidden;
   padding: 1em;
+  height: inherit;
 }
 
 .action-zone-carte-ressource-mediacentre {
   position: absolute;
-  width: 90%;
-  height: 48px;
-  line-height: 48px;
   z-index: 1;
   display: flex;
   flex-direction: row;
-  justify-content: right;
+  justify-content: end;
+  width: calc(100% - 1.5em);
 }
 
 .icone-bouton-carte-ressource-mediacentre {
@@ -106,6 +99,7 @@ a {
   border: none;
   height: fit-content;
   width: fit-content;
+
   color: #b4b4b4;
   padding: 0;
   cursor: pointer;
@@ -120,6 +114,7 @@ a {
   width: 48px;
   padding: 0;
   cursor: pointer;
+  transform: opacity 150ms;
 }
 .icone-favorite-carte-ressource-mediacentre {
   width: 1.8em;
@@ -141,7 +136,7 @@ a {
 .info-icon {
   width: 1.5em;
   height: 1.5em;
-  color: black;
+  color: #b4b4b4;
 }
 .resource-name {
   display: flex;
@@ -158,10 +153,11 @@ a {
 
   h5 {
     color: black;
+    font-size: 0.9em;
     display: -webkit-box;
     -webkit-line-clamp: 1; /* Nombre de lignes à afficher */
     -webkit-box-orient: vertical;
-    overflow: hidden; /* Cache le contenu qui dépasse */
+    overflow: hidden;
     text-overflow: ellipsis; /* Ajoute des points de suspension */
   }
 }

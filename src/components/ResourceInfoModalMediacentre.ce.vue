@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { onClickOutside } from '@vueuse/core';
-import { defineEmits, defineProps, ref } from 'vue';
+import { ref } from 'vue';
 
 const emit = defineEmits(['close']);
 
@@ -23,6 +23,7 @@ const closeModal = () => {
   <div class="modal">
     <div class="modal-content" ref="target">
       <div class="modal-header">
+        <span>{{ title.toUpperCase() }}</span>
         <div class="close-button-container">
           <button class="close-button" @click="closeModal()">
             <font-awesome-icon :icon="['fas', 'xmark']" />
@@ -30,23 +31,9 @@ const closeModal = () => {
         </div>
       </div>
       <div class="modal-body">
-        <div class="info-row-container center">
-          <h1 class="title">Informations de la ressource</h1>
-          <font-awesome-icon class="info-icon" :icon="['fas', 'circle-info']" style="width: 1.5em; height: 1.5em" />
-        </div>
-        <div class="info-row-container info">
-          <div class="info-column-container">
-            <h3 class="key">Titre :</h3>
-            <span>{{ title }}</span>
-          </div>
-          <div class="info-column-container">
-            <h3 class="key">Editeur :</h3>
-            <span>{{ editor }}</span>
-          </div>
-        </div>
-        <div v-if="description">
-          <h3 class="key">Description :</h3>
-          <span>{{ description }}</span>
+        <span>Distribué par {{ editor }}</span>
+        <div v-if="description" class="description">
+          {{ description }}
         </div>
       </div>
     </div>
@@ -65,16 +52,27 @@ ss
   align-items: center;
   justify-content: center;
   z-index: 1;
-
-  background-color: #5a5a5abe;
+  animation: fadein 250ms;
+  background-color: #a0a0a06b;
 }
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .modal-content {
   position: relative;
   max-width: 600px;
   width: 100%;
+  height: auto;
   padding: spacing(4);
   margin: 0;
-
+  overflow: hidden;
   background-color: #ffffff;
   border-radius: 0.7em;
 }
@@ -82,16 +80,27 @@ ss
 .modal-header {
   display: flex;
   flex-direction: row;
-  justify-content: right;
+  justify-content: space-between;
+  padding: 1.5em 1.5em 0.9em 1.5em;
+  color: #212121;
+  background-color: #7573750d;
+  font-weight: bold;
+  font-size: 1.1em;
 }
 
 .modal-body {
-  padding: 0 1em 1em 1em;
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+
+  & span {
+    font-size: 1em;
+  }
 }
 
 .close-button-container {
   justify-content: center;
-  padding: 0.5em;
   width: fit-content;
   height: fit-content;
 }
@@ -104,6 +113,14 @@ ss
   & svg {
     width: 1.5em;
     height: 1.5em;
+    color: #757375;
+    -webkit-transition: color 0.5s;
+    transition: color 0.5s;
+
+    &:hover {
+      cursor: pointer;
+      color: #212121;
+    }
   }
 }
 .title {
@@ -112,30 +129,7 @@ ss
   margin: 0;
 }
 
-.key {
-  font-size: 1.2em;
-  margin: 0;
-}
-
-.info-column-container {
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-}
-
-.info-row-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 2em;
-
-  &.center {
-    justify-content: center;
-  }
-
-  &.info {
-    justify-content: space-around;
-    padding: 0.5em;
-  }
+.description {
+  text-align: justify;
 }
 </style>

@@ -174,25 +174,23 @@ const getFiltres = async (): Promise<void> => {
       <font-awesome-icon icon="fa-solid fa-circle-notch" class="fa-spinner" />
     </div>
   </div>
-  <div v-else>
-    <div class="cadre-page-mediacentre">
-      <aside class="aside-page-mediacentre">
-        <menu-mediacentre :filtres="filtres" :checked="filtre" @update-checked="updateFiltre" />
-      </aside>
+  <div v-else class="cadre-page-mediacentre">
+    <aside class="aside-page-mediacentre">
+      <menu-mediacentre :filtres="filtres" :checked="filtre" @update-checked="updateFiltre" />
+    </aside>
 
-      <main class="main-page-mediacentre">
-        <liste-ressources
-          v-if="!chargement"
-          :filtre="filtre"
-          :ressources="filteredResources"
-          :chargement="chargement"
-          :baseApiUrl="baseApiUrl"
-          :userInfoApiUrl="userInfoApiUrl"
-          :erreur="erreur"
-          @update-favorite="updateFavori"
-        />
-      </main>
-    </div>
+    <main class="main-page-mediacentre">
+      <liste-ressources
+        v-if="!chargement"
+        :filtre="filtre"
+        :ressources="filteredResources"
+        :chargement="chargement"
+        :baseApiUrl="baseApiUrl"
+        :userInfoApiUrl="userInfoApiUrl"
+        :erreur="erreur"
+        @update-favorite="updateFavori"
+      />
+    </main>
   </div>
 </template>
 
@@ -200,9 +198,10 @@ const getFiltres = async (): Promise<void> => {
 .cadre-page-mediacentre {
   display: flex;
   flex-direction: row;
-  gap: 3vh;
+  row-gap: 2em;
   height: 100%;
   width: 100%;
+  padding: 1em 2em;
 }
 .spinner-container {
   display: flex;
@@ -228,33 +227,41 @@ const getFiltres = async (): Promise<void> => {
 }
 
 .aside-page-mediacentre {
-  max-width: min(25%, 290px);
-  width: 100vh;
   align-items: flex-start;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: row;
-  padding: 3em 1em;
+  margin-right: 1em;
 }
 
 .main-page-mediacentre {
-  max-width: max(75%, calc(100% - 290px));
   width: 100%;
   height: 100%;
 }
 
+menu-mediacentre {
+  height: 100%;
+}
 @media (max-width: 770px) {
   .cadre-page-mediacentre {
     flex-direction: column;
-    align-items: center;
+    justify-content: flex-start;
+    padding: 1em 0;
   }
 
   .aside-page-mediacentre {
-    max-width: 100%;
+    width: 30%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
   }
 
   .main-page-mediacentre {
-    max-width: 100%;
+    width: 70%;
+    height: 100%;
+    padding: 0;
+    box-sizing: border-box;
   }
 }
 </style>
