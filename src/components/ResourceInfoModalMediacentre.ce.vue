@@ -2,8 +2,11 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { onClickOutside } from '@vueuse/core';
 import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const emit = defineEmits(['close']);
+
+const { t } = useI18n();
 
 const props = defineProps<{
   title: string;
@@ -31,7 +34,7 @@ const closeModal = () => {
         </div>
       </div>
       <div class="modal-body">
-        <span>Distribué par {{ editor }}</span>
+        <span>{{ t('resource-info-modal-mediacentre.editor') }} {{ editor }} </span>
         <div v-if="description" class="description">
           {{ description }}
         </div>
@@ -103,6 +106,7 @@ ss
   justify-content: center;
   width: fit-content;
   height: fit-content;
+  margin-left: 0.5em;
 }
 
 .close-button {

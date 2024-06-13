@@ -8,6 +8,10 @@
     "all-resources": "All resources",
     "my-favorites": "My favorites"
   },
+  "resource-info-modal-mediacentre": {
+    "editor": "Edited by "
+  },
+
   "error-messages": {
     "400": " An error has occurred, please try again.",
     "401": "You are not logged in, please login.",

@@ -108,7 +108,7 @@ const showSubCategories = (idCategory: string): void => {
   font-family: 'Roboto Condensed', sans-serif;
   text-align: center;
   font-weight: bold;
-  padding: 1em;
+  padding: 1em 1em 0 1em;
   margin: 0;
   border: none;
   background-color: #ffffff;

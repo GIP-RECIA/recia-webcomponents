@@ -8,6 +8,9 @@
     "all-resources": "Toutes les ressources",
     "my-favorites": "Mes favoris"
   },
+  "resource-info-modal-mediacentre": {
+    "editor": "Édité par "
+  },
   "error-messages": {
     "400": "Une erreur est survenue, merci de rééssayer.",
     "401": "Vous n'êtes pas connecté, merci de vous authentifier.",
