@@ -1,20 +1,30 @@
 <script setup lang="ts">
+import { CarteRessource } from '@/ce';
 import { addFavorite, removeFavorite } from '@/services/ServiceMediacentre.ts';
 import type { Ressource } from '@/types/RessourceType.ts';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const i18n = useI18n();
-
+const isShown = ref<boolean>(true);
 const props = defineProps<{
   ressource: Ressource;
   baseApiUrl: string;
   filtre: string;
 }>();
 
-const emit = defineEmits(['updateFav', 'openModal']);
+const emit = defineEmits(['updateFav', 'openModal', 'updateVisibility']);
+
+watch(
+  () => isShown.value,
+  (newValue) => {
+    if (props.filtre == 'favoris' && !newValue) emit('updateVisibility', props.ressource.idRessource);
+  },
+);
 
 const toggleFavoris = (): void => {
+  if (props.ressource.isFavorite) isShown.value = false;
   emit('updateFav', props.ressource.idRessource, props.ressource.isFavorite == false || undefined ? true : false);
 };
 </script>

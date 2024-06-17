@@ -1,7 +1,8 @@
 {
   "page-mediacentre": {},
   "liste-ressources-mediacentre": {
-    "no-resources": "Vous n'avez aucune ressource."
+    "no-resources": "Vous n'avez aucune ressource.",
+    "no-favorite-resources": "Vous n'avez aucune ressource favorite."
   },
   "menu-mediacentre": {
     "title": "MediaCentre",

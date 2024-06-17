@@ -1,16 +1,8 @@
 import { CustomError } from '@/utils/CustomError';
 import { instance } from '@/utils/axiosUtils.ts';
 import { getToken } from '@/utils/soffitUtils';
-import { ref } from 'vue';
 
-// a supprimer quand l'api sera disponible
-const idResourceFavoritesExample = ref<Array<string>>([]);
-
-const initFav = () => {
-  const ids = ['ark:/34885/wr0000001', 'ark:/23258/1537944382', 'ark:/54037/lmnd222r17sm'];
-  ids.forEach((id) => idResourceFavoritesExample.value.push(id));
-};
-// ----------------------------------------------------------------
+let idResourceFavoritesExample: Array<string> = [];
 
 const getResources = async (baseApiUrl: string, groupsApiUrl: string) => {
   try {
@@ -37,7 +29,7 @@ const getFilters = async (baseApiUrl: string) => {
 
 const getFavorites = async (resourceFavoritesApiUrl: string) => {
   // a supprimer quand l'api sera disponible
-  const response = idResourceFavoritesExample.value;
+  const response = idResourceFavoritesExample;
   // --------------------------------
 
   // a décommenter quand l'api sera disponible
@@ -51,8 +43,8 @@ const getFavorites = async (resourceFavoritesApiUrl: string) => {
 
 const addFavorite = async (resourceFavoritesApiUrl: string, idRessource: string) => {
   // à supprimer quand l'api sera disponible
-  idResourceFavoritesExample.value.push(idRessource);
-  const response = idResourceFavoritesExample.value;
+  idResourceFavoritesExample.push(idRessource);
+  const response = idResourceFavoritesExample;
   // --------------------------------
 
   // à décommenter quand l'api sera disponible, à modifier si besoin
@@ -68,8 +60,8 @@ const addFavorite = async (resourceFavoritesApiUrl: string, idRessource: string)
 
 const removeFavorite = async (resourceFavoritesApiUrl: string, idRessource: string) => {
   // à supprimer quand l'api sera disponible
-  idResourceFavoritesExample.value = idResourceFavoritesExample.value.filter((id) => id !== idRessource);
-  const response = idResourceFavoritesExample.value;
+  idResourceFavoritesExample = idResourceFavoritesExample.filter((id) => id !== idRessource);
+  const response = idResourceFavoritesExample;
   // --------------------------------
 
   // à décommenter quand l'api sera disponible, à modifier si besoin
@@ -82,4 +74,4 @@ const removeFavorite = async (resourceFavoritesApiUrl: string, idRessource: stri
   // --------------------------------
 };
 
-export { getResources, getFilters, getFavorites, addFavorite, removeFavorite, initFav };
+export { getResources, getFilters, getFavorites, addFavorite, removeFavorite };

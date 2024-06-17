@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Ressource } from '@/types/RessourceType.ts';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
@@ -8,6 +8,7 @@ const isModalOpen = ref(false);
 const resourceTitle = ref<string>('');
 const resourceEditor = ref<string>('');
 const resourceDescription = ref<string | undefined>();
+const nbHiddenCards = ref<number>(0);
 
 const emit = defineEmits(['update-favorite']);
 
@@ -18,11 +19,27 @@ const props = defineProps<{
   baseApiUrl: string;
   userInfoApiUrl: string;
   erreur: string;
+  nbResources: number;
 }>();
+const nbShownCards = ref<number>(props.nbResources);
+const nbCards = computed<number>(() => {
+  return props.nbResources;
+});
 
+watch(
+  () => nbCards.value,
+  (newValue) => {
+    nbShownCards.value = props.nbResources;
+  },
+);
 const isError = computed<boolean>(() => {
   return props.erreur !== '';
 });
+
+const isEmptyFavoritesList = (event: CustomEvent): void => {
+  nbHiddenCards.value++;
+  nbShownCards.value = props.nbResources - nbHiddenCards.value;
+};
 
 const openModal = (event: CustomEvent): void => {
   isModalOpen.value = true;
@@ -39,7 +56,7 @@ const sendUpdateFavorite = (event: CustomEvent) => {
 </script>
 
 <template>
-  <div class="cadre-liste-ressources-mediacentre" v-if="ressources.length > 0">
+  <div class="cadre-liste-ressources-mediacentre" v-if="ressources.length > 0 && nbShownCards > 0">
     <carte-ressource
       v-for="ressource in ressources"
       v-show="filtre != 'favoris' || ressource.isFavorite != false"
@@ -47,6 +64,7 @@ const sendUpdateFavorite = (event: CustomEvent) => {
       :ressource="ressource"
       :baseApiUrl="baseApiUrl"
       :userInfoApiUrl="userInfoApiUrl"
+      @updateVisibility="isEmptyFavoritesList"
       @openModal="openModal"
       @updateFav="sendUpdateFavorite"
       :filtre="filtre"
@@ -62,6 +80,7 @@ const sendUpdateFavorite = (event: CustomEvent) => {
 
   <div class="cadre-liste-ressources-mediacentre" v-else>
     <p v-if="isError">{{ erreur }}</p>
+    <p v-else-if="filtre == 'favoris'">{{ t('liste-ressources-mediacentre.no-favorite-resources') }}</p>
     <p v-else>{{ t('liste-ressources-mediacentre.no-resources') }}</p>
   </div>
 </template>

@@ -1,12 +1,5 @@
 <script setup lang="ts">
-import {
-  addFavorite,
-  getFavorites,
-  getFilters,
-  getResources,
-  initFav,
-  removeFavorite,
-} from '../services/ServiceMediacentre.ts';
+import { addFavorite, getFavorites, getFilters, getResources, removeFavorite } from '../services/ServiceMediacentre.ts';
 import { setError } from '@/services/ServiceErreurMediacentre.ts';
 import { getFilters as filtrage } from '@/services/ServiceFiltreMediacentre.ts';
 import type { Filtres } from '@/types/FiltresType.ts';
@@ -14,7 +7,7 @@ import type { Filtres } from '@/types/FiltresType.ts';
 import { type Ressource, createResourceFromJson } from '@/types/RessourceType.ts';
 import { initToken } from '@/utils/axiosUtils.ts';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
@@ -23,7 +16,6 @@ const filtre = ref('tout');
 const filtres = ref<Array<Filtres>>([]);
 const ressources = ref<Array<Ressource>>([]);
 const filteredResources = ref<Array<Ressource>>([]);
-
 const chargement = ref<boolean>(false);
 const chargementApp = ref<boolean>(false);
 
@@ -36,12 +28,15 @@ const props = defineProps<{
   userResourceFavoritesApiUrl: string;
 }>();
 
+const countNbFilteredResources = computed<number>(() => {
+  return filteredResources.value.length;
+});
+
 onMounted(async (): Promise<void> => {
   try {
     chargementApp.value = true;
 
     await initToken(props.userInfoApiUrl);
-    initFav();
     await getRessources();
     await setFavoris();
     await getFiltres();
@@ -189,6 +184,7 @@ const getFiltres = async (): Promise<void> => {
         :userInfoApiUrl="userInfoApiUrl"
         :erreur="erreur"
         @update-favorite="updateFavori"
+        :nbResources="countNbFilteredResources"
       />
     </main>
   </div>
