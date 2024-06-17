@@ -8,9 +8,6 @@ import { type Ressource, createResourceFromJson } from '@/types/RessourceType.ts
 import { initToken } from '@/utils/axiosUtils.ts';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { computed, onMounted, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-
-const { t } = useI18n();
 
 const filtre = ref('tout');
 const filtres = ref<Array<Filtres>>([]);
@@ -261,4 +258,3 @@ menu-mediacentre {
   }
 }
 </style>
-import { HttpStatusCode } from 'axios';

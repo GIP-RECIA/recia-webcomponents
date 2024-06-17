@@ -1,4 +1,3 @@
-import type { Filtrage } from '@/types/FiltrageType';
 import type { Filtre } from '@/types/FiltreType';
 import type { Filtres } from '@/types/FiltresType';
 import type { Ressource } from '@/types/RessourceType';

@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import { CarteRessource } from '@/ce';
-import { addFavorite, removeFavorite } from '@/services/ServiceMediacentre.ts';
 import type { Ressource } from '@/types/RessourceType.ts';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { ref, watch } from 'vue';
-import { useI18n } from 'vue-i18n';
 
-const i18n = useI18n();
 const isShown = ref<boolean>(true);
 const props = defineProps<{
   ressource: Ressource;
@@ -165,10 +161,10 @@ a {
     color: black;
     font-size: 0.9em;
     display: -webkit-box;
-    -webkit-line-clamp: 1; /* Nombre de lignes à afficher */
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis; /* Ajoute des points de suspension */
+    text-overflow: ellipsis;
   }
 }
 </style>
