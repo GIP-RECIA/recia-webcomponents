@@ -49,12 +49,7 @@ const showSubCategories = (idCategory: string): void => {
 <template>
   <div class="cadre-menu-mediacentre" :class="[isUnfolded == true ? 'unfold' : '']">
     <div class="menu-title">
-      <button
-        class="menu-toggle"
-        id="menu-titre"
-        :class="isUnfolded == true ? 'active' : ''"
-        @click="showCategoriesContainer()"
-      >
+      <button class="menu-toggle" id="menu-titre" :class="{ active: isUnfolded }" @click="showCategoriesContainer()">
         <font-awesome-icon class="menu-icon" :icon="['fas', 'bars']" />
       </button>
       <div class="category-name-badge">
@@ -267,16 +262,18 @@ const showSubCategories = (idCategory: string): void => {
       height: 2em;
       width: 2em;
       color: #212121;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    &.active {
+      .menu-icon {
+        transform: rotate(90deg);
+      }
     }
 
     & h3 {
       padding-top: 0;
     }
-  }
-
-  .menu-toggle:active .menu-icon {
-    transform: rotate(90deg);
-    transition: transform 0.3s ease-in-out;
   }
 
   .unfold {
@@ -301,6 +298,25 @@ const showSubCategories = (idCategory: string): void => {
   }
   .categories-container {
     display: none;
+  }
+
+  .sub-category-container {
+    background-color: #ffffff;
+    width: 100%;
+    border-collapse: collapse;
+    border: none;
+    padding: 1em 1em;
+    color: black;
+    border-radius: 0.7em;
+    &:hover {
+      background-color: #f3f3f3;
+      cursor: pointer;
+    }
+    &.active {
+      background-color: #f8f8f8;
+      border: 0.1em solid rgba(#f8f8f8, 0.5);
+      color: black;
+    }
   }
 }
 </style>
