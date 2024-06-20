@@ -301,22 +301,10 @@ const showSubCategories = (idCategory: string): void => {
   }
 
   .sub-category-container {
-    background-color: #ffffff;
-    width: 100%;
-    border-collapse: collapse;
-    border: none;
-    padding: 1em 1em;
-    color: black;
-    border-radius: 0.7em;
-    &:hover {
-      background-color: #f3f3f3;
-      cursor: pointer;
-    }
-    &.active {
-      background-color: #f8f8f8;
-      border: 0.1em solid rgba(#f8f8f8, 0.5);
-      color: black;
-    }
+    cursor: pointer;
+  }
+  .sub-categories-container {
+    cursor: pointer;
   }
 }
 </style>

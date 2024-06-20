@@ -153,10 +153,9 @@ a {
 
   span {
     color: black;
-    font-size: 0.9em;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
+    font-size: 1em;
+    word-wrap: unset;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
