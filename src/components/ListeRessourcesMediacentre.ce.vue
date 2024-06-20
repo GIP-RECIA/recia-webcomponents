@@ -69,13 +69,6 @@ const sendUpdateFavorite = (event: CustomEvent) => {
       @updateFav="sendUpdateFavorite"
       :filtre="filtre"
     />
-    <resource-info-modal
-      v-show="isModalOpen"
-      @close="isModalOpen = false"
-      :title="resourceTitle"
-      :editor="resourceEditor"
-      :description="resourceDescription"
-    />
   </div>
 
   <div class="cadre-liste-ressources-mediacentre" v-else>
@@ -83,6 +76,13 @@ const sendUpdateFavorite = (event: CustomEvent) => {
     <p v-else-if="filtre == 'favoris'">{{ t('liste-ressources-mediacentre.no-favorite-resources') }}</p>
     <p v-else>{{ t('liste-ressources-mediacentre.no-resources') }}</p>
   </div>
+  <resource-info-modal
+    v-show="isModalOpen"
+    @close="isModalOpen = false"
+    :title="resourceTitle"
+    :editor="resourceEditor"
+    :description="resourceDescription"
+  />
 </template>
 
 <style>
@@ -97,9 +97,13 @@ const sendUpdateFavorite = (event: CustomEvent) => {
   height: auto;
   box-sizing: border-box;
   max-height: 100%;
+  p {
+    text-align: justify;
+    padding: 1em;
+  }
 }
 
-@media only screen and (max-width: 770px) {
+@media only screen and (min-width: 260px) and (max-width: 770px) {
   .cadre-liste-ressources-mediacentre {
     height: 100%;
     width: 100%;
@@ -107,9 +111,9 @@ const sendUpdateFavorite = (event: CustomEvent) => {
     flex-wrap: nowrap;
     flex-direction: column;
     align-items: center;
-    justify-items: center;
-    justify-content: center;
     overflow-y: scroll;
+    margin: 0;
+    padding: 1em 0;
   }
 }
 </style>

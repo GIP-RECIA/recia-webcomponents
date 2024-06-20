@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Filtres } from '@/types/FiltresType';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { useBreakpoints } from '@vueuse/core';
 import { capitalize, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -12,15 +13,28 @@ const props = defineProps<{
 const { t } = useI18n();
 const filtre = ref(props.checked || '');
 const activeCategory = ref('tout');
+const activeCategoryName = ref(t('menu-mediacentre.all-resources'));
+const isUnfolded = ref(false);
+
+const breakpoints = useBreakpoints({
+  mobile: 770,
+  laptop: 1024,
+});
 
 const emit = defineEmits(['update-checked']);
 
-const changementFiltre = (idFiltre: string, idCategorie: string) => {
+const changementFiltre = (idFiltre: string, idCategorie: string, categoryName: string) => {
   filtre.value = idFiltre;
   if (idFiltre == 'tout' || idFiltre == 'favoris') {
     showSubCategories(idCategorie);
   }
+  activeCategoryName.value = categoryName;
+  showCategoriesContainer();
   emit('update-checked', idFiltre, idCategorie);
+};
+
+const showCategoriesContainer = (): void => {
+  isUnfolded.value = isUnfolded.value == true ? false : true;
 };
 
 const showSubCategories = (idCategory: string): void => {
@@ -33,18 +47,32 @@ const showSubCategories = (idCategory: string): void => {
 </script>
 
 <template>
-  <div class="cadre-menu-mediacentre">
-    <button class="titre-menu-mediacentre menu-toggle" id="menu-titre">
-      <h1>{{ t('menu-mediacentre.title').toUpperCase() }}</h1>
-    </button>
-    <div class="categories-container">
+  <div class="cadre-menu-mediacentre" :class="[isUnfolded == true ? 'unfold' : '']">
+    <div class="menu-title">
+      <button
+        class="menu-toggle"
+        id="menu-titre"
+        :class="isUnfolded == true ? 'active' : ''"
+        @click="showCategoriesContainer()"
+      >
+        <font-awesome-icon class="menu-icon" :icon="['fas', 'bars']" />
+      </button>
+      <div class="category-name-badge">
+        {{ capitalize(activeCategoryName) }}
+      </div>
+    </div>
+
+    <div
+      class="categories-container"
+      :class="[breakpoints.active() != undefined && breakpoints.active() == ref('mobile') ? 'toggle' : '']"
+    >
       <button
         active
         :class="[activeCategory == 'tout' ? 'active' : '']"
         class="sub-categories-container without-sub-cat"
         id="tout"
         value="tout"
-        @click="changementFiltre('tout', 'tout')"
+        @click="changementFiltre('tout', 'tout', t('menu-mediacentre.all-resources'))"
       >
         <h3>{{ capitalize(t('menu-mediacentre.all-resources')) }}</h3>
       </button>
@@ -54,7 +82,7 @@ const showSubCategories = (idCategory: string): void => {
         class="sub-categories-container without-sub-cat"
         id="favoris"
         value="favoris"
-        @click="changementFiltre('favoris', 'favoris')"
+        @click="changementFiltre('favoris', 'favoris', t('menu-mediacentre.my-favorites'))"
       >
         <h3>{{ capitalize(t('menu-mediacentre.my-favorites')) }}</h3>
       </button>
@@ -74,7 +102,7 @@ const showSubCategories = (idCategory: string): void => {
             <button
               :class="{ active: filtre == subCat.id }"
               class="sub-category-container"
-              @click.prevent="changementFiltre(subCat.id, category.filterEnum)"
+              @click.prevent="changementFiltre(subCat.id, category.filterEnum, subCat.nom)"
             >
               <span>
                 {{ capitalize(subCat.nom) }}
@@ -92,27 +120,21 @@ const showSubCategories = (idCategory: string): void => {
   max-height: 100%;
   text-align: center;
   background-color: #ffffff;
-  width: min-content;
+  width: 15em;
   border-radius: 1em;
   box-shadow: 0px 10px 15px -7px rgba(0, 0, 0, 0.1);
   overflow-y: hidden;
   display: flex;
   flex-direction: column;
+  padding-top: 1.5em;
 
   & :only-child {
     box-sizing: border-box;
   }
-}
 
-.titre-menu-mediacentre {
-  font-family: 'Roboto Condensed', sans-serif;
-  text-align: center;
-  font-weight: bold;
-  padding: 1em 1em 0 1em;
-  margin: 0;
-  border: none;
-  background-color: #ffffff;
-  flex-shrink: 0;
+  .menu-title {
+    display: none;
+  }
 }
 
 .sub-categories-container {
@@ -201,25 +223,84 @@ const showSubCategories = (idCategory: string): void => {
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  margin-top: -1em;
+  border: solid #f7f7f7 0.1em;
+  border-radius: 0.7em;
 }
 
 @media (max-width: 770px) {
   .cadre-menu-mediacentre {
     text-align: center;
-    margin: 0 3em 0 3em;
+    height: fit-content;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+    .menu-title {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      background-color: #ededed;
+      padding: 1em 0.5em;
+    }
+
+    .category-name-badge {
+      text-align: center;
+      border-radius: 1em;
+      background-color: #ffffff;
+      font-weight: bold;
+      font-size: 1em;
+      padding: 0.5em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-wrap: unset;
+      white-space: nowrap;
+    }
+  }
+  .menu-toggle {
+    cursor: pointer;
+    background: none;
+    border: none;
+    box-sizing: border-box;
+
+    .menu-icon {
+      height: 2em;
+      width: 2em;
+      color: #212121;
+    }
 
     & h3 {
       padding-top: 0;
     }
   }
 
-  .categories-container {
-    display: none;
+  .menu-toggle:active .menu-icon {
+    transform: rotate(90deg);
+    transition: transform 0.3s ease-in-out;
   }
 
-  .menu-toggle {
-    display: block;
-    cursor: pointer;
+  .unfold {
+    .categories-container {
+      display: block;
+      position: absolute;
+      z-index: 2;
+      top: 5.5em;
+      width: 90%;
+      background: none;
+      max-height: 50%;
+      border-radius: 1em;
+      box-shadow: 0px 10px 15px -7px rgba(0, 0, 0, 0.1);
+      & .toggle {
+        display: none;
+      }
+    }
+
+    .menu-title {
+      padding-bottom: 2.5em;
+    }
+  }
+  .categories-container {
+    display: none;
   }
 }
 </style>

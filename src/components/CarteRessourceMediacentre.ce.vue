@@ -40,9 +40,9 @@ const toggleFavoris = (): void => {
       <img class="resource-image" :src="props.ressource.urlVignette" :alt="ressource.nomRessource" />
     </div>
     <div class="resource-name">
-      <h5>
+      <span>
         {{ ressource.nomRessource }}
-      </h5>
+      </span>
       <div>
         <button
           class="icone-bouton-carte-ressource-mediacentre"
@@ -106,7 +106,7 @@ a {
   height: fit-content;
   width: fit-content;
 
-  color: #b4b4b4;
+  color: #ededed;
   padding: 0;
   cursor: pointer;
 }
@@ -139,25 +139,19 @@ a {
   object-position: center;
 }
 
-.info-icon {
-  width: 1.5em;
-  height: 1.5em;
-  color: #b4b4b4;
-}
 .resource-name {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
   margin: 0;
-  padding: 0 0.5em;
+  padding: 0.5em 0.5em 1em 0.5em;
   align-items: center;
-  font-size: 1rem;
   font-weight: 500;
   position: relative;
   max-width: 538px;
 
-  h5 {
+  span {
     color: black;
     font-size: 0.9em;
     display: -webkit-box;
@@ -165,6 +159,12 @@ a {
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .info-icon {
+    width: 1.5em;
+    height: 1.5em;
+    color: #ededed;
   }
 }
 </style>

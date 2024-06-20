@@ -235,26 +235,40 @@ const getFiltres = async (): Promise<void> => {
 menu-mediacentre {
   height: 100%;
 }
-@media (max-width: 770px) {
+@media (min-width: 260px) and (max-width: 770px) {
   .cadre-page-mediacentre {
     flex-direction: column;
     justify-content: flex-start;
-    padding: 1em 0;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-content: space-around;
+    overflow: hidden;
+    row-gap: 0;
+    menu-mediacentre {
+      height: 100%;
+      width: 100%;
+    }
   }
 
   .aside-page-mediacentre {
-    width: 30%;
-    height: 100%;
-    align-items: center;
+    max-height: 40%;
+    height: fit-content;
     justify-content: center;
     padding: 0;
+    margin: 0;
+    width: 90%;
+    flex-shrink: 0;
   }
 
   .main-page-mediacentre {
-    width: 70%;
-    height: 100%;
-    padding: 0;
     box-sizing: border-box;
+    height: 90%;
+    margin: 0;
+    padding: 0 0 2.5em 0;
+    flex-shrink: 0;
+    flex-grow: 0;
   }
 }
 </style>
