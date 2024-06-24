@@ -76,7 +76,7 @@ ss
   padding: spacing(4);
   margin: 0;
   overflow: hidden;
-  background-color: #ffffff;
+  background-color: $background-color;
   border-radius: 0.7em;
 }
 
@@ -135,5 +135,17 @@ ss
 
 .description {
   text-align: justify;
+}
+
+@media (max-width: 770px) {
+  .close-button {
+    svg {
+      cursor: pointer;
+    }
+  }
+
+  .modal {
+    padding: 1em;
+  }
 }
 </style>

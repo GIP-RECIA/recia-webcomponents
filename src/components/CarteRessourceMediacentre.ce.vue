@@ -47,7 +47,6 @@ const toggleFavoris = (): void => {
         <button
           class="icone-bouton-carte-ressource-mediacentre"
           @click.prevent="$emit('openModal', ressource.nomRessource, ressource.nomEditeur, ressource.description)"
-          style="background: none; border: none"
         >
           <font-awesome-icon class="info-icon" :icon="['fas', 'circle-info']" />
         </button>
@@ -69,9 +68,9 @@ a {
   height: 250px;
   overflow: hidden;
   cursor: pointer;
-  border-radius: 15px;
-  border-top: 0.9em solid $ui-mediacentre-primary-color;
-  background-color: #ffffff;
+  border-radius: 1em;
+  border-top: 1em solid $border-color;
+  background-color: $background-color;
   box-shadow:
     0px 0px 28px -8px rgba(0, 0, 0, 0.1),
     100px 100px 100px -100px rgba(0, 0, 0, 0.1);
@@ -83,7 +82,7 @@ a {
   background-position: center;
   background-size: contain;
   text-align: center;
-  background-color: rgb(255, 255, 255);
+  background-color: $background-color;
   overflow: hidden;
   padding: 1em;
   height: inherit;
@@ -105,10 +104,13 @@ a {
   border: none;
   height: fit-content;
   width: fit-content;
-
-  color: #ededed;
   padding: 0;
+  color: $menu-title-background-color;
   cursor: pointer;
+
+  .fav {
+    color: #ffaa46;
+  }
 }
 
 .icone-help-carte-ressource-mediacentre {
@@ -152,7 +154,7 @@ a {
   max-width: 538px;
 
   span {
-    color: black;
+    color: $font-color;
     font-size: 1em;
     word-wrap: unset;
     white-space: nowrap;
@@ -163,7 +165,7 @@ a {
   .info-icon {
     width: 1.5em;
     height: 1.5em;
-    color: #ededed;
+    color: $menu-title-background-color;
   }
 }
 </style>

@@ -114,15 +114,14 @@ const showSubCategories = (idCategory: string): void => {
 .cadre-menu-mediacentre {
   max-height: 100%;
   text-align: center;
-  background-color: #ffffff;
+  background-color: $background-color;
   width: 15em;
-  border-radius: 1em;
   box-shadow: 0px 10px 15px -7px rgba(0, 0, 0, 0.1);
   overflow-y: hidden;
   display: flex;
   flex-direction: column;
-  padding-top: 1.5em;
-
+  padding-top: 1em;
+  border-radius: 1em;
   & :only-child {
     box-sizing: border-box;
   }
@@ -138,22 +137,21 @@ const showSubCategories = (idCategory: string): void => {
   align-items: center;
   text-align: center;
   justify-content: space-between;
-  background-color: #ffffff;
+  background-color: $background-color;
   width: 100%;
   padding: 0 1em;
-  border-radius: 0.7em;
   border: none;
-  border-top: 0.7em solid transparent;
-  color: black;
+  border-top: 1em solid transparent;
+  color: $font-color;
   flex-shrink: 0;
   &:hover {
-    background-color: #f3f3f3;
+    background-color: $category-hover-background-color;
     cursor: pointer;
   }
   &.active {
-    border-color: $ui-mediacentre-primary-color;
-    border-radius: 0.5em 0.5em 0 0;
-    background-color: #ffffff;
+    border-color: $border-color;
+    border-radius: 1em 1em 0 0;
+    background-color: $background-color;
 
     .caret-menu-icon {
       transform: rotate(90deg);
@@ -174,21 +172,19 @@ const showSubCategories = (idCategory: string): void => {
 }
 
 .sub-category-container {
-  background-color: #ffffff;
+  background-color: $background-color;
   width: 100%;
   border-collapse: collapse;
   border: none;
   padding: 1em 1em;
-  color: black;
-  border-radius: 0.7em;
+  color: $font-color;
   &:hover {
-    background-color: #f3f3f3;
+    background-color: $category-hover-background-color;
     cursor: pointer;
   }
   &.active {
-    background-color: #f8f8f8;
-    border: 0.1em solid rgba(#f8f8f8, 0.5);
-    color: black;
+    background-color: $category-active-background-color;
+    color: $font-color;
   }
 }
 
@@ -219,30 +215,32 @@ const showSubCategories = (idCategory: string): void => {
   flex-direction: column;
   overflow-y: scroll;
   margin-top: -1em;
-  border: solid #f7f7f7 0.1em;
-  border-radius: 0.7em;
+
+  border-radius: 1em;
 }
 
-@media (max-width: 770px) {
+@media (max-width: 575px) {
   .cadre-menu-mediacentre {
     text-align: center;
     height: fit-content;
     width: 100%;
     margin: 0;
     padding: 0;
-
+    position: relative;
+    overflow: unset;
     .menu-title {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      background-color: #ededed;
-      padding: 1em 0.5em;
+      background-color: $menu-title-background-color;
+      padding: 1em 1em 1em 0.5em;
+      gap: 0.5em;
     }
 
     .category-name-badge {
       text-align: center;
       border-radius: 1em;
-      background-color: #ffffff;
+      background-color: $background-color;
       font-weight: bold;
       font-size: 1em;
       padding: 0.5em;
@@ -262,7 +260,7 @@ const showSubCategories = (idCategory: string): void => {
       height: 2em;
       width: 2em;
       color: #212121;
-      transition: transform 0.3s ease-in-out;
+      transition: transform 0.3s ease;
     }
 
     &.active {
@@ -279,21 +277,18 @@ const showSubCategories = (idCategory: string): void => {
   .unfold {
     .categories-container {
       display: block;
-      position: absolute;
-      z-index: 2;
-      top: 5.5em;
-      width: 90%;
+      width: 100%;
       background: none;
       max-height: 50%;
       border-radius: 1em;
-      box-shadow: 0px 10px 15px -7px rgba(0, 0, 0, 0.1);
-      & .toggle {
+      height: min-content;
+      s & .toggle {
         display: none;
       }
     }
 
     .menu-title {
-      padding-bottom: 2.5em;
+      padding-bottom: 2em;
     }
   }
   .categories-container {

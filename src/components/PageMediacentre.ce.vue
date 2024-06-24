@@ -194,7 +194,6 @@ const getFiltres = async (): Promise<void> => {
   row-gap: 2em;
   height: 100%;
   width: 100%;
-  padding: 1em 2em;
 }
 .spinner-container {
   display: flex;
@@ -230,15 +229,18 @@ const getFiltres = async (): Promise<void> => {
 .main-page-mediacentre {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
 
 menu-mediacentre {
   height: 100%;
 }
-@media (min-width: 260px) and (max-width: 770px) {
+@media (min-width: 260px) and (max-width: 575px) {
   .cadre-page-mediacentre {
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: flex-end;
     align-items: center;
     padding: 0;
     margin: 0;
@@ -253,22 +255,28 @@ menu-mediacentre {
   }
 
   .aside-page-mediacentre {
-    max-height: 40%;
+    max-height: 50%;
     height: fit-content;
     justify-content: center;
     padding: 0;
     margin: 0;
     width: 90%;
-    flex-shrink: 0;
+    position: fixed;
+    top: 0;
+    border-radius: 1em;
+    overflow-y: scroll;
+    z-index: 2;
+    box-shadow: 0px 10px 15px -7px rgba(0, 0, 0, 0.1);
   }
 
   .main-page-mediacentre {
     box-sizing: border-box;
     height: 90%;
     margin: 0;
-    padding: 0 0 2.5em 0;
+    padding: 0;
     flex-shrink: 0;
     flex-grow: 0;
+    justify-content: center;
   }
 }
 </style>

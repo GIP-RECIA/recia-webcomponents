@@ -87,23 +87,24 @@ const sendUpdateFavorite = (event: CustomEvent) => {
 
 <style>
 .cadre-liste-ressources-mediacentre {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  grid-template-rows: 1fr;
-  grid-gap: 3em;
   overflow-y: scroll;
-  padding: 0.5em 0.5em 1.5em 1em;
   margin-left: 3em;
   height: auto;
   box-sizing: border-box;
   max-height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2em;
+  justify-content: space-evenly;
+
   p {
     text-align: justify;
     padding: 1em;
   }
 }
 
-@media only screen and (min-width: 260px) and (max-width: 770px) {
+@media only screen and (min-width: 260px) and (max-width: 575px) {
   .cadre-liste-ressources-mediacentre {
     height: 100%;
     width: 100%;
@@ -113,7 +114,8 @@ const sendUpdateFavorite = (event: CustomEvent) => {
     align-items: center;
     overflow-y: scroll;
     margin: 0;
-    padding: 1em 0;
+    padding: 2em;
+    justify-content: flex-start;
   }
 }
 </style>
