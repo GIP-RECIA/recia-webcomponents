@@ -1,1 +1,6 @@
-$ui-mediacentre-primary-color: #04aa6d;
+$border-color: var(--ui-mediacentre-border-color, #25b2f3);
+$background-color: var(--ui-mediacentre-background-color, #ffffff);
+$font-color: var(--ui-mediacentre-font-color, #000000);
+$menu-title-background-color: var(--ui-mediacentre-menu-title-background-color, #ededed);
+$category-hover-background-color: var(--ui-mediacentre-category-hover-background-color, #f3f3f3);
+$category-active-background-color: var(--ui-mediacentre-category-active-background-color, #f8f8f8);

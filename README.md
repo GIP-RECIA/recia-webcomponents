@@ -41,10 +41,10 @@ Propriétés disponibles :
 
 | Nom                               |   Type   | Obligatoire | Default | Description                                                              |
 | --------------------------------- | :------: | :---------: | :-----: | ------------------------------------------------------------------------ |
-| `base-api-url`                    | `string` |    `oui`    |         | URL de l'API REST MediaCentre                                            |
-| `user-info-api-url`               | `string` |    `oui`    |         | URL de l'API des informations utilisateurs                               |
-| `user-rights-api-url`             | `string` |    `oui`    |         | URL de l'API des droits utilisateurs                                     |
-| `user-resource-favorites-api-url` | `string` |    `oui`    |         | URL de l'API des preferences utilisateurs (ici les ressources favorites) |
+| `base-api-url`                    | `string` |    `oui`    |         | URL de l'API REST MediaCentre.                                            |
+| `user-info-api-url`               | `string` |    `oui`    |         | URL de l'API des informations utilisateurs.                               |
+| `user-rights-api-url`             | `string` |    `oui`    |         | URL de l'API des droits utilisateurs.                                     |
+| `user-resource-favorites-api-url` | `string` |    `oui`    |         | URL de l'API des préférences utilisateurs. (ici les ressources favorites) |
 
 <br/>
 
@@ -60,4 +60,9 @@ Plusieurs variables CSS peuvent être définis pour personnaliser le webcomponen
 
 | Nom                            | Description                                  |
 | ------------------------------ | -------------------------------------------- |
-| `ui-mediacentre-primary-color` | couleur associée au domaine de l'utilisateur |
+| `--ui-mediacentre-border-color` | Couleur associée au domaine de l'utilisateur.|
+| `--ui-mediacentre-background-color` | Couleur du background du portail. |
+| `--ui-mediacentre-font-color` | Couleur du texte. |
+| `--ui-mediacentre-menu-title-background-color` | Couleur du background du titre du menu et de l'icône infos. |
+| `--ui-mediacentre-category-hover-background-color` | Couleur du background au survol d'une catégorie. |
+| `--ui-mediacentre-category-active-background-color`| Couleur du background d'une catégorie sélectionnée. |
