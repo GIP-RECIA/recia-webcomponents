@@ -5,6 +5,7 @@ import { getFilters as filtrage } from '@/services/ServiceFiltreMediacentre.ts';
 import type { Filtres } from '@/types/FiltresType.ts';
 // import { addFavorite, removeFavorite } from '../services/ServiceMediacentreTest.ts';
 import { type Ressource, createResourceFromJson } from '@/types/RessourceType.ts';
+import { CustomError } from '@/utils/CustomError.ts';
 import { initToken } from '@/utils/axiosUtils.ts';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { computed, onMounted, ref } from 'vue';
@@ -37,7 +38,6 @@ onMounted(async (): Promise<void> => {
     await getRessources();
     await setFavoris();
     await getFiltres();
-
     getResourcesByFilter(filtre.value, '');
   } catch (e: any) {
     erreur.value = setError(e.statusCode);
@@ -50,11 +50,11 @@ const getRessources = async (): Promise<void> => {
   chargement.value = true;
   try {
     let reponse = await getResources(props.baseApiUrl, props.userRightsApiUrl);
-    const res = reponse.data;
+    const res = reponse;
 
     ressources.value = res.map(createResourceFromJson);
   } catch (e: any) {
-    console.error(e);
+    throw new CustomError(e.message, e.statusCode);
   } finally {
     chargement.value = false;
   }
@@ -72,7 +72,7 @@ const updateFiltre = (value: CustomEvent): void => {
 
 const setFavoris = async (): Promise<void> => {
   try {
-    const idResourceFavorites: Array<string> = await getFavorites(props.userResourceFavoritesApiUrl);
+    const idResourceFavorites = await getFavorites(props.baseApiUrl);
 
     const resourceFavorites = ressources.value.filter((res) => idResourceFavorites.includes(res.idRessource));
 
@@ -90,9 +90,9 @@ const updateFavori = (event: CustomEvent) => {
   resourceFavorite!.isFavorite = isFavorite;
   try {
     if (isFavorite) {
-      addFavorite(props.userResourceFavoritesApiUrl, idResource);
+      addFavorite(props.baseApiUrl, idResource);
     } else {
-      removeFavorite(props.userResourceFavoritesApiUrl, idResource);
+      removeFavorite(props.baseApiUrl, idResource);
     }
   } catch (e: any) {
     console.error(e);
@@ -102,7 +102,7 @@ const updateFavori = (event: CustomEvent) => {
 const getFavoris = async (): Promise<void> => {
   chargement.value = true;
   try {
-    const idResourceFavorites: Array<string> = await getFavorites(props.userResourceFavoritesApiUrl);
+    const idResourceFavorites: Array<string> = await getFavorites(props.baseApiUrl);
     filteredResources.value = ressources.value.filter((ressource) =>
       idResourceFavorites.includes(ressource.idRessource),
     );
@@ -151,7 +151,7 @@ const getFiltres = async (): Promise<void> => {
   chargement.value = true;
   try {
     let reponse = await getFilters(props.baseApiUrl);
-    filtres.value = filtrage(ressources.value, reponse.data);
+    filtres.value = filtrage(ressources.value, reponse);
   } catch (error: any) {
     console.error(error);
   } finally {
@@ -261,7 +261,7 @@ menu-mediacentre {
     padding: 0;
     margin: 0;
     width: 90%;
-    position: fixed;
+    position: absolute;
     top: 0;
     border-radius: 1em;
     overflow-y: scroll;

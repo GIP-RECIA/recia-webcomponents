@@ -2,7 +2,7 @@ import i18n from '@/plugins/i18n.ts';
 
 const { t } = i18n.global;
 
-const setError = (statusCode: number) => {
+const setError = (statusCode: any) => {
   let errorMessage;
   switch (statusCode) {
     case 400:
@@ -16,6 +16,9 @@ const setError = (statusCode: number) => {
       break;
     case 500:
       errorMessage = 'error-messages.500';
+      break;
+    case 'ECONNABORTED':
+      errorMessage = 'error-messages.503';
       break;
     default:
       errorMessage = 'error-messages.400';
