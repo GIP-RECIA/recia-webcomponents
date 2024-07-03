@@ -1,0 +1,23 @@
+{
+  "name": "lit-webcomponents",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "yarn workspaces foreach -At run build",
+    "lint": "yarn workspaces foreach -At run lint",
+    "test": "yarn workspaces foreach -At run test",
+    "clean": "find . -name node_modules -type d -prune -o -name cache -type d -o -name dist -type d -o -name custom-elements.json | xargs rm -rf",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "eslint": "8.57.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.7",
+    "prettier": "3.3.2"
+  },
+  "packageManager": "yarn@4.3.1"
+}
