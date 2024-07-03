@@ -1,0 +1,66 @@
+{
+  "name": "@gip-recia/info-modal",
+  "description": "Info modal web component for GIP-Recia",
+  "version": "0.0.1",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "gip-recia"
+  ],
+  "homepage": "https://github.com/GIP-RECIA/lit-webcomponents/packages/info-modal",
+  "bugs": {
+    "url": "https://github.com/GIP-RECIA/lit-webcomponents/packages/info-modal/issues"
+  },
+  "license": "Apache-2.0",
+  "contributors": [],
+  "main": "./dist/info-modal.umd.cjs",
+  "module": "./dist/info-modal.js",
+  "exports": {
+    ".": {
+      "import": "./dist/info-modal.js",
+      "require": "./dist/info-modal.cjs"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GIP-RECIA/lit-webcomponents.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "format:check": "prettier --check src/",
+    "format": "prettier --write src/",
+    "test:unit": "vitest",
+    "lint": "yarn run lint:lit-analyzer && yarn run lint:eslint",
+    "lint:eslint": "eslint 'src/**/*.ts'",
+    "lint:lit-analyzer": "lit-analyzer"
+  },
+  "dependencies": {
+    "lit": "^3.1.4"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@tsconfig/node20": "^20",
+    "@types/node": "^20",
+    "@typescript-eslint/eslint-plugin": "^5.25.0",
+    "@typescript-eslint/parser": "^5.25.0",
+    "eslint": "^9.6.0",
+    "husky": "^9.0.11",
+    "lit-analyzer": "^2.0.3",
+    "prettier": "^3.3.2",
+    "sass": "^1.77.6",
+    "standard-version": "^9.5.0",
+    "terser": "^5.31.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.3.1",
+    "vitest": "^1.6.0"
+  }
+}
