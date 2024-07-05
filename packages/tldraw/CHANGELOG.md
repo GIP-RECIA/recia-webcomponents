@@ -1,36 +1,49 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
-## [3.6.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v3.5.3...v3.6.0) (2024-05-24)
+## [3.7.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v3.6.0...tldraw-webcomponent/v3.7.0) (2024-07-05)
+
+
+### Features
+
+* add token attribute ([a279ad4](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/a279ad4f899941b069e1901c6369a2e47d42d5c3))
+* **WIP:** web component ([59f0575](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/59f0575285f77419a4d3957ab2d649bcdd8bf11a))
+
+
+### Bug Fixes
+
+* get body parameter ([4dcc529](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/4dcc5292355dbfcef869211ad0440f6c27500d20))
+
+## [3.6.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v3.5.3...tldraw-webcomponent/v3.6.0) (2024-05-24)
 
 
 ### Features
 
 * add debug parameter ([c10b238](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/c10b238690b0515b2ea900c6a5ab0c16a2e78009))
 
-### [3.5.3](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v3.5.2...v3.5.3) (2024-05-24)
+## [3.5.3](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v3.5.2...tldraw-webcomponent/v3.5.3) (2024-05-24)
 
 
 ### Bug Fixes
 
 * duplicated persistence and asset urls ([96dbc99](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/96dbc99f65f0a30dd520c90eae689a8a81122b6a))
 
-### [3.5.2](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v3.5.1...v3.5.2) (2024-05-23)
+## [3.5.2](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v3.5.1...tldraw-webcomponent/v3.5.2) (2024-05-23)
 
 
 ### Bug Fixes
 
 * dark theme ([90643c4](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/90643c42d95f3868763e8359b98d25491b4e7148))
 
-### [3.5.1](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v3.5.0...v3.5.1) (2024-05-23)
+## [3.5.1](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v3.5.0...tldraw-webcomponent/v3.5.1) (2024-05-23)
 
 
 ### Bug Fixes
 
 * get body parameter ([2f5b5ee](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/2f5b5ee3e32b4a11690dd54fa292746a1065abc2))
 
-## [3.5.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v3.4.1...v3.5.0) (2024-05-23)
+## [3.5.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v3.4.1...tldraw-webcomponent/v3.5.0) (2024-05-23)
 
 
 ### ⚠ BREAKING CHANGES
@@ -46,21 +59,21 @@ All notable changes to this project will be documented in this file. See [standa
 
 * empty token generate error ([288ae5e](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/288ae5e256cd537934fbb8284d770f5dd893bcb5))
 
-### [3.4.1](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v3.4.0...v3.4.1) (2024-05-15)
+## [3.4.1](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v3.4.0...tldraw-webcomponent/v3.4.1) (2024-05-15)
 
 
 ### Bug Fixes
 
 * token for multiplayer ([13aaa4e](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/13aaa4e1bcc1cf6aa488db07bc7b4a29fd87ab73))
 
-## [3.4.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v3.3.1...v3.4.0) (2024-05-14)
+## [3.4.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v3.3.1...tldraw-webcomponent/v3.4.0) (2024-05-14)
 
 
 ### Features
 
 * choose between token or user-info-api-url ([937f6c4](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/937f6c428eec55b4d98c03cd552d4b8b75579d27))
 
-### [3.3.1](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v3.3.0...v3.3.1) (2024-03-12)
+## [3.3.1](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v3.3.0...tldraw-webcomponent/v3.3.1) (2024-03-12)
 
 
 ### ⚠ BREAKING CHANGES
@@ -71,28 +84,28 @@ All notable changes to this project will be documented in this file. See [standa
 
 * ws-destroy become leave ([31772c7](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/31772c77ef5a93e1b35f19bc5f7944ad77765f41))
 
-## [3.3.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v3.2.2...v3.3.0) (2024-03-12)
+## [3.3.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v3.2.2...tldraw-webcomponent/v3.3.0) (2024-03-12)
 
 
 ### Features
 
 * clear room properties on owner leave ([bb0eab0](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/bb0eab01175cb72a32c0bdace6700f4cdc9f7076))
 
-### [3.2.2](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v3.2.1...v3.2.2) (2024-03-06)
+## [3.2.2](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v3.2.1...tldraw-webcomponent/v3.2.2) (2024-03-06)
 
 
 ### Bug Fixes
 
 * move dependencies to devDependencies ([5eb5ffe](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/5eb5ffe1043ef680bae60a21f0866ba39436d330))
 
-### [3.2.1](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v3.2.0...v3.2.1) (2024-03-06)
+## [3.2.1](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v3.2.0...tldraw-webcomponent/v3.2.1) (2024-03-06)
 
 
 ### Bug Fixes
 
 * persistanceApiUrl and assetsApiUrl on multi ([14e67da](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/14e67daa8b3a540dfa2e757f736c46a4b2977a64))
 
-## [3.2.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v3.1.0...v3.2.0) (2024-03-05)
+## [3.2.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v3.1.0...tldraw-webcomponent/v3.2.0) (2024-03-05)
 
 
 ### Features
@@ -100,14 +113,14 @@ All notable changes to this project will be documented in this file. See [standa
 * add owner property + fix asset and persistence on multi ([ad45175](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/ad4517598b23fe481a8f87e665f990a9c371aa6b))
 * better app dev ([7a742f5](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/7a742f5942991db8b0d026e688f67ab3191bdece))
 
-## [3.1.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v3.0.0...v3.1.0) (2024-03-04)
+## [3.1.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v3.0.0...tldraw-webcomponent/v3.1.0) (2024-03-04)
 
 
 ### Features
 
 * ws-destroy ([70e7230](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/70e723060ea0d79ed2a83a6a74a822f55de8e14a))
 
-## [3.0.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v1.8.0...v3.0.0) (2024-03-01)
+## [3.0.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v1.8.0...tldraw-webcomponent/v3.0.0) (2024-03-01)
 
 
 ### ⚠ BREAKING CHANGES
@@ -118,21 +131,21 @@ All notable changes to this project will be documented in this file. See [standa
 
 * merge tldraw-singleplayer and tldraw-multiplayer on tldraw-editor ([190e462](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/190e4629075500e32e5b0c0d122d78d16ed5139e))
 
-## [1.8.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v1.7.0...v1.8.0) (2024-02-02)
+## [1.8.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v1.7.0...tldraw-webcomponent/v1.8.0) (2024-02-06)
 
 
 ### Features
 
-* i18n fallback to an available user language ([f5c611b](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/f5c611b76bf980d6b73785fefa7d2ab7d1ff7360))
+* i18n fallback to an available user language ([077670f](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/077670f295904053e8b3632a1e86d8e77c1de46f))
 
-## [1.7.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v1.6.0...v1.7.0) (2024-02-01)
+## [1.7.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v1.6.0...tldraw-webcomponent/v1.7.0) (2024-02-01)
 
 
 ### Features
 
 * **multiplayer:** initialize with project + export and download ([bfd9636](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/bfd963631ae4f955c0b183043f82a4359a369f91))
 
-## [1.6.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v1.5.1...v1.6.0) (2024-01-26)
+## [1.6.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v1.5.1...tldraw-webcomponent/v1.6.0) (2024-01-26)
 
 
 ### ⚠ BREAKING CHANGES
@@ -143,9 +156,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 * tldraw-editor renamed to tldraw-singleplayer & new tldraw-multiplayer component ([72c4d3e](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/72c4d3ea80650a3e1dd1916b766398bd56f64430))
 
-### [1.5.1](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v1.5.0...v1.5.1) (2024-01-23)
+## [1.5.1](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v1.5.0...tldraw-webcomponent/v1.5.1) (2024-01-23)
 
-## [1.5.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v1.4.0...v1.5.0) (2024-01-23)
+## [1.5.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v1.4.0...tldraw-webcomponent/v1.5.0) (2024-01-23)
 
 
 ### Features
@@ -157,7 +170,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 * missing @tldraw/tldraw replacements ([b697e51](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/b697e5163e1ab777d93587de7540619aeaeee446))
 
-## [1.4.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v1.3.0...v1.4.0) (2024-01-23)
+## [1.4.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v1.3.0...tldraw-webcomponent/v1.4.0) (2024-01-23)
 
 
 ### ⚠ BREAKING CHANGES
@@ -168,28 +181,28 @@ All notable changes to this project will be documented in this file. See [standa
 
 * add required property ([53e9e75](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/53e9e75ec2a4db2a2a8f381ff2da46191bdd5631))
 
-## [1.3.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v1.2.0...v1.3.0) (2024-01-17)
+## [1.3.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v1.2.0...tldraw-webcomponent/v1.3.0) (2024-01-17)
 
 
 ### Features
 
 * add save icon ([9b806df](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/9b806df2e100a3235157d4277a552777ec0c3a46))
 
-## [1.2.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v1.1.2...v1.2.0) (2024-01-09)
+## [1.2.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v1.1.2...tldraw-webcomponent/v1.2.0) (2024-01-09)
 
 
 ### Bug Fixes
 
 * package.json ([14821f6](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/14821f6e0a1e8354f940eebe9822ceae5ff7018e))
 
-### [1.1.2](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v1.0.0...v1.1.2) (2024-01-08)
+## [1.1.2](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v1.0.0...tldraw-webcomponent/v1.1.2) (2024-01-08)
 
 
 ### Bug Fixes
 
 * manage empty blob ([f53feb5](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/f53feb595cdc1abfbf9899157d51474f6d1bf5de))
 
-## [1.0.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v0.1.3...v1.0.0) (2024-01-04)
+## [1.0.0](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v0.1.3...tldraw-webcomponent/v1.0.0) (2024-01-04)
 
 
 ### ⚠ BREAKING CHANGES
@@ -203,23 +216,23 @@ All notable changes to this project will be documented in this file. See [standa
 * auto save ([b1ff999](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/b1ff99969899c34a345339e8850c20134efdec75))
 * save with rest ([fcaf682](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/fcaf6827a4d9ad2d1199d6299895e59a81c44a40))
 
-### [0.1.3](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v0.1.2...v0.1.3) (2023-09-22)
+## [0.1.3](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v0.1.2...tldraw-webcomponent/v0.1.3) (2023-09-22)
 
 
 ### Bug Fixes
 
 * taken space ([91f6b18](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/91f6b18109116749efe753213847494a1b8c9fb4))
 
-### [0.1.2](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v0.1.1...v0.1.2) (2023-09-22)
+## [0.1.2](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v0.1.1...tldraw-webcomponent/v0.1.2) (2023-09-22)
 
-### [0.1.1](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v0.0.2...v0.1.1) (2023-09-22)
+## [0.1.1](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/tldraw-webcomponent/v0.0.2...tldraw-webcomponent/v0.1.1) (2023-09-22)
 
 
 ### Features
 
 * add clipboard toast success and error ([2bd4ebd](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/2bd4ebd691571471eb23d6ac108983962ceb4c0d))
 
-### [0.0.2](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/v0.0.0...v0.0.2) (2023-06-02)
+## [0.0.2](https://github.com/GIP-RECIA/tldraw-webcomponent/compare/38b7ca7af9fb6f75392cd4bfce78a6a4d6c8a0be...tldraw-webcomponent/v0.0.2) (2023-06-02)
 
 
 ### ⚠ BREAKING CHANGES
@@ -233,6 +246,12 @@ All notable changes to this project will be documented in this file. See [standa
 * join, leave, share
 * add WebComponent props
 * save single player in indexed db
+
+* migrate yarn 3.5.0 ([2299e14](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/2299e148fec87fb4f7cb0ba59a6bc9ccf4c33df4))
+* refactoring ([57ddd77](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/57ddd77c51e116787a912b4d896e54307d6c1950))
+* remove react render ([e7a97c1](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/e7a97c15e3ca7f286a1fb0e086af90f0d9b0c281))
+* rename properties ([6b9331a](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/6b9331a39339d009f277bf630575c144a7abc6d8))
+
 
 ### Features
 
@@ -276,9 +295,3 @@ All notable changes to this project will be documented in this file. See [standa
 * toolbar unavailable after file opening ([c52628b](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/c52628b58007f8b2327f4fdc1c07f7155265e041))
 * undoManager ([855a683](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/855a6838c500fa86f41dd98bdc85a96f1f44172c))
 * workspaces ([f9d5eb0](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/f9d5eb0bb2f90fbb86eb6fb10443558eb8d6e072))
-
-
-* migrate yarn 3.5.0 ([2299e14](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/2299e148fec87fb4f7cb0ba59a6bc9ccf4c33df4))
-* refactoring ([57ddd77](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/57ddd77c51e116787a912b4d896e54307d6c1950))
-* remove react render ([e7a97c1](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/e7a97c15e3ca7f286a1fb0e086af90f0d9b0c281))
-* rename properties ([6b9331a](https://github.com/GIP-RECIA/tldraw-webcomponent/commit/6b9331a39339d009f277bf630575c144a7abc6d8))
