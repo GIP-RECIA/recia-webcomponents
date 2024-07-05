@@ -1,0 +1,44 @@
+html,
+body,
+#root {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.settings {
+  display: flex;
+
+  div {
+    margin-right: 12px;
+  }
+}
+
+main {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+
+  .app-container {
+    border: 4px solid black;
+    height: 100%;
+    width: 100%;
+
+    .wisemapping__editor {
+      display: block;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
