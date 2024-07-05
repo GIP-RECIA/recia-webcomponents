@@ -5,9 +5,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "yarn workspaces foreach -At run build",
-    "lint": "yarn workspaces foreach -At run lint",
-    "test:unit": "yarn workspaces foreach -At run test:unit",
+    "each": "yarn workspaces foreach -At run",
     "prepare": "husky install"
   },
   "devDependencies": {

@@ -34,7 +34,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Build web components
-        run: yarn build
+        run: yarn each build
 
       - name: Tests
-        run: yarn test:unit
+        run: yarn each test:unit
