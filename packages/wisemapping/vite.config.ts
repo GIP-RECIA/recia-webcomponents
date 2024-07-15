@@ -9,11 +9,6 @@ export default ({ mode }: { mode: string }) => {
   return defineConfig({
     base: mode == 'development' ? process.env.VITE_BASE_URI : '/',
     plugins: [react()],
-    server: {
-      hmr: {
-        path: 'ws',
-      },
-    },
     build: {
       lib: {
         entry: './src/main.tsx',
