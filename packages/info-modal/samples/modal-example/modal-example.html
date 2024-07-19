@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="../../dist/info-modal.js"></script>
+    <script type="text/javascript">
+      // important pour remettre le focus sur l'élément
+      // déclencheur à la fermeture de la modale
+      let triggerElement
+
+      // Mise en place
+      document.addEventListener('DOMContentLoaded', () => {
+        let myDiv = document.querySelector('.div-test')
+        let buttonElement = document.createElement('button')
+
+        buttonElement.setAttribute('type', 'button')
+        buttonElement.textContent = 'Afficher une modale'
+        buttonElement.setAttribute('id', 'btn-modal')
+
+        // Ajouter les attributs suivants sur les boutons déclencheurs !!
+        buttonElement.setAttribute('aria-haspopup', 'dialog')
+        buttonElement.setAttribute('aria-controls', 'modal')
+        //----------------------------------------------------------------
+
+        myDiv.appendChild(buttonElement)
+
+        const titreModale = 'Le titre de la modale'
+
+        // Ajout d'un écouteur d'évenement
+        // sur le bouton déclencheur + création d'un événement personnalisé.
+        // La création de l'événement personnalisé doit se faire au niveau du portail pour être appelé partout ou l'on utilise la modale.
+        buttonElement.addEventListener('click', () => {
+          const myEvent = new CustomEvent('openModale', {
+            detail: {
+              title: titreModale
+            },
+            bubbles: true, // Permet à l'événement de remonter dans le DOM
+            composed: true // Permet à l'événement de sortir du shadow DOM
+          })
+          buttonElement.dispatchEvent(myEvent)
+        })
+
+        // Ajout d'un écouteur d'évenement sur l'évenement personnalisé "openModale"
+        document.addEventListener('openModale', event => {
+          const modale = document.getElementById('modale')
+
+          // composedPath()[0] donne l'élément déclencheur
+          triggerElement = event.composedPath()[0]
+
+          modale.mainElement = document.getElementsByTagName('main')[0]
+          modale.isOpen = !modale.isOpen
+          modale.titleModal = event.detail.title
+        })
+
+        document.addEventListener('closeModale', event => {
+          if (triggerElement) {
+            triggerElement.focus()
+            event.preventDefault()
+          }
+        })
+      })
+    </script>
+    <title>Test utilisation modale</title>
+  </head>
+  <body>
+    <main id="main">
+      <div class="div-test"></div>
+    </main>
+    <info-modal id="modale">
+      <div tabindex="0" slot="modal-body">
+        <h2>Un sous-titre</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rutrum nibh massa, vitae dictum ipsum faucibus
+          sit amet. Vestibulum et turpis eu nisl pharetra efficitur. In hac habitasse platea dictumst. Donec eu blandit
+          libero. Curabitur maximus volutpat metus, placerat semper velit fermentum ac. Pellentesque habitant morbi
+          tristique senectus et netus et malesuada fames ac turpis egestas. Integer nec nisl quis odio bibendum congue.
+          Curabitur libero turpis, pulvinar sit amet nisi faucibus, scelerisque pretium ex. Quisque vehicula erat
+          lectus, in suscipit mauris laoreet vulputate. Nunc arcu diam, posuere non lectus eu, congue aliquam nunc.
+          Etiam varius sapien sed purus fermentum, eget volutpat eros bibendum. Quisque efficitur ultrices sagittis.
+        </p>
+        <p>
+          Praesent bibendum mi et ligula malesuada, eget dapibus metus molestie. Donec fermentum et lacus eget ornare.
+          Ut ac velit aliquet nisl facilisis accumsan. Fusce commodo viverra magna. Vestibulum ultricies erat vitae
+          lectus fermentum convallis. Morbi elementum imperdiet egestas. Curabitur eu massa placerat, laoreet enim et,
+          laoreet sem.
+        </p>
+        Curabitur venenatis ex eget risus ultricies, eu bibendum mi lobortis. Donec id placerat augue. Integer elementum
+        ullamcorper elit a pulvinar. Integer quam tellus, pulvinar aliquet eros sodales, vulputate semper risus. Mauris
+        consequat eleifend vestibulum. Aliquam venenatis orci eu rhoncus venenatis. Aenean dolor est, suscipit nec
+        suscipit eget, dictum vitae ante. Ut imperdiet eleifend ligula, vel ultricies massa venenatis in. Fusce pretium
+        libero vitae libero sollicitudin, ac ornare lacus tempor. Suspendisse potenti.
+      </div>
+      <div tabindex="0" slot="modal-footer">Le footer de la modale.</div>
+    </info-modal>
+  </body>
+</html>
