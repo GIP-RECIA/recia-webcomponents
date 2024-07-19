@@ -47,6 +47,9 @@
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
+    "@fortawesome/fontawesome-free": "^6.5.2",
+    "@fortawesome/fontawesome-svg-core": "^6.5.2",
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@tsconfig/node20": "^20",
     "@types/node": "^20",
@@ -55,12 +58,14 @@
     "eslint": "^9.6.0",
     "husky": "^9.0.11",
     "lit-analyzer": "^2.0.3",
+    "lit-scss-loader": "^2.0.1",
     "prettier": "^3.3.2",
     "sass": "^1.77.6",
     "standard-version": "^9.5.0",
     "terser": "^5.31.1",
     "typescript": "^5.2.2",
     "vite": "^5.3.1",
+    "vite-plugin-sass": "^0.1.0",
     "vitest": "^1.6.0"
   }
 }

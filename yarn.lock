@@ -582,12 +582,47 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/fontawesome-common-types@npm:6.5.2":
+  version: 6.5.2
+  resolution: "@fortawesome/fontawesome-common-types@npm:6.5.2"
+  checksum: 10/a918b2dd6566db6878999e1c4523fa8d0fcc3c79f00086b48a36c365e543ac16a2950618f47893a8369d4ee13e454baf1f5108f7238bdf6ec2bea459b6c517ca
+  languageName: node
+  linkType: hard
+
+"@fortawesome/fontawesome-free@npm:^6.5.2":
+  version: 6.5.2
+  resolution: "@fortawesome/fontawesome-free@npm:6.5.2"
+  checksum: 10/8eb70fa76263a79f43d95c7b8d2a839c04cd96ec17ca0f14d7b6ec659ce25abd89e47b436616b5fd9e1aec74f2f4e9c02c6be7549d37b5cb9ceb5f15c8834cbf
+  languageName: node
+  linkType: hard
+
+"@fortawesome/fontawesome-svg-core@npm:^6.5.2":
+  version: 6.5.2
+  resolution: "@fortawesome/fontawesome-svg-core@npm:6.5.2"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:6.5.2"
+  checksum: 10/03cc6d9662f2014e2fbbf47e9678a6a21108edeb78ff551207eeb12404daa8bfa5c6dd30a474d3fca897e856ff4b45d35261bb445fc30994c46d91783722684d
+  languageName: node
+  linkType: hard
+
+"@fortawesome/free-solid-svg-icons@npm:^6.5.2":
+  version: 6.5.2
+  resolution: "@fortawesome/free-solid-svg-icons@npm:6.5.2"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:6.5.2"
+  checksum: 10/2f6dde7eddc8ab9ed09d220c2dad6cb53922842d3f764ea9d393162ba50971b5be8f16e0c9a225ec808d6a2e92769a0d194e7e1ae8f98ccdd53f7a59aee2e31b
+  languageName: node
+  linkType: hard
+
 "@gip-recia/info-modal@workspace:packages/info-modal":
   version: 0.0.0-use.local
   resolution: "@gip-recia/info-modal@workspace:packages/info-modal"
   dependencies:
     "@commitlint/cli": "npm:^19.3.0"
     "@commitlint/config-conventional": "npm:^19.2.2"
+    "@fortawesome/fontawesome-free": "npm:^6.5.2"
+    "@fortawesome/fontawesome-svg-core": "npm:^6.5.2"
+    "@fortawesome/free-solid-svg-icons": "npm:^6.5.2"
     "@trivago/prettier-plugin-sort-imports": "npm:^4.3.0"
     "@tsconfig/node20": "npm:^20"
     "@types/node": "npm:^20"
@@ -597,12 +632,14 @@ __metadata:
     husky: "npm:^9.0.11"
     lit: "npm:^3.1.4"
     lit-analyzer: "npm:^2.0.3"
+    lit-scss-loader: "npm:^2.0.1"
     prettier: "npm:^3.3.2"
     sass: "npm:^1.77.6"
     standard-version: "npm:^9.5.0"
     terser: "npm:^5.31.1"
     typescript: "npm:^5.2.2"
     vite: "npm:^5.3.1"
+    vite-plugin-sass: "npm:^0.1.0"
     vitest: "npm:^1.6.0"
   languageName: unknown
   linkType: soft
@@ -1651,6 +1688,15 @@ __metadata:
   version: 2.0.0
   resolution: "chownr@npm:2.0.0"
   checksum: 10/c57cf9dd0791e2f18a5ee9c1a299ae6e801ff58fee96dc8bfd0dcb4738a6ce58dd252a3605b1c93c6418fe4f9d5093b28ffbf4d66648cb2a9c67eaef9679be2f
+  languageName: node
+  linkType: hard
+
+"clean-css@npm:^4.2.1":
+  version: 4.2.4
+  resolution: "clean-css@npm:4.2.4"
+  dependencies:
+    source-map: "npm:~0.6.0"
+  checksum: 10/4f64dbebfa29feb79be25d6f91239239179adc805c6d7442e2c728970ca23a75b5f238118477b4b78553b89e50f14a64fe35145ecc86b6badf971883c4ad2ffe
   languageName: node
   linkType: hard
 
@@ -3504,6 +3550,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lit-scss-loader@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "lit-scss-loader@npm:2.0.1"
+  dependencies:
+    clean-css: "npm:^4.2.1"
+  peerDependencies:
+    webpack: ^5.37.1
+  checksum: 10/c150f6b37aa6651883c6a79c0e9eae009db8b8bb4e5f588af9c4de92a78655d1b8074d8b145732691b48ae6a147157f721e075c0cd3ca2f71554468c2c398e2d
+  languageName: node
+  linkType: hard
+
 "lit-webcomponents@workspace:.":
   version: 0.0.0-use.local
   resolution: "lit-webcomponents@workspace:."
@@ -4953,7 +5010,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map@npm:^0.6.0, source-map@npm:^0.6.1":
+"source-map@npm:^0.6.0, source-map@npm:^0.6.1, source-map@npm:~0.6.0":
   version: 0.6.1
   resolution: "source-map@npm:0.6.1"
   checksum: 10/59ef7462f1c29d502b3057e822cdbdae0b0e565302c4dd1a95e11e793d8d9d62006cdc10e0fd99163ca33ff2071360cf50ee13f90440806e7ed57d81cba2f7ff
@@ -5559,6 +5616,13 @@ __metadata:
   bin:
     vite-node: vite-node.mjs
   checksum: 10/40230598c3c285cf65f407ac50b1c7753ab2dfa960de76ec1a95a0ce0ff963919d065c29ba538d9fb2fba3e0703a051d49d1ad6486001ba2f90616cc706ddc3d
+  languageName: node
+  linkType: hard
+
+"vite-plugin-sass@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "vite-plugin-sass@npm:0.1.0"
+  checksum: 10/e3bf89d6ca255eb08b0a99ecd71b0fa97dd2f2be2fb32009120012cd2ca7bdfdfc132b6a7602de48bfab1fff852abc54ad3b4a93311fda4330ae4ccadb046d4c
   languageName: node
   linkType: hard
 
