@@ -59,9 +59,8 @@ Il est conseillé de regarder [l'exemple d'utilisation de la modale.](https://gi
 ## **Paramètres**
 
 Le webcomponent Info-Modal accepte les paramètres
-suvants :
+suivants :
 
-- Propriétés disponibles :
 
 | Nom         | Type        | Obligatoire | Description                                                         |
 | ----------- | ----------- | ----------- | ------------------------------------------------------------------- |
@@ -72,7 +71,7 @@ suvants :
 ## **Variables CSS**
 
 Le webcomponent Info-Modal accepte les variables css
-suvantes :
+suivantes :
 
 | Nom                                           | Description                                                   |
 | --------------------------------------------- | ------------------------------------------------------------- |
