@@ -1,0 +1,54 @@
+{
+  "carte-ressource": {
+    "id-gar": "Identifiant GAR",
+    "nom-ressource": "Nom de la ressource",
+    "editeur": "Éditeur",
+    "distributeurCom": "Distributeur commercial",
+    "distributeurTech": "Distributeur technique",
+    "affichable": "Affichable",
+    "diffusable": "Diffusable",
+    "oui": "Oui",
+    "non": "Non",
+    "plus-informations": "Plus d'informations",
+    "moins-informations": "Moins d'informations",
+    "copier-references": "Copier les références",
+    "contenu-copie": "Copié"
+  },
+  "legende-ressource": {
+    "id-gar": {
+      "intitule": "Identifiant GAR",
+      "definition": "Définition de l'Identifiant GAR"
+    },
+    "editeur": {
+      "intitule": "Éditeur",
+      "definition": "Définition de l'éditeur"
+    },
+    "distributeurCom": {
+      "intitule": "Distributeur commercial",
+      "definition": "Définition du distributeur commercial"
+    },
+    "distributeurTech": {
+      "intitule": "Distributeur technique",
+      "definition": "Définition du distributeur technique"
+    },
+    "affichable": {
+      "intitule": "Affichable",
+      "definition": "Définition de affichable"
+    },
+    "diffusable": {
+      "intitule": "Diffusable",
+      "definition": "Définition de diffusable"
+    }
+  },
+  "liste-ressources": {
+    "charger-plus": "Charger plus",
+    "chargement": "Chargement…",
+    "aucune-ressource": "Aucune ressource ne correspond à votre recherche.",
+    "erreur": "Une erreur est survenue. Veuillez contacter un référent ENT.",
+    "detail-erreur": "Détail de l'erreur "
+  },
+  "recherche-ressource": {
+    "recherche": "Recherche",
+    "elements-affiches": "éléments affichés"
+  }
+}

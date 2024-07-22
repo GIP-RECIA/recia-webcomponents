@@ -1,0 +1,98 @@
+{
+  "name": "@gip-recia/ui-ressources-gar",
+  "type": "module",
+  "version": "2.1.1",
+  "description": "UI des ressources du GAR en Vue.js.",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "gar",
+    "ressources",
+    "gip-recia"
+  ],
+  "homepage": "https://github.com/GIP-RECIA/Ressources-Diffusables-UI/#README.md",
+  "bugs": {
+    "url": "https://github.com/GIP-RECIA/Ressources-Diffusables-UI/issues"
+  },
+  "license": "Apache-2.0",
+  "contributors": [
+    {
+      "name": "Anaël",
+      "url": "https://github.com/NastiouchaNakamura"
+    },
+    {
+      "name": "Quentin Guillemin",
+      "email": "quentin.guillemin@recia.fr",
+      "url": "https://github.com/Quentin-Guillemin"
+    }
+  ],
+  "main": "./dist/ui-ressources-gar.umd.cjs",
+  "module": "./dist/ui-ressources-gar.js",
+  "exports": {
+    ".": {
+      "import": "./dist/ui-ressources-gar.js",
+      "require": "./dist/ui-ressources-gar.umd.cjs"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GIP-RECIA/Ressources-Diffusables-UI.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "vite --host",
+    "build": "run-p type-check build-only && yarn build:min",
+    "build:min": "npm exec terser -- -c -m --module dist/ui-ressources-gar.js > dist/ui-ressources-gar.min.js",
+    "clean": "find . -name node_modules -type d -prune -o -name cache -type d -o -name dist -type d | xargs rm -rf",
+    "preview": "vite preview --port 4173",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --noEmit",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "format:check": "prettier --check src/",
+    "format": "prettier --write src/",
+    "prepare": "husky install",
+    "release": "standard-version",
+    "release:minor": "standard-version --release-as minor",
+    "release:patch": "standard-version --release-as patch",
+    "release:major": "standard-version --release-as major"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/vue-fontawesome": "^3.0.8",
+    "@intlify/unplugin-vue-i18n": "^4.0.0",
+    "@rushstack/eslint-patch": "^1.10.3",
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@tsconfig/node20": "^20.1.4",
+    "@types/lodash.debounce": "^4",
+    "@types/node": "^20",
+    "@uportal/open-id-connect": "^1.40.2",
+    "@vitejs/plugin-vue": "^5.0.5",
+    "@vue/eslint-config-prettier": "^9.0.0",
+    "@vue/eslint-config-typescript": "^13.0.0",
+    "@vue/tsconfig": "^0.5.1",
+    "axios": "^1.7.2",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.27.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.7",
+    "lodash.debounce": "^4.0.8",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.3.3",
+    "regenerator-runtime": "^0.14.1",
+    "sass": "^1.77.8",
+    "standard-version": "^9.5.0",
+    "terser": "^5.31.3",
+    "typescript": "^5.5.3",
+    "vite": "^5.3.4",
+    "vue": "^3.4.33",
+    "vue-i18n": "^9.13.1",
+    "vue-tsc": "^2.0.26"
+  },
+  "packageManager": "yarn@4.3.1"
+}

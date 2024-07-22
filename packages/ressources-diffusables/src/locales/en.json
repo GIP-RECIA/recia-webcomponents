@@ -1,0 +1,54 @@
+{
+  "carte-ressource": {
+    "id-gar": "GAR Identifier",
+    "nom-ressource": "Resource name",
+    "editeur": "Editor",
+    "distributeurTech": "Technical distributor",
+    "distributeurCom": "Commercial distributor",
+    "affichable": "Displayable",
+    "diffusable": "Sharable",
+    "oui": "Yes",
+    "non": "No",
+    "plus-informations": "More information",
+    "moins-informations": "Less information",
+    "copier-references": "Copy references",
+    "contenu-copie": "Copied"
+  },
+  "legende-ressource": {
+    "id-gar": {
+      "intitule": "GAR Identifier",
+      "definition": "GAR Identifier meaning"
+    },
+    "editeur": {
+      "intitule": "Editor",
+      "definition": "Editor meaning"
+    },
+    "distributeurTech": {
+      "intitule": "Technical distributor",
+      "definition": "Technical distributor meaning"
+    },
+    "distributeurCom": {
+      "intitule": "Commercial distributor",
+      "definition": "Commercial distributor meaning"
+    },
+    "affichable": {
+      "intitule": "Displayable",
+      "definition": "Displayable meaning"
+    },
+    "diffusable": {
+      "intitule": "Sharable",
+      "definition": "Sharable meaning"
+    }
+  },
+  "liste-ressources": {
+    "charger-plus": "Load more",
+    "chargement": "Loading…",
+    "aucune-ressource": "No resource matches your request.",
+    "erreur": "An error occured. Please contact a ENT referent.",
+    "detail-erreur": "Error informations"
+  },
+  "recherche-ressource": {
+    "recherche": "Search",
+    "elements-affiches": "items displayed"
+  }
+}
