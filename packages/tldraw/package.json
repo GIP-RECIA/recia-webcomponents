@@ -11,9 +11,9 @@
     "web component",
     "gip-recia"
   ],
-  "homepage": "https://github.com/GIP-RECIA/tldraw-webcomponent/#README.md",
+  "homepage": "https://github.com/GIP-RECIA/recia-webcomponents/tree/main/packages/tldraw/#readme",
   "bugs": {
-    "url": "https://github.com/GIP-RECIA/tldraw-webcomponent/issues"
+    "url": "https://github.com/GIP-RECIA/recia-webcomponents/issues"
   },
   "license": "Apache-2.0",
   "author": {
@@ -31,7 +31,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GIP-RECIA/tldraw-webcomponent.git"
+    "url": "git+https://github.com/GIP-RECIA/recia-webcomponents.git"
   },
   "publishConfig": {
     "access": "public"
@@ -45,7 +45,7 @@
     "test:unit": "echo No tests available",
     "format:check": "prettier --config ../../.prettierrc.json --check src/",
     "format": "prettier --config ../../.prettierrc.json --write src/",
-    "release": "yarn run -T commit-and-tag-version -t 'tldraw-webcomponent/v' packages/wisemapping/.versionrc",
+    "release": "yarn run -T commit-and-tag-version -t 'tldraw-webcomponent/v'",
     "release:minor": "yarn run -T commit-and-tag-version -t 'tldraw-webcomponent/v' --release-as minor",
     "release:patch": "yarn run -T commit-and-tag-version -t 'tldraw-webcomponent/v' --release-as patch",
     "release:major": "yarn run -T commit-and-tag-version -t 'tldraw-webcomponent/v' --release-as major"

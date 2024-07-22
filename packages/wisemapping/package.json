@@ -11,9 +11,9 @@
     "web component",
     "gip-recia"
   ],
-  "homepage": "https://github.com/GIP-RECIA/wisemapping-webcomponent/#README.md",
+  "homepage": "https://github.com/GIP-RECIA/recia-webcomponents/tree/main/packages/wisemapping/#readme",
   "bugs": {
-    "url": "https://github.com/GIP-RECIA/wisemapping-webcomponent/issues"
+    "url": "https://github.com/GIP-RECIA/recia-webcomponents/issues"
   },
   "license": "Apache-2.0",
   "author": {
@@ -31,7 +31,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GIP-RECIA/wisemapping-webcomponent.git"
+    "url": "git+https://github.com/GIP-RECIA/recia-webcomponents.git"
   },
   "publishConfig": {
     "access": "public"

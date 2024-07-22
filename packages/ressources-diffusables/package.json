@@ -1,30 +1,30 @@
 {
   "name": "@gip-recia/ui-ressources-gar",
+  "version": "3.0.0",
   "type": "module",
-  "version": "2.1.1",
-  "description": "UI des ressources du GAR en Vue.js.",
   "files": [
     "dist"
   ],
+  "description": "UI des ressources du GAR en Vue.js.",
   "keywords": [
     "gar",
     "ressources",
     "gip-recia"
   ],
-  "homepage": "https://github.com/GIP-RECIA/Ressources-Diffusables-UI/#README.md",
+  "homepage": "https://github.com/GIP-RECIA/recia-webcomponents/tree/main/packages/ressources-diffusables/#readme",
   "bugs": {
-    "url": "https://github.com/GIP-RECIA/Ressources-Diffusables-UI/issues"
+    "url": "https://github.com/GIP-RECIA/recia-webcomponents/issues"
   },
   "license": "Apache-2.0",
   "contributors": [
     {
-      "name": "Anaël",
-      "url": "https://github.com/NastiouchaNakamura"
-    },
-    {
       "name": "Quentin Guillemin",
       "email": "quentin.guillemin@recia.fr",
       "url": "https://github.com/Quentin-Guillemin"
+    },
+    {
+      "name": "Anaël",
+      "url": "https://github.com/NastiouchaNakamura"
     }
   ],
   "main": "./dist/ui-ressources-gar.umd.cjs",
@@ -37,27 +37,24 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GIP-RECIA/Ressources-Diffusables-UI.git"
+    "url": "git+https://github.com/GIP-RECIA/recia-webcomponents.git"
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
     "dev": "vite --host",
-    "build": "run-p type-check build-only && yarn build:min",
+    "build": "vite build && yarn build:min",
     "build:min": "npm exec terser -- -c -m --module dist/ui-ressources-gar.js > dist/ui-ressources-gar.min.js",
-    "clean": "find . -name node_modules -type d -prune -o -name cache -type d -o -name dist -type d | xargs rm -rf",
-    "preview": "vite preview --port 4173",
-    "build-only": "vite build",
-    "type-check": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format:check": "prettier --check src/",
-    "format": "prettier --write src/",
-    "prepare": "husky install",
-    "release": "standard-version",
-    "release:minor": "standard-version --release-as minor",
-    "release:patch": "standard-version --release-as patch",
-    "release:major": "standard-version --release-as major"
+    "preview": "vite preview",
+    "test:unit": "echo No tests available",
+    "format:check": "prettier --config ../../.prettierrc.json --check src/",
+    "format": "prettier --config ../../.prettierrc.json --write src/",
+    "release": "yarn run -T commit-and-tag-version -t 'ui-ressources-gar/v'",
+    "release:minor": "yarn run -T commit-and-tag-version -t 'ui-ressources-gar/v' --release-as minor",
+    "release:patch": "yarn run -T commit-and-tag-version -t 'ui-ressources-gar/v' --release-as patch",
+    "release:major": "yarn run -T commit-and-tag-version -t 'ui-ressources-gar/v' --release-as major"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
