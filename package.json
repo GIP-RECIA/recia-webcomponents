@@ -46,7 +46,7 @@
     "@uportal/open-id-connect": "^1.40.2",
     "axios": "^1.6.8",
     "vue": "^3.4.21",
-    "vue-i18n": "^9.13.0"
+    "vue-i18n": "^9.13.1"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
