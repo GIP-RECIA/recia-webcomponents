@@ -7238,6 +7238,7 @@ __metadata:
     commit-and-tag-version: "npm:^12.4.1"
     husky: "npm:^8.0.3"
     lint-staged: "npm:^15.2.7"
+    prettier: "npm:^3.3.3"
   languageName: unknown
   linkType: soft
 
