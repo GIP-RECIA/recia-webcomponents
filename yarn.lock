@@ -1172,7 +1172,7 @@ __metadata:
     regenerator-runtime: "npm:^0.14.1"
     sass: "npm:^1.77.8"
     terser: "npm:^5.31.3"
-    typescript: "npm:~5.5.2"
+    typescript: "npm:^5.5.3"
     vite: "npm:^5.3.4"
     vite-plugin-css-injected-by-js: "npm:^3.5.1"
     y-presence: "npm:^0.2.3"
@@ -1266,7 +1266,7 @@ __metadata:
     regenerator-runtime: "npm:^0.14.1"
     sass: "npm:^1.77.8"
     terser: "npm:^5.31.3"
-    typescript: "npm:^5.5.2"
+    typescript: "npm:^5.5.3"
     vite: "npm:^5.3.4"
     y-presence: "npm:^0.2.3"
     y-websocket: "npm:^2.0.4"
@@ -8092,7 +8092,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.5.2, typescript@npm:~5.5.2":
+"typescript@npm:^5.5.3":
   version: 5.5.3
   resolution: "typescript@npm:5.5.3"
   bin:
@@ -8102,7 +8102,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.5.2#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A~5.5.2#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A^5.5.3#optional!builtin<compat/typescript>":
   version: 5.5.3
   resolution: "typescript@patch:typescript@npm%3A5.5.3#optional!builtin<compat/typescript>::version=5.5.3&hash=379a07"
   bin:
