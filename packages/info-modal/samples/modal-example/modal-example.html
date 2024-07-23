@@ -29,8 +29,9 @@
 
         // Ajout d'un écouteur d'évenement
         // sur le bouton déclencheur + création d'un événement personnalisé.
-        // La création de l'événement personnalisé doit se faire au niveau du portail pour être appelé partout ou l'on utilise la modale.
+
         buttonElement.addEventListener('click', () => {
+          // La création de l'événement personnalisé doit se faire au niveau du DOM HTML pour être appelé partout ou l'on utilise la modale.
           const myEvent = new CustomEvent('openModale', {
             detail: {
               title: titreModale
@@ -39,6 +40,8 @@
             composed: true // Permet à l'événement de sortir du shadow DOM
           })
           buttonElement.dispatchEvent(myEvent)
+          // Une fois l'évenement personnalisé créée dans le DOM HTML, il faut juste appeler 'openModale'
+          // Ce qui donne : buttonElement.addEventListener('click', 'openModale')
         })
 
         // Ajout d'un écouteur d'évenement sur l'évenement personnalisé "openModale"
