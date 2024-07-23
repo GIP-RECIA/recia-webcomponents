@@ -18,10 +18,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
   },
-  'vue/no-deprecated-slot-attribute': [
-    'error',
-    {
-      ignore: ['page-mediacentre'],
-    },
-  ],
+  rules: {
+    'vue/no-deprecated-slot-attribute': 'off',
+  },
 };
