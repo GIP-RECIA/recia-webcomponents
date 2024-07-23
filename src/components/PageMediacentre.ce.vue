@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import '../../src/info-modal.js';
 import {
   flushMediacentreFavorites,
   getFavorites,
@@ -7,6 +6,7 @@ import {
   getResources,
   putFavorites,
 } from '../services/ServiceMediacentre.ts';
+import './info-modal/info-modal.js';
 import { setError } from '@/services/ServiceErreurMediacentre.ts';
 import { getFilters as filtrage } from '@/services/ServiceFiltreMediacentre.ts';
 import type { Filtres } from '@/types/FiltresType.ts';
@@ -212,14 +212,14 @@ const getFiltres = async (): Promise<void> => {
     <Teleport to="body">
       <info-modal id="modale" debug="false">
         <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
-        <template slot="modal-body">
+        <div slot="modal-body">
           <div style="display: flex; flex-direction: column; gap: 2em">
             <span>{{ t('resource-info-modal-mediacentre.editor') }} {{ resourceEditor }} </span>
             <div v-if="resourceDescription" class="description-modal">
               {{ resourceDescription }}
             </div>
           </div>
-        </template>
+        </div>
       </info-modal>
     </Teleport>
   </div>
