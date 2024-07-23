@@ -4,13 +4,9 @@ import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
-const isModalOpen = ref(false);
-const resourceTitle = ref<string>('');
-const resourceEditor = ref<string>('');
-const resourceDescription = ref<string | undefined>();
 const nbHiddenCards = ref<number>(0);
 
-const emit = defineEmits(['update-favorite']);
+const emit = defineEmits(['update-favorite', 'open-modal']);
 
 const props = defineProps<{
   filtre: string;
@@ -42,10 +38,11 @@ const isEmptyFavoritesList = (event: CustomEvent): void => {
 };
 
 const openModal = (event: CustomEvent): void => {
-  isModalOpen.value = true;
-  resourceTitle.value = event.detail[0];
-  resourceEditor.value = event.detail[1];
-  resourceDescription.value = event.detail[2];
+  const isModalOpen = true;
+  const resourceTitle = event.detail[0];
+  const resourceEditor = event.detail[1];
+  const resourceDescription = event.detail[2];
+  emit('open-modal', isModalOpen, resourceTitle, resourceEditor, resourceDescription);
 };
 
 const sendUpdateFavorite = (event: CustomEvent) => {
@@ -76,19 +73,12 @@ const sendUpdateFavorite = (event: CustomEvent) => {
     <p v-else-if="filtre == 'favoris'">{{ t('liste-ressources-mediacentre.no-favorite-resources') }}</p>
     <p v-else>{{ t('liste-ressources-mediacentre.no-resources') }}</p>
   </div>
-  <resource-info-modal
-    v-show="isModalOpen"
-    @close="isModalOpen = false"
-    :title="resourceTitle"
-    :editor="resourceEditor"
-    :description="resourceDescription"
-  />
 </template>
 
 <style>
 .cadre-liste-ressources-mediacentre {
   overflow-y: scroll;
-  margin-left: 3em;
+
   height: auto;
   box-sizing: border-box;
   max-height: 100%;
@@ -96,15 +86,14 @@ const sendUpdateFavorite = (event: CustomEvent) => {
   flex-direction: row;
   flex-wrap: wrap;
   gap: 2em;
-  justify-content: space-evenly;
-
+  padding: 0 2em 2em 2em;
   p {
     text-align: justify;
     padding: 1em;
   }
 }
 
-@media only screen and (min-width: 260px) and (max-width: 575px) {
+@media only screen and (max-width: 650px) {
   .cadre-liste-ressources-mediacentre {
     height: 100%;
     width: 100%;

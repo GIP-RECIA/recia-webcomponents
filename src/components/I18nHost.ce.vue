@@ -9,16 +9,22 @@ defineProps<{
   baseApiUrl: string;
   userInfoApiUrl: string;
   userRightsApiUrl: string;
-  userResourceFavoritesApiUrl: string;
+  getUserFavoriteResourcesUrl: string;
+  putUserFavoriteResourcesUrl: string;
+  fnameMediacentreUi: string;
 }>();
 </script>
 
 <template>
   <page-mediacentre
+    id="page-mediacentre"
     :base-api-url="baseApiUrl"
     :user-info-api-url="userInfoApiUrl"
     :user-rights-api-url="userRightsApiUrl"
-    :user-resource-favorites-api-url="userResourceFavoritesApiUrl"
+    :get-user-favorite-resources-api-url="getUserFavoriteResourcesUrl"
+    :put-user-favorite-resources-api-url="putUserFavoriteResourcesUrl"
+    :fname-mediacentre-ui="fnameMediacentreUi"
+  />
   />
 </template>
 

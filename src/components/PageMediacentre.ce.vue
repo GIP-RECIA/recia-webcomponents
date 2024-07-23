@@ -1,14 +1,21 @@
 <script setup lang="ts">
-import { addFavorite, getFavorites, getFilters, getResources, removeFavorite } from '../services/ServiceMediacentre.ts';
+import '../../src/info-modal.js';
+import {
+  flushMediacentreFavorites,
+  getFavorites,
+  getFilters,
+  getResources,
+  putFavorites,
+} from '../services/ServiceMediacentre.ts';
 import { setError } from '@/services/ServiceErreurMediacentre.ts';
 import { getFilters as filtrage } from '@/services/ServiceFiltreMediacentre.ts';
 import type { Filtres } from '@/types/FiltresType.ts';
-// import { addFavorite, removeFavorite } from '../services/ServiceMediacentreTest.ts';
 import { type Ressource, createResourceFromJson } from '@/types/RessourceType.ts';
 import { CustomError } from '@/utils/CustomError.ts';
 import { initToken } from '@/utils/axiosUtils.ts';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { computed, onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const filtre = ref('tout');
 const filtres = ref<Array<Filtres>>([]);
@@ -16,14 +23,21 @@ const ressources = ref<Array<Ressource>>([]);
 const filteredResources = ref<Array<Ressource>>([]);
 const chargement = ref<boolean>(false);
 const chargementApp = ref<boolean>(false);
+const isModalOpen = ref(false);
+const resourceTitle = ref<string>('');
+const resourceEditor = ref<string>('');
+const resourceDescription = ref<string | undefined>();
 
+const { t } = useI18n();
 const erreur = ref<string>('');
 
 const props = defineProps<{
   baseApiUrl: string;
   userInfoApiUrl: string;
   userRightsApiUrl: string;
-  userResourceFavoritesApiUrl: string;
+  getUserFavoriteResourcesApiUrl: string;
+  putUserFavoriteResourcesApiUrl: string;
+  fnameMediacentreUi: string;
 }>();
 
 const countNbFilteredResources = computed<number>(() => {
@@ -35,6 +49,7 @@ onMounted(async (): Promise<void> => {
     chargementApp.value = true;
 
     await initToken(props.userInfoApiUrl);
+    // await flushMediacentreFavorites(props.putUserFavoriteResourcesApiUrl, props.fnameMediacentreUi);
     await getRessources();
     await setFavoris();
     await getFiltres();
@@ -72,39 +87,48 @@ const updateFiltre = (value: CustomEvent): void => {
 
 const setFavoris = async (): Promise<void> => {
   try {
-    const idResourceFavorites = await getFavorites(props.baseApiUrl);
-
-    const resourceFavorites = ressources.value.filter((res) => idResourceFavorites.includes(res.idRessource));
-
+    const resourceFavoriteIds = await getFavorites(props.getUserFavoriteResourcesApiUrl, props.fnameMediacentreUi);
+    const mediacentreFavorites = resourceFavoriteIds.mediacentreFavorites;
+    const resourceFavorites = ressources.value.filter((res) => mediacentreFavorites.includes(res.idRessource));
     resourceFavorites.forEach((res) => (res.isFavorite = true));
   } catch (e: any) {
     console.error(e);
   }
 };
 
-const updateFavori = (event: CustomEvent) => {
+const updateFavori = async (event: CustomEvent) => {
   const idResource = event.detail[0];
   const isFavorite = event.detail[1];
 
   const resourceFavorite = ressources.value.find((res) => res.idRessource == idResource);
   resourceFavorite!.isFavorite = isFavorite;
   try {
-    if (isFavorite) {
-      addFavorite(props.baseApiUrl, idResource);
-    } else {
-      removeFavorite(props.baseApiUrl, idResource);
-    }
+    const resourceFavoriteIds = await getFavorites(props.getUserFavoriteResourcesApiUrl, props.fnameMediacentreUi);
+    await putFavorites(
+      props.putUserFavoriteResourcesApiUrl,
+      idResource,
+      isFavorite,
+      resourceFavoriteIds.mediacentreFavorites,
+      props.fnameMediacentreUi,
+    );
   } catch (e: any) {
     console.error(e);
   }
 };
 
+const openModal = (event: CustomEvent) => {
+  isModalOpen.value = true;
+  resourceTitle.value = event.detail[1];
+  resourceEditor.value = event.detail[2];
+  resourceDescription.value = event.detail[3];
+};
+
 const getFavoris = async (): Promise<void> => {
   chargement.value = true;
   try {
-    const idResourceFavorites: Array<string> = await getFavorites(props.baseApiUrl);
-    filteredResources.value = ressources.value.filter((ressource) =>
-      idResourceFavorites.includes(ressource.idRessource),
+    const idResourceFavorites = await getFavorites(props.getUserFavoriteResourcesApiUrl, props.fnameMediacentreUi);
+    filteredResources.value = ressources.value.filter((res) =>
+      idResourceFavorites.mediacentreFavorites.includes(res.idRessource),
     );
     filteredResources.value.forEach((res) => (res.isFavorite = true));
   } catch (error: any) {
@@ -182,62 +206,85 @@ const getFiltres = async (): Promise<void> => {
         :erreur="erreur"
         @update-favorite="updateFavori"
         :nbResources="countNbFilteredResources"
+        @open-modal="openModal"
       />
     </main>
+    <Teleport to="body">
+      <info-modal id="modale" debug="false">
+        <template v-slot:modal-body>
+<div style="display: flex; flex-direction: column; gap: 2em" >
+          <span>{{ t('resource-info-modal-mediacentre.editor') }} {{ resourceEditor }} </span>
+          <div v-if="resourceDescription" class="description-modal">
+            {{ resourceDescription }}
+          </div>
+        </div>
+</template>
+      </info-modal>
+    </Teleport>
   </div>
 </template>
 
-<style lang="scss">
-.cadre-page-mediacentre {
-  display: flex;
-  flex-direction: row;
-  row-gap: 2em;
-  height: 100%;
-  width: 100%;
-}
+<style lang="scss" scoped>
 .spinner-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   height: 100%;
-}
-.spinner-element {
-  color: #d3d3d3;
-  width: 10em;
-  height: 10em;
-}
 
-@keyframes spinner {
-  to {
-    transform: rotate(360deg);
+  .spinner-element {
+    color: #d3d3d3;
+    width: 10em;
+    height: 10em;
+
+    @keyframes spinner {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .fa-spinner {
+      animation: spinner 2s linear infinite;
+    }
+  }
+}
+.cadre-page-mediacentre {
+  display: flex;
+  flex-direction: row;
+  gap: 4em;
+  padding: 2em;
+  height: 100%;
+  width: 100%;
+
+  .aside-page-mediacentre {
+    align-items: flex-start;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-right: 1em;
+
+    menu-mediacentre {
+      height: 100%;
+    }
+  }
+
+  .main-page-mediacentre {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
   }
 }
 
-.fa-spinner {
-  animation: spinner 2s linear infinite;
+.description-modal {
+  text-align: justify;
 }
 
-.aside-page-mediacentre {
-  align-items: flex-start;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  margin-right: 1em;
+div[slot='modal-body'] {
+  background-color: aqua;
 }
-
-.main-page-mediacentre {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-}
-
-menu-mediacentre {
-  height: 100%;
-}
-@media (min-width: 260px) and (max-width: 575px) {
+@media only screen and (max-width: 650px) {
   .cadre-page-mediacentre {
     flex-direction: column;
     justify-content: flex-end;
@@ -248,35 +295,40 @@ menu-mediacentre {
     align-content: space-around;
     overflow: hidden;
     row-gap: 0;
-    menu-mediacentre {
-      height: 100%;
+
+    .aside-page-mediacentre {
+      height: unset;
+      max-height: 100%;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
       width: 100%;
+      position: absolute;
+      top: 0;
+      overflow: hidden;
+      z-index: 2;
+      box-shadow: 0px 10px 15px -7px rgba(0, 0, 0, 0.1);
+      transition: height 3s ease-in-out;
+
+      menu-mediacentre {
+        height: 100%;
+        width: 100%;
+      }
     }
-  }
 
-  .aside-page-mediacentre {
-    max-height: 50%;
-    height: fit-content;
-    justify-content: center;
-    padding: 0;
-    margin: 0;
-    width: 90%;
-    position: absolute;
-    top: 0;
-    border-radius: 1em;
-    overflow-y: scroll;
-    z-index: 2;
-    box-shadow: 0px 10px 15px -7px rgba(0, 0, 0, 0.1);
-  }
+    .main-page-mediacentre {
+      box-sizing: border-box;
+      height: calc(100% - 70px);
+      margin: 0;
+      padding: 0;
+      flex-shrink: 0;
+      flex-grow: 0;
+      justify-content: center;
 
-  .main-page-mediacentre {
-    box-sizing: border-box;
-    height: 90%;
-    margin: 0;
-    padding: 0;
-    flex-shrink: 0;
-    flex-grow: 0;
-    justify-content: center;
+      liste-ressources {
+        width: 100%;
+      }
+    }
   }
 }
 </style>
