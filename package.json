@@ -68,7 +68,7 @@
     "npm-run-all2": "^6.2.2",
     "prettier": "^3.3.3",
     "regenerator-runtime": "^0.14.1",
-    "terser": "^5.30.4",
+    "terser": "^5.31.3",
     "typescript": "~5.5.4",
     "vite": "^5.3.4",
     "vue-tsc": "^2.0.28"
