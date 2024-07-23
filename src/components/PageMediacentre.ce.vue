@@ -211,14 +211,15 @@ const getFiltres = async (): Promise<void> => {
     </main>
     <Teleport to="body">
       <info-modal id="modale" debug="false">
-        <template v-slot:modal-body>
-<div style="display: flex; flex-direction: column; gap: 2em" >
-          <span>{{ t('resource-info-modal-mediacentre.editor') }} {{ resourceEditor }} </span>
-          <div v-if="resourceDescription" class="description-modal">
-            {{ resourceDescription }}
+        <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
+        <template slot="modal-body">
+          <div style="display: flex; flex-direction: column; gap: 2em">
+            <span>{{ t('resource-info-modal-mediacentre.editor') }} {{ resourceEditor }} </span>
+            <div v-if="resourceDescription" class="description-modal">
+              {{ resourceDescription }}
+            </div>
           </div>
-        </div>
-</template>
+        </template>
       </info-modal>
     </Teleport>
   </div>
