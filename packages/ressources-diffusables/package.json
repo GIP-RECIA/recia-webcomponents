@@ -46,7 +46,7 @@
     "dev": "vite --host",
     "build": "vite build && yarn build:min",
     "build:min": "npm exec terser -- -c -m --module dist/ui-ressources-gar.js > dist/ui-ressources-gar.min.js",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "lint": "eslint . --ext .vue,.ts --fix",
     "preview": "vite preview",
     "test:unit": "echo No tests available",
     "format:check": "prettier --config ../../.prettierrc.json --check src/",

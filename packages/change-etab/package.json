@@ -35,12 +35,16 @@
     "dev": "vite --host",
     "build": "run-p type-check build-only && npm run build:min",
     "build:min": "npm exec terser -- -c -m --module dist/change-etab.js > dist/change-etab.min.js",
+    "lint": "eslint . --ext .vue,.ts --fix",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/",
-    "prepare": "husky"
+    "format:check": "prettier --config ../../.prettierrc.json --check src/",
+    "format": "prettier --config ../../.prettierrc.json --write src/",
+    "release": "yarn run -T commit-and-tag-version -t 'change-etab/v'",
+    "release:minor": "yarn run -T commit-and-tag-version -t 'change-etab/v' --release-as minor",
+    "release:patch": "yarn run -T commit-and-tag-version -t 'change-etab/v' --release-as patch",
+    "release:major": "yarn run -T commit-and-tag-version -t 'change-etab/v' --release-as major"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
@@ -58,7 +62,6 @@
     "axios": "^1.7.2",
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.27.0",
-    "husky": "^8.0.3",
     "lint-staged": "^15.2.7",
     "npm-run-all2": "^6.2.2",
     "prettier": "^3.3.3",
