@@ -1,0 +1,9 @@
+{
+  "change-etab": {
+    "title": "Change structure",
+    "struct-current": "Current structure : ",
+    "legend": "Select another structure to reconnect to :",
+    "valid-button": "Change structure",
+    "change-confirm": "In order for the structure change to take effect, you must log out.\n\nDo you agree to log out now?"
+  }
+}

@@ -1113,6 +1113,39 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@gip-recia/change-etab@workspace:packages/change-etab":
+  version: 0.0.0-use.local
+  resolution: "@gip-recia/change-etab@workspace:packages/change-etab"
+  dependencies:
+    "@fortawesome/fontawesome-svg-core": "npm:^6.6.0"
+    "@fortawesome/free-solid-svg-icons": "npm:^6.6.0"
+    "@fortawesome/vue-fontawesome": "npm:^3.0.8"
+    "@intlify/unplugin-vue-i18n": "npm:^4.0.0"
+    "@rushstack/eslint-patch": "npm:^1.10.3"
+    "@tsconfig/node20": "npm:^20.1.4"
+    "@types/node": "npm:^20"
+    "@uportal/open-id-connect": "npm:^1.40.2"
+    "@vitejs/plugin-vue": "npm:^5.1.0"
+    "@vue/eslint-config-prettier": "npm:^9.0.0"
+    "@vue/eslint-config-typescript": "npm:^13.0.0"
+    "@vue/tsconfig": "npm:^0.5.1"
+    axios: "npm:^1.7.2"
+    eslint: "npm:^8.57.0"
+    eslint-plugin-vue: "npm:^9.27.0"
+    husky: "npm:^8.0.3"
+    lint-staged: "npm:^15.2.7"
+    npm-run-all2: "npm:^6.2.2"
+    prettier: "npm:^3.3.3"
+    regenerator-runtime: "npm:^0.14.1"
+    terser: "npm:^5.31.3"
+    typescript: "npm:^5.5.4"
+    vite: "npm:^5.3.4"
+    vue: "npm:^3.4.33"
+    vue-i18n: "npm:^9.13.1"
+    vue-tsc: "npm:^2.0.28"
+  languageName: unknown
+  linkType: soft
+
 "@gip-recia/param-etab@workspace:packages/param-etab":
   version: 0.0.0-use.local
   resolution: "@gip-recia/param-etab@workspace:packages/param-etab"

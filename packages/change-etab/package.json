@@ -1,0 +1,73 @@
+{
+  "name": "@gip-recia/change-etab",
+  "version": "1.0.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "description": "UI de change établissement en VueJS.",
+  "keywords": [
+    "gip-recia",
+    "change-etab"
+  ],
+  "homepage": "https://github.com/GIP-RECIA/recia-webcomponents/tree/main/packages/change-etab/#readme",
+  "bugs": {
+    "url": "https://github.com/GIP-RECIA/recia-webcomponents/issues"
+  },
+  "license": "Apache-2.0",
+  "author": "Indah Juliani <indah.juliani@recia.fr>",
+  "main": "./dist/change-etab.umd.cjs",
+  "module": "./dist/change-etab.js",
+  "exports": {
+    ".": {
+      "import": "./dist/change-etab.js",
+      "require": "./dist/change-etab.umd.cjs"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GIP-RECIA/recia-webcomponents.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "vite --host",
+    "build": "run-p type-check build-only && npm run build:min",
+    "build:min": "npm exec terser -- -c -m --module dist/change-etab.js > dist/change-etab.min.js",
+    "preview": "vite preview",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --noEmit",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "format": "prettier --write src/",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/vue-fontawesome": "^3.0.8",
+    "@intlify/unplugin-vue-i18n": "^4.0.0",
+    "@rushstack/eslint-patch": "^1.10.3",
+    "@tsconfig/node20": "^20.1.4",
+    "@types/node": "^20",
+    "@uportal/open-id-connect": "^1.40.2",
+    "@vitejs/plugin-vue": "^5.1.0",
+    "@vue/eslint-config-prettier": "^9.0.0",
+    "@vue/eslint-config-typescript": "^13.0.0",
+    "@vue/tsconfig": "^0.5.1",
+    "axios": "^1.7.2",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.27.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.7",
+    "npm-run-all2": "^6.2.2",
+    "prettier": "^3.3.3",
+    "regenerator-runtime": "^0.14.1",
+    "terser": "^5.31.3",
+    "typescript": "^5.5.4",
+    "vite": "^5.3.4",
+    "vue": "^3.4.33",
+    "vue-i18n": "^9.13.1",
+    "vue-tsc": "^2.0.28"
+  }
+}
