@@ -26,11 +26,6 @@ export default ({ mode }: { mode: string }) => {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
     },
-    server: {
-      hmr: {
-        path: 'ws',
-      },
-    },
     build: {
       lib: {
         entry: './src/main.ts',

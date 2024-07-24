@@ -1,18 +1,18 @@
 {
   "name": "@gip-recia/param-etab",
-  "type": "module",
   "version": "1.0.0",
-  "description": "UI de paramétrage établissement en VueJS.",
+  "type": "module",
   "files": [
     "dist"
   ],
+  "description": "UI de paramétrage établissement en VueJS.",
   "keywords": [
     "gip-recia",
     "param-etab"
   ],
-  "homepage": "https://github.com/GIP-RECIA/param-etab-ui/#README.md",
+  "homepage": "https://github.com/GIP-RECIA/recia-webcomponents/tree/main/packages/param-etab/#readme",
   "bugs": {
-    "url": "https://github.com/GIP-RECIA/param-etab-ui/issues"
+    "url": "https://github.com/GIP-RECIA/recia-webcomponents/issues"
   },
   "license": "Apache-2.0",
   "author": "Indah Juliani <indah.juliani@recia.fr>",
@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GIP-RECIA/param-etab-ui.git"
+    "url": "git+https://github.com/GIP-RECIA/recia-webcomponents.git"
   },
   "publishConfig": {
     "access": "public"
@@ -44,39 +44,40 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.5.1",
-    "@fortawesome/free-solid-svg-icons": "^6.5.1",
-    "@fortawesome/vue-fontawesome": "^3.0.6",
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/vue-fontawesome": "^3.0.8",
     "@uportal/open-id-connect": "^1.40.2",
-    "axios": "^1.6.7",
-    "cropperjs": "^1.6.1",
+    "axios": "^1.7.2",
+    "cropperjs": "^1.6.2",
     "regenerator-runtime": "^0.14.1",
-    "vue": "^3.4.19",
-    "vue-i18n": "^9.9.1",
-    "vue-sweetalert2": "^5.0.5",
+    "vue": "^3.4.33",
+    "vue-i18n": "^9.13.1",
+    "vue-sweetalert2": "^5.0.11",
     "vuejs-clipper": "^4.1.0"
   },
   "devDependencies": {
     "@intlify/unplugin-vue-i18n": "^4.0.0",
-    "@rushstack/eslint-patch": "^1.7.2",
+    "@rushstack/eslint-patch": "^1.10.3",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
-    "@tsconfig/node20": "^20.1.2",
-    "@types/node": "^20.11.16",
-    "@vitejs/plugin-vue": "^5.0.4",
+    "@tsconfig/node20": "^20.1.4",
+    "@types/node": "^20",
+    "@vitejs/plugin-vue": "^5.1.0",
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/eslint-config-typescript": "^13.0.0",
     "@vue/tsconfig": "^0.5.1",
-    "eslint": "^8.56.0",
+    "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-vue": "^9.21.1",
+    "eslint-plugin-vue": "^9.27.0",
     "husky": "^8.0.3",
-    "lint-staged": "^15.2.2",
-    "npm-run-all": "^4.1.5",
+    "lint-staged": "^15.2.7",
+    "npm-run-all2": "^6.2.2",
     "prettier": "3.3.3",
-    "sass": "^1.71.1",
-    "terser": "^5.27.0",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.12",
+    "sass": "^1.77.8",
+    "terser": "^5.31.3",
+    "typescript": "^5.5.4",
+    "vite": "^5.3.4",
     "vue-tsc": "^2.0.28"
-  }
+  },
+  "packageManager": "yarn@4.3.1"
 }
