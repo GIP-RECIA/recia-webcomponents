@@ -1,0 +1,28 @@
+{
+  "list-etab": {
+    "recherche": "Search",
+    "aucun-res": "No result"
+  },
+  "detail-etab": {
+    "info": "Informations",
+    "nom-institutionnel": "Institutional name",
+    "nom-personnalise-placeholder": "To be displayed in the ENT banner and in the choice lists",
+    "nom-personnalise-titre": "Custom name",
+    "lien": "Link",
+    "lien-placeholder": "Link of an establishment",
+    "valider": "Submit",
+    "warn": "Please note: the parameters you set will not be taken into account until one hour.",
+    "explication": "The institution’s custom name must clearly identify the institution from the list of choices."
+  },
+  "image-cropper": {
+    "selectionner-image": "Select image",
+    "appliquer": "Apply",
+    "fermer": "Close"
+  },
+  "error": {
+    "perte-connexion": "User connection lost.",
+    "permission-refusee": "Permission denied.",
+    "aucun-connexion-api": "No API connection",
+    "fermer": "Close"
+  }
+}
