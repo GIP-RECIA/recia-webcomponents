@@ -2,17 +2,17 @@
   "name": "@gip-recia/change-etab",
   "version": "1.0.0",
   "type": "module",
-  "description": "UI de change établissement en VueJS.",
   "files": [
     "dist"
   ],
+  "description": "UI de change établissement en VueJS.",
   "keywords": [
     "gip-recia",
     "change-etab"
   ],
-  "homepage": "https://github.com/GIP-RECIA/change-etab-ui/#README.md",
+  "homepage": "https://github.com/GIP-RECIA/recia-webcomponents/tree/main/packages/change-etab/#readme",
   "bugs": {
-    "url": "https://github.com/GIP-RECIA/change-etab-ui/issues"
+    "url": "https://github.com/GIP-RECIA/recia-webcomponents/issues"
   },
   "license": "Apache-2.0",
   "author": "Indah Juliani <indah.juliani@recia.fr>",
@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GIP-RECIA/change-etab-ui.git"
+    "url": "git+https://github.com/GIP-RECIA/recia-webcomponents.git"
   },
   "publishConfig": {
     "access": "public"
@@ -56,8 +56,8 @@
     "@intlify/unplugin-vue-i18n": "^4.0.0",
     "@rushstack/eslint-patch": "^1.10.3",
     "@tsconfig/node20": "^20.1.4",
-    "@types/node": "^20.14.11",
-    "@vitejs/plugin-vue": "^5.0.5",
+    "@types/node": "^20",
+    "@vitejs/plugin-vue": "^5.1.0",
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/eslint-config-typescript": "^13.0.0",
     "@vue/tsconfig": "^0.5.1",
