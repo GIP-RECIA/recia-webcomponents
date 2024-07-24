@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const getToken = async (userInfoApiUrl: string): Promise<string | undefined> => {
   try {
-    const { encoded, decoded } = await oidc({
+    const { encoded } = await oidc({
       userInfoApiUrl: userInfoApiUrl,
     });
     return encoded;

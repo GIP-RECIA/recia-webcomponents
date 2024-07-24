@@ -10,4 +10,5 @@ const app = createApp(App);
 registerCustomElements();
 
 app.use(i18n);
+
 app.mount('#app');

@@ -37,6 +37,7 @@
     "build:min": "npm exec terser -- -c -m --module dist/param-etab.js > dist/param-etab.min.js",
     "lint": "eslint . --ext .vue,.ts --fix",
     "preview": "vite preview",
+    "test:unit": "echo No tests available",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",
     "format:check": "prettier --config ../../.prettierrc.json --check src/",

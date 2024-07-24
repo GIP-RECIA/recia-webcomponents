@@ -1,81 +1,77 @@
 <script setup lang="ts">
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { getChangeEtab, updateCurrentStruct } from '@/services/serviceChangeEtab'
-import { useI18n } from 'vue-i18n'
-
-import { ref, watch, computed, onMounted } from 'vue'
+import { getChangeEtab, updateCurrentStruct } from '@/services/serviceChangeEtab';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { computed, onMounted, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps<{
-  show: boolean
-  changeEtabApi: string
-  userInfoApiUrl: string
-}>()
+  show: boolean;
+  changeEtabApi: string;
+  userInfoApiUrl: string;
+}>();
 
-const { t } = useI18n()
-const m = (key: string): string => t(`change-etab.${key}`)
+const { t } = useI18n();
+const m = (key: string): string => t(`change-etab.${key}`);
 
-const emit = defineEmits(['update:show'])
+const emit = defineEmits(['update:show']);
 
-console.log('showProps: ', props.show)
-let showState = ref<boolean>(props.show)
-const checked = ref<string>('')
-const changeetab = ref<any>([])
-const etabJson = ref<string>('')
-const structCurrent = ref<any>([])
+console.log('showProps: ', props.show);
+let showState = ref<boolean>(props.show);
+const checked = ref<string>('');
+const changeetab = ref<any>([]);
+const etabJson = ref<string>('');
+const structCurrent = ref<any>([]);
 
 const closeModal = () => {
-  showState.value = false
-  console.log('showState: ', showState.value)
-}
+  showState.value = false;
+  console.log('showState: ', showState.value);
+};
 
 onMounted(async () => {
   try {
-    const res = await getChangeEtab(props.changeEtabApi, props.userInfoApiUrl)
-    changeetab.value = res.data
+    const res = await getChangeEtab(props.changeEtabApi, props.userInfoApiUrl);
+    changeetab.value = res.data;
     // List of structures
-    etabJson.value = changeetab.value.sirenStructures
-    structCurrent.value = changeetab.value.structCurrent
+    etabJson.value = changeetab.value.sirenStructures;
+    structCurrent.value = changeetab.value.structCurrent;
   } catch (error: any) {
-    console.error('error : ', error.res.data)
+    console.error('error : ', error.res.data);
   }
-})
+});
 
 watch(
   () => props.show,
   () => {
-    showState.value = props.show
-  }
-)
-watch(checked, () => console.log('checked.val : ', checked.value))
+    showState.value = props.show;
+  },
+);
+watch(checked, () => console.log('checked.val : ', checked.value));
 
 function listStructs(): any {
   if (!etabJson.value) {
-    return []
+    return [];
   }
 
-  return etabJson.value
+  return etabJson.value;
 }
 
 async function updateStruct() {
   try {
-    const confirmed = confirm(m('change-confirm'))
+    const confirmed = confirm(m('change-confirm'));
     if (confirmed) {
-      const res = await updateCurrentStruct(
-        props.changeEtabApi + checked.value,
-        props.userInfoApiUrl
-      )
-      location.replace(res.data.redirectUrl + `/Logout`)
+      const res = await updateCurrentStruct(props.changeEtabApi + checked.value, props.userInfoApiUrl);
+      location.replace(res.data.redirectUrl + `/Logout`);
     }
   } catch (error) {
-    console.log('error: ', error)
+    console.log('error: ', error);
   }
 }
 
-const structures = computed(() => listStructs())
+const structures = computed(() => listStructs());
 
 const isButtonDisabled = computed<boolean>(() => {
-  return checked.value === ''
-})
+  return checked.value === '';
+});
 </script>
 
 <template>
@@ -92,8 +88,7 @@ const isButtonDisabled = computed<boolean>(() => {
 
       <div class="modal-content">
         <span class="current"
-          >{{ m('struct-current') }} {{ structCurrent.displayName }}
-          <small>({{ structCurrent.code }})</small></span
+          >{{ m('struct-current') }} {{ structCurrent.displayName }} <small>({{ structCurrent.code }})</small></span
         >
         <div class="formChange">
           <fieldset>

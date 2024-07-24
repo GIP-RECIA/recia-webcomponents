@@ -1,13 +1,13 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import i18n from './i18n'
-import 'regenerator-runtime/runtime'
-import { register as registerCustomElements } from './ce'
-import { register as registerFontAwsome } from '@/plugins/fontawesome'
+import App from './App.vue';
+import { register as registerCustomElements } from './ce';
+import i18n from './i18n';
+import { register as registerFontAwsome } from '@/plugins/fontawesome';
+import 'regenerator-runtime/runtime';
+import { createApp } from 'vue';
 
-const app = createApp(App)
+const app = createApp(App);
 
-registerCustomElements()
-registerFontAwsome()
+registerCustomElements();
+registerFontAwsome();
 
-app.use(i18n)
+app.use(i18n);

@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-const show = ref<boolean>(false)
+const show = ref<boolean>(false);
 
-const { VITE_CHANGEETAB_API_URI, VITE_USER_INFO_API_URI } = import.meta.env
+const { VITE_CHANGEETAB_API_URI, VITE_USER_INFO_API_URI } = import.meta.env;
 
 // function
 const toggleShow = () => {
-  show.value = true
-  console.log('click: ', show.value)
-}
+  show.value = true;
+  console.log('click: ', show.value);
+};
 </script>
 
 <template>
