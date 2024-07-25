@@ -42,7 +42,8 @@ const openModal = (event: CustomEvent): void => {
   const resourceTitle = event.detail[0];
   const resourceEditor = event.detail[1];
   const resourceDescription = event.detail[2];
-  emit('open-modal', isModalOpen, resourceTitle, resourceEditor, resourceDescription);
+  const resourceReference = event.detail[3];
+  emit('open-modal', isModalOpen, resourceTitle, resourceEditor, resourceDescription, resourceReference);
 };
 
 const sendUpdateFavorite = (event: CustomEvent) => {

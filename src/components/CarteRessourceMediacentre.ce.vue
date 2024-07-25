@@ -36,7 +36,13 @@ const openModal = (event: Event): void => {
     composed: true, // Permet à l'événement de sortir du shadow DOM
   });
   document.dispatchEvent(openModalCustomEvent);
-  emit('openModal', props.ressource.nomRessource, props.ressource.nomEditeur, props.ressource.description);
+  emit(
+    'openModal',
+    props.ressource.nomRessource,
+    props.ressource.nomEditeur,
+    props.ressource.description,
+    props.ressource.idRessource,
+  );
 };
 
 const toggleFavoris = (): void => {

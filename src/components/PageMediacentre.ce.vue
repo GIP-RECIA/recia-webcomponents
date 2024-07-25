@@ -25,6 +25,7 @@ const chargement = ref<boolean>(false);
 const chargementApp = ref<boolean>(false);
 const isModalOpen = ref(false);
 const resourceTitle = ref<string>('');
+const resourceReference = ref<string>('');
 const resourceEditor = ref<string>('');
 const resourceDescription = ref<string | undefined>();
 
@@ -121,6 +122,7 @@ const openModal = (event: CustomEvent) => {
   resourceTitle.value = event.detail[1];
   resourceEditor.value = event.detail[2];
   resourceDescription.value = event.detail[3];
+  resourceReference.value = event.detail[4];
 };
 
 const getFavoris = async (): Promise<void> => {
@@ -213,8 +215,11 @@ const getFiltres = async (): Promise<void> => {
       <info-modal id="modale" debug="false">
         <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
         <div slot="modal-body">
-          <div style="display: flex; flex-direction: column; gap: 2em">
-            <span>{{ t('resource-info-modal-mediacentre.editor') }} {{ resourceEditor }} </span>
+          <div style="display: flex; flex-direction: column; gap: 3em">
+            <div style="display: flex; flex-direction: column; gap: 0.5em">
+              <span>Ref : {{ resourceReference }}</span>
+              <span>{{ t('resource-info-modal-mediacentre.editor') }} {{ resourceEditor }}</span>
+            </div>
             <div v-if="resourceDescription" class="description-modal">
               {{ resourceDescription }}
             </div>
@@ -276,10 +281,6 @@ const getFiltres = async (): Promise<void> => {
     flex-direction: row;
     flex-wrap: nowrap;
   }
-}
-
-.description-modal {
-  text-align: justify;
 }
 
 @media only screen and (max-width: 650px) {
