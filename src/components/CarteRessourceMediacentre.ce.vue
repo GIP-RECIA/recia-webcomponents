@@ -52,7 +52,12 @@ const toggleFavoris = (): void => {
 </script>
 
 <template>
-  <a :href="ressource.urlAccesRessource" target="_blank" class="cadre-carte-ressource-mediacentre">
+  <a
+    :href="ressource.urlAccesRessource"
+    target="_blank"
+    class="cadre-carte-ressource-mediacentre"
+    :title="props.ressource.nomRessource"
+  >
     <div class="background-carte-ressource-mediacentre">
       <div class="action-zone-carte-ressource-mediacentre">
         <button class="icone-bouton-carte-ressource-mediacentre" @click.prevent="toggleFavoris">
