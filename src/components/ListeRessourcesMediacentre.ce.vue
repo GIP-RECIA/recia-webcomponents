@@ -18,16 +18,15 @@ const props = defineProps<{
   nbResources: number;
 }>();
 const nbShownCards = ref<number>(props.nbResources);
-const nbCards = computed<number>(() => {
-  return props.nbResources;
-});
 
 watch(
-  () => nbCards.value,
+  () => props.filtre,
   (newValue) => {
+    nbHiddenCards.value = 0;
     nbShownCards.value = props.nbResources;
   },
 );
+
 const isError = computed<boolean>(() => {
   return props.erreur !== '';
 });
