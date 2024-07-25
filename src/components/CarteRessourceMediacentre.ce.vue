@@ -3,14 +3,13 @@ import type { Ressource } from '@/types/RessourceType.ts';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { onMounted, ref, watch } from 'vue';
 
+const buttonModal = ref<HTMLButtonElement | null>(null);
 const isShown = ref<boolean>(true);
 const props = defineProps<{
   ressource: Ressource;
   baseApiUrl: string;
   filtre: string;
 }>();
-const rootElement = ref<HTMLElement | null>(null);
-const buttonModal = ref<HTMLButtonElement | null>(null);
 
 onMounted(() => {
   parent.addEventListener('closeModaleCard', (event: Event) => {
@@ -47,7 +46,7 @@ const toggleFavoris = (): void => {
 </script>
 
 <template>
-  <a ref="rootElement" :href="ressource.urlAccesRessource" target="_blank" class="cadre-carte-ressource-mediacentre">
+  <a :href="ressource.urlAccesRessource" target="_blank" class="cadre-carte-ressource-mediacentre">
     <div class="background-carte-ressource-mediacentre">
       <div class="action-zone-carte-ressource-mediacentre">
         <button class="icone-bouton-carte-ressource-mediacentre" @click.prevent="toggleFavoris">

@@ -25,7 +25,6 @@ defineProps<{
     :put-user-favorite-resources-api-url="putUserFavoriteResourcesUrl"
     :fname-mediacentre-ui="fnameMediacentreUi"
   />
-  />
 </template>
 
 <style>
