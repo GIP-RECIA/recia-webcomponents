@@ -127,7 +127,8 @@ const showSubCategories = (idCategory: string): void => {
   flex-direction: column;
   padding-top: 1em;
   height: fit-content;
-  transition: height 0.5s ease-in-out;
+
+  border-radius: 1em;
   & :only-child {
     box-sizing: border-box;
   }
@@ -237,8 +238,9 @@ const showSubCategories = (idCategory: string): void => {
     padding: 0;
     position: relative;
     overflow: unset;
+    border-radius: unset;
     height: 5em;
-    transition: height 0.5s ease-in-out;
+    transition: height 0.3s ease-in-out;
 
     .menu-title {
       display: flex;
