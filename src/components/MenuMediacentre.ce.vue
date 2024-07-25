@@ -82,7 +82,12 @@ const showSubCategories = (idCategory: string): void => {
         <h3>{{ capitalize(t('menu-mediacentre.my-favorites')) }}</h3>
       </button>
 
-      <div v-for="(category, index) in filtres" :key="index" :id="category.filterEnum" class="test">
+      <div
+        v-for="(category, index) in filtres"
+        :key="index"
+        :id="category.filterEnum"
+        class="dynamic-categories-container"
+      >
         <button
           class="sub-categories-container"
           :class="[activeCategory == category.name ? 'active' : '']"
@@ -121,7 +126,8 @@ const showSubCategories = (idCategory: string): void => {
   display: flex;
   flex-direction: column;
   padding-top: 1em;
-  border-radius: 1em;
+  height: fit-content;
+  transition: height 0.5s ease-in-out;
   & :only-child {
     box-sizing: border-box;
   }
@@ -190,51 +196,60 @@ const showSubCategories = (idCategory: string): void => {
 
 .container {
   padding: 0;
-  max-height: 0;
+  height: 0;
   visibility: hidden;
-  overflow-y: auto;
+  opacity: 0;
+  overflow-y: scroll;
   transition:
-    max-height 0s ease,
-    visibility 0.1s ease;
-
-  flex-grow: 1;
-
-  &.active {
-    max-height: 60%;
-    visibility: visible;
-    transition:
-      max-height 0.3s ease,
-      visibility 0.3s ease;
-  }
+    height 0.1s ease-in-out,
+    opacity 0.3s ease-in-out,
+    visibility 0.3s ease-in-out;
 }
 
+.container.active {
+  height: 100%;
+  visibility: visible;
+  opacity: 1;
+}
 .categories-container {
   border-collapse: collapse;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
-  margin-top: -1em;
-
+  max-height: 100%;
   border-radius: 1em;
+  overflow-y: scroll;
 }
 
-@media (max-width: 575px) {
+.dynamic-categories-container {
+  max-height: 50vh;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  transition: height 0.3s ease-in-out;
+}
+
+@media (max-width: 650px) {
   .cadre-menu-mediacentre {
     text-align: center;
-    height: fit-content;
     width: 100%;
     margin: 0;
     padding: 0;
     position: relative;
     overflow: unset;
+    height: 5em;
+    transition: height 0.5s ease-in-out;
+
     .menu-title {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      align-items: center;
       background-color: $menu-title-background-color;
-      padding: 1em 1em 1em 0.5em;
+      padding: 1em;
       gap: 0.5em;
+      height: 5em;
+      flex-shrink: 0;
     }
 
     .category-name-badge {
@@ -243,11 +258,12 @@ const showSubCategories = (idCategory: string): void => {
       background-color: $background-color;
       font-weight: bold;
       font-size: 1em;
-      padding: 0.5em;
+      padding: 0.5em 1em;
       overflow: hidden;
       text-overflow: ellipsis;
       word-wrap: unset;
       white-space: nowrap;
+      height: 2.5em;
     }
   }
   .menu-toggle {
@@ -255,6 +271,8 @@ const showSubCategories = (idCategory: string): void => {
     background: none;
     border: none;
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 
     .menu-icon {
       height: 2em;
@@ -275,24 +293,26 @@ const showSubCategories = (idCategory: string): void => {
   }
 
   .unfold {
+    height: 100vh;
     .categories-container {
-      display: block;
+      visibility: visible;
+
       width: 100%;
       background: none;
-      max-height: 50%;
-      border-radius: 1em;
-      height: min-content;
-      s & .toggle {
+
+      height: 90%;
+      & .toggle {
         display: none;
       }
     }
-
-    .menu-title {
-      padding-bottom: 2em;
-    }
   }
   .categories-container {
-    display: none;
+    visibility: hidden;
+
+    height: 0;
+    transition:
+      visibility 0.3s ease-in-out,
+      height 0.3s ease-in-out;
   }
 
   .sub-category-container {
@@ -300,6 +320,20 @@ const showSubCategories = (idCategory: string): void => {
   }
   .sub-categories-container {
     cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .dynamic-categories-container {
+    max-height: 50vh;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    transition: height 0.3s ease-in-out;
+  }
+
+  .container.active {
+    height: 100%;
+    visibility: visible;
   }
 }
 </style>

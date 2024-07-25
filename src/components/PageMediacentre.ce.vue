@@ -282,9 +282,6 @@ const getFiltres = async (): Promise<void> => {
   text-align: justify;
 }
 
-div[slot='modal-body'] {
-  background-color: aqua;
-}
 @media only screen and (max-width: 650px) {
   .cadre-page-mediacentre {
     flex-direction: column;
@@ -296,15 +293,17 @@ div[slot='modal-body'] {
     align-content: space-around;
     overflow: hidden;
     row-gap: 0;
+    height: 100%;
 
     .aside-page-mediacentre {
-      height: unset;
+      height: fit-content;
       max-height: 100%;
+      min-height: 5em;
       justify-content: center;
       padding: 0;
       margin: 0;
       width: 100%;
-      position: absolute;
+      position: fixed;
       top: 0;
       overflow: hidden;
       z-index: 2;
@@ -312,7 +311,7 @@ div[slot='modal-body'] {
       transition: height 3s ease-in-out;
 
       menu-mediacentre {
-        height: 100%;
+        max-height: 100vh;
         width: 100%;
       }
     }
