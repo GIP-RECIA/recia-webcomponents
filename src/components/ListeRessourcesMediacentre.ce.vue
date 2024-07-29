@@ -18,11 +18,21 @@ const props = defineProps<{
   nbResources: number;
 }>();
 const nbShownCards = ref<number>(props.nbResources);
+const nbCards = computed<number>(() => {
+  return props.nbResources;
+});
 
 watch(
   () => props.filtre,
   (newValue) => {
     nbHiddenCards.value = 0;
+    nbShownCards.value = props.nbResources;
+  },
+);
+
+watch(
+  () => nbCards.value,
+  (newValue) => {
     nbShownCards.value = props.nbResources;
   },
 );
