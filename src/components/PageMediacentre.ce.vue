@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
   flushMediacentreFavorites,
+  getConfig,
   getFavorites,
   getFilters,
   getResources,
@@ -48,8 +49,8 @@ const countNbFilteredResources = computed<number>(() => {
 onMounted(async (): Promise<void> => {
   try {
     chargementApp.value = true;
-
     await initToken(props.userInfoApiUrl);
+    await getConfig(props.baseApiUrl);
     // await flushMediacentreFavorites(props.putUserFavoriteResourcesApiUrl, props.fnameMediacentreUi);
     await getRessources();
     await setFavoris();
@@ -89,8 +90,7 @@ const updateFiltre = (value: CustomEvent): void => {
 const setFavoris = async (): Promise<void> => {
   try {
     const resourceFavoriteIds = await getFavorites(props.getUserFavoriteResourcesApiUrl, props.fnameMediacentreUi);
-    const mediacentreFavorites = resourceFavoriteIds.mediacentreFavorites;
-    const resourceFavorites = ressources.value.filter((res) => mediacentreFavorites.includes(res.idRessource));
+    const resourceFavorites = ressources.value.filter((res) => resourceFavoriteIds.includes(res.idRessource));
     resourceFavorites.forEach((res) => (res.isFavorite = true));
   } catch (e: any) {
     console.error(e);
@@ -109,7 +109,7 @@ const updateFavori = async (event: CustomEvent) => {
       props.putUserFavoriteResourcesApiUrl,
       idResource,
       isFavorite,
-      resourceFavoriteIds.mediacentreFavorites,
+      resourceFavoriteIds,
       props.fnameMediacentreUi,
     );
   } catch (e: any) {
@@ -129,9 +129,7 @@ const getFavoris = async (): Promise<void> => {
   chargement.value = true;
   try {
     const idResourceFavorites = await getFavorites(props.getUserFavoriteResourcesApiUrl, props.fnameMediacentreUi);
-    filteredResources.value = ressources.value.filter((res) =>
-      idResourceFavorites.mediacentreFavorites.includes(res.idRessource),
-    );
+    filteredResources.value = ressources.value.filter((res) => idResourceFavorites.includes(res.idRessource));
     filteredResources.value.forEach((res) => (res.isFavorite = true));
   } catch (error: any) {
     console.error(error);

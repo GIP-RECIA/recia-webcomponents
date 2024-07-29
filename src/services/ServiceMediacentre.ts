@@ -1,24 +1,43 @@
+import type { ConfigType } from '@/types/ConfigType';
 import { CustomError } from '@/utils/CustomError';
 import { instance } from '@/utils/axiosUtils.ts';
 import { getToken } from '@/utils/soffitUtils';
 
+let config: Array<ConfigType> = [];
+
 const flushMediacentreFavorites = async (putUrl: string, fname: string) => {
   await instance.put(`${putUrl}${fname}`, { mediacentreFavorites: [] });
+};
+
+const getConfig = async (baseApiUrl: string) => {
+  try {
+    const response = await instance.get(`api/config`);
+    config = response.data;
+  } catch (e: any) {
+    if (e.response) {
+      throw new CustomError(e.response.data.message, e.response.status);
+    } else if (e.code === 'ECONNABORTED') {
+      throw new CustomError(e.message, e.code);
+    }
+  }
 };
 
 const getResources = async (baseApiUrl: string, groupsApiUrl: string) => {
   try {
     const resp = await instance.get(groupsApiUrl);
 
-    const regexGroups = new RegExp('^.*:(admin|Inter_etablissements|Etablissements|Applications):.*$');
-
+    const groupsConfigValue: string = config.find((element) => {
+      if (element.key === 'groups') {
+        return element;
+      }
+    })!.value;
+    const regexGroups = new RegExp(groupsConfigValue);
     const userGroups = new Array<string>();
     resp.data.groups.forEach((element: any) => {
       if (regexGroups.test(element.name)) {
         userGroups.push(element.name);
       }
     });
-
     const response = await instance.post(baseApiUrl, { isMemberOf: userGroups });
     return response.data;
   } catch (e: any) {
@@ -46,7 +65,7 @@ const getFilters = async (baseApiUrl: string) => {
 const getFavorites = async (getUserFavoriteResourcesUrl: string, fnameMediacentreUi: string) => {
   try {
     const response = await instance.get(`${getUserFavoriteResourcesUrl}${fnameMediacentreUi}`);
-    return response.data;
+    return response.data.mediacentreFavorites;
   } catch (e: any) {
     throw new CustomError(e.response.data.message, e.response.status);
   }
@@ -77,4 +96,4 @@ const putFavorites = async (
   }
 };
 
-export { getResources, getFilters, getFavorites, putFavorites, flushMediacentreFavorites };
+export { getResources, getFilters, getFavorites, putFavorites, flushMediacentreFavorites, getConfig };
