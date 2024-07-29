@@ -1132,7 +1132,6 @@ __metadata:
     axios: "npm:^1.7.2"
     eslint: "npm:^8.57.0"
     eslint-plugin-vue: "npm:^9.27.0"
-    husky: "npm:^8.0.3"
     lint-staged: "npm:^15.2.7"
     npm-run-all2: "npm:^6.2.2"
     prettier: "npm:^3.3.3"
@@ -1169,7 +1168,6 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-vue: "npm:^9.27.0"
-    husky: "npm:^8.0.3"
     lint-staged: "npm:^15.2.7"
     npm-run-all2: "npm:^6.2.2"
     prettier: "npm:^3.3.3"
@@ -1287,7 +1285,7 @@ __metadata:
     axios: "npm:^1.7.2"
     eslint: "npm:^8.57.0"
     eslint-plugin-vue: "npm:^9.27.0"
-    husky: "npm:^8.0.3"
+    husky: "npm:^9.1.3"
     lint-staged: "npm:^15.2.7"
     lodash.debounce: "npm:^4.0.8"
     npm-run-all2: "npm:^6.2.2"
@@ -5745,12 +5743,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"husky@npm:^8.0.3":
-  version: 8.0.3
-  resolution: "husky@npm:8.0.3"
+"husky@npm:^9.1.3":
+  version: 9.1.3
+  resolution: "husky@npm:9.1.3"
   bin:
-    husky: lib/bin.js
-  checksum: 10/b754cf70fdc97c3b60fec5b80056b9c11436464953b1691bf2b5dcf0081fb6685d2c5f47abb8b2b1c49f504aabea5321fdd6496f8b755d9f6e7525a493406abb
+    husky: bin.js
+  checksum: 10/35d7ad85a247fb130659ae60b05bca9461820d261d6ff181b55c3dc6f2ae5da5ae3f3807367b90cc85d3bb915a2de8295aa9950e3cba3309994b7763dfd70cb1
   languageName: node
   linkType: hard
 
@@ -7945,7 +7943,7 @@ __metadata:
     "@commitlint/cli": "npm:^19.3.0"
     "@commitlint/config-conventional": "npm:^19.2.2"
     commit-and-tag-version: "npm:^12.4.1"
-    husky: "npm:^8.0.3"
+    husky: "npm:^9.1.3"
     lint-staged: "npm:^15.2.7"
     prettier: "npm:^3.3.3"
   languageName: unknown
