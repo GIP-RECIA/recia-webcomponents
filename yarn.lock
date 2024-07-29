@@ -1121,7 +1121,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": "npm:^6.6.0"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
     "@intlify/unplugin-vue-i18n": "npm:^4.0.0"
-    "@rushstack/eslint-patch": "npm:^1.10.3"
+    "@rushstack/eslint-patch": "npm:^1.10.4"
     "@tsconfig/node20": "npm:^20.1.4"
     "@types/node": "npm:^20"
     "@uportal/open-id-connect": "npm:^1.40.2"
@@ -1132,7 +1132,6 @@ __metadata:
     axios: "npm:^1.7.2"
     eslint: "npm:^8.57.0"
     eslint-plugin-vue: "npm:^9.27.0"
-    husky: "npm:^8.0.3"
     lint-staged: "npm:^15.2.7"
     npm-run-all2: "npm:^6.2.2"
     prettier: "npm:^3.3.3"
@@ -1154,7 +1153,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": "npm:^6.6.0"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
     "@intlify/unplugin-vue-i18n": "npm:^4.0.0"
-    "@rushstack/eslint-patch": "npm:^1.10.3"
+    "@rushstack/eslint-patch": "npm:^1.10.4"
     "@trivago/prettier-plugin-sort-imports": "npm:^4.3.0"
     "@tsconfig/node20": "npm:^20.1.4"
     "@types/node": "npm:^20"
@@ -1169,7 +1168,6 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-vue: "npm:^9.27.0"
-    husky: "npm:^8.0.3"
     lint-staged: "npm:^15.2.7"
     npm-run-all2: "npm:^6.2.2"
     prettier: "npm:^3.3.3"
@@ -1274,7 +1272,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": "npm:^6.6.0"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
     "@intlify/unplugin-vue-i18n": "npm:^4.0.0"
-    "@rushstack/eslint-patch": "npm:^1.10.3"
+    "@rushstack/eslint-patch": "npm:^1.10.4"
     "@trivago/prettier-plugin-sort-imports": "npm:^4.3.0"
     "@tsconfig/node20": "npm:^20.1.4"
     "@types/lodash.debounce": "npm:^4"
@@ -2807,10 +2805,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rushstack/eslint-patch@npm:^1.10.3":
-  version: 1.10.3
-  resolution: "@rushstack/eslint-patch@npm:1.10.3"
-  checksum: 10/e1986178618bfb5fb636a54c420a7c359879d7aed6a0e456333a92fdc93e0e7a9a914114284308317cdc75e522c0696f760cd6d0b77409ed8b9633e75f096628
+"@rushstack/eslint-patch@npm:^1.10.4":
+  version: 1.10.4
+  resolution: "@rushstack/eslint-patch@npm:1.10.4"
+  checksum: 10/fa14a091cc800e1fac75c03112db03eaebbdc2de6e1532ed7702e106c3ce0cbf9b896794d885d455b225e9cc696a5e10c7bfb803d00774461d691e7a39915fc7
   languageName: node
   linkType: hard
 
