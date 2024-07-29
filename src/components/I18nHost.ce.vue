@@ -18,16 +18,10 @@ const props = withDefaults(
   {
     mediacentreContextUrl: import.meta.env.VITE_APP_MEDIACENTRE_CONTEXT,
     baseApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_API_URI,
-    userInfoApiUrl:
-      import.meta.env.VITE_APP_MEDIACENTRE_CONTEXT + import.meta.env.VITE_APP_MEDIACENTRE_USER_INFO_API_URI,
-    userRightsApiUrl:
-      import.meta.env.VITE_APP_MEDIACENTRE_CONTEXT + import.meta.env.VITE_APP_MEDIACENTRE_USER_RIGHTS_API_URI,
-    getUserFavoriteResourcesUrl:
-      import.meta.env.VITE_APP_MEDIACENTRE_CONTEXT +
-      import.meta.env.VITE_APP_MEDIACENTRE_USER_GET_USER_FAVORITE_RESOURCES_API_URI,
-    putUserFavoriteResourcesUrl:
-      import.meta.env.VITE_APP_MEDIACENTRE_CONTEXT +
-      import.meta.env.VITE_APP_MEDIACENTRE_USER_PUT_USER_FAVORITE_RESOURCES_API_URI,
+    userInfoApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_USER_INFO_API_URI,
+    userRightsApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_USER_RIGHTS_API_URI,
+    getUserFavoriteResourcesUrl: import.meta.env.VITE_APP_MEDIACENTRE_USER_GET_USER_FAVORITE_RESOURCES_API_URI,
+    putUserFavoriteResourcesUrl: import.meta.env.VITE_APP_MEDIACENTRE_USER_PUT_USER_FAVORITE_RESOURCES_API_URI,
     fnameMediacentreUi: import.meta.env.VITE_APP_MEDIACENTRE_FNAME,
   },
 );
@@ -38,10 +32,10 @@ const props = withDefaults(
     id="page-mediacentre"
     :mediacentre-context-url="mediacentreContextUrl"
     :base-api-url="baseApiUrl"
-    :user-info-api-url="userInfoApiUrl"
-    :user-rights-api-url="userRightsApiUrl"
-    :get-user-favorite-resources-api-url="getUserFavoriteResourcesUrl"
-    :put-user-favorite-resources-api-url="putUserFavoriteResourcesUrl"
+    :user-info-api-url="`${mediacentreContextUrl}${userInfoApiUrl}`"
+    :user-rights-api-url="`${mediacentreContextUrl}${userRightsApiUrl}`"
+    :get-user-favorite-resources-api-url="`${mediacentreContextUrl}${getUserFavoriteResourcesUrl}`"
+    :put-user-favorite-resources-api-url="`${mediacentreContextUrl}${putUserFavoriteResourcesUrl}`"
     :fname-mediacentre-ui="fnameMediacentreUi"
   />
 </template>
