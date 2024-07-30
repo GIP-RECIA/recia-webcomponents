@@ -65,6 +65,10 @@ const getFilters = async (baseApiUrl: string) => {
 const getFavorites = async (getUserFavoriteResourcesUrl: string, fnameMediacentreUi: string) => {
   try {
     const response = await instance.get(`${getUserFavoriteResourcesUrl}${fnameMediacentreUi}`);
+    const data = response.data;
+    if (Object.keys(data).length == 0) {
+      return new Array<string>();
+    }
     return response.data.mediacentreFavorites;
   } catch (e: any) {
     throw new CustomError(e.response.data.message, e.response.status);
