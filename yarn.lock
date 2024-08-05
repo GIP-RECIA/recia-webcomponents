@@ -1125,14 +1125,13 @@ __metadata:
     "@tsconfig/node20": "npm:^20.1.4"
     "@types/node": "npm:^20"
     "@uportal/open-id-connect": "npm:^1.40.2"
-    "@vitejs/plugin-vue": "npm:^5.1.0"
+    "@vitejs/plugin-vue": "npm:^5.1.2"
     "@vue/eslint-config-prettier": "npm:^9.0.0"
     "@vue/eslint-config-typescript": "npm:^13.0.0"
     "@vue/tsconfig": "npm:^0.5.1"
     axios: "npm:^1.7.2"
     eslint: "npm:^8.57.0"
     eslint-plugin-vue: "npm:^9.27.0"
-    husky: "npm:^8.0.3"
     lint-staged: "npm:^15.2.7"
     npm-run-all2: "npm:^6.2.2"
     prettier: "npm:^3.3.3"
@@ -1160,7 +1159,7 @@ __metadata:
     "@types/node": "npm:^20"
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
-    "@vitejs/plugin-vue": "npm:^5.1.0"
+    "@vitejs/plugin-vue": "npm:^5.1.2"
     "@vue/eslint-config-prettier": "npm:^9.0.0"
     "@vue/eslint-config-typescript": "npm:^13.0.0"
     "@vue/tsconfig": "npm:^0.5.1"
@@ -1169,7 +1168,6 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-vue: "npm:^9.27.0"
-    husky: "npm:^8.0.3"
     lint-staged: "npm:^15.2.7"
     npm-run-all2: "npm:^6.2.2"
     prettier: "npm:^3.3.3"
@@ -1280,7 +1278,7 @@ __metadata:
     "@types/lodash.debounce": "npm:^4"
     "@types/node": "npm:^20"
     "@uportal/open-id-connect": "npm:^1.40.2"
-    "@vitejs/plugin-vue": "npm:^5.1.0"
+    "@vitejs/plugin-vue": "npm:^5.1.2"
     "@vue/eslint-config-prettier": "npm:^9.0.0"
     "@vue/eslint-config-typescript": "npm:^13.0.0"
     "@vue/tsconfig": "npm:^0.5.1"
@@ -3235,13 +3233,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitejs/plugin-vue@npm:^5.1.0":
-  version: 5.1.0
-  resolution: "@vitejs/plugin-vue@npm:5.1.0"
+"@vitejs/plugin-vue@npm:^5.1.2":
+  version: 5.1.2
+  resolution: "@vitejs/plugin-vue@npm:5.1.2"
   peerDependencies:
     vite: ^5.0.0
     vue: ^3.2.25
-  checksum: 10/854c0a41690100626997287b450cc2b0643d4ab481206a3bcb4ac664018323ef77afe895d401004357da257f2eab6565aeb2c4b59c79954d1274ae81f018e8e8
+  checksum: 10/f6d01b69da6d0f006a12955afc1bcff007ed2c04c0cde5ed1790306789be5da2335b5ab19e86fc2ef9894c9ce2650f7946b5803467b814cceda81d14374a9536
   languageName: node
   linkType: hard
 
