@@ -57,7 +57,7 @@
     "release:major": "yarn run -T commit-and-tag-version -t 'ui-ressources-gar/v' --release-as major"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.3.0",
+    "@commitlint/cli": "^19.4.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
