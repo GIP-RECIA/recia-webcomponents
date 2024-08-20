@@ -1285,7 +1285,7 @@ __metadata:
     axios: "npm:^1.7.4"
     eslint: "npm:^8.57.0"
     eslint-plugin-vue: "npm:^9.27.0"
-    husky: "npm:^8.0.3"
+    husky: "npm:^9.1.4"
     lint-staged: "npm:^15.2.9"
     lodash.debounce: "npm:^4.0.8"
     npm-run-all2: "npm:^6.2.2"
@@ -5970,12 +5970,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"husky@npm:^8.0.3":
-  version: 8.0.3
-  resolution: "husky@npm:8.0.3"
+"husky@npm:^9.1.4":
+  version: 9.1.4
+  resolution: "husky@npm:9.1.4"
   bin:
-    husky: lib/bin.js
-  checksum: 10/b754cf70fdc97c3b60fec5b80056b9c11436464953b1691bf2b5dcf0081fb6685d2c5f47abb8b2b1c49f504aabea5321fdd6496f8b755d9f6e7525a493406abb
+    husky: bin.js
+  checksum: 10/c43aa7cbf98246d4f347bc3da807049555b5003af7c6e1658c5cea44a9743b4d0683c72973a4fe02a4ccceb81031a664ecaa7a1a86efe4d37a80a0af17c988ea
   languageName: node
   linkType: hard
 
@@ -8170,7 +8170,7 @@ __metadata:
     "@commitlint/cli": "npm:^19.3.0"
     "@commitlint/config-conventional": "npm:^19.2.2"
     commit-and-tag-version: "npm:^12.4.1"
-    husky: "npm:^8.0.3"
+    husky: "npm:^9.1.4"
     lint-staged: "npm:^15.2.9"
     prettier: "npm:^3.3.3"
   languageName: unknown
