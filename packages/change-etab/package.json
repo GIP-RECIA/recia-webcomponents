@@ -32,7 +32,7 @@
     "access": "public"
   },
   "scripts": {
-    "dev": "vite --host",
+    "dev": "dotenv-checker && vite --host",
     "build": "run-p type-check build-only && npm run build:min",
     "build:min": "npm exec terser -- -c -m --module dist/change-etab.js > dist/change-etab.min.js",
     "lint": "eslint . --ext .vue,.ts --fix",
@@ -61,6 +61,7 @@
     "@vue/eslint-config-typescript": "^13.0.0",
     "@vue/tsconfig": "^0.5.1",
     "axios": "^1.7.7",
+    "dotenv-checker": "^1.1.7",
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.27.0",
     "lint-staged": "^15.2.10",

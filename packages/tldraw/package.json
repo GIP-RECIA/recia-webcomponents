@@ -37,7 +37,7 @@
     "access": "public"
   },
   "scripts": {
-    "dev": "vite --host",
+    "dev": "dotenv-checker && vite --host",
     "build": "vite build && yarn build:min",
     "build:min": "npm exec terser -- -c -m --module dist/tldraw-webcomponent.js > dist/tldraw-webcomponent.min.js",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
@@ -67,6 +67,7 @@
     "@uportal/open-id-connect": "^1.40.2",
     "@vitejs/plugin-react": "^4.3.1",
     "axios": "^1.7.7",
+    "dotenv-checker": "^1.1.7",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
