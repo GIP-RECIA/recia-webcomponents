@@ -1123,7 +1123,7 @@ __metadata:
     axios: "npm:^1.7.7"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^8.57.0"
-    eslint-plugin-vue: "npm:^9.27.0"
+    eslint-plugin-vue: "npm:^9.28.0"
     lint-staged: "npm:^15.2.10"
     npm-run-all2: "npm:^6.2.2"
     prettier: "npm:^3.3.3"
@@ -1160,7 +1160,7 @@ __metadata:
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^8.57.0"
     eslint-config-prettier: "npm:^9.1.0"
-    eslint-plugin-vue: "npm:^9.27.0"
+    eslint-plugin-vue: "npm:^9.28.0"
     lint-staged: "npm:^15.2.10"
     npm-run-all2: "npm:^6.2.2"
     prettier: "npm:^3.3.3"
@@ -1277,7 +1277,7 @@ __metadata:
     axios: "npm:^1.7.7"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^8.57.0"
-    eslint-plugin-vue: "npm:^9.27.0"
+    eslint-plugin-vue: "npm:^9.28.0"
     husky: "npm:^8.0.3"
     lint-staged: "npm:^15.2.10"
     lodash.debounce: "npm:^4.0.8"
@@ -5383,21 +5383,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-vue@npm:^9.27.0":
-  version: 9.27.0
-  resolution: "eslint-plugin-vue@npm:9.27.0"
+"eslint-plugin-vue@npm:^9.28.0":
+  version: 9.28.0
+  resolution: "eslint-plugin-vue@npm:9.28.0"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.4.0"
     globals: "npm:^13.24.0"
     natural-compare: "npm:^1.4.0"
     nth-check: "npm:^2.1.1"
     postcss-selector-parser: "npm:^6.0.15"
-    semver: "npm:^7.6.0"
+    semver: "npm:^7.6.3"
     vue-eslint-parser: "npm:^9.4.3"
     xml-name-validator: "npm:^4.0.0"
   peerDependencies:
     eslint: ^6.2.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
-  checksum: 10/b8ea74e0a57bd9faba71b362ddea34a6b866ccd7af42692a108d818feef27480df87e30261ffd790520006ff4dd808ecc1a1577a13713e3c66378e2214f3e1fb
+  checksum: 10/fd1fd1b2a73b2503e58e2d41024220ca072617ef626413efc2955ede857db91116f84974a4250c0e2dcedccca96dfcd7c7bf04a4af0f23ddb71321c2b6522598
   languageName: node
   linkType: hard
 
