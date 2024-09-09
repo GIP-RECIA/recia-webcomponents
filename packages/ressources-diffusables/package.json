@@ -89,6 +89,5 @@
     "vue": "^3.5.3",
     "vue-i18n": "^9.14.0",
     "vue-tsc": "^2.1.6"
-  },
-  "packageManager": "yarn@4.3.1"
+  }
 }
