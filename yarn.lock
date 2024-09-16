@@ -1128,7 +1128,7 @@ __metadata:
     npm-run-all2: "npm:^6.2.2"
     prettier: "npm:^3.3.3"
     regenerator-runtime: "npm:^0.14.1"
-    terser: "npm:^5.31.6"
+    terser: "npm:^5.32.0"
     typescript: "npm:^5.5.4"
     vite: "npm:^5.4.3"
     vue: "npm:^3.5.3"
@@ -1166,7 +1166,7 @@ __metadata:
     prettier: "npm:^3.3.3"
     regenerator-runtime: "npm:^0.14.1"
     sass: "npm:^1.78.0"
-    terser: "npm:^5.31.6"
+    terser: "npm:^5.32.0"
     typescript: "npm:^5.5.4"
     vite: "npm:^5.4.3"
     vue: "npm:^3.5.3"
@@ -1246,7 +1246,7 @@ __metadata:
     react-dom: "npm:^18.3.1"
     regenerator-runtime: "npm:^0.14.1"
     sass: "npm:^1.78.0"
-    terser: "npm:^5.31.6"
+    terser: "npm:^5.32.0"
     typescript: "npm:^5.5.3"
     vite: "npm:^5.4.3"
     vite-plugin-css-injected-by-js: "npm:^3.5.1"
@@ -1286,7 +1286,7 @@ __metadata:
     regenerator-runtime: "npm:^0.14.1"
     sass: "npm:^1.78.0"
     standard-version: "npm:^9.5.0"
-    terser: "npm:^5.31.6"
+    terser: "npm:^5.32.0"
     typescript: "npm:^5.5.4"
     vite: "npm:^5.4.3"
     vue: "npm:^3.5.3"
@@ -1380,7 +1380,7 @@ __metadata:
     react-dom: "npm:^18.3.1"
     regenerator-runtime: "npm:^0.14.1"
     sass: "npm:^1.78.0"
-    terser: "npm:^5.31.6"
+    terser: "npm:^5.32.0"
     typescript: "npm:^5.5.3"
     vite: "npm:^5.4.3"
     y-presence: "npm:^0.2.3"
@@ -9203,9 +9203,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"terser@npm:^5.31.6":
-  version: 5.31.6
-  resolution: "terser@npm:5.31.6"
+"terser@npm:^5.32.0":
+  version: 5.32.0
+  resolution: "terser@npm:5.32.0"
   dependencies:
     "@jridgewell/source-map": "npm:^0.3.3"
     acorn: "npm:^8.8.2"
@@ -9213,7 +9213,7 @@ __metadata:
     source-map-support: "npm:~0.5.20"
   bin:
     terser: bin/terser
-  checksum: 10/78057c58025151c9bdad82a050f0b51175f9fe3117d8ee369ca7effe038cdd540da2fd5985a4f8ee08dba5616e7911e1392d40670698ff42a49fec338d369e80
+  checksum: 10/b398e37509e64665da233502911f3b32046656a569b1814e0c9944141f0484b3e4d13985faf5c8610dff2d27c2636dd30bab55cab3d8e14080ae273131fb5754
   languageName: node
   linkType: hard
 
