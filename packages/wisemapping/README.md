@@ -37,6 +37,8 @@ document.body.appendChild(wisemappingEditor);
 
 ## Paramètres
 
+Propriétés disponibles :
+
 | Nom                   |                                             Type                                              |           Requis           | Default | Description                       |
 | --------------------- | :-------------------------------------------------------------------------------------------: | :------------------------: | :-----: | --------------------------------- |
 | `persistance-api-url` |                                           `string`                                            |           `true`           |         | URL du fichier (GET & PUT)        |
@@ -48,5 +50,11 @@ document.body.appendChild(wisemappingEditor);
 <br/>
 
 ```html
-<wisemapping-editor persistance-api-url="" file-id="" token="" user-info-api-url="" mode="" />
+<wisemapping-editor
+  persistance-api-url="" 
+  file-id="" 
+  token="" 
+  user-info-api-url="" 
+  mode="" 
+/>
 ```

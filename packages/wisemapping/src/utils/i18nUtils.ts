@@ -1,6 +1,6 @@
-const availableLanguages: Array<string> = ['fr', 'en', 'es', 'de', 'ru', 'zh'];
+const locales: Array<string> = ['fr', 'en', 'es', 'de', 'ru', 'zh'];
 
-const findLanguage = (fallbackLocale: string): string => {
+const findLanguage = (fallbackLocale: string, availableLanguages: Array<string> = locales): string => {
   if (availableLanguages.includes(window.navigator.language)) return window.navigator.language;
 
   const matchLanguages = window.navigator.languages.filter((lang) =>

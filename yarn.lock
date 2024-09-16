@@ -1230,6 +1230,7 @@ __metadata:
     "@types/node": "npm:^22"
     "@types/react": "npm:^18"
     "@types/react-dom": "npm:^18"
+    "@types/regenerator-runtime": "npm:^0"
     "@typescript-eslint/eslint-plugin": "npm:^8.5.0"
     "@typescript-eslint/parser": "npm:^8.5.0"
     "@uportal/open-id-connect": "npm:^1.40.2"

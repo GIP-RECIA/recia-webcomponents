@@ -37,6 +37,8 @@ document.body.appendChild(tldrawEditor);
 
 ## Paramètres
 
+Propriétés disponibles :
+
 | Nom                   |       Type        |           Requis           | Default | Description                                                                                                 |
 | --------------------- | :---------------: | :------------------------: | :-----: | ----------------------------------------------------------------------------------------------------------- |
 | `debug`               |     `boolean`     |          `false`           | `false` | Active les logs de debug                                                                                    |
