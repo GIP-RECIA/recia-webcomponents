@@ -6,8 +6,6 @@
   - [Variables CSS](#variables-css)
     - [Modification de style](#modification-de-style)
 
-UI de paramétrage d'établissement en Vue.js
-
 ## Installation
 
 1. Installation via npm :
@@ -39,6 +37,8 @@ document.body.appendChild(paramEtab);
 
 ## Paramètres
 
+Propriétés disponibles :
+
 | Nom                 |   Type   | Obligatoire | Default | Description                                |
 | ------------------- | :------: | :---------: | :-----: | ------------------------------------------ |
 | `param-etab-api`    | `string` |    `oui`    |         | URI de la route GET de param etab          |
@@ -48,14 +48,19 @@ document.body.appendChild(paramEtab);
 <br/>
 
 ```html
-<param-etab base-api-url="" param-etab-api="" user-info-api-url="" default-logo-icon=""/>
+<param-etab
+  base-api-url="" 
+  param-etab-api="" 
+  user-info-api-url="" 
+  default-logo-icon=""
+/>
 ```
 
 ## Variables CSS
 
 ### Modification de style
 
-Variables CSS peuvent être définis pour personnaliser le webcomponent :
+Plusieurs variables CSS peuvent être définis pour personnaliser le webcomponent :
 
 | Nom                                                   | Description                                                   |
 | ----------------------------------------------------- | ------------------------------------------------------------- |

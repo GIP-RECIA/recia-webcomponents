@@ -6,8 +6,6 @@
   - [Variables CSS](#variables-css)
     - [Modification de style](#modification-de-style)
 
-UI de change d'établissement en Vue.js
-
 ## Installation
 
 1. Installation via npm :
@@ -39,6 +37,8 @@ document.body.appendChild(changeEtab)
 
 ## Paramètres
 
+Propriétés disponibles :
+
 | Nom                 |   Type    | Obligatoire | Default | Description                                |
 | ------------------- | :-------: | :---------: | :-----: | ------------------------------------------ |
 | `show`              | `boolean` |    `oui`    |         | activer/désactiver la modal                |
@@ -48,14 +48,18 @@ document.body.appendChild(changeEtab)
 <br/>
 
 ```html
-<change-etab show="" change-etab-api="" user-info-api-url="" />
+<change-etab
+  show="" 
+  change-etab-api="" 
+  user-info-api-url=""
+/>
 ```
 
 ## Variables CSS
 
 ### Modification de style
 
-Variables CSS peuvent être définis pour personnaliser le webcomponent :
+Plusieurs variables CSS peuvent être définis pour personnaliser le webcomponent :
 
 | Nom                                     | Description                                        |
 | --------------------------------------- | -------------------------------------------------- |

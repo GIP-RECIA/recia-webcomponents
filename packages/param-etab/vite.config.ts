@@ -1,7 +1,7 @@
 import pkg from './package.json';
-import vueI18n from '@intlify/unplugin-vue-i18n/vite';
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import vue from '@vitejs/plugin-vue';
-import { URL, fileURLToPath } from 'node:url';
+import { fileURLToPath } from 'node:url';
 import { defineConfig, loadEnv } from 'vite';
 
 // https://vitejs.dev/config/
@@ -19,7 +19,7 @@ export default ({ mode }: { mode: string }) => {
           },
         },
       }),
-      vueI18n({}),
+      VueI18nPlugin({}),
     ],
     resolve: {
       alias: {

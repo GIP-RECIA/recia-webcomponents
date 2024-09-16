@@ -1,7 +1,5 @@
 # ui-ressouces-gar
 
-UI des ressources du GAR en Vue.js.
-
 - [ui-ressouces-gar](#ui-ressouces-gar)
   - [Installation](#installation)
   - [Paramètres](#paramètres)

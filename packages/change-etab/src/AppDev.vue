@@ -5,7 +5,6 @@ const show = ref<boolean>(false);
 
 const { VITE_CHANGEETAB_API_URI, VITE_USER_INFO_API_URI } = import.meta.env;
 
-// function
 const toggleShow = () => {
   show.value = true;
   console.log('click: ', show.value);
@@ -21,7 +20,7 @@ const toggleShow = () => {
   ></change-etab>
 </template>
 
-<style>
+<style lang="scss">
 :root {
   /* Couleurs des boutons */
   --change-etab-button-background-color: #25b2f3;

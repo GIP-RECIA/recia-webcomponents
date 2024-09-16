@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import i18n from '@/i18n';
+import i18n from '@/plugins/i18n';
 import { provide } from 'vue';
 import { I18nInjectionKey } from 'vue-i18n';
 
@@ -17,5 +17,5 @@ defineProps<{
     :param-etab-api="paramEtabApi"
     :user-info-api-url="userInfoApiUrl"
     :default-logo-icon="defaultLogoIcon"
-  ></page-param-etab>
+  />
 </template>

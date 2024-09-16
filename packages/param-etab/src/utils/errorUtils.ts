@@ -1,4 +1,4 @@
-import i18n from '@/i18n';
+import i18n from '@/plugins/i18n';
 import Swal from 'sweetalert2';
 
 const { t } = i18n.global;

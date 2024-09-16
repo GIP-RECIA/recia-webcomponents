@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { getRessourcesDiffusables, getSize } from '@/services/serviceRessourcesDiffusables.ts';
-import type { Ressource } from '@/types/ressourceType.ts';
+import { getRessourcesDiffusables, getSize } from '@/services/serviceRessourcesDiffusables';
+import type { Ressource } from '@/types/ressourceType';
 import { onMounted, ref } from 'vue';
 
 const props = defineProps<{
