@@ -1130,7 +1130,7 @@ __metadata:
     regenerator-runtime: "npm:^0.14.1"
     terser: "npm:^5.32.0"
     typescript: "npm:^5.6.2"
-    vite: "npm:^5.4.3"
+    vite: "npm:^5.4.5"
     vue: "npm:^3.5.6"
     vue-i18n: "npm:^9.14.0"
     vue-tsc: "npm:^2.1.6"
@@ -1168,7 +1168,7 @@ __metadata:
     sass: "npm:^1.78.0"
     terser: "npm:^5.32.0"
     typescript: "npm:^5.6.2"
-    vite: "npm:^5.4.3"
+    vite: "npm:^5.4.5"
     vue: "npm:^3.5.6"
     vue-i18n: "npm:^9.14.0"
     vue-sweetalert2: "npm:^5.0.11"
@@ -1248,7 +1248,7 @@ __metadata:
     sass: "npm:^1.78.0"
     terser: "npm:^5.32.0"
     typescript: "npm:^5.6.2"
-    vite: "npm:^5.4.3"
+    vite: "npm:^5.4.5"
     vite-plugin-css-injected-by-js: "npm:^3.5.1"
     y-presence: "npm:^0.2.3"
     y-websocket: "npm:^2.0.4"
@@ -1288,7 +1288,7 @@ __metadata:
     standard-version: "npm:^9.5.0"
     terser: "npm:^5.32.0"
     typescript: "npm:^5.6.2"
-    vite: "npm:^5.4.3"
+    vite: "npm:^5.4.5"
     vue: "npm:^3.5.6"
     vue-i18n: "npm:^9.14.0"
     vue-tsc: "npm:^2.1.6"
@@ -1382,7 +1382,7 @@ __metadata:
     sass: "npm:^1.78.0"
     terser: "npm:^5.32.0"
     typescript: "npm:^5.6.2"
-    vite: "npm:^5.4.3"
+    vite: "npm:^5.4.5"
     y-presence: "npm:^0.2.3"
     y-websocket: "npm:^2.0.4"
     yjs: "npm:^13.6.19"
@@ -9615,9 +9615,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^5.4.3":
-  version: 5.4.3
-  resolution: "vite@npm:5.4.3"
+"vite@npm:^5.4.5":
+  version: 5.4.5
+  resolution: "vite@npm:5.4.5"
   dependencies:
     esbuild: "npm:^0.21.3"
     fsevents: "npm:~2.3.3"
@@ -9654,7 +9654,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10/864bf64fe57bd26b1527ea6d8dac2f4f8b834791f836590043463c0ded6a150a9407ffac6a859abc34ec013ecfcd23f405c20aa76f4ad99deab1176d5f017574
+  checksum: 10/ef794392c44cdc0b4256e6a58697ebf9b86536dde04ba6449a853664c8a9441c4ae8c380c35d7e78556f197a738d46921e076064a4ff7a7448e5905d55262baf
   languageName: node
   linkType: hard
 
