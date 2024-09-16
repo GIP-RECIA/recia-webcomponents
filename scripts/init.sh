@@ -17,4 +17,3 @@ source ~/.nvm/nvm.sh
 nvm install
 npm i -g yarn
 yarn
-yarn prepare

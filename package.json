@@ -6,7 +6,7 @@
   ],
   "scripts": {
     "each": "yarn workspaces foreach -At run",
-    "prepare": "husky install"
+    "postinstall": "husky"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
