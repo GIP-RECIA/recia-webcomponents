@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: ['20', 'latest']
+        node-version: ['22', 'latest']
 
     name: Node ${{ matrix.node-version }}
 
