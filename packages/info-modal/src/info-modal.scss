@@ -1,0 +1,130 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+info-modal {
+  height: 100%;
+  width: 100%;
+}
+
+.modal-overlay[aria-hidden='true'] {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.modal-overlay[aria-hidden='false'] {
+  opacity: 1;
+  visibility: visible;
+}
+.modal-overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  transition:
+    opacity 0.2s ease-in-out,
+    visibility 0.2s ease-in-out;
+  background-color: var(--info-modal-background-modal-overlay-color, #a0a0a06b);
+
+  .modal-container {
+    position: absolute;
+    max-height: min(560px, 100% - 48px);
+    max-width: min(560px, 100% - 48px);
+    min-height: 140px;
+    min-width: 280px;
+    width: fit-content;
+    height: fit-content;
+    padding: 0;
+    margin: auto;
+    overflow: hidden;
+    background-color: var(--info-modal-background-modal-container-color, #ffffff);
+    border-radius: 28px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
+    flex-shrink: 0;
+    justify-content: center;
+
+    .modal-header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 1em 1.5em 0.9em;
+      color: rgb(33, 33, 33);
+
+      gap: 2em;
+      align-items: center;
+
+      .modal-title {
+        padding: 0;
+        margin: 0;
+        word-wrap: unset;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .close-button {
+        padding: 0;
+        margin: 0;
+        width: fit-content;
+        height: fit-content;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        overflow: hidden;
+        background: none;
+        border: none;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        svg {
+          height: 1.5em;
+          width: 1.5em;
+          color: #757375;
+          -webkit-transition: color 0.5s;
+          transition: color 0.5s;
+          &:hover {
+            color: #212121;
+          }
+        }
+      }
+    }
+
+    .modal-body {
+      padding: 0 1.5em;
+      display: flex;
+      flex-direction: column;
+      gap: 2em;
+      height: auto;
+      width: auto;
+      overflow-wrap: break-word;
+      overflow-y: scroll;
+      scroll-behavior: smooth;
+      text-align: justify;
+    }
+    .modal-footer {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: right;
+      width: auto;
+      padding: 0.9em 1.5em 1.5em 1.5em;
+    }
+  }
+}
