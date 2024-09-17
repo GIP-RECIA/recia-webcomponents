@@ -11,6 +11,60 @@ on:
     paths: ['**.ts', '**.tsx', '**.vue', '.github/workflows/**', 'package.json', 'yarn.lock']
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+
+    name: Check diffs
+
+    outputs:
+      node: ${{ steps.check-node.outputs.changed }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: node
+        id: check-node
+        run: |
+          if git diff --name-only HEAD^ HEAD | grep -qE '\.ts$|\.vue$|package\.json|yarn\.lock'; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Debug outputs
+        run: |
+          git diff --name-only HEAD^ HEAD
+          echo "Node changes: ${{ steps.check-node.outputs.changed }}"
+
+  license-headers:
+    runs-on: ubuntu-latest
+
+    name: Check and generate license headers
+
+    needs: changes
+
+    continue-on-error: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check license headers
+        id: check
+        run: ./scripts/license.sh 1
+
+      - name: Generate license headers
+        if: ${{ github.event_name != 'pull_request' && needs.changes.outputs.node == 'true' && steps.check.conclusion == 'failure' }}
+        id: generate
+        run: ./scripts/license.sh 2
+
+      - name: Commit changes
+        if: ${{ github.event_name != 'pull_request' && steps.generate.conclusion == 'success' }}
+        run: ./scripts/license.sh 3
+
   build:
     runs-on: ubuntu-latest
 
@@ -19,6 +73,10 @@ jobs:
         node-version: ['22', 'latest']
 
     name: Node ${{ matrix.node-version }}
+
+    needs: changes
+
+    if: ${{ github.event_name != 'pull_request' || needs.changes.outputs.node == 'true' }}
 
     steps:
       - name: Checkout

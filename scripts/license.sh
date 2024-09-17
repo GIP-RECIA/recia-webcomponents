@@ -43,7 +43,7 @@ if [ "$1" != "" ]; then
 else
   echo "1 -> check"
   echo "2 -> generate"
-  echo "3 -> generate + commmit"
+  echo "3 -> commmit"
   echo ""
 
   read -r -p "Action: " choice
@@ -53,10 +53,7 @@ case ${choice} in
 
 1) check ;;
 2) generate ;;
-3)
-  generate
-  commit
-  ;;
+3) commit ;;
 *) echo "Unknown choice" ;;
 
 esac
