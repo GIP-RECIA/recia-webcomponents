@@ -31,18 +31,19 @@
     "access": "public"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "format:check": "prettier --check src/",
-    "format": "prettier --write src/",
     "test:unit": "vitest",
     "lint": "yarn run lint:lit-analyzer && yarn run lint:eslint",
     "lint:eslint": "eslint 'src/**/*.ts'",
-    "lint:lit-analyzer": "lit-analyzer"
-  },
-  "dependencies": {
-    "lit": "^3.2.0"
+    "lint:lit-analyzer": "lit-analyzer",
+    "format:check": "prettier --config ../../.prettierrc.json --ignore-path ../../.prettierignore --check src/",
+    "format": "prettier --config ../../.prettierrc.json --ignore-path ../../.prettierignore --write src/",
+    "release": "yarn run -T commit-and-tag-version -t 'info-modal/v'",
+    "release:minor": "yarn run -T commit-and-tag-version -t 'info-modal/v' --release-as minor",
+    "release:patch": "yarn run -T commit-and-tag-version -t 'info-modal/v' --release-as patch",
+    "release:major": "yarn run -T commit-and-tag-version -t 'info-modal/v' --release-as major"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
@@ -51,12 +52,13 @@
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
-    "@tsconfig/node20": "^20",
+    "@tsconfig/node20": "^20.1.4",
     "@types/node": "^22",
     "@typescript-eslint/eslint-plugin": "^8.6.0",
     "@typescript-eslint/parser": "^8.6.0",
     "eslint": "^9.10.0",
     "husky": "^9.1.6",
+    "lit": "^3.2.0",
     "lit-analyzer": "^2.0.3",
     "lit-scss-loader": "^2.0.1",
     "prettier": "^3.3.3",
