@@ -63,7 +63,10 @@ jobs:
 
       - name: Commit changes
         if: ${{ github.event_name != 'pull_request' && steps.generate.conclusion == 'success' }}
-        run: ./scripts/license.sh 3
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          ./scripts/license.sh 3
 
   build:
     runs-on: ubuntu-latest
