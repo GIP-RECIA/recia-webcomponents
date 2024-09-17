@@ -651,7 +651,7 @@ __metadata:
     prettier: "npm:^3.3.3"
     sass: "npm:^1.78.0"
     standard-version: "npm:^9.5.0"
-    terser: "npm:^5.31.1"
+    terser: "npm:^5.33.0"
     typescript: "npm:^5.6.2"
     vite: "npm:^5.4.6"
     vite-plugin-sass: "npm:^0.1.0"
@@ -5234,9 +5234,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"terser@npm:^5.31.1":
-  version: 5.31.1
-  resolution: "terser@npm:5.31.1"
+"terser@npm:^5.33.0":
+  version: 5.33.0
+  resolution: "terser@npm:5.33.0"
   dependencies:
     "@jridgewell/source-map": "npm:^0.3.3"
     acorn: "npm:^8.8.2"
@@ -5244,7 +5244,7 @@ __metadata:
     source-map-support: "npm:~0.5.20"
   bin:
     terser: bin/terser
-  checksum: 10/4b22b62e762aebcd538dc3f5d5323fb3b51786e9294f7069d591cb61401a1161778039fdf283bbaf06244f500ee8563e0c49fc3c64176310556f34cc6637d463
+  checksum: 10/01423825474969c81c3f063e5c7ce12f82bbd9448b565220e7418174b3b5cac47d563bf6983fcd5c7e1bac20df6d8f9e94f7cf15383714e1576fcb1cf8a3a71b
   languageName: node
   linkType: hard
 
