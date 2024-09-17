@@ -1072,6 +1072,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/free-regular-svg-icons@npm:^6.6.0":
+  version: 6.6.0
+  resolution: "@fortawesome/free-regular-svg-icons@npm:6.6.0"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:6.6.0"
+  checksum: 10/a5b9d42a4eb0ea9ef55a44ee2bdfd7d4bf54aac0a6af623eb194bf53603f996450182c49363a423ecd8b880d342b12d6444ffeb4067d823974237de1c692b8d4
+  languageName: node
+  linkType: hard
+
 "@fortawesome/free-solid-svg-icons@npm:^6.6.0":
   version: 6.6.0
   resolution: "@fortawesome/free-solid-svg-icons@npm:6.6.0"
@@ -1127,6 +1136,48 @@ __metadata:
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-vue: "npm:^9.28.0"
     lint-staged: "npm:^15.2.10"
+    npm-run-all2: "npm:^6.2.3"
+    prettier: "npm:^3.3.3"
+    regenerator-runtime: "npm:^0.14.1"
+    sass: "npm:^1.78.0"
+    terser: "npm:^5.32.0"
+    typescript: "npm:^5.6.2"
+    vite: "npm:^5.4.5"
+    vue: "npm:^3.5.6"
+    vue-i18n: "npm:^10.0.1"
+    vue-tsc: "npm:^2.1.6"
+  languageName: unknown
+  linkType: soft
+
+"@gip-recia/mediacentre-ui@workspace:packages/mediacentre":
+  version: 0.0.0-use.local
+  resolution: "@gip-recia/mediacentre-ui@workspace:packages/mediacentre"
+  dependencies:
+    "@fortawesome/fontawesome-svg-core": "npm:^6.6.0"
+    "@fortawesome/free-regular-svg-icons": "npm:^6.6.0"
+    "@fortawesome/free-solid-svg-icons": "npm:^6.6.0"
+    "@fortawesome/vue-fontawesome": "npm:^3.0.8"
+    "@intlify/unplugin-vue-i18n": "npm:^4.0.0"
+    "@rushstack/eslint-patch": "npm:^1.10.4"
+    "@trivago/prettier-plugin-sort-imports": "npm:^4.3.0"
+    "@tsconfig/node20": "npm:^20.1.4"
+    "@types/lodash.debounce": "npm:^4"
+    "@types/node": "npm:^22"
+    "@types/regenerator-runtime": "npm:^0"
+    "@uportal/open-id-connect": "npm:^1.40.2"
+    "@vitejs/plugin-vue": "npm:^5.1.3"
+    "@vue/eslint-config-prettier": "npm:^9.0.0"
+    "@vue/eslint-config-typescript": "npm:^13.0.0"
+    "@vue/tsconfig": "npm:^0.5.1"
+    "@vueuse/core": "npm:^11.1.0"
+    axios: "npm:^1.7.7"
+    dotenv-checker: "npm:^1.1.7"
+    eslint: "npm:^8.57.0"
+    eslint-config-prettier: "npm:^9.1.0"
+    eslint-plugin-vue: "npm:^9.28.0"
+    lint-staged: "npm:^15.2.10"
+    lodash.debounce: "npm:^4.0.8"
+    lodash.throttle: "npm:^4.1.1"
     npm-run-all2: "npm:^6.2.3"
     prettier: "npm:^3.3.3"
     regenerator-runtime: "npm:^0.14.1"
@@ -3088,6 +3139,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/web-bluetooth@npm:^0.0.20":
+  version: 0.0.20
+  resolution: "@types/web-bluetooth@npm:0.0.20"
+  checksum: 10/2faa323e5c994e9468fff4675e3b6d35f3730eb4dc7c761d02267fb6246dbfd659fd8f3583db0872aae05b3ee139799c25655bbe79bf1b56c08c06e665db814b
+  languageName: node
+  linkType: hard
+
 "@typescript-eslint/eslint-plugin@npm:^7.1.1":
   version: 7.17.0
   resolution: "@typescript-eslint/eslint-plugin@npm:7.17.0"
@@ -3627,6 +3685,34 @@ __metadata:
   version: 0.5.1
   resolution: "@vue/tsconfig@npm:0.5.1"
   checksum: 10/1f8e51eae0aae92ea518f0713394135bf1f8a80decd486417fb3701851e903a4c18bc12db6c8d3223e1e0bd1dc01c70668bd7703382a130fd250867b772002ce
+  languageName: node
+  linkType: hard
+
+"@vueuse/core@npm:^11.1.0":
+  version: 11.1.0
+  resolution: "@vueuse/core@npm:11.1.0"
+  dependencies:
+    "@types/web-bluetooth": "npm:^0.0.20"
+    "@vueuse/metadata": "npm:11.1.0"
+    "@vueuse/shared": "npm:11.1.0"
+    vue-demi: "npm:>=0.14.10"
+  checksum: 10/2ed51d0a49588bf23f18b31e16756b0ddd1a97e1fa426f73e805d76c52d1b51959372f04040e7bdad2d922568afe8a5c6674e6efbeac17624ee843bad17671bf
+  languageName: node
+  linkType: hard
+
+"@vueuse/metadata@npm:11.1.0":
+  version: 11.1.0
+  resolution: "@vueuse/metadata@npm:11.1.0"
+  checksum: 10/3bb0171a275845780678360a8e74591b52ad3a25aba61bee0e57924410918c343ccb94b9317a06e77c92e6e18a7d22ddf46ea51eea930fea6ca9b06053875522
+  languageName: node
+  linkType: hard
+
+"@vueuse/shared@npm:11.1.0":
+  version: 11.1.0
+  resolution: "@vueuse/shared@npm:11.1.0"
+  dependencies:
+    vue-demi: "npm:>=0.14.10"
+  checksum: 10/467bd1da45e4cf8d5a9c91129bd7e2cfecd80e896e8fd11e6a85fa28d2743b124faf595fc54e1c00359f721b3faf70c5f9574130c7ab3a30c4891a89c77b80fd
   languageName: node
   linkType: hard
 
@@ -9420,6 +9506,22 @@ __metadata:
   version: 3.0.8
   resolution: "vscode-uri@npm:3.0.8"
   checksum: 10/e882d6b679e0d053cbc042893c0951a135d899a192b62cd07f0a8924f11ae722067a8d6b1b5b147034becf57faf9fff9fb543b17b749fd0f17db1f54f783f07c
+  languageName: node
+  linkType: hard
+
+"vue-demi@npm:>=0.14.10":
+  version: 0.14.10
+  resolution: "vue-demi@npm:0.14.10"
+  peerDependencies:
+    "@vue/composition-api": ^1.0.0-rc.1
+    vue: ^3.0.0-0 || ^2.6.0
+  peerDependenciesMeta:
+    "@vue/composition-api":
+      optional: true
+  bin:
+    vue-demi-fix: bin/vue-demi-fix.js
+    vue-demi-switch: bin/vue-demi-switch.js
+  checksum: 10/3028239c0c25a84361a13ab936fcc9a199f54e0320c2ec1d2f4fdf7da8bae663382b7c1e5b1f5a1a43f6aebc73b955892cd4b6c7b3eaf2b766e18cc2a6f7ebea
   languageName: node
   linkType: hard
 
