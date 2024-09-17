@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Ressource } from '@/types/RessourceType.ts';
+import type { Ressource } from '@/types/RessourceType';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { onMounted, ref, watch } from 'vue';
 

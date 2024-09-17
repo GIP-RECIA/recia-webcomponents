@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Ressource } from '@/types/RessourceType.ts';
+import type { Ressource } from '@/types/RessourceType';
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 

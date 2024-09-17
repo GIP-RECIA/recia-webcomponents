@@ -6,14 +6,14 @@ import {
   getFilters,
   getResources,
   putFavorites,
-} from '../services/ServiceMediacentre.ts';
+} from '../services/ServiceMediacentre';
 import './info-modal/info-modal.js';
-import { setError } from '@/services/ServiceErreurMediacentre.ts';
-import { getFilters as filtrage } from '@/services/ServiceFiltreMediacentre.ts';
-import type { Filtres } from '@/types/FiltresType.ts';
-import { type Ressource, createResourceFromJson } from '@/types/RessourceType.ts';
-import { CustomError } from '@/utils/CustomError.ts';
-import { initToken } from '@/utils/axiosUtils.ts';
+import { setError } from '@/services/ServiceErreurMediacentre';
+import { getFilters as filtrage } from '@/services/ServiceFiltreMediacentre';
+import type { Filtres } from '@/types/FiltresType';
+import { type Ressource, createResourceFromJson } from '@/types/RessourceType';
+import { CustomError } from '@/utils/CustomError';
+import { initToken } from '@/utils/axiosUtils';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';

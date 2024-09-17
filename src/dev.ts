@@ -2,9 +2,9 @@ import 'regenerator-runtime/runtime.js';
 
 import { createApp } from 'vue';
 
-import { register as registerCustomElements } from '@/ce.ts';
-import { register as registerFontAwsome } from '@/plugins/fontawsome.ts';
-import i18n from '@/plugins/i18n.ts';
+import { register as registerCustomElements } from '@/ce';
+import { register as registerFontAwsome } from '@/plugins/fontawesome';
+import i18n from '@/plugins/i18n';
 
 import App from '@/AppDev.vue';
 

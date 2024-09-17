@@ -1,5 +1,5 @@
-import { CustomError } from './CustomError.ts';
-import { getToken } from './soffitUtils.ts';
+import { CustomError } from './CustomError';
+import { getToken } from './soffitUtils';
 import axios from 'axios';
 
 const isDev: boolean = import.meta.env.DEV;

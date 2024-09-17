@@ -1,9 +1,9 @@
-import type { DomaineEnseignement } from './DomaineEnseignementType.ts';
-import type { IdEtablissement } from './IdEtablissementType.ts';
-import type { NiveauEducatif } from './NiveauEducatifType.ts';
-import type { TypePedagogique } from './TypePedagogiqueType.ts';
-import type { TypePresentation } from '@/types/TypePresentationType.ts';
-import type { TypologieDocument } from '@/types/TypologieDocumentType.ts';
+import type { DomaineEnseignement } from './DomaineEnseignementType';
+import type { IdEtablissement } from './IdEtablissementType';
+import type { NiveauEducatif } from './NiveauEducatifType';
+import type { TypePedagogique } from './TypePedagogiqueType';
+import type { TypePresentation } from '@/types/TypePresentationType';
+import type { TypologieDocument } from '@/types/TypologieDocumentType';
 
 export type Ressource = {
   distributeurTech: string;
