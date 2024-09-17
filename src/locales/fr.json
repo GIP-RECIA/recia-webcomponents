@@ -1,15 +1,21 @@
 {
-  "message": {
-    "page-mediacentre": {
-
-    },
-    "liste-ressources-mediacentre": {
-
-    },
-    "menu-mediacentre": {
-      "ressources": "Ressources",
-      "toutes-ressources": "Toutes les ressources",
-      "mes-favoris": "Mes favoris"
-    }
+  "page-mediacentre": {},
+  "liste-ressources-mediacentre": {
+    "no-resources": "Vous n'avez aucune ressource.",
+    "no-favorite-resources": "Vous n'avez aucune ressource favorite."
+  },
+  "menu-mediacentre": {
+    "all-resources": "Toutes les ressources",
+    "my-favorites": "Mes favoris"
+  },
+  "resource-info-modal-mediacentre": {
+    "editor": "Édité par "
+  },
+  "error-messages": {
+    "400": "Une erreur est survenue, merci de rééssayer.",
+    "401": "Vous n'êtes pas connecté, merci de vous authentifier.",
+    "403": "Vous n'êtes pas autorisé à accèder à ses ressources.",
+    "500": "Une erreur interne au serveur est survenue, merci de rééssayer ulterieurement.",
+    "503": "Le serveur est temporairement indisponible, merci de rééssayer ulterieurement."
   }
 }

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="./src/dev.ts"></script>
+    <script type="text/javascript">
+      let triggerElement;
+      document.addEventListener('openModale', (event) => {
+        triggerElement = event.detail.originalEvent;
+        const modalElement = document.querySelector('info-modal');
+        modalElement.isOpen = !modalElement.isOpen;
+        modalElement.titleModal = event.detail.title;
+        modalElement.mainElement = document.getElementsByTagName('main')[0];
+      });
+
+      document.addEventListener('closeModale', (event) => {
+        if (triggerElement) {
+          triggerElement.focus();
+          event.preventDefault();
+        }
+      });
+    </script>
+    <title>mediacentre-ui</title>
+  </head>
+  <body>
+    <main id="app"></main>
+  </body>
+</html>
