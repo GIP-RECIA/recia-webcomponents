@@ -639,7 +639,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^5.25.0"
     "@typescript-eslint/parser": "npm:^5.25.0"
     eslint: "npm:^9.6.0"
-    husky: "npm:^9.0.11"
+    husky: "npm:^9.1.6"
     lit: "npm:^3.1.4"
     lit-analyzer: "npm:^2.0.3"
     lit-scss-loader: "npm:^2.0.1"
@@ -3185,21 +3185,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"husky@npm:^8.0.3":
-  version: 8.0.3
-  resolution: "husky@npm:8.0.3"
+"husky@npm:^9.1.6":
+  version: 9.1.6
+  resolution: "husky@npm:9.1.6"
   bin:
-    husky: lib/bin.js
-  checksum: 10/b754cf70fdc97c3b60fec5b80056b9c11436464953b1691bf2b5dcf0081fb6685d2c5f47abb8b2b1c49f504aabea5321fdd6496f8b755d9f6e7525a493406abb
-  languageName: node
-  linkType: hard
-
-"husky@npm:^9.0.11":
-  version: 9.0.11
-  resolution: "husky@npm:9.0.11"
-  bin:
-    husky: bin.mjs
-  checksum: 10/8a9b7cb9dc8494b470b3b47b386e65d579608c6206da80d3cc8b71d10e37947264af3dfe00092368dad9673b51d2a5ee87afb4b2291e77ba9e7ec1ac36e56cd1
+    husky: bin.js
+  checksum: 10/421ccd8850378231aaefd70dbe9e4f1549b84ffe3a6897f93a202242bbc04e48bd498169aef43849411105d9fcf7c192b757d42661e28d06b934a609a4eb8771
   languageName: node
   linkType: hard
 
@@ -3699,7 +3690,7 @@ __metadata:
     "@eslint/js": "npm:^9.6.0"
     eslint: "npm:9.x"
     globals: "npm:^15.8.0"
-    husky: "npm:^8.0.3"
+    husky: "npm:^9.1.6"
     lint-staged: "npm:^15.2.7"
     prettier: "npm:3.3.2"
     typescript-eslint: "npm:^8.6.0"
