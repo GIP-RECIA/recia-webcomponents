@@ -15,14 +15,7 @@
 -->
 
 <script setup lang="ts">
-import {
-  flushMediacentreFavorites,
-  getConfig,
-  getFavorites,
-  getFilters,
-  getResources,
-  putFavorites,
-} from '../services/ServiceMediacentre';
+import { getConfig, getFavorites, getFilters, getResources, putFavorites } from '../services/ServiceMediacentre';
 import './info-modal/info-modal.js';
 import { setError } from '@/services/ServiceErreurMediacentre';
 import { getFilters as filtrage } from '@/services/ServiceFiltreMediacentre';

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import { getJwt } from './soffitUtils.ts';
 import axios from 'axios';
 import throttle from 'lodash.throttle';

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import pkg from './package.json';
 import react from '@vitejs/plugin-react';
 import { defineConfig, loadEnv } from 'vite';

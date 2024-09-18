@@ -40,7 +40,7 @@ const nbCards = computed<number>(() => {
 
 watch(
   () => props.filtre,
-  (newValue) => {
+  () => {
     nbHiddenCards.value = 0;
     nbShownCards.value = props.nbResources;
   },
@@ -48,7 +48,7 @@ watch(
 
 watch(
   () => nbCards.value,
-  (newValue) => {
+  () => {
     nbShownCards.value = props.nbResources;
   },
 );
@@ -57,7 +57,7 @@ const isError = computed<boolean>(() => {
   return props.erreur !== '';
 });
 
-const isEmptyFavoritesList = (event: CustomEvent): void => {
+const isEmptyFavoritesList = (): void => {
   nbHiddenCards.value++;
   nbShownCards.value = props.nbResources - nbHiddenCards.value;
 };

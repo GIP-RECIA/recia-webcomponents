@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import { deleteAsset, saveAsset } from '../services/assetService.ts';
 import { TldrawApp } from '@gip-recia/tldraw-v1';
 import { useCallback } from 'react';

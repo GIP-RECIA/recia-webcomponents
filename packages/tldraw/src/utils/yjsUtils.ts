@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import type { TDAsset, TDBinding, TDShape, TldrawApp } from '@gip-recia/tldraw-v1';
 import { WebsocketProvider } from 'y-websocket';
 import * as Y from 'yjs';

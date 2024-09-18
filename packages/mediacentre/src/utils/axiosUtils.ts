@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import { CustomError } from './CustomError';
 import { getToken } from './soffitUtils';
 import axios from 'axios';
@@ -30,7 +29,7 @@ const initToken = async (apiUrl: string): Promise<void> => {
   try {
     const {
       encoded,
-      decoded: { exp, iat, sub },
+      decoded: { exp, iat },
     } = await getToken(apiUrl);
     token = `Bearer ${encoded}`;
     const timeout = (exp - iat) * 1000 * 0.75;
@@ -38,10 +37,7 @@ const initToken = async (apiUrl: string): Promise<void> => {
     // relance la methode a interval regulier
     setInterval(async () => {
       try {
-        const {
-          encoded,
-          decoded: { sub },
-        } = await getToken(apiUrl);
+        const { encoded } = await getToken(apiUrl);
         token = `Bearer ${encoded}`;
 
         // vite detecte l'env

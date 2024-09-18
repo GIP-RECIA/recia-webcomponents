@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import type { Filtre } from '@/types/FiltreType';
 import type { Filtres } from '@/types/FiltresType';
 import type { Ressource } from '@/types/RessourceType';

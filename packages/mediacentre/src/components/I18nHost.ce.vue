@@ -21,7 +21,7 @@ import { I18nInjectionKey } from 'vue-i18n';
 
 provide(I18nInjectionKey, i18n);
 
-const props = withDefaults(
+withDefaults(
   defineProps<{
     mediacentreContextUrl: string;
     baseApiUrl: string;

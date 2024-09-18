@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import TldrawEditorSFC from './components/TldrawEditor.tsx';
 import r2wc from '@r2wc/react-to-web-component';
 

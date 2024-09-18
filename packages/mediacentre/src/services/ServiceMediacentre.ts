@@ -13,11 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import type { ConfigType } from '@/types/ConfigType';
 import { CustomError } from '@/utils/CustomError';
 import { instance } from '@/utils/axiosUtils';
-import { getToken } from '@/utils/soffitUtils';
 
 let config: Array<ConfigType> = [];
 

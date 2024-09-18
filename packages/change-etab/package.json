@@ -35,7 +35,7 @@
     "dev": "dotenv-checker && vite --host",
     "build": "run-p type-check build-only && npm run build:min",
     "build:min": "npm exec terser -- -c -m --module dist/change-etab.js > dist/change-etab.min.js",
-    "lint": "eslint . --ext .vue,.ts --fix",
+    "lint": "eslint . --ext .vue,.ts --fix --ignore-path ../../.prettierignore",
     "preview": "vite preview",
     "test:unit": "echo No tests available",
     "build-only": "vite build",
