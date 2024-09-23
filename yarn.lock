@@ -1158,7 +1158,7 @@ __metadata:
     sass: "npm:^1.78.0"
     terser: "npm:^5.32.0"
     typescript: "npm:^5.6.2"
-    vite: "npm:^5.4.6"
+    vite: "npm:^5.4.7"
     vue: "npm:^3.5.6"
     vue-i18n: "npm:^10.0.1"
     vue-tsc: "npm:^2.1.6"
@@ -1185,7 +1185,7 @@ __metadata:
     terser: "npm:^5.33.0"
     typescript: "npm:^5.6.2"
     typescript-eslint: "npm:^8.6.0"
-    vite: "npm:^5.4.6"
+    vite: "npm:^5.4.7"
     vite-plugin-sass: "npm:^0.1.0"
   languageName: unknown
   linkType: soft
@@ -1225,7 +1225,7 @@ __metadata:
     sass: "npm:^1.78.0"
     terser: "npm:^5.32.0"
     typescript: "npm:^5.6.2"
-    vite: "npm:^5.4.6"
+    vite: "npm:^5.4.7"
     vue: "npm:^3.5.6"
     vue-i18n: "npm:^10.0.1"
     vue-tsc: "npm:^2.1.6"
@@ -1263,7 +1263,7 @@ __metadata:
     sass: "npm:^1.78.0"
     terser: "npm:^5.32.0"
     typescript: "npm:^5.6.2"
-    vite: "npm:^5.4.6"
+    vite: "npm:^5.4.7"
     vue: "npm:^3.5.6"
     vue-i18n: "npm:^10.0.1"
     vue-sweetalert2: "npm:^5.0.11"
@@ -1344,7 +1344,7 @@ __metadata:
     sass: "npm:^1.78.0"
     terser: "npm:^5.32.0"
     typescript: "npm:^5.6.2"
-    vite: "npm:^5.4.6"
+    vite: "npm:^5.4.7"
     vite-plugin-css-injected-by-js: "npm:^3.5.1"
     y-presence: "npm:^0.2.3"
     y-websocket: "npm:^2.0.4"
@@ -1384,7 +1384,7 @@ __metadata:
     sass: "npm:^1.78.0"
     terser: "npm:^5.32.0"
     typescript: "npm:^5.6.2"
-    vite: "npm:^5.4.6"
+    vite: "npm:^5.4.7"
     vue: "npm:^3.5.6"
     vue-i18n: "npm:^10.0.1"
     vue-tsc: "npm:^2.1.6"
@@ -1478,7 +1478,7 @@ __metadata:
     sass: "npm:^1.78.0"
     terser: "npm:^5.32.0"
     typescript: "npm:^5.6.2"
-    vite: "npm:^5.4.6"
+    vite: "npm:^5.4.7"
     y-presence: "npm:^0.2.3"
     y-websocket: "npm:^2.0.4"
     yjs: "npm:^13.6.19"
@@ -9753,9 +9753,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^5.4.6":
-  version: 5.4.6
-  resolution: "vite@npm:5.4.6"
+"vite@npm:^5.4.7":
+  version: 5.4.7
+  resolution: "vite@npm:5.4.7"
   dependencies:
     esbuild: "npm:^0.21.3"
     fsevents: "npm:~2.3.3"
@@ -9792,7 +9792,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10/8489fa55c48675fc12b64bf7af58b5e2f8a11b2aebc63cb177861bd53dc196d7c496d6918f5a8c48828f51b6fe498166a1a2350334bbfaae10d015a0c71f1c77
+  checksum: 10/3f27e870930ad83b51e009604c6b69ab090e69bb5bfe85007c7e4ec3326efae4e33ac799645926363f258595b3be3055cc1ebc5ee158cff4bacdf41adf4ef8ed
   languageName: node
   linkType: hard
 
