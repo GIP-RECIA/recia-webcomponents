@@ -72,7 +72,7 @@
     "npm-run-all2": "^6.2.3",
     "prettier": "^3.3.3",
     "regenerator-runtime": "^0.14.1",
-    "sass": "^1.78.0",
+    "sass": "^1.79.3",
     "terser": "^5.32.0",
     "typescript": "^5.6.2",
     "vite": "^5.4.7",
