@@ -1156,7 +1156,7 @@ __metadata:
     prettier: "npm:^3.3.3"
     regenerator-runtime: "npm:^0.14.1"
     sass: "npm:^1.78.0"
-    terser: "npm:^5.32.0"
+    terser: "npm:^5.33.0"
     typescript: "npm:^5.6.2"
     vite: "npm:^5.4.6"
     vue: "npm:^3.5.6"
@@ -1223,7 +1223,7 @@ __metadata:
     prettier: "npm:^3.3.3"
     regenerator-runtime: "npm:^0.14.1"
     sass: "npm:^1.78.0"
-    terser: "npm:^5.32.0"
+    terser: "npm:^5.33.0"
     typescript: "npm:^5.6.2"
     vite: "npm:^5.4.6"
     vue: "npm:^3.5.6"
@@ -1261,7 +1261,7 @@ __metadata:
     prettier: "npm:^3.3.3"
     regenerator-runtime: "npm:^0.14.1"
     sass: "npm:^1.78.0"
-    terser: "npm:^5.32.0"
+    terser: "npm:^5.33.0"
     typescript: "npm:^5.6.2"
     vite: "npm:^5.4.6"
     vue: "npm:^3.5.6"
@@ -1342,7 +1342,7 @@ __metadata:
     react-dom: "npm:^18.3.1"
     regenerator-runtime: "npm:^0.14.1"
     sass: "npm:^1.78.0"
-    terser: "npm:^5.32.0"
+    terser: "npm:^5.33.0"
     typescript: "npm:^5.6.2"
     vite: "npm:^5.4.6"
     vite-plugin-css-injected-by-js: "npm:^3.5.1"
@@ -1382,7 +1382,7 @@ __metadata:
     prettier: "npm:^3.3.3"
     regenerator-runtime: "npm:^0.14.1"
     sass: "npm:^1.78.0"
-    terser: "npm:^5.32.0"
+    terser: "npm:^5.33.0"
     typescript: "npm:^5.6.2"
     vite: "npm:^5.4.6"
     vue: "npm:^3.5.6"
@@ -1476,7 +1476,7 @@ __metadata:
     react-dom: "npm:^18.3.1"
     regenerator-runtime: "npm:^0.14.1"
     sass: "npm:^1.78.0"
-    terser: "npm:^5.32.0"
+    terser: "npm:^5.33.0"
     typescript: "npm:^5.6.2"
     vite: "npm:^5.4.6"
     y-presence: "npm:^0.2.3"
@@ -9278,20 +9278,6 @@ __metadata:
     mkdirp: "npm:^1.0.3"
     yallist: "npm:^4.0.0"
   checksum: 10/bfbfbb2861888077fc1130b84029cdc2721efb93d1d1fb80f22a7ac3a98ec6f8972f29e564103bbebf5e97be67ebc356d37fa48dbc4960600a1eb7230fbd1ea0
-  languageName: node
-  linkType: hard
-
-"terser@npm:^5.32.0":
-  version: 5.32.0
-  resolution: "terser@npm:5.32.0"
-  dependencies:
-    "@jridgewell/source-map": "npm:^0.3.3"
-    acorn: "npm:^8.8.2"
-    commander: "npm:^2.20.0"
-    source-map-support: "npm:~0.5.20"
-  bin:
-    terser: bin/terser
-  checksum: 10/b398e37509e64665da233502911f3b32046656a569b1814e0c9944141f0484b3e4d13985faf5c8610dff2d27c2636dd30bab55cab3d8e14080ae273131fb5754
   languageName: node
   linkType: hard
 
