@@ -1429,7 +1429,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gip-recia/info-modal@workspace:packages/info-modal":
+"@gip-recia/info-modal@workspace:^, @gip-recia/info-modal@workspace:packages/info-modal":
   version: 0.0.0-use.local
   resolution: "@gip-recia/info-modal@workspace:packages/info-modal"
   dependencies:
@@ -1460,6 +1460,7 @@ __metadata:
     "@fortawesome/free-regular-svg-icons": "npm:^6.6.0"
     "@fortawesome/free-solid-svg-icons": "npm:^6.6.0"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
+    "@gip-recia/info-modal": "workspace:^"
     "@intlify/unplugin-vue-i18n": "npm:^4.0.0"
     "@tsconfig/node20": "npm:^20.1.4"
     "@types/lodash.debounce": "npm:^4"
