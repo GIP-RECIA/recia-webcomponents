@@ -19,6 +19,27 @@ import i18n from '@/plugins/i18n'
 import { provide } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 
+withDefaults(
+  defineProps<{
+    mediacentreContextUrl?: string
+    baseApiUrl?: string
+    userInfoApiUrl?: string
+    userRightsApiUrl?: string
+    getUserFavoriteResourcesUrl?: string
+    putUserFavoriteResourcesUrl?: string
+    fnameMediacentreUi?: string
+  }>(),
+  {
+    mediacentreContextUrl: import.meta.env.VITE_APP_MEDIACENTRE_CONTEXT,
+    baseApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_API_URI,
+    userInfoApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_USER_INFO_API_URI,
+    userRightsApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_USER_RIGHTS_API_URI,
+    getUserFavoriteResourcesUrl: import.meta.env.VITE_APP_MEDIACENTRE_USER_GET_USER_FAVORITE_RESOURCES_API_URI,
+    putUserFavoriteResourcesUrl: import.meta.env.VITE_APP_MEDIACENTRE_USER_PUT_USER_FAVORITE_RESOURCES_API_URI,
+    fnameMediacentreUi: import.meta.env.VITE_APP_MEDIACENTRE_FNAME,
+  },
+)
+
 provide(I18nInjectionKey, i18n)
 </script>
 
