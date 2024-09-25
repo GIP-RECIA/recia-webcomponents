@@ -23,9 +23,9 @@ import { createResourceFromJson, type Ressource } from '@/types/RessourceType'
 import { initToken } from '@/utils/axiosUtils'
 import { CustomError } from '@/utils/CustomError'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { InfoModal } from '@gip-recia/info-modal'
 import { computed, onMounted, ref } from 'vue'
 import { getConfig, getFavorites, getFilters, getResources, putFavorites } from '../services/ServiceMediacentre'
-import './info-modal/info-modal.js'
 
 const props = defineProps<{
   baseApiUrl: string
@@ -233,7 +233,7 @@ async function getFiltres(): Promise<void> {
         />
       </main>
       <Teleport to="body">
-        <info-modal id="modale" debug="false">
+        <InfoModal id="modale" debug="false">
           <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
           <div slot="modal-body">
             <div style="display: flex; flex-direction: column; gap: 3em">
@@ -246,7 +246,7 @@ async function getFiltres(): Promise<void> {
               </div>
             </div>
           </div>
-        </info-modal>
+        </InfoModal>
       </Teleport>
     </div>
   </i18n-host>
