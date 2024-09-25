@@ -16,7 +16,8 @@
 
 <script setup lang="ts">
 import { getConfig, getFavorites, getFilters, getResources, putFavorites } from '../services/ServiceMediacentre';
-import './info-modal/info-modal.js';
+// eslint-disable-next-line prettier/prettier
+import { InfoModal } from '@gip-recia/info-modal';
 import { setError } from '@/services/ServiceErreurMediacentre';
 import { getFilters as filtrage } from '@/services/ServiceFiltreMediacentre';
 import type { Filtres } from '@/types/FiltresType';
