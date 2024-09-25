@@ -30,6 +30,7 @@ import { getConfig, getFavorites, getFilters, getResources, putFavorites } from 
 
 const props = defineProps<{
   baseApiUrl: string
+  configApiUrl: string
   userInfoApiUrl: string
   userRightsApiUrl: string
   getUserFavoriteResourcesApiUrl: string
@@ -60,7 +61,7 @@ onMounted(async (): Promise<void> => {
   try {
     chargementApp.value = true
     await initToken(props.userInfoApiUrl)
-    await getConfig(props.baseApiUrl)
+    await getConfig(props.configApiUrl)
     // await flushMediacentreFavorites(props.putUserFavoriteResourcesApiUrl, props.fnameMediacentreUi);
     await getRessources()
     await setFavoris()
