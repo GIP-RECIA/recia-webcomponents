@@ -20,7 +20,11 @@ import { instance } from '@/utils/axiosUtils';
 let config: Array<ConfigType> = [];
 
 const flushMediacentreFavorites = async (putUrl: string, fname: string) => {
-  await instance.put(`${putUrl}${fname}`, { mediacentreFavorites: [] });
+  try {
+    await instance.put(`${putUrl}${fname}`, { mediacentreFavorites: [] });
+  } catch (e: any) {
+    throw new CustomError(e.message, e.code);
+  }
 };
 
 const getConfig = async (configApiUrl: string) => {
