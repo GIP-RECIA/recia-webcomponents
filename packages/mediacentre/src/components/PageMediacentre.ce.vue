@@ -16,8 +16,6 @@
 
 <script setup lang="ts">
 import { getConfig, getFavorites, getFilters, getResources, putFavorites } from '../services/ServiceMediacentre';
-// eslint-disable-next-line prettier/prettier
-import { InfoModal } from '@gip-recia/info-modal';
 import { setError } from '@/services/ServiceErreurMediacentre';
 import { getFilters as filtrage } from '@/services/ServiceFiltreMediacentre';
 import type { Filtres } from '@/types/FiltresType';
@@ -25,6 +23,8 @@ import { type Ressource, createResourceFromJson } from '@/types/RessourceType';
 import { CustomError } from '@/utils/CustomError';
 import { initToken } from '@/utils/axiosUtils';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+// eslint-disable-next-line prettier/prettier
+import { InfoModal } from '@gip-recia/info-modal';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
