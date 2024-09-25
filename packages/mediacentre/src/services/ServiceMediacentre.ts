@@ -24,9 +24,9 @@ async function flushMediacentreFavorites(putUrl: string, fname: string) {
   await instance.put(`${putUrl}${fname}`, { mediacentreFavorites: [] })
 }
 
-async function getConfig(baseApiUrl: string) {
+async function getConfig(configApiUrl: string) {
   try {
-    const response = await instance.get(`api/config`)
+    const response = await instance.get(configApiUrl)
     config = response.data
   }
   catch (e: any) {
