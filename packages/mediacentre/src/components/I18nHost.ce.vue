@@ -21,13 +21,13 @@ import { I18nInjectionKey } from 'vue-i18n'
 
 withDefaults(
   defineProps<{
-    mediacentreContextUrl: string
-    baseApiUrl: string
-    userInfoApiUrl: string
-    userRightsApiUrl: string
-    getUserFavoriteResourcesUrl: string
-    putUserFavoriteResourcesUrl: string
-    fnameMediacentreUi: string
+    mediacentreContextUrl?: string
+    baseApiUrl?: string
+    userInfoApiUrl?: string
+    userRightsApiUrl?: string
+    getUserFavoriteResourcesUrl?: string
+    putUserFavoriteResourcesUrl?: string
+    fnameMediacentreUi?: string
   }>(),
   {
     mediacentreContextUrl: import.meta.env.VITE_APP_MEDIACENTRE_CONTEXT,
