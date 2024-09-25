@@ -21,7 +21,12 @@ import { CustomError } from '@/utils/CustomError'
 let config: Array<ConfigType> = []
 
 async function flushMediacentreFavorites(putUrl: string, fname: string) {
-  await instance.put(`${putUrl}${fname}`, { mediacentreFavorites: [] })
+  try {
+    await instance.put(`${putUrl}${fname}`, { mediacentreFavorites: [] })
+  }
+  catch (e: any) {
+    throw new CustomError(e.message, e.code)
+  }
 }
 
 async function getConfig(configApiUrl: string) {
