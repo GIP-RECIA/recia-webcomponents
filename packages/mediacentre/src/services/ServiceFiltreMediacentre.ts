@@ -50,6 +50,7 @@ function getFilterCategories(filter: string, resources: Array<Ressource>): Filtr
       values = [...new Set(values)]
       break
     default:
+      return undefined;
   }
 
   return convertToFiltres(values, filter)
