@@ -71,7 +71,7 @@ function convertToFiltres(values: Array<any>, filter: string): Filtres | undefin
         })
       })
       filtres = {
-        name: 'Par niveau éducatif',
+        name: 'menu-mediacentre.niveau-educatif-filter',
         filterEnum: filter,
         filters: supprimerDoublons(filters),
       }
@@ -84,7 +84,7 @@ function convertToFiltres(values: Array<any>, filter: string): Filtres | undefin
         })
       })
       filtres = {
-        name: 'Par type de ressource',
+        name: 'menu-mediacentre.type-presentation-filter',
         filterEnum: filter,
         filters: supprimerDoublons(filters),
       }
@@ -97,7 +97,7 @@ function convertToFiltres(values: Array<any>, filter: string): Filtres | undefin
         })
       })
       filtres = {
-        name: 'Par matière',
+        name: 'menu-mediacentre.domaine-education-filter',
         filterEnum: filter,
         filters: supprimerDoublons(filters),
       }
@@ -110,7 +110,7 @@ function convertToFiltres(values: Array<any>, filter: string): Filtres | undefin
         })
       })
       filtres = {
-        name: 'Par établissement',
+        name: 'menu-mediacentre.uai-filter',
         filterEnum: filter,
         filters: supprimerDoublons(filters),
       }

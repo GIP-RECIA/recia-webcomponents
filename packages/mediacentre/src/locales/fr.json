@@ -6,7 +6,11 @@
   },
   "menu-mediacentre": {
     "all-resources": "Toutes les ressources",
-    "my-favorites": "Mes favoris"
+    "my-favorites": "Mes favoris",
+    "niveau-educatif-filter": "Par niveau éducatif",
+    "type-presentation-filter": "Par type de ressource",
+    "domaine-enseignement-filter": "Par matière",
+    "uai-filter": "Par établissement"
   },
   "resource-info-modal-mediacentre": {
     "editor": "Édité par "
