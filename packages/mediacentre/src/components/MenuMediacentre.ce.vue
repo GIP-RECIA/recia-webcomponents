@@ -112,7 +112,7 @@ function showSubCategories(idCategory: string): void {
           :class="[activeCategory === category.name ? 'active' : '']"
           @click="showSubCategories(category.name)"
         >
-          <h3>{{ capitalize(category.name) }}</h3>
+          <h3>{{ capitalize(t(category.name)) }}</h3>
           <FontAwesomeIcon class="caret-menu-icon" :icon="['fas', 'caret-right']" />
         </button>
         <div class="container" :class="[activeCategory === category.name ? 'active' : '']">
