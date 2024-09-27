@@ -169,12 +169,6 @@ const toggleFavoris = (): void => {
       overflow: hidden;
       text-overflow: ellipsis;
     }
-
-    .icone-info-carte-ressource-mediacentre {
-      width: 1.5em;
-      height: 1.5em;
-      color: $menu-title-background-color;
-    }
   }
 }
 
@@ -189,6 +183,11 @@ const toggleFavoris = (): void => {
   color: $menu-title-background-color;
   cursor: pointer;
 
+  .icone-info-carte-ressource-mediacentre {
+    width: 1.5em;
+    height: 1.5em;
+    color: $menu-title-background-color;
+  }
   .icone-favorite-carte-ressource-mediacentre {
     width: 1.8em;
     height: 1.8em;
