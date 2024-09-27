@@ -47,19 +47,27 @@ async function getConfig(configApiUrl: string) {
 async function getResources(baseApiUrl: string, groupsApiUrl: string) {
   try {
     const resp = await instance.get(groupsApiUrl)
-
-    const groupsConfigValue: string = config.find((element) => {
-      if (element.key === 'groups') {
-        return element
-      }
-    })!.value
-    const regexGroups = new RegExp(groupsConfigValue)
-    const userGroups = new Array<string>()
-    resp.data.groups.forEach((element: any) => {
-      if (regexGroups.test(element.name)) {
-        userGroups.push(element.name)
-      }
+    const groupsConfigValues: string[] = config
+      .filter((element) => {
+        if (element.key === 'groups') {
+          return element
+        }
+      })
+      .map((element) => {
+        return element.value
+      })
+    const regexesGroups: RegExp[] = groupsConfigValues.map((element) => {
+      return new RegExp(element)
     })
+    const userGroups = new Array<string>()
+    for (const element of resp.data.groups) {
+      for (const regex of regexesGroups) {
+        if (regex.test(element.name)) {
+          userGroups.push(element.name)
+          continue
+        }
+      }
+    }
     const response = await instance.post(baseApiUrl, { isMemberOf: userGroups })
     return response.data
   }
