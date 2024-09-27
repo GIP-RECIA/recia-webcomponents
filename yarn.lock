@@ -1542,6 +1542,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@intlify/core-base@npm:10.0.3":
+  version: 10.0.3
+  resolution: "@intlify/core-base@npm:10.0.3"
+  dependencies:
+    "@intlify/message-compiler": "npm:10.0.3"
+    "@intlify/shared": "npm:10.0.3"
+  checksum: 10/f1f22e2beb8561fe0d862c5fb35d42b5fcb065901b8e5c1c1ca83c55f5bc793f664b2c0cbc235a4b527029fdd90be091917aaaef905f3b3719054414152f689d
+  languageName: node
+  linkType: hard
+
 "@intlify/message-compiler@npm:10.0.1":
   version: 10.0.1
   resolution: "@intlify/message-compiler@npm:10.0.1"
@@ -1549,6 +1559,16 @@ __metadata:
     "@intlify/shared": "npm:10.0.1"
     source-map-js: "npm:^1.0.2"
   checksum: 10/49fea19f33b0ae655182cd0aaa48c20405f36cab3df7f0ca5b0db36455d44e2d96d9a683499fac390c5586f0b2103eb6b8010191de730c991d2052612eec35d4
+  languageName: node
+  linkType: hard
+
+"@intlify/message-compiler@npm:10.0.3":
+  version: 10.0.3
+  resolution: "@intlify/message-compiler@npm:10.0.3"
+  dependencies:
+    "@intlify/shared": "npm:10.0.3"
+    source-map-js: "npm:^1.0.2"
+  checksum: 10/5ec6d4a50b58897143bfabb7a09b6681d05a4038cbe692d4f3746fda237b6c13ac131d867a49eb43419ccd81f1a1e35426afd34b5a1f39c3317f20c9455ae836
   languageName: node
   linkType: hard
 
@@ -1566,6 +1586,13 @@ __metadata:
   version: 10.0.1
   resolution: "@intlify/shared@npm:10.0.1"
   checksum: 10/0188d42eb5a813a2451b23bb853b647c67b95f548b6adf338fb8afa2614b816da0181614d4d2e14fa639ee794c2087fb058f3d2a185c1663ae2206e4023a2ea7
+  languageName: node
+  linkType: hard
+
+"@intlify/shared@npm:10.0.3":
+  version: 10.0.3
+  resolution: "@intlify/shared@npm:10.0.3"
+  checksum: 10/b8ee5b55412f2f422d16515bf2b9b867029a49e6f02f25a49adc76fdbc668b3082116a4def4758bdd3730abe808316d1893002e2d922cc274b0b4747ecbdcfe5
   languageName: node
   linkType: hard
 
@@ -7203,6 +7230,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mce-ui@workspace:packages/mce":
+  version: 0.0.0-use.local
+  resolution: "mce-ui@workspace:packages/mce"
+  dependencies:
+    "@intlify/unplugin-vue-i18n": "npm:^4.0.0"
+    "@rushstack/eslint-patch": "npm:^1.10.4"
+    "@tsconfig/node20": "npm:^20.1.4"
+    "@types/node": "npm:^22"
+    "@uportal/open-id-connect": "npm:^1.40.2"
+    "@vitejs/plugin-vue": "npm:^5.1.4"
+    "@vue/eslint-config-prettier": "npm:^9.0.0"
+    "@vue/eslint-config-typescript": "npm:^13.0.0"
+    "@vue/tsconfig": "npm:^0.5.1"
+    axios: "npm:^1.7.7"
+    eslint: "npm:^8.57.0"
+    eslint-plugin-vue: "npm:^9.28.0"
+    npm-run-all2: "npm:^6.2.3"
+    prettier: "npm:^3.3.3"
+    regenerator-runtime: "npm:^0.14.1"
+    typescript: "npm:^5.6.2"
+    vite: "npm:^5.4.7"
+    vue: "npm:^3.5.8"
+    vue-i18n: "npm:^10.0.1"
+    vue-tsc: "npm:^2.1.6"
+  languageName: unknown
+  linkType: soft
+
 "memorystream@npm:^0.3.1":
   version: 0.3.1
   resolution: "memorystream@npm:0.3.1"
@@ -9825,6 +9879,19 @@ __metadata:
   peerDependencies:
     vue: ^3.0.0
   checksum: 10/bd320283f7fb85af829224177647c87cf60516766ba3d8ba83712999ca146c8992e7d0cd5575389ece84b5e2ee1a981faf992a44f634c08a84049b9adc4c8692
+  languageName: node
+  linkType: hard
+
+"vue-i18n@npm:^10.0.1":
+  version: 10.0.3
+  resolution: "vue-i18n@npm:10.0.3"
+  dependencies:
+    "@intlify/core-base": "npm:10.0.3"
+    "@intlify/shared": "npm:10.0.3"
+    "@vue/devtools-api": "npm:^6.5.0"
+  peerDependencies:
+    vue: ^3.0.0
+  checksum: 10/ed02f1ac42653b494491b6ba0b98e357ea0e915ab1be19b738a1a9a695a4fbcd9c968faf39fcdacd8b60a744ef90351743486eee65a0c4acda75b84fe2c4c3e1
   languageName: node
   linkType: hard
 
