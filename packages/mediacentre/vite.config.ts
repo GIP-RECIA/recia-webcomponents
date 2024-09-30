@@ -48,6 +48,14 @@ export default ({ mode }: { mode: string }) => {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
     },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler',
+          additionalData: `@import "@/assets/scss/global.scss";`,
+        },
+      },
+    },
     build: {
       lib: {
         entry: './src/main.ts',
@@ -56,13 +64,6 @@ export default ({ mode }: { mode: string }) => {
     },
     define: {
       'process.env': process.env,
-    },
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: `@import "@/assets/scss/global.scss";`,
-        },
-      },
     },
   });
 };

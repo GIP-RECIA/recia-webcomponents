@@ -19,6 +19,13 @@ import { defineConfig } from 'vite';
 // https://vitejs.dev/config/
 export default () => {
   return defineConfig({
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler',
+        },
+      },
+    },
     build: {
       lib: {
         entry: './src/info-modal.ts',
