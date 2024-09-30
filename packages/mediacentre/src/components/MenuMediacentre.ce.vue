@@ -137,7 +137,7 @@ function showSubCategories(idCategory: string): void {
 .cadre-menu-mediacentre {
   max-height: 100%;
   text-align: center;
-  background-color: $background-color;
+  background-color: transparent;
   width: 15em;
   box-shadow: 0px 10px 15px -7px rgba(0, 0, 0, 0.1);
   overflow-y: hidden;
@@ -166,7 +166,7 @@ function showSubCategories(idCategory: string): void {
   width: 100%;
   padding: 0 1em;
   border: none;
-  border-top: 1em solid transparent;
+  border-left: 0.5em solid transparent;
   color: $font-color;
   flex-shrink: 0;
   &:hover {
@@ -175,13 +175,20 @@ function showSubCategories(idCategory: string): void {
   }
   &.active {
     border-color: $border-color;
-    border-radius: 1em 1em 0 0;
-    background-color: $background-color;
+    background-color: $category-active-background-color;
+    &:has(~ div.container.active *.sub-category-container.active) {
+      border-color: transparent;
+      background-color: $background-color;
+    }
 
     .caret-menu-icon {
       transform: rotate(90deg);
       transition: transform 0.3s ease;
     }
+  }
+
+  &:has(~ div.container *.sub-category-container.active) {
+    border-color: $border-color;
   }
 }
 
@@ -203,11 +210,14 @@ function showSubCategories(idCategory: string): void {
   border: none;
   padding: 1em 1em;
   color: $font-color;
+  border: none;
+  border-left: 0.5em solid transparent;
   &:hover {
     background-color: $category-hover-background-color;
     cursor: pointer;
   }
   &.active {
+    border-color: $border-color;
     background-color: $category-active-background-color;
     color: $font-color;
   }
