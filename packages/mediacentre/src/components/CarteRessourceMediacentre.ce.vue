@@ -184,18 +184,21 @@ function toggleFavoris(): void {
   height: fit-content;
   width: fit-content;
   padding: 0;
-  color: $menu-title-background-color;
+  color: gray;
   cursor: pointer;
+  &:hover {
+    opacity: 0.5;
+  }
 
   .icone-info-carte-ressource-mediacentre {
     width: 1.5em;
     height: 1.5em;
-    color: $menu-title-background-color;
+    margin: 0.5em;
   }
   .icone-favorite-carte-ressource-mediacentre {
     width: 1.8em;
     height: 1.8em;
-
+    margin: 0.5em;
     &.fav {
       color: #ffaa46;
     }
