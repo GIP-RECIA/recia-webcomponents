@@ -186,8 +186,9 @@ function toggleFavoris(): void {
   padding: 0;
   color: gray;
   cursor: pointer;
+  opacity: 0.5;
   &:hover {
-    opacity: 0.5;
+    opacity: 1;
   }
 
   .icone-info-carte-ressource-mediacentre {
