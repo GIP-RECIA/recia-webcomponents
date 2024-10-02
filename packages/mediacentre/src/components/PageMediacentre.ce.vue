@@ -23,10 +23,10 @@ import { type Ressource, createResourceFromJson } from '@/types/RessourceType';
 import { CustomError } from '@/utils/CustomError';
 import { initToken } from '@/utils/axiosUtils';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-// eslint-disable-next-line prettier/prettier
-import { InfoModal } from '@gip-recia/info-modal';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+// eslint-disable-next-line prettier/prettier
+import { InfoModal } from '@gip-recia/info-modal';
 
 const filtre = ref('tout');
 const filtres = ref<Array<Filtres>>([]);
@@ -39,6 +39,22 @@ const resourceTitle = ref<string>('');
 const resourceReference = ref<string>('');
 const resourceEditor = ref<string>('');
 const resourceDescription = ref<string | undefined>();
+
+let triggerElement: any;
+document.addEventListener('openModale', (event: any) => {
+  triggerElement = event.detail.originalEvent;
+  const modalElement: InfoModal = document.querySelector('info-modal');
+  modalElement.isOpen = !modalElement.isOpen;
+  modalElement.titleModal = event.detail.title;
+  modalElement.mainElement = document.querySelector('body > main, body > div');
+});
+
+document.addEventListener('closeModale', (event) => {
+  if (triggerElement) {
+    triggerElement.focus();
+    event.preventDefault();
+  }
+});
 
 const { t } = useI18n();
 const erreur = ref<string>('');
