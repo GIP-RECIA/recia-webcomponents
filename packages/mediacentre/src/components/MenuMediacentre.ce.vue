@@ -264,8 +264,6 @@ function showSubCategories(idCategory: string): void {
     width: 100%;
     margin: 0;
     padding: 0;
-    position: relative;
-    overflow: unset;
     border-radius: unset;
     height: 5em;
     transition: height 0.3s ease-in-out;
@@ -324,9 +322,11 @@ function showSubCategories(idCategory: string): void {
 
   .unfold {
     height: 100vh;
+    min-height: 100vh;
     .categories-container {
       visibility: visible;
 
+      border-radius: 0;
       width: 100%;
       background: none;
 
@@ -346,6 +346,7 @@ function showSubCategories(idCategory: string): void {
   }
 
   .sub-category-container {
+    border-radius: 0;
     cursor: pointer;
   }
   .sub-categories-container {
