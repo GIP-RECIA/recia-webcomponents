@@ -329,9 +329,6 @@ const getFiltres = async (): Promise<void> => {
       padding: 0;
       margin: 0;
       width: 100%;
-      position: fixed;
-      top: 0;
-      overflow: hidden;
       z-index: 2;
       box-shadow: 0px 10px 15px -7px rgba(0, 0, 0, 0.1);
       transition: height 3s ease-in-out;
