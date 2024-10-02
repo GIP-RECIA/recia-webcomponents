@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@gip-recia/mediacentre-ui</title>
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
       let triggerElement
       document.addEventListener('openModale', (event) => {
         triggerElement = event.detail.originalEvent
         const modalElement = document.querySelector('info-modal')
         modalElement.isOpen = !modalElement.isOpen
         modalElement.titleModal = event.detail.title
-        modalElement.mainElement = document.getElementsByTagName('main')[0]
+        modalElement.mainElement = document.querySelector('body > div')[0]
       })
 
       document.addEventListener('closeModale', (event) => {
@@ -20,7 +20,7 @@
           event.preventDefault()
         }
       })
-    </script>
+    </script> -->
   </head>
   <body>
     <main id="app"></main>
