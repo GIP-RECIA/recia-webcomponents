@@ -18,6 +18,7 @@
 import { getRessourcesDiffusables, getSize } from '@/services/serviceRessourcesDiffusables';
 import type { Ressource } from '@/types/ressourceType';
 import { onMounted, ref } from 'vue';
+import { initToken } from '@/utils/axiosUtils';
 
 const props = defineProps<{
   baseApiUrl: string;
@@ -34,16 +35,17 @@ const lectureTerminee = ref<boolean>(false);
 const chargement = ref<boolean>(false);
 const recherche = ref<string>('');
 
-onMounted((): void => {
-  recommencerRecherche();
+onMounted(async(): Promise<void> => {
+  await initToken(props.userInfoApiUrl);
+  await recommencerRecherche();
 });
 
-const reinitialiserRecherche = (): void => {
+const reinitialiserRecherche = async (): Promise<void> => {
   recherche.value = '';
   recommencerRecherche();
 };
 
-const recommencerRechercheInput = (rechercheInput: CustomEvent): void => {
+const recommencerRechercheInput = async (rechercheInput: CustomEvent): Promise<void> => {
   recherche.value = rechercheInput.detail[0];
   recommencerRecherche();
 };
