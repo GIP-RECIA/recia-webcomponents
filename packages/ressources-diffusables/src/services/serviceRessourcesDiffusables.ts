@@ -13,38 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// import axios from 'axios';
+import { instance } from '@/utils/axiosUtils';
+import oidc from '@uportal/open-id-connect';
 
-import oidc from '@uportal/open-id-connect'
-import axios from 'axios'
-
-async function getToken(userInfoApiUrl: string): Promise<string> {
-  const { encoded } = await oidc({ userInfoApiUrl })
-
-  return encoded
-}
-
-function getUrlParams(recherche: string): string {
-  return recherche !== ''
+const getUrlParams = (recherche: string): string =>
+  recherche !== ''
     ? `&operator=OR&idRessource=${recherche}&nomRessource=${recherche}&idEditeur=${recherche}&nomEditeur=${recherche}&distributeurCom=${recherche}&nomDistributeurCom=${recherche}&distributeurTech=${recherche}&nomDistributeurTech=${recherche}`
-    : ''
-}
+    : '';
 
-async function getRessourcesDiffusables(url: string, userInfoApiUrl: string, page: number, recherche: string) {
-  return await axios.get(`${url}?ressourcesPerPage=20&page=${page}${getUrlParams(recherche)}`, {
-    headers: {
-      'Authorization': `Bearer ${await getToken(userInfoApiUrl)}`,
-      'content-type': 'application/jwt',
-    },
-  })
-}
+const getRessourcesDiffusables = async (url: string, userInfoApiUrl: string, page: number, recherche: string) =>
+  await instance.get(`${url}?ressourcesPerPage=20&page=${page}${getUrlParams(recherche)}`, {});
 
-async function getSize(url: string, userInfoApiUrl: string, recherche: string) {
-  return await axios.get(`${url}?${getUrlParams(recherche)}`, {
-    headers: {
-      'Authorization': `Bearer ${await getToken(userInfoApiUrl)}`,
-      'content-type': 'application/jwt',
-    },
-  })
-}
+const getSize = async (url: string, userInfoApiUrl: string, recherche: string) =>
+  await instance.get(`${url}?${getUrlParams(recherche)}`, {});
 
-export { getRessourcesDiffusables, getSize }
+export { getRessourcesDiffusables, getSize };
