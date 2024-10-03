@@ -17,6 +17,7 @@
 <script setup lang="ts">
 import type { Ressource } from '@/types/ressourceType'
 import { getRessourcesDiffusables, getSize } from '@/services/serviceRessourcesDiffusables'
+import { initToken } from '@/utils/axiosUtils'
 import { onMounted, ref } from 'vue'
 
 const props = defineProps<{
@@ -34,16 +35,17 @@ const lectureTerminee = ref<boolean>(false)
 const chargement = ref<boolean>(false)
 const recherche = ref<string>('')
 
-onMounted((): void => {
-  recommencerRecherche()
+onMounted(async (): Promise<void> => {
+  await initToken(props.userInfoApiUrl)
+  await recommencerRecherche()
 })
 
-function reinitialiserRecherche(): void {
+async function reinitialiserRecherche(): Promise<void> {
   recherche.value = ''
   recommencerRecherche()
 }
 
-function recommencerRechercheInput(rechercheInput: CustomEvent): void {
+async function recommencerRechercheInput(rechercheInput: CustomEvent): Promise<void> {
   recherche.value = rechercheInput.detail[0]
   recommencerRecherche()
 }
