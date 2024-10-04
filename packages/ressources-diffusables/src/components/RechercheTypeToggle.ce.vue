@@ -58,5 +58,6 @@ watch(rechercheAvanceeActive, () => {
 .toggle-checkbox {
   width: 1.5em;
   height: 1.5em;
+  accent-color: $button-background-color;
 }
 </style>
