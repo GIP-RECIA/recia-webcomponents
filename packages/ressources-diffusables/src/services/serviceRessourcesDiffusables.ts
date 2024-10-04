@@ -16,7 +16,6 @@
 // import axios from 'axios';
 import type { RechercheFilter } from '@/utils/RechercheFilter';
 import { instance } from '@/utils/axiosUtils';
-import oidc from '@uportal/open-id-connect';
 
 function getUrlParams(recherche: string): string {
   return recherche !== ''
