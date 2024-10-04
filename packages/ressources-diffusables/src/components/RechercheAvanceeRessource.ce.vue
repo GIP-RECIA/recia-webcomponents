@@ -15,11 +15,11 @@
 -->
 
 <script setup lang="ts">
+import { RechercheFilter } from '@/utils/RechercheFilter';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import debounce from 'lodash.debounce';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { RechercheFilter } from '@/utils/RechercheFilter';
 
 defineProps<{
   nombreRessourcesTotal: number;
@@ -31,7 +31,6 @@ const emit = defineEmits<{
   (event: 'recommencerRechercheAvanceeInput', payload: RechercheFilter): void;
 }>();
 
-const rechercheInput = ref<string>('');
 const rechercheInputNomRessource = ref<string>('');
 const rechercheInputNomEditeur = ref<string>('');
 
@@ -39,7 +38,7 @@ const { t } = useI18n();
 
 const reinitialiserRechercheAvancee = (prop: string): void => {
   console.log(prop);
-  switch(prop){
+  switch (prop) {
     case 'nomRessource':
       rechercheInputNomRessource.value = '';
       break;
@@ -107,8 +106,6 @@ const recommencerRechercheAvancee = debounce(
         <font-awesome-icon :icon="['fa', 'xmark']" />
       </button>
     </div>
-
-
     <small class="elements-affiches-page-ressource">
       {{ nombreRessourcesAffichees }}/{{ nombreRessourcesTotal }}
       {{ t('recherche-ressource.elements-affiches').toUpperCase() }}
