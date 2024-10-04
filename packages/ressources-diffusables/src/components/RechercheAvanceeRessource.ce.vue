@@ -68,7 +68,7 @@ const recommencerRechercheAvancee = debounce(
 
 <template>
   <div class="cadre-recherche-ressource">
-    <label for="recherche-nom-ressource">Recherche par nom</label>
+    <label for="recherche-nom-ressource">{{ t('recherche-ressource.recherche-ressource') }}</label>
     <div class="input-recherche-ressource">
       <input
         id="recherche-nom-ressource"
@@ -87,7 +87,7 @@ const recommencerRechercheAvancee = debounce(
         <font-awesome-icon :icon="['fa', 'xmark']" />
       </button>
     </div>
-    <label for="recherche-nom-editeur">Recherche par éditeur</label>
+    <label for="recherche-nom-editeur">{{ t('recherche-ressource.recherche-editeur') }}</label>
     <div class="input-recherche-ressource">
       <input
         id="recherche-nom-editeur"

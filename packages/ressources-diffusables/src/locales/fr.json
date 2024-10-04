@@ -49,6 +49,8 @@
   },
   "recherche-ressource": {
     "recherche": "Recherche",
+    "recherche-ressource": "Rechercher par nom de ressource",
+    "recherche-editeur": "Rechercher par nom d'éditeur",
     "elements-affiches": "éléments affichés"
   }
 }
