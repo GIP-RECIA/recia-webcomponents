@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 // import axios from 'axios';
+import type { RechercheFilter } from '@/utils/RechercheFilter';
 import { instance } from '@/utils/axiosUtils';
 import oidc from '@uportal/open-id-connect';
 
@@ -22,10 +23,30 @@ const getUrlParams = (recherche: string): string =>
     ? `&operator=OR&idRessource=${recherche}&nomRessource=${recherche}&idEditeur=${recherche}&nomEditeur=${recherche}&distributeurCom=${recherche}&nomDistributeurCom=${recherche}&distributeurTech=${recherche}&nomDistributeurTech=${recherche}`
     : '';
 
+const getUrlParamsWithRechercheFilter = (rechercheFilter: RechercheFilter): string => {
+  if (rechercheFilter.isEmpty()) {
+    return '';
+  }
+  let params: string = '&operator=AND';
+  if (rechercheFilter.nomRessource.length > 0) params += `&nomRessource=${rechercheFilter.nomRessource}`;
+  if (rechercheFilter.nomEditeur.length > 0) params += `&nomEditeur=${rechercheFilter.nomEditeur}`;
+  return params;
+};
+
 const getRessourcesDiffusables = async (url: string, userInfoApiUrl: string, page: number, recherche: string) =>
   await instance.get(`${url}?ressourcesPerPage=20&page=${page}${getUrlParams(recherche)}`, {});
+
+const getRessourcesDiffusablesWithRechercheFilter = async (
+  url: string,
+  userInfoApiUrl: string,
+  page: number,
+  recherche: RechercheFilter,
+) => await instance.get(`${url}?ressourcesPerPage=20&page=${page}${getUrlParamsWithRechercheFilter(recherche)}`, {});
 
 const getSize = async (url: string, userInfoApiUrl: string, recherche: string) =>
   await instance.get(`${url}?${getUrlParams(recherche)}`, {});
 
-export { getRessourcesDiffusables, getSize };
+const getSizeWithRechercheFilter = async (url: string, userInfoApiUrl: string, recherche: RechercheFilter) =>
+  await instance.get(`${url}?${getUrlParamsWithRechercheFilter(recherche)}`, {});
+
+export { getRessourcesDiffusables, getRessourcesDiffusablesWithRechercheFilter, getSize, getSizeWithRechercheFilter };

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import RechercheAvanceeRessourceSFC from './components/RechercheAvanceeRessource.ce.vue';
 import CarteRessourceSFC from '@/components/CarteRessource.ce.vue';
 import I18nHostSFC from '@/components/I18nHost.ce.vue';
 import LegendeRessourceSFC from '@/components/LegendeRessource.ce.vue';
@@ -27,6 +28,7 @@ const LegendeRessource = defineCustomElement(LegendeRessourceSFC);
 const ListeRessources = defineCustomElement(ListeRessourcesSFC);
 const PageRessource = defineCustomElement(PageRessourceSFC);
 const RechercheRessource = defineCustomElement(RechercheRessourceSFC);
+const RechercheAvanceeRessource = defineCustomElement(RechercheAvanceeRessourceSFC);
 
 declare module 'vue' {
   export interface GlobalComponents {
@@ -36,6 +38,7 @@ declare module 'vue' {
     ListeRessources: typeof ListeRessources;
     PageRessource: typeof PageRessource;
     RechercheRessource: typeof RechercheRessource;
+    RechercheAvanceeRessource: typeof RechercheAvanceeRessource;
   }
 }
 
@@ -46,6 +49,16 @@ const register = () => {
   customElements.define('liste-ressources', ListeRessources);
   customElements.define('page-ressource', PageRessource);
   customElements.define('recherche-ressource', RechercheRessource);
+  customElements.define('recherche-avancee-ressource', RechercheAvanceeRessource);
 };
 
-export { CarteRessource, I18nHost, LegendeRessource, ListeRessources, PageRessource, RechercheRessource, register };
+export {
+  CarteRessource,
+  I18nHost,
+  LegendeRessource,
+  ListeRessources,
+  PageRessource,
+  RechercheRessource,
+  RechercheAvanceeRessource,
+  register,
+};
