@@ -40,7 +40,7 @@ const pageSuivante = ref<number>(0);
 const lectureTerminee = ref<boolean>(false);
 const chargement = ref<boolean>(false);
 const recherche = ref<string>('');
-const rechercheV2 = ref<RechercheFilter>();
+const rechercheFilter = ref<RechercheFilter>();
 
 onMounted(async (): Promise<void> => {
   await initToken(props.userInfoApiUrl);
@@ -53,7 +53,7 @@ const reinitialiserRecherche = async (): Promise<void> => {
 };
 
 const reinitialiserRechercheAvancee = async (rechercheInput: CustomEvent): Promise<void> => {
-  rechercheV2.value = rechercheInput.detail[0];
+  rechercheFilter.value = rechercheInput.detail[0];
   recommencerRechercheAvancee();
 };
 
@@ -63,7 +63,7 @@ const recommencerRechercheInput = async (rechercheInput: CustomEvent): Promise<v
 };
 
 const recommencerRechercheAvanceeInput = async (rechercheInput: CustomEvent): Promise<void> => {
-  rechercheV2.value = rechercheInput.detail[0];
+  rechercheFilter.value = rechercheInput.detail[0];
   recommencerRechercheAvancee();
 };
 
@@ -103,7 +103,7 @@ const recommencerRechercheAvancee = async (): Promise<void> => {
     let response = await getSizeWithRechercheFilter(
       props.baseApiUrl + props.ressourcesDiffusablesSizeApiUri,
       props.userInfoApiUrl,
-      rechercheV2.value != undefined ? rechercheV2.value : new RechercheFilter(),
+      rechercheFilter.value != undefined ? rechercheFilter.value : new RechercheFilter(),
     );
     nombreRessourcesTotal.value = response.data.payload;
     if (nombreRessourcesTotal.value === 0) {
@@ -151,7 +151,7 @@ const getPageSuivanteRechercheAvancee = async (): Promise<void> => {
         props.baseApiUrl + props.ressourcesDiffusablesApiUri,
         props.userInfoApiUrl,
         pageSuivante.value++,
-        rechercheV2.value != undefined ? rechercheV2.value : new RechercheFilter(),
+        rechercheFilter.value != undefined ? rechercheFilter.value : new RechercheFilter(),
       );
       ressources.value = ressources.value.concat(response.data.payload);
       if (ressources.value.length === nombreRessourcesTotal.value) {
