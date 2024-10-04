@@ -24,6 +24,7 @@ import {
 import type { Ressource } from '@/types/ressourceType';
 import { RechercheFilter } from '@/utils/RechercheFilter';
 import { initToken } from '@/utils/axiosUtils';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 import { onMounted, ref } from 'vue';
 
 const props = defineProps<{
@@ -41,6 +42,7 @@ const lectureTerminee = ref<boolean>(false);
 const chargement = ref<boolean>(false);
 const recherche = ref<string>('');
 const rechercheFilter = ref<RechercheFilter>();
+const rechercheAvanceeActive = ref<boolean>(false);
 
 onMounted(async (): Promise<void> => {
   await initToken(props.userInfoApiUrl);
@@ -48,21 +50,33 @@ onMounted(async (): Promise<void> => {
 });
 
 const reinitialiserRecherche = async (): Promise<void> => {
+  if (rechercheAvanceeActive.value) {
+    return;
+  }
   recherche.value = '';
   recommencerRecherche();
 };
 
 const reinitialiserRechercheAvancee = async (rechercheInput: CustomEvent): Promise<void> => {
+  if (!rechercheAvanceeActive.value) {
+    return;
+  }
   rechercheFilter.value = rechercheInput.detail[0];
   recommencerRechercheAvancee();
 };
 
 const recommencerRechercheInput = async (rechercheInput: CustomEvent): Promise<void> => {
+  if (rechercheAvanceeActive.value) {
+    return;
+  }
   recherche.value = rechercheInput.detail[0];
   recommencerRecherche();
 };
 
 const recommencerRechercheAvanceeInput = async (rechercheInput: CustomEvent): Promise<void> => {
+  if (!rechercheAvanceeActive.value) {
+    return;
+  }
   rechercheFilter.value = rechercheInput.detail[0];
   recommencerRechercheAvancee();
 };
@@ -163,12 +177,23 @@ const getPageSuivanteRechercheAvancee = async (): Promise<void> => {
     chargement.value = false;
   }
 };
+
+const swapRechercheTypeToggle = (rechercheInput: CustomEvent): void => {
+  rechercheAvanceeActive.value = rechercheInput.detail[0];
+  if (rechercheAvanceeActive.value) {
+    recommencerRechercheAvancee();
+  } else {
+    recommencerRecherche();
+  }
+};
 </script>
 
 <template>
   <div class="cadre-page-ressource">
     <aside class="aside-page-ressource">
+      <recherche-type-toggle @swap-recherche-type-toggle="swapRechercheTypeToggle" />
       <recherche-ressource
+        v-show="!rechercheAvanceeActive"
         :nombre-ressources-total="nombreRessourcesTotal"
         :nombre-ressources-affichees="ressources.length"
         @recommencer-recherche-input="recommencerRechercheInput"
@@ -176,6 +201,7 @@ const getPageSuivanteRechercheAvancee = async (): Promise<void> => {
         ref="rechercheRessource"
       />
       <recherche-avancee-ressource
+        v-show="rechercheAvanceeActive"
         :nombre-ressources-total="nombreRessourcesTotal"
         :nombre-ressources-affichees="ressources.length"
         @recommencer-recherche-avancee-input="recommencerRechercheAvanceeInput"
