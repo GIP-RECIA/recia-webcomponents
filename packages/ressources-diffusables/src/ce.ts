@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import RechercheAvanceeRessourceSFC from './components/RechercheAvanceeRessource.ce.vue';
+import RechercheTypeToggleSFC from './components/RechercheTypeToggle.ce.vue';
 import CarteRessourceSFC from '@/components/CarteRessource.ce.vue';
 import I18nHostSFC from '@/components/I18nHost.ce.vue';
 import LegendeRessourceSFC from '@/components/LegendeRessource.ce.vue';
@@ -29,6 +30,7 @@ const ListeRessources = defineCustomElement(ListeRessourcesSFC);
 const PageRessource = defineCustomElement(PageRessourceSFC);
 const RechercheRessource = defineCustomElement(RechercheRessourceSFC);
 const RechercheAvanceeRessource = defineCustomElement(RechercheAvanceeRessourceSFC);
+const RechercheTypeToggle = defineCustomElement(RechercheTypeToggleSFC);
 
 declare module 'vue' {
   export interface GlobalComponents {
@@ -39,6 +41,7 @@ declare module 'vue' {
     PageRessource: typeof PageRessource;
     RechercheRessource: typeof RechercheRessource;
     RechercheAvanceeRessource: typeof RechercheAvanceeRessource;
+    RechercheTypeToggle: typeof RechercheTypeToggle;
   }
 }
 
@@ -50,6 +53,7 @@ const register = () => {
   customElements.define('page-ressource', PageRessource);
   customElements.define('recherche-ressource', RechercheRessource);
   customElements.define('recherche-avancee-ressource', RechercheAvanceeRessource);
+  customElements.define('recherche-type-toggle', RechercheTypeToggle);
 };
 
 export {
@@ -60,5 +64,6 @@ export {
   PageRessource,
   RechercheRessource,
   RechercheAvanceeRessource,
+  RechercheTypeToggle,
   register,
 };
