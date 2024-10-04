@@ -15,6 +15,7 @@
  */
 
 // import axios from 'axios';
+import type { RechercheFilter } from '@/utils/RechercheFilter'
 import { instance } from '@/utils/axiosUtils'
 import oidc from '@uportal/open-id-connect'
 
@@ -24,12 +25,32 @@ function getUrlParams(recherche: string): string {
     : ''
 }
 
+function getUrlParamsWithRechercheFilter(rechercheFilter: RechercheFilter): string {
+  if (rechercheFilter.isEmpty()) {
+    return ''
+  }
+  let params: string = '&operator=AND'
+  if (rechercheFilter.nomRessource.length > 0)
+    params += `&nomRessource=${rechercheFilter.nomRessource}`
+  if (rechercheFilter.nomEditeur.length > 0)
+    params += `&nomEditeur=${rechercheFilter.nomEditeur}`
+  return params
+}
+
 async function getRessourcesDiffusables(url: string, userInfoApiUrl: string, page: number, recherche: string) {
   return await instance.get(`${url}?ressourcesPerPage=20&page=${page}${getUrlParams(recherche)}`, {})
+}
+
+async function getRessourcesDiffusablesWithRechercheFilter(url: string, userInfoApiUrl: string, page: number, recherche: RechercheFilter) {
+  return await instance.get(`${url}?ressourcesPerPage=20&page=${page}${getUrlParamsWithRechercheFilter(recherche)}`, {})
 }
 
 async function getSize(url: string, userInfoApiUrl: string, recherche: string) {
   return await instance.get(`${url}?${getUrlParams(recherche)}`, {})
 }
 
-export { getRessourcesDiffusables, getSize }
+async function getSizeWithRechercheFilter(url: string, userInfoApiUrl: string, recherche: RechercheFilter) {
+  return await instance.get(`${url}?${getUrlParamsWithRechercheFilter(recherche)}`, {})
+}
+
+export { getRessourcesDiffusables, getRessourcesDiffusablesWithRechercheFilter, getSize, getSizeWithRechercheFilter }

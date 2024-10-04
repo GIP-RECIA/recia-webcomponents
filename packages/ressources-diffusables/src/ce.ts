@@ -21,6 +21,7 @@ import ListeRessourcesSFC from '@/components/ListeRessources.ce.vue'
 import PageRessourceSFC from '@/components/PageRessource.ce.vue'
 import RechercheRessourceSFC from '@/components/RechercheRessource.ce.vue'
 import { defineCustomElement } from 'vue'
+import RechercheAvanceeRessourceSFC from './components/RechercheAvanceeRessource.ce.vue'
 
 const CarteRessource = defineCustomElement(CarteRessourceSFC)
 const I18nHost = defineCustomElement(I18nHostSFC)
@@ -28,6 +29,7 @@ const LegendeRessource = defineCustomElement(LegendeRessourceSFC)
 const ListeRessources = defineCustomElement(ListeRessourcesSFC)
 const PageRessource = defineCustomElement(PageRessourceSFC)
 const RechercheRessource = defineCustomElement(RechercheRessourceSFC)
+const RechercheAvanceeRessource = defineCustomElement(RechercheAvanceeRessourceSFC)
 
 declare module 'vue' {
   export interface GlobalComponents {
@@ -37,6 +39,7 @@ declare module 'vue' {
     ListeRessources: typeof ListeRessources
     PageRessource: typeof PageRessource
     RechercheRessource: typeof RechercheRessource
+    RechercheAvanceeRessource: typeof RechercheAvanceeRessource
   }
 }
 
@@ -47,6 +50,16 @@ function register() {
   customElements.define('liste-ressources', ListeRessources)
   customElements.define('page-ressource', PageRessource)
   customElements.define('recherche-ressource', RechercheRessource)
+  customElements.define('recherche-avancee-ressource', RechercheAvanceeRessource)
 }
 
-export { CarteRessource, I18nHost, LegendeRessource, ListeRessources, PageRessource, RechercheRessource, register }
+export {
+  CarteRessource,
+  I18nHost,
+  LegendeRessource,
+  ListeRessources,
+  PageRessource,
+  RechercheAvanceeRessource,
+  RechercheRessource,
+  register,
+}
