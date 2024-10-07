@@ -1123,7 +1123,7 @@ __metadata:
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^5.1.4"
-    "@vue/eslint-config-prettier": "npm:^9.0.0"
+    "@vue/eslint-config-prettier": "npm:^10.0.0"
     "@vue/eslint-config-typescript": "npm:^13.0.0"
     "@vue/tsconfig": "npm:^0.5.1"
     axios: "npm:^1.7.7"
@@ -1187,7 +1187,7 @@ __metadata:
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^5.1.4"
-    "@vue/eslint-config-prettier": "npm:^9.0.0"
+    "@vue/eslint-config-prettier": "npm:^10.0.0"
     "@vue/eslint-config-typescript": "npm:^13.0.0"
     "@vue/tsconfig": "npm:^0.5.1"
     "@vueuse/core": "npm:^11.1.0"
@@ -1227,7 +1227,7 @@ __metadata:
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^5.1.4"
-    "@vue/eslint-config-prettier": "npm:^9.0.0"
+    "@vue/eslint-config-prettier": "npm:^10.0.0"
     "@vue/eslint-config-typescript": "npm:^13.0.0"
     "@vue/tsconfig": "npm:^0.5.1"
     axios: "npm:^1.7.7"
@@ -1348,7 +1348,7 @@ __metadata:
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^5.1.4"
-    "@vue/eslint-config-prettier": "npm:^9.0.0"
+    "@vue/eslint-config-prettier": "npm:^10.0.0"
     "@vue/eslint-config-typescript": "npm:^13.0.0"
     "@vue/tsconfig": "npm:^0.5.1"
     axios: "npm:^1.7.7"
@@ -3630,16 +3630,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/eslint-config-prettier@npm:^9.0.0":
-  version: 9.0.0
-  resolution: "@vue/eslint-config-prettier@npm:9.0.0"
+"@vue/eslint-config-prettier@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "@vue/eslint-config-prettier@npm:10.0.0"
   dependencies:
-    eslint-config-prettier: "npm:^9.0.0"
-    eslint-plugin-prettier: "npm:^5.0.0"
+    eslint-config-prettier: "npm:^9.1.0"
+    eslint-plugin-prettier: "npm:^5.2.1"
   peerDependencies:
-    eslint: ">= 8.0.0"
+    eslint: ">= 8.21.0"
     prettier: ">= 3.0.0"
-  checksum: 10/5229909465f02338062f00ae895742491685042eef5c82b7cc715c9ad6ddbdf22c6b95126fce91fd5b71a752b497abd839a4ab5c559fd303c08bb6059c7de6df
+  checksum: 10/6a989c929972ca1c0a857f56c8fedd4d3e87672573d2f9f0e7396f593175d0f08fc7d48b41f571ad3e266942243a664637c5098cb742a566f86b8b1ebc6e20be
   languageName: node
   linkType: hard
 
@@ -5279,7 +5279,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:^9.0.0, eslint-config-prettier@npm:^9.1.0":
+"eslint-config-prettier@npm:^9.1.0":
   version: 9.1.0
   resolution: "eslint-config-prettier@npm:9.1.0"
   peerDependencies:
@@ -5290,7 +5290,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-prettier@npm:^5.0.0, eslint-plugin-prettier@npm:^5.2.1":
+"eslint-plugin-prettier@npm:^5.2.1":
   version: 5.2.1
   resolution: "eslint-plugin-prettier@npm:5.2.1"
   dependencies:
