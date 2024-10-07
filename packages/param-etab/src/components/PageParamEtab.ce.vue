@@ -138,7 +138,6 @@ function select(payload: CustomEvent, isBoolean: boolean) {
 #app {
   max-width: 1280px;
   // max-height: 100vh;
-  height: 80vh;
   margin: 0 auto;
   padding: 2rem;
   font-weight: normal;
@@ -171,7 +170,7 @@ a,
     display: flex;
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
-    flex-wrap: wrap;
+    height: 80vh;
   }
 }
 
