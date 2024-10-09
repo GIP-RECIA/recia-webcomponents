@@ -168,13 +168,13 @@ a,
 
   #app {
     display: flex;
-    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
     padding: 0 2rem;
     height: 80vh;
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   #app {
     display: flex;
     flex-wrap: wrap;

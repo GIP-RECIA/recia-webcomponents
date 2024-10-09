@@ -411,4 +411,21 @@ button.close::after {
   width: 600px;
   background: #ddd;
 }
+
+@media (max-width: 1023px), (max-height: 650px) {
+  .avatar-upload {
+    .imagePreview {
+      width: 200px !important;
+      height: 100px !important;
+      margin: 10px;
+    }
+
+    .avatar-edit {
+      right: calc(50% - 30px - 80px);
+      top: calc(52% - 65px);
+
+    }
+
+  }
+}
 </style>

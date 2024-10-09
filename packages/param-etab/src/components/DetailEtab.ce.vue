@@ -237,4 +237,22 @@ onMounted((): void => initForm());
 *:disabled {
   color: black;
 }
+
+@media (max-height: 650px) {
+  .container {
+    display: flex;
+  }
+}
+
+@media (max-width: 1023px) {
+  .container {
+    display: block;
+  }
+
+  .btn-valider {
+    width: 25%;
+
+  }
+
+}
 </style>
