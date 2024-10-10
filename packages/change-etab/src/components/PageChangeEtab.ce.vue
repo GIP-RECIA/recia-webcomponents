@@ -31,8 +31,7 @@ const m = (key: string): string => t(`change-etab.${key}`);
 
 const emit = defineEmits(['update:show']);
 
-console.log('showProps: ', props.show);
-let showState = ref<boolean>(props.show);
+let showState = ref<boolean>(false);
 const checked = ref<string>('');
 const changeetab = ref<any>([]);
 const etabJson = ref<string>('');
@@ -40,27 +39,37 @@ const structCurrent = ref<any>([]);
 
 const closeModal = () => {
   showState.value = false;
-  console.log('showState: ', showState.value);
+  emit('update:show', false);
+  console.log('showState after close: ', showState.value);
 };
 
-onMounted(async () => {
+
+// Watch for changes in the `show` prop to update `showState`
+watch(
+  () => props.show,
+  (newVal) => {
+    showState.value = newVal;
+
+    // Only call the API when the modal is opened (showState becomes true)
+    if (newVal) {
+      fetchModalData();
+    }
+
+  }
+);
+
+// Fetch modal data from the API
+const fetchModalData = async () => {
   try {
     const res = await getChangeEtab(props.changeEtabApi, props.userInfoApiUrl);
     changeetab.value = res.data;
-    // List of structures
     etabJson.value = changeetab.value.sirenStructures;
     structCurrent.value = changeetab.value.structCurrent;
   } catch (error: any) {
     console.error('error : ', error.res.data);
   }
-});
+};
 
-watch(
-  () => props.show,
-  () => {
-    showState.value = props.show;
-  },
-);
 watch(checked, () => console.log('checked.val : ', checked.value));
 
 function listStructs(): any {
@@ -92,8 +101,7 @@ const isButtonDisabled = computed<boolean>(() => {
 
 <template>
   <!-- Modal -->
-
-  <div v-if="showState" @input="emit('update:show')" class="modal-mask">
+  <div v-if="showState" class="modal-mask">
     <div class="modal-component">
       <div class="modal-header">
         <h1>{{ m('title') }}</h1>
@@ -201,6 +209,7 @@ h1 {
   bottom: 10%;
   max-width: 90%;
   /* height: 500px; */
+  color: var(--change-etab-font-text-color, #333);
 }
 
 .btnClose {
