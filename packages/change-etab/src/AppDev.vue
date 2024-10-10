@@ -41,5 +41,8 @@ const toggleShow = () => {
   /* Couleurs des boutons */
   --change-etab-button-background-color: #25b2f3;
   --change-etab-button-text-color: #ffffff;
+
+  /* Couleur de font */
+  --change-etab-font-text-color: #000000;
 }
 </style>
