@@ -26,13 +26,6 @@ defineProps<{
   changeEtabApi: string;
   userInfoApiUrl: string;
 }>();
-
-const emit = defineEmits(['update:show']);
-
-const handleUpdateShow = (value: boolean) => {
-  emit('update:show', value);
-};
-
 </script>
 
 <template>

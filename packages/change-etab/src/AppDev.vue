@@ -47,6 +47,5 @@ const toggleShow = () => {
 
   /* z-index */
   --change-etab-modal-z-index: 1055;
-
 }
 </style>
