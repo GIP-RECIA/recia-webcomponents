@@ -6797,20 +6797,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lib0@npm:^0.2.31, lib0@npm:^0.2.52, lib0@npm:^0.2.85":
-  version: 0.2.94
-  resolution: "lib0@npm:0.2.94"
-  dependencies:
-    isomorphic.js: "npm:^0.2.4"
-  bin:
-    0ecdsa-generate-keypair: bin/0ecdsa-generate-keypair.js
-    0gentesthtml: bin/gentesthtml.js
-    0serve: bin/0serve.js
-  checksum: 10/0df17d71d6ecdadf3379fe80eda5e2a84b34b9e368d164244e3a243aba8226d56f24ba1b25c4eba696846ecca69046b1f178c06d0d6e337ca843a1f8d5dde2ad
-  languageName: node
-  linkType: hard
-
-"lib0@npm:^0.2.98":
+"lib0@npm:^0.2.31, lib0@npm:^0.2.52, lib0@npm:^0.2.85, lib0@npm:^0.2.98":
   version: 0.2.98
   resolution: "lib0@npm:0.2.98"
   dependencies:
