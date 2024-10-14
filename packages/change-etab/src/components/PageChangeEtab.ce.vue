@@ -30,8 +30,6 @@ const { t } = useI18n();
 const m = (key: string): string => t(`change-etab.${key}`);
 
 const emit = defineEmits(['update:show']);
-// Ref for the modal content DOM element
-const modalContentRef = ref<HTMLElement | null>(null);
 
 let showState = ref<boolean>(false);
 const checked = ref<string>('');
@@ -97,23 +95,12 @@ const isButtonDisabled = computed<boolean>(() => {
   return checked.value === '';
 });
 
-// Detect clicks outside the modal content
-const onClickOutside = (event: MouseEvent) => {
-  const modalContent = modalContentRef.value;
-  if (modalContent && !modalContent.contains(event.target as Element)) {
-    closeModal(); // Close modal if clicked outside the content
-  }
-};
 
 // Handle keyboard events
 const handleKeydown = (event: KeyboardEvent) => {
   if (event.key === 'Escape' && showState.value) {
     // Close modal on "Escape" key
     closeModal();
-  }
-  if (event.key === 'Enter' && !showState.value) {
-    // Open modal on "Enter" key (only if not already open)
-    showState.value = true;
   }
 };
 
@@ -130,8 +117,8 @@ onBeforeUnmount(() => {
 
 <template>
   <!-- Modal -->
-  <div v-if="showState" class="modal-mask" @click="onClickOutside">
-    <div ref="modalContentRef" class="modal-component">
+  <div v-if="showState" class="modal-mask" @click="closeModal">
+    <div class="modal-component" @click.stop>
       <div class="modal-header">
         <h1>{{ m('title') }}</h1>
         <button class="btnClose" @click="closeModal">
