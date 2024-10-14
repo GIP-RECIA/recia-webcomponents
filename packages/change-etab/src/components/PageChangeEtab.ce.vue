@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import { getChangeEtab, updateCurrentStruct } from '@/services/serviceChangeEtab';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { computed, onMounted, ref, watch, onBeforeUnmount } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps<{
@@ -44,7 +44,6 @@ const closeModal = () => {
   emit('update:show', false);
 };
 
-
 // Watch for changes in the `show` prop to update `showState`
 watch(
   () => props.show,
@@ -55,8 +54,7 @@ watch(
     if (newVal) {
       fetchModalData();
     }
-
-  }
+  },
 );
 
 // Fetch modal data from the API
@@ -103,7 +101,6 @@ const isButtonDisabled = computed<boolean>(() => {
 const onClickOutside = (event: MouseEvent) => {
   const modalContent = modalContentRef.value;
   if (modalContent && !modalContent.contains(event.target as Element)) {
-    
     closeModal(); // Close modal if clicked outside the content
   }
 };
@@ -158,13 +155,12 @@ onBeforeUnmount(() => {
               </li>
             </ul>
           </fieldset>
-          <div style="display: flex; margin: 15px 0px 0px;">
-            <div style="flex-grow: 1;"></div>
+          <div style="display: flex; margin: 15px 0px 0px">
+            <div style="flex-grow: 1"></div>
             <button :disabled="isButtonDisabled" class="btnSubmit" @click="updateStruct">
-            {{ m('valid-button') }}
-          </button>
+              {{ m('valid-button') }}
+            </button>
           </div>
-          
         </div>
       </div>
     </div>
