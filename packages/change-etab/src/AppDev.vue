@@ -44,5 +44,9 @@ const toggleShow = () => {
 
   /* Couleur de font */
   --change-etab-font-text-color: #000000;
+
+  /* z-index */
+  --change-etab-modal-z-index: 1055;
+
 }
 </style>
