@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import { getChangeEtab, updateCurrentStruct } from '@/services/serviceChangeEtab';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch, onBeforeUnmount } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps<{
@@ -30,6 +30,8 @@ const { t } = useI18n();
 const m = (key: string): string => t(`change-etab.${key}`);
 
 const emit = defineEmits(['update:show']);
+// Ref for the modal content DOM element
+const modalContentRef = ref<HTMLElement | null>(null);
 
 let showState = ref<boolean>(false);
 const checked = ref<string>('');
@@ -40,7 +42,6 @@ const structCurrent = ref<any>([]);
 const closeModal = () => {
   showState.value = false;
   emit('update:show', false);
-  console.log('showState after close: ', showState.value);
 };
 
 
@@ -70,7 +71,7 @@ const fetchModalData = async () => {
   }
 };
 
-watch(checked, () => console.log('checked.val : ', checked.value));
+// watch(checked, () => console.log('checked.val : ', checked.value));
 
 function listStructs(): any {
   if (!etabJson.value) {
@@ -97,12 +98,43 @@ const structures = computed(() => listStructs());
 const isButtonDisabled = computed<boolean>(() => {
   return checked.value === '';
 });
+
+// Detect clicks outside the modal content
+const onClickOutside = (event: MouseEvent) => {
+  const modalContent = modalContentRef.value;
+  if (modalContent && !modalContent.contains(event.target as Element)) {
+    
+    closeModal(); // Close modal if clicked outside the content
+  }
+};
+
+// Handle keyboard events
+const handleKeydown = (event: KeyboardEvent) => {
+  if (event.key === 'Escape' && showState.value) {
+    // Close modal on "Escape" key
+    closeModal();
+  }
+  if (event.key === 'Enter' && !showState.value) {
+    // Open modal on "Enter" key (only if not already open)
+    showState.value = true;
+  }
+};
+
+// Attach keydown event listeners when component is mounted
+onMounted(() => {
+  window.addEventListener('keydown', handleKeydown);
+});
+
+// Remove keydown event listeners when component is unmounted
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', handleKeydown);
+});
 </script>
 
 <template>
   <!-- Modal -->
-  <div v-if="showState" class="modal-mask">
-    <div class="modal-component">
+  <div v-if="showState" class="modal-mask" @click="onClickOutside">
+    <div ref="modalContentRef" class="modal-component">
       <div class="modal-header">
         <h1>{{ m('title') }}</h1>
         <button class="btnClose" @click="closeModal">
@@ -117,18 +149,22 @@ const isButtonDisabled = computed<boolean>(() => {
         <div class="formChange">
           <fieldset>
             <legend>{{ m('legend') }}</legend>
-            <div class="list-struct">
-              <div v-for="data in structures" :key="data.id" class="struct">
+            <ul class="list-struct">
+              <li v-for="data in structures" :key="data.id">
                 <input type="radio" name="" :id="data.id" :value="data.id" v-model="checked" />
                 <label :for="data.id">
                   {{ data.displayName }} <small> ({{ data.code }}) </small></label
                 >
-              </div>
-            </div>
+              </li>
+            </ul>
           </fieldset>
-          <button :disabled="isButtonDisabled" class="btnSubmit" @click="updateStruct">
+          <div style="display: flex; margin: 15px 0px 0px;">
+            <div style="flex-grow: 1;"></div>
+            <button :disabled="isButtonDisabled" class="btnSubmit" @click="updateStruct">
             {{ m('valid-button') }}
           </button>
+          </div>
+          
         </div>
       </div>
     </div>
@@ -161,10 +197,14 @@ legend {
 .list-struct {
   max-height: 50%;
   overflow-y: scroll;
+  list-style: none;
+  margin: 10px 0px;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-.struct {
-  padding-top: 12px;
-}
+
 .modal-header {
   width: 100%;
   display: flex;
@@ -179,6 +219,7 @@ legend {
 }
 
 h1 {
+  margin: 0px;
   font-size: 22px;
 }
 
@@ -194,7 +235,7 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 999;
+  z-index: var(--change-etab-modal-z-index, 1055);
 }
 
 .modal-component {
@@ -205,7 +246,7 @@ h1 {
   background-color: white;
   width: 650px;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 28px;
   bottom: 10%;
   max-width: 90%;
   /* height: 500px; */
@@ -239,8 +280,6 @@ h1 {
   background-color: var(--change-etab-button-background-color, #25b2f3);
   color: var(--change-etab-button-text-color, #ffffff);
   cursor: pointer;
-  margin-top: 15px;
-  margin-bottom: 15px;
   border: transparent;
   font-size: 15px;
 }
