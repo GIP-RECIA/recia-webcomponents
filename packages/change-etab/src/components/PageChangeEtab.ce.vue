@@ -121,7 +121,7 @@ onBeforeUnmount(() => {
     <div class="modal-component" @click.stop>
       <div class="modal-header">
         <h1>{{ m('title') }}</h1>
-        <button class="btnClose" @click="closeModal">
+        <button class="btn-close" @click="closeModal">
           <font-awesome-icon :icon="['fa', 'xmark']" />
         </button>
       </div>
@@ -130,7 +130,7 @@ onBeforeUnmount(() => {
         <span class="current"
           >{{ m('struct-current') }} {{ structCurrent.displayName }} <small>({{ structCurrent.code }})</small></span
         >
-        <div class="formChange">
+        <div class="form-change">
           <fieldset>
             <legend>{{ m('legend') }}</legend>
             <ul class="list-struct">
@@ -144,7 +144,7 @@ onBeforeUnmount(() => {
           </fieldset>
           <div style="display: flex; margin: 15px 0px 0px">
             <div style="flex-grow: 1"></div>
-            <button :disabled="isButtonDisabled" class="btnSubmit" @click="updateStruct">
+            <button :disabled="isButtonDisabled" class="btn-submit" @click="updateStruct">
               {{ m('valid-button') }}
             </button>
           </div>
@@ -154,7 +154,7 @@ onBeforeUnmount(() => {
   </div>
 </template>
 
-<style>
+<style lang="scss">
 label {
   font-size: 14px;
 }
@@ -197,7 +197,7 @@ legend {
   width: 100%;
   display: grid;
 }
-.formChange {
+.form-change {
   align-self: flex-start;
 }
 
@@ -236,7 +236,7 @@ h1 {
   color: var(--change-etab-font-text-color, #333);
 }
 
-.btnClose {
+.btn-close {
   opacity: 0.4;
   font-weight: bold;
   line-height: 1;
@@ -250,13 +250,13 @@ h1 {
   border: none;
 }
 
-.btnSubmit:disabled {
+.btn-submit:disabled {
   color: #757575;
   background-color: #d6d6d6;
   cursor: not-allowed;
 }
 
-.btnSubmit {
+.btn-submit {
   padding: 7px;
   width: 28%;
   border-radius: 5px;
