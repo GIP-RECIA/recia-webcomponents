@@ -85,7 +85,7 @@ async function updateStruct() {
       location.replace(res.data.redirectUrl + `/Logout`);
     }
   } catch (error) {
-    console.log('error: ', error);
+    console.error('error: ', error);
   }
 }
 
@@ -94,7 +94,6 @@ const structures = computed(() => listStructs());
 const isButtonDisabled = computed<boolean>(() => {
   return checked.value === '';
 });
-
 
 // Handle keyboard events
 const handleKeydown = (event: KeyboardEvent) => {
@@ -119,14 +118,14 @@ onBeforeUnmount(() => {
   <!-- Modal -->
   <div v-if="showState" class="modal-mask" @click="closeModal">
     <div class="modal-component" @click.stop>
-      <div class="modal-header">
-        <h1>{{ m('title') }}</h1>
+      <header>
+        <h1 class="modal-title">{{ m('title') }}</h1>
         <button class="btn-close" @click="closeModal">
           <font-awesome-icon :icon="['fa', 'xmark']" />
         </button>
-      </div>
+      </header>
 
-      <div class="modal-content">
+      <main>
         <span class="current"
           >{{ m('struct-current') }} {{ structCurrent.displayName }} <small>({{ structCurrent.code }})</small></span
         >
@@ -142,14 +141,13 @@ onBeforeUnmount(() => {
               </li>
             </ul>
           </fieldset>
-          <div style="display: flex; margin: 15px 0px 0px">
-            <div style="flex-grow: 1"></div>
-            <button :disabled="isButtonDisabled" class="btn-submit" @click="updateStruct">
-              {{ m('valid-button') }}
-            </button>
-          </div>
         </div>
-      </div>
+      </main>
+      <footer>
+        <button :disabled="isButtonDisabled" class="btn-submit" @click="updateStruct">
+          {{ m('valid-button') }}
+        </button>
+      </footer>
     </div>
   </div>
 </template>
@@ -159,111 +157,133 @@ label {
   font-size: 14px;
 }
 
-.current {
-  align-self: flex-start;
-  font-size: 15px;
-  margin-bottom: 15px;
-}
-
-fieldset {
-  padding: 0;
-  margin: 0;
-  border: 0;
-}
-
-legend {
-  padding: 0;
-  font-size: 18px;
-  border-bottom: 1px solid #e5e5e5;
-  width: 100%;
-}
-.list-struct {
-  max-height: 50%;
-  overflow-y: scroll;
-  list-style: none;
-  margin: 10px 0px;
-  padding: 0px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.modal-header {
-  width: 100%;
-  display: flex;
-}
-
-.modal-content {
-  width: 100%;
-  display: grid;
-}
-.form-change {
-  align-self: flex-start;
-}
-
-h1 {
-  margin: 0px;
-  font-size: 22px;
-}
-
 .modal-mask {
-  position: fixed;
-  float: left;
+  position: absolute;
+  left: 0;
   top: 0;
   right: 0;
   bottom: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: var(--change-etab-modal-z-index, 1055);
-}
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  transition:
+    opacity 0.2s ease-in-out,
+    visibility 0.2s ease-in-out;
+  background-color: var(--info-modal-background-modal-overlay-color, #a0a0a06b);
 
-.modal-component {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  width: 650px;
-  padding: 20px;
-  border-radius: 28px;
-  bottom: 10%;
-  max-width: 90%;
-  /* height: 500px; */
-  color: var(--change-etab-font-text-color, #333);
-}
+  .modal-component {
+    position: absolute;
+    max-width: 560px;
+    min-width: 280px;
+    width: fit-content;
+    height: fit-content;
+    padding: 0;
+    margin: auto;
+    overflow: hidden;
+    background-color: var(--info-modal-background-modal-container-color, #ffffff);
+    border-radius: 28px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
+    flex-shrink: 0;
+    justify-content: center;
 
-.btn-close {
-  opacity: 0.4;
-  font-weight: bold;
-  line-height: 1;
-  cursor: pointer;
-  margin-left: auto;
-  width: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: transparent;
-  border: none;
-}
+    /* Style for header */
+    header {
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-.btn-submit:disabled {
-  color: #757575;
-  background-color: #d6d6d6;
-  cursor: not-allowed;
-}
+      .modal-title {
+        padding: 0;
+        margin: 0;
+        word-wrap: unset;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 22px;
+      }
 
-.btn-submit {
-  padding: 7px;
-  width: 28%;
-  border-radius: 5px;
-  background-color: var(--change-etab-button-background-color, #25b2f3);
-  color: var(--change-etab-button-text-color, #ffffff);
-  cursor: pointer;
-  border: transparent;
-  font-size: 15px;
+      .btn-close {
+        opacity: 0.4;
+        font-weight: bold;
+        line-height: 1;
+        cursor: pointer;
+        margin-left: auto;
+        width: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+        border: none;
+      }
+    }
+
+    /* Style for main content */
+    main {
+      padding: 16px;
+
+      .current {
+        display: block;
+        font-size: 15px;
+        margin-bottom: 15px;
+      }
+
+      .form-change {
+        align-self: flex-start;
+      }
+
+      fieldset {
+        padding: 0;
+        margin: 0;
+        border: 0;
+      }
+
+      legend {
+        padding: 0;
+        font-size: 18px;
+        border-bottom: 1px solid #e5e5e5;
+        width: 100%;
+      }
+      .list-struct {
+        max-height: 50%;
+        overflow-y: scroll;
+        list-style: none;
+        margin: 10px 0px;
+        padding: 0px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+
+    /* Style for footer */
+    footer {
+      display: flex;
+      margin: 0px 15px 15px 0px;
+      flex-direction: row-reverse;
+
+      .btn-submit {
+        padding: 7px;
+        border-radius: 28px;
+        background-color: var(--change-etab-button-background-color, #25b2f3);
+        color: var(--change-etab-button-text-color, #ffffff);
+        cursor: pointer;
+        border: transparent;
+        font-size: 15px;
+
+        &:disabled {
+          color: #757575;
+          background-color: #d6d6d6;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
 }
 </style>
