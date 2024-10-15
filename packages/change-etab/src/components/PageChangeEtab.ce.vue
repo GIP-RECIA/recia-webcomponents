@@ -158,7 +158,7 @@ label {
 }
 
 .modal-mask {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   right: 0;
@@ -166,24 +166,24 @@ label {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
+  z-index: var(--change-etab-modal-z-index, 1055);
   height: 100%;
   width: 100%;
   transition:
     opacity 0.2s ease-in-out,
     visibility 0.2s ease-in-out;
-  background-color: var(--info-modal-background-modal-overlay-color, #a0a0a06b);
+  background-color: var(--change-etab-background-modal-overlay-color, #a0a0a06b);
 
   .modal-component {
     position: absolute;
     max-width: 560px;
-    min-width: 280px;
+    min-width: 605px;
     width: fit-content;
     height: fit-content;
     padding: 0;
     margin: auto;
     overflow: hidden;
-    background-color: var(--info-modal-background-modal-container-color, #ffffff);
+    background-color: var(--change-etab-background-modal-component-color, #ffffff);
     border-radius: 28px;
     border: none;
     display: flex;
@@ -191,6 +191,7 @@ label {
     flex-grow: 0;
     flex-shrink: 0;
     justify-content: center;
+    color: var(--change-etab-font-text-color, #333);
 
     /* Style for header */
     header {
@@ -226,12 +227,12 @@ label {
 
     /* Style for main content */
     main {
-      padding: 16px;
+      padding: 0 15px;
 
       .current {
         display: block;
         font-size: 15px;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
       }
 
       .form-change {
@@ -265,7 +266,7 @@ label {
     /* Style for footer */
     footer {
       display: flex;
-      margin: 0px 15px 15px 0px;
+      padding: 15px;
       flex-direction: row-reverse;
 
       .btn-submit {
