@@ -16,6 +16,7 @@
 
 <script setup lang="ts">
 import { getChangeEtab, updateCurrentStruct } from '@/services/serviceChangeEtab';
+import type { Response } from '@/types/changeEtabType';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -33,9 +34,7 @@ const emit = defineEmits(['update:show']);
 
 let showState = ref<boolean>(false);
 const checked = ref<string>('');
-const changeetab = ref<any>([]);
-const etabJson = ref<string>('');
-const structCurrent = ref<any>([]);
+const changeetab = ref<Response>();
 
 const closeModal = () => {
   showState.value = false;
@@ -60,22 +59,10 @@ const fetchModalData = async () => {
   try {
     const res = await getChangeEtab(props.changeEtabApi, props.userInfoApiUrl);
     changeetab.value = res.data;
-    etabJson.value = changeetab.value.sirenStructures;
-    structCurrent.value = changeetab.value.structCurrent;
   } catch (error: any) {
     console.error('error : ', error.res.data);
   }
 };
-
-// watch(checked, () => console.log('checked.val : ', checked.value));
-
-function listStructs(): any {
-  if (!etabJson.value) {
-    return [];
-  }
-
-  return etabJson.value;
-}
 
 async function updateStruct() {
   try {
@@ -88,8 +75,6 @@ async function updateStruct() {
     console.error('error: ', error);
   }
 }
-
-const structures = computed(() => listStructs());
 
 const isButtonDisabled = computed<boolean>(() => {
   return checked.value === '';
@@ -127,13 +112,14 @@ onBeforeUnmount(() => {
 
       <main>
         <span class="current"
-          >{{ m('struct-current') }} {{ structCurrent.displayName }} <small>({{ structCurrent.code }})</small></span
+          >{{ m('struct-current') }} {{ changeetab?.structCurrent.displayName }}
+          <small>({{ changeetab?.structCurrent.code }})</small></span
         >
         <div class="form-change">
           <fieldset>
             <legend>{{ m('legend') }}</legend>
             <ul class="list-struct">
-              <li v-for="data in structures" :key="data.id">
+              <li v-for="data in changeetab?.sirenStructures" :key="data.id">
                 <input type="radio" name="" :id="data.id" :value="data.id" v-model="checked" />
                 <label :for="data.id">
                   {{ data.displayName }} <small> ({{ data.code }}) </small></label
@@ -176,8 +162,7 @@ label {
 
   .modal-component {
     position: absolute;
-    max-width: 560px;
-    min-width: 605px;
+    min-width: 600px;
     width: fit-content;
     height: fit-content;
     padding: 0;
@@ -192,6 +177,11 @@ label {
     flex-shrink: 0;
     justify-content: center;
     color: var(--change-etab-font-text-color, #333);
+
+    @media (width < 600px) {
+      min-width: 0;
+      
+    }
 
     /* Style for header */
     header {
