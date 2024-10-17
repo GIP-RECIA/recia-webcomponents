@@ -16,9 +16,7 @@
 
 <script setup lang="ts">
 import { uploadLogo } from '@/services/serviceParametab';
-import { showError } from '@/utils/errorUtils';
 import Cropper from 'cropperjs';
-import Swal from 'sweetalert2';
 import { onMounted, onUnmounted, ref, watch, watchEffect } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -27,8 +25,8 @@ const m = (key: string): string => t(`image-cropper.${key}`);
 
 const props = defineProps<{
   imageUrl: string | null;
+  structCurrent: string;
   idEtab: string | undefined;
-  detailEtab: string;
   paramEtabApi: string;
   userInfoApiUrl: string;
   defaultLogoIcon: string;
@@ -47,7 +45,7 @@ let imageEtab = ref<string | null>(props.imageUrl);
 watch(
   () => props.imageUrl,
   () => {
-    imageEtab.value = props.imageUrl;
+    imageEtab.value = props.imageUrl;   
   },
 );
 
@@ -130,7 +128,7 @@ const cropImage = () => {
     const formData = new FormData();
 
     // append DTO as JSON string
-    formData.append('details', props.detailEtab);
+    //formData.append('details', props.detailEtab);
 
     // add name for the image
     formData.append('name', 'image-name-' + new Date().getTime());
@@ -149,14 +147,20 @@ const cropImage = () => {
       imageEtab.value = response.data;
 
       closeModal();
-      Swal.fire({
-        title: 'Sauvegardé',
-        icon: 'success',
-        confirmButtonColor: '#37b61d',
-      });
+
+      if (props.idEtab == props.structCurrent) {
+        const myEvent = new CustomEvent('update-structure-logo', {
+          detail: {
+            logo: imageEtab.value
+          },  
+          bubbles: true,
+          composed: true,
+        });
+        document.dispatchEvent(myEvent);
+      }
     } catch (error) {
       closeModal();
-      showError(error.response.data);
+      console.error("error: ", error)
     }
   }, 'image/jpeg');
 };

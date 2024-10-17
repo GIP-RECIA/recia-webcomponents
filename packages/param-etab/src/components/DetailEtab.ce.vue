@@ -17,8 +17,6 @@
 <script setup lang="ts">
 import type { StructureDetail } from '../types/structureType';
 import { getDetailEtab, updateEtab } from '@/services/serviceParametab';
-import { showError } from '@/utils/errorUtils';
-import Swal from 'sweetalert2';
 import { computed, onMounted, ref, watch, watchEffect } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -38,6 +36,7 @@ const details = ref<StructureDetail>({
 });
 
 const props = defineProps<{
+  structCurrent: string;
   detail: string;
   paramEtabApi: string;
   userInfoApiUrl: string;
@@ -83,13 +82,20 @@ async function updateInfo() {
       props.userInfoApiUrl,
     );
     details.value = response.data;
-    Swal.fire({
-      title: 'Sauvegardé',
-      icon: 'success',
-      confirmButtonColor: '#37b61d',
-    });
+
+    if (props.detail == props.structCurrent) {
+      const myEvent = new CustomEvent('update-structure-name', {
+        detail: {
+          structName: details.value.structCustomDisplayName
+        },  
+        bubbles: true,
+        composed: true,
+        });
+      document.dispatchEvent(myEvent);
+    }
+
   } catch (error: any) {
-    showError(error.response.data);
+    console.error("error: ", error)
   }
 }
 
@@ -121,7 +127,7 @@ onMounted((): void => initForm());
   <div class="title-info">{{ m('info') }}</div>
   <div class="container">
     <image-cropper
-      :detail-etab="getDetailsAsString"
+      :struct-current="structCurrent"
       :image-url="details.structLogo"
       :id-etab="details.id"
       :param-etab-api="paramEtabApi"

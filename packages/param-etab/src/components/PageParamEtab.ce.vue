@@ -124,6 +124,7 @@ function select(payload: CustomEvent, isBoolean: boolean) {
     </div>
     <div class="detail">
       <detail-etab
+        :struct-current="parametab.currentStruct"
         :detail="currentEtab"
         :param-etab-api="paramEtabApi"
         :user-info-api-url="userInfoApiUrl"
