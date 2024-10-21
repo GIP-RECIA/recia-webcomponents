@@ -1313,7 +1313,7 @@ __metadata:
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-prettier: "npm:^5.2.1"
     eslint-plugin-react-hooks: "npm:^5.0.0"
-    eslint-plugin-react-refresh: "npm:^0.4.12"
+    eslint-plugin-react-refresh: "npm:^0.4.13"
     jwt-decode: "npm:^4.0.0"
     lodash.debounce: "npm:^4.0.8"
     lodash.throttle: "npm:^4.1.1"
@@ -1448,7 +1448,7 @@ __metadata:
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-prettier: "npm:^5.2.1"
     eslint-plugin-react-hooks: "npm:^5.0.0"
-    eslint-plugin-react-refresh: "npm:^0.4.12"
+    eslint-plugin-react-refresh: "npm:^0.4.13"
     jwt-decode: "npm:^4.0.0"
     lodash.throttle: "npm:^4.1.1"
     prettier: "npm:^3.3.3"
@@ -5462,12 +5462,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-refresh@npm:^0.4.12":
-  version: 0.4.12
-  resolution: "eslint-plugin-react-refresh@npm:0.4.12"
+"eslint-plugin-react-refresh@npm:^0.4.13":
+  version: 0.4.13
+  resolution: "eslint-plugin-react-refresh@npm:0.4.13"
   peerDependencies:
     eslint: ">=7"
-  checksum: 10/448d0a387ca4d7913534ac7bee3e7b8708236a6cef4cccf9a50e739d6d3c8d236cdbd7e360ea643c7767092a93acf30a8e5fac91f05b175c45d20ce138947bcc
+  checksum: 10/a266b11fb457687ff3ac29b9d854a22e32ca0a6f087efe848a3b18a70eee1ed11e1b636a71cadb9441cb7438560742176540553c5f0dafdcc3914ddb44e298ee
   languageName: node
   linkType: hard
 
