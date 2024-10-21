@@ -24,5 +24,8 @@
     "permission-refusee": "Permission refusée. Vous n'avez aucun droit.",
     "aucun-connexion-api": "Pas de connexion à l'API",
     "fermer": "Fermer"
+  },
+  "success": {
+    "update-success": "Votre modification a été sauvegardée"
   }
 }

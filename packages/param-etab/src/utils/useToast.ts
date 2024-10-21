@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import i18n from '@/plugins/i18n';
-import Swal from 'sweetalert2';
+import { toast } from 'vue3-toastify';
 
 const { t } = i18n.global;
 
@@ -26,12 +26,13 @@ const showError = (errorMsgKey: string) => {
     errorMessage = t(`error.aucun-connexion-api`);
   }
 
-  Swal.fire({
-    icon: 'error',
-    text: errorMessage,
-    allowOutsideClick: false,
-    confirmButtonText: t(`error.fermer`),
+  toast.error(errorMessage, {
+    autoClose: false,
   });
 };
 
-export { showError };
+const showSuccess = () => {
+  toast.success(t(`success.update-success`));
+};
+
+export { showError, showSuccess };

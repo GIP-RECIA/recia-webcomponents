@@ -16,6 +16,7 @@
 
 <script setup lang="ts">
 import { uploadLogo } from '@/services/serviceParametab';
+import { showError, showSuccess } from '@/utils/useToast';
 import Cropper from 'cropperjs';
 import { onMounted, onUnmounted, ref, watch, watchEffect } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -45,7 +46,7 @@ let imageEtab = ref<string | null>(props.imageUrl);
 watch(
   () => props.imageUrl,
   () => {
-    imageEtab.value = props.imageUrl;   
+    imageEtab.value = props.imageUrl;
   },
 );
 
@@ -124,7 +125,7 @@ const closeModal = () => {
 };
 
 const cropImage = () => {
-  cropper.getCroppedCanvas().toBlob(async (blob: any) => {
+  cropper.getCroppedCanvas({ fillColor: '#fff' }).toBlob(async (blob: any) => {
     const formData = new FormData();
 
     // append DTO as JSON string
@@ -151,16 +152,18 @@ const cropImage = () => {
       if (props.idEtab == props.structCurrent) {
         const myEvent = new CustomEvent('update-structure-logo', {
           detail: {
-            logo: imageEtab.value
-          },  
+            logo: imageEtab.value,
+          },
           bubbles: true,
           composed: true,
         });
         document.dispatchEvent(myEvent);
       }
-    } catch (error) {
+      showSuccess();
+    } catch (error: any) {
       closeModal();
-      console.error("error: ", error)
+      console.error('error: ', error);
+      showError(error.response.data);
     }
   }, 'image/jpeg');
 };
@@ -427,9 +430,7 @@ button.close::after {
     .avatar-edit {
       right: calc(50% - 30px - 80px);
       top: calc(52% - 65px);
-
     }
-
   }
 }
 </style>

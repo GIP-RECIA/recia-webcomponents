@@ -24,5 +24,8 @@
     "permission-refusee": "Permission denied.",
     "aucun-connexion-api": "No API connection",
     "fermer": "Close"
+  },
+  "success": {
+    "update-success": "Your change has been saved"
   }
 }

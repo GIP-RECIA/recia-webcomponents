@@ -17,6 +17,7 @@
 <script setup lang="ts">
 import type { StructureDetail } from '../types/structureType';
 import { getDetailEtab, updateEtab } from '@/services/serviceParametab';
+import { showError, showSuccess } from '@/utils/useToast';
 import { computed, onMounted, ref, watch, watchEffect } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -86,16 +87,17 @@ async function updateInfo() {
     if (props.detail == props.structCurrent) {
       const myEvent = new CustomEvent('update-structure-name', {
         detail: {
-          structName: details.value.structCustomDisplayName
-        },  
+          structName: details.value.structCustomDisplayName,
+        },
         bubbles: true,
         composed: true,
-        });
+      });
       document.dispatchEvent(myEvent);
     }
-
+    showSuccess();
   } catch (error: any) {
-    console.error("error: ", error)
+    console.error('error: ', error);
+    showError(error);
   }
 }
 
@@ -257,8 +259,6 @@ onMounted((): void => initForm());
 
   .btn-valider {
     width: 25%;
-
   }
-
 }
 </style>

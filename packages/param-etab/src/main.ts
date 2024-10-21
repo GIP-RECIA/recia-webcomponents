@@ -19,6 +19,8 @@ import { createApp } from 'vue';
 
 import { register as registerCustomElements } from '@/ce';
 import { register as registerFontAwsome } from '@/plugins/fontawesome';
+import Vue3Toasity, { type ToastContainerOptions } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
 import i18n from '@/plugins/i18n';
 
 import App from '@/App.vue';
@@ -29,3 +31,4 @@ registerCustomElements();
 registerFontAwsome();
 
 app.use(i18n);
+app.use(Vue3Toasity, { limit: 0, newestOnTop: true, theme: 'colored' } as ToastContainerOptions)

@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import { getParametab } from '@/services/serviceParametab';
-import { showError } from '@/utils/errorUtils';
+import { showError } from '@/utils/useToast';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
 const parametab = ref<any>([]);
@@ -41,7 +41,7 @@ onMounted(async () => {
     etabJson.value = JSON.stringify(parametab.value.listEtab);
     currentEtab.value = parametab.value.currentStruct;
     findEtab.value = JSON.parse(etabJson.value);
-  } catch (error) {
+  } catch (error: any) {
     console.error('error : ', error.response.data);
     showError(error.response.data);
   }
