@@ -61,7 +61,11 @@ Propriétés disponibles :
 
 Plusieurs variables CSS peuvent être définis pour personnaliser le webcomponent :
 
-| Nom                                     | Description                                        |
-| --------------------------------------- | -------------------------------------------------- |
-| `--change-etab-button-background-color` | Permet de modifier la couleur de fond des boutons  |
-| `--change-etab-button-text-color`       | Permet de modifier la couleur de texte des boutons |
+| Nom                                              | Description                                        |
+| ------------------------------------------------ | -------------------------------------------------- |
+| `--change-etab-button-background-color`          | Permet de modifier la couleur de fond des boutons  |
+| `--change-etab-button-text-color`                | Permet de modifier la couleur de texte des boutons |
+| `--change-etab-font-text-color`                  | Permet de modifier la couleur de texte             |
+| `--change-etab-background-modal-overlay-color`   | Permet de modifier la couleur de l'overlay         |
+| `--change-etab-background-modal-component-color` | Permet de modifier la couleur de fond de la modale |
+| `--change-etab-modal-z-index`                    | Permet de modifier le z-index de la modale         |
