@@ -8,8 +8,8 @@
     "nom-institutionnel": "Institutional name",
     "nom-personnalise-placeholder": "To be displayed in the ENT banner and in the choice lists",
     "nom-personnalise-titre": "Custom name",
-    "lien": "Link",
-    "lien-placeholder": "Link of an establishment",
+    "lien": "Website",
+    "lien-placeholder": "Website of an establishment",
     "valider": "Submit",
     "warn": "Please note: the parameters you set will not be taken into account until one hour.",
     "explication": "The institution’s custom name must clearly identify the institution from the list of choices."

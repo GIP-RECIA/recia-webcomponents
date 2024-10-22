@@ -8,8 +8,8 @@
     "nom-institutionnel": "Nom institutionnel",
     "nom-personnalise-placeholder": "A afficher dans le bandeau ENT et dans les listes de choix",
     "nom-personnalise-titre": "Nom personnalisé",
-    "lien": "Lien",
-    "lien-placeholder": "Le lien de l'établissement",
+    "lien": "Site web",
+    "lien-placeholder": "Le site web de l'établissement",
     "valider": "Valider",
     "warn": "Attention: les paramètres que vous définiriez ne seront pas pris en compte avant un délai d'une heure.",
     "explication": "Le nom personnaliser de l'établissement doit permettre de l'identifier clairement parmi d'autre dans les liste de choix."
