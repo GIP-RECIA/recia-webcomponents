@@ -23,17 +23,19 @@ provide(I18nInjectionKey, i18n);
 
 withDefaults(
   defineProps<{
-    mediacentreContextUrl: string;
-    baseApiUrl: string;
-    userInfoApiUrl: string;
-    userRightsApiUrl: string;
-    getUserFavoriteResourcesUrl: string;
-    putUserFavoriteResourcesUrl: string;
-    fnameMediacentreUi: string;
+    mediacentreContextUrl?: string;
+    baseApiUrl?: string;
+    configApiUrl?: string;
+    userInfoApiUrl?: string;
+    userRightsApiUrl?: string;
+    getUserFavoriteResourcesUrl?: string;
+    putUserFavoriteResourcesUrl?: string;
+    fnameMediacentreUi?: string;
   }>(),
   {
     mediacentreContextUrl: import.meta.env.VITE_APP_MEDIACENTRE_CONTEXT,
     baseApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_API_URI,
+    configApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_CONFIG_API_URI,
     userInfoApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_USER_INFO_API_URI,
     userRightsApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_USER_RIGHTS_API_URI,
     getUserFavoriteResourcesUrl: import.meta.env.VITE_APP_MEDIACENTRE_USER_GET_USER_FAVORITE_RESOURCES_API_URI,
@@ -48,6 +50,7 @@ withDefaults(
     id="page-mediacentre"
     :mediacentre-context-url="mediacentreContextUrl"
     :base-api-url="baseApiUrl"
+    :config-api-url="configApiUrl"
     :user-info-api-url="`${mediacentreContextUrl}${userInfoApiUrl}`"
     :user-rights-api-url="`${mediacentreContextUrl}${userRightsApiUrl}`"
     :get-user-favorite-resources-api-url="`${mediacentreContextUrl}${getUserFavoriteResourcesUrl}`"
