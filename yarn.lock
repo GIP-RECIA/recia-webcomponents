@@ -1244,10 +1244,12 @@ __metadata:
     terser: "npm:^5.36.0"
     typescript: "npm:^5.6.3"
     vite: "npm:^5.4.9"
+    vite-plugin-css-injected-by-js: "npm:^3.5.2"
     vue: "npm:^3.5.12"
     vue-i18n: "npm:10.0.1"
     vue-sweetalert2: "npm:^5.0.11"
     vue-tsc: "npm:^2.1.6"
+    vue3-toastify: "npm:^0.2.3"
     vuejs-clipper: "npm:^4.1.0"
   languageName: unknown
   linkType: soft
@@ -10065,6 +10067,18 @@ __metadata:
   bin:
     vue-tsc: ./bin/vue-tsc.js
   checksum: 10/35bbd95b1b0c3040f5944f90f9d269e2bf09a3a089a09e38d980cc104d2984829aef8febc55e78dd304ab83819129902bfca6f6fe4c522ab0d957ca297eed40b
+  languageName: node
+  linkType: hard
+
+"vue3-toastify@npm:^0.2.3":
+  version: 0.2.3
+  resolution: "vue3-toastify@npm:0.2.3"
+  peerDependencies:
+    vue: ">=3.2.0"
+  peerDependenciesMeta:
+    vue:
+      optional: true
+  checksum: 10/2a0c8b64e73045c9b7cee98a021aee438d9373420daab6a3ff6de8306acd53795bc6c2e53e16da9289b94d7b7319c0ba03d902324fc88e4ab4b8e02336a4c324
   languageName: node
   linkType: hard
 
