@@ -125,7 +125,7 @@ const closeModal = () => {
 };
 
 const cropImage = () => {
-  cropper.getCroppedCanvas({ fillColor: '#fff' }).toBlob(async (blob: any) => {
+  cropper.getCroppedCanvas({ fillColor: '#fff', width: 270*1.5, height: 120*1.5 }).toBlob(async (blob: any) => {
     const formData = new FormData();
 
     // append DTO as JSON string
@@ -165,7 +165,7 @@ const cropImage = () => {
       console.error('error: ', error);
       showError(error.response.data);
     }
-  }, 'image/jpeg');
+  }, 'image/jpeg', 0.8);
 };
 </script>
 
