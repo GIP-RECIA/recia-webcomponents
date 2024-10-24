@@ -139,7 +139,7 @@ const cropImage = () => {
 
     try {
       const response = await uploadLogo(
-        props.paramEtabApi + `/logoupload/${props.idEtab}`,
+        props.paramEtabApi + `logoupload/${props.idEtab}`,
         formData,
         props.userInfoApiUrl,
       );

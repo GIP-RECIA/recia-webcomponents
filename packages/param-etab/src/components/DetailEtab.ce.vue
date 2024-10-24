@@ -78,7 +78,7 @@ async function updateInfo() {
     const structSiteWeb = tmp.value.siteWeb && tmp.value.siteWeb.trim().length > 0 ? tmp.value.siteWeb : null;
 
     const response = await updateEtab(
-      props.paramEtabApi + `/update/${props.detail}`,
+      props.paramEtabApi + `update/${props.detail}`,
       { ...details.value, structCustomDisplayName, structSiteWeb },
       props.userInfoApiUrl,
     );
