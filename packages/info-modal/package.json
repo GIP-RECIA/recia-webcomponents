@@ -52,7 +52,7 @@
     "@tsconfig/node20": "^20.1.4",
     "@types/node": "^22",
     "@typescript-eslint/eslint-plugin": "^8.8.1",
-    "@typescript-eslint/parser": "^8.10.0",
+    "@typescript-eslint/parser": "^8.11.0",
     "eslint": "^8.57.1",
     "lit": "^3.2.1",
     "lit-analyzer": "^2.0.3",
