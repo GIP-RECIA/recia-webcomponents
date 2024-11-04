@@ -1130,7 +1130,7 @@ __metadata:
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^8.57.0"
     eslint-config-prettier: "npm:^9.1.0"
-    eslint-plugin-vue: "npm:^9.29.1"
+    eslint-plugin-vue: "npm:^9.30.0"
     lint-staged: "npm:^15.2.10"
     npm-run-all2: "npm:^7.0.1"
     prettier: "npm:^3.3.3"
@@ -1195,7 +1195,7 @@ __metadata:
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^8.57.0"
     eslint-config-prettier: "npm:^9.1.0"
-    eslint-plugin-vue: "npm:^9.29.1"
+    eslint-plugin-vue: "npm:^9.30.0"
     lint-staged: "npm:^15.2.10"
     lodash.debounce: "npm:^4.0.8"
     lodash.throttle: "npm:^4.1.1"
@@ -1235,7 +1235,7 @@ __metadata:
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^8.57.0"
     eslint-config-prettier: "npm:^9.1.0"
-    eslint-plugin-vue: "npm:^9.29.1"
+    eslint-plugin-vue: "npm:^9.30.0"
     lint-staged: "npm:^15.2.10"
     npm-run-all2: "npm:^7.0.1"
     prettier: "npm:^3.3.3"
@@ -1357,7 +1357,7 @@ __metadata:
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^8.57.0"
     eslint-config-prettier: "npm:^9.1.0"
-    eslint-plugin-vue: "npm:^9.29.1"
+    eslint-plugin-vue: "npm:^9.30.0"
     lint-staged: "npm:^15.2.10"
     lodash.debounce: "npm:^4.0.8"
     npm-run-all2: "npm:^7.0.1"
@@ -5537,9 +5537,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-vue@npm:^9.29.1":
-  version: 9.29.1
-  resolution: "eslint-plugin-vue@npm:9.29.1"
+"eslint-plugin-vue@npm:^9.30.0":
+  version: 9.30.0
+  resolution: "eslint-plugin-vue@npm:9.30.0"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.4.0"
     globals: "npm:^13.24.0"
@@ -5551,7 +5551,7 @@ __metadata:
     xml-name-validator: "npm:^4.0.0"
   peerDependencies:
     eslint: ^6.2.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
-  checksum: 10/13e762bab66b339aedf0d23b781c32c43928a8f06d6c6db4c9f3a917c3294fe9ca9f61f390f185d49f1573dcc061caaec730095768d39f882a063f6cb5c0c54f
+  checksum: 10/e7853c3b2c2909f6b7aa1d523728509279825c50b68b321c6f964f8c7d4d44bf89a2a25bf949d31de9987525170ab440e5530eede697cc506d6675fe7120ba2f
   languageName: node
   linkType: hard
 
