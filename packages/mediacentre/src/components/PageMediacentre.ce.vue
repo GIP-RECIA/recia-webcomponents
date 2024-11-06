@@ -22,13 +22,14 @@ import { createResourceFromJson, type Ressource } from '@/types/RessourceType'
 import { initToken } from '@/utils/axiosUtils'
 import { CustomError } from '@/utils/CustomError'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { InfoModal } from '@gip-recia/info-modal'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { getConfig, getFavorites, getFilters, getResources, putFavorites } from '../services/ServiceMediacentre'
-import './info-modal/info-modal.js'
 
 const props = defineProps<{
   baseApiUrl: string
+  configApiUrl: string
   userInfoApiUrl: string
   userRightsApiUrl: string
   getUserFavoriteResourcesApiUrl: string
@@ -51,6 +52,22 @@ const erreur = ref<string>('')
 
 const { t } = useI18n()
 
+let triggerElement: any
+document.addEventListener('openModale', (event: any) => {
+  triggerElement = event.detail.originalEvent
+  const modalElement: InfoModal = document.querySelector('info-modal')
+  modalElement.isOpen = !modalElement.isOpen
+  modalElement.titleModal = event.detail.title
+  modalElement.mainElement = document.querySelector('body > main, body > div')
+})
+
+document.addEventListener('closeModale', (event) => {
+  if (triggerElement) {
+    triggerElement.focus()
+    event.preventDefault()
+  }
+})
+
 const countNbFilteredResources = computed<number>(() => {
   return filteredResources.value.length
 })
@@ -59,7 +76,7 @@ onMounted(async (): Promise<void> => {
   try {
     chargementApp.value = true
     await initToken(props.userInfoApiUrl)
-    await getConfig(props.baseApiUrl)
+    await getConfig(props.configApiUrl)
     // await flushMediacentreFavorites(props.putUserFavoriteResourcesApiUrl, props.fnameMediacentreUi);
     await getRessources()
     await setFavoris()
@@ -232,7 +249,7 @@ async function getFiltres(): Promise<void> {
       />
     </main>
     <Teleport to="body">
-      <info-modal id="modale" debug="false">
+      <InfoModal id="modale" debug="false">
         <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
         <div slot="modal-body">
           <div style="display: flex; flex-direction: column; gap: 3em">
@@ -245,7 +262,7 @@ async function getFiltres(): Promise<void> {
             </div>
           </div>
         </div>
-      </info-modal>
+      </InfoModal>
     </Teleport>
   </div>
 </template>
@@ -324,9 +341,6 @@ async function getFiltres(): Promise<void> {
       padding: 0;
       margin: 0;
       width: 100%;
-      position: fixed;
-      top: 0;
-      overflow: hidden;
       z-index: 2;
       box-shadow: 0px 10px 15px -7px rgba(0, 0, 0, 0.1);
       transition: height 3s ease-in-out;
