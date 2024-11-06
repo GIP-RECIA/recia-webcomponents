@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-const downloadBlob = (blob: Blob, filename: string): void => {
-  const blobUrl = URL.createObjectURL(blob);
-  const link = document.createElement('a');
+function downloadBlob(blob: Blob, filename: string): void {
+  const blobUrl = URL.createObjectURL(blob)
+  const link = document.createElement('a')
 
-  link.href = blobUrl;
-  link.download = filename;
+  link.href = blobUrl
+  link.download = filename
 
-  document.body.appendChild(link);
+  document.body.appendChild(link)
 
   link.dispatchEvent(
     new MouseEvent('click', {
@@ -29,9 +29,9 @@ const downloadBlob = (blob: Blob, filename: string): void => {
       cancelable: true,
       view: window,
     }),
-  );
+  )
 
-  document.body.removeChild(link);
-};
+  document.body.removeChild(link)
+}
 
-export { downloadBlob };
+export { downloadBlob }

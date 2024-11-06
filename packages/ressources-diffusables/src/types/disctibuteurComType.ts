@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export type DistributeursCom = {
-  id: string;
-  nom: string;
-};
+export interface DistributeursCom {
+  id: string
+  nom: string
+}

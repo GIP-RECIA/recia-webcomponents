@@ -15,52 +15,52 @@
 -->
 
 <script setup lang="ts">
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import debounce from 'lodash.debounce';
-import { ref } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import debounce from 'lodash.debounce'
+import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 defineProps<{
-  nombreRessourcesTotal: number;
-  nombreRessourcesAffichees: number;
-}>();
+  nombreRessourcesTotal: number
+  nombreRessourcesAffichees: number
+}>()
 
 const emit = defineEmits<{
-  (event: 'reinitialiserRecherche'): void;
-  (event: 'recommencerRechercheInput', payload: string): void;
-}>();
+  (event: 'reinitialiserRecherche'): void
+  (event: 'recommencerRechercheInput', payload: string): void
+}>()
 
-const rechercheInput = ref<string>('');
+const rechercheInput = ref<string>('')
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const reinitialiserRecherche = (): void => {
-  rechercheInput.value = '';
-  emit('reinitialiserRecherche');
-};
+function reinitialiserRecherche(): void {
+  rechercheInput.value = ''
+  emit('reinitialiserRecherche')
+}
 
 const recommencerRecherche = debounce(
   () => emit('recommencerRechercheInput', rechercheInput.value),
   500, // Buffer de 0,5s après input.
-);
+)
 </script>
 
 <template>
   <div class="cadre-recherche-ressource">
     <div class="input-recherche-ressource">
       <input
-        class="champ-recherche-ressource"
         v-model.trim="rechercheInput"
-        @input="recommencerRecherche"
+        class="champ-recherche-ressource"
         type="text"
         :placeholder="t('recherche-ressource.recherche')"
-      />
+        @input="recommencerRecherche"
+      >
       <button
         class="reinitialiser-recherche-ressource"
+        :disabled="rechercheInput.length === 0"
         @click="reinitialiserRecherche"
-        :disabled="rechercheInput.length == 0"
       >
-        <font-awesome-icon :icon="['fa', 'xmark']" />
+        <FontAwesomeIcon :icon="['fa', 'xmark']" />
       </button>
     </div>
     <small class="elements-affiches-page-ressource">

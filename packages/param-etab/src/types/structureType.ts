@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-export type StructureDetail = {
-  id: string;
-  name: string;
-  displayName: string;
-  description: string;
+export interface StructureDetail {
+  id: string
+  name: string
+  displayName: string
+  description: string
   otherAttributes: Array<{
-    ESCOStructureLogo?: Array<{}>;
-    ENTStructureSiteWeb?: Array<{}>;
-    ENTStructureJointure?: Array<{}>;
-  }>;
-  structCustomDisplayName: string | null;
-  structLogo: string | null;
-  structSiteWeb: string | null;
-};
+    ESCOStructureLogo?: Array<object>
+    ENTStructureSiteWeb?: Array<object>
+    ENTStructureJointure?: Array<object>
+  }>
+  structCustomDisplayName: string | null
+  structLogo: string | null
+  structSiteWeb: string | null
+}

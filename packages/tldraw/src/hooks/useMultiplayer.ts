@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-import { useAssets } from '../hooks/useAssets.ts';
-import { findLanguage } from '../utils/i18nUtils';
-import { getJwt, parseJwt } from '../utils/soffitUtils.ts';
-import { donwloadImageFile } from '../utils/tldrawUtils.ts';
-import { getDocData, updateDoc } from '../utils/yjsUtils.ts';
-import { toBlob, usePersistance } from './usePersistance.ts';
-import { useYjs } from './useYjs.ts';
-import { TDAsset, TDBinding, TDExport, TDShape, TDUser, TldrawApp, useFileSystem } from '@gip-recia/tldraw-v1';
-import debounce from 'lodash.debounce';
-import throttle from 'lodash.throttle';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { WebsocketProvider } from 'y-websocket';
+import type { TDAsset, TDBinding, TDExport, TDShape, TDUser, TldrawApp } from '@gip-recia/tldraw-v1'
+import type { WebsocketProvider } from 'y-websocket'
+import { useFileSystem } from '@gip-recia/tldraw-v1'
+import debounce from 'lodash.debounce'
+import throttle from 'lodash.throttle'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { useAssets } from '../hooks/useAssets.ts'
+import { findLanguage } from '../utils/i18nUtils'
+import { getJwt, parseJwt } from '../utils/soffitUtils.ts'
+import { donwloadImageFile } from '../utils/tldrawUtils.ts'
+import { getDocData, updateDoc } from '../utils/yjsUtils.ts'
+import { toBlob, usePersistance } from './usePersistance.ts'
+import { useYjs } from './useYjs.ts'
 
 export function useMultiplayer(
   debug: boolean,
@@ -50,22 +51,24 @@ export function useMultiplayer(
 ) {
   /* -- Custom work -- */
 
-  const { onSaveProject, onOpenProject } = useFileSystem();
-  const { doc, provider, awareness } = useYjs(websocketApiUrl, roomId);
-  const { yPersistanceApiUrl, yAssetsApiUrl, yShapes, yBindings, yAssets, undoManager } = getDocData(doc);
+  const { onSaveProject, onOpenProject } = useFileSystem()
+  const { doc, provider, awareness } = useYjs(websocketApiUrl, roomId)
+  const { yPersistanceApiUrl, yAssetsApiUrl, yShapes, yBindings, yAssets, undoManager } = getDocData(doc)
   const { onSaveProject: onPSaveProject } = usePersistance(
     yPersistanceApiUrl.toString().length > 0 ? yPersistanceApiUrl.toString() : undefined,
-  );
-  const { loadDocument } = usePersistance(initUrl);
+  )
+  const { loadDocument } = usePersistance(initUrl)
 
   const log = (message: string, variable: object): void => {
-    if (debug) console.debug(`Multiplayer - ${message}`, { ...variable });
-  };
+    if (debug)
+      // eslint-disable-next-line no-console
+      console.debug(`Multiplayer - ${message}`, { ...variable })
+  }
 
   /**
    * Force rerendering
    */
-  const [key, setKey] = useState<number>(0);
+  const [key, setKey] = useState<number>(0)
 
   /**
    * Define persistance API URL on yjs
@@ -73,28 +76,29 @@ export function useMultiplayer(
   useEffect(() => {
     setTimeout(() => {
       if (owner) {
-        const oldValue: string = yPersistanceApiUrl.toString();
+        const oldValue: string = yPersistanceApiUrl.toString()
         if (oldValue !== persistanceApiUrl) {
-          yPersistanceApiUrl.delete(0, oldValue.length);
-          if (persistanceApiUrl) yPersistanceApiUrl.insert(0, persistanceApiUrl);
-          log('persistance API URL has been set', { newValue: yPersistanceApiUrl.toString(), oldValue });
+          yPersistanceApiUrl.delete(0, oldValue.length)
+          if (persistanceApiUrl)
+            yPersistanceApiUrl.insert(0, persistanceApiUrl)
+          log('persistance API URL has been set', { newValue: yPersistanceApiUrl.toString(), oldValue })
         }
       }
-    }, 500);
+    }, 500)
 
     const handleChanges = throttle(
       () => {
-        log('persistance API URL has changed', { newValue: yPersistanceApiUrl.toString() });
-        setKey((value) => value + 1);
+        log('persistance API URL has changed', { newValue: yPersistanceApiUrl.toString() })
+        setKey(value => value + 1)
       },
       200,
       { trailing: true },
-    );
+    )
 
-    yPersistanceApiUrl.observeDeep(handleChanges);
+    yPersistanceApiUrl.observeDeep(handleChanges)
 
-    return () => yPersistanceApiUrl.unobserveDeep(handleChanges);
-  }, [persistanceApiUrl, owner]);
+    return () => yPersistanceApiUrl.unobserveDeep(handleChanges)
+  }, [persistanceApiUrl, owner])
 
   /**
    * Define assets API URL on yjs
@@ -102,90 +106,94 @@ export function useMultiplayer(
   useEffect(() => {
     setTimeout(() => {
       if (owner) {
-        const oldValue: string = yAssetsApiUrl.toString();
+        const oldValue: string = yAssetsApiUrl.toString()
         if (oldValue !== assetsApiUrl) {
-          yAssetsApiUrl.delete(0, oldValue.length);
-          if (assetsApiUrl) yAssetsApiUrl.insert(0, assetsApiUrl);
-          log('assets API URL has been set', { newValue: yAssetsApiUrl.toString(), oldValue });
+          yAssetsApiUrl.delete(0, oldValue.length)
+          if (assetsApiUrl)
+            yAssetsApiUrl.insert(0, assetsApiUrl)
+          log('assets API URL has been set', { newValue: yAssetsApiUrl.toString(), oldValue })
         }
       }
-    }, 500);
+    }, 500)
 
     const handleChanges = throttle(
       () => {
-        log('assets API URL has changed', { newValue: yAssetsApiUrl.toString() });
-        setKey((value) => value + 1);
+        log('assets API URL has changed', { newValue: yAssetsApiUrl.toString() })
+        setKey(value => value + 1)
       },
       200,
       { trailing: true },
-    );
+    )
 
-    yAssetsApiUrl.observeDeep(handleChanges);
+    yAssetsApiUrl.observeDeep(handleChanges)
 
-    return () => yAssetsApiUrl.unobserveDeep(handleChanges);
-  }, [assetsApiUrl, owner]);
+    return () => yAssetsApiUrl.unobserveDeep(handleChanges)
+  }, [assetsApiUrl, owner])
 
   useEffect(() => {
-    setProvider(provider);
-  }, [provider]);
+    setProvider(provider)
+  }, [provider])
 
   useEffect(() => {
     if (leave) {
       if (owner && clearOnLeave) {
-        yPersistanceApiUrl.delete(0, yPersistanceApiUrl.toString().length);
-        yAssetsApiUrl.delete(0, yAssetsApiUrl.toString().length);
+        yPersistanceApiUrl.delete(0, yPersistanceApiUrl.toString().length)
+        yAssetsApiUrl.delete(0, yAssetsApiUrl.toString().length)
       }
-      provider.disconnect();
+      provider.disconnect()
     }
-  }, [owner, clearOnLeave, leave]);
+  }, [owner, clearOnLeave, leave])
 
   /* -- https://github.com/nimeshnayaju/yjs-tldraw/blob/main/src/hooks/useMultiplayerState.ts -- */
 
-  const tldrawRef = useRef<TldrawApp>();
+  const tldrawRef = useRef<TldrawApp>()
 
   const onMount = useCallback(
     debounce(async (app: TldrawApp) => {
-      app.setSetting('language', findLanguage('en'));
+      app.setSetting('language', findLanguage('en'))
       if (initUrl) {
-        setIsLoading(true);
+        setIsLoading(true)
         try {
-          await loadDocument(app);
-          updateDoc(doc, app);
-          setIsLoading(false);
-          setIsReady(true);
-        } catch (e) {
-          setIsLoading(false);
-          setIsError(true);
-          console.error(e);
+          await loadDocument(app)
+          updateDoc(doc, app)
+          setIsLoading(false)
+          setIsReady(true)
+        }
+        catch (e) {
+          setIsLoading(false)
+          setIsError(true)
+          console.error(e)
         }
       }
 
-      app.loadRoom(roomId);
-      app.pause();
-      tldrawRef.current = app;
+      app.loadRoom(roomId)
+      app.pause()
+      tldrawRef.current = app
 
       if (app.currentUser) {
-        let name;
+        let name
         if (!token) {
-          const { decoded } = await getJwt();
-          name = decoded.name;
-        } else {
-          const decoded = parseJwt(token);
-          name = decoded.name;
+          const { decoded } = await getJwt()
+          name = decoded.name
         }
-        app.currentUser.metadata = { name: name != undefined && !name.startsWith('guest') ? name : undefined };
+        else {
+          const decoded = parseJwt(token)
+          name = decoded.name
+        }
+        app.currentUser.metadata = { name: name !== undefined && !name.startsWith('guest') ? name : undefined }
       }
 
       app.replacePageContent(
         Object.fromEntries(yShapes.entries()),
         Object.fromEntries(yBindings.entries()),
         Object.fromEntries(yAssets.entries()),
-      );
+      )
 
-      if (!initUrl) setIsReady(true);
+      if (!initUrl)
+        setIsReady(true)
     }, 10),
     [roomId, token],
-  );
+  )
 
   const onChangePage = useCallback(
     (
@@ -194,147 +202,159 @@ export function useMultiplayer(
       bindings: Record<string, TDBinding | undefined>,
       assets: Record<string, TDAsset | undefined>,
     ) => {
-      undoManager.stopCapturing();
+      undoManager.stopCapturing()
       doc.transact(() => {
         Object.entries(shapes).forEach(([id, shape]) => {
           if (!shape) {
-            yShapes.delete(id);
-          } else {
-            yShapes.set(shape.id, shape);
+            yShapes.delete(id)
           }
-        });
+          else {
+            yShapes.set(shape.id, shape)
+          }
+        })
         Object.entries(bindings).forEach(([id, binding]) => {
           if (!binding) {
-            yBindings.delete(id);
-          } else {
-            yBindings.set(binding.id, binding);
+            yBindings.delete(id)
           }
-        });
+          else {
+            yBindings.set(binding.id, binding)
+          }
+        })
         Object.entries(assets).forEach(([id, asset]) => {
           if (!asset) {
-            yAssets.delete(id);
-          } else {
-            yAssets.set(asset.id, asset);
+            yAssets.delete(id)
           }
-        });
-      });
+          else {
+            yAssets.set(asset.id, asset)
+          }
+        })
+      })
     },
     [],
-  );
+  )
 
   const onUndo = useCallback(() => {
-    undoManager.undo();
-  }, []);
+    undoManager.undo()
+  }, [])
 
   const onRedo = useCallback(() => {
-    undoManager.redo();
-  }, []);
+    undoManager.redo()
+  }, [])
 
   /**
    * Callback to update user's (self) presence
    */
   const onChangePresence = useCallback((app: TldrawApp, user: TDUser) => {
-    awareness.setLocalStateField('tdUser', user);
-  }, []);
+    awareness.setLocalStateField('tdUser', user)
+  }, [])
 
   /**
    * Update app users whenever there is a change in the room users
    */
   useEffect(() => {
     const onChangeAwareness = () => {
-      const tldraw = tldrawRef.current;
+      const tldraw = tldrawRef.current
 
-      if (!tldraw || !tldraw.room) return;
+      if (!tldraw || !tldraw.room)
+        return
 
       const others = Array.from(awareness.getStates().entries())
         .filter(([key, _]) => key !== awareness.clientID)
         .map(([_, state]) => state)
-        .filter((user) => user.tdUser !== undefined);
+        .filter(user => user.tdUser !== undefined)
 
-      const ids = others.map((other) => other.tdUser.id as string);
+      const ids = others.map(other => other.tdUser.id as string)
 
       Object.values(tldraw.room.users).forEach((user) => {
         if (user && !ids.includes(user.id) && user.id !== tldraw.room?.userId) {
-          tldraw.removeUser(user.id);
+          tldraw.removeUser(user.id)
         }
-      });
+      })
 
-      tldraw.updateUsers(others.map((other) => other.tdUser).filter(Boolean));
-    };
+      tldraw.updateUsers(others.map(other => other.tdUser).filter(Boolean))
+    }
 
-    awareness.on('change', onChangeAwareness);
+    awareness.on('change', onChangeAwareness)
 
-    return () => awareness.off('change', onChangeAwareness);
-  }, []);
+    return () => awareness.off('change', onChangeAwareness)
+  }, [])
 
   useEffect(() => {
     function handleChanges() {
-      const tldraw = tldrawRef.current;
+      const tldraw = tldrawRef.current
 
-      if (!tldraw) return;
+      if (!tldraw)
+        return
 
       tldraw.replacePageContent(
         Object.fromEntries(yShapes.entries()),
         Object.fromEntries(yBindings.entries()),
         Object.fromEntries(yAssets.entries()),
-      );
+      )
 
-      if (!tldraw.isPointing) tryAutoSave(tldraw);
+      if (!tldraw.isPointing)
+        // eslint-disable-next-line ts/no-use-before-define
+        tryAutoSave(tldraw)
     }
 
-    yShapes.observeDeep(handleChanges);
+    yShapes.observeDeep(handleChanges)
 
-    return () => yShapes.unobserveDeep(handleChanges);
-  }, [isReady, autoSave, owner, key]);
+    return () => yShapes.unobserveDeep(handleChanges)
+  }, [isReady, autoSave, owner, key])
 
   useEffect(() => {
     function handleDisconnect() {
-      provider.disconnect();
+      provider.disconnect()
     }
-    window.addEventListener('beforeunload', handleDisconnect);
+    window.addEventListener('beforeunload', handleDisconnect)
 
-    return () => window.removeEventListener('beforeunload', handleDisconnect);
-  }, []);
+    return () => window.removeEventListener('beforeunload', handleDisconnect)
+  }, [])
 
   /* -- Custom work -- */
 
   const onSave = useCallback(
     async (app: TldrawApp): Promise<void> => {
-      if (!owner) return;
+      if (!owner)
+        return
 
-      setIsSaving(true);
+      setIsSaving(true)
       try {
-        const response = await onPSaveProject(app);
+        const response = await onPSaveProject(app)
         if (response?.status === 200) {
           setTimeout(() => {
-            setIsSaving(false);
-          }, 1000);
+            setIsSaving(false)
+          }, 1000)
         }
-      } catch (e) {
-        setIsSaving(false);
-        onSaveProject(app);
+      }
+      catch (e) {
+        setIsSaving(false)
+        onSaveProject(app)
+        console.error(e)
       }
     },
     [owner, key],
-  );
+  )
 
-  const blob = useRef<string>('');
+  const blob = useRef<string>('')
 
   const tryAutoSave = useCallback(
     throttle(async (app: TldrawApp): Promise<void> => {
-      if (!owner || !isReady || !autoSave || yPersistanceApiUrl.toString().trim() == '') return;
+      if (!owner || !isReady || !autoSave || yPersistanceApiUrl.toString().trim() === '')
+        return
 
-      const newBlob = toBlob(app);
-      if (blob.current == newBlob) return;
-      blob.current = newBlob;
-      await onSave(app);
+      const newBlob = toBlob(app)
+      if (blob.current === newBlob)
+        return
+      blob.current = newBlob
+      await onSave(app)
     }, autoSaveDelay),
     [isReady, autoSave, autoSaveDelay, owner, key],
-  );
+  )
 
   const onExport = useCallback(async (app: TldrawApp, info: TDExport): Promise<void> => {
-    donwloadImageFile(app, info);
-  }, []);
+    donwloadImageFile(app, info)
+  }, [])
 
   return {
     onMount,
@@ -345,6 +365,6 @@ export function useMultiplayer(
     onRedo,
     onChangePresence,
     onExport,
-    ...useAssets(yAssetsApiUrl.toString().trim() != '' ? yAssetsApiUrl.toString() : undefined),
-  };
+    ...useAssets(yAssetsApiUrl.toString().trim() !== '' ? yAssetsApiUrl.toString() : undefined),
+  }
 }

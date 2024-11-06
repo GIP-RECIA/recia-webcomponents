@@ -15,58 +15,60 @@
 -->
 
 <script setup lang="ts">
-import type { Filtres } from '@/types/FiltresType';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { useBreakpoints } from '@vueuse/core';
-import { capitalize, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
+import type { Filtres } from '@/types/FiltresType'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { useBreakpoints } from '@vueuse/core'
+import { capitalize, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
-  checked: string;
-  filtres: Array<Filtres>;
-}>();
+  checked: string
+  filtres: Array<Filtres>
+}>()
 
-const { t } = useI18n();
-const filtre = ref(props.checked || '');
-const activeCategory = ref('tout');
-const activeCategoryName = ref(t('menu-mediacentre.all-resources'));
-const isUnfolded = ref(false);
+const emit = defineEmits(['update-checked'])
+
+const { t } = useI18n()
+
+const filtre = ref(props.checked || '')
+const activeCategory = ref('tout')
+const activeCategoryName = ref(t('menu-mediacentre.all-resources'))
+const isUnfolded = ref(false)
 
 const breakpoints = useBreakpoints({
   mobile: 770,
   laptop: 1024,
-});
+})
 
-const emit = defineEmits(['update-checked']);
-
-const changementFiltre = (idFiltre: string, idCategorie: string, categoryName: string) => {
-  filtre.value = idFiltre;
-  if (idFiltre == 'tout' || idFiltre == 'favoris') {
-    showSubCategories(idCategorie);
+function changementFiltre(idFiltre: string, idCategorie: string, categoryName: string) {
+  filtre.value = idFiltre
+  if (idFiltre === 'tout' || idFiltre === 'favoris') {
+    showSubCategories(idCategorie)
   }
-  activeCategoryName.value = categoryName;
-  showCategoriesContainer();
-  emit('update-checked', idFiltre, idCategorie);
-};
+  activeCategoryName.value = categoryName
+  showCategoriesContainer()
+  emit('update-checked', idFiltre, idCategorie)
+}
 
-const showCategoriesContainer = (): void => {
-  isUnfolded.value = isUnfolded.value == true ? false : true;
-};
+function showCategoriesContainer(): void {
+  isUnfolded.value = isUnfolded.value !== true
+}
 
-const showSubCategories = (idCategory: string): void => {
-  if (idCategory !== 'tout' && idCategory !== 'favoris' && activeCategory.value == idCategory) {
-    activeCategory.value = '';
-  } else {
-    activeCategory.value = idCategory;
+function showSubCategories(idCategory: string): void {
+  if (idCategory !== 'tout' && idCategory !== 'favoris' && activeCategory.value === idCategory) {
+    activeCategory.value = ''
   }
-};
+  else {
+    activeCategory.value = idCategory
+  }
+}
 </script>
 
 <template>
-  <div class="cadre-menu-mediacentre" :class="[isUnfolded == true ? 'unfold' : '']">
+  <div class="cadre-menu-mediacentre" :class="[isUnfolded === true ? 'unfold' : '']">
     <div class="menu-title">
-      <button class="menu-toggle" id="menu-titre" :class="{ active: isUnfolded }" @click="showCategoriesContainer()">
-        <font-awesome-icon class="menu-icon" :icon="['fas', 'bars']" />
+      <button id="menu-titre" class="menu-toggle" :class="{ active: isUnfolded }" @click="showCategoriesContainer()">
+        <FontAwesomeIcon class="menu-icon" :icon="['fas', 'bars']" />
       </button>
       <div class="category-name-badge">
         {{ capitalize(activeCategoryName) }}
@@ -75,13 +77,13 @@ const showSubCategories = (idCategory: string): void => {
 
     <div
       class="categories-container"
-      :class="[breakpoints.active() != undefined && breakpoints.active() == ref('mobile') ? 'toggle' : '']"
+      :class="[breakpoints.active() !== undefined && breakpoints.active() === ref('mobile') ? 'toggle' : '']"
     >
       <button
-        active
-        :class="[activeCategory == 'tout' ? 'active' : '']"
-        class="sub-categories-container without-sub-cat"
         id="tout"
+        active
+        :class="[activeCategory === 'tout' ? 'active' : '']"
+        class="sub-categories-container without-sub-cat"
         value="tout"
         @click="changementFiltre('tout', 'tout', t('menu-mediacentre.all-resources'))"
       >
@@ -89,9 +91,9 @@ const showSubCategories = (idCategory: string): void => {
       </button>
 
       <button
-        :class="[activeCategory == 'favoris' ? 'active' : '']"
-        class="sub-categories-container without-sub-cat"
         id="favoris"
+        :class="[activeCategory === 'favoris' ? 'active' : '']"
+        class="sub-categories-container without-sub-cat"
         value="favoris"
         @click="changementFiltre('favoris', 'favoris', t('menu-mediacentre.my-favorites'))"
       >
@@ -100,23 +102,23 @@ const showSubCategories = (idCategory: string): void => {
 
       <div
         v-for="(category, index) in filtres"
-        :key="index"
         :id="category.filterEnum"
+        :key="index"
         class="dynamic-categories-container"
       >
         <button
-          class="sub-categories-container"
-          :class="[activeCategory == category.name ? 'active' : '']"
           :id="category.name"
+          class="sub-categories-container"
+          :class="[activeCategory === category.name ? 'active' : '']"
           @click="showSubCategories(category.name)"
         >
           <h3>{{ capitalize(category.name) }}</h3>
-          <font-awesome-icon class="caret-menu-icon" :icon="['fas', 'caret-right']" />
+          <FontAwesomeIcon class="caret-menu-icon" :icon="['fas', 'caret-right']" />
         </button>
-        <div class="container" :class="[activeCategory == category.name ? 'active' : '']">
+        <div class="container" :class="[activeCategory === category.name ? 'active' : '']">
           <div v-for="(subCat, idx) of category.filters" :key="idx">
             <button
-              :class="{ active: filtre == subCat.id }"
+              :class="{ active: filtre === subCat.id }"
               class="sub-category-container"
               @click.prevent="changementFiltre(subCat.id, category.filterEnum, subCat.nom)"
             >

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export type TypePedagogique = {
-  nom: string;
-  uri: string;
-};
+export interface TypePedagogique {
+  nom: string
+  uri: string
+}

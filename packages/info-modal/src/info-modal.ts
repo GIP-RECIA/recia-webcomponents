@@ -14,178 +14,181 @@
  * limitations under the License.
  */
 
-import styles from './info-modal.scss?inline';
-import { icon, library } from '@fortawesome/fontawesome-svg-core';
-import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
-import { CSSResult, LitElement, TemplateResult, css, html, unsafeCSS } from 'lit';
-import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
-import { customElement, property, state } from 'lit/decorators.js';
+import type { CSSResult, TemplateResult } from 'lit'
+import { icon, library } from '@fortawesome/fontawesome-svg-core'
+import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark'
+import { css, html, LitElement, unsafeCSS } from 'lit'
+import { customElement, property, state } from 'lit/decorators.js'
+import { unsafeHTML } from 'lit-html/directives/unsafe-html.js'
+import styles from './info-modal.scss?inline'
 
 @customElement('info-modal')
 export class InfoModal extends LitElement {
   static styles: CSSResult = css`
     ${unsafeCSS(styles)}
-  `;
+  `
 
   @property({ type: Boolean, reflect: true })
-  isOpen = false;
+  isOpen = false
 
   @property({ type: String })
-  titleModal = '';
+  titleModal = ''
 
   @property({ type: Boolean })
-  debug = false;
+  debug = false
 
   @property({ type: Object })
-  mainElement!: HTMLElement | undefined;
+  mainElement!: HTMLElement | undefined
 
   @state()
-  modalElement: HTMLElement | undefined;
+  modalElement: HTMLElement | undefined
 
   @state()
-  closeButtonElement: HTMLElement | undefined;
+  closeButtonElement: HTMLElement | undefined
 
   public constructor() {
-    super();
-    library.add(faXmark);
+    super()
+    library.add(faXmark)
   }
 
   firstUpdated() {
-    this.modalElement = this.renderRoot.querySelector('#modal') as HTMLElement;
-    this.closeButtonElement = this.renderRoot.querySelector('.close-button') as HTMLElement;
+    this.modalElement = this.renderRoot.querySelector('#modal') as HTMLElement
+    this.closeButtonElement = this.renderRoot.querySelector('.close-button') as HTMLElement
 
     this.log(
-      'modal ' + this.modalElement !== null || this.modalElement !== undefined
+      `modal ${this.modalElement}` !== null || this.modalElement !== undefined
         ? 'retrieved successfully'
         : 'not retrieved',
-    );
+    )
 
     this.log(
-      'close button ' + this.closeButtonElement !== null || this.closeButtonElement !== undefined
+      `close button ${this.closeButtonElement}` !== null || this.closeButtonElement !== undefined
         ? 'retrieved successfully'
         : 'not retrieved',
-    );
+    )
 
-    this.mainElement = document.querySelector('main') as HTMLElement;
+    this.mainElement = document.querySelector('main') as HTMLElement
     this.log(
-      'main ' + this.mainElement !== null || this.mainElement !== undefined
+      `main ${this.mainElement}` !== null || this.mainElement !== undefined
         ? 'retrieved successfully'
         : 'not retrieved',
-    );
+    )
 
     if (this.modalElement) {
-      this.modalElement.addEventListener('click', this.closeModalWithoutButton.bind(this));
-      document.addEventListener('keydown', this.handleKeyDown.bind(this));
+      this.modalElement.addEventListener('click', this.closeModalWithoutButton.bind(this))
+      document.addEventListener('keydown', this.handleKeyDown.bind(this))
     }
 
     if (this.closeButtonElement) {
-      this.closeButtonElement.addEventListener('click', () => this.closeModal());
+      this.closeButtonElement.addEventListener('click', () => this.closeModal())
       window.setTimeout(() => {
-        this.closeButtonElement!.focus();
-      }, 100);
+        this.closeButtonElement!.focus()
+      }, 100)
     }
 
-    this.log('component first updated');
+    this.log('component first updated')
   }
 
   connectedCallback() {
-    super.connectedCallback();
+    super.connectedCallback()
   }
 
   disconnectedCallback() {
-    document.removeEventListener('keydown', this.handleKeyDown);
-    this.modalElement?.removeEventListener('click', this.closeModalWithoutButton);
-    this.closeButtonElement?.removeEventListener('click', this.closeModal);
-    super.disconnectedCallback();
+    document.removeEventListener('keydown', this.handleKeyDown)
+    this.modalElement?.removeEventListener('click', this.closeModalWithoutButton)
+    this.closeButtonElement?.removeEventListener('click', this.closeModal)
+    super.disconnectedCallback()
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   log(message: any) {
-    if (this.debug === true) console.log(message);
+    if (this.debug === true)
+      // eslint-disable-next-line no-console
+      console.log(message)
   }
 
   openModal() {
     if (this.mainElement) {
-      this.modalElement!.removeAttribute('aria-hidden');
-      this.modalElement!.setAttribute('aria-hidden', 'false');
-      this.mainElement!.inert = true;
-      this.mainElement!.setAttribute('aria-hidden', 'true');
+      this.modalElement!.removeAttribute('aria-hidden')
+      this.modalElement!.setAttribute('aria-hidden', 'false')
+      this.mainElement!.inert = true
+      this.mainElement!.setAttribute('aria-hidden', 'true')
       this.log(
-        'element actif : { type : ' +
-          document.activeElement?.tagName +
-          ', \n classe : ' +
-          document.activeElement?.classList,
-      );
-      this.setFocus();
+        `element actif : { type : ${
+          document.activeElement?.tagName
+        }, \n classe : ${
+          document.activeElement?.classList}`,
+      )
+      this.setFocus()
     }
   }
 
   setFocus() {
-    const test = this.shadowRoot?.querySelector('.close-button') as HTMLElement;
+    const test = this.shadowRoot?.querySelector('.close-button') as HTMLElement
     window.setTimeout(() => {
-      test.focus();
-    }, 100);
+      test.focus()
+    }, 100)
   }
 
   closeModal() {
-    this.log('main ' + this.mainElement);
-    this.log('modal ' + this.modalElement);
-    this.modalElement!.removeAttribute('aria-hidden');
-    this.modalElement!.setAttribute('aria-hidden', 'true');
+    this.log(`main ${this.mainElement}`)
+    this.log(`modal ${this.modalElement}`)
+    this.modalElement!.removeAttribute('aria-hidden')
+    this.modalElement!.setAttribute('aria-hidden', 'true')
     if (this.mainElement) {
-      this.mainElement!.removeAttribute('aria-hidden');
+      this.mainElement!.removeAttribute('aria-hidden')
 
-      this.mainElement!.setAttribute('aria-hidden', 'false');
-      this.mainElement!.inert = false;
+      this.mainElement!.setAttribute('aria-hidden', 'false')
+      this.mainElement!.inert = false
     }
 
-    this.isOpen = false;
+    this.isOpen = false
 
-    const slots = this.renderRoot.querySelectorAll('slot') as NodeListOf<HTMLElement>;
+    const slots = this.renderRoot.querySelectorAll('slot') as NodeListOf<HTMLElement>
     window.setTimeout(() => {
-      slots?.forEach((slot) => slot.scrollTo(0, 0));
-    }, 200);
+      slots?.forEach(slot => slot.scrollTo(0, 0))
+    }, 200)
 
     window.setTimeout(() => {
       const myEvent = new CustomEvent('closeModale', {
         bubbles: true,
         composed: true,
-      });
-      document.dispatchEvent(myEvent);
-    }, 210);
+      })
+      document.dispatchEvent(myEvent)
+    }, 210)
   }
 
   handleKeyDown = (event: KeyboardEvent) => {
     if (this.isOpen) {
       if (event.key === 'Escape') {
-        this.closeModal();
+        this.closeModal()
       }
     }
-  };
+  }
 
   closeModalWithoutButton(event: Event) {
     if ((event.target as Element) === this.modalElement) {
-      this.closeModal();
+      this.closeModal()
     }
   }
 
   updated(changedProperties: Map<string | number | symbol, unknown>) {
     if (changedProperties.has('isOpen')) {
-      this.log('isOpen updated');
+      this.log('isOpen updated')
       if (this.isOpen) {
-        this.log('isOpen updated : true');
-        this.openModal();
-        const test = this.shadowRoot?.querySelector('.close-button') as HTMLElement;
-        test.focus();
-      } else {
-        this.log('isOpen updated : false');
-        this.closeModal();
+        this.log('isOpen updated : true')
+        this.openModal()
+        const test = this.shadowRoot?.querySelector('.close-button') as HTMLElement
+        test.focus()
+      }
+      else {
+        this.log('isOpen updated : false')
+        this.closeModal()
       }
     }
   }
 
   render() {
-    const faXmarkIcon = `${icon(faXmark).html}`;
+    const faXmarkIcon = `${icon(faXmark).html}`
 
     const manualModal: TemplateResult = html` <div
       id="modal"
@@ -216,8 +219,8 @@ export class InfoModal extends LitElement {
 
         <slot name="modal-footer" class="modal-footer"> </slot>
       </div>
-    </div>`;
+    </div>`
 
-    return manualModal;
+    return manualModal
   }
 }

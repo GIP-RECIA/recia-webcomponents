@@ -14,26 +14,29 @@
  limitations under the License.
 -->
 
+<!-- eslint-disable no-console -->
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-const show = ref<boolean>(false);
+const show = ref<boolean>(false)
 
-const { VITE_CHANGEETAB_API_URI, VITE_USER_INFO_API_URI } = import.meta.env;
+const { VITE_CHANGEETAB_API_URI, VITE_USER_INFO_API_URI } = import.meta.env
 
-const toggleShow = () => {
-  show.value = true;
-  console.log('click: ', show.value);
-};
+function toggleShow() {
+  show.value = true
+  console.log('click: ', show.value)
+}
 </script>
 
 <template>
-  <button @click="toggleShow">Modal</button>
+  <button @click="toggleShow">
+    Modal
+  </button>
   <change-etab
     :show="show"
     :change-etab-api="VITE_CHANGEETAB_API_URI"
     :user-info-api-url="VITE_USER_INFO_API_URI"
-  ></change-etab>
+  />
 </template>
 
 <style lang="scss">

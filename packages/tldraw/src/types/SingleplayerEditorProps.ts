@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { CommonProps } from './CommonProps';
+import type { CommonProps } from './CommonProps'
 
 export type SingleplayerEditorProps = {
-  persistanceApiUrl?: string;
-  assetsApiUrl?: string;
-} & CommonProps;
+  persistanceApiUrl?: string
+  assetsApiUrl?: string
+} & CommonProps

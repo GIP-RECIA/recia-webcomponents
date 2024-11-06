@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import WisemappingEditorSFC from './components/WisemappingEditor.tsx';
-import r2wc from '@r2wc/react-to-web-component';
+import r2wc from '@r2wc/react-to-web-component'
+import WisemappingEditorSFC from './components/WisemappingEditor.tsx'
 
 const WisemappingEditor = r2wc(WisemappingEditorSFC, {
   props: {
@@ -25,10 +25,10 @@ const WisemappingEditor = r2wc(WisemappingEditorSFC, {
     userInfoApiUrl: 'string',
     mode: 'string',
   },
-});
+})
 
-const register = (): void => {
-  customElements.define('wisemapping-editor', WisemappingEditor);
-};
+function register(): void {
+  customElements.define('wisemapping-editor', WisemappingEditor)
+}
 
-export { WisemappingEditor, register };
+export { register, WisemappingEditor }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export type ConfigType = {
-  key: string;
-  value: string;
-};
+export interface ConfigType {
+  key: string
+  value: string
+}

@@ -15,34 +15,37 @@
 -->
 
 <script setup lang="ts">
-import type { Ressource } from '@/types/RessourceType';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { onMounted, ref, watch } from 'vue';
+import type { Ressource } from '@/types/RessourceType'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { onMounted, ref, watch } from 'vue'
 
-const buttonModal = ref<HTMLButtonElement | null>(null);
-const isShown = ref<boolean>(true);
 const props = defineProps<{
-  ressource: Ressource;
-  baseApiUrl: string;
-  filtre: string;
-}>();
+  ressource: Ressource
+  baseApiUrl: string
+  filtre: string
+}>()
+
+const emit = defineEmits(['updateFav', 'openModal', 'updateVisibility'])
+
+const buttonModal = ref<HTMLButtonElement | null>(null)
+const isShown = ref<boolean>(true)
 
 onMounted(() => {
   parent.addEventListener('closeModaleCard', (event: Event) => {
-    buttonModal.value!.focus();
-    event.preventDefault();
-  });
-});
-const emit = defineEmits(['updateFav', 'openModal', 'updateVisibility']);
+    buttonModal.value!.focus()
+    event.preventDefault()
+  })
+})
 
 watch(
   () => isShown.value,
   (newValue) => {
-    if (props.filtre == 'favoris' && !newValue) emit('updateVisibility', props.ressource.idRessource);
+    if (props.filtre === 'favoris' && !newValue)
+      emit('updateVisibility', props.ressource.idRessource)
   },
-);
+)
 
-const openModal = (event: Event): void => {
+function openModal(event: Event): void {
   const openModalCustomEvent = new CustomEvent('openModale', {
     detail: {
       title: props.ressource.nomRessource,
@@ -50,21 +53,22 @@ const openModal = (event: Event): void => {
     },
     bubbles: true, // Permet à l'événement de remonter dans le DOM
     composed: true, // Permet à l'événement de sortir du shadow DOM
-  });
-  document.dispatchEvent(openModalCustomEvent);
+  })
+  document.dispatchEvent(openModalCustomEvent)
   emit(
     'openModal',
     props.ressource.nomRessource,
     props.ressource.nomEditeur,
     props.ressource.description,
     props.ressource.idRessource,
-  );
-};
+  )
+}
 
-const toggleFavoris = (): void => {
-  if (props.ressource.isFavorite) isShown.value = false;
-  emit('updateFav', props.ressource.idRessource, props.ressource.isFavorite == false || undefined ? true : false);
-};
+function toggleFavoris(): void {
+  if (props.ressource.isFavorite)
+    isShown.value = false
+  emit('updateFav', props.ressource.idRessource, !!(props.ressource.isFavorite === false || undefined))
+}
 </script>
 
 <template>
@@ -77,14 +81,14 @@ const toggleFavoris = (): void => {
     <div class="background-carte-ressource-mediacentre">
       <div class="action-zone-carte-ressource-mediacentre">
         <button class="icone-bouton-carte-ressource-mediacentre" @click.prevent="toggleFavoris">
-          <font-awesome-icon
+          <FontAwesomeIcon
             class="icone-favorite-carte-ressource-mediacentre"
             :icon="[ressource.isFavorite ? 'fas' : 'far', 'star']"
             :class="ressource.isFavorite ? 'fav' : 'noFav'"
           />
         </button>
       </div>
-      <img class="resource-image" :src="props.ressource.urlVignette" :alt="ressource.nomRessource" />
+      <img class="resource-image" :src="props.ressource.urlVignette" :alt="ressource.nomRessource">
     </div>
     <div class="resource-name">
       <span>
@@ -92,13 +96,13 @@ const toggleFavoris = (): void => {
       </span>
       <div>
         <button
+          ref="buttonModal"
           class="icone-bouton-carte-ressource-mediacentre"
-          @click.prevent="openModal"
           aria-haspopup="dialog"
           aria-controls="modal"
-          ref="buttonModal"
+          @click.prevent="openModal"
         >
-          <font-awesome-icon class="icone-info-carte-ressource-mediacentre" :icon="['fas', 'circle-info']" />
+          <FontAwesomeIcon class="icone-info-carte-ressource-mediacentre" :icon="['fas', 'circle-info']" />
         </button>
       </div>
     </div>

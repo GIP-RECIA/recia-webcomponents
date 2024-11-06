@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export type NiveauEducatif = {
-  nom: string;
-  uri: string;
-};
+export interface NiveauEducatif {
+  nom: string
+  uri: string
+}

@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import { initProvider, newDoc } from '../utils/yjsUtils.ts';
-import { useMemo } from 'react';
+import { useMemo } from 'react'
+import { initProvider, newDoc } from '../utils/yjsUtils.ts'
 
 export function useYjs(websocketApiUrl: string, roomId: string) {
-  const doc = useMemo(() => newDoc(), []);
+  const doc = useMemo(() => newDoc(), [])
 
-  const provider = useMemo(() => initProvider(websocketApiUrl, roomId, doc), [websocketApiUrl, roomId, doc]);
+  const provider = useMemo(() => initProvider(websocketApiUrl, roomId, doc), [websocketApiUrl, roomId, doc])
 
   return {
     doc,
     provider,
     awareness: provider.awareness,
-  };
+  }
 }

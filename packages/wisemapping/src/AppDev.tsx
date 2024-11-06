@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import './assets/scss/app.scss';
-import WisemappingEditor from './components/WisemappingEditor.tsx';
-import { EditorRenderMode } from '@gip-recia/wisemapping-mindplot';
-import { useState } from 'react';
+import type { EditorRenderMode } from '@gip-recia/wisemapping-mindplot'
+import { useState } from 'react'
+import WisemappingEditor from './components/WisemappingEditor.tsx'
+import './assets/scss/app.scss'
 
 function App() {
-  const { VITE_PERSISTANCE_API_URL, VITE_FILE_ID, VITE_USER_INFO_API_URI } = import.meta.env;
+  const { VITE_PERSISTANCE_API_URL, VITE_FILE_ID, VITE_USER_INFO_API_URI } = import.meta.env
 
   const ermValues: Array<EditorRenderMode> = [
     'edition-owner',
@@ -30,21 +30,21 @@ function App() {
     'viewonly-private',
     'showcase',
     'edition-locked',
-  ];
-  const [fileId, setFileId] = useState<string>(VITE_FILE_ID);
-  const [token, setToken] = useState<string>('Bearer');
-  const [mode, setMode] = useState<EditorRenderMode>('edition-owner');
+  ]
+  const [fileId, setFileId] = useState<string>(VITE_FILE_ID)
+  const [token, setToken] = useState<string>('Bearer')
+  const [mode, setMode] = useState<EditorRenderMode>('edition-owner')
 
-  const [leave, setLeave] = useState<boolean>(false);
-  const [render, setRender] = useState<boolean>(false);
+  const [_leave, setLeave] = useState<boolean>(false)
+  const [render, setRender] = useState<boolean>(false)
 
   const toggleRender = () => {
     if (render) {
-      setLeave(true);
-      setTimeout(() => setLeave(false), 200);
+      setLeave(true)
+      setTimeout(() => setLeave(false), 200)
     }
-    setTimeout(() => setRender(!render), 150);
-  };
+    setTimeout(() => setRender(!render), 150)
+  }
 
   return (
     <>
@@ -55,20 +55,27 @@ function App() {
           </div>
           <div>
             <input type="checkbox" checked disabled />
-            persistanceApiUrl : {VITE_PERSISTANCE_API_URL}
+            persistanceApiUrl :
+            {' '}
+            {VITE_PERSISTANCE_API_URL}
           </div>
           <div>
             <input type="checkbox" checked disabled />
-            fileId : <input type="text" value={fileId} onChange={(e) => setFileId(e.target.value)} />
+            fileId :
+            {' '}
+            <input type="text" value={fileId} onChange={e => setFileId(e.target.value)} />
           </div>
           <div>
             <input type="checkbox" checked={token.startsWith('Bearer ')} disabled />
-            token :{' '}
-            <input type="text" value={token} onChange={(e) => setToken(e.target.value)} style={{ width: '100%' }} />
+            token :
+            {' '}
+            <input type="text" value={token} onChange={e => setToken(e.target.value)} style={{ width: '100%' }} />
           </div>
           <div>
             <input type="checkbox" checked={!token.startsWith('Bearer ')} disabled />
-            userInfoApiUrl : {VITE_USER_INFO_API_URI}
+            userInfoApiUrl :
+            {' '}
+            {VITE_USER_INFO_API_URI}
           </div>
           <div>
             <input type="checkbox" checked disabled />
@@ -79,7 +86,7 @@ function App() {
                   <input type="radio" checked={mode === erm} onChange={() => setMode(erm)} />
                   {erm}
                 </label>
-              );
+              )
             })}
           </div>
         </div>
@@ -108,7 +115,7 @@ function App() {
         </div>
       </main>
     </>
-  );
+  )
 }
 
-export default App;
+export default App

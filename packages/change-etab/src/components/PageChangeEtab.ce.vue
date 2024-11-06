@@ -15,88 +15,92 @@
 -->
 
 <script setup lang="ts">
-import { getChangeEtab, updateCurrentStruct } from '@/services/serviceChangeEtab';
-import type { Response } from '@/types/changeEtabType';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import { useI18n } from 'vue-i18n';
+import type { Response } from '@/types/changeEtabType'
+import { getChangeEtab, updateCurrentStruct } from '@/services/serviceChangeEtab'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
-  show: boolean;
-  changeEtabApi: string;
-  userInfoApiUrl: string;
-}>();
+  show: boolean
+  changeEtabApi: string
+  userInfoApiUrl: string
+}>()
 
-const { t } = useI18n();
-const m = (key: string): string => t(`change-etab.${key}`);
+const emit = defineEmits(['update:show'])
 
-const emit = defineEmits(['update:show']);
+const { t } = useI18n()
 
-let showState = ref<boolean>(false);
-const checked = ref<string>('');
-const changeetab = ref<Response>();
+const m = (key: string): string => t(`change-etab.${key}`)
 
-const closeModal = () => {
-  showState.value = false;
-  emit('update:show', false);
-};
+const showState = ref<boolean>(false)
+const checked = ref<string>('')
+const changeetab = ref<Response>()
+
+function closeModal() {
+  showState.value = false
+  emit('update:show', false)
+}
 
 // Watch for changes in the `show` prop to update `showState`
 watch(
   () => props.show,
   (newVal) => {
-    showState.value = newVal;
+    showState.value = newVal
 
     // Only call the API when the modal is opened (showState becomes true)
     if (newVal) {
-      fetchModalData();
+      fetchModalData()
     }
   },
-);
+)
 
 // Fetch modal data from the API
-const fetchModalData = async () => {
+async function fetchModalData() {
   try {
-    const res = await getChangeEtab(props.changeEtabApi, props.userInfoApiUrl);
-    changeetab.value = res.data;
-  } catch (error: any) {
-    console.error('error : ', error.res.data);
+    const res = await getChangeEtab(props.changeEtabApi, props.userInfoApiUrl)
+    changeetab.value = res.data
   }
-};
+  catch (error: any) {
+    console.error('error : ', error.res.data)
+  }
+}
 
 async function updateStruct() {
   try {
-    const confirmed = confirm(m('change-confirm'));
+    // eslint-disable-next-line no-alert
+    const confirmed = confirm(m('change-confirm'))
     if (confirmed) {
-      const res = await updateCurrentStruct(props.changeEtabApi + checked.value, props.userInfoApiUrl);
-      location.replace(res.data.redirectUrl + `/Logout`);
+      const res = await updateCurrentStruct(props.changeEtabApi + checked.value, props.userInfoApiUrl)
+      location.replace(`${res.data.redirectUrl}/Logout`)
     }
-  } catch (error) {
-    console.error('error: ', error);
+  }
+  catch (error) {
+    console.error('error: ', error)
   }
 }
 
 const isButtonDisabled = computed<boolean>(() => {
-  return checked.value === '';
-});
+  return checked.value === ''
+})
 
 // Handle keyboard events
-const handleKeydown = (event: KeyboardEvent) => {
+function handleKeydown(event: KeyboardEvent) {
   if (event.key === 'Escape' && showState.value) {
     // Close modal on "Escape" key
-    closeModal();
+    closeModal()
   }
-};
+}
 
 // Attach keydown event listeners when component is mounted
 onMounted(() => {
-  window.addEventListener('keydown', handleKeydown);
-});
+  window.addEventListener('keydown', handleKeydown)
+})
 
 // Remove keydown event listeners when component is unmounted
 onBeforeUnmount(() => {
-  window.removeEventListener('keydown', handleKeydown);
-});
+  window.removeEventListener('keydown', handleKeydown)
+})
 </script>
 
 <template>
@@ -104,26 +108,26 @@ onBeforeUnmount(() => {
   <div v-if="showState" class="modal-mask" @click="closeModal">
     <div class="modal-component" @click.stop>
       <header>
-        <h1 class="modal-title">{{ m('title') }}</h1>
+        <h1 class="modal-title">
+          {{ m('title') }}
+        </h1>
         <button class="btn-close" @click="closeModal">
-          <font-awesome-icon :icon="['fa', 'xmark']" />
+          <FontAwesomeIcon :icon="['fa', 'xmark']" />
         </button>
       </header>
 
       <main>
-        <span class="current"
-          >{{ m('struct-current') }} {{ changeetab?.structCurrent.displayName }}
-          <small>({{ changeetab?.structCurrent.code }})</small></span
-        >
+        <span class="current">{{ m('struct-current') }} {{ changeetab?.structCurrent.displayName }}
+          <small>({{ changeetab?.structCurrent.code }})</small></span>
         <div class="form-change">
           <fieldset>
             <legend>{{ m('legend') }}</legend>
             <ul class="list-struct">
               <li v-for="data in changeetab?.sirenStructures" :key="data.id">
-                <input type="radio" name="" :id="data.id" :value="data.id" v-model="checked" />
+                <input :id="data.id" v-model="checked" type="radio" name="" :value="data.id">
                 <label :for="data.id">
-                  {{ data.displayName }} <small> ({{ data.code }}) </small></label
-                >
+                  {{ data.displayName }} <small> ({{ data.code }}) </small>
+                </label>
               </li>
             </ul>
           </fieldset>
@@ -180,7 +184,6 @@ label {
 
     @media (width < 600px) {
       min-width: 0;
-      
     }
 
     /* Style for header */

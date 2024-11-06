@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export type TypePresentation = {
-  code: string;
-  nom: string;
-};
+export interface TypePresentation {
+  code: string
+  nom: string
+}

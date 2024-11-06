@@ -14,59 +14,65 @@
  * limitations under the License.
  */
 
-import { getJwt } from './soffitUtils.ts';
-import axios from 'axios';
-import throttle from 'lodash.throttle';
+import axios from 'axios'
+import throttle from 'lodash.throttle'
+import { getJwt } from './soffitUtils.ts'
 
 const instance = axios.create({
   timeout: import.meta.env.VITE_AXIOS_TIMEOUT,
-});
+})
 
-let token: string | undefined = undefined;
-let timeout: number | undefined = undefined;
-let renewToken: any;
+let token: string | undefined
+let timeout: number | undefined
+let renewToken: any
 
-const setToken = (newToken: string): void => {
-  token = newToken;
-};
+function setToken(newToken: string): void {
+  token = newToken
+}
 
-const init = async () => {
+async function init() {
   try {
     const {
       encoded,
       decoded: { exp, iat },
-    } = await getJwt();
-    token = `Bearer ${encoded}`;
-    timeout = (exp - iat) * 1000 * 0.75;
+    } = await getJwt()
+    token = `Bearer ${encoded}`
+    timeout = (exp - iat) * 1000 * 0.75
     renewToken = throttle(async () => {
       try {
-        const { encoded } = await getJwt();
-        token = `Bearer ${encoded}`;
-      } catch (e) {
-        // nothing to do
+        const { encoded } = await getJwt()
+        token = `Bearer ${encoded}`
       }
-    }, timeout);
-  } catch (e) {
-    // nothing to do
+      catch (e) {
+        console.error(e)
+      }
+    }, timeout)
   }
-};
+  catch (e) {
+    console.error(e)
+  }
+}
 
 instance.interceptors.request.use(async (config) => {
-  if (!timeout && !token) await init();
-  else if (timeout) await renewToken();
-  config.headers['Authorization'] = token;
+  if (!timeout && !token)
+    await init()
+  else if (timeout)
+    await renewToken()
+  config.headers.Authorization = token
 
-  return config;
-});
+  return config
+})
 
-const errorHandler = (e: any): void => {
+function errorHandler(e: any): void {
   if (axios.isAxiosError(e)) {
-    console.error(e.message);
-  } else if (e instanceof Error) {
-    console.error(e.message);
-  } else {
-    console.error(e);
+    console.error(e.message)
   }
-};
+  else if (e instanceof Error) {
+    console.error(e.message)
+  }
+  else {
+    console.error(e)
+  }
+}
 
-export { instance, setToken, errorHandler };
+export { errorHandler, instance, setToken }

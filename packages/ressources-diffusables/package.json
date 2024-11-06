@@ -1,21 +1,8 @@
 {
   "name": "@gip-recia/ui-ressources-gar",
-  "version": "3.0.0",
   "type": "module",
-  "files": [
-    "dist"
-  ],
+  "version": "3.0.0",
   "description": "UI des ressources du GAR en Vue.js.",
-  "keywords": [
-    "gar",
-    "ressources",
-    "gip-recia"
-  ],
-  "homepage": "https://github.com/GIP-RECIA/recia-webcomponents/tree/main/packages/ressources-diffusables/#readme",
-  "bugs": {
-    "url": "https://github.com/GIP-RECIA/recia-webcomponents/issues"
-  },
-  "license": "Apache-2.0",
   "contributors": [
     {
       "name": "Quentin Guillemin",
@@ -27,18 +14,31 @@
       "url": "https://github.com/NastiouchaNakamura"
     }
   ],
-  "main": "./dist/ui-ressources-gar.umd.cjs",
-  "module": "./dist/ui-ressources-gar.js",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/GIP-RECIA/recia-webcomponents/tree/main/packages/ressources-diffusables/#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GIP-RECIA/recia-webcomponents.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GIP-RECIA/recia-webcomponents/issues"
+  },
+  "keywords": [
+    "gar",
+    "ressources",
+    "gip-recia"
+  ],
   "exports": {
     ".": {
       "import": "./dist/ui-ressources-gar.js",
       "require": "./dist/ui-ressources-gar.umd.cjs"
     }
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/GIP-RECIA/recia-webcomponents.git"
-  },
+  "main": "./dist/ui-ressources-gar.umd.cjs",
+  "module": "./dist/ui-ressources-gar.js",
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -46,43 +46,36 @@
     "dev": "dotenv-checker && vite --host",
     "build": "run-p type-check build-only && npm run build:min",
     "build:min": "npm exec terser -- -c -m --module dist/ui-ressources-gar.js > dist/ui-ressources-gar.min.js",
-    "lint": "eslint . --ext .vue,.ts --fix --ignore-path ../../.prettierignore",
+    "lint": "eslint src/*",
     "preview": "vite preview",
     "test:unit": "echo No tests available",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",
-    "format:check": "prettier --config ../../.prettierrc.json --ignore-path ../../.prettierignore --check src/",
-    "format": "prettier --config ../../.prettierrc.json --ignore-path ../../.prettierignore --write src/",
     "release": "yarn run -T commit-and-tag-version -t 'ui-ressources-gar/v'",
-    "release:minor": "yarn run -T commit-and-tag-version -t 'ui-ressources-gar/v' --release-as minor",
     "release:patch": "yarn run -T commit-and-tag-version -t 'ui-ressources-gar/v' --release-as patch",
+    "release:minor": "yarn run -T commit-and-tag-version -t 'ui-ressources-gar/v' --release-as minor",
     "release:major": "yarn run -T commit-and-tag-version -t 'ui-ressources-gar/v' --release-as major"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^3.8.0",
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/vue-fontawesome": "^3.0.8",
     "@intlify/unplugin-vue-i18n": "^4.0.0",
-    "@rushstack/eslint-patch": "^1.10.4",
-    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@tsconfig/node20": "^20.1.4",
     "@types/lodash.debounce": "^4",
     "@types/node": "^22",
     "@types/regenerator-runtime": "^0",
     "@uportal/open-id-connect": "^1.40.2",
     "@vitejs/plugin-vue": "^5.1.4",
-    "@vue/eslint-config-prettier": "^9.0.0",
-    "@vue/eslint-config-typescript": "^13.0.0",
     "@vue/tsconfig": "^0.5.1",
     "axios": "^1.7.7",
     "dotenv-checker": "^1.1.7",
-    "eslint": "^8.57.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-vue": "^9.29.1",
+    "eslint": "^9.14.0",
+    "eslint-plugin-format": "^0.1.2",
     "lint-staged": "^15.2.10",
     "lodash.debounce": "^4.0.8",
     "npm-run-all2": "^7.0.1",
-    "prettier": "^3.3.3",
     "regenerator-runtime": "^0.14.1",
     "sass": "^1.80.6",
     "terser": "^5.36.0",

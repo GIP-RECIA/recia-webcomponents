@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import { useSingleplayer } from '../hooks/useSingleplayer.ts';
-import { SingleplayerEditorProps } from '../types/SingleplayerEditorProps.ts';
-import { Tldraw } from '@gip-recia/tldraw-v1';
+import type { SingleplayerEditorProps } from '../types/SingleplayerEditorProps.ts'
+import { Tldraw } from '@gip-recia/tldraw-v1'
+import { useSingleplayer } from '../hooks/useSingleplayer.ts'
 
 export default function SingleplayerEditor({
   persistanceApiUrl,
   assetsApiUrl,
   ...params
 }: Readonly<SingleplayerEditorProps>) {
-  const { autoSave, autoSaveDelay, open, isReady, setIsSaving, setIsLoading, setIsError, setIsReady } = params;
+  const { autoSave, autoSaveDelay, open, isReady, setIsSaving, setIsLoading, setIsError, setIsReady } = params
 
   const props = {
     ...params,
@@ -39,7 +39,7 @@ export default function SingleplayerEditor({
       setIsError,
       setIsReady,
     ),
-  };
+  }
 
-  return <Tldraw autofocus showMultiplayerMenu={false} hideNewReleaseLink hideSocialLinks hideSponsorLink {...props} />;
+  return <Tldraw autofocus showMultiplayerMenu={false} hideNewReleaseLink hideSocialLinks hideSponsorLink {...props} />
 }

@@ -14,24 +14,21 @@
  * limitations under the License.
  */
 
-import 'regenerator-runtime/runtime.js';
-
-import { createApp } from 'vue';
-
-import { register as registerCustomElements } from '@/ce';
-import { register as registerFontAwsome } from '@/plugins/fontawesome';
+import App from '@/AppDev.vue'
+import { register as registerCustomElements } from '@/ce'
+import { register as registerFontAwsome } from '@/plugins/fontawesome'
+import i18n from '@/plugins/i18n'
+import { createApp } from 'vue'
 import Vue3Toasity, { type ToastContainerOptions } from 'vue3-toastify'
+import 'regenerator-runtime/runtime.js'
 import 'vue3-toastify/dist/index.css'
-import i18n from '@/plugins/i18n';
 
-import App from '@/AppDev.vue';
+const app = createApp(App)
 
-const app = createApp(App);
+registerCustomElements()
+registerFontAwsome()
 
-registerCustomElements();
-registerFontAwsome();
-
-app.use(i18n);
+app.use(i18n)
 app.use(Vue3Toasity, { limit: 0, newestOnTop: true, theme: 'colored' } as ToastContainerOptions)
 
-app.mount('#app');
+app.mount('#app')

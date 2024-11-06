@@ -13,16 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import pkg from './package.json';
-import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
-import vue from '@vitejs/plugin-vue';
-import { fileURLToPath } from 'node:url';
-import { defineConfig, loadEnv } from 'vite';
+ 
+/* eslint-disable node/prefer-global/process */
+import { fileURLToPath } from 'node:url'
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
+import vue from '@vitejs/plugin-vue'
+import { defineConfig, loadEnv } from 'vite'
+import pkg from './package.json'
 
 // https://vitejs.dev/config/
 export default ({ mode }: { mode: string }) => {
-  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
+  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
 
   return defineConfig({
     base: process.env.VITE_BASE_URI,
@@ -30,7 +31,7 @@ export default ({ mode }: { mode: string }) => {
       vue({
         template: {
           compilerOptions: {
-            isCustomElement: (tag) => ['change-etab', 'page-change-etab'].includes(tag),
+            isCustomElement: tag => ['change-etab', 'page-change-etab'].includes(tag),
           },
         },
       }),
@@ -57,5 +58,5 @@ export default ({ mode }: { mode: string }) => {
     define: {
       'process.env': process.env,
     },
-  });
-};
+  })
+}

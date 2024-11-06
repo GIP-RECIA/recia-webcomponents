@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import './assets/scss/app.scss';
-import TldrawEditor from './components/TldrawEditor.tsx';
-import { useState } from 'react';
+import { useState } from 'react'
+import TldrawEditor from './components/TldrawEditor.tsx'
+import './assets/scss/app.scss'
 
 function App() {
   const {
@@ -25,32 +25,32 @@ function App() {
     VITE_WEBSOCKET_API_URL,
     VITE_USER_INFO_API_URI,
     VITE_ROOM_ID,
-  } = import.meta.env;
+  } = import.meta.env
 
-  const [mode, setMode] = useState<'single' | 'multi'>('single');
+  const [mode, setMode] = useState<'single' | 'multi'>('single')
 
-  const [persistanceApiUrl, setPersistanceApiUrl] = useState<boolean>(false);
-  const [assetsApiUrl, setAssetsApiUrl] = useState<boolean>(false);
-  const [token, setToken] = useState<string>('Bearer');
-  const [initUrl, setInitUrl] = useState<boolean>(false);
-  const [owner, setOwner] = useState<boolean>(false);
-  const [clearOnLeave, setClearOnLeave] = useState<boolean>(true);
+  const [persistanceApiUrl, setPersistanceApiUrl] = useState<boolean>(false)
+  const [assetsApiUrl, setAssetsApiUrl] = useState<boolean>(false)
+  const [token, setToken] = useState<string>('Bearer')
+  const [initUrl, setInitUrl] = useState<boolean>(false)
+  const [owner, setOwner] = useState<boolean>(false)
+  const [clearOnLeave, setClearOnLeave] = useState<boolean>(true)
 
-  const [darkMode, setDarkMode] = useState<boolean>(false);
-  const [readOnly, setReadOnly] = useState<boolean>(false);
-  const [autoSave, setAutoSave] = useState<boolean>(false);
-  const [open, setOpen] = useState<boolean>(false);
+  const [darkMode, setDarkMode] = useState<boolean>(false)
+  const [readOnly, setReadOnly] = useState<boolean>(false)
+  const [autoSave, setAutoSave] = useState<boolean>(false)
+  const [open, setOpen] = useState<boolean>(false)
 
-  const [leave, setLeave] = useState<boolean>(false);
-  const [render, setRender] = useState<boolean>(false);
+  const [leave, setLeave] = useState<boolean>(false)
+  const [render, setRender] = useState<boolean>(false)
 
   const toggleRender = () => {
     if (render) {
-      setLeave(true);
-      setTimeout(() => setLeave(false), 200);
+      setLeave(true)
+      setTimeout(() => setLeave(false), 200)
     }
-    setTimeout(() => setRender(!render), 150);
-  };
+    setTimeout(() => setRender(!render), 150)
+  }
 
   return (
     <>
@@ -98,20 +98,27 @@ function App() {
               checked={persistanceApiUrl}
               onChange={() => setPersistanceApiUrl(!persistanceApiUrl)}
             />
-            persistanceApiUrl : {VITE_PERSISTANCE_API_URL}
+            persistanceApiUrl :
+            {' '}
+            {VITE_PERSISTANCE_API_URL}
           </div>
           <div>
             <input type="checkbox" checked={assetsApiUrl} onChange={() => setAssetsApiUrl(!assetsApiUrl)} />
-            assetsApiUrl : {VITE_ASSETS_API_URL}
+            assetsApiUrl :
+            {' '}
+            {VITE_ASSETS_API_URL}
           </div>
           <div>
             <input type="checkbox" checked={token.startsWith('Bearer ')} disabled />
-            token :{' '}
-            <input type="text" value={token} onChange={(e) => setToken(e.target.value)} style={{ width: '100%' }} />
+            token :
+            {' '}
+            <input type="text" value={token} onChange={e => setToken(e.target.value)} style={{ width: '100%' }} />
           </div>
           <div>
             <input type="checkbox" checked={!token.startsWith('Bearer ')} disabled />
-            userInfoApiUrl : {VITE_USER_INFO_API_URI}
+            userInfoApiUrl :
+            {' '}
+            {VITE_USER_INFO_API_URI}
           </div>
         </div>
         <div>
@@ -120,11 +127,15 @@ function App() {
           </div>
           <div>
             <input type="checkbox" checked={mode === 'multi'} disabled />
-            websocketApiUrl : {VITE_WEBSOCKET_API_URL}
+            websocketApiUrl :
+            {' '}
+            {VITE_WEBSOCKET_API_URL}
           </div>
           <div>
             <input type="checkbox" checked={mode === 'multi'} disabled />
-            roomId : {VITE_ROOM_ID}
+            roomId :
+            {' '}
+            {VITE_ROOM_ID}
           </div>
           <div>
             <input
@@ -133,7 +144,9 @@ function App() {
               disabled={mode === 'single'}
               onChange={() => setInitUrl(!initUrl)}
             />
-            initUrl : {VITE_PERSISTANCE_API_URL}
+            initUrl :
+            {' '}
+            {VITE_PERSISTANCE_API_URL}
           </div>
           <div>
             <input
@@ -187,14 +200,14 @@ function App() {
                 owner={owner}
                 clearOnLeave={clearOnLeave}
                 leave={leave}
-                debug={true}
+                debug
               />
             )}
           </div>
         </div>
       </main>
     </>
-  );
+  )
 }
 
-export default App;
+export default App

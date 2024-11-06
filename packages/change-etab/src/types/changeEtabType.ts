@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-type Structure = {
-  id: string;
-  name: string;
-  displayName: string;
-  description: string;
-  otherAttributes: Record<string, Array<string>>;
-  code: string;
-};
-export type Response = {
-  aud: string;
-  structCurrent: Structure;
-  sirenStructures: Record<string, Structure>;
-};
+interface Structure {
+  id: string
+  name: string
+  displayName: string
+  description: string
+  otherAttributes: Record<string, Array<string>>
+  code: string
+}
+export interface Response {
+  aud: string
+  structCurrent: Structure
+  sirenStructures: Record<string, Structure>
+}

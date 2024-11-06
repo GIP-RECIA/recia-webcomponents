@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import TldrawEditorSFC from './components/TldrawEditor.tsx';
-import r2wc from '@r2wc/react-to-web-component';
+import r2wc from '@r2wc/react-to-web-component'
+import TldrawEditorSFC from './components/TldrawEditor.tsx'
 
 const TldrawEditor = r2wc(TldrawEditorSFC, {
   props: {
@@ -37,10 +37,10 @@ const TldrawEditor = r2wc(TldrawEditorSFC, {
     clearOnLeave: 'boolean',
     leave: 'boolean',
   },
-});
+})
 
-const register = (): void => {
-  customElements.define('tldraw-editor', TldrawEditor);
-};
+function register(): void {
+  customElements.define('tldraw-editor', TldrawEditor)
+}
 
-export { TldrawEditor, register };
+export { register, TldrawEditor }

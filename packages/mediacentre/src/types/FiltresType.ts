@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Filtre } from './FiltreType';
+import type { Filtre } from './FiltreType'
 
-export type Filtres = {
-  name: string;
-  filterEnum: string;
-  filters: Array<Filtre>;
-};
+export interface Filtres {
+  name: string
+  filterEnum: string
+  filters: Array<Filtre>
+}

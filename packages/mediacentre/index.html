@@ -5,21 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@gip-recia/mediacentre-ui</title>
     <script type="text/javascript">
-      let triggerElement;
+      let triggerElement
       document.addEventListener('openModale', (event) => {
-        triggerElement = event.detail.originalEvent;
-        const modalElement = document.querySelector('info-modal');
-        modalElement.isOpen = !modalElement.isOpen;
-        modalElement.titleModal = event.detail.title;
-        modalElement.mainElement = document.getElementsByTagName('main')[0];
-      });
+        triggerElement = event.detail.originalEvent
+        const modalElement = document.querySelector('info-modal')
+        modalElement.isOpen = !modalElement.isOpen
+        modalElement.titleModal = event.detail.title
+        modalElement.mainElement = document.getElementsByTagName('main')[0]
+      })
 
       document.addEventListener('closeModale', (event) => {
         if (triggerElement) {
-          triggerElement.focus();
-          event.preventDefault();
+          triggerElement.focus()
+          event.preventDefault()
         }
-      });
+      })
     </script>
   </head>
   <body>

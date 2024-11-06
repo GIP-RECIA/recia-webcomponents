@@ -15,7 +15,7 @@
 -->
 
 <script setup lang="ts">
-const { VITE_BASE_API_URL, VITE_PARAMETAB_API_URI, VITE_USER_INFO_API_URI, VITE_DEFAULT_LOGO_ICON } = import.meta.env;
+const { VITE_BASE_API_URL, VITE_PARAMETAB_API_URI, VITE_USER_INFO_API_URI, VITE_DEFAULT_LOGO_ICON } = import.meta.env
 </script>
 
 <template>

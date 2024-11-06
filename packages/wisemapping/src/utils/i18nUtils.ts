@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
-const locales: Array<string> = ['fr', 'en', 'es', 'de', 'ru', 'zh'];
+const locales: Array<string> = ['fr', 'en', 'es', 'de', 'ru', 'zh']
 
-const findLanguage = (fallbackLocale: string, availableLanguages: Array<string> = locales): string => {
-  if (availableLanguages.includes(window.navigator.language)) return window.navigator.language;
+function findLanguage(fallbackLocale: string, availableLanguages: Array<string> = locales): string {
+  if (availableLanguages.includes(window.navigator.language))
+    return window.navigator.language
 
-  const matchLanguages = window.navigator.languages.filter((lang) =>
-    availableLanguages.find((available) => lang == available),
-  );
-  if (matchLanguages.length > 0) return matchLanguages[0];
+  const matchLanguages = window.navigator.languages.filter(lang =>
+    availableLanguages.find(available => lang === available),
+  )
+  if (matchLanguages.length > 0)
+    return matchLanguages[0]
 
-  return fallbackLocale;
-};
+  return fallbackLocale
+}
 
-export { findLanguage };
+export { findLanguage }

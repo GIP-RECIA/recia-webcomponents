@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { TLUser } from '@tldraw/core';
-import { memo } from 'react';
+import type { TLUser } from '@tldraw/core'
+import { memo } from 'react'
 
-export type CursorComponent<T = any> = (props: Pick<TLUser<T>, 'id' | 'color' | 'metadata'>) => any;
+export type CursorComponent<T = any> = (props: Pick<TLUser<T>, 'id' | 'color' | 'metadata'>) => any
 
 export const Cursor: CursorComponent = memo(({ color }) => {
   return (
@@ -35,8 +35,8 @@ export const Cursor: CursorComponent = memo(({ color }) => {
         <path d="m13 10.814v11.188l2.969-2.866.428-.139h4.768z" />
       </g>
     </svg>
-  );
-});
+  )
+})
 
 export const CustomCursor: CursorComponent = ({ color, metadata }) => {
   return (
@@ -57,7 +57,7 @@ export const CustomCursor: CursorComponent = ({ color, metadata }) => {
           borderRadius: '100%',
         }}
       />
-      {metadata?.name != undefined && (
+      {metadata?.name !== undefined && (
         <div
           style={{
             // whiteSpace: "nowrap",
@@ -71,5 +71,5 @@ export const CustomCursor: CursorComponent = ({ color, metadata }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}

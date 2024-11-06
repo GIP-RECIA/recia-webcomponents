@@ -14,36 +14,37 @@
  * limitations under the License.
  */
 
-import oidc from '@uportal/open-id-connect';
-import axios from 'axios';
+import oidc from '@uportal/open-id-connect'
+import axios from 'axios'
 
-const getToken = async (userInfoApiUrl: string): Promise<string | undefined> => {
+async function getToken(userInfoApiUrl: string): Promise<string | undefined> {
   try {
     const { encoded } = await oidc({
-      userInfoApiUrl: userInfoApiUrl,
-    });
-    return encoded;
-  } catch (error) {
-    console.error('error: ', error);
+      userInfoApiUrl,
+    })
+    return encoded
   }
-};
+  catch (error) {
+    console.error('error: ', error)
+  }
+}
 
-const getChangeEtab = async (url: string, userInfoApiUrl: string) => {
+async function getChangeEtab(url: string, userInfoApiUrl: string) {
   return await axios.get(`${url}`, {
     headers: {
-      Authorization: `Bearer ${await getToken(userInfoApiUrl)}`,
+      'Authorization': `Bearer ${await getToken(userInfoApiUrl)}`,
       'content-type': 'application/jwt',
     },
-  });
-};
+  })
+}
 
-const updateCurrentStruct = async (url: string, userInfoApiUrl: string) => {
+async function updateCurrentStruct(url: string, userInfoApiUrl: string) {
   return await axios.put(`${url}`, null, {
     headers: {
-      Authorization: `Bearer ${await getToken(userInfoApiUrl)}`,
+      'Authorization': `Bearer ${await getToken(userInfoApiUrl)}`,
       'content-type': 'application/jwt',
     },
-  });
-};
+  })
+}
 
-export { getChangeEtab, updateCurrentStruct };
+export { getChangeEtab, updateCurrentStruct }

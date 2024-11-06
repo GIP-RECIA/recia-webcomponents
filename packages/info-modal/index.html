@@ -9,11 +9,11 @@
       document.addEventListener('DOMContentLoaded', () => {
         // important pour remettre le focus sur l'élément
         // déclencheur à la fermeture de la modale
-        let triggerElement;
+        let triggerElement
 
         // Ajout d'un écouteur d'évenement
         // sur le bouton déclencheur + création d'un événement personnalisé.
-        let buttonElement = document.querySelector('#btn-modal');
+        let buttonElement = document.querySelector('#btn-modal')
         buttonElement.addEventListener('click', () => {
           buttonElement.dispatchEvent(
             new CustomEvent('openModale', {
@@ -23,27 +23,27 @@
               bubbles: true, // Permet à l'événement de remonter dans le DOM
               composed: true, // Permet à l'événement de sortir du shadow DOM
             }),
-          );
-        });
+          )
+        })
 
         // Ajout d'un écouteur d'évenement sur l'évenement personnalisé "openModale"
         document.addEventListener('openModale', (event) => {
-          const modale = document.getElementById('modale');
+          const modale = document.getElementById('modale')
 
-          triggerElement = event.composedPath()[0]; // donne l'élément déclencheur
+          triggerElement = event.composedPath()[0] // donne l'élément déclencheur
 
-          modale.mainElement = document.getElementsByTagName('main')[0];
-          modale.isOpen = !modale.isOpen;
-          modale.titleModal = event.detail.title;
-        });
+          modale.mainElement = document.getElementsByTagName('main')[0]
+          modale.isOpen = !modale.isOpen
+          modale.titleModal = event.detail.title
+        })
 
         document.addEventListener('closeModale', (event) => {
           if (triggerElement) {
-            triggerElement.focus();
-            event.preventDefault();
+            triggerElement.focus()
+            event.preventDefault()
           }
-        });
-      });
+        })
+      })
     </script>
   </head>
   <body>

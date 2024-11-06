@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-import oidc, { type JWT } from '@uportal/open-id-connect';
-import { jwtDecode } from 'jwt-decode';
+import oidc, { type JWT } from '@uportal/open-id-connect'
+import { jwtDecode } from 'jwt-decode'
 
-let userInfoApiUrl: string;
+let userInfoApiUrl: string
 
-const setUserInfoApiUrl = (url: string): void => {
-  userInfoApiUrl = url;
-};
+function setUserInfoApiUrl(url: string): void {
+  userInfoApiUrl = url
+}
 
-const getJwt = async (): Promise<{ encoded: string; decoded: JWT }> => {
-  const { encoded, decoded } = await oidc({ userInfoApiUrl });
+async function getJwt(): Promise<{ encoded: string, decoded: JWT }> {
+  const { encoded, decoded } = await oidc({ userInfoApiUrl })
 
-  return { encoded, decoded };
-};
+  return { encoded, decoded }
+}
 
-const parseJwt = (token: string): JWT => jwtDecode(token);
+const parseJwt = (token: string): JWT => jwtDecode(token)
 
-export { setUserInfoApiUrl, getJwt, parseJwt };
+export { getJwt, parseJwt, setUserInfoApiUrl }

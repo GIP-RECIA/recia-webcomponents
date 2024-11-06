@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-import I18nHostCe from './components/I18nHost.ce.vue';
-import PageChangeEtabCe from './components/PageChangeEtab.ce.vue';
-import { defineCustomElement } from 'vue';
+import { defineCustomElement } from 'vue'
+import I18nHostCe from './components/I18nHost.ce.vue'
+import PageChangeEtabCe from './components/PageChangeEtab.ce.vue'
 
-const I18nHost = defineCustomElement(I18nHostCe);
-const PageChangeEtab = defineCustomElement(PageChangeEtabCe);
+const I18nHost = defineCustomElement(I18nHostCe)
+const PageChangeEtab = defineCustomElement(PageChangeEtabCe)
 
 declare module 'vue' {
   export interface GlobalComponents {
-    I18nHost: typeof I18nHost;
-    PageChangeEtab: typeof PageChangeEtab;
+    I18nHost: typeof I18nHost
+    PageChangeEtab: typeof PageChangeEtab
   }
 }
 
-const register = () => {
-  customElements.define('change-etab', I18nHost);
-  customElements.define('page-change-etab', PageChangeEtab);
-};
+function register() {
+  customElements.define('change-etab', I18nHost)
+  customElements.define('page-change-etab', PageChangeEtab)
+}
 
-export { I18nHost, PageChangeEtab, register };
+export { I18nHost, PageChangeEtab, register }

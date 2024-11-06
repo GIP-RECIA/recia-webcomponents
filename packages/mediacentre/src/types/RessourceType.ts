@@ -14,56 +14,56 @@
  * limitations under the License.
  */
 
-import type { DomaineEnseignement } from './DomaineEnseignementType';
-import type { IdEtablissement } from './IdEtablissementType';
-import type { NiveauEducatif } from './NiveauEducatifType';
-import type { TypePedagogique } from './TypePedagogiqueType';
-import type { TypePresentation } from '@/types/TypePresentationType';
-import type { TypologieDocument } from '@/types/TypologieDocumentType';
+import type { TypePresentation } from '@/types/TypePresentationType'
+import type { TypologieDocument } from '@/types/TypologieDocumentType'
+import type { DomaineEnseignement } from './DomaineEnseignementType'
+import type { IdEtablissement } from './IdEtablissementType'
+import type { NiveauEducatif } from './NiveauEducatifType'
+import type { TypePedagogique } from './TypePedagogiqueType'
 
-export type Ressource = {
-  distributeurTech: string;
+export interface Ressource {
+  distributeurTech: string
 
-  domaineEnseignement: Array<DomaineEnseignement>;
+  domaineEnseignement: Array<DomaineEnseignement>
 
-  idEditeur: string;
+  idEditeur: string
 
-  idEtablissement: Array<IdEtablissement>;
+  idEtablissement: Array<IdEtablissement>
 
-  idRessource: string;
+  idRessource: string
 
-  idType: string;
+  idType: string
 
-  niveauEducatif: Array<NiveauEducatif>;
+  niveauEducatif: Array<NiveauEducatif>
 
-  nomEditeur: string;
+  nomEditeur: string
 
-  nomRessource: string;
+  nomRessource: string
 
-  sourceEtiquette: string;
+  sourceEtiquette: string
 
-  typePedagogique: Array<TypePedagogique>;
+  typePedagogique: Array<TypePedagogique>
 
-  typePresentation: TypePresentation;
+  typePresentation: TypePresentation
 
-  typologieDocument: Array<TypologieDocument>;
+  typologieDocument: Array<TypologieDocument>
 
-  urlAccesRessource: string;
+  urlAccesRessource: string
 
-  urlSourceEtiquette: string;
+  urlSourceEtiquette: string
 
-  urlVignette: string | undefined;
+  urlVignette: string | undefined
 
-  validateurTech: string;
+  validateurTech: string
 
-  description?: string;
+  description?: string
 
-  isFavorite: boolean;
-};
+  isFavorite: boolean
+}
 
 export function createResourceFromJson(jsonData: any): Ressource {
   return {
     ...jsonData,
     isFavorite: jsonData.isFavorite ?? false,
-  };
+  }
 }

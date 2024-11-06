@@ -1,38 +1,38 @@
 {
   "name": "@gip-recia/wisemapping-webcomponent",
-  "version": "0.1.0",
   "type": "module",
-  "files": [
-    "dist"
-  ],
+  "version": "0.1.0",
   "description": "Wisemapping web component",
-  "keywords": [
-    "wisemapping",
-    "web component",
-    "gip-recia"
-  ],
-  "homepage": "https://github.com/GIP-RECIA/recia-webcomponents/tree/main/packages/wisemapping/#readme",
-  "bugs": {
-    "url": "https://github.com/GIP-RECIA/recia-webcomponents/issues"
-  },
-  "license": "Apache-2.0",
   "author": {
     "name": "Quentin Guillemin",
     "email": "guillemin.quentin@outlook.fr",
     "url": "https://github.com/Quentin-Guillemin"
   },
-  "main": "./dist/wisemapping-webcomponent.js",
-  "module": "./dist/wisemapping-webcomponent.js",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/GIP-RECIA/recia-webcomponents/tree/main/packages/wisemapping/#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GIP-RECIA/recia-webcomponents.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GIP-RECIA/recia-webcomponents/issues"
+  },
+  "keywords": [
+    "wisemapping",
+    "web component",
+    "gip-recia"
+  ],
   "exports": {
     ".": {
       "import": "./dist/wisemapping-webcomponent.js",
       "require": "./dist/wisemapping-webcomponent.js"
     }
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/GIP-RECIA/recia-webcomponents.git"
-  },
+  "main": "./dist/wisemapping-webcomponent.js",
+  "module": "./dist/wisemapping-webcomponent.js",
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -40,42 +40,37 @@
     "dev": "dotenv-checker && vite --host",
     "build": "vite build && yarn build:min",
     "build:min": "npm exec terser -- -c -m --module dist/wisemapping-webcomponent.js > dist/wisemapping-webcomponent.min.js",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint src/*",
     "preview": "vite preview",
     "test:unit": "echo No tests available",
-    "format:check": "prettier --config ../../.prettierrc.json --ignore-path ../../.prettierignore --check src/",
-    "format": "prettier --config ../../.prettierrc.json --ignore-path ../../.prettierignore --write src/",
     "release": "yarn run -T commit-and-tag-version -t 'wisemapping-webcomponent/v'",
-    "release:minor": "yarn run -T commit-and-tag-version -t 'wisemapping-webcomponent/v' --release-as minor",
     "release:patch": "yarn run -T commit-and-tag-version -t 'wisemapping-webcomponent/v' --release-as patch",
+    "release:minor": "yarn run -T commit-and-tag-version -t 'wisemapping-webcomponent/v' --release-as minor",
     "release:major": "yarn run -T commit-and-tag-version -t 'wisemapping-webcomponent/v' --release-as major"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^3.8.0",
+    "@eslint-react/eslint-plugin": "^1.15.0",
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@gip-recia/wisemapping-editor": "6.0.0-recia-1.0.2405231",
     "@r2wc/react-to-web-component": "^2.0.3",
-    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/lodash.throttle": "^4",
     "@types/node": "^22",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/regenerator-runtime": "^0",
-    "@typescript-eslint/eslint-plugin": "^8.8.1",
-    "@typescript-eslint/parser": "^8.10.0",
     "@uportal/open-id-connect": "^1.40.2",
     "@vitejs/plugin-react": "^4.3.3",
     "axios": "^1.7.7",
     "dotenv-checker": "^1.1.7",
-    "eslint": "^8.57.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
+    "eslint": "^9.14.0",
+    "eslint-plugin-format": "^0.1.2",
     "eslint-plugin-react-hooks": "^5.0.0",
-    "eslint-plugin-react-refresh": "^0.4.14",
+    "eslint-plugin-react-refresh": "^0.4.12",
     "jwt-decode": "^4.0.0",
     "lodash.throttle": "^4.1.1",
-    "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "regenerator-runtime": "^0.14.1",

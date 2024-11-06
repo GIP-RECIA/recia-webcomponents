@@ -14,26 +14,27 @@
  * limitations under the License.
  */
 
-import i18n from '@/plugins/i18n';
-import { toast } from 'vue3-toastify';
+import i18n from '@/plugins/i18n'
+import { toast } from 'vue3-toastify'
 
-const { t } = i18n.global;
+const { t } = i18n.global
 
-const showError = (errorMsgKey: string) => {
-  let errorMessage: string;
+function showError(errorMsgKey: string) {
+  let errorMessage: string
   if (['perte-connexion', 'permission-refusee'].includes(errorMsgKey)) {
-    errorMessage = t(`error.${errorMsgKey}`);
-  } else {
-    errorMessage = t(`error.aucun-connexion-api`);
+    errorMessage = t(`error.${errorMsgKey}`)
+  }
+  else {
+    errorMessage = t(`error.aucun-connexion-api`)
   }
 
   toast.error(errorMessage, {
     autoClose: false,
-  });
-};
+  })
+}
 
-const showSuccess = () => {
-  toast.success(t(`success.update-success`));
-};
+function showSuccess() {
+  toast.success(t(`success.update-success`))
+}
 
-export { showError, showSuccess };
+export { showError, showSuccess }

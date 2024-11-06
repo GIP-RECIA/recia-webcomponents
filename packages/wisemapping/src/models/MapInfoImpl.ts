@@ -14,61 +14,61 @@
  * limitations under the License.
  */
 
-import { MapInfo } from '@gip-recia/wisemapping-editor/dist/editor.js';
+import type { MapInfo } from '@gip-recia/wisemapping-editor/dist/editor.js'
 
 class MapInfoImpl implements MapInfo {
-  private id: string;
-  private title: string;
-  private creatorFullName: string;
-  private locked: boolean;
-  private lockedMsg: string | undefined;
-  private starred: boolean;
+  private id: string
+  private title: string
+  private creatorFullName: string
+  private locked: boolean
+  private lockedMsg: string | undefined
+  private starred: boolean
 
   constructor(id: string, title: string, creatorFullName: string, locked: boolean, lockedMsg?: string) {
-    this.id = id;
-    this.title = title;
-    this.creatorFullName = creatorFullName;
-    this.locked = locked;
-    this.lockedMsg = lockedMsg;
-    this.starred = true;
+    this.id = id
+    this.title = title
+    this.creatorFullName = creatorFullName
+    this.locked = locked
+    this.lockedMsg = lockedMsg
+    this.starred = true
   }
 
   getId(): string {
-    return this.id;
+    return this.id
   }
 
   getTitle(): string {
-    return this.title;
+    return this.title
   }
 
   setTitle(value: string): void {
-    throw (this.title = value);
+    throw (this.title = value)
   }
 
   getCreatorFullName(): string {
-    return this.creatorFullName;
+    return this.creatorFullName
   }
 
   isLocked(): boolean {
-    return this.locked;
+    return this.locked
   }
 
   getLockedMessage(): string {
-    return this.lockedMsg ? this.lockedMsg : '';
+    return this.lockedMsg ? this.lockedMsg : ''
   }
 
   isStarred(): Promise<boolean> {
-    return Promise.resolve(this.starred);
+    return Promise.resolve(this.starred)
   }
 
   updateStarred(value: boolean): Promise<void> {
-    this.starred = value;
-    return Promise.resolve();
+    this.starred = value
+    return Promise.resolve()
   }
 
   getZoom(): number {
-    return 0.8;
+    return 0.8
   }
 }
 
-export default MapInfoImpl;
+export default MapInfoImpl

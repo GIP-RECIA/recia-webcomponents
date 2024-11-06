@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import { CommonProps } from './CommonProps';
-import { WebsocketProvider } from 'y-websocket';
+import type { WebsocketProvider } from 'y-websocket'
+import type { CommonProps } from './CommonProps'
 
 export type MultiplayerEditorProps = {
-  persistanceApiUrl?: string;
-  assetsApiUrl?: string;
-  token?: string;
-  websocketApiUrl: string;
-  roomId: string;
-  initUrl?: string;
-  owner: boolean;
-  clearOnLeave: boolean;
-  leave: boolean;
-  setProvider: (value: WebsocketProvider) => void;
-} & CommonProps;
+  persistanceApiUrl?: string
+  assetsApiUrl?: string
+  token?: string
+  websocketApiUrl: string
+  roomId: string
+  initUrl?: string
+  owner: boolean
+  clearOnLeave: boolean
+  leave: boolean
+  setProvider: (value: WebsocketProvider) => void
+} & CommonProps

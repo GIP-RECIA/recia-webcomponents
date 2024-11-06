@@ -15,50 +15,50 @@
 -->
 
 <script setup lang="ts">
-import type { DistributeursCom } from '@/types/disctibuteurComType';
-import type { Ressource } from '@/types/ressourceType';
-import debounce from 'lodash.debounce';
-import { onMounted, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
+import type { DistributeursCom } from '@/types/disctibuteurComType'
+import type { Ressource } from '@/types/ressourceType'
+import debounce from 'lodash.debounce'
+import { onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
-  ressource: Ressource;
-}>();
+  ressource: Ressource
+}>()
 
-const plusInfos = ref<boolean>(false);
-const distributeursComComputed = ref<Array<DistributeursCom>>([]);
+const plusInfos = ref<boolean>(false)
+const distributeursComComputed = ref<Array<DistributeursCom>>([])
 
 onMounted(() => {
   distributeursComComputed.value = props.ressource.distributeursCom.filter(
     (distributeurCom: DistributeursCom) => distributeurCom.nom !== '',
-  );
-});
+  )
+})
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const afficherPlusInfos = (): void => {
-  plusInfos.value = !plusInfos.value;
-};
+function afficherPlusInfos(): void {
+  plusInfos.value = !plusInfos.value
+}
 
-const isSuccess = ref<boolean>(false);
+const isSuccess = ref<boolean>(false)
 
 const resetSuccess = debounce(() => {
-  isSuccess.value = false;
-}, 1500);
+  isSuccess.value = false
+}, 1500)
 
-const copierReferences = (): void => {
+function copierReferences(): void {
   let string = `${t('carte-ressource.nom-ressource')}: ${props.ressource.ressource.nom}
 ${t('carte-ressource.id-gar')}: ${props.ressource.ressource.id}
-${t('carte-ressource.editeur')}: ${props.ressource.editeur.nom}`;
+${t('carte-ressource.editeur')}: ${props.ressource.editeur.nom}`
 
   props.ressource.distributeursCom.forEach((element) => {
-    string += `\n${t('carte-ressource.distributeurCom')}: ${element.nom}`;
-  });
+    string += `\n${t('carte-ressource.distributeurCom')}: ${element.nom}`
+  })
 
-  navigator.clipboard.writeText(string);
-  isSuccess.value = true;
-  resetSuccess();
-};
+  navigator.clipboard.writeText(string)
+  isSuccess.value = true
+  resetSuccess()
+}
 </script>
 
 <template>
@@ -73,40 +73,39 @@ ${t('carte-ressource.editeur')}: ${props.ressource.editeur.nom}`;
           {{ ressource.ressource.id }}
         </span>
       </li>
-      <li class="attribut-ressource-carte-ressource" v-if="ressource.editeur.nom !== '' || plusInfos">
+      <li v-if="ressource.editeur.nom !== '' || plusInfos" class="attribut-ressource-carte-ressource">
         <span class="intitule-attribut-ressource-carte-ressource"> {{ t('carte-ressource.editeur') }} : </span>
         <span class="nom-attribut-ressource-carte-ressource">
           {{ ressource.editeur.nom }}
         </span>
-        <span class="id-attribut-ressource-carte-ressource" v-if="plusInfos">&nbsp;{{ ressource.editeur.id }} </span>
+        <span v-if="plusInfos" class="id-attribut-ressource-carte-ressource">&nbsp;{{ ressource.editeur.id }} </span>
       </li>
       <li
-        class="attribut-ressource-carte-ressource"
         v-for="distributeurCom in distributeursComComputed"
         :key="distributeurCom.id"
+        class="attribut-ressource-carte-ressource"
       >
         <span class="intitule-attribut-ressource-carte-ressource"> {{ t('carte-ressource.distributeurCom') }} : </span>
         <span class="nom-attribut-ressource-carte-ressource">
           {{ distributeurCom.nom }}
         </span>
-        <span class="id-attribut-ressource-carte-ressource" v-if="plusInfos">&nbsp;{{ distributeurCom.id }} </span>
+        <span v-if="plusInfos" class="id-attribut-ressource-carte-ressource">&nbsp;{{ distributeurCom.id }} </span>
       </li>
-      <li class="attribut-ressource-carte-ressource" v-if="plusInfos">
+      <li v-if="plusInfos" class="attribut-ressource-carte-ressource">
         <span class="intitule-attribut-ressource-carte-ressource"> {{ t('carte-ressource.distributeurTech') }} : </span>
         <span class="nom-attribut-ressource-carte-ressource">
           {{ ressource.distributeurTech.nom }}
         </span>
-        <span class="id-attribut-ressource-carte-ressource" v-if="plusInfos"
-          >&nbsp;{{ ressource.distributeurTech.id }}
+        <span v-if="plusInfos" class="id-attribut-ressource-carte-ressource">&nbsp;{{ ressource.distributeurTech.id }}
         </span>
       </li>
-      <li class="attribut-ressource-carte-ressource" v-if="plusInfos">
+      <li v-if="plusInfos" class="attribut-ressource-carte-ressource">
         <span class="intitule-attribut-ressource-carte-ressource"> {{ t('carte-ressource.affichable') }} : </span>
         <span class="nom-attribut-ressource-carte-ressource">
           {{ ressource.affichable ? t('carte-ressource.oui') : t('carte-ressource.non') }}
         </span>
       </li>
-      <li class="attribut-ressource-carte-ressource" v-if="plusInfos">
+      <li v-if="plusInfos" class="attribut-ressource-carte-ressource">
         <span class="intitule-attribut-ressource-carte-ressource"> {{ t('carte-ressource.diffusable') }} : </span>
         <span class="nom-attribut-ressource-carte-ressource">
           {{ ressource.diffusable ? t('carte-ressource.oui') : t('carte-ressource.non') }}

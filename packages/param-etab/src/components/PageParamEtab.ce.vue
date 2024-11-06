@@ -15,82 +15,84 @@
 -->
 
 <script setup lang="ts">
-import { getParametab } from '@/services/serviceParametab';
-import { showError } from '@/utils/useToast';
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-
-const parametab = ref<any>([]);
-const etabJson = ref<string>('');
-const currentEtab = ref<string>('');
-const windowWidth = ref<number>(window.innerWidth);
-const isVisible = ref<boolean>(false);
-const nameEtabSelected = ref<string>('');
-const findEtab = ref<any[]>([]);
+import { getParametab } from '@/services/serviceParametab'
+import { showError } from '@/utils/useToast'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 const props = defineProps<{
-  paramEtabApi: string;
-  userInfoApiUrl: string;
-  defaultLogoIcon: string;
-}>();
+  paramEtabApi: string
+  userInfoApiUrl: string
+  defaultLogoIcon: string
+}>()
+
+const parametab = ref<any>([])
+const etabJson = ref<string>('')
+const currentEtab = ref<string>('')
+const windowWidth = ref<number>(window.innerWidth)
+const isVisible = ref<boolean>(false)
+const nameEtabSelected = ref<string>('')
+const findEtab = ref<any[]>([])
 
 onMounted(async () => {
   try {
-    const res = await getParametab(props.paramEtabApi, props.userInfoApiUrl);
-    parametab.value = res.data;
+    const res = await getParametab(props.paramEtabApi, props.userInfoApiUrl)
+    parametab.value = res.data
     // List of etablissement
-    etabJson.value = JSON.stringify(parametab.value.listEtab);
-    currentEtab.value = parametab.value.currentStruct;
-    findEtab.value = JSON.parse(etabJson.value);
-  } catch (error: any) {
-    console.error('error : ', error.response.data);
-    showError(error.response.data);
+    etabJson.value = JSON.stringify(parametab.value.listEtab)
+    currentEtab.value = parametab.value.currentStruct
+    findEtab.value = JSON.parse(etabJson.value)
   }
-  window.addEventListener('resize', handleResize);
-});
+  catch (error: any) {
+    console.error('error : ', error.response.data)
+    showError(error.response.data)
+  }
+  window.addEventListener('resize', handleResize)
+})
 
 onBeforeUnmount(() => {
-  window.removeEventListener('resize', handleResize);
-});
+  window.removeEventListener('resize', handleResize)
+})
 
 const isMobile = computed(() => {
-  return windowWidth.value < 1024;
-});
+  return windowWidth.value < 1024
+})
 
-const handleResize = () => {
-  windowWidth.value = window.innerWidth;
-};
+function handleResize() {
+  windowWidth.value = window.innerWidth
+}
 
-const filteredName = () => {
-  let name: any = '';
+function filteredName() {
+  let name: any = ''
   if (!etabJson.value) {
-    return;
+    return
   }
-  name = findEtab.value.find((etab: any) => etab.idSiren.toString() === currentEtab.value);
+  name = findEtab.value.find((etab: any) => etab.idSiren.toString() === currentEtab.value)
   if (!name) {
-    currentEtab.value = findEtab.value[0].idSiren;
-    name = findEtab.value[0].etabName;
-  } else {
-    name = name.etabName;
+    currentEtab.value = findEtab.value[0].idSiren
+    name = findEtab.value[0].etabName
   }
-  nameEtabSelected.value = name;
-};
+  else {
+    name = name.etabName
+  }
+  nameEtabSelected.value = name
+}
 
 watch(currentEtab, () => {
-  filteredName();
-});
+  filteredName()
+})
 
 function select(payload: CustomEvent, isBoolean: boolean) {
-  let getID = payload.detail[0].idSiren;
-  let getName = payload.detail[0].etabName;
+  const getID = payload.detail[0].idSiren
+  const getName = payload.detail[0].etabName
 
   if (getID !== currentEtab.value) {
-    currentEtab.value = getID;
+    currentEtab.value = getID
   }
 
   if (isBoolean) {
-    isVisible.value = false;
-    nameEtabSelected.value = getName;
-    currentEtab.value = getID;
+    isVisible.value = false
+    nameEtabSelected.value = getName
+    currentEtab.value = getID
   }
 }
 </script>
@@ -102,10 +104,10 @@ function select(payload: CustomEvent, isBoolean: boolean) {
         class-input="input-search"
         class-li="item etab"
         class-div="list-etab"
-        v-bind:data-json="etabJson"
+        :data-json="etabJson"
         :data-current="currentEtab"
-        @selectEtab="select($event, false)"
-      ></list-etab>
+        @select-etab="select($event, false)"
+      />
     </div>
     <div v-else class="dropdown-wrapper">
       <div class="selected-etab" @click="isVisible = !isVisible">
@@ -116,10 +118,10 @@ function select(payload: CustomEvent, isBoolean: boolean) {
           class-input="input-search-mobile"
           class-li="opt-list"
           class-div="options"
-          v-bind:data-json="etabJson"
+          :data-json="etabJson"
           :data-current="currentEtab"
-          @selectEtab="select($event, true)"
-        ></list-etab>
+          @select-etab="select($event, true)"
+        />
       </div>
     </div>
     <div class="detail">
@@ -129,10 +131,11 @@ function select(payload: CustomEvent, isBoolean: boolean) {
         :param-etab-api="paramEtabApi"
         :user-info-api-url="userInfoApiUrl"
         :default-logo-icon="defaultLogoIcon"
-      ></detail-etab>
+      />
     </div>
   </div>
 </template>
+
 <style lang="scss">
 @import '../assets/base.scss';
 

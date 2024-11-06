@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-export type IdEtablissement = {
-  id: string;
-  UAI: string;
-  nom: string | undefined;
-};
+export interface IdEtablissement {
+  id: string
+  UAI: string
+  nom: string | undefined
+}

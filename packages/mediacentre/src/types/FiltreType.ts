@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export type Filtre = {
-  id: string;
-  nom: string;
-};
+export interface Filtre {
+  id: string
+  nom: string
+}

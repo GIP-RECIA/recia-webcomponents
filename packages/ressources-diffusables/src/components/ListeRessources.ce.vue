@@ -15,17 +15,19 @@
 -->
 
 <script setup lang="ts">
-import type { Ressource } from '@/types/ressourceType';
-import { useI18n } from 'vue-i18n';
+import type { Ressource } from '@/types/ressourceType'
+import { useI18n } from 'vue-i18n'
 
 defineProps<{
-  ressources: Array<Ressource>;
-  erreur: string;
-  lectureTerminee: boolean;
-  chargement: boolean | null;
-}>();
+  ressources: Array<Ressource>
+  erreur: string
+  lectureTerminee: boolean
+  chargement: boolean | null
+}>()
 
-const { t } = useI18n();
+defineEmits(['getPageSuivante'])
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -38,7 +40,7 @@ const { t } = useI18n();
         {{ t('liste-ressources.chargement') }}
       </p>
       <p v-else-if="erreur !== ''">
-        {{ t('liste-ressources.erreur') }}<br />
+        {{ t('liste-ressources.erreur') }}<br>
         {{ t('liste-ressources.detail-erreur') }}: <code>{{ erreur }}</code>
       </p>
       <p v-else-if="ressources.length === 0">

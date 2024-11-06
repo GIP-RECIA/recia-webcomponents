@@ -20,7 +20,7 @@ const {
   VITE_RESSOURCES_DIFFUSABLES_API_URI,
   VITE_RESSOURCES_DIFFUSABLES_SIZE_API_URI,
   VITE_USER_INFO_API_URI,
-} = import.meta.env;
+} = import.meta.env
 </script>
 
 <template>

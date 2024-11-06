@@ -14,4 +14,6 @@
  limitations under the License.
 -->
 
-<template><div></div></template>
+<template>
+  <div />
+</template>

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export type TypologieDocument = {
-  nom: string;
-  uri: string;
-};
+export interface TypologieDocument {
+  nom: string
+  uri: string
+}

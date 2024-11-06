@@ -14,34 +14,37 @@
  * limitations under the License.
  */
 
-import oidc from '@uportal/open-id-connect';
-import axios from 'axios';
+import oidc from '@uportal/open-id-connect'
+import axios from 'axios'
 
-const getToken = async (userInfoApiUrl: string): Promise<string> => {
-  const { encoded } = await oidc({ userInfoApiUrl: userInfoApiUrl });
+async function getToken(userInfoApiUrl: string): Promise<string> {
+  const { encoded } = await oidc({ userInfoApiUrl })
 
-  return encoded;
-};
+  return encoded
+}
 
-const getUrlParams = (recherche: string): string =>
-  recherche !== ''
+function getUrlParams(recherche: string): string {
+  return recherche !== ''
     ? `&operator=OR&idRessource=${recherche}&nomRessource=${recherche}&idEditeur=${recherche}&nomEditeur=${recherche}&distributeurCom=${recherche}&nomDistributeurCom=${recherche}&distributeurTech=${recherche}&nomDistributeurTech=${recherche}`
-    : '';
+    : ''
+}
 
-const getRessourcesDiffusables = async (url: string, userInfoApiUrl: string, page: number, recherche: string) =>
-  await axios.get(`${url}?ressourcesPerPage=20&page=${page}${getUrlParams(recherche)}`, {
+async function getRessourcesDiffusables(url: string, userInfoApiUrl: string, page: number, recherche: string) {
+  return await axios.get(`${url}?ressourcesPerPage=20&page=${page}${getUrlParams(recherche)}`, {
     headers: {
-      Authorization: `Bearer ${await getToken(userInfoApiUrl)}`,
+      'Authorization': `Bearer ${await getToken(userInfoApiUrl)}`,
       'content-type': 'application/jwt',
     },
-  });
+  })
+}
 
-const getSize = async (url: string, userInfoApiUrl: string, recherche: string) =>
-  await axios.get(`${url}?${getUrlParams(recherche)}`, {
+async function getSize(url: string, userInfoApiUrl: string, recherche: string) {
+  return await axios.get(`${url}?${getUrlParams(recherche)}`, {
     headers: {
-      Authorization: `Bearer ${await getToken(userInfoApiUrl)}`,
+      'Authorization': `Bearer ${await getToken(userInfoApiUrl)}`,
       'content-type': 'application/jwt',
     },
-  });
+  })
+}
 
-export { getRessourcesDiffusables, getSize };
+export { getRessourcesDiffusables, getSize }

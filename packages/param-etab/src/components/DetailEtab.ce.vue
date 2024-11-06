@@ -15,16 +15,28 @@
 -->
 
 <script setup lang="ts">
-import type { StructureDetail } from '../types/structureType';
-import { getDetailEtab, updateEtab } from '@/services/serviceParametab';
-import { showError, showSuccess } from '@/utils/useToast';
-import { computed, onMounted, ref, watch, watchEffect } from 'vue';
-import { useI18n } from 'vue-i18n';
+import type { StructureDetail } from '../types/structureType'
+import { getDetailEtab, updateEtab } from '@/services/serviceParametab'
+import { showError, showSuccess } from '@/utils/useToast'
+import { computed, onMounted, ref, watch, watchEffect } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n();
-const m = (key: string): string => t(`detail-etab.${key}`);
-const tmp = ref<{ customName: string | null; siteWeb: string | null }>({ customName: '', siteWeb: '' });
-const getDetailsAsString = ref<string>('');
+const props = defineProps<{
+  structCurrent: string
+  detail: string
+  paramEtabApi: string
+  userInfoApiUrl: string
+  defaultLogoIcon: string
+}>()
+
+const { t } = useI18n()
+
+const m = (key: string): string => t(`detail-etab.${key}`)
+
+const tmp = ref<{ customName: string | null, siteWeb: string | null }>({ customName: '', siteWeb: '' })
+
+const getDetailsAsString = ref<string>('')
+
 const details = ref<StructureDetail>({
   id: '',
   name: '',
@@ -34,99 +46,96 @@ const details = ref<StructureDetail>({
   structCustomDisplayName: '',
   structLogo: '',
   structSiteWeb: '',
-});
+})
 
-const props = defineProps<{
-  structCurrent: string;
-  detail: string;
-  paramEtabApi: string;
-  userInfoApiUrl: string;
-  defaultLogoIcon: string;
-}>();
-
-const initForm = (): void => {
+function initForm(): void {
   tmp.value = {
     customName: details.value.structCustomDisplayName,
     siteWeb: details.value.structSiteWeb,
-  };
-};
+  }
+}
 
 watchEffect((): void => {
   void (async () => {
-    await fetchDetailData(props.detail);
-  })();
-});
+    await fetchDetailData(props.detail)
+  })()
+})
 
-watch(details, (): void => initForm());
+watch(details, (): void => initForm())
 
 async function fetchDetailData(id: string) {
-  if (id != '') {
+  if (id !== '') {
     try {
-      const response = await getDetailEtab(props.paramEtabApi + id);
-      details.value = response.data;
-      getDetailsAsString.value = JSON.stringify(details.value);
-    } catch (error) {
-      console.error('error: ', error);
+      const response = await getDetailEtab(props.paramEtabApi + id)
+      details.value = response.data
+      getDetailsAsString.value = JSON.stringify(details.value)
+    }
+    catch (error) {
+      console.error('error: ', error)
     }
   }
 }
 
 async function updateInfo() {
   try {
-    const structCustomDisplayName =
-      tmp.value.customName && tmp.value.customName.trim().length > 0 ? tmp.value.customName : null;
-    const structSiteWeb = tmp.value.siteWeb && tmp.value.siteWeb.trim().length > 0 ? tmp.value.siteWeb : null;
+    const structCustomDisplayName
+      = tmp.value.customName && tmp.value.customName.trim().length > 0 ? tmp.value.customName : null
+    const structSiteWeb = tmp.value.siteWeb && tmp.value.siteWeb.trim().length > 0 ? tmp.value.siteWeb : null
 
     const response = await updateEtab(
-      props.paramEtabApi + `update/${props.detail}`,
+      `${props.paramEtabApi}update/${props.detail}`,
       { ...details.value, structCustomDisplayName, structSiteWeb },
       props.userInfoApiUrl,
-    );
-    details.value = response.data;
+    )
+    details.value = response.data
 
-    if (props.detail == props.structCurrent) {
+    if (props.detail === props.structCurrent) {
       const myEvent = new CustomEvent('update-structure-name', {
         detail: {
           structName: details.value.structCustomDisplayName,
         },
         bubbles: true,
         composed: true,
-      });
-      document.dispatchEvent(myEvent);
+      })
+      document.dispatchEvent(myEvent)
     }
-    showSuccess();
-  } catch (error: any) {
-    console.error('error: ', error);
-    showError(error);
+    showSuccess()
+  }
+  catch (error: any) {
+    console.error('error: ', error)
+    showError(error)
   }
 }
 
 const isButtonDisabled = computed<boolean>(() => {
-  const structCustomDisplayName =
-    tmp.value.customName && tmp.value.customName.trim().length > 0 ? tmp.value.customName : null;
-  const structSiteWeb = tmp.value.siteWeb && tmp.value.siteWeb.trim().length > 0 ? tmp.value.siteWeb : null;
+  const structCustomDisplayName
+    = tmp.value.customName && tmp.value.customName.trim().length > 0 ? tmp.value.customName : null
+  const structSiteWeb = tmp.value.siteWeb && tmp.value.siteWeb.trim().length > 0 ? tmp.value.siteWeb : null
 
-  let checkCustomName = true;
-  const customNameHasChanged = structCustomDisplayName != details.value.structCustomDisplayName;
-  if (details.value.structCustomDisplayName != null)
-    checkCustomName = checkCustomName && structCustomDisplayName != null;
+  let checkCustomName = true
+  const customNameHasChanged = structCustomDisplayName !== details.value.structCustomDisplayName
+  if (details.value.structCustomDisplayName !== null)
+    checkCustomName = checkCustomName && structCustomDisplayName != null
 
-  let checkSiteWeb = true;
-  const siteWebHasChanged = structSiteWeb != details.value.structSiteWeb;
-  if (details.value.structSiteWeb != null) checkSiteWeb = checkSiteWeb && structSiteWeb != null;
+  let checkSiteWeb = true
+  const siteWebHasChanged = structSiteWeb !== details.value.structSiteWeb
+  if (details.value.structSiteWeb != null)
+    checkSiteWeb = checkSiteWeb && structSiteWeb != null
 
-  return checkCustomName && checkSiteWeb && (customNameHasChanged || siteWebHasChanged);
-});
+  return checkCustomName && checkSiteWeb && (customNameHasChanged || siteWebHasChanged)
+})
 
-onMounted((): void => initForm());
+onMounted((): void => initForm())
 </script>
 
 <template>
   <span class="warn">
     {{ m('warn') }}
-    <br />{{ m('explication') }}
+    <br>{{ m('explication') }}
   </span>
-  <div class="title-info">{{ m('info') }}</div>
+  <div class="title-info">
+    {{ m('info') }}
+  </div>
   <div class="container">
     <image-cropper
       :struct-current="structCurrent"
@@ -136,36 +145,37 @@ onMounted((): void => initForm());
       :user-info-api-url="userInfoApiUrl"
       :default-logo-icon="defaultLogoIcon"
     >
-      <teleport to="body"></teleport
-    ></image-cropper>
+      <teleport to="body" />
+    </image-cropper>
 
     <div class="infos">
       <label class="label">
-        <input class="input-field" type="text" :value="details.name" disabled />
+        <input class="input-field" type="text" :value="details.name" disabled>
         <span>{{ m('nom-institutionnel') }}</span>
       </label>
       <label class="label">
         <input
           id="customName"
+          v-model="tmp.customName"
           class="input-field"
           type="text"
           :placeholder="m('nom-personnalise-placeholder')"
           :maxlength="56"
-          v-model="tmp.customName"
-        />
+        >
         <span>{{ m('nom-personnalise-titre') }}</span>
       </label>
       <label class="label">
-        <input class="input-field" type="text" :placeholder="m('lien-placeholder')" v-model="tmp.siteWeb" />
+        <input v-model="tmp.siteWeb" class="input-field" type="text" :placeholder="m('lien-placeholder')">
         <span>{{ m('lien') }}</span>
       </label>
-      <br />
+      <br>
       <button :disabled="!isButtonDisabled" class="btn-valider" @click="updateInfo">
         {{ m('valider') }}
       </button>
     </div>
   </div>
 </template>
+
 <style lang="scss">
 @import '../assets/base.scss';
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export type DomaineEnseignement = {
-  nom: string;
-  uri: string;
-};
+export interface DomaineEnseignement {
+  nom: string
+  uri: string
+}

@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-import { downloadBlob } from './fileUtils.ts';
-import { TDExport, TldrawApp } from '@gip-recia/tldraw-v1';
+import type { TDExport, TldrawApp } from '@gip-recia/tldraw-v1'
+import { downloadBlob } from './fileUtils.ts'
 
-const getName = (app: TldrawApp, info?: TDExport): string => {
-  return `${app.document.name}${info ? ' - ' + info.name : ''}`;
-};
+function getName(app: TldrawApp, info?: TDExport): string {
+  return `${app.document.name}${info ? ` - ${info.name}` : ''}`
+}
 
-const toTLDRFile = (app: TldrawApp): File => {
+function toTLDRFile(app: TldrawApp): File {
   return new File([JSON.stringify({ document: app.state.document })], getName(app), {
     type: 'application/tldr;charset=utf-8',
-  });
-};
+  })
+}
 
-const toImageFile = (app: TldrawApp, info: TDExport): File => {
-  return new File([info.blob], getName(app, info), { type: info.blob.type });
-};
+function toImageFile(app: TldrawApp, info: TDExport): File {
+  return new File([info.blob], getName(app, info), { type: info.blob.type })
+}
 
-const donwloadImageFile = (app: TldrawApp, info: TDExport): void => {
-  downloadBlob(info.blob, getName(app, info));
-};
+function donwloadImageFile(app: TldrawApp, info: TDExport): void {
+  downloadBlob(info.blob, getName(app, info))
+}
 
-export { toTLDRFile, toImageFile, donwloadImageFile };
+export { donwloadImageFile, toImageFile, toTLDRFile }

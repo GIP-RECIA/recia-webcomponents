@@ -1,32 +1,32 @@
 {
   "name": "@gip-recia/info-modal",
-  "version": "0.0.1",
   "type": "module",
-  "files": [
-    "dist"
-  ],
+  "version": "0.0.1",
   "description": "Info modal web component for GIP-Recia",
-  "keywords": [
-    "gip-recia"
-  ],
+  "contributors": [],
+  "license": "Apache-2.0",
   "homepage": "https://github.com/GIP-RECIA/recia-webcomponents/tree/main/packages/info-modal/#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GIP-RECIA/recia-webcomponents.git"
+  },
   "bugs": {
     "url": "https://github.com/GIP-RECIA/recia-webcomponents/issues"
   },
-  "license": "Apache-2.0",
-  "contributors": [],
-  "main": "./dist/info-modal.umd.cjs",
-  "module": "./dist/info-modal.js",
+  "keywords": [
+    "gip-recia"
+  ],
   "exports": {
     ".": {
       "import": "./dist/info-modal.js",
       "require": "./dist/info-modal.cjs"
     }
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/GIP-RECIA/recia-webcomponents.git"
-  },
+  "main": "./dist/info-modal.umd.cjs",
+  "module": "./dist/info-modal.js",
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -36,32 +36,27 @@
     "preview": "vite preview",
     "test:unit": "echo No tests available",
     "lint": "yarn run lint:lit-analyzer && yarn run lint:eslint",
-    "lint:eslint": "eslint 'src/**/*.ts'",
+    "lint:eslint": "eslint src/*",
     "lint:lit-analyzer": "lit-analyzer",
-    "format:check": "prettier --config ../../.prettierrc.json --ignore-path ../../.prettierignore --check src/",
-    "format": "prettier --config ../../.prettierrc.json --ignore-path ../../.prettierignore --write src/",
     "release": "yarn run -T commit-and-tag-version -t 'info-modal/v'",
-    "release:minor": "yarn run -T commit-and-tag-version -t 'info-modal/v' --release-as minor",
     "release:patch": "yarn run -T commit-and-tag-version -t 'info-modal/v' --release-as patch",
+    "release:minor": "yarn run -T commit-and-tag-version -t 'info-modal/v' --release-as minor",
     "release:major": "yarn run -T commit-and-tag-version -t 'info-modal/v' --release-as major"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^3.8.0",
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
-    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@tsconfig/node20": "^20.1.4",
     "@types/node": "^22",
-    "@typescript-eslint/eslint-plugin": "^8.8.1",
-    "@typescript-eslint/parser": "^8.10.0",
-    "eslint": "^8.57.1",
+    "eslint": "^9.14.0",
+    "eslint-plugin-format": "^0.1.2",
     "lit": "^3.2.1",
     "lit-analyzer": "^2.0.3",
     "lit-scss-loader": "^2.0.1",
-    "prettier": "^3.3.3",
     "sass": "^1.80.6",
     "terser": "^5.36.0",
     "typescript": "^5.6.3",
-    "typescript-eslint": "^8.8.1",
     "vite": "^5.4.10",
     "vite-plugin-sass": "^0.1.0"
   }

@@ -14,21 +14,18 @@
  * limitations under the License.
  */
 
-import 'regenerator-runtime/runtime.js';
+import App from '@/AppDev.vue'
+import { register as registerCustomElements } from '@/ce'
+import { register as registerFontAwsome } from '@/plugins/fontawesome'
+import i18n from '@/plugins/i18n'
+import { createApp } from 'vue'
+import 'regenerator-runtime/runtime.js'
 
-import { createApp } from 'vue';
+const app = createApp(App)
 
-import { register as registerCustomElements } from '@/ce';
-import { register as registerFontAwsome } from '@/plugins/fontawesome';
-import i18n from '@/plugins/i18n';
+registerCustomElements()
+registerFontAwsome()
 
-import App from '@/AppDev.vue';
+app.use(i18n)
 
-const app = createApp(App);
-
-registerCustomElements();
-registerFontAwsome();
-
-app.use(i18n);
-
-app.mount('#app');
+app.mount('#app')

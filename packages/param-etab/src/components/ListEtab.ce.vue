@@ -15,54 +15,56 @@
 -->
 
 <script setup lang="ts">
-import { type Ref, computed, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-
-const { t } = useI18n();
-const m = (key: string): string => t(`list-etab.${key}`);
+import { computed, type Ref, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
-  dataJson: string;
-  classInput: string;
-  classLi: string;
-  classDiv: string;
-  dataCurrent: string;
-}>();
+  dataJson: string
+  classInput: string
+  classLi: string
+  classDiv: string
+  dataCurrent: string
+}>()
 
-const emit = defineEmits<(e: 'selectEtab', payload: any, isSelected: boolean) => void>();
-let input: Ref<string> = ref('');
-const el = ref<HTMLElement>();
+const emit = defineEmits<(e: 'selectEtab', payload: any, isSelected: boolean) => void>()
+
+const { t } = useI18n()
+
+const m = (key: string): string => t(`list-etab.${key}`)
+
+const input: Ref<string> = ref('')
+const el = ref<HTMLElement>()
 
 function filteredList(): any[] {
   if (!props.dataJson) {
-    return [];
+    return []
   }
-  const jsonData = JSON.parse(props.dataJson);
-  const filteredData = jsonData.filter((etab: any) => etab.etabName.toLowerCase().includes(input.value.toLowerCase()));
+  const jsonData = JSON.parse(props.dataJson)
+  const filteredData = jsonData.filter((etab: any) => etab.etabName.toLowerCase().includes(input.value.toLowerCase()))
 
   setTimeout(() => {
-    const target: HTMLElement | null = el.value != null ? el.value.querySelector('.content .active') : null;
-    target?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  });
+    const target: HTMLElement | null = el.value != null ? el.value.querySelector('.content .active') : null
+    target?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  })
 
-  return filteredData;
+  return filteredData
 }
 
 function selected(id: string) {
-  emit('selectEtab', id, false);
+  emit('selectEtab', id, false)
 }
 
-const filteredData = computed(() => filteredList());
+const filteredData = computed(() => filteredList())
 </script>
 
 <template>
   <div class="search-bar">
-    <input v-model="input" :class="classInput" type="text" :placeholder="m('recherche')" />
+    <input v-model="input" :class="classInput" type="text" :placeholder="m('recherche')">
   </div>
-  <div :class="classDiv" ref="el">
+  <div ref="el" :class="classDiv">
     <ul class="content">
       <li v-for="etab in filteredData" :id="etab.idSiren" :key="etab">
-        <button :class="[classLi, etab.idSiren == dataCurrent ? 'active' : '']" @click="selected(etab)">
+        <button :class="[classLi, etab.idSiren === dataCurrent ? 'active' : '']" @click="selected(etab)">
           {{ etab.etabName }}
         </button>
       </li>

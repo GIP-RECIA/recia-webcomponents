@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import { useMultiplayer } from '../hooks/useMultiplayer.ts';
-import { MultiplayerEditorProps } from '../types/MultiplayerEditorProps.ts';
-import { CustomCursor } from './Cursor.tsx';
-import { Tldraw } from '@gip-recia/tldraw-v1';
+import type { MultiplayerEditorProps } from '../types/MultiplayerEditorProps.ts'
+import { Tldraw } from '@gip-recia/tldraw-v1'
+import { useMultiplayer } from '../hooks/useMultiplayer.ts'
+import { CustomCursor } from './Cursor.tsx'
 
 const components = {
   Cursor: CustomCursor,
-};
+}
 
 export default function MultiplayerEditor({
   persistanceApiUrl,
@@ -36,7 +36,7 @@ export default function MultiplayerEditor({
   setProvider,
   ...params
 }: Readonly<MultiplayerEditorProps>) {
-  const { debug, autoSave, autoSaveDelay, open, isReady, setIsSaving, setIsLoading, setIsError, setIsReady } = params;
+  const { debug, autoSave, autoSaveDelay, open, isReady, setIsSaving, setIsLoading, setIsError, setIsReady } = params
 
   const props = {
     ...params,
@@ -61,7 +61,7 @@ export default function MultiplayerEditor({
       setIsReady,
       setProvider,
     ),
-  };
+  }
 
   return (
     <Tldraw
@@ -74,5 +74,5 @@ export default function MultiplayerEditor({
       hideSponsorLink
       {...props}
     />
-  );
+  )
 }

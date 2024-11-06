@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-export type Filtrage = {
-  keys: Array<string>;
-};
+export interface Filtrage {
+  keys: Array<string>
+}

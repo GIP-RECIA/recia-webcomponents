@@ -15,51 +15,52 @@
 -->
 
 <script setup lang="ts">
-import { uploadLogo } from '@/services/serviceParametab';
-import { showError, showSuccess } from '@/utils/useToast';
-import Cropper from 'cropperjs';
-import { onMounted, onUnmounted, ref, watch, watchEffect } from 'vue';
-import { useI18n } from 'vue-i18n';
-
-const { t } = useI18n();
-const m = (key: string): string => t(`image-cropper.${key}`);
+import { uploadLogo } from '@/services/serviceParametab'
+import { showError, showSuccess } from '@/utils/useToast'
+import Cropper from 'cropperjs'
+import { onMounted, onUnmounted, ref, watch, watchEffect } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
-  imageUrl: string | null;
-  structCurrent: string;
-  idEtab: string | undefined;
-  paramEtabApi: string;
-  userInfoApiUrl: string;
-  defaultLogoIcon: string;
-}>();
+  imageUrl: string | null
+  structCurrent: string
+  idEtab: string | undefined
+  paramEtabApi: string
+  userInfoApiUrl: string
+  defaultLogoIcon: string
+}>()
 
-const imageInput = ref<any>(null);
-const selectedFile = ref<any>(null);
-const imageSrc = ref<string | ArrayBuffer | null>();
-const img = ref<any>(null);
-const fileReader = new FileReader();
-const open = ref<boolean>(false);
-const prevImg = ref<any>(null);
-let cropper: any = null;
-let imageEtab = ref<string | null>(props.imageUrl);
+const { t } = useI18n()
+
+const m = (key: string): string => t(`image-cropper.${key}`)
+
+const imageInput = ref<any>(null)
+const selectedFile = ref<any>(null)
+const imageSrc = ref<string | ArrayBuffer | null>()
+const img = ref<any>(null)
+const fileReader = new FileReader()
+const open = ref<boolean>(false)
+const prevImg = ref<any>(null)
+let cropper: any = null
+const imageEtab = ref<string | null>(props.imageUrl)
 
 watch(
   () => props.imageUrl,
   () => {
-    imageEtab.value = props.imageUrl;
+    imageEtab.value = props.imageUrl
   },
-);
+)
 
 fileReader.onload = (event: ProgressEvent<FileReader>) => {
-  imageSrc.value = event?.target?.result;
-};
+  imageSrc.value = event?.target?.result
+}
 
-const fileChanged = (e: any) => {
-  const files = e.target.files || e.dataTransfer.files;
+function fileChanged(e: any) {
+  const files = e.target.files || e.dataTransfer.files
   if (files.length) {
-    selectedFile.value = files[0];
+    selectedFile.value = files[0]
   }
-};
+}
 
 onMounted(() => {
   if (img.value) {
@@ -68,37 +69,39 @@ onMounted(() => {
       viewMode: 2,
       background: false,
       preview: '#previewImg',
-    });
+    })
   }
-});
+})
 
 onUnmounted(() => {
   if (cropper) {
-    cropper.destroy();
-    cropper = null;
+    cropper.destroy()
+    cropper = null
   }
-});
+})
 
 watchEffect(() => {
   if (selectedFile.value) {
-    fileReader.readAsDataURL(selectedFile.value);
-  } else {
-    imageSrc.value = null;
+    fileReader.readAsDataURL(selectedFile.value)
+  }
+  else {
+    imageSrc.value = null
   }
 
   // set image par defaut if structLogo is null
   // if (props.detailEtab.structLogo == null) {
   //   props.detailEtab.structLogo = "/src/assets/flower.jpg";
   // }
-});
+})
 
 watch(
   imageSrc,
   () => {
     if (imageSrc.value && img.value) {
       if (cropper) {
-        cropper.replace(imageSrc.value);
-      } else {
+        cropper.replace(imageSrc.value)
+      }
+      else {
         cropper = new Cropper(img.value, {
           aspectRatio: 270 / 120,
           viewMode: 2,
@@ -106,67 +109,68 @@ watch(
           zoomable: true,
           preview: prevImg.value,
           modal: false,
-        });
+        })
       }
     }
   },
   {
     flush: 'post',
   },
-);
+)
 
-const closeModal = () => {
-  open.value = false;
-  selectedFile.value = null;
+function closeModal() {
+  open.value = false
+  selectedFile.value = null
   if (cropper) {
-    cropper.destroy();
-    cropper = null;
+    cropper.destroy()
+    cropper = null
   }
-};
+}
 
-const cropImage = () => {
-  cropper.getCroppedCanvas({ fillColor: '#fff', width: 270*1.5, height: 120*1.5 }).toBlob(async (blob: any) => {
-    const formData = new FormData();
+function cropImage() {
+  cropper.getCroppedCanvas({ fillColor: '#fff', width: 270 * 1.5, height: 120 * 1.5 }).toBlob(async (blob: any) => {
+    const formData = new FormData()
 
     // append DTO as JSON string
-    //formData.append('details', props.detailEtab);
+    // formData.append('details', props.detailEtab);
 
     // add name for the image
-    formData.append('name', 'image-name-' + new Date().getTime());
+    formData.append('name', `image-name-${new Date().getTime()}`)
 
     // append image file
-    formData.append('file', blob, 'logo.' + blob.type.split('/')[1]);
+    formData.append('file', blob, `logo.${blob.type.split('/')[1]}`)
 
     try {
       const response = await uploadLogo(
-        props.paramEtabApi + `logoupload/${props.idEtab}`,
+        `${props.paramEtabApi}logoupload/${props.idEtab}`,
         formData,
         props.userInfoApiUrl,
-      );
+      )
 
       // Assuming the response from the server contains the URL of the uploaded image
-      imageEtab.value = response.data;
+      imageEtab.value = response.data
 
-      closeModal();
+      closeModal()
 
-      if (props.idEtab == props.structCurrent) {
+      if (props.idEtab === props.structCurrent) {
         const myEvent = new CustomEvent('update-structure-logo', {
           detail: {
             logo: imageEtab.value,
           },
           bubbles: true,
           composed: true,
-        });
-        document.dispatchEvent(myEvent);
+        })
+        document.dispatchEvent(myEvent)
       }
-      showSuccess();
-    } catch (error: any) {
-      closeModal();
-      console.error('error: ', error);
-      showError(error.response.data);
+      showSuccess()
     }
-  }, 'image/jpeg', 0.8);
-};
+    catch (error: any) {
+      closeModal()
+      console.error('error: ', error)
+      showError(error.response.data)
+    }
+  }, 'image/jpeg', 0.8)
+}
 </script>
 
 <template>
@@ -178,29 +182,29 @@ const cropImage = () => {
         accept=".jpg, .jpeg, .png"
         :style="{ display: 'none' }"
         @change="fileChanged"
-      />
-      <button class="edit-logo" @click="open = true"></button>
+      >
+      <button class="edit-logo" @click="open = true" />
     </div>
     <div class="avatar-preview">
-      <img class="imagePreview" :src="imageEtab" alt="" width="270" height="120" />
+      <img class="imagePreview" :src="imageEtab" alt="" width="270" height="120">
     </div>
   </div>
 
   <!-- Modal -->
 
   <div v-if="open" class="modal">
-    <input id="idEtab" type="hidden" name="idEtab" :value="idEtab" />
+    <input id="idEtab" type="hidden" name="idEtab" :value="idEtab">
     <div>
       <div class="close">
-        <button type="button" class="close" @click="closeModal"></button>
+        <button type="button" class="close" @click="closeModal" />
       </div>
       <div class="images">
         <div v-show="imageSrc" class="cropImg">
-          <img ref="img" :src="imageSrc" alt="" width="280" />
+          <img ref="img" :src="imageSrc" alt="" width="280">
         </div>
         <div class="previewImg">
-          <div ref="prevImg" id="previewImg">
-            <img :src="imageEtab" alt="" width="270" height="120" />
+          <div id="previewImg" ref="prevImg">
+            <img :src="imageEtab" alt="" width="270" height="120">
           </div>
         </div>
       </div>
