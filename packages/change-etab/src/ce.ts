@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import I18nHostCe from './components/I18nHost.ce.vue';
 import PageChangeEtabCe from './components/PageChangeEtab.ce.vue';
 import { defineCustomElement } from 'vue';

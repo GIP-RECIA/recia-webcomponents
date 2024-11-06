@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import en from '@/locales/en.json';
 import fr from '@/locales/fr.json';
 import { findLanguage } from '@/utils/i18nUtils';

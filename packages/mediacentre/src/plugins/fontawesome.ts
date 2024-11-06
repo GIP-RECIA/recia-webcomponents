@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
 import {

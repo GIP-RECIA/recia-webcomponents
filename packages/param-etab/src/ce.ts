@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import DetailEtabSFC from './components/DetailEtab.ce.vue';
 import I18nHostSFC from './components/I18nHost.ce.vue';
 import ImageCropperSFC from './components/ImageCropper.ce.vue';

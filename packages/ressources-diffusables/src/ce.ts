@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import CarteRessourceSFC from '@/components/CarteRessource.ce.vue';
 import I18nHostSFC from '@/components/I18nHost.ce.vue';
 import LegendeRessourceSFC from '@/components/LegendeRessource.ce.vue';

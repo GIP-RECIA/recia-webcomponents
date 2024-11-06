@@ -13,6 +13,7 @@
 # limitations under the License.
 
 files=$(find ./packages/ ./scripts/ -name '*.vue' -type f \
+  -or -name '*.tsx' -type f \
   -or -name '*.ts' -type f \
   -or -name '*.scss' -type f \
   -or -name '*.java' -type f \

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import { useAssets } from '../hooks/useAssets.ts';
 import { findLanguage } from '../utils/i18nUtils';
 import { getJwt, parseJwt } from '../utils/soffitUtils.ts';

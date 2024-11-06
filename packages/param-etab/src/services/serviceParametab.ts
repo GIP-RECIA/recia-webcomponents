@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import type { StructureDetail } from '@/types/structureType';
 import oidc from '@uportal/open-id-connect';
 import axios from 'axios';

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import styles from './info-modal.scss?inline';
 import { icon, library } from '@fortawesome/fontawesome-svg-core';
 import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
