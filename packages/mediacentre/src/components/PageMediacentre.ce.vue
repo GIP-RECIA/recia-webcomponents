@@ -52,21 +52,21 @@ const erreur = ref<string>('')
 
 const { t } = useI18n()
 
-let triggerElement: any;
+let triggerElement: any
 document.addEventListener('openModale', (event: any) => {
-  triggerElement = event.detail.originalEvent;
-  const modalElement: InfoModal = document.querySelector('info-modal');
-  modalElement.isOpen = !modalElement.isOpen;
-  modalElement.titleModal = event.detail.title;
-  modalElement.mainElement = document.querySelector('body > main, body > div');
-});
+  triggerElement = event.detail.originalEvent
+  const modalElement: InfoModal = document.querySelector('info-modal')
+  modalElement.isOpen = !modalElement.isOpen
+  modalElement.titleModal = event.detail.title
+  modalElement.mainElement = document.querySelector('body > main, body > div')
+})
 
 document.addEventListener('closeModale', (event) => {
   if (triggerElement) {
-    triggerElement.focus();
-    event.preventDefault();
+    triggerElement.focus()
+    event.preventDefault()
   }
-});
+})
 
 const countNbFilteredResources = computed<number>(() => {
   return filteredResources.value.length
