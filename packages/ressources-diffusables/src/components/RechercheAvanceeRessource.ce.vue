@@ -31,7 +31,6 @@ const emit = defineEmits<{
   (event: 'recommencerRechercheAvanceeInput', payload: RechercheFilter): void
 }>()
 
-const rechercheInput = ref<string>('')
 const rechercheInputNomRessource = ref<string>('')
 const rechercheInputNomEditeur = ref<string>('')
 
