@@ -1247,7 +1247,6 @@ __metadata:
     vite-plugin-css-injected-by-js: "npm:^3.5.2"
     vue: "npm:^3.5.12"
     vue-i18n: "npm:10.0.1"
-    vue-sweetalert2: "npm:^5.0.11"
     vue-tsc: "npm:^2.1.10"
     vue3-toastify: "npm:^0.2.4"
     vuejs-clipper: "npm:^4.1.0"
@@ -9403,13 +9402,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sweetalert2@npm:11.4.4":
-  version: 11.4.4
-  resolution: "sweetalert2@npm:11.4.4"
-  checksum: 10/ce7e9968a5fa74bc7638b5d2dea496b3f997c8b0c4a0a6528bd80ded277bee3df6f7c5d7c60b2b6ce83385c2426bb34937b7cb4a2f13d1106c7f393e4adc8525
-  languageName: node
-  linkType: hard
-
 "symbol-tree@npm:^3.2.4":
   version: 3.2.4
   resolution: "symbol-tree@npm:3.2.4"
@@ -10044,17 +10036,6 @@ __metadata:
   peerDependencies:
     vue: ^3.0.0
   checksum: 10/bd320283f7fb85af829224177647c87cf60516766ba3d8ba83712999ca146c8992e7d0cd5575389ece84b5e2ee1a981faf992a44f634c08a84049b9adc4c8692
-  languageName: node
-  linkType: hard
-
-"vue-sweetalert2@npm:^5.0.11":
-  version: 5.0.11
-  resolution: "vue-sweetalert2@npm:5.0.11"
-  dependencies:
-    sweetalert2: "npm:11.4.4"
-  peerDependencies:
-    vue: "*"
-  checksum: 10/6ec959f94ebd165a2ac25447ff0b562127b19fa520745e1742f942d611d2c6489ec81edde23f83ca0b046ae93a6ce74b4fcf620b13c9d709508d962172cc3f0b
   languageName: node
   linkType: hard
 
