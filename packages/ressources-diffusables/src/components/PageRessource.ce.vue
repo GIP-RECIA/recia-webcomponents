@@ -24,7 +24,6 @@ import {
 } from '@/services/serviceRessourcesDiffusables'
 import { initToken } from '@/utils/axiosUtils'
 import { RechercheFilter } from '@/utils/RechercheFilter'
-import { faL } from '@fortawesome/free-solid-svg-icons'
 import { onMounted, ref } from 'vue'
 
 const props = defineProps<{
@@ -117,7 +116,7 @@ async function recommencerRechercheAvancee(): Promise<void> {
     const response = await getSizeWithRechercheFilter(
       props.baseApiUrl + props.ressourcesDiffusablesSizeApiUri,
       props.userInfoApiUrl,
-      rechercheFilter.value != undefined ? rechercheFilter.value : new RechercheFilter(),
+      rechercheFilter.value !== undefined ? rechercheFilter.value : new RechercheFilter(),
     )
     nombreRessourcesTotal.value = response.data.payload
     if (nombreRessourcesTotal.value === 0) {
@@ -130,7 +129,7 @@ async function recommencerRechercheAvancee(): Promise<void> {
     }
   }
   catch (e: any) {
-    erreur.value = e.toString() + (e.response != undefined ? ` | ${e.response.data.message}` : '')
+    erreur.value = e.toString() + (e.response !== undefined ? ` | ${e.response.data.message}` : '')
     chargement.value = false
   }
 }
@@ -167,7 +166,7 @@ async function getPageSuivanteRechercheAvancee(): Promise<void> {
         props.baseApiUrl + props.ressourcesDiffusablesApiUri,
         props.userInfoApiUrl,
         pageSuivante.value++,
-        rechercheFilter.value != undefined ? rechercheFilter.value : new RechercheFilter(),
+        rechercheFilter.value !== undefined ? rechercheFilter.value : new RechercheFilter(),
       )
       ressources.value = ressources.value.concat(response.data.payload)
       if (ressources.value.length === nombreRessourcesTotal.value) {
@@ -175,7 +174,7 @@ async function getPageSuivanteRechercheAvancee(): Promise<void> {
       }
     }
     catch (e: any) {
-      erreur.value = e.toString() + (e.response != undefined ? ` | ${e.response.data.message}` : '')
+      erreur.value = e.toString() + (e.response !== undefined ? ` | ${e.response.data.message}` : '')
     }
     chargement.value = false
   }

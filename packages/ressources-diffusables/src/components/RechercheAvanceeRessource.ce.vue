@@ -37,7 +37,6 @@ const rechercheInputNomEditeur = ref<string>('')
 const { t } = useI18n()
 
 function reinitialiserRechercheAvancee(prop: string): void {
-  console.log(prop)
   switch (prop) {
     case 'nomRessource':
       rechercheInputNomRessource.value = ''
@@ -81,7 +80,7 @@ const recommencerRechercheAvancee = debounce(
       >
       <button
         class="reinitialiser-recherche-ressource"
-        :disabled="rechercheInputNomRessource.length == 0"
+        :disabled="rechercheInputNomRessource.length === 0"
         @click="reinitialiserRechercheAvancee('nomRessource')"
       >
         <FontAwesomeIcon :icon="['fa', 'xmark']" />
@@ -100,7 +99,7 @@ const recommencerRechercheAvancee = debounce(
       >
       <button
         class="reinitialiser-recherche-ressource"
-        :disabled="rechercheInputNomEditeur.length == 0"
+        :disabled="rechercheInputNomEditeur.length === 0"
         @click="reinitialiserRechercheAvancee('nomEditeur')"
       >
         <FontAwesomeIcon :icon="['fa', 'xmark']" />

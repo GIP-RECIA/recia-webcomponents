@@ -43,6 +43,7 @@ async function initToken(apiUrl: string): Promise<void> {
 
         // vite detecte l'env
         if (isDev)
+          // eslint-disable-next-line no-console
           console.debug('Token has been renewed')
       }
       catch (es: any) {
