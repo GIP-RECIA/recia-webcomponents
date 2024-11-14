@@ -44,7 +44,7 @@ async function getConfig(configApiUrl: string) {
   }
 }
 
-async function getResources(baseApiUrl: string, groupsApiUrl: string) {
+async function getGroups(groupsApiUrl: string) {
   try {
     const resp = await instance.get(groupsApiUrl)
     const groupsConfigValues: string[] = config
@@ -52,6 +52,7 @@ async function getResources(baseApiUrl: string, groupsApiUrl: string) {
         if (element.key === 'groups') {
           return element
         }
+        return null
       })
       .map((element) => {
         return element.value
@@ -64,10 +65,27 @@ async function getResources(baseApiUrl: string, groupsApiUrl: string) {
       for (const regex of regexesGroups) {
         if (regex.test(element.name)) {
           userGroups.push(element.name)
-          continue
         }
       }
     }
+    return userGroups
+  }
+  catch (e: any) {
+    if (e.response) {
+      throw new CustomError(e.response.data.message, e.response.status)
+    }
+    else if (e.code === 'ECONNABORTED') {
+      throw new CustomError(e.message, e.code)
+    }
+    else {
+      throw new Error(e.response)
+    }
+  }
+}
+
+async function getResources(baseApiUrl: string, groupsApiUrl: string) {
+  try {
+    const userGroups: Array<string> = await getGroups(groupsApiUrl)
     const response = await instance.post(baseApiUrl, { isMemberOf: userGroups })
     return response.data
   }
