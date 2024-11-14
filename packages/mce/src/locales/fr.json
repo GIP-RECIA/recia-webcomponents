@@ -2,6 +2,7 @@
   "list-onglet": {
     "GENERALE": "Mes informations générales",
     "SERVICE": "Mes services ENT",
-    "PARENT_ELEVE": "Mes responsables"
+    "PARENT_ELEVE": "Mes responsables",
+    "APPRENTIS": "Mes apprentis"
   }
 }
