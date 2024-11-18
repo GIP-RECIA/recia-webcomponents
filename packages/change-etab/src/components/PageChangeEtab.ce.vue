@@ -16,10 +16,10 @@
 
 <script setup lang="ts">
 import type { Response } from '@/types/changeEtabType'
+import i18n from '@/plugins/i18n.ts'
 import { getChangeEtab, updateCurrentStruct } from '@/services/serviceChangeEtab'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
   show: boolean
@@ -29,7 +29,7 @@ const props = defineProps<{
 
 const emit = defineEmits(['update:show'])
 
-const { t } = useI18n()
+const { t } = i18n.global
 
 const m = (key: string): string => t(`change-etab.${key}`)
 
@@ -104,42 +104,44 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <!-- Modal -->
-  <div v-if="showState" class="modal-mask" @click="closeModal">
-    <div class="modal-component" @click.stop>
-      <header>
-        <h1 class="modal-title">
-          {{ m('title') }}
-        </h1>
-        <button class="btn-close" @click="closeModal">
-          <FontAwesomeIcon :icon="['fa', 'xmark']" />
-        </button>
-      </header>
+  <i18n-host>
+    <!-- Modal -->
+    <div v-if="showState" class="modal-mask" @click="closeModal">
+      <div class="modal-component" @click.stop>
+        <header>
+          <h1 class="modal-title">
+            {{ m('title') }}
+          </h1>
+          <button class="btn-close" @click="closeModal">
+            <FontAwesomeIcon :icon="['fa', 'xmark']" />
+          </button>
+        </header>
 
-      <main>
-        <span class="current">{{ m('struct-current') }} {{ changeetab?.structCurrent.displayName }}
-          <small>({{ changeetab?.structCurrent.code }})</small></span>
-        <div class="form-change">
-          <fieldset>
-            <legend>{{ m('legend') }}</legend>
-            <ul class="list-struct">
-              <li v-for="data in changeetab?.sirenStructures" :key="data.id">
-                <input :id="data.id" v-model="checked" type="radio" name="" :value="data.id">
-                <label :for="data.id">
-                  {{ data.displayName }} <small> ({{ data.code }}) </small>
-                </label>
-              </li>
-            </ul>
-          </fieldset>
-        </div>
-      </main>
-      <footer>
-        <button :disabled="isButtonDisabled" class="btn-submit" @click="updateStruct">
-          {{ m('valid-button') }}
-        </button>
-      </footer>
+        <main>
+          <span class="current">{{ m('struct-current') }} {{ changeetab?.structCurrent.displayName }}
+            <small>({{ changeetab?.structCurrent.code }})</small></span>
+          <div class="form-change">
+            <fieldset>
+              <legend>{{ m('legend') }}</legend>
+              <ul class="list-struct">
+                <li v-for="data in changeetab?.sirenStructures" :key="data.id">
+                  <input :id="data.id" v-model="checked" type="radio" name="" :value="data.id">
+                  <label :for="data.id">
+                    {{ data.displayName }} <small> ({{ data.code }}) </small>
+                  </label>
+                </li>
+              </ul>
+            </fieldset>
+          </div>
+        </main>
+        <footer>
+          <button :disabled="isButtonDisabled" class="btn-submit" @click="updateStruct">
+            {{ m('valid-button') }}
+          </button>
+        </footer>
+      </div>
     </div>
-  </div>
+  </i18n-host>
 </template>
 
 <style lang="scss">
