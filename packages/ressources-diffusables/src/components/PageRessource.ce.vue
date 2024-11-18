@@ -100,26 +100,28 @@ async function getPageSuivante(): Promise<void> {
 </script>
 
 <template>
-  <div class="cadre-page-ressource">
-    <aside class="aside-page-ressource">
-      <recherche-ressource
-        :nombre-ressources-total="nombreRessourcesTotal"
-        :nombre-ressources-affichees="ressources.length"
-        @recommencer-recherche-input="recommencerRechercheInput"
-        @reinitialiser-recherche="reinitialiserRecherche"
-      />
-      <legende-ressource class="legende-ressource-page-ressource" />
-    </aside>
-    <main class="main-page-ressource">
-      <liste-ressources
-        :ressources="ressources"
-        :erreur="erreur"
-        :lecture-terminee="lectureTerminee"
-        :chargement="chargement"
-        @get-page-suivante="getPageSuivante"
-      />
-    </main>
-  </div>
+  <i18n-host>
+    <div class="cadre-page-ressource">
+      <aside class="aside-page-ressource">
+        <recherche-ressource
+          :nombre-ressources-total="nombreRessourcesTotal"
+          :nombre-ressources-affichees="ressources.length"
+          @recommencer-recherche-input="recommencerRechercheInput"
+          @reinitialiser-recherche="reinitialiserRecherche"
+        />
+        <legende-ressource class="legende-ressource-page-ressource" />
+      </aside>
+      <main class="main-page-ressource">
+        <liste-ressources
+          :ressources="ressources"
+          :erreur="erreur"
+          :lecture-terminee="lectureTerminee"
+          :chargement="chargement"
+          @get-page-suivante="getPageSuivante"
+        />
+      </main>
+    </div>
+  </i18n-host>
 </template>
 
 <style lang="scss">
