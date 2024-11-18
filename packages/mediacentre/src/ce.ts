@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
+import CarteRessourceSFC from '@/components/CarteRessourceMediacentre.ce.vue'
+import I18nHostSFC from '@/components/I18nHost.ce.vue'
+import ListeRessourcesSFC from '@/components/ListeRessourcesMediacentre.ce.vue'
+import MenuMediacentreSFC from '@/components/MenuMediacentre.ce.vue'
+import PageMediacentreSFC from '@/components/PageMediacentre.ce.vue'
 import { defineCustomElement } from 'vue'
-import CarteRessourceSFC from './components/CarteRessourceMediacentre.ce.vue'
-import I18nHostSFC from './components/I18nHost.ce.vue'
-import ListeRessourcesSFC from './components/ListeRessourcesMediacentre.ce.vue'
-import MenuMediacentreSFC from './components/MenuMediacentre.ce.vue'
-import PageMediacentreSFC from './components/PageMediacentre.ce.vue'
 
 const CarteRessource = defineCustomElement(CarteRessourceSFC)
 const I18nHost = defineCustomElement(I18nHostSFC)
@@ -40,10 +40,10 @@ declare module 'vue' {
 // https://fr.vuejs.org/guide/extras/web-components#tips-for-a-vue-custom-elements-library
 function register() {
   customElements.define('carte-ressource', CarteRessource)
-  customElements.define('mediacentre-ui', I18nHost)
+  customElements.define('i18n-host', I18nHost)
   customElements.define('liste-ressources', ListeRessources)
   customElements.define('menu-mediacentre', Menu)
-  customElements.define('page-mediacentre', Page)
+  customElements.define('mediacentre-ui', Page)
 }
 
 export { CarteRessource, I18nHost, ListeRessources, Menu, Page, register }

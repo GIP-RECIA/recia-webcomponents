@@ -31,15 +31,14 @@ export default ({ mode }: { mode: string }) => {
       vue({
         template: {
           compilerOptions: {
-            isCustomElement: tag =>
-              [
-                'mediacentre-ui',
-                'page-mediacentre',
-                'menu-mediacentre',
-                'liste-ressources',
-                'carte-ressource',
-                'info-modal',
-              ].includes(tag),
+            isCustomElement: tag => [
+              'carte-ressource',
+              'i18n-host',
+              'info-modal',
+              'liste-ressources',
+              'mediacentre-ui',
+              'menu-mediacentre',
+            ].includes(tag),
           },
         },
       }),
