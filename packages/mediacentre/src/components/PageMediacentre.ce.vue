@@ -16,6 +16,7 @@
 
 <script setup lang="ts">
 import type { Filtres } from '@/types/FiltresType'
+import i18n from '@/plugins/i18n.ts'
 import { setError } from '@/services/ServiceErreurMediacentre'
 import { getFilters as filtrage } from '@/services/ServiceFiltreMediacentre'
 import { createResourceFromJson, type Ressource } from '@/types/RessourceType'
@@ -23,7 +24,6 @@ import { initToken } from '@/utils/axiosUtils'
 import { CustomError } from '@/utils/CustomError'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { computed, onMounted, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
 import { getConfig, getFavorites, getFilters, getResources, putFavorites } from '../services/ServiceMediacentre'
 import './info-modal/info-modal.js'
 
@@ -49,7 +49,7 @@ const resourceEditor = ref<string>('')
 const resourceDescription = ref<string | undefined>()
 const erreur = ref<string>('')
 
-const { t } = useI18n()
+const { t } = i18n.global
 
 const countNbFilteredResources = computed<number>(() => {
   return filteredResources.value.length
@@ -207,47 +207,49 @@ async function getFiltres(): Promise<void> {
 </script>
 
 <template>
-  <div v-if="chargementApp" class="spinner-container">
-    <div class="spinner-element">
-      <FontAwesomeIcon icon="fa-solid fa-circle-notch" class="fa-spinner" />
+  <i18n-host>
+    <div v-if="chargementApp" class="spinner-container">
+      <div class="spinner-element">
+        <FontAwesomeIcon icon="fa-solid fa-circle-notch" class="fa-spinner" />
+      </div>
     </div>
-  </div>
-  <div v-else class="cadre-page-mediacentre">
-    <aside class="aside-page-mediacentre">
-      <menu-mediacentre :filtres="filtres" :checked="filtre" @update-checked="updateFiltre" />
-    </aside>
+    <div v-else class="cadre-page-mediacentre">
+      <aside class="aside-page-mediacentre">
+        <menu-mediacentre :filtres="filtres" :checked="filtre" @update-checked="updateFiltre" />
+      </aside>
 
-    <main class="main-page-mediacentre">
-      <liste-ressources
-        v-if="!chargement"
-        :filtre="filtre"
-        :ressources="filteredResources"
-        :chargement="chargement"
-        :base-api-url="baseApiUrl"
-        :user-info-api-url="userInfoApiUrl"
-        :erreur="erreur"
-        :nb-resources="countNbFilteredResources"
-        @update-favorite="updateFavori"
-        @open-modal="openModal"
-      />
-    </main>
-    <Teleport to="body">
-      <info-modal id="modale" debug="false">
-        <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
-        <div slot="modal-body">
-          <div style="display: flex; flex-direction: column; gap: 3em">
-            <div style="display: flex; flex-direction: column; gap: 0.5em">
-              <span>Ref : {{ resourceReference }}</span>
-              <span>{{ t('resource-info-modal-mediacentre.editor') }} {{ resourceEditor }}</span>
-            </div>
-            <div v-if="resourceDescription" class="description-modal">
-              {{ resourceDescription }}
+      <main class="main-page-mediacentre">
+        <liste-ressources
+          v-if="!chargement"
+          :filtre="filtre"
+          :ressources="filteredResources"
+          :chargement="chargement"
+          :base-api-url="baseApiUrl"
+          :user-info-api-url="userInfoApiUrl"
+          :erreur="erreur"
+          :nb-resources="countNbFilteredResources"
+          @update-favorite="updateFavori"
+          @open-modal="openModal"
+        />
+      </main>
+      <Teleport to="body">
+        <info-modal id="modale" debug="false">
+          <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
+          <div slot="modal-body">
+            <div style="display: flex; flex-direction: column; gap: 3em">
+              <div style="display: flex; flex-direction: column; gap: 0.5em">
+                <span>Ref : {{ resourceReference }}</span>
+                <span>{{ t('resource-info-modal-mediacentre.editor') }} {{ resourceEditor }}</span>
+              </div>
+              <div v-if="resourceDescription" class="description-modal">
+                {{ resourceDescription }}
+              </div>
             </div>
           </div>
-        </div>
-      </info-modal>
-    </Teleport>
-  </div>
+        </info-modal>
+      </Teleport>
+    </div>
+  </i18n-host>
 </template>
 
 <style lang="scss" scoped>
