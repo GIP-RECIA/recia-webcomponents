@@ -31,7 +31,10 @@ export default ({ mode }: { mode: string }) => {
       vue({
         template: {
           compilerOptions: {
-            isCustomElement: tag => ['change-etab', 'page-change-etab'].includes(tag),
+            isCustomElement: tag => [
+              'change-etab',
+              'i18n-host',
+            ].includes(tag),
           },
         },
       }),
