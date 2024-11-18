@@ -32,8 +32,13 @@ export default ({ mode }: { mode: string }) => {
       vue({
         template: {
           compilerOptions: {
-            isCustomElement: tag =>
-              ['detail-etab', 'page-param-etab', 'list-etab', 'image-cropper', 'param-etab'].includes(tag),
+            isCustomElement: tag => [
+              'detail-etab',
+              'i18n-host',
+              'image-cropper',
+              'list-etab',
+              'param-etab',
+            ].includes(tag),
           },
         },
       }),

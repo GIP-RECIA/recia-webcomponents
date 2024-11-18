@@ -98,42 +98,44 @@ function select(payload: CustomEvent, isBoolean: boolean) {
 </script>
 
 <template>
-  <div id="app">
-    <div v-if="!isMobile" class="list">
-      <list-etab
-        class-input="input-search"
-        class-li="item etab"
-        class-div="list-etab"
-        :data-json="etabJson"
-        :data-current="currentEtab"
-        @select-etab="select($event, false)"
-      />
-    </div>
-    <div v-else class="dropdown-wrapper">
-      <div class="selected-etab" @click="isVisible = !isVisible">
-        <span>{{ nameEtabSelected }}</span>
-      </div>
-      <div v-if="isVisible" class="dropdown-popover">
+  <i18n-host>
+    <div id="app">
+      <div v-if="!isMobile" class="list">
         <list-etab
-          class-input="input-search-mobile"
-          class-li="opt-list"
-          class-div="options"
+          class-input="input-search"
+          class-li="item etab"
+          class-div="list-etab"
           :data-json="etabJson"
           :data-current="currentEtab"
-          @select-etab="select($event, true)"
+          @select-etab="select($event, false)"
+        />
+      </div>
+      <div v-else class="dropdown-wrapper">
+        <div class="selected-etab" @click="isVisible = !isVisible">
+          <span>{{ nameEtabSelected }}</span>
+        </div>
+        <div v-if="isVisible" class="dropdown-popover">
+          <list-etab
+            class-input="input-search-mobile"
+            class-li="opt-list"
+            class-div="options"
+            :data-json="etabJson"
+            :data-current="currentEtab"
+            @select-etab="select($event, true)"
+          />
+        </div>
+      </div>
+      <div class="detail">
+        <detail-etab
+          :struct-current="parametab.currentStruct"
+          :detail="currentEtab"
+          :param-etab-api="paramEtabApi"
+          :user-info-api-url="userInfoApiUrl"
+          :default-logo-icon="defaultLogoIcon"
         />
       </div>
     </div>
-    <div class="detail">
-      <detail-etab
-        :struct-current="parametab.currentStruct"
-        :detail="currentEtab"
-        :param-etab-api="paramEtabApi"
-        :user-info-api-url="userInfoApiUrl"
-        :default-logo-icon="defaultLogoIcon"
-      />
-    </div>
-  </div>
+  </i18n-host>
 </template>
 
 <style lang="scss">
