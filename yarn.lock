@@ -1356,12 +1356,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/fontawesome-svg-core@npm:^6.6.0":
-  version: 6.6.0
-  resolution: "@fortawesome/fontawesome-svg-core@npm:6.6.0"
+"@fortawesome/fontawesome-svg-core@npm:^6.7.1":
+  version: 6.7.1
+  resolution: "@fortawesome/fontawesome-svg-core@npm:6.7.1"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.6.0"
-  checksum: 10/b13afc5aed1598bcba86ad93fc413ecbcfdb4310015c72cfe205b18d7a1c0534e3ebacd6db49fae2e0240af15593b2281ad3dbeb9e85fc41d6de281142f030f1
+    "@fortawesome/fontawesome-common-types": "npm:6.7.1"
+  checksum: 10/797b906e40a0ee232d834876f6b89c24594155a98f0a7bd92982748ed93bf91ce2c687538059e5df126d2fccf58389b5de142ec3724c1ca892e0689b5899f4be
   languageName: node
   linkType: hard
 
@@ -1410,7 +1410,7 @@ __metadata:
   resolution: "@gip-recia/change-etab@workspace:packages/change-etab"
   dependencies:
     "@antfu/eslint-config": "npm:^3.9.2"
-    "@fortawesome/fontawesome-svg-core": "npm:^6.6.0"
+    "@fortawesome/fontawesome-svg-core": "npm:^6.7.1"
     "@fortawesome/free-solid-svg-icons": "npm:^6.6.0"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
     "@intlify/unplugin-vue-i18n": "npm:^6.0.0"
@@ -1442,7 +1442,7 @@ __metadata:
   resolution: "@gip-recia/info-modal@workspace:packages/info-modal"
   dependencies:
     "@antfu/eslint-config": "npm:^3.9.2"
-    "@fortawesome/fontawesome-svg-core": "npm:^6.6.0"
+    "@fortawesome/fontawesome-svg-core": "npm:^6.7.1"
     "@fortawesome/free-solid-svg-icons": "npm:^6.6.0"
     "@tsconfig/node22": "npm:^22.0.0"
     "@types/node": "npm:^22"
@@ -1464,7 +1464,7 @@ __metadata:
   resolution: "@gip-recia/mediacentre-ui@workspace:packages/mediacentre"
   dependencies:
     "@antfu/eslint-config": "npm:^3.9.2"
-    "@fortawesome/fontawesome-svg-core": "npm:^6.6.0"
+    "@fortawesome/fontawesome-svg-core": "npm:^6.7.1"
     "@fortawesome/free-regular-svg-icons": "npm:^6.7.1"
     "@fortawesome/free-solid-svg-icons": "npm:^6.6.0"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
@@ -1501,7 +1501,7 @@ __metadata:
   resolution: "@gip-recia/param-etab@workspace:packages/param-etab"
   dependencies:
     "@antfu/eslint-config": "npm:^3.9.2"
-    "@fortawesome/fontawesome-svg-core": "npm:^6.6.0"
+    "@fortawesome/fontawesome-svg-core": "npm:^6.7.1"
     "@fortawesome/free-solid-svg-icons": "npm:^6.6.0"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
     "@intlify/unplugin-vue-i18n": "npm:^6.0.0"
@@ -1573,7 +1573,7 @@ __metadata:
   dependencies:
     "@antfu/eslint-config": "npm:^3.9.2"
     "@eslint-react/eslint-plugin": "npm:^1.17.1"
-    "@fortawesome/fontawesome-svg-core": "npm:^6.6.0"
+    "@fortawesome/fontawesome-svg-core": "npm:^6.7.1"
     "@fortawesome/free-solid-svg-icons": "npm:^6.6.0"
     "@fortawesome/react-fontawesome": "npm:^0.2.2"
     "@gip-recia/tldraw-v1": "npm:^1.29.2-recia-1.0.0"
@@ -1614,7 +1614,7 @@ __metadata:
   resolution: "@gip-recia/ui-ressources-gar@workspace:packages/ressources-diffusables"
   dependencies:
     "@antfu/eslint-config": "npm:^3.9.2"
-    "@fortawesome/fontawesome-svg-core": "npm:^6.6.0"
+    "@fortawesome/fontawesome-svg-core": "npm:^6.7.1"
     "@fortawesome/free-solid-svg-icons": "npm:^6.6.0"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
     "@intlify/unplugin-vue-i18n": "npm:^6.0.0"
@@ -1701,7 +1701,7 @@ __metadata:
   dependencies:
     "@antfu/eslint-config": "npm:^3.9.2"
     "@eslint-react/eslint-plugin": "npm:^1.17.1"
-    "@fortawesome/fontawesome-svg-core": "npm:^6.6.0"
+    "@fortawesome/fontawesome-svg-core": "npm:^6.7.1"
     "@fortawesome/free-solid-svg-icons": "npm:^6.6.0"
     "@fortawesome/react-fontawesome": "npm:^0.2.2"
     "@gip-recia/wisemapping-editor": "npm:6.0.0-recia-1.0.2405231"
