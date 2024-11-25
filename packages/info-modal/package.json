@@ -46,7 +46,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^3.9.2",
     "@fortawesome/fontawesome-svg-core": "^6.7.1",
-    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/free-solid-svg-icons": "^6.7.1",
     "@tsconfig/node22": "^22.0.0",
     "@types/node": "^22",
     "eslint": "^9.15.0",

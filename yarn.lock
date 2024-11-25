@@ -1342,13 +1342,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/fontawesome-common-types@npm:6.6.0":
-  version: 6.6.0
-  resolution: "@fortawesome/fontawesome-common-types@npm:6.6.0"
-  checksum: 10/2c730897466fa3b9ae01a4d0943e24fffbc5cbeb4fdae3df044e49619e52763a431d5d5324e9c607995ab36f3dcc90a45958b44020b23b5e148fb66e3b668875
-  languageName: node
-  linkType: hard
-
 "@fortawesome/fontawesome-common-types@npm:6.7.1":
   version: 6.7.1
   resolution: "@fortawesome/fontawesome-common-types@npm:6.7.1"
@@ -1374,12 +1367,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/free-solid-svg-icons@npm:^6.6.0":
-  version: 6.6.0
-  resolution: "@fortawesome/free-solid-svg-icons@npm:6.6.0"
+"@fortawesome/free-solid-svg-icons@npm:^6.7.1":
+  version: 6.7.1
+  resolution: "@fortawesome/free-solid-svg-icons@npm:6.7.1"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.6.0"
-  checksum: 10/cd46d6cb4e334a5b92d15b68b417dc0940f5133af2489f2714018068cad7fe2df849dd02d8fae2c7376d1cf9ca12e7ff65da8620b6612efd0f32b38e93ec4b0a
+    "@fortawesome/fontawesome-common-types": "npm:6.7.1"
+  checksum: 10/9d90bcfd88d6d46c3bf3853dabd2ed4bf022ae88be7ca7a5770c533f61be0058591cb9607b888ddda3d618db6876acab226bafc2ffbad2744f2eaa8f2ddaa44b
   languageName: node
   linkType: hard
 
@@ -1411,7 +1404,7 @@ __metadata:
   dependencies:
     "@antfu/eslint-config": "npm:^3.9.2"
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.1"
-    "@fortawesome/free-solid-svg-icons": "npm:^6.6.0"
+    "@fortawesome/free-solid-svg-icons": "npm:^6.7.1"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
     "@intlify/unplugin-vue-i18n": "npm:^6.0.0"
     "@tsconfig/node22": "npm:^22.0.0"
@@ -1443,7 +1436,7 @@ __metadata:
   dependencies:
     "@antfu/eslint-config": "npm:^3.9.2"
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.1"
-    "@fortawesome/free-solid-svg-icons": "npm:^6.6.0"
+    "@fortawesome/free-solid-svg-icons": "npm:^6.7.1"
     "@tsconfig/node22": "npm:^22.0.0"
     "@types/node": "npm:^22"
     eslint: "npm:^9.15.0"
@@ -1466,7 +1459,7 @@ __metadata:
     "@antfu/eslint-config": "npm:^3.9.2"
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.1"
     "@fortawesome/free-regular-svg-icons": "npm:^6.7.1"
-    "@fortawesome/free-solid-svg-icons": "npm:^6.6.0"
+    "@fortawesome/free-solid-svg-icons": "npm:^6.7.1"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
     "@intlify/unplugin-vue-i18n": "npm:^6.0.0"
     "@tsconfig/node22": "npm:^22.0.0"
@@ -1502,7 +1495,7 @@ __metadata:
   dependencies:
     "@antfu/eslint-config": "npm:^3.9.2"
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.1"
-    "@fortawesome/free-solid-svg-icons": "npm:^6.6.0"
+    "@fortawesome/free-solid-svg-icons": "npm:^6.7.1"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
     "@intlify/unplugin-vue-i18n": "npm:^6.0.0"
     "@tsconfig/node22": "npm:^22.0.0"
@@ -1574,7 +1567,7 @@ __metadata:
     "@antfu/eslint-config": "npm:^3.9.2"
     "@eslint-react/eslint-plugin": "npm:^1.17.1"
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.1"
-    "@fortawesome/free-solid-svg-icons": "npm:^6.6.0"
+    "@fortawesome/free-solid-svg-icons": "npm:^6.7.1"
     "@fortawesome/react-fontawesome": "npm:^0.2.2"
     "@gip-recia/tldraw-v1": "npm:^1.29.2-recia-1.0.0"
     "@r2wc/react-to-web-component": "npm:^2.0.3"
@@ -1615,7 +1608,7 @@ __metadata:
   dependencies:
     "@antfu/eslint-config": "npm:^3.9.2"
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.1"
-    "@fortawesome/free-solid-svg-icons": "npm:^6.6.0"
+    "@fortawesome/free-solid-svg-icons": "npm:^6.7.1"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
     "@intlify/unplugin-vue-i18n": "npm:^6.0.0"
     "@tsconfig/node22": "npm:^22.0.0"
@@ -1702,7 +1695,7 @@ __metadata:
     "@antfu/eslint-config": "npm:^3.9.2"
     "@eslint-react/eslint-plugin": "npm:^1.17.1"
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.1"
-    "@fortawesome/free-solid-svg-icons": "npm:^6.6.0"
+    "@fortawesome/free-solid-svg-icons": "npm:^6.7.1"
     "@fortawesome/react-fontawesome": "npm:^0.2.2"
     "@gip-recia/wisemapping-editor": "npm:6.0.0-recia-1.0.2405231"
     "@r2wc/react-to-web-component": "npm:^2.0.3"
