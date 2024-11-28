@@ -33,6 +33,7 @@ make license-generate
 
 ## Composants
 
+- [@gip-recia/actualites](packages/actualites)
 - [@gip-recia/change-etab](packages/change-etab)
 - [@gip-recia/info-modal](packages/info-modal/)
 - [@gip-recia/mediacentre-ui](packages/mediacentre/)
