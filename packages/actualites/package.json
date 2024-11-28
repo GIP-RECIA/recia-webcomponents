@@ -1,0 +1,85 @@
+{
+  "name": "@gip-recia/actualites",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "",
+  "contributors": [
+    {
+      "name": "Quentin Guillemin",
+      "email": "quentin.guillemin@recia.fr",
+      "url": "https://github.com/Quentin-Guillemin"
+    }
+  ],
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/GIP-RECIA/recia-webcomponents/tree/main/packages/actualites/#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GIP-RECIA/recia-webcomponents.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GIP-RECIA/recia-webcomponents/issues"
+  },
+  "keywords": [
+    "actualites",
+    "gip-recia"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/xxx.js",
+      "require": "./dist/xxx.umd.cjs"
+    }
+  },
+  "main": "./dist/xxx.umd.cjs",
+  "module": "./dist/xxx.js",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "dotenv-checker && vite --host",
+    "build": "run-p type-check build-only && npm run build:min",
+    "build:min": "npm exec terser -- -c -m --module dist/xxx.js > dist/xxx.min.js",
+    "lint": "eslint src/*",
+    "preview": "vite preview",
+    "test:unit": "echo No tests available",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --noEmit",
+    "release": "yarn run -T commit-and-tag-version -t 'actualites/v'",
+    "release:patch": "yarn run -T commit-and-tag-version -t 'actualites/v' --release-as patch",
+    "release:minor": "yarn run -T commit-and-tag-version -t 'actualites/v' --release-as minor",
+    "release:major": "yarn run -T commit-and-tag-version -t 'actualites/v' --release-as major"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^3.9.2",
+    "@fortawesome/fontawesome-svg-core": "^6.7.1",
+    "@fortawesome/free-solid-svg-icons": "^6.7.1",
+    "@fortawesome/vue-fontawesome": "^3.0.8",
+    "@intlify/unplugin-vue-i18n": "^6.0.0",
+    "@tsconfig/node22": "^22.0.0",
+    "@types/lodash.debounce": "^4",
+    "@types/lodash.throttle": "^4",
+    "@types/node": "^22",
+    "@types/regenerator-runtime": "^0",
+    "@uportal/open-id-connect": "^1.40.2",
+    "@vitejs/plugin-vue": "^5.2.0",
+    "@vue/tsconfig": "^0.6.0",
+    "axios": "^1.7.7",
+    "dotenv-checker": "^1.1.7",
+    "eslint": "^9.15.0",
+    "eslint-plugin-format": "^0.1.2",
+    "lint-staged": "^15.2.10",
+    "lodash.debounce": "^4.0.8",
+    "lodash.throttle": "^4.1.1",
+    "npm-run-all2": "^7.0.1",
+    "regenerator-runtime": "^0.14.1",
+    "sass": "^1.81.0",
+    "terser": "^5.36.0",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11",
+    "vue": "^3.5.13",
+    "vue-i18n": "10.0.1",
+    "vue-tsc": "^2.1.10"
+  }
+}

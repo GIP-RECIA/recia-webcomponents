@@ -1389,6 +1389,42 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@gip-recia/actualites@workspace:packages/actualites":
+  version: 0.0.0-use.local
+  resolution: "@gip-recia/actualites@workspace:packages/actualites"
+  dependencies:
+    "@antfu/eslint-config": "npm:^3.9.2"
+    "@fortawesome/fontawesome-svg-core": "npm:^6.7.1"
+    "@fortawesome/free-solid-svg-icons": "npm:^6.7.1"
+    "@fortawesome/vue-fontawesome": "npm:^3.0.8"
+    "@intlify/unplugin-vue-i18n": "npm:^6.0.0"
+    "@tsconfig/node22": "npm:^22.0.0"
+    "@types/lodash.debounce": "npm:^4"
+    "@types/lodash.throttle": "npm:^4"
+    "@types/node": "npm:^22"
+    "@types/regenerator-runtime": "npm:^0"
+    "@uportal/open-id-connect": "npm:^1.40.2"
+    "@vitejs/plugin-vue": "npm:^5.2.0"
+    "@vue/tsconfig": "npm:^0.6.0"
+    axios: "npm:^1.7.7"
+    dotenv-checker: "npm:^1.1.7"
+    eslint: "npm:^9.15.0"
+    eslint-plugin-format: "npm:^0.1.2"
+    lint-staged: "npm:^15.2.10"
+    lodash.debounce: "npm:^4.0.8"
+    lodash.throttle: "npm:^4.1.1"
+    npm-run-all2: "npm:^7.0.1"
+    regenerator-runtime: "npm:^0.14.1"
+    sass: "npm:^1.81.0"
+    terser: "npm:^5.36.0"
+    typescript: "npm:^5.6.3"
+    vite: "npm:^5.4.11"
+    vue: "npm:^3.5.13"
+    vue-i18n: "npm:10.0.1"
+    vue-tsc: "npm:^2.1.10"
+  languageName: unknown
+  linkType: soft
+
 "@gip-recia/change-etab@workspace:packages/change-etab":
   version: 0.0.0-use.local
   resolution: "@gip-recia/change-etab@workspace:packages/change-etab"
