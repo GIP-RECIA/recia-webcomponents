@@ -69,7 +69,7 @@
     "@uportal/open-id-connect": "^1.40.2",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/tsconfig": "^0.6.0",
-    "axios": "^1.7.7",
+    "axios": "^1.7.9",
     "dotenv-checker": "^1.1.7",
     "eslint": "^9.16.0",
     "eslint-plugin-format": "^0.1.3",
