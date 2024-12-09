@@ -26,13 +26,6 @@ export default ({ mode }: { mode: string }) => {
   return defineConfig({
     base: mode === 'development' ? process.env.VITE_BASE_URI : '/',
     plugins: [react()],
-    css: {
-      preprocessorOptions: {
-        scss: {
-          api: 'modern-compiler',
-        },
-      },
-    },
     build: {
       lib: {
         entry: './src/main.tsx',
