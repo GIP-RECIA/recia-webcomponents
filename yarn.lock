@@ -1391,7 +1391,7 @@ __metadata:
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^5.2.1"
-    "@vue/tsconfig": "npm:^0.6.0"
+    "@vue/tsconfig": "npm:^0.7.0"
     axios: "npm:^1.7.9"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^9.16.0"
@@ -1447,7 +1447,7 @@ __metadata:
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^5.2.1"
-    "@vue/tsconfig": "npm:^0.6.0"
+    "@vue/tsconfig": "npm:^0.7.0"
     "@vueuse/core": "npm:^12.0.0"
     axios: "npm:^1.7.9"
     dotenv-checker: "npm:^1.1.7"
@@ -1482,7 +1482,7 @@ __metadata:
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^5.2.1"
-    "@vue/tsconfig": "npm:^0.6.0"
+    "@vue/tsconfig": "npm:^0.7.0"
     axios: "npm:^1.7.9"
     cropperjs: "npm:^1.6.2"
     dotenv-checker: "npm:^1.1.7"
@@ -1596,7 +1596,7 @@ __metadata:
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^5.2.1"
-    "@vue/tsconfig": "npm:^0.6.0"
+    "@vue/tsconfig": "npm:^0.7.0"
     axios: "npm:^1.7.9"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^9.16.0"
@@ -4029,18 +4029,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/tsconfig@npm:^0.6.0":
-  version: 0.6.0
-  resolution: "@vue/tsconfig@npm:0.6.0"
+"@vue/tsconfig@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "@vue/tsconfig@npm:0.7.0"
   peerDependencies:
     typescript: 5.x
-    vue: ^3.3.0
+    vue: ^3.4.0
   peerDependenciesMeta:
     typescript:
       optional: true
     vue:
       optional: true
-  checksum: 10/992f2015760d4ba74320ffcc33348bd356c2845ac4f15d74f833fe8e835852ca1c713a503f301834c491053adca4bde95dca636492504d2f3b4a25461f9ff6c4
+  checksum: 10/29b5dd11cc179de707dfd549d0e80e220f4a0f6f7d90b9a52769bc655e599b9166b28af1218819245fbdd30a74d80fdd484538cdda6876d9d369ae623f234834
   languageName: node
   linkType: hard
 
