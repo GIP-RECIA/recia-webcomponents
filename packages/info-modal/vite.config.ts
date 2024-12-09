@@ -23,13 +23,6 @@ export default ({ mode }: { mode: string }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
 
   return defineConfig({
-    css: {
-      preprocessorOptions: {
-        scss: {
-          api: 'modern-compiler',
-        },
-      },
-    },
     build: {
       lib: {
         entry: './src/info-modal.ts',

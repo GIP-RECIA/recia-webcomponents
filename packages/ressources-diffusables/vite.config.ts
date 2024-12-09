@@ -49,13 +49,6 @@ export default ({ mode }: { mode: string }) => {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
     },
-    css: {
-      preprocessorOptions: {
-        scss: {
-          api: 'modern-compiler',
-        },
-      },
-    },
     build: {
       lib: {
         entry: './src/main.ts',

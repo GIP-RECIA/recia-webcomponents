@@ -52,7 +52,6 @@ export default ({ mode }: { mode: string }) => {
     css: {
       preprocessorOptions: {
         scss: {
-          api: 'modern-compiler',
           additionalData: `@import "@/assets/scss/global.scss";`,
         },
       },
