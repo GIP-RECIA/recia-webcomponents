@@ -37,7 +37,9 @@ export default ({ mode }: { mode: string }) => {
                 'list-onglet',
                 'section-onglet',
                 'info-general',
-                'relation-user'
+                'relation-user',
+                'user-info',
+                'services-ent'
               ].includes(tag)
           }
         }

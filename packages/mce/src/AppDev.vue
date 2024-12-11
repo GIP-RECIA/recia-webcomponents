@@ -15,9 +15,9 @@
 -->
 
 <script setup lang="ts">
-const { VITE_MCE_API_URI, VITE_USER_INFO_API_URI } = import.meta.env
+const { VITE_MCE_API_URI, VITE_USER_INFO_API_URI, VITE_PORTAIL_API_URI } = import.meta.env
 </script>
 
 <template>
-  <mce-ui :mce-api="VITE_MCE_API_URI" :user-info-api-url="VITE_USER_INFO_API_URI"></mce-ui>
+  <mce-ui :mce-api="VITE_MCE_API_URI" :user-info-api-url="VITE_USER_INFO_API_URI" :portail-api-url="VITE_PORTAIL_API_URI"></mce-ui>
 </template>

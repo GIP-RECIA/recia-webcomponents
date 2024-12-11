@@ -15,12 +15,13 @@
 -->
 
 <script setup lang="ts">
-import { getMCE } from '@/services/serviceMce'
+import { getMCE, getServicesEnt } from '@/services/serviceMce'
 import { ref, onMounted } from 'vue'
 
 const props = defineProps<{
   mceApi: string
   userInfoApiUrl: string
+  portailApiUrl: string
 }>()
 
 
@@ -28,14 +29,58 @@ const mce = ref<any>([])
 let ongletCurrent = ref<string>('')
 const listOnglets = ref<Array<string>>([])
 
+
+interface Service {
+  id: number;
+  title: string;
+  fname: string;
+}
+
+const jsonSubcategories = ref<any[]>([])
+const servicesList = ref<Service[]>([]);
+const portletsSet = ref<Set<string>>(new Set());
+const portlets = ref<Array<string>>()
+
+
+async function getAllPortlets(uri: string, token: string) {
+  const services = await getServicesEnt(uri, token);
+  jsonSubcategories.value = services.data.registry.categories[0].subcategories;
+
+    const localPortletsSet = new Set<string>(); // Temporary set to avoid reactive overhead
+
+    const localServicesList: Service[] = []; // Temporary array to collect services
+
+    for(let subcategory of jsonSubcategories.value){
+      for (let portlet of subcategory['portlets']) {
+
+        localServicesList.push({
+                  id: portlet.id,
+                  title: portlet.title,
+                  fname: portlet.fname
+        });
+
+        localPortletsSet.add(portlet.title);
+      }
+    }
+
+    // Update reactive refs with local values
+    servicesList.value = localServicesList;
+    portletsSet.value = localPortletsSet;
+
+    // Convert portletsSet to an array
+    portlets.value = Array.from(localPortletsSet);
+
+}
+
 onMounted(async () => {
   try {
     const res = await getMCE(props.mceApi, props.userInfoApiUrl)
     mce.value = res.data
     ongletCurrent.value = mce.value.listMenu[0]
     listOnglets.value = mce.value.listMenu
+
+    await getAllPortlets(props.portailApiUrl,props.userInfoApiUrl);
     
-    // List of structures
   } catch (error: any) {
     console.error('error : ', error.res.data)
   }
@@ -54,38 +99,30 @@ function select(payload: CustomEvent, isBoolean: boolean) {
 </script>
 <template>
   <div class="parent">
-    <list-onglet :list="listOnglets" :onglet-current="ongletCurrent" :user-info-api-url="userInfoApiUrl" class-btn="onglet-name" @selectOnglet="select($event, false)"/>
+
     <div class="user-details">
-      <div class="profile-container">
-        <div class="profile-picture">
-          <img class="avatar" :src="mce.avatar" alt="" />
-        </div>
-        <div class="profile-info">
-          <div class="left-info">
-            <p>{{ mce.userName }}</p>
-            <p>{{ mce.etab }}</p>
-            <p>{{ mce.userMail }}</p>
-          </div>
-          <div class="right-info">
-            <p>Date de naissance: {{ mce.bod }}</p>
-            <p>Identifiant: {{ mce.identifiant }}</p>
-          </div>
-        </div>
+      <user-info :avatar="mce.avatar" :userName="mce.userName" :etab="mce.etab" :userMail="mce.userMail" :bod="mce.bod" :identifiant="mce.identifiant"/>
       </div>
       <div class="sectionTwo">
       <div class="content">
+          <list-onglet :list="listOnglets" :onglet-current="ongletCurrent" :user-info-api-url="userInfoApiUrl" class-btn="onglet-name" @selectOnglet="select($event, false)"/>
           <section-onglet
             :mce-api="mceApi"
             :list-menu="ongletCurrent"
             :user-info-api-url="userInfoApiUrl"
+            :fonctionClassesGroupe="mce.fonctionClassesGroupe"
+            :parentEleve="mce.parentEleve"
+            :relationEleve="mce.relationEleve"
+            :apprentis="mce.apprentis"
+            :services="portlets"
+            :etabCurrent="mce.etab"
           />
         </div>
       </div>
     </div>
-  </div>
 </template>
 
-<style lang="css">
+<style lang="scss">
 * {
   margin: 0;
   padding: 0;
@@ -100,54 +137,42 @@ body {
 
 
 .parent {
-  display: flex;
+    display: flex;
+    position: absolute;
+    left: 120px;
+    top: 80px;
+    width: 85%;
+    gap: 20px;
+    overflow-y: scroll;
+
+    .user-details {
+      top: 0px;
+      width: 340px;
+      height: 600px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 28px;
+      box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12);
+      flex-grow: 0.3;
+  }
+
+  .sectionTwo {
+    left: 370px;
+    top: 0px;
+    width: 600px;
+    min-height: 600px;
+    //max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: white;
+    border-radius: 28px;
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12);
+    flex-grow: 2;
+  }
+
 }
 
-
-.profile-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 900px;
-  background-color: white;
-  padding: 20px;
-  margin-top: 50px;
-  border-radius: 5px 5px 0px 0px;
-  /* box-shadow:
-    0 1px 2px #0000001f,
-    0 1px 2px #0000001f; */
-  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12);
-}
-
-.profile-picture {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.avatar {
-  border-radius: 50%;
-}
-
-.circle {
-  width: 80px;
-  height: 80px;
-  background-color: #6ec295;
-  border-radius: 50%;
-}
-
-.profile-info {
-  flex: 2 30%;
-  display: flex;
-  justify-content: space-between;
-  padding-left: 20px;
-}
-
-.left-info p,
-.right-info p {
-  margin-bottom: 10px;
-}
 
 @media (max-width: 768px) {
 
@@ -162,15 +187,5 @@ body {
   }
 }
 
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  background-color: white;
-  border-radius: 5px;
-  /* box-shadow:
-    0 1px 2px #0000001f,
-    0 1px 2px #0000001f; */
-  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12);
-}
+
 </style>

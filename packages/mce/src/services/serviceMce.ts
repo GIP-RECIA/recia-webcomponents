@@ -46,4 +46,13 @@ const getContentOnglet = async (url: string, userInfoApiUrl: string) => {
   })
 }
 
-export { getMCE, getContentOnglet }
+const getServicesEnt = async (url: string, userInfoApiUrl: string) => {
+  return await axios.get(`${url}`, {
+    headers: {
+      Authorization: `Bearer ${await getToken(userInfoApiUrl)}`,
+      'content-type': 'application/jwt'
+    }
+  })
+}
+
+export { getMCE, getContentOnglet, getServicesEnt }
