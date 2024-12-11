@@ -14,17 +14,11 @@
  * limitations under the License.
  */
 
-import type { Structure } from './structureType'
-
-export type PersonneFonction = {
-  fonction: string
-  discipline: string
+export type Structure = {
+  id: string
+  name: string
+  displayName: string
   structure: string
-  active: boolean
-  codeF: string
-  codeD: string
-  idFonction: number
-  siren: string
-  source: string
-  struct: Structure
+  uai: boolean
+  type: string
 }
