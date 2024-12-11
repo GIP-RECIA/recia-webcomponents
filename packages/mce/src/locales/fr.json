@@ -3,6 +3,7 @@
     "GENERALE": "Mes informations générales",
     "SERVICE": "Mes services ENT",
     "PARENT_ELEVE": "Mes responsables",
-    "APPRENTIS": "Mes apprentis"
+    "APPRENTIS": "Mes apprentis",
+    "RELATION_ELEVE": "Mes relations élèves"
   }
 }
