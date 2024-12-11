@@ -66,194 +66,258 @@ watchEffect((): void => {
 </script>
 
 <template>
-    <!-- <div class="content"> -->
         <div v-if="fonctions.length" class="sectionFonction">
           <div class="heading-titre">
-            <span>Mes fonctions</span>
+            <span class="titre">Mes fonctions</span>
           </div>
-            <dl data-title="Mes fonctions">
-                <!-- Table header for "My fonctions" -->
-                <dt class="dl-header">Établissement</dt>
-                <dt class="dl-header">Fonction</dt>
-                <dt class="dl-header">Discipline</dt>
-                <dt class="dl-header">Activé</dt>
-
-                <!-- Data rows -->
-                <template v-for="(it, index) in fonctions" :key="index">
-                <dd>{{ it.siren }}</dd>
-                <dd>{{ it.fonction }}</dd>
-                <dd>{{ it.discipline }}</dd>
-                <dd>
-                    <input
-                    type="checkbox"
-                    name=""
-                    :id="it.discipline"
-                    :value="it.discipline"
-                    :checked="it.active"
-                    />
-                </dd>
-                </template>
-            </dl>
+          <div class="etabs-fonctions">
+            <template v-for="(it, index) in fonctions" :key="index">
+              <div class="etab-fonction">
+                  <span>{{ it.struct.name }} ({{ it.struct.type }})</span>
+                  <div class="fonctions">
+                      <span class="fonction">{{ it.fonction || '-'}}</span>
+                      <span class="discipline">{{ it.discipline || '-' }}</span>
+                  </div>
+              </div>
+            </template>
+          </div>
         </div>
 
 
     <!-- Mes classes et groupes pédago prof section -->
     <div v-if="isProf" class="sectionCG">
       <div class="heading-titre">
-        <span>Mes classes et groupes pédagoqiues</span>
+        <span class="titre">Mes classes et groupes pédagogiques</span>
       </div>
-      <dl data-title="Mes classes et groupes pédagoqiues">
-        <!-- Table header for "My classes and groups" -->
-        <dt class="dl-header">Établissement</dt>
-        <dt class="dl-header">Enseignement</dt>
-        <dt class="dl-header">Classes</dt>
-        <dt class="dl-header">Groups</dt>
-
-        <!-- Data rows -->
+      <div class="etabs-cg">
         <template v-for="(classgroup, index) in sectionProf" :key="index">
             <template v-for="(etabs, indexEtab) in classgroup" :key="indexEtab">
             <!-- First item row -->
+            <div class="classe-groupe">
+            <span>{{ indexEtab }}</span>
 
-            <template v-for="(item,indexItem) in etabs" :key="indexItem">
-                <dd v-if="indexItem == 0">{{ indexEtab }}</dd>
-                <dd v-else></dd>
-
-                <dd>{{ item.matiere }}</dd>
-                <dd>{{ item.cg?.classes?.[0] || '-'}}</dd>
-                <dd>{{ item.cg?.groupes?.[0] || '-' }}</dd>
-
-                <template v-for="(extraClass, idx) in (item.cg?.classes?.slice(1) || [])" :key="`class-${idx}`">
-                    <dd></dd> <!-- Empty space for "etab" column -->
-                    <dd></dd> <!-- Empty space for "matiere" column -->
-                    <dd>{{ extraClass }}</dd>
-                    <dd>{{ item.cg?.groupes?.[idx + 1] || '-'  }}</dd>
-                </template>
-                               
-            </template>
-          </template>
+              <div class="enseignements-prof">
+              <template v-for="(item,indexItem) in etabs" :key="indexItem">
+                <div class="enseignement-prof">
+                    <span class="ens-prof">{{ item.matiere}}</span>
+                    <template v-for="(classes, index) in item.cg?.classes" :key="index">
+                      <span :class="[ item.cg?.classes != null ? 'classe-prof' : 'none-classe']">Classe : {{ classes}}</span>
+                    </template>
+                    <template v-for="(groupes, index) in item.cg?.groupes" :key="index">
+                      <span :class="[ item.cg?.groupes != null ? 'groupe-prof' : 'none-groupe']">Groupe : {{ groupes }}</span>
+                    </template>
+                </div>
+              </template>
+            </div>
+            </div>
         </template>
-      </dl>
+      </template>
+      </div>
+    
     </div>
 
     <!-- Mes classes et groupes pédago elève section -->
     <div v-else class="sectionCG_Eleve">
       <div class="heading-titre">
-        <span>Mes classes et groupes pédagoqiues</span>
+        <span class="titre">Mes classes et groupes pédagogiques</span>
       </div>
-      <dl data-title="Mes classes et groupes pédagoqiues">
-        <!-- Table header for "My classes and groups" -->
-        <dt class="dl-header">Établissement</dt>
-        <dt class="dl-header">Classes</dt>
-        <dt class="dl-header">Groups</dt>
 
-        <!-- Data rows -->
+      <div class="etabs">
         <template v-for="(classgroup, index) in etabs" :key="index">
-          <!-- First item row -->
-          <dd>{{ classgroup.nameEtab }}</dd>
-          <dd>{{ classgroup.classes[0] || '-'}}</dd>
-          <dd>{{ classgroup.groupes[0] || '-' }}</dd>
-
+          <div class="etab">
+              <span class="etab-name">{{ classgroup.nameEtab }}</span>
+              <span class="classe">Classe : {{ classgroup.classes[0] || '-'}}</span>
+              <span class="groupe">Groupe : {{ classgroup.groupes[0] || '-' }}</span>
+          </div>
         </template>
-      </dl>
+      </div>
 
-      <dl>
-        <dt class="ens-suivis">Enseignements suivis</dt>
-        <template v-for="(ens, index) in sectionEleve?.enseignementSuivis" :key="index">
-          <dd>{{ ens }}</dd>
-        </template>
-      </dl>
+      <div class="heading-titre">
+        <span class="titre">Enseignements suivis</span>
+      </div>
+      <div class="enseignements">
+      <template v-for="(ens, index) in sectionEleve?.enseignementSuivis" :key="index">
+          <div class="ens">{{ ens }}</div>
+      </template>
+      </div>
+
     </div>
-    <!-- </div> -->
 </template>
 
-<style lang="css">
+<style lang="scss">
 .content {
   display: flex;
   flex-direction: column;
   gap: 20px;
   background-color: white;
   border-radius: 5px;
-  /* box-shadow:
-    0 1px 2px #0000001f,
-    0 1px 2px #0000001f; */
   box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12);
 }
 
-.sectionFonction dl,
-.sectionCG dl,
-.sectionCG_Eleve dl {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 3 columns for "My fonctions" */
-  gap: 5px;
-}
-
-.sectionCG dl {
-  grid-template-columns: repeat(4, 1fr); /* 4 columns for "My classes and groups" */
-}
-
-.sectionCG_Eleve dl {
-  grid-template-columns: repeat(3, 1fr); /* 4 columns for "My classes and groups" */
-}
-
-
-/* Styling for headers */
-.sectionFonction dl::before,
-.sectionCG dl::before,
-.sectionCG_Eleve dl::before {
-  font-weight: bold;
-  font-size: 1.5em;
-  display: block;
-  margin-bottom: 10px;
-}
-
-/* Ensuring dt acts like table headers */
-dt {
-  font-weight: bold;
-  grid-column: span 1;
-}
 
 .ens-suivis {
   grid-column: span 3;
 
 }
 
-/* dd (content cells) align with dt */
-dd {
-  margin: 0;
-  padding: 5px;
-  grid-column: span 1;
-}
-
-/* Optional: Adding a border and padding to emulate a table look */
-dl,
-dt,
-dd {
-  border-bottom: 1px solid #ccc;
-}
-
-dt,
-dd {
-  padding: 5px;
-  text-align: left;
-}
-
-/* Styling for headers within the table */
-.dl-header {
-  font-weight: bold;
-  background-color: #25b2f3;
-  color: white;
-  padding: 8px;
-  border-bottom: 2px solid #000;
-  grid-column: span 1;
-}
-
-/* Optional: Head row styling */
-dl.dl-header {
-  display: contents; /* Ensure header row spans full width */
-}
 
 .heading-titre {
   padding: 10px 15px;
-  background-color: #f3f3f3;
+
+  .titre {
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+.sectionCG {
+  padding: 20px 0px;
+}
+
+.enseignements {
+  display: grid;
+  padding: 0px 15px;
+
+  grid-template-columns: 200px 200px 200px;
+  column-gap: 20px;
+  row-gap: 15px;
+
+  .ens {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background-color: #eee;
+    //width: fit-content;
+    border-radius: 12px;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+.etabs {
+  display: flex;
+  padding: 0px 15px;
+
+  .etab {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 15px;
+    background-color: #eee;
+    width: fit-content;
+    border-radius: 12px;
+    gap: 4px;
+
+    .etab-name {
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .classe {
+      background-color: white;
+      padding: 5px;
+      border-radius: 14px;
+      text-align: center;
+    }
+
+    .groupe {
+      background-color: white;
+      padding: 5px;
+      border-radius: 14px;
+      text-align: center;
+    }
+  }
+}
+
+// mes fonction : prof 
+.etabs-fonctions {
+  display: grid;
+  padding: 0px 15px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    column-gap: 20px;
+    row-gap: 15px;
+
+
+  .etab-fonction {
+
+    .fonctions {
+      display: flex;
+      flex-direction: column;
+      padding: 15px 15px;
+      background-color: #eee;
+      width: fit-content;
+      border-radius: 12px;
+      gap: 4px;
+
+      .fonction {
+        font-weight: bold;
+        font-size: 14px;
+      }
+
+      .discipline {
+        background-color: white;
+        padding: 5px;
+        border-radius: 14px;
+        font-size: 11px;
+        text-align: center;
+      }
+
+    }
+  }
+}
+
+// mes cg : prof 
+.etabs-cg {
+  display: grid;
+  padding: 0px 15px;
+  grid-template-columns: 300px 300px;
+  column-gap: 20px;
+  row-gap: 15px;
+
+
+  .classe-groupe {
+
+    .enseignements-prof {
+      display: grid;
+      grid-template-columns: 200px 200px;
+      column-gap: 15px;
+      
+      .enseignement-prof {
+        display: flex;
+        flex-direction: column;
+        padding: 15px 15px;
+        background-color: #eee;
+        border-radius: 12px;
+        gap: 4px;
+
+        .ens-prof {
+          font-weight: bold;
+          font-size: 14px;
+        }
+
+        .classe-prof {
+          background-color: white;
+          padding: 5px;
+          border-radius: 14px;
+          text-align: center;
+        }
+        .none-classe {
+          display: none;
+        }
+
+        .groupe-prof {
+          background-color: white;
+          padding: 5px;
+          border-radius: 14px;
+          text-align: center;
+        }
+        .none-groupe {
+          display: none;
+        }
+
+      }
+
+    }
+  }
 }
 </style>
