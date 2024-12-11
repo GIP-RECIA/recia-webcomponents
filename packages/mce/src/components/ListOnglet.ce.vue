@@ -38,30 +38,34 @@ function selected(onglet: string) {
 
 <template>
     <div class="list-menu">
-      <ul class="content">
-        <li v-for="item in list" :key="item">
-          <button :class="[classBtn, item == ongletCurrent ? 'active' : '']" @click="selected(item)">{{ m(item) }}</button>
-        </li>
-      </ul>
+    <div v-for="item in list" :key="item">
+      <button :class="[classBtn, item == ongletCurrent ? 'active' : '']" @click="selected(item)">{{ m(item) }}</button>
+    </div>
     </div>
 </template>
 
 <style lang="css">
 .list-menu {
-  margin: 50px;
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  justify-content: center;
+  padding: 20px 0;
 }
 .onglet-name {
   border: none;
-  padding-bottom: 10px;
-  padding-top: 10px;
   width: 100%;
+  background-color: transparent;
+  border-radius: 28px;
+  padding: 14px;
 }
 
 ul {
   list-style: none;
 }
 .active {
-  background-color: #d4d4d4;
-  color: black;
+  background-color: rgba(38, 68, 138, 0.18);
+  color: #26448a;
+  font-weight: bolder;
 }
 </style>
