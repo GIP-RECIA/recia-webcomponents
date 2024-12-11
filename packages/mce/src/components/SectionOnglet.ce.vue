@@ -15,45 +15,39 @@
 -->
 
 <script setup lang="ts">
-import { getContentOnglet } from '@/services/serviceMce';
-import { ref, watchEffect } from 'vue';
-
 
 const props = defineProps<{
   mceApi: string
   listMenu: string
   userInfoApiUrl: string
+  fonctionClassesGroupe: any
+  parentEleve: any
+  relationEleve: any
+  apprentis: any
+  services: Array<string>
+  etabCurrent: string
 }>()
-
-const details = ref<Object>([])
-
-watchEffect((): void => {
-  void (async () => {
-    await fetchDetailOnglet(props.listMenu)
-  })()
-})
-
-async function fetchDetailOnglet(name: string) {
-  if (name != '') {
-    try {
-      const response = await getContentOnglet(props.mceApi + name, props.userInfoApiUrl)
-      details.value = response.data
-
-    } catch (error) {
-      console.error('error: ', error)
-    }
-  }
-}
 
 </script>
 
 <template>
     <div v-if="props.listMenu == 'GENERALE'">
-        <info-general :details="details"/>
-        
+        <info-general :details="fonctionClassesGroupe"/>
     </div>
 
     <div v-else-if="props.listMenu == 'PARENT_ELEVE'">
-        <relation-user :details="details"/>
+        <relation-user :details="parentEleve" titre="Personne en rélation avec moi" :onglet="listMenu"/>
+    </div>
+
+    <div v-else-if="props.listMenu == 'RELATION_ELEVE'">
+        <relation-user :details="relationEleve" titre="Les élèves de mes relations." :onglet="listMenu"/>
+    </div>
+
+    <div v-else-if="props.listMenu == 'APPRENTIS'">
+        <relation-user :details="apprentis" titre="Mes apprentis" :onglet="listMenu"/>
+    </div>
+
+    <div v-else-if="props.listMenu == 'SERVICE'">
+        <services-ent :details="services" :etab="etabCurrent" :onglet="listMenu"/>
     </div>
 </template>
