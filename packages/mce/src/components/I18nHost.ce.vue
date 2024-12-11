@@ -24,9 +24,10 @@ provide(I18nInjectionKey, i18n)
 defineProps<{
   mceApi: string
   userInfoApiUrl: string
+  portailApiUrl: string
 }>()
 </script>
 
 <template>
-  <page-mce :mce-api="mceApi" :user-info-api-url="userInfoApiUrl"> </page-mce>
+  <page-mce :mce-api="mceApi" :user-info-api-url="userInfoApiUrl" :portail-api-url="portailApiUrl"/>
 </template>
