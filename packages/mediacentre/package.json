@@ -62,7 +62,7 @@
     "@vueuse/core": "^12.0.0",
     "axios": "^1.7.9",
     "dotenv-checker": "^1.1.7",
-    "eslint": "^9.16.0",
+    "eslint": "^9.17.0",
     "eslint-plugin-format": "^0.1.3",
     "lint-staged": "^15.2.10",
     "lodash.debounce": "^4.0.8",
