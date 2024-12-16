@@ -55,7 +55,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.1",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@gip-recia/wisemapping-editor": "6.0.0-recia-1.0.2405231",
-    "@r2wc/react-to-web-component": "^2.0.3",
+    "@r2wc/react-to-web-component": "^2.0.4",
     "@types/lodash.throttle": "^4",
     "@types/node": "^22",
     "@types/react": "^18",
