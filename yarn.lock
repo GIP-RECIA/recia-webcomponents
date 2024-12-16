@@ -1411,7 +1411,7 @@ __metadata:
     typescript: "npm:^5.6.3"
     vite: "npm:^6.0.3"
     vue: "npm:^3.5.13"
-    vue-i18n: "npm:10.0.5"
+    vue-i18n: "npm:^10.0.5"
     vue-tsc: "npm:^2.1.10"
   languageName: unknown
   linkType: soft
@@ -1470,7 +1470,7 @@ __metadata:
     typescript: "npm:^5.6.3"
     vite: "npm:^6.0.3"
     vue: "npm:^3.5.13"
-    vue-i18n: "npm:10.0.5"
+    vue-i18n: "npm:^10.0.5"
     vue-tsc: "npm:^2.1.10"
   languageName: unknown
   linkType: soft
@@ -1504,7 +1504,7 @@ __metadata:
     vite: "npm:^6.0.3"
     vite-plugin-css-injected-by-js: "npm:^3.5.2"
     vue: "npm:^3.5.13"
-    vue-i18n: "npm:10.0.5"
+    vue-i18n: "npm:^10.0.5"
     vue-tsc: "npm:^2.1.10"
     vue3-toastify: "npm:^0.2.5"
     vuejs-clipper: "npm:^4.1.0"
@@ -1617,7 +1617,7 @@ __metadata:
     typescript: "npm:^5.6.3"
     vite: "npm:^6.0.3"
     vue: "npm:^3.5.13"
-    vue-i18n: "npm:10.0.5"
+    vue-i18n: "npm:^10.0.5"
     vue-tsc: "npm:^2.1.10"
   languageName: unknown
   linkType: soft
@@ -11439,7 +11439,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-i18n@npm:10.0.5, vue-i18n@npm:^10.0.0":
+"vue-i18n@npm:^10.0.0, vue-i18n@npm:^10.0.5":
   version: 10.0.5
   resolution: "vue-i18n@npm:10.0.5"
   dependencies:
