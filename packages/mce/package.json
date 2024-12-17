@@ -1,37 +1,81 @@
 {
-  "name": "mce-ui",
-  "version": "0.0.0",
-  "private": true,
+  "name": "@gip-recia/mce-ui",
   "type": "module",
+  "version": "0.0.0",
+  "description": "",
+  "contributors": [
+    {
+      "name": "Quentin Guillemin",
+      "email": "quentin.guillemin@recia.fr",
+      "url": "https://github.com/Quentin-Guillemin"
+    }
+  ],
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/GIP-RECIA/recia-webcomponents/tree/main/packages/mce/#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GIP-RECIA/recia-webcomponents.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GIP-RECIA/recia-webcomponents/issues"
+  },
+  "keywords": [
+    "mce",
+    "gip-recia"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/mce-ui.js",
+      "require": "./dist/mce-ui.umd.cjs"
+    }
+  },
+  "main": "./dist/mce-ui.umd.cjs",
+  "module": "./dist/mce-ui.js",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
-    "dev": "vite --host",
-    "build": "run-p type-check \"build-only {@}\" --",
+    "dev": "dotenv-checker && vite --host",
+    "build": "run-p type-check build-only && npm run build:min",
+    "build:min": "npm exec terser -- -c -m --module dist/mce-ui.js > dist/mce-ui.min.js",
+    "lint": "eslint src/*",
     "preview": "vite preview",
+    "test:unit": "echo No tests available",
     "build-only": "vite build",
-    "type-check": "vue-tsc --build --force",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "type-check": "vue-tsc --noEmit",
+    "release": "yarn run -T commit-and-tag-version -t 'mce-ui/v'",
+    "release:patch": "yarn run -T commit-and-tag-version -t 'mce-ui/v' --release-as patch",
+    "release:minor": "yarn run -T commit-and-tag-version -t 'mce-ui/v' --release-as minor",
+    "release:major": "yarn run -T commit-and-tag-version -t 'mce-ui/v' --release-as major"
   },
   "devDependencies": {
-    "@intlify/unplugin-vue-i18n": "^4.0.0",
-    "@rushstack/eslint-patch": "^1.10.4",
-    "@tsconfig/node20": "^20.1.4",
+    "@antfu/eslint-config": "^4.2.1",
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/vue-fontawesome": "^3.0.8",
+    "@intlify/unplugin-vue-i18n": "^6.0.3",
+    "@tsconfig/node22": "^22.0.0",
     "@types/node": "^22",
+    "@types/regenerator-runtime": "^0",
     "@uportal/open-id-connect": "^1.40.2",
-    "@vitejs/plugin-vue": "^5.1.4",
-    "@vue/eslint-config-prettier": "^9.0.0",
-    "@vue/eslint-config-typescript": "^13.0.0",
-    "@vue/tsconfig": "^0.5.1",
-    "axios": "^1.7.7",
-    "eslint": "^8.57.0",
-    "eslint-plugin-vue": "^9.28.0",
-    "npm-run-all2": "^6.2.3",
-    "prettier": "^3.3.3",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/tsconfig": "^0.7.0",
+    "axios": "^1.7.9",
+    "dotenv-checker": "^1.1.7",
+    "eslint": "^9.20.1",
+    "eslint-plugin-format": "^1.0.1",
+    "lint-staged": "^15.4.3",
+    "npm-run-all2": "^7.0.2",
     "regenerator-runtime": "^0.14.1",
-    "typescript": "^5.6.2",
-    "vite": "^5.4.7",
-    "vue": "^3.5.8",
-    "vue-i18n": "^10.0.1",
-    "vue-tsc": "^2.1.6"
+    "sass": "^1.85.0",
+    "terser": "^5.39.0",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0",
+    "vue": "^3.5.13",
+    "vue-i18n": "^11.1.1",
+    "vue-tsc": "^2.2.2"
   }
 }
