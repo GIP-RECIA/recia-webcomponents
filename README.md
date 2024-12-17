@@ -36,6 +36,7 @@ make license-generate
 - [@gip-recia/actualites](packages/actualites)
 - [@gip-recia/change-etab](packages/change-etab)
 - [@gip-recia/info-modal](packages/info-modal/)
+- [@gip-recia/mce-ui](packages/mce/)
 - [@gip-recia/mediacentre-ui](packages/mediacentre/)
 - [@gip-recia/param-etab](packages/param-etab/)
 - [@gip-recia/ui-ressources-gar](packages/ressources-diffusables/)
