@@ -15,8 +15,7 @@
 -->
 
 <script setup lang="ts">
-
-const props = defineProps<{
+defineProps<{
   mceApi: string
   listMenu: string
   userInfoApiUrl: string
@@ -27,27 +26,26 @@ const props = defineProps<{
   services: Array<string>
   etabCurrent: string
 }>()
-
 </script>
 
 <template>
-    <div v-if="props.listMenu == 'GENERALE'">
-        <info-general :details="fonctionClassesGroupe"/>
-    </div>
+  <div v-if="listMenu == 'GENERALE'">
+    <info-general :details="fonctionClassesGroupe" />
+  </div>
 
-    <div v-else-if="props.listMenu == 'PARENT_ELEVE'">
-        <relation-user :details="parentEleve" titre="Personne en rélation avec moi" :onglet="listMenu"/>
-    </div>
+  <div v-else-if="listMenu == 'PARENT_ELEVE'">
+    <relation-user :details="parentEleve" titre="Personne en rélation avec moi" :onglet="listMenu" />
+  </div>
 
-    <div v-else-if="props.listMenu == 'RELATION_ELEVE'">
-        <relation-user :details="relationEleve" titre="Les élèves de mes relations." :onglet="listMenu"/>
-    </div>
+  <div v-else-if="listMenu == 'RELATION_ELEVE'">
+    <relation-user :details="relationEleve" titre="Les élèves de mes relations." :onglet="listMenu" />
+  </div>
 
-    <div v-else-if="props.listMenu == 'APPRENTIS'">
-        <relation-user :details="apprentis" titre="Mes apprentis" :onglet="listMenu"/>
-    </div>
+  <div v-else-if="listMenu == 'APPRENTIS'">
+    <relation-user :details="apprentis" titre="Mes apprentis" :onglet="listMenu" />
+  </div>
 
-    <div v-else-if="props.listMenu == 'SERVICE'">
-        <services-ent :details="services" :etab="etabCurrent" :onglet="listMenu"/>
-    </div>
+  <div v-else-if="listMenu == 'SERVICE'">
+    <services-ent :details="services" :etab="etabCurrent" :onglet="listMenu" />
+  </div>
 </template>

@@ -15,19 +15,13 @@
 -->
 
 <script setup lang="ts">
+import i18n from '@/plugins/i18n'
 import { provide } from 'vue'
-import i18n from '@/i18n'
 import { I18nInjectionKey } from 'vue-i18n'
 
 provide(I18nInjectionKey, i18n)
-
-defineProps<{
-  mceApi: string
-  userInfoApiUrl: string
-  portailApiUrl: string
-}>()
 </script>
 
 <template>
-  <page-mce :mce-api="mceApi" :user-info-api-url="userInfoApiUrl" :portail-api-url="portailApiUrl"/>
+  <slot />
 </template>

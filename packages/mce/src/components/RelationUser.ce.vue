@@ -15,48 +15,42 @@
 -->
 
 <script setup lang="ts">
-import type { Relation } from '@/types/relationType';
-import { ref, watchEffect } from 'vue';
-
+import type { Relation } from '@/types/relationType'
+import { ref, watchEffect } from 'vue'
 
 const props = defineProps<{
-    details: Array<Relation>
-    titre: string
-    onglet: string
+  details: Array<Relation>
+  titre: string
+  onglet: string
 }>()
-
 
 const relations = ref<Array<Relation>>()
 
 watchEffect((): void => {
   void (() => {
     relations.value = props.details
-    
   })()
 })
-
 </script>
 
-
 <template>
-    <div class="section_eleve">
-      <div class="heading-titre">
-        <span class="titre">{{titre}}</span>
-      </div>
-      <div class="relations">
-        <template v-for="(val, index) in relations" :key="index">
-          <div class="relation">
-              <span class="type">{{ val.typeRelation == "20" && "Pere"? "Père" : val.typeRelation }}</span>
-              <span class="name-person">{{ val.displayNameRelation }}</span>
-              <span>{{ val.autoriteParental == true? "Autorité parental" : ""}}</span>
-          </div>
-        </template>
-      </div>
+  <div class="section_eleve">
+    <div class="heading-titre">
+      <span class="titre">{{ titre }}</span>
     </div>
+    <div class="relations">
+      <template v-for="(val, index) in relations" :key="index">
+        <div class="relation">
+          <span class="type">{{ val.typeRelation == "20" && "Pere" ? "Père" : val.typeRelation }}</span>
+          <span class="name-person">{{ val.displayNameRelation }}</span>
+          <span>{{ val.autoriteParental == true ? "Autorité parental" : "" }}</span>
+        </div>
+      </template>
+    </div>
+  </div>
 </template>
 
 <style lang="scss">
-
 .relations {
   display: grid;
   padding: 0px 15px;
@@ -79,7 +73,6 @@ watchEffect((): void => {
   }
 }
 
-
 .heading-titre {
   padding: 10px 15px;
 
@@ -89,5 +82,4 @@ watchEffect((): void => {
     font-weight: bold;
   }
 }
-
 </style>
