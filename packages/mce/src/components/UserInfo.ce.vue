@@ -15,47 +15,45 @@
 -->
 
 <script setup lang="ts">
-
-const props = defineProps<{
-    avatar: string
-    userName: string
-    etab: string
-    userMail: string
-    bod: string
-    identifiant: string
+defineProps<{
+  avatar: string
+  userName: string
+  etab: string
+  userMail: string
+  bod: string
+  identifiant: string
 
 }>()
 </script>
-<template>
-      <div class="profile-container">
-        <div class="profile-picture">
-          <img class="avatar" :src="avatar" alt="" />
-          <span class="user-name">{{ userName }}</span>
 
-        </div>
-        <div class="profile-info">
-          <label>
-            <span>Identifiant</span>
-            <input type="text" :value="identifiant">
-          </label>
-          <label>
-            <span>Email</span>
-            <input type="text" :value="userMail">
-          </label>
-          <label>
-            <span>Date de naissance</span>
-            <input type="text" :value="bod">
-          </label>
-          <label>
-            <span>Structure rattachement</span>
-            <input type="text" :value="etab">
-          </label>
-        </div>
-        </div>
+<template>
+  <div class="profile-container">
+    <div class="profile-picture">
+      <img class="avatar" :src="avatar" alt="">
+      <span class="user-name">{{ userName }}</span>
+    </div>
+    <div class="profile-info">
+      <label>
+        <span>Identifiant</span>
+        <input type="text" :value="identifiant">
+      </label>
+      <label>
+        <span>Email</span>
+        <input type="text" :value="userMail">
+      </label>
+      <label>
+        <span>Date de naissance</span>
+        <input type="text" :value="bod">
+      </label>
+      <label>
+        <span>Structure rattachement</span>
+        <input type="text" :value="etab">
+      </label>
+    </div>
+  </div>
 </template>
 
 <style lang="scss">
-
 .profile-container {
   top: 0px;
   display: flex;
@@ -77,9 +75,7 @@ const props = defineProps<{
     .user-name {
       text-align: center;
     }
-
   }
-
 
   .profile-info {
     flex: 2 30%;
@@ -90,7 +86,6 @@ const props = defineProps<{
     column-gap: 8px;
     row-gap: 13.67px;
     flex-direction: column;
-
 
     label {
       display: flex;
@@ -115,15 +110,9 @@ const props = defineProps<{
         border-bottom: 2px solid #eee;
         font-weight: 300;
       }
-
     }
   }
-
-
 }
-
-
-
 
 .circle {
   width: 80px;
@@ -131,7 +120,4 @@ const props = defineProps<{
   background-color: #6ec295;
   border-radius: 50%;
 }
-
-
-
 </style>
