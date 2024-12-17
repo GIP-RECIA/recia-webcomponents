@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export type Relation = {
+export interface Relation {
   contact: number
   eleve: Personne
   uidRelation: string
@@ -25,6 +25,6 @@ export type Relation = {
   selected: boolean
 }
 
-export type Personne = {
+export interface Personne {
   uid: string
 }

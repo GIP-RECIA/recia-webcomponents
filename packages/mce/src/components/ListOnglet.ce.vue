@@ -17,31 +17,31 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 
-
-const { t } = useI18n()
-const m = (key: string): string => t(`list-onglet.${key}`)
-
-
-const props = defineProps<{
+defineProps<{
   list: Array<string>
   ongletCurrent: string
   classBtn: string
   userInfoApiUrl: string
 }>()
 
-const emit = defineEmits<(e: 'selectOnglet', payload: any, isSelected: boolean) => void>();
+const emit = defineEmits<(e: 'selectOnglet', payload: any, isSelected: boolean) => void>()
 
-function selected(onglet: string) {    
-  emit('selectOnglet', onglet, false);
+const { t } = useI18n()
+const m = (key: string): string => t(`list-onglet.${key}`)
+
+function selected(onglet: string) {
+  emit('selectOnglet', onglet, false)
 }
 </script>
 
 <template>
-    <div class="list-menu">
+  <div class="list-menu">
     <div v-for="item in list" :key="item">
-      <button :class="[classBtn, item == ongletCurrent ? 'active' : '']" @click="selected(item)">{{ m(item) }}</button>
+      <button :class="[classBtn, item == ongletCurrent ? 'active' : '']" @click="selected(item)">
+        {{ m(item) }}
+      </button>
     </div>
-    </div>
+  </div>
 </template>
 
 <style lang="css">
