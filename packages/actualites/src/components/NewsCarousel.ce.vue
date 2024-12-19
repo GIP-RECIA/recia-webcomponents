@@ -1,0 +1,189 @@
+<script setup lang="ts">
+import type { PaginatedResult } from '@/types/PaginatedResult.ts'
+import { getPaginatedNews } from '@/services/NewsService.ts'
+import { PageOrigin } from '@/types/PageOrigin.ts'
+import { initToken, instance } from '@/utils/axiosUtils.ts'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { computed, onMounted, ref } from 'vue'
+
+const props = defineProps<{
+  userInfoApiUrl: string
+}>()
+
+const result = ref<PaginatedResult>()
+
+onMounted(async () => {
+  try {
+    if (!instance.defaults.headers.Authorization) {
+      await initToken(props.userInfoApiUrl)
+    }
+
+    // await getprops.userInfoApiUrlConfig(props.baseApiUrl)
+    result.value = await getPaginatedNews(2, undefined, undefined, undefined)
+  }
+  catch (e: any) {
+    console.error(e)
+  }
+})
+
+const currentIndex = ref(0)
+
+// Calcul des cartes visibles
+const visibleItems = computed(() => {
+  return result.value.actualite.items ? result.value.actualite.items.slice(currentIndex.value, currentIndex.value + 3) : []
+})
+
+// Fonction pour passer à l'élément précédent
+function prev() {
+  if (currentIndex.value > 0) {
+    currentIndex.value--
+  }
+}
+
+// Fonction pour passer à l'élément suivant
+function next(): void {
+  if (!result.value.actualite)
+    return
+  if (currentIndex.value < result.value.actualite.items.length - 3) {
+    currentIndex.value++
+  }
+}
+
+function allActualites() {
+
+}
+</script>
+
+<template>
+  <div v-if="result?.actualite?.items" class="carousel-container">
+    <div class="carousel-header">
+      <h1 class="carousel-header-title">
+        Actualités
+      </h1>
+      <button class="carousel-header-see-all-news" @click="allActualites">
+        voir toutes les actualités
+        <FontAwesomeIcon class="arrow-rigth" :icon="['fas', 'arrow-right']" />
+      </button>
+    </div>
+
+    <button class="arrow left" :disabled="currentIndex === 0" @click="prev">
+      <FontAwesomeIcon class="circle-arrow-left" :icon="['fas', 'circle-arrow-left']" />
+    </button>
+
+    <div class="carousel-track">
+      <div v-for="(item, index) in visibleItems" :key="index" class="card-wrapper">
+        <news-card :item="item" :rubriques="result.actualite.rubriques" :page-origin="PageOrigin.CARROUSEL" />
+      </div>
+    </div>
+
+    <button class="arrow right" :disabled="currentIndex >= result?.value?.actualite?.items?.length - 3" @click="next">
+      <FontAwesomeIcon class="circle-arrow-right" :icon="['fas', 'circle-arrow-right']" />
+    </button>
+  </div>
+</template>
+
+<style lang="scss">
+.carousel-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-auto-rows: auto;
+}
+
+.carousel-track {
+  display: flex;
+  background: none;
+  background-color: white;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.arrow {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  user-select: none;
+  padding: 0.5rem;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.circle-arrow-left {
+  width: 2rem;
+  height: 2rem;
+}
+
+.circle-arrow-right {
+  width: 2rem;
+  height: 2rem;
+}
+
+.arrow-rigth {
+  width: 11px;
+}
+
+.arrow:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.carousel-track {
+  display: flex;
+  overflow: hidden;
+  flex: 1;
+}
+
+.card-wrapper {
+  flex: 1;
+  min-width: calc(100% / 3); /* Divise l'espace en trois parties égales */
+  box-sizing: border-box;
+  padding: 0.5rem;
+}
+
+.carousel-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  justify-content: space-between; /* Écarte les enfants */
+  padding: 0 16px;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+.carousel-header-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 24px;
+}
+
+.carousel-header-see-all-news {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  background: none;
+  border: none;
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+  color: #1e1e1e;
+}
+
+.carousel-header-see-all-news .arrow-right {
+  transition: color 0.3s ease; /* Transition pour la flèche */
+}
+
+.carousel-header-see-all-news:hover {
+  color: #28666e; /* Teinte le texte en bleu */
+}
+
+.carousel-header-see-all-news:hover .arrow-right {
+  color: #28666e; /* Teinte la flèche en bleu */
+}
+</style>

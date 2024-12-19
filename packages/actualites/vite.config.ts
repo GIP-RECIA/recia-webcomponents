@@ -33,6 +33,15 @@ export default ({ mode }: { mode: string }) => {
           compilerOptions: {
             isCustomElement: tag => [
               'i18n-host',
+              'news-card-carrousel',
+              'carrousel-ui',
+              'preview-ui',
+              'all-news',
+              'custom-toggle-switch',
+              'news-card',
+              'news-filter-section',
+              'view-item',
+              'page-selector'
             ].includes(tag),
           },
         },
@@ -59,6 +68,18 @@ export default ({ mode }: { mode: string }) => {
     },
     define: {
       'process.env': process.env,
+    },
+    server: {
+      proxy: {
+        '^(?:/[a-zA-Z0-9_-]+){2}/api': {
+          target: 'http://10.209.28.156:8080/publisher',
+          changeOrigin: true,
+          rewrite: (path) => {
+            const rewrite = path.replace(/^(?:\/[\w-]+){2}\/api/, '')
+            return rewrite
+          },
+        },
+      },
     },
   })
 }

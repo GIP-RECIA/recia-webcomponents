@@ -14,25 +14,11 @@
  * limitations under the License.
  */
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import {
-  faArrowCircleLeft,
-  faArrowCircleRight,
-  faArrowLeft,
-  faArrowRight,
-  faArrowUpRightFromSquare,
-  faBars,
-  faCaretRight,
-  faCircleInfo,
-  faCircleNotch,
-  faInfo,
-  faStar,
-  faX,
-  faXmark,
-} from '@fortawesome/free-solid-svg-icons'
+export class CustomError extends Error {
+  statusCode
 
-function register() {
-  library.add(faXmark, faStar, faArrowUpRightFromSquare, faCircleNotch, faCircleInfo, faCaretRight, faBars, faArrowCircleLeft, faArrowRight, faArrowCircleRight, faArrowLeft, faXmark, faX, faInfo, faCircleInfo)
+  constructor(message: string, statusCode: number) {
+    super(message)
+    this.statusCode = statusCode
+  }
 }
-
-export { register }

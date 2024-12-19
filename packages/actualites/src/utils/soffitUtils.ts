@@ -14,21 +14,17 @@
  * limitations under the License.
  */
 
+import { CustomError } from '@/utils/CustomError.ts'
 import oidc, { type JWT } from '@uportal/open-id-connect'
-import { jwtDecode } from 'jwt-decode'
 
-let userInfoApiUrl: string
-
-function setUserInfoApiUrl(url: string): void {
-  userInfoApiUrl = url
-}
-
-async function getJwt(): Promise<{ encoded: string, decoded: JWT }> {
-  const { encoded, decoded } = await oidc({ userInfoApiUrl })
-
+async function getToken(apiUrl: string): Promise<{ encoded: string, decoded: JWT }> {
+  const { encoded, decoded } = await oidc({
+    userInfoApiUrl: apiUrl,
+  })
+  if (decoded.sub.startsWith('guest')) {
+    throw new CustomError('You are not logged', 401)
+  }
   return { encoded, decoded }
 }
 
-const parseJwt = (token: string): JWT => jwtDecode(token)
-
-export { getJwt, parseJwt, setUserInfoApiUrl }
+export { getToken }
