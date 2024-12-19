@@ -14,65 +14,50 @@
  * limitations under the License.
  */
 
+import { CustomError } from '@/utils/CustomError.ts'
+import { getToken } from '@/utils/soffitUtils.ts'
 import axios from 'axios'
-import throttle from 'lodash.throttle'
-import { getJwt } from './soffitUtils.ts'
 
 const instance = axios.create({
   timeout: import.meta.env.VITE_AXIOS_TIMEOUT,
+  baseURL: import.meta.env.VITE_BASE_API_URL,
 })
+const isDev: boolean = import.meta.env.DEV
 
 let token: string | undefined
-let timeout: number | undefined
-let renewToken: any
 
-function setToken(newToken: string): void {
-  token = newToken
-}
-
-async function init() {
+async function initToken(apiUrl: string): Promise<void> {
   try {
     const {
       encoded,
       decoded: { exp, iat },
-    } = await getJwt()
+    } = await getToken(apiUrl)
     token = `Bearer ${encoded}`
-    timeout = (exp - iat) * 1000 * 0.75
-    renewToken = throttle(async () => {
+    const timeout = (exp - iat) * 1000 * 0.75
+    // relance la methode a interval regulier
+    setInterval(async () => {
       try {
-        const { encoded } = await getJwt()
+        const { encoded } = await getToken(apiUrl)
         token = `Bearer ${encoded}`
+        // vite detecte l'env
+        if (isDev)
+          // eslint-disable-next-line no-console
+          console.debug('Token has been renewed')
       }
-      catch (e) {
-        console.error(e)
+      catch (es: any) {
+        console.error('Unable to renew token', es)
+        throw new CustomError(es.message, es.statusCode)
       }
     }, timeout)
   }
-  catch (e) {
-    console.error(e)
+  catch (e: any) {
+    throw new CustomError(e.message, e.statusCode)
   }
 }
 
 instance.interceptors.request.use(async (config) => {
-  if (!timeout && !token)
-    await init()
-  else if (timeout)
-    await renewToken()
   config.headers.Authorization = token
-
   return config
 })
 
-function errorHandler(e: any): void {
-  if (axios.isAxiosError(e)) {
-    console.error(e.message)
-  }
-  else if (e instanceof Error) {
-    console.error(e.message)
-  }
-  else {
-    console.error(e)
-  }
-}
-
-export { errorHandler, instance, setToken }
+export { initToken, instance }
