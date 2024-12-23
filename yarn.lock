@@ -3704,7 +3704,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/scope-manager@npm:8.18.0, @typescript-eslint/scope-manager@npm:^8.1.0, @typescript-eslint/scope-manager@npm:^8.13.0":
+"@typescript-eslint/scope-manager@npm:8.18.0":
   version: 8.18.0
   resolution: "@typescript-eslint/scope-manager@npm:8.18.0"
   dependencies:
@@ -3714,7 +3714,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/scope-manager@npm:8.18.1, @typescript-eslint/scope-manager@npm:^8.18.1":
+"@typescript-eslint/scope-manager@npm:8.18.1, @typescript-eslint/scope-manager@npm:^8.1.0, @typescript-eslint/scope-manager@npm:^8.13.0, @typescript-eslint/scope-manager@npm:^8.18.1":
   version: 8.18.1
   resolution: "@typescript-eslint/scope-manager@npm:8.18.1"
   dependencies:
@@ -3724,7 +3724,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/type-utils@npm:8.18.0, @typescript-eslint/type-utils@npm:^8.0.0":
+"@typescript-eslint/type-utils@npm:8.18.0":
   version: 8.18.0
   resolution: "@typescript-eslint/type-utils@npm:8.18.0"
   dependencies:
@@ -3739,7 +3739,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/type-utils@npm:^8.18.1":
+"@typescript-eslint/type-utils@npm:^8.0.0, @typescript-eslint/type-utils@npm:^8.18.1":
   version: 8.18.1
   resolution: "@typescript-eslint/type-utils@npm:8.18.1"
   dependencies:
@@ -3754,21 +3754,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/types@npm:8.18.0, @typescript-eslint/types@npm:^8.18.0":
+"@typescript-eslint/types@npm:8.18.0":
   version: 8.18.0
   resolution: "@typescript-eslint/types@npm:8.18.0"
   checksum: 10/6c6473c169671ca946df7c1e0e424e5296dd44d89833d5c82a0ec0fdb2c668c62f8de31c85b18754d332198f18340cf2b6f13d3b13d02770ee9d1a93a099f069
   languageName: node
   linkType: hard
 
-"@typescript-eslint/types@npm:8.18.1, @typescript-eslint/types@npm:^8.18.1":
+"@typescript-eslint/types@npm:8.18.1, @typescript-eslint/types@npm:^8.18.0, @typescript-eslint/types@npm:^8.18.1":
   version: 8.18.1
   resolution: "@typescript-eslint/types@npm:8.18.1"
   checksum: 10/57a6141ba17be929291a644991f3a76f94fce330376f6a079decb20fb53378d636ad6878f8f9b6fcb8244cf1ca8b118f9e8901ae04cf3de2aa9f9ff57791d97a
   languageName: node
   linkType: hard
 
-"@typescript-eslint/typescript-estree@npm:8.18.0, @typescript-eslint/typescript-estree@npm:^8.13.0":
+"@typescript-eslint/typescript-estree@npm:8.18.0":
   version: 8.18.0
   resolution: "@typescript-eslint/typescript-estree@npm:8.18.0"
   dependencies:
@@ -3786,7 +3786,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/typescript-estree@npm:8.18.1, @typescript-eslint/typescript-estree@npm:^8.18.1":
+"@typescript-eslint/typescript-estree@npm:8.18.1, @typescript-eslint/typescript-estree@npm:^8.13.0, @typescript-eslint/typescript-estree@npm:^8.18.1":
   version: 8.18.1
   resolution: "@typescript-eslint/typescript-estree@npm:8.18.1"
   dependencies:
@@ -3804,7 +3804,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:8.18.0, @typescript-eslint/utils@npm:^8.1.0, @typescript-eslint/utils@npm:^8.13.0, @typescript-eslint/utils@npm:^8.18.0":
+"@typescript-eslint/utils@npm:8.18.0":
   version: 8.18.0
   resolution: "@typescript-eslint/utils@npm:8.18.0"
   dependencies:
@@ -3819,7 +3819,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:8.18.1, @typescript-eslint/utils@npm:^8.18.1":
+"@typescript-eslint/utils@npm:8.18.1, @typescript-eslint/utils@npm:^8.1.0, @typescript-eslint/utils@npm:^8.13.0, @typescript-eslint/utils@npm:^8.18.0, @typescript-eslint/utils@npm:^8.18.1":
   version: 8.18.1
   resolution: "@typescript-eslint/utils@npm:8.18.1"
   dependencies:
