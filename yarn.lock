@@ -1392,7 +1392,7 @@ __metadata:
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.1"
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.1"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
-    "@intlify/unplugin-vue-i18n": "npm:^6.0.1"
+    "@intlify/unplugin-vue-i18n": "npm:^6.0.2"
     "@tsconfig/node22": "npm:^22.0.0"
     "@types/node": "npm:^22"
     "@types/regenerator-runtime": "npm:^0"
@@ -1447,7 +1447,7 @@ __metadata:
     "@fortawesome/free-regular-svg-icons": "npm:^6.7.1"
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.1"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
-    "@intlify/unplugin-vue-i18n": "npm:^6.0.1"
+    "@intlify/unplugin-vue-i18n": "npm:^6.0.2"
     "@tsconfig/node22": "npm:^22.0.0"
     "@types/lodash.debounce": "npm:^4"
     "@types/node": "npm:^22"
@@ -1483,7 +1483,7 @@ __metadata:
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.1"
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.1"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
-    "@intlify/unplugin-vue-i18n": "npm:^6.0.1"
+    "@intlify/unplugin-vue-i18n": "npm:^6.0.2"
     "@tsconfig/node22": "npm:^22.0.0"
     "@types/node": "npm:^22"
     "@types/regenerator-runtime": "npm:^0"
@@ -1596,7 +1596,7 @@ __metadata:
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.1"
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.1"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
-    "@intlify/unplugin-vue-i18n": "npm:^6.0.1"
+    "@intlify/unplugin-vue-i18n": "npm:^6.0.2"
     "@tsconfig/node22": "npm:^22.0.0"
     "@types/lodash.debounce": "npm:^4"
     "@types/node": "npm:^22"
@@ -1840,9 +1840,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@intlify/unplugin-vue-i18n@npm:^6.0.1":
-  version: 6.0.1
-  resolution: "@intlify/unplugin-vue-i18n@npm:6.0.1"
+"@intlify/unplugin-vue-i18n@npm:^6.0.2":
+  version: 6.0.2
+  resolution: "@intlify/unplugin-vue-i18n@npm:6.0.2"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.4.0"
     "@intlify/bundle-utils": "npm:^10.0.0"
@@ -1869,7 +1869,7 @@ __metadata:
       optional: true
     vue-i18n:
       optional: true
-  checksum: 10/61f3daee606c971d55433cc74cda7a646c7490dfafe03554b1f8e5db8da68167858dd0052e00a82912e483c3d0dc78e8ec7104355a4b53eccc6b8c4f2f689ad5
+  checksum: 10/43e4c1aaf8a9d606d4a7015bf869badb99aa8f15bb06937950301a71fc76685294805498eb3018bd37c18b0b2c701a6f381919351ad34fa970a1d37c93d79362
   languageName: node
   linkType: hard
 
