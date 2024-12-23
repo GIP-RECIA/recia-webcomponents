@@ -73,7 +73,7 @@
     "vue": "^3.5.13",
     "vue-i18n": "^10.0.5",
     "vue-tsc": "^2.1.10",
-    "vue3-toastify": "^0.2.5",
+    "vue3-toastify": "^0.2.8",
     "vuejs-clipper": "^4.1.0"
   }
 }
