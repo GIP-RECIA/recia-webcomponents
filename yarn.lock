@@ -1392,7 +1392,7 @@ __metadata:
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.1"
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.1"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
-    "@intlify/unplugin-vue-i18n": "npm:^6.0.1"
+    "@intlify/unplugin-vue-i18n": "npm:^6.0.3"
     "@tsconfig/node22": "npm:^22.0.0"
     "@types/node": "npm:^22"
     "@types/regenerator-runtime": "npm:^0"
@@ -1447,7 +1447,7 @@ __metadata:
     "@fortawesome/free-regular-svg-icons": "npm:^6.7.1"
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.1"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
-    "@intlify/unplugin-vue-i18n": "npm:^6.0.1"
+    "@intlify/unplugin-vue-i18n": "npm:^6.0.3"
     "@tsconfig/node22": "npm:^22.0.0"
     "@types/lodash.debounce": "npm:^4"
     "@types/node": "npm:^22"
@@ -1483,7 +1483,7 @@ __metadata:
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.1"
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.1"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
-    "@intlify/unplugin-vue-i18n": "npm:^6.0.1"
+    "@intlify/unplugin-vue-i18n": "npm:^6.0.3"
     "@tsconfig/node22": "npm:^22.0.0"
     "@types/node": "npm:^22"
     "@types/regenerator-runtime": "npm:^0"
@@ -1596,7 +1596,7 @@ __metadata:
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.1"
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.1"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
-    "@intlify/unplugin-vue-i18n": "npm:^6.0.1"
+    "@intlify/unplugin-vue-i18n": "npm:^6.0.3"
     "@tsconfig/node22": "npm:^22.0.0"
     "@types/lodash.debounce": "npm:^4"
     "@types/node": "npm:^22"
@@ -1840,14 +1840,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@intlify/unplugin-vue-i18n@npm:^6.0.1":
-  version: 6.0.1
-  resolution: "@intlify/unplugin-vue-i18n@npm:6.0.1"
+"@intlify/unplugin-vue-i18n@npm:^6.0.3":
+  version: 6.0.3
+  resolution: "@intlify/unplugin-vue-i18n@npm:6.0.3"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.4.0"
     "@intlify/bundle-utils": "npm:^10.0.0"
     "@intlify/shared": "npm:latest"
-    "@intlify/vue-i18n-extensions": "npm:^7.0.0"
+    "@intlify/vue-i18n-extensions": "npm:^8.0.0"
     "@rollup/pluginutils": "npm:^5.1.0"
     "@typescript-eslint/scope-manager": "npm:^8.13.0"
     "@typescript-eslint/typescript-estree": "npm:^8.13.0"
@@ -1869,23 +1869,23 @@ __metadata:
       optional: true
     vue-i18n:
       optional: true
-  checksum: 10/61f3daee606c971d55433cc74cda7a646c7490dfafe03554b1f8e5db8da68167858dd0052e00a82912e483c3d0dc78e8ec7104355a4b53eccc6b8c4f2f689ad5
+  checksum: 10/35bc5ba959e6181a9585c25c2c3675dcfbf69e9f3be5bcb2684a46b8bcaa07a6b4b3ac223a10b46e055a7af7a6d0c896c852c3039f8421206a0bbce31962d7ee
   languageName: node
   linkType: hard
 
-"@intlify/vue-i18n-extensions@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "@intlify/vue-i18n-extensions@npm:7.0.0"
+"@intlify/vue-i18n-extensions@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "@intlify/vue-i18n-extensions@npm:8.0.0"
   dependencies:
     "@babel/parser": "npm:^7.24.6"
     "@intlify/shared": "npm:^10.0.0"
     "@vue/compiler-dom": "npm:^3.2.45"
     vue-i18n: "npm:^10.0.0"
   peerDependencies:
-    "@intlify/shared": ^9.0.0 || ^10.0.0
+    "@intlify/shared": ^9.0.0 || ^10.0.0 || ^11.0.0
     "@vue/compiler-dom": ^3.0.0
     vue: ^3.0.0
-    vue-i18n: ^9.0.0 || ^10.0.0
+    vue-i18n: ^9.0.0 || ^10.0.0 || ^11.0.0
   peerDependenciesMeta:
     "@intlify/shared":
       optional: true
@@ -1895,7 +1895,7 @@ __metadata:
       optional: true
     vue-i18n:
       optional: true
-  checksum: 10/5b69ae35dab643aadc309e6420b77e55ee0454fb83976ba1d063b83a4b596563dec9a69b7789763e541ce66d1a260947d4392084a57d4a80db12b4920d9dc52a
+  checksum: 10/d5329d1f9b3c9b660583f5758ed953530f7fab689487a870a2f28dc9eea130f4c27415fbfff092dc22f6cca60b5acf889e376eaeab2379af1ab28e557c466589
   languageName: node
   linkType: hard
 
