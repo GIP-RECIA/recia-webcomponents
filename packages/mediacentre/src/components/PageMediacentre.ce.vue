@@ -17,6 +17,7 @@
 <script setup lang="ts">
 import type { Filtres } from '@/types/FiltresType'
 import type { Ressource } from '@/types/RessourceType'
+import type { InfoModal } from '@gip-recia/info-modal'
 import i18n from '@/plugins/i18n.ts'
 import { setError } from '@/services/ServiceErreurMediacentre'
 import { getFilters as filtrage } from '@/services/ServiceFiltreMediacentre'
@@ -24,7 +25,6 @@ import { createResourceFromJson } from '@/types/RessourceType'
 import { initToken } from '@/utils/axiosUtils'
 import { CustomError } from '@/utils/CustomError'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { InfoModal } from '@gip-recia/info-modal'
 import { computed, onMounted, ref } from 'vue'
 import { getConfig, getFavorites, getFilters, getResources, putFavorites } from '../services/ServiceMediacentre'
 
@@ -264,7 +264,7 @@ async function getFiltres(): Promise<void> {
               </div>
             </div>
           </div>
-        </InfoModal>
+        </InfoModal> -->
       </Teleport>
     </div>
   </i18n-host>
