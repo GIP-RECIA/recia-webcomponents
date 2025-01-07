@@ -28,15 +28,26 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { computed, onMounted, ref } from 'vue'
 import { getConfig, getFavorites, getFilters, getResources, putFavorites } from '../services/ServiceMediacentre'
 
-const props = defineProps<{
-  baseApiUrl: string
-  configApiUrl: string
-  userInfoApiUrl: string
-  userRightsApiUrl: string
-  getUserFavoriteResourcesApiUrl: string
-  putUserFavoriteResourcesApiUrl: string
-  fnameMediacentreUi: string
-}>()
+const props = withDefaults(
+  defineProps<{
+    baseApiUrl?: string
+    configApiUrl?: string
+    userInfoApiUrl?: string
+    userRightsApiUrl?: string
+    getUserFavoriteResourcesUrl?: string
+    putUserFavoriteResourcesUrl?: string
+    fnameMediacentreUi?: string
+  }>(),
+  {
+    baseApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_API_URI,
+    configApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_CONFIG_API_URI,
+    userInfoApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_USER_INFO_API_URI,
+    userRightsApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_USER_RIGHTS_API_URI,
+    getUserFavoriteResourcesUrl: import.meta.env.VITE_APP_MEDIACENTRE_USER_GET_USER_FAVORITE_RESOURCES_API_URI,
+    putUserFavoriteResourcesUrl: import.meta.env.VITE_APP_MEDIACENTRE_USER_PUT_USER_FAVORITE_RESOURCES_API_URI,
+    fnameMediacentreUi: import.meta.env.VITE_APP_MEDIACENTRE_FNAME,
+  },
+)
 
 const filtre = ref('tout')
 const filtres = ref<Array<Filtres>>([])
@@ -56,7 +67,7 @@ const { t } = i18n.global
 let triggerElement: any
 document.addEventListener('openModale', (event: any) => {
   triggerElement = event.detail.originalEvent
-  const modalElement: InfoModal = document.querySelector('info-modal')
+  const modalElement: InfoModal = document.querySelector('infomodal')
   modalElement.isOpen = !modalElement.isOpen
   modalElement.titleModal = event.detail.title
   modalElement.mainElement = document.querySelector('body > main, body > div')
@@ -78,7 +89,6 @@ onMounted(async (): Promise<void> => {
     chargementApp.value = true
     await initToken(props.userInfoApiUrl)
     await getConfig(props.configApiUrl)
-    // await flushMediacentreFavorites(props.putUserFavoriteResourcesApiUrl, props.fnameMediacentreUi);
     await getRessources()
     await setFavoris()
     await getFiltres()
@@ -121,7 +131,7 @@ function updateFiltre(value: CustomEvent): void {
 
 async function setFavoris(): Promise<void> {
   try {
-    const resourceFavoriteIds = await getFavorites(props.getUserFavoriteResourcesApiUrl, props.fnameMediacentreUi)
+    const resourceFavoriteIds = await getFavorites(props.getUserFavoriteResourcesUrl, props.fnameMediacentreUi)
     const resourceFavorites = ressources.value.filter(res => resourceFavoriteIds.includes(res.idRessource))
     resourceFavorites.forEach(res => (res.isFavorite = true))
   }
@@ -137,9 +147,9 @@ async function updateFavori(event: CustomEvent) {
   const resourceFavorite = ressources.value.find(res => res.idRessource === idResource)
   resourceFavorite!.isFavorite = isFavorite
   try {
-    const resourceFavoriteIds = await getFavorites(props.getUserFavoriteResourcesApiUrl, props.fnameMediacentreUi)
+    const resourceFavoriteIds = await getFavorites(props.getUserFavoriteResourcesUrl, props.fnameMediacentreUi)
     await putFavorites(
-      props.putUserFavoriteResourcesApiUrl,
+      props.putUserFavoriteResourcesUrl,
       idResource,
       isFavorite,
       resourceFavoriteIds,
@@ -162,7 +172,7 @@ function openModal(event: CustomEvent) {
 async function getFavoris(): Promise<void> {
   chargement.value = true
   try {
-    const idResourceFavorites = await getFavorites(props.getUserFavoriteResourcesApiUrl, props.fnameMediacentreUi)
+    const idResourceFavorites = await getFavorites(props.getUserFavoriteResourcesUrl, props.fnameMediacentreUi)
     filteredResources.value = ressources.value.filter(res => idResourceFavorites.includes(res.idRessource))
     filteredResources.value.forEach(res => (res.isFavorite = true))
   }
@@ -264,7 +274,7 @@ async function getFiltres(): Promise<void> {
               </div>
             </div>
           </div>
-        </InfoModal> -->
+        </InfoModal>
       </Teleport>
     </div>
   </i18n-host>
