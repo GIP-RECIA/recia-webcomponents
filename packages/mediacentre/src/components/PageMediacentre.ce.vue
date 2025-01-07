@@ -234,9 +234,6 @@ async function getFiltres(): Promise<void> {
 </script>
 
 <template>
-  <h1>H1</h1>
-  <h1>{{ props.configApiUrl }}</h1>
-
   <i18n-host>
     <div v-if="chargementApp" class="spinner-container">
       <div class="spinner-element">
