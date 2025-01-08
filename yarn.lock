@@ -1579,7 +1579,7 @@ __metadata:
     vite: "npm:^6.0.7"
     vite-plugin-css-injected-by-js: "npm:^3.5.2"
     y-presence: "npm:^0.2.3"
-    y-websocket: "npm:^2.0.4"
+    y-websocket: "npm:^2.1.0"
     yjs: "npm:^13.6.20"
   languageName: unknown
   linkType: soft
@@ -1704,7 +1704,7 @@ __metadata:
     typescript: "npm:^5.6.3"
     vite: "npm:^6.0.7"
     y-presence: "npm:^0.2.3"
-    y-websocket: "npm:^2.0.4"
+    y-websocket: "npm:^2.1.0"
     yjs: "npm:^13.6.20"
   languageName: unknown
   linkType: soft
@@ -11823,9 +11823,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"y-websocket@npm:^2.0.4":
-  version: 2.0.4
-  resolution: "y-websocket@npm:2.0.4"
+"y-websocket@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "y-websocket@npm:2.1.0"
   dependencies:
     lib0: "npm:^0.2.52"
     lodash.debounce: "npm:^4.0.8"
@@ -11842,7 +11842,7 @@ __metadata:
   bin:
     y-websocket: bin/server.cjs
     y-websocket-server: bin/server.cjs
-  checksum: 10/0b69ca40501c2ce49822e6d7517c743dfd5e2a02db54ab312a9cfc26680970399dd6be7ae850288a365c2d53c2e06ed2908c7b18690f803062886513fe6f3ace
+  checksum: 10/4616eecbedc89f0522471980f487a92e2d63d4d00787b305bc1be514a8deb672eb6a4ba2eee1d5ef5430f81ad043d324974fafaee63f896bcd189057f81e7b64
   languageName: node
   linkType: hard
 
