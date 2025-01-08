@@ -81,7 +81,7 @@ const { t } = i18n.global
 let triggerElement: any
 document.addEventListener('openModale', (event: any) => {
   triggerElement = event.detail.originalEvent
-  const modalElement: InfoModal = document.querySelector('infomodal')
+  const modalElement: InfoModal = document.querySelector('info-modal')
   modalElement.isOpen = !modalElement.isOpen
   modalElement.titleModal = event.detail.title
   modalElement.mainElement = document.querySelector('body > main, body > div')
@@ -375,7 +375,7 @@ watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed, old
       <p><a :href="helpLocation" target="_blank" rel="noopener noreferrer">{{ t('page-mediacentre.help') }}</a></p>
     </div>
       <Teleport to="body">
-        <InfoModal id="modale" debug="false">
+        <info-modal id="modale" debug="false">
           <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
           <div slot="modal-body">
             <div style="display: flex; flex-direction: column; gap: 3em">
@@ -388,7 +388,7 @@ watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed, old
               </div>
             </div>
           </div>
-        </InfoModal>
+        </info-modal>
       </Teleport>
     </div>
   </i18n-host>
