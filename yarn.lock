@@ -1526,7 +1526,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gip-recia/info-modal@workspace:^, @gip-recia/info-modal@workspace:packages/info-modal":
+"@gip-recia/info-modal@file:../info-modal/package.tgz::locator=%40gip-recia%2Fmediacentre-ui%40workspace%3Apackages%2Fmediacentre":
+  version: 0.0.1
+  resolution: "@gip-recia/info-modal@file:../info-modal/package.tgz#../info-modal/package.tgz::hash=9a0e2b&locator=%40gip-recia%2Fmediacentre-ui%40workspace%3Apackages%2Fmediacentre"
+  checksum: 10/831cb2b641875d16d2ce9728ed4e8dd508996d11302ee311508f3704022810ad607f549f074fea31802e48932c26e42b10ea55ec65c595f63932247f69410848
+  languageName: node
+  linkType: hard
+
+"@gip-recia/info-modal@workspace:packages/info-modal":
   version: 0.0.0-use.local
   resolution: "@gip-recia/info-modal@workspace:packages/info-modal"
   dependencies:
@@ -1557,7 +1564,7 @@ __metadata:
     "@fortawesome/free-regular-svg-icons": "npm:^6.7.2"
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.2"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
-    "@gip-recia/info-modal": "workspace:^"
+    "@gip-recia/info-modal": "file:../info-modal/package.tgz"
     "@intlify/unplugin-vue-i18n": "npm:^6.0.8"
     "@tsconfig/node22": "npm:^22.0.2"
     "@types/lodash.debounce": "npm:^4"
