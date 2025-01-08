@@ -24,6 +24,7 @@ export default ({ mode }: { mode: string }) => {
 
   return defineConfig({
     build: {
+      sourcemap: true,
       lib: {
         entry: './src/info-modal.ts',
         formats: ['es'],
