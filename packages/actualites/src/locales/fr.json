@@ -1,3 +1,37 @@
 {
-
+  "button": {
+    "mark-as-not-read": "Marquer comme non lu",
+    "close": "Fermer"
+  },
+  "switch" : {
+    "all": "Toutes",
+    "read": "Lues",
+    "not-read": "Non Lues"
+  },
+  "text": {
+    "creation-info" : {
+      "global": "Par {name}, le ",
+      "create-by": "Créé par ",
+      "update-by": "Mise à jour par {name}",
+      "validate-by": "Validé par {name}",
+      "when": "le {date} à {datetime}",
+      "publish-by": "Publié par {organization}"
+    },
+    "normal": {
+      "see-all-news": "voir toutes les actualités",
+      "read": "lu",
+      "not-read": "non lu"
+    },
+    "title": {
+      "news": "Actualités",
+      "all-news": "Toutes les actualités",
+      "filters": "Filtres"
+    },
+    "filter" : {
+      "all-sources": "Toutes les sources",
+      "all-sections": "Toutes les rubriques",
+      "by-sources": "Par sources :",
+      "by-sections": "Par rubriques :"
+    }
+  }
 }
