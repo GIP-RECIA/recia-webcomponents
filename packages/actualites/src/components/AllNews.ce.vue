@@ -21,7 +21,7 @@ import { getPaginatedNews } from '@/services/NewsService.ts'
 import { PageOrigin } from '@/types/PageOrigin.ts'
 import { initToken } from '@/utils/axiosUtils.ts'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { onBeforeMount, ref } from 'vue'
+import {onBeforeMount, ref, watch} from 'vue'
 
 const props = defineProps<{
   userInfoApiUrl: string
@@ -65,7 +65,6 @@ function handlePageChange(page: CustomEvent) {
 
 async function fetchPaginatedNews() {
   try {
-    console.log(`rubriques.value : ${rubriques.value}`)
     result.value = await getPaginatedNews(2, currentPage.value > 1 ? currentPage.value : undefined, source.value ? source.value : undefined, (rubriques.value) ? rubriques.value : undefined)
     totalPages.value = result.value?.totalPages || 1
   }
@@ -81,7 +80,7 @@ function getRubriques(codesRubriques: number[]) {
 
 <template>
   <i18n-host>
-    <div class="allNews-container">
+    <div id="allNews" v-if="result" class="allNews-container">
       <div class="allNews-header">
         <div class="allNews-header-title">
           <button class="carousel-header-see-all-news">
@@ -191,5 +190,6 @@ function getRubriques(codesRubriques: number[]) {
   font-weight: 700;
   line-height: 30.24px;
   padding: 2rem;
+  padding-left: 0.5rem;
 }
 </style>
