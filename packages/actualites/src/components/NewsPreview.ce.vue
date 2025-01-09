@@ -158,8 +158,8 @@ function closeModal() {
 .modal-container {
   background-color: #f2f2f2; /* Couleur de fond par défaut */
   border-radius: 10px 10px 0 0;
-  width: 70%;
-  height: 80%;
+  width: 80%;
+  height: 90%;
   max-height: 100%;
   margin-bottom: 0;
   margin-top: 1rem;
@@ -218,7 +218,7 @@ function closeModal() {
 }
 
 .modal-container-content {
-  overflow: hidden;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -384,18 +384,41 @@ function closeModal() {
 .modal-body {
   overflow-y: auto;
   display: flex;
-  gap: 1rem;
 }
 
 .modal-content {
+  display: flex;
   flex: 1;
   overflow-y: auto;
+  padding-right: 1rem;
+}
+
+.modal-content::-webkit-scrollbar {
+  display: flex;
+  border: none;
+  color: transparent;
+  width: 8px;
+
+
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background-color: #d9d9d9;
+  border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background-color: black; /* Couleur du curseur */
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background-color: transparent;
 }
 
 .modal-description {
-  margin: 0;
   font-size: 16px;
   font-family: 'DM Sans', sans-serif;
+  gap: 1rem;
 }
 
 .modal-footer {

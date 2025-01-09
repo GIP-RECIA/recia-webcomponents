@@ -32,22 +32,27 @@ const baseUrl = import.meta.env.VITE_BASE_API_URL
 
 // État pour la modal
 const showModal = ref(false)
-
 const { t, d } = i18n.global
 
 onUnmounted(() => {
-  document.body.classList.remove('no-scroll')
+
 })
+
+
 
 // Méthodes
 function openModal() {
   showModal.value = true
-  document.body.classList.add('no-scroll')
+  document.body.style.top = `-${window.scrollY}px`
+  document.body.style.position = 'fixed'
 }
 
 function closeModal() {
   showModal.value = false
-  document.body.classList.remove('no-scroll')
+  const scrollY = document.body.style.top
+  document.body.style.position = ''
+  document.body.style.top = ''
+  window.scrollTo(0, Number.parseInt(scrollY || '0') * -1)
 }
 
 function isPageOriginCarrousel() {
@@ -91,7 +96,7 @@ function isPageOriginAll() {
       </div>
     </article>
 
-    <div v-if="showModal" class="modal-overlay" @click="closeModal">
+    <div v-if="showModal" class="open-modal" :class="{ active: showModal }" @click="closeModal">
       <preview-ui :item-id="props.item.uuid" :rubriques="props.rubriques" @close-modal="closeModal" />
     </div>
   </i18n-host>
@@ -100,10 +105,6 @@ function isPageOriginAll() {
 <style lang="scss" scoped>
 * {
   box-sizing: border-box;
-}
-
-body.no-scroll {
-  overflow: hidden; /* Désactive le scroll vertical et horizontal */
 }
 
 article {
@@ -211,5 +212,6 @@ article:has(:hover, :focus) {
   --title-color: #0062bc;
 }
 
-
+.open-modal.active {
+}
 </style>
