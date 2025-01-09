@@ -16,6 +16,10 @@
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
+  faAngleLeft,
+  faAngleRight,
+  faAnglesLeft,
+  faAnglesRight,
   faArrowCircleLeft,
   faArrowCircleRight,
   faArrowLeft,
@@ -23,6 +27,8 @@ import {
   faArrowUpRightFromSquare,
   faBars,
   faCaretRight,
+  faChevronLeft,
+  faChevronRight,
   faCircleInfo,
   faCircleNotch,
   faInfo,
@@ -32,7 +38,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 function register() {
-  library.add(faXmark, faStar, faArrowUpRightFromSquare, faCircleNotch, faCircleInfo, faCaretRight, faBars, faArrowCircleLeft, faArrowRight, faArrowCircleRight, faArrowLeft, faXmark, faX, faInfo, faCircleInfo)
+  library.add(faXmark, faStar, faArrowUpRightFromSquare, faCircleNotch, faCircleInfo, faCaretRight, faBars, faArrowCircleLeft, faArrowRight, faArrowCircleRight, faArrowLeft, faXmark, faX, faInfo, faCircleInfo, faChevronLeft, faChevronRight, faAnglesRight, faAnglesLeft, faAngleLeft, faAngleRight)
 }
 
 export { register }

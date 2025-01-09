@@ -15,5 +15,8 @@
     "husky": "^9.1.7",
     "lint-staged": "^15.2.10"
   },
-  "packageManager": "yarn@4.5.2"
+  "packageManager": "yarn@4.5.2",
+  "dependencies": {
+    "vue-i18n": "^11.0.1"
+  }
 }

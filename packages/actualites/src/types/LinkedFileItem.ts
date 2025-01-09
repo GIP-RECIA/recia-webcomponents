@@ -14,18 +14,13 @@
  * limitations under the License.
  */
 
-import type { Article } from '@/types/Article.ts'
-import type { Visibility } from '@/types/Visibility.ts'
+import type { AbstractItem } from '@/types/AbstractItem.ts'
 
-export interface ItemVO {
-  article: Article
-  type: string
-  creator: string
-  pubDate: string
-  createdDate: string
-  modifiedDate: string
-  uuid: string
-  rubriques: Array<number>
-  visibility: Visibility
-  source: string
+export interface LinkedFileItem {
+  uri: string
+  filename: string
+  abstractItem: AbstractItem
+  itemId: number
+  inBody: boolean
+  contentType: string
 }
