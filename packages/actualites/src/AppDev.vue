@@ -21,7 +21,6 @@ const {
 </script>
 
 <template>
-
   <div class="app-dev">
     <carrousel-ui :user-info-api-url="VITE_USER_INFO_API_URI" />
     <all-news :user-info-api-url="VITE_USER_INFO_API_URI" />
@@ -29,9 +28,11 @@ const {
 </template>
 
 <style>
+
 .app-dev {
   display: flex;
   flex-direction: column;
+  height: 100%;
   width: 70%; /* 80% de la largeur totale (10% de marge de chaque côté) */
   justify-content: center; /* Centre horizontalement le contenu interne */
   align-items: center; /* Centre verticalement */

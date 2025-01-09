@@ -30,6 +30,11 @@ const { t } = i18n.global
 let currentSource = ref<string | undefined>(undefined)
 let currentSection = ref<Set<number>>(new Set<number>())
 
+const allSections = {
+  uuid: '0',
+  name: t('text.filter.all-sections')
+}
+
 const sources = computed<Array<string>>(() => props.actualites ? [undefined, ...props.actualites.sources] : [])
 
 const rubriques = computed<Array<Rubrique>>(() => {
@@ -43,10 +48,7 @@ const rubriques = computed<Array<Rubrique>>(() => {
       if (rubriqueMap.has(rubrique.toString())) set.add(<Rubrique>rubriqueMap.get(rubrique.toString()))
     })
   })
-  return [{
-    uuid: 0,
-    name: t('text.filter.all-sections')
-  }, ...props.actualites.rubriques.sort((a, b) => a.name.localeCompare(b.name))]
+  return [allSections, ...props.actualites.rubriques.sort((a, b) => a.name.localeCompare(b.name))]
 })
 
 
@@ -61,15 +63,12 @@ function setSource(source: string) {
 }
 
 function setSection(section: Rubrique) {
-  console.log(section)
-  if (section.name === "Toutes les rubriques") {
-    console.log("Toutes les rubriques")
+
+  if (section.uuid === '0') {
     currentSection.value.clear()
   } else {
-    console.log('setSection')
     currentSection.value.has(section.uuid) ? currentSection.value.delete(section.uuid) : currentSection.value.add(section.uuid)
   }
-  console.log(currentSection.value)
   emit('updateModelValue', currentSource.value, currentSection.value) // Émet l'événement avec la nouvelle valeur
 }
 
@@ -104,7 +103,7 @@ function setSection(section: Rubrique) {
             <div
               v-for="section in rubriques"
               class="filter-section-span"
-              :class="{ active: currentSection.size === 0 ? section.name === 'Toutes les rubriques' :  currentSection.has(section.uuid)  }"
+              :class="{ active: currentSection.size === 0 ? section.name === t('text.filter.all-sections') :  currentSection.has(section.uuid)  }"
               @click="setSection(section)"
             >
               {{ section.name }}
