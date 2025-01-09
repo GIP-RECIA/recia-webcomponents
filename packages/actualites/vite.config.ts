@@ -33,7 +33,6 @@ export default ({ mode }: { mode: string }) => {
           compilerOptions: {
             isCustomElement: tag => [
               'i18n-host',
-              'news-card-carrousel',
               'carrousel-ui',
               'preview-ui',
               'all-news',
@@ -41,7 +40,8 @@ export default ({ mode }: { mode: string }) => {
               'news-card',
               'news-filter-section',
               'view-item',
-              'page-selector'
+              'page-selector',
+              'more-informations',
             ].includes(tag),
           },
         },
@@ -72,7 +72,7 @@ export default ({ mode }: { mode: string }) => {
     server: {
       proxy: {
         '^(?:/[a-zA-Z0-9_-]+){2}/api': {
-          target: 'http://10.209.28.156:8080/publisher',
+          target: 'http://10.209.28.17:8080/publisher',
           changeOrigin: true,
           rewrite: (path) => {
             const rewrite = path.replace(/^(?:\/[\w-]+){2}\/api/, '')

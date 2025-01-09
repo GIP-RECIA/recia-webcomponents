@@ -1,4 +1,21 @@
+<!--
+ Copyright (C) 2023 GIP-RECIA, Inc.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
 <script setup lang="ts">
+import i18n from '@/plugins/i18n.ts'
 import { defineEmits, defineProps, ref } from 'vue'
 
 // Définir les props
@@ -16,6 +33,8 @@ const emit = defineEmits(['readStatus'])
 // État actuel
 const currentState = ref(props.states[0])
 
+const { t } = i18n.global
+
 // Fonction pour définir un nouvel état
 function setState(state: string) {
   if (props.states.includes(state)) {
@@ -26,18 +45,22 @@ function setState(state: string) {
 </script>
 
 <template>
-  <div class="toggle-switch">
-    <span
-      v-for="(state, index) in props.states"
-      :key="index"
-      class="toggle-option"
-      :class="{ active: currentState === state }"
-      @click="setState(state)"
-    >
-      <div class="toggle-option-more">{{ state }}</div>
+  <i18n-host>
+    <div class="toggle-switch">
+      <span
+        v-for="(state, index) in props.states"
+        :key="index"
+        class="toggle-option"
+        :class="{ active: currentState === state }"
+        @click="setState(state)"
+      >
+        <div v-if="state === 'all'" class="toggle-option-more">{{ t('switch.all') }}</div>
+        <div v-if="state === 'read'" class="toggle-option-more">{{ t('switch.read') }}</div>
+        <div v-if="state === 'unread'" class="toggle-option-more">{{ t('switch.not-read') }}</div>
 
-    </span>
-  </div>
+      </span>
+    </div>
+  </i18n-host>
 </template>
 
 <style scoped>
@@ -45,22 +68,19 @@ function setState(state: string) {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 15rem;
-  height: 15px;
+  width: auto;
+  height: auto;
   background-color: #f0f0f0;
   border-radius: 20px;
-  padding: 8px;
+  padding: 3px;
   user-select: none;
   border: none;
   gap: 10px;
 }
 
 .toggle-option {
-  flex: 1;
   text-align: center;
-  min-width: 2rem;
   color: #666;
-  font-weight: bold;
   transition:
     color 0.3s,
     background-color 0.3s;
@@ -74,15 +94,16 @@ function setState(state: string) {
 }
 
 .toggle-option-more {
+  display: inline-flex;
   padding-right: 1rem;
   padding-left: 1rem;
+  width: auto;
 }
 
 /* Style pour l'état actif */
 .toggle-option.active {
   background-color: #1e1e1e;
   color: white;
-  font-weight: bold;
 }
 
 /* Empêche les options actives d'avoir un effet au survol */

@@ -1,8 +1,25 @@
+<!--
+ Copyright (C) 2023 GIP-RECIA, Inc.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
 <script setup lang="ts">
 import type { ItemVO } from '@/types/ItemVO.ts'
 import type { Rubrique } from '@/types/Rubrique.ts'
+import i18n from '@/plugins/i18n.ts'
 import { PageOrigin } from '@/types/PageOrigin.ts'
-import { defineProps, ref } from 'vue'
+import { defineProps, onUnmounted, ref } from 'vue'
 
 // Props
 const props = defineProps<{
@@ -16,13 +33,21 @@ const baseUrl = import.meta.env.VITE_BASE_API_URL
 // État pour la modal
 const showModal = ref(false)
 
+const { t, d } = i18n.global
+
+onUnmounted(() => {
+  document.body.classList.remove('no-scroll')
+})
+
 // Méthodes
 function openModal() {
   showModal.value = true
+  document.body.classList.add('no-scroll')
 }
 
 function closeModal() {
   showModal.value = false
+  document.body.classList.remove('no-scroll')
 }
 
 function isPageOriginCarrousel() {
@@ -35,42 +60,50 @@ function isPageOriginAll() {
 </script>
 
 <template>
-  <article @click="openModal">
-    <div class="card-img">
-      <img class="img" :src="baseUrl.concat(props.item.article.enclosure)" alt="">
+  <i18n-host>
+    <article :class="{ active: true && isPageOriginAll }" @click="openModal">
+      <div class="card-img">
+        <img class="img" :src="baseUrl.concat(props.item.article.enclosure)" alt="">
+      </div>
+      <div class="article-wrapper">
+        <div v-if="isPageOriginCarrousel()" class="source">
+          <p>{{ props.item.source }}</p>
+        </div>
+
+        <div v-if="isPageOriginAll()" class="source">
+          <p>{{ d(props.item.pubDate, 'short') }}</p>
+          <div class="article-wrapper-lecture">
+            {{ t('text.normal.not-read') }}
+          </div>
+        </div>
+
+        <div class="card-body-title">
+          {{ props.item.article.title }}
+        </div>
+        <div class="card-body-description">
+          <p class="description">
+            {{ props.item.article.description }}
+          </p>
+        </div>
+        <div v-if="isPageOriginAll()" class="source all">
+          <p>{{ props.item.source }}</p>
+        </div>
+      </div>
+    </article>
+
+    <div v-if="showModal" class="modal-overlay" @click="closeModal">
+      <preview-ui :item-id="props.item.uuid" :rubriques="props.rubriques" @close-modal="closeModal" />
     </div>
-    <div class="article-wrapper">
-      <div v-if="isPageOriginCarrousel()" class="source">
-        <p>{{ props.item.source }}</p>
-      </div>
-
-      <div v-if="isPageOriginAll()" class="source">
-        <p>{{ props.item.article.pubDate }}</p>
-        <p>lu</p>
-      </div>
-
-      <div class="card-body-title">
-        {{ props.item.article.title }}
-      </div>
-      <div class="card-body-description">
-        <p class="description">
-          {{ props.item.article.description }}
-        </p>
-      </div>
-      <div v-if="isPageOriginAll()" class="source all">
-        <p>{{ props.item.source }}</p>
-      </div>
-    </div>
-  </article>
-
-  <div v-if="showModal" class="modal-overlay" @click="closeModal">
-    <preview-ui :item="props.item" :rubriques="props.rubriques" />
-  </div>
+  </i18n-host>
 </template>
 
 <style lang="scss" scoped>
 * {
   box-sizing: border-box;
+}
+
+body.no-scroll {
+  overflow: hidden; /* Désactive le scroll vertical et horizontal */
 }
 
 article {
@@ -82,11 +115,15 @@ article {
   transform-origin: center;
   transition: all 0.01s ease-in-out;
   overflow: hidden;
-  box-shadow: rgba(0, 0, 0, 0.06) 0 0 5px 1px;
+  box-shadow: rgba(0, 0, 0, 0.06) 0 0 10px 3px;
   cursor: pointer;
 
   --description-font-size: 12px;
   --description-font-line-heigth: 1.2;
+}
+
+article:not(.active) {
+  filter: grayscale(1);
 }
 
 article:hover {
@@ -141,15 +178,20 @@ article:hover .card-body-title {
   overflow: hidden;
 }
 
+.article-wrapper-lecture {
+}
+
 .source {
   flex-shrink: 0;
   height: auto;
   display: flex;
   font-family: 'DM Sans', sans-serif;
   color: #1e1e1e;
-  font-size: 12px;
+  font-size: 10px;
   opacity: 75%;
   justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
 }
 
 .source.all {
@@ -168,4 +210,6 @@ article:has(:hover, :focus) {
   --img-scale: 1.3;
   --title-color: #0062bc;
 }
+
+
 </style>

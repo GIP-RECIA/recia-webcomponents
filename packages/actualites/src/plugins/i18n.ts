@@ -16,16 +16,65 @@
 
 import en from '@/locales/en.json'
 import fr from '@/locales/fr.json'
+import { findLanguage } from '@/utils/i18nUtils.ts'
 import { createI18n } from 'vue-i18n'
 
 export default createI18n({
   legacy: false,
-  locale: window.navigator.language,
+  locale: findLanguage('en'),
   fallbackLocale: 'en',
   messages: {
     en,
     'en-US': en,
     fr,
     'fr-FR': fr,
+  },
+  datetimeFormats: {
+    en: {
+      medium: {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      },
+      short: {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      },
+      long: {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        weekday: 'long',
+      },
+      datetime: {
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+      },
+    },
+    fr: {
+      medium: {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      },
+      short: {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      },
+      long: {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        weekday: 'long',
+      },
+      datetime: {
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+      },
+    },
   },
 })

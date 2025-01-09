@@ -1,5 +1,22 @@
+<!--
+ Copyright (C) 2023 GIP-RECIA, Inc.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
 <script setup lang="ts">
 import type { PaginatedResult } from '@/types/PaginatedResult.ts'
+import i18n from '@/plugins/i18n.ts'
 import { getPaginatedNews } from '@/services/NewsService.ts'
 import { PageOrigin } from '@/types/PageOrigin.ts'
 import { initToken, instance } from '@/utils/axiosUtils.ts'
@@ -11,6 +28,7 @@ const props = defineProps<{
 }>()
 
 const result = ref<PaginatedResult>()
+const { t } = i18n.global
 
 onMounted(async () => {
   try {
@@ -52,34 +70,40 @@ function next(): void {
 function allActualites() {
 
 }
+
+function getRubriques(codesRubriques: number[]) {
+  return result.value ? result.value.actualite.rubriques.filter(r => codesRubriques.includes(Number(r.uuid))) : []
+}
 </script>
 
 <template>
-  <div v-if="result?.actualite?.items" class="carousel-container">
-    <div class="carousel-header">
-      <h1 class="carousel-header-title">
-        Actualités
-      </h1>
-      <button class="carousel-header-see-all-news" @click="allActualites">
-        voir toutes les actualités
-        <FontAwesomeIcon class="arrow-rigth" :icon="['fas', 'arrow-right']" />
+  <i18n-host>
+    <div v-if="result?.actualite?.items" class="carousel-container">
+      <div class="carousel-header">
+        <h1 class="carousel-header-title">
+          {{ t('text.title.news') }}
+        </h1>
+        <button class="carousel-header-see-all-news" @click="allActualites">
+          {{ t('text.normal.see-all-news') }}
+          <FontAwesomeIcon class="arrow-rigth" :icon="['fas', 'arrow-right']" />
+        </button>
+      </div>
+
+      <button class="arrow left" :disabled="currentIndex === 0" @click="prev">
+        <FontAwesomeIcon class="circle-arrow-left" :icon="['fas', 'circle-arrow-left']" />
+      </button>
+
+      <div class="carousel-track">
+        <div v-for="(item, index) in visibleItems" :key="index" class="card-wrapper">
+          <news-card :item="item" :rubriques="getRubriques(item.rubriques)" :page-origin="PageOrigin.CARROUSEL" />
+        </div>
+      </div>
+
+      <button class="arrow right" :disabled="currentIndex >= result?.value?.actualite?.items?.length - 3" @click="next">
+        <FontAwesomeIcon class="circle-arrow-right" :icon="['fas', 'circle-arrow-right']" />
       </button>
     </div>
-
-    <button class="arrow left" :disabled="currentIndex === 0" @click="prev">
-      <FontAwesomeIcon class="circle-arrow-left" :icon="['fas', 'circle-arrow-left']" />
-    </button>
-
-    <div class="carousel-track">
-      <div v-for="(item, index) in visibleItems" :key="index" class="card-wrapper">
-        <news-card :item="item" :rubriques="result.actualite.rubriques" :page-origin="PageOrigin.CARROUSEL" />
-      </div>
-    </div>
-
-    <button class="arrow right" :disabled="currentIndex >= result?.value?.actualite?.items?.length - 3" @click="next">
-      <FontAwesomeIcon class="circle-arrow-right" :icon="['fas', 'circle-arrow-right']" />
-    </button>
-  </div>
+  </i18n-host>
 </template>
 
 <style lang="scss">

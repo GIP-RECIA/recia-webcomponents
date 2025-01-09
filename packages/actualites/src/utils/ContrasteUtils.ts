@@ -14,18 +14,23 @@
  * limitations under the License.
  */
 
-import type { Article } from '@/types/Article.ts'
-import type { Visibility } from '@/types/Visibility.ts'
+export function isLightColor(color: string) {
+  const rgb = hexToRgb(color)
+  if (!rgb)
+    return false
 
-export interface ItemVO {
-  article: Article
-  type: string
-  creator: string
-  pubDate: string
-  createdDate: string
-  modifiedDate: string
-  uuid: string
-  rubriques: Array<number>
-  visibility: Visibility
-  source: string
+  const lightness = (rgb.r * 0.299 + rgb.g * 0.587 + rgb.b * 0.114) / 255
+  return lightness > 0.5
+}
+
+function hexToRgb(hex: string) {
+  const match = hex.match(/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i)
+  if (!match)
+    return null
+
+  return {
+    r: Number.parseInt(match[1], 16),
+    g: Number.parseInt(match[2], 16),
+    b: Number.parseInt(match[3], 16),
+  }
 }
