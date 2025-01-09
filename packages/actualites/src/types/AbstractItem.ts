@@ -14,18 +14,28 @@
  * limitations under the License.
  */
 
-import type { Article } from '@/types/Article.ts'
-import type { Visibility } from '@/types/Visibility.ts'
+import type { Organization } from '@/types/Organization.ts'
+import type { Redactor } from '@/types/Redactor.ts'
+import type { User } from '@/types/User.ts'
 
-export interface ItemVO {
-  article: Article
+export interface AbstractItem {
   type: string
-  creator: string
-  pubDate: string
-  createdDate: string
-  modifiedDate: string
-  uuid: string
-  rubriques: Array<number>
-  visibility: Visibility
-  source: string
+  id: number
+  createdBy: User
+  createdDate: Date
+  lastModifiedBy: User
+  lastModifiedDate: Date
+  title: string
+  enclosure: string
+  endDate: Date
+  startDate: Date
+  validatedBy: User
+  validatedDate: Date
+  status: string
+  summary: string
+  rssAllowed: boolean
+  organization: Organization
+  redactor: Redactor
+  displayName: string
+  contextKey: Set<object>
 }

@@ -14,18 +14,16 @@
  * limitations under the License.
  */
 
-import type { Article } from '@/types/Article.ts'
-import type { Visibility } from '@/types/Visibility.ts'
+const availablesLanguages: Array<string> = ['en', 'fr']
 
-export interface ItemVO {
-  article: Article
-  type: string
-  creator: string
-  pubDate: string
-  createdDate: string
-  modifiedDate: string
-  uuid: string
-  rubriques: Array<number>
-  visibility: Visibility
-  source: string
+function findLanguage(fallback: string, availables: Array<string> = availablesLanguages): string {
+  const isLanuage: boolean = availables.includes(window.navigator.language)
+  if (isLanuage)
+    return window.navigator.language
+  const matchLanguages = window.navigator.languages.filter(lang => availables.find(available => lang === available))
+  if (matchLanguages.length > 0)
+    return matchLanguages[0]
+  return fallback
 }
+
+export { findLanguage }

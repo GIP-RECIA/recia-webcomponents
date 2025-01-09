@@ -1,17 +1,34 @@
-<script setup>
+<!--
+ Copyright (C) 2023 GIP-RECIA, Inc.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<script setup lang="ts">
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { computed, ref } from 'vue'
 
 // Props
-const props = defineProps({
-  totalPages: {
-    required: true,
-    validator: value => value > 0,
-  },
 
-  maxVisiblePages: {
-    default: 5, // Nombre maximum de pages visibles
+const props = withDefaults(
+  defineProps<{
+    totalPages: number
+    maxVisiblePages: number
+  }>(),
+  {
+    maxVisiblePages: 5,
   },
-})
+)
 
 // Émission d'événements
 const emit = defineEmits(['updateModelValue'])
@@ -49,7 +66,7 @@ const visiblePages = computed(() => {
       :disabled="currentPage === 1"
       @click="goToPage(1)"
     >
-      «
+      <FontAwesomeIcon class="icon" :icon="['fas', 'angles-left']" />
     </button>
 
     <!-- Bouton pour reculer d'une page -->
@@ -58,7 +75,7 @@ const visiblePages = computed(() => {
       :disabled="currentPage === 1"
       @click="goToPage(currentPage - 1)"
     >
-      ‹
+      <FontAwesomeIcon class="icon" :icon="['fas', 'angle-left']" />
     </button>
 
     <!-- Numéros de page -->
@@ -66,7 +83,7 @@ const visiblePages = computed(() => {
       v-for="page in visiblePages"
       :key="page"
       class="page-number"
-      :class="{ active: page === currentPage.value }"
+      :class="{ active: page === currentPage }"
       @click="goToPage(page)"
     >
       {{ page }}
@@ -78,7 +95,7 @@ const visiblePages = computed(() => {
       :disabled="currentPage === totalPages"
       @click="goToPage(currentPage + 1)"
     >
-      ›
+      <FontAwesomeIcon class="icon" :icon="['fas', 'angle-right']" />
     </button>
 
     <!-- Bouton pour aller à la dernière page -->
@@ -87,42 +104,64 @@ const visiblePages = computed(() => {
       :disabled="currentPage === totalPages"
       @click="goToPage(totalPages)"
     >
-      »
+      <FontAwesomeIcon class="icon" :icon="['fas', 'angles-right']" />
     </button>
   </div>
 </template>
 
 <style scoped>
 .pagination {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 button {
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  background-color: #fff;
+  display: flex;
+  padding: 1rem;
+
+  background: none;
+  border: hidden;
+  justify-content: center;
   border-radius: 50%;
-  font-size: 1rem;
+  font-family: 'DM Sans', sans-serif;
 }
 
 button:disabled {
   cursor: not-allowed;
-  opacity: 0.5;
+  opacity: 0.9;
+}
+
+button:hover {
+  background-color: rgba(0, 123, 255, 0.1); /* Bleu transparent */
+  color: #007bff; /* Texte bleu */
+}
+
+.icon {
+  width: 1rem;
+  height: 1rem;
 }
 
 .page-number {
+  display: flex;
   cursor: pointer;
-  padding: 0.5rem 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  width: 1rem;
+  height: 1rem;
+  padding: 1rem;
+  justify-content: center;
+  align-items: center;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 20px;
+  border-radius: 50%;
 }
 
 .page-number.active {
-  background-color: #007bff;
+  background-color: #1e1e1e;
   color: #fff;
-  font-weight: bold;
+}
+
+.page-number:not(.active):hover {
+  background-color: rgba(0, 123, 255, 0.1); /* Bleu transparent */
+  color: #007bff; /* Texte bleu */
 }
 </style>
