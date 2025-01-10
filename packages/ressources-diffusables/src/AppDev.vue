@@ -20,7 +20,8 @@ const {
   VITE_RESSOURCES_DIFFUSABLES_API_URI,
   VITE_RESSOURCES_DIFFUSABLES_SIZE_API_URI,
   VITE_USER_INFO_API_URI,
-} = import.meta.env
+  VITE_RESOURCES_PER_PAGE_DEFAULT,
+} = import.meta.env;
 </script>
 
 <template>
@@ -29,6 +30,7 @@ const {
     :ressources-diffusables-api-uri="VITE_RESSOURCES_DIFFUSABLES_API_URI"
     :ressources-diffusables-size-api-uri="VITE_RESSOURCES_DIFFUSABLES_SIZE_API_URI"
     :user-info-api-url="VITE_USER_INFO_API_URI"
+    :resources-per-page-default="VITE_RESOURCES_PER_PAGE_DEFAULT"
   />
 </template>
 
