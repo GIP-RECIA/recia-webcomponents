@@ -16,6 +16,13 @@
 // import axios from 'axios';
 import type { RechercheFilter } from '@/utils/RechercheFilter';
 import { instance } from '@/utils/axiosUtils';
+import { ref } from 'vue';
+
+const resourcesPerPage = ref<number>(20);
+
+function setResourcesPerPage(nbr: number) {
+  resourcesPerPage.value = nbr;
+}
 
 function getUrlParams(recherche: string): string {
   return recherche !== ''
@@ -33,19 +40,27 @@ const getUrlParamsWithRechercheFilter = (rechercheFilter: RechercheFilter): stri
 };
 
 const getRessourcesDiffusables = async (url: string, userInfoApiUrl: string, page: number, recherche: string) =>
-  await instance.get(`${url}?ressourcesPerPage=20&page=${page}${getUrlParams(recherche)}`, {});
+  await instance.get(`${url}?ressourcesPerPage=${resourcesPerPage.value}&page=${page}${getUrlParams(recherche)}`, {});
 
 const getRessourcesDiffusablesWithRechercheFilter = async (
   url: string,
   userInfoApiUrl: string,
   page: number,
   recherche: RechercheFilter,
-) => await instance.get(`${url}?ressourcesPerPage=20&page=${page}${getUrlParamsWithRechercheFilter(recherche)}`, {});
+) =>
+  await instance.get(
+    `${url}?ressourcesPerPage=${resourcesPerPage.value}&page=${page}${getUrlParamsWithRechercheFilter(recherche)}`,
+    {},
+  );
 
-const getSize = async (url: string, userInfoApiUrl: string, recherche: string) =>
-  await instance.get(`${url}?${getUrlParams(recherche)}`, {});
+// const getSize = async (url: string, userInfoApiUrl: string, recherche: string) =>
+//   await instance.get(`${url}?${getUrlParams(recherche)}`, {});
 
-const getSizeWithRechercheFilter = async (url: string, userInfoApiUrl: string, recherche: RechercheFilter) =>
-  await instance.get(`${url}?${getUrlParamsWithRechercheFilter(recherche)}`, {});
+// const getSizeWithRechercheFilter = async (url: string, userInfoApiUrl: string, recherche: RechercheFilter) =>
+//   await instance.get(`${url}?${getUrlParamsWithRechercheFilter(recherche)}`, {});
 
-export { getRessourcesDiffusables, getRessourcesDiffusablesWithRechercheFilter, getSize, getSizeWithRechercheFilter };
+export {
+  getRessourcesDiffusables,
+  getRessourcesDiffusablesWithRechercheFilter /*, getSize, getSizeWithRechercheFilter */,
+  setResourcesPerPage,
+};

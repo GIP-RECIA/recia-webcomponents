@@ -19,13 +19,13 @@ import type { Ressource } from '@/types/ressourceType'
 import { useI18n } from 'vue-i18n'
 
 defineProps<{
-  ressources: Array<Ressource>
-  erreur: string
-  lectureTerminee: boolean
-  chargement: boolean | null
-}>()
-
-defineEmits(['getPageSuivante'])
+  ressources: Array<Ressource>;
+  erreur: string;
+  lectureTerminee: boolean;
+  chargement: boolean | null;
+  lastPageIndexHumanReadable: number;
+  currentPageIndexHumanReadable: number;
+}>();
 
 const { t } = useI18n()
 </script>
@@ -46,9 +46,13 @@ const { t } = useI18n()
       <p v-else-if="ressources.length === 0">
         {{ t('liste-ressources.aucune-ressource') }}
       </p>
-      <button v-else-if="!lectureTerminee" class="page-suivante-liste-ressources" @click="$emit('getPageSuivante')">
+      <ressources-pagination
+        :lastPageIndexHumanReadable="lastPageIndexHumanReadable"
+        :currentPageIndexHumanReadable="currentPageIndexHumanReadable"
+      />
+      <!-- <button v-else-if="!lectureTerminee" class="page-suivante-liste-ressources" @click="$emit('getPageSuivante')">
         {{ t('liste-ressources.charger-plus') }}
-      </button>
+      </button> -->
     </footer>
   </div>
 </template>
