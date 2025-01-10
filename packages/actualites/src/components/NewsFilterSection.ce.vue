@@ -93,7 +93,9 @@ function setSection(section: Rubrique) {
           </div>
         </div>
       </div>
+
       <template v-if="currentSource">
+        <div class="separator"></div>
         <div class="filter-section-title">
           {{ t('text.filter.by-sections') }}
         </div>
@@ -119,11 +121,18 @@ function setSection(section: Rubrique) {
 <style scoped lang="scss">
 .filter-section-container {
   display: grid;
-  grid-row: auto;
   grid-template-columns: auto 1fr;
   user-select: none;
   border: none;
-  gap: 2rem;
+  gap: 1rem;
+}
+
+.separator {
+  width: 100%;
+  height: 1px;
+  background-color: #d9d9d9; /* Gris clair */
+  border: none;
+  grid-column: 1 / 3;
 }
 
 .filter-section {
@@ -144,7 +153,7 @@ function setSection(section: Rubrique) {
 .filter-section-span-container {
   display: inline-flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .filter-section-span {

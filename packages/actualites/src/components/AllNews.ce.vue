@@ -21,7 +21,7 @@ import { getPaginatedNews } from '@/services/NewsService.ts'
 import { PageOrigin } from '@/types/PageOrigin.ts'
 import { initToken } from '@/utils/axiosUtils.ts'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import {onBeforeMount, ref, watch} from 'vue'
+import { onBeforeMount, ref } from 'vue'
 
 const props = defineProps<{
   userInfoApiUrl: string
@@ -80,13 +80,15 @@ function getRubriques(codesRubriques: number[]) {
 
 <template>
   <i18n-host>
-    <div id="allNews" v-if="result" class="allNews-container">
+    <div v-if="result" id="allNews" class="allNews-container">
       <div class="allNews-header">
         <div class="allNews-header-title">
           <button class="carousel-header-see-all-news">
             <FontAwesomeIcon class="arrow-left" :icon="['fas', 'arrow-left']" />
           </button>
-          <div class="title-allNews">{{ t('text.title.all-news') }}</div>
+          <div class="title-allNews">
+            {{ t('text.title.all-news') }}
+          </div>
         </div>
 
         <custom-toggle-switch
