@@ -38,8 +38,6 @@ onUnmounted(() => {
 
 })
 
-
-
 // Méthodes
 function openModal() {
   showModal.value = true
@@ -96,13 +94,13 @@ function isPageOriginAll() {
       </div>
     </article>
 
-    <div v-if="showModal" class="open-modal" :class="{ active: showModal }" @click="closeModal">
+    <div v-if="showModal" class="open-modal" :class="{ active: showModal }">
       <preview-ui :item-id="props.item.uuid" :rubriques="props.rubriques" @close-modal="closeModal" />
     </div>
   </i18n-host>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 * {
   box-sizing: border-box;
 }
@@ -116,7 +114,7 @@ article {
   transform-origin: center;
   transition: all 0.01s ease-in-out;
   overflow: hidden;
-  box-shadow: rgba(0, 0, 0, 0.06) 0 0 10px 3px;
+  box-shadow: rgba(0, 0, 0, 0.06) 0 0 10px 2px;
   cursor: pointer;
 
   --description-font-size: 12px;
@@ -210,8 +208,5 @@ article:hover .card-body-title {
 article:has(:hover, :focus) {
   --img-scale: 1.3;
   --title-color: #0062bc;
-}
-
-.open-modal.active {
 }
 </style>
