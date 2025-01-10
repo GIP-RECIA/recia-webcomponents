@@ -67,7 +67,7 @@ function closeModal() {
 
 <template>
   <i18n-host>
-    <div v-if="item" class="modal-overlay">
+    <div v-if="item" class="modal-overlay" @click="closeModal">
       <div ref="modal" class="modal-container" :class="{ 'slide-up': isModalOpen, 'slide-down': !isModalOpen }" @click.stop>
         <img class="modal-container-background-image" :src="baseUrl.concat(item.enclosure)" alt="">
         <div class="modal-container-content">
@@ -165,7 +165,6 @@ function closeModal() {
   margin-top: 1rem;
   display: flex;
   flex-direction: column;
-  //animation: slide-up 0.3s ease-out;
   overflow: hidden;
   padding: 4rem;
   gap: 5rem;
@@ -208,8 +207,6 @@ function closeModal() {
   filter: blur(5px);
   opacity: 0.3; /* Rend l'image semi-transparente */
   z-index: 10;
-
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%);
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%);
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
@@ -369,7 +366,6 @@ function closeModal() {
   font-family: 'DM Sans', sans-serif;
   font-size: 14px;
   font-weight: 500;
-  cursor: pointer;
   background-color: var(--backgroundColor);
 }
 
@@ -398,8 +394,6 @@ function closeModal() {
   border: none;
   color: transparent;
   width: 8px;
-
-
 }
 
 .modal-content::-webkit-scrollbar-thumb {
