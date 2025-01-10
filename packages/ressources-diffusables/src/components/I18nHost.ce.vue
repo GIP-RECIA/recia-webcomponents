@@ -26,6 +26,7 @@ defineProps<{
   ressourcesDiffusablesApiUri: string;
   ressourcesDiffusablesSizeApiUri: string;
   userInfoApiUrl: string;
+  resourcesPerPageDefault: number;
 }>();
 </script>
 
@@ -35,5 +36,6 @@ defineProps<{
     :ressources-diffusables-api-uri="ressourcesDiffusablesApiUri"
     :ressources-diffusables-size-api-uri="ressourcesDiffusablesSizeApiUri"
     :user-info-api-url="userInfoApiUrl"
+    :resources-per-page-default="resourcesPerPageDefault"
   />
 </template>
