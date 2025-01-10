@@ -21,6 +21,7 @@ import LegendeRessourceSFC from '@/components/LegendeRessource.ce.vue';
 import ListeRessourcesSFC from '@/components/ListeRessources.ce.vue';
 import PageRessourceSFC from '@/components/PageRessource.ce.vue';
 import RechercheRessourceSFC from '@/components/RechercheRessource.ce.vue';
+import RessourcesPaginationSFC from '@/components/RessourcesPagination.ce.vue';
 import { defineCustomElement } from 'vue';
 
 const CarteRessource = defineCustomElement(CarteRessourceSFC);
@@ -28,6 +29,7 @@ const I18nHost = defineCustomElement(I18nHostSFC);
 const LegendeRessource = defineCustomElement(LegendeRessourceSFC);
 const ListeRessources = defineCustomElement(ListeRessourcesSFC);
 const PageRessource = defineCustomElement(PageRessourceSFC);
+const RessourcesPagination = defineCustomElement(RessourcesPaginationSFC);
 const RechercheRessource = defineCustomElement(RechercheRessourceSFC);
 const RechercheAvanceeRessource = defineCustomElement(RechercheAvanceeRessourceSFC);
 const RechercheTypeToggle = defineCustomElement(RechercheTypeToggleSFC);
@@ -39,6 +41,7 @@ declare module 'vue' {
     LegendeRessource: typeof LegendeRessource;
     ListeRessources: typeof ListeRessources;
     PageRessource: typeof PageRessource;
+    RessourcesPagination: typeof RessourcesPagination;
     RechercheRessource: typeof RechercheRessource;
     RechercheAvanceeRessource: typeof RechercheAvanceeRessource;
     RechercheTypeToggle: typeof RechercheTypeToggle;
@@ -51,6 +54,7 @@ const register = () => {
   customElements.define('legende-ressource', LegendeRessource);
   customElements.define('liste-ressources', ListeRessources);
   customElements.define('page-ressource', PageRessource);
+  customElements.define('ressources-pagination', RessourcesPagination);
   customElements.define('recherche-ressource', RechercheRessource);
   customElements.define('recherche-avancee-ressource', RechercheAvanceeRessource);
   customElements.define('recherche-type-toggle', RechercheTypeToggle);
@@ -62,6 +66,7 @@ export {
   LegendeRessource,
   ListeRessources,
   PageRessource,
+  RessourcesPagination,
   RechercheRessource,
   RechercheAvanceeRessource,
   RechercheTypeToggle,
