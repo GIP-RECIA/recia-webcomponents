@@ -15,19 +15,19 @@
 -->
 
 <script setup lang="ts">
-import type { Ressource } from '@/types/ressourceType'
-import { useI18n } from 'vue-i18n'
+import type { Ressource } from '@/types/ressourceType';
+import { useI18n } from 'vue-i18n';
 
 defineProps<{
-  ressources: Array<Ressource>
-  erreur: string
-  lectureTerminee: boolean
-  chargement: boolean | null
-}>()
+  ressources: Array<Ressource>;
+  erreur: string;
+  lectureTerminee: boolean;
+  chargement: boolean | null;
+  lastPageIndexHumanReadable: number;
+  currentPageIndexHumanReadable: number;
+}>();
 
-defineEmits(['getPageSuivante'])
-
-const { t } = useI18n()
+const { t } = useI18n();
 </script>
 
 <template>
@@ -40,15 +40,19 @@ const { t } = useI18n()
         {{ t('liste-ressources.chargement') }}
       </p>
       <p v-else-if="erreur !== ''">
-        {{ t('liste-ressources.erreur') }}<br>
+        {{ t('liste-ressources.erreur') }}<br />
         {{ t('liste-ressources.detail-erreur') }}: <code>{{ erreur }}</code>
       </p>
       <p v-else-if="ressources.length === 0">
         {{ t('liste-ressources.aucune-ressource') }}
       </p>
-      <button v-else-if="!lectureTerminee" class="page-suivante-liste-ressources" @click="$emit('getPageSuivante')">
+      <ressources-pagination
+        :lastPageIndexHumanReadable="lastPageIndexHumanReadable"
+        :currentPageIndexHumanReadable="currentPageIndexHumanReadable"
+      />
+      <!-- <button v-else-if="!lectureTerminee" class="page-suivante-liste-ressources" @click="$emit('getPageSuivante')">
         {{ t('liste-ressources.charger-plus') }}
-      </button>
+      </button> -->
     </footer>
   </div>
 </template>
