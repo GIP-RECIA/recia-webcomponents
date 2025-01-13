@@ -1590,7 +1590,7 @@ __metadata:
     vite-plugin-css-injected-by-js: "npm:^3.5.2"
     y-presence: "npm:^0.2.3"
     y-websocket: "npm:^2.1.0"
-    yjs: "npm:^13.6.21"
+    yjs: "npm:^13.6.22"
   languageName: unknown
   linkType: soft
 
@@ -1715,7 +1715,7 @@ __metadata:
     vite: "npm:^6.0.7"
     y-presence: "npm:^0.2.3"
     y-websocket: "npm:^2.1.0"
-    yjs: "npm:^13.6.21"
+    yjs: "npm:^13.6.22"
   languageName: unknown
   linkType: soft
 
@@ -7793,7 +7793,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lib0@npm:^0.2.31, lib0@npm:^0.2.52, lib0@npm:^0.2.85, lib0@npm:^0.2.98":
+"lib0@npm:^0.2.31, lib0@npm:^0.2.52, lib0@npm:^0.2.85":
   version: 0.2.98
   resolution: "lib0@npm:0.2.98"
   dependencies:
@@ -7803,6 +7803,19 @@ __metadata:
     0gentesthtml: bin/gentesthtml.js
     0serve: bin/0serve.js
   checksum: 10/8ec7fb66e211b5041d988e93d768b47946f820dfbf65b9aeb5350041b09ec6fa86d528dc1605fc79eb4d66db6b5391a0e6bf73392c3d53f5a4601430664712c9
+  languageName: node
+  linkType: hard
+
+"lib0@npm:^0.2.99":
+  version: 0.2.99
+  resolution: "lib0@npm:0.2.99"
+  dependencies:
+    isomorphic.js: "npm:^0.2.4"
+  bin:
+    0ecdsa-generate-keypair: bin/0ecdsa-generate-keypair.js
+    0gentesthtml: bin/gentesthtml.js
+    0serve: bin/0serve.js
+  checksum: 10/825f248d31fc85241d322365d838aa4902ee5d97e12b8a14ac1234d0ec1c3263fa217057a2d167ec734f3037b89fd6d514a29b4a768cdf677e57d2a2692a5827
   languageName: node
   linkType: hard
 
@@ -11949,12 +11962,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yjs@npm:^13.6.21":
-  version: 13.6.21
-  resolution: "yjs@npm:13.6.21"
+"yjs@npm:^13.6.22":
+  version: 13.6.22
+  resolution: "yjs@npm:13.6.22"
   dependencies:
-    lib0: "npm:^0.2.98"
-  checksum: 10/5c13655e5bca9aee9d9cd1a383a85e3f4998d08f43ee1b658c83b88637ea18d77e6aae32ee41869e90e643465ead203035770b950cdcff7ddfce1c0a0dab2f2d
+    lib0: "npm:^0.2.99"
+  checksum: 10/0113c8ed685b824d8cbef3e3fc39b2ff9c6a3cafe3ca48c7772db11d9366738a34f35272d1a5f4699e4fb4a7f3864eab3811855f187f733bd8107bf00cc050e6
   languageName: node
   linkType: hard
 
