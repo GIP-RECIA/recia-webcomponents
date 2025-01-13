@@ -15,278 +15,285 @@
 -->
 
 <script setup lang="ts">
+import type { Ressource } from '@/types/ressourceType'
 import {
   getRessourcesDiffusables,
   getRessourcesDiffusablesWithRechercheFilter,
   setResourcesPerPage,
   // getSize,
   // getSizeWithRechercheFilter,
-} from '@/services/serviceRessourcesDiffusables';
-import type { Ressource } from '@/types/ressourceType';
-import { RechercheFilter } from '@/utils/RechercheFilter';
-import { initToken } from '@/utils/axiosUtils';
-import { faL } from '@fortawesome/free-solid-svg-icons';
-import { onMounted, ref } from 'vue';
+} from '@/services/serviceRessourcesDiffusables'
+import { initToken } from '@/utils/axiosUtils'
+import { RechercheFilter } from '@/utils/RechercheFilter'
+import { onMounted, ref } from 'vue'
 
 const props = defineProps<{
-  baseApiUrl: string;
-  ressourcesDiffusablesApiUri: string;
-  ressourcesDiffusablesSizeApiUri: string;
-  userInfoApiUrl: string;
-  resourcesPerPageDefault: number;
-}>();
+  baseApiUrl: string
+  ressourcesDiffusablesApiUri: string
+  ressourcesDiffusablesSizeApiUri: string
+  userInfoApiUrl: string
+  resourcesPerPageDefault: number
+}>()
 
-const ressources = ref<Array<Ressource>>([]);
-const erreur = ref<string>('');
-const nombreRessourcesTotal = ref<number>(0);
-const pageActuelle = ref<number>(0);
+const ressources = ref<Array<Ressource>>([])
+const erreur = ref<string>('')
+const nombreRessourcesTotal = ref<number>(0)
+const pageActuelle = ref<number>(0)
 // const pageSuivante = ref<number>(0);
-const lectureTerminee = ref<boolean>(false);
-const chargement = ref<boolean>(false);
-const recherche = ref<string>('');
-const rechercheFilter = ref<RechercheFilter>();
-const rechercheAvanceeActive = ref<boolean>(false);
-const numerosPagesAffiches = ref<number[]>([]);
-const refreshKey = ref<boolean>(false);
+const lectureTerminee = ref<boolean>(false)
+const chargement = ref<boolean>(false)
+const recherche = ref<string>('')
+const rechercheFilter = ref<RechercheFilter>()
+const rechercheAvanceeActive = ref<boolean>(false)
+const numerosPagesAffiches = ref<number[]>([])
+const refreshKey = ref<boolean>(false)
 
 onMounted(async (): Promise<void> => {
-  await initToken(props.userInfoApiUrl);
+  await initToken(props.userInfoApiUrl)
   // await recommencerRecherche();
-  setResourcesPerPage(props.resourcesPerPageDefault);
-  await rechercheInitiale();
-});
+  setResourcesPerPage(props.resourcesPerPageDefault)
+  await rechercheInitiale()
+})
 
-const reinitialiserRecherche = async (): Promise<void> => {
+async function reinitialiserRecherche(): Promise<void> {
   if (rechercheAvanceeActive.value) {
-    return;
+    return
   }
-  recherche.value = '';
-  getPageSuivante(1);
-};
-
-const reinitialiserRechercheAvancee = async (rechercheInput: CustomEvent): Promise<void> => {
-  if (!rechercheAvanceeActive.value) {
-    return;
-  }
-  rechercheFilter.value = rechercheInput.detail[0];
-  getPageSuivante(1);
-};
-
-const recommencerRechercheInput = async (rechercheInput: CustomEvent): Promise<void> => {
-  if (rechercheAvanceeActive.value) {
-    return;
-  }
-  recherche.value = rechercheInput.detail[0];
-  getPageSuivante(1);
-};
-
-const recommencerRechercheAvanceeInput = async (rechercheInput: CustomEvent): Promise<void> => {
-  if (!rechercheAvanceeActive.value) {
-    return;
-  }
-  rechercheFilter.value = rechercheInput.detail[0];
-  getPageSuivante(1);
-};
-
-const rechercheInitiale = async (): Promise<void> => {
-  erreur.value = '';
-  chargement.value = true;
-  try {
-    let response = await getRessourcesDiffusables(
-      props.baseApiUrl + props.ressourcesDiffusablesApiUri,
-      props.userInfoApiUrl,
-      1 /*Page number, human-readable */,
-      recherche.value,
-    );
-    console.log(props.resourcesPerPageDefault);
-    if (response.status == 200) {
-      let payload = response.data.payload;
-      handlePayload(payload);
-    }
-    console.log(response);
-  } catch (e: any) {
-    erreur.value = e.toString() + (e.response != undefined ? ' | ' + e.response.data.message : '');
-  }
-  chargement.value = false;
-};
-
-function handlePayload(payload: any) {
-  let pagination = payload.pagination;
-  if (typeof pagination.totalObjectsCount === 'number') {
-    nombreRessourcesTotal.value = pagination.totalObjectsCount;
-    console.log('not undefined if');
-  }
-
-  if (typeof pagination.totalObjectsCount === 'number') {
-    pageActuelle.value = pagination.pageIndexHumanReadable;
-    console.log('not undefined if again');
-  }
-
-  numerosPagesAffiches.value = pagesNumberToDisplay();
-  refreshKey.value = true;
-  refreshKey.value = false;
-  console.log('numero page affiche ' + numerosPagesAffiches.value);
-  console.log(pagesNumberToDisplay());
-
-  let ressourcesDiffusables = payload.ressourcesDiffusables;
-  console.log(ressourcesDiffusables.length);
-  ressources.value = ressourcesDiffusables;
+  recherche.value = ''
+  getPageSuivante(1)
 }
 
-const maxPagesCountFromObjectsCount = (): number => {
-  console.log('ressource per page default ' + props.resourcesPerPageDefault);
-  return Math.ceil(nombreRessourcesTotal.value / props.resourcesPerPageDefault);
-};
-
-const pagesNumberToDisplay = (): number[] => {
-  let monSet: Set<number> = new Set<number>();
-
-  monSet.add(1);
-  if (pageActuelle.value > 1) {
-    monSet.add(pageActuelle.value - 1);
+async function reinitialiserRechercheAvancee(rechercheInput: CustomEvent): Promise<void> {
+  if (!rechercheAvanceeActive.value) {
+    return
   }
-  monSet.add(pageActuelle.value);
-  monSet.add(Math.min(pageActuelle.value + 1, maxPagesCountFromObjectsCount()));
-  monSet.add(maxPagesCountFromObjectsCount());
-  // let firstPageArrayLastValue = Math.min(3, maxPagesCountFromObjectsCount());
+  rechercheFilter.value = rechercheInput.detail[0]
+  getPageSuivante(1)
+}
+
+async function recommencerRechercheInput(rechercheInput: CustomEvent): Promise<void> {
+  if (rechercheAvanceeActive.value) {
+    return
+  }
+  recherche.value = rechercheInput.detail[0]
+  getPageSuivante(1)
+}
+
+async function recommencerRechercheAvanceeInput(rechercheInput: CustomEvent): Promise<void> {
+  if (!rechercheAvanceeActive.value) {
+    return
+  }
+  rechercheFilter.value = rechercheInput.detail[0]
+  getPageSuivante(1)
+}
+
+async function rechercheInitiale(): Promise<void> {
+  erreur.value = ''
+  chargement.value = true
+  try {
+    const response = await getRessourcesDiffusables(
+      props.baseApiUrl + props.ressourcesDiffusablesApiUri,
+      props.userInfoApiUrl,
+      1 /* Page number, human-readable */,
+      recherche.value,
+    )
+    console.log(props.resourcesPerPageDefault)
+    if (response.status === 200) {
+      const payload = response.data.payload
+      handlePayload(payload)
+    }
+    console.log(response)
+  }
+  catch (e: any) {
+    erreur.value = e.toString() + (e.response !== undefined ? ` | ${e.response.data.message}` : '')
+  }
+  chargement.value = false
+}
+
+function handlePayload(payload: any) {
+  const pagination = payload.pagination
+  if (typeof pagination.totalObjectsCount === 'number') {
+    nombreRessourcesTotal.value = pagination.totalObjectsCount
+    console.log('not undefined if')
+  }
+
+  if (typeof pagination.totalObjectsCount === 'number') {
+    pageActuelle.value = pagination.pageIndexHumanReadable
+    console.log('not undefined if again')
+  }
+
+  numerosPagesAffiches.value = pagesNumberToDisplay()
+  refreshKey.value = true
+  refreshKey.value = false
+  console.log(`numero page affiche ${numerosPagesAffiches.value}`)
+  console.log(pagesNumberToDisplay())
+
+  const ressourcesDiffusables = payload.ressourcesDiffusables
+  console.log(ressourcesDiffusables.length)
+  ressources.value = ressourcesDiffusables
+}
+
+function maxPagesCountFromObjectsCount(): number {
+  console.log(`ressource per page default ${props.resourcesPerPageDefault}`)
+  return Math.ceil(nombreRessourcesTotal.value / props.resourcesPerPageDefault)
+}
+
+function pagesNumberToDisplay(): number[] {
+  const monSet: Set<number> = new Set<number>()
+
+  monSet.add(1)
+  if (pageActuelle.value > 1) {
+    monSet.add(pageActuelle.value - 1)
+  }
+  monSet.add(pageActuelle.value)
+  monSet.add(Math.min(pageActuelle.value + 1, maxPagesCountFromObjectsCount()))
+  monSet.add(maxPagesCountFromObjectsCount())
+  // const firstPageArrayLastValue = Math.min(3, maxPagesCountFromObjectsCount())
 
   // for (let index = 1; index <= firstPageArrayLastValue; index++) {
-  //   monSet.add(index);
+  //   monSet.add(index)
   // }
 
-  // console.log(firstPageArrayLastValue);
+  // console.log(firstPageArrayLastValue)
 
-  // let pageAroundUnder: number = Math.max(Math.min(1, pageActuelle.value - 2), 1);
-  // let pageAroundUpper: number = Math.min(maxPagesCountFromObjectsCount(), pageActuelle.value + 2);
+  // const pageAroundUnder: number = Math.max(Math.min(1, pageActuelle.value - 2), 1)
+  // const pageAroundUpper: number = Math.min(maxPagesCountFromObjectsCount(), pageActuelle.value + 2)
 
-  // console.log(pageAroundUnder + ' under');
-  // console.log(pageAroundUpper + ' upper');
-  // console.log(pageActuelle.value + 4 + ' pa actu +4');
-  // console.log(pageActuelle.value + ' pa actu');
+  // console.log(`${pageAroundUnder} under`)
+  // console.log(`${pageAroundUpper} upper`)
+  // console.log(`${pageActuelle.value + 4} pa actu +4`)
+  // console.log(`${pageActuelle.value} pa actu`)
 
   // for (let index = pageAroundUnder; index <= pageAroundUpper; index++) {
-  //   monSet.add(index);
+  //   monSet.add(index)
   // }
 
-  // let lastsPagesArrayStartValue = maxPagesCountFromObjectsCount() - 2;
-  // console.log(' lastsPagesArrayStartValue' + lastsPagesArrayStartValue);
+  // const lastsPagesArrayStartValue = maxPagesCountFromObjectsCount() - 2
+  // console.log(` lastsPagesArrayStartValue${lastsPagesArrayStartValue}`)
 
   // for (let index = lastsPagesArrayStartValue; index <= maxPagesCountFromObjectsCount(); index++) {
-  //   monSet.add(index);
+  //   monSet.add(index)
   // }
 
-  return Array.from(monSet);
-};
+  return Array.from(monSet)
+}
 
-// const recommencerRecherche = async (): Promise<void> => {
-//   ressources.value = [];
-//   erreur.value = '';
-//   chargement.value = true;
+// async function recommencerRecherche(): Promise<void> {
+//   ressources.value = []
+//   erreur.value = ''
+//   chargement.value = true
 //   try {
 //     // nombreRessourcesTotal.value = response.data.payload;
 //     if (nombreRessourcesTotal.value === 0) {
-//       lectureTerminee.value = true;
-//       chargement.value = false;
-//     } else {
-//       lectureTerminee.value = false;
-//       getPageSuivante(1);
+//       lectureTerminee.value = true
+//       chargement.value = false
 //     }
-//   } catch (e: any) {
-//     erreur.value = e.toString() + (e.response != undefined ? ' | ' + e.response.data.message : '');
-//     chargement.value = false;
+//     else {
+//       lectureTerminee.value = false
+//       getPageSuivante(1)
+//     }
 //   }
-// };
+//   catch (e: any) {
+//     erreur.value = e.toString() + (e.response !== undefined ? ` | ${e.response.data.message}` : '')
+//     chargement.value = false
+//   }
+// }
 
-// const recommencerRechercheAvancee = async (): Promise<void> => {
-//   ressources.value = [];
-//   erreur.value = '';
-//   chargement.value = true;
+// async function recommencerRechercheAvancee(): Promise<void> {
+//   ressources.value = []
+//   erreur.value = ''
+//   chargement.value = true
 //   try {
-//     let response = await getSizeWithRechercheFilter(
+//     const response = await getSizeWithRechercheFilter(
 //       props.baseApiUrl + props.ressourcesDiffusablesSizeApiUri,
 //       props.userInfoApiUrl,
-//       rechercheFilter.value != undefined ? rechercheFilter.value : new RechercheFilter(),
-//     );
-//     nombreRessourcesTotal.value = response.data.payload;
+//       rechercheFilter.value !== undefined ? rechercheFilter.value : new RechercheFilter(),
+//     )
+//     nombreRessourcesTotal.value = response.data.payload
 //     if (nombreRessourcesTotal.value === 0) {
-//       lectureTerminee.value = true;
-//       chargement.value = false;
-//     } else {
-//       lectureTerminee.value = false;
-//       getPageSuivanteRechercheAvancee();
+//       lectureTerminee.value = true
+//       chargement.value = false
 //     }
-//   } catch (e: any) {
-//     erreur.value = e.toString() + (e.response != undefined ? ' | ' + e.response.data.message : '');
-//     chargement.value = false;
+//     else {
+//       lectureTerminee.value = false
+//       getPageSuivanteRechercheAvancee()
+//     }
 //   }
-// };
+//   catch (e: any) {
+//     erreur.value = e.toString() + (e.response !== undefined ? ` | ${e.response.data.message}` : '')
+//     chargement.value = false
+//   }
+// }
 
-const getPageSuivante = async (nbr: number): Promise<void> => {
+async function getPageSuivante(nbr: number): Promise<void> {
   // if (!lectureTerminee.value) {
   if (nbr <= maxPagesCountFromObjectsCount()) {
-    erreur.value = '';
-    chargement.value = true;
+    erreur.value = ''
+    chargement.value = true
     try {
-      let response;
+      let response
 
-      if (rechercheAvanceeActive.value == true) {
+      if (rechercheAvanceeActive.value === true) {
         response = await getRessourcesDiffusablesWithRechercheFilter(
           props.baseApiUrl + props.ressourcesDiffusablesApiUri,
           props.userInfoApiUrl,
           nbr,
-          rechercheFilter.value != undefined ? rechercheFilter.value : new RechercheFilter(),
-        );
-      } else {
+          rechercheFilter.value !== undefined ? rechercheFilter.value : new RechercheFilter(),
+        )
+      }
+      else {
         response = await getRessourcesDiffusables(
           props.baseApiUrl + props.ressourcesDiffusablesApiUri,
           props.userInfoApiUrl,
           nbr,
           recherche.value,
-        );
+        )
       }
 
-      let payload = response.data.payload;
-      handlePayload(payload);
-    } catch (e: any) {
-      erreur.value = e.toString() + (e.response != undefined ? ' | ' + e.response.data.message : '');
+      const payload = response.data.payload
+      handlePayload(payload)
     }
-    chargement.value = false;
+    catch (e: any) {
+      erreur.value = e.toString() + (e.response !== undefined ? ` | ${e.response.data.message}` : '')
+    }
+    chargement.value = false
   }
-};
+}
 
-// const getPageSuivanteRechercheAvancee = async (): Promise<void> => {
+// async function getPageSuivanteRechercheAvancee(): Promise<void> {
 //   if (!lectureTerminee.value) {
-//     erreur.value = '';
-//     chargement.value = true;
+//     erreur.value = ''
+//     chargement.value = true
 //     try {
-//       let response = await getRessourcesDiffusablesWithRechercheFilter(
+//       const response = await getRessourcesDiffusablesWithRechercheFilter(
 //         props.baseApiUrl + props.ressourcesDiffusablesApiUri,
 //         props.userInfoApiUrl,
 //         pageActuelle.value + 1,
-//         rechercheFilter.value != undefined ? rechercheFilter.value : new RechercheFilter(),
-//       );
-//       ressources.value = ressources.value.concat(response.data.payload);
+//         rechercheFilter.value !== undefined ? rechercheFilter.value : new RechercheFilter(),
+//       )
+//       ressources.value = ressources.value.concat(response.data.payload)
 //       if (ressources.value.length === nombreRessourcesTotal.value) {
-//         lectureTerminee.value = true;
+//         lectureTerminee.value = true
 //       }
-//     } catch (e: any) {
-//       erreur.value = e.toString() + (e.response != undefined ? ' | ' + e.response.data.message : '');
 //     }
-//     chargement.value = false;
+//     catch (e: any) {
+//       erreur.value = e.toString() + (e.response !== undefined ? ` | ${e.response.data.message}` : '')
+//     }
+//     chargement.value = false
 //   }
-// };
+// }
 
-const swapRechercheTypeToggle = (rechercheInput: CustomEvent): void => {
-  rechercheAvanceeActive.value = rechercheInput.detail[0];
-  getPageSuivante(1);
-};
+function swapRechercheTypeToggle(rechercheInput: CustomEvent): void {
+  rechercheAvanceeActive.value = rechercheInput.detail[0]
+  getPageSuivante(1)
+}
 
 function clickfct(targetPageNbr: number) {
-  // if (targetPageNbr == pageActuelle.value) {
-  //   return;
+  // if (targetPageNbr === pageActuelle.value) {
+  //   return
   // }
-  console.log('click ' + targetPageNbr);
-  getPageSuivante(targetPageNbr);
+  console.log(`click ${targetPageNbr}`)
+  getPageSuivante(targetPageNbr)
 }
 </script>
 
@@ -296,31 +303,31 @@ function clickfct(targetPageNbr: number) {
       <recherche-type-toggle @swap-recherche-type-toggle="swapRechercheTypeToggle" />
       <recherche-ressource
         v-show="!rechercheAvanceeActive"
+        ref="rechercheRessource"
         :nombre-ressources-total="nombreRessourcesTotal"
         :nombre-ressources-affichees="ressources.length"
         @recommencer-recherche-input="recommencerRechercheInput"
         @reinitialiser-recherche="reinitialiserRecherche"
-        ref="rechercheRessource"
       />
       <recherche-avancee-ressource
         v-show="rechercheAvanceeActive"
+        ref="rechercheAvanceeRessource"
         :nombre-ressources-total="nombreRessourcesTotal"
         :nombre-ressources-affichees="ressources.length"
         @recommencer-recherche-avancee-input="recommencerRechercheAvanceeInput"
         @reinitialiser-recherche-avancee="reinitialiserRechercheAvancee"
-        ref="rechercheAvanceeRessource"
       />
       <legende-ressource class="legende-ressource-page-ressource" />
     </aside>
     <main class="main-page-ressource">
       <liste-ressources
+        ref="listeRessource"
         :ressources="ressources"
         :erreur="erreur"
-        :lectureTerminee="lectureTerminee"
+        :lecture-terminee="lectureTerminee"
         :chargement="chargement"
-        :lastPageIndexHumanReadable="maxPagesCountFromObjectsCount()"
-        :currentPageIndexHumanReadable="pageActuelle"
-        ref="listeRessource"
+        :last-page-index-human-readable="maxPagesCountFromObjectsCount()"
+        :current-page-index-human-readable="pageActuelle"
       />
     </main>
   </div>
