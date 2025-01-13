@@ -298,39 +298,41 @@ function clickfct(targetPageNbr: number) {
 </script>
 
 <template>
-  <div class="cadre-page-ressource">
-    <aside class="aside-page-ressource">
-      <recherche-type-toggle @swap-recherche-type-toggle="swapRechercheTypeToggle" />
-      <recherche-ressource
-        v-show="!rechercheAvanceeActive"
-        ref="rechercheRessource"
-        :nombre-ressources-total="nombreRessourcesTotal"
-        :nombre-ressources-affichees="ressources.length"
-        @recommencer-recherche-input="recommencerRechercheInput"
-        @reinitialiser-recherche="reinitialiserRecherche"
-      />
-      <recherche-avancee-ressource
-        v-show="rechercheAvanceeActive"
-        ref="rechercheAvanceeRessource"
-        :nombre-ressources-total="nombreRessourcesTotal"
-        :nombre-ressources-affichees="ressources.length"
-        @recommencer-recherche-avancee-input="recommencerRechercheAvanceeInput"
-        @reinitialiser-recherche-avancee="reinitialiserRechercheAvancee"
-      />
-      <legende-ressource class="legende-ressource-page-ressource" />
-    </aside>
-    <main class="main-page-ressource">
-      <liste-ressources
-        ref="listeRessource"
-        :ressources="ressources"
-        :erreur="erreur"
-        :lecture-terminee="lectureTerminee"
-        :chargement="chargement"
-        :last-page-index-human-readable="maxPagesCountFromObjectsCount()"
-        :current-page-index-human-readable="pageActuelle"
-      />
-    </main>
-  </div>
+  <i18n-host>
+    <div class="cadre-page-ressource">
+      <aside class="aside-page-ressource">
+        <recherche-type-toggle @swap-recherche-type-toggle="swapRechercheTypeToggle" />
+        <recherche-ressource
+          v-show="!rechercheAvanceeActive"
+          ref="rechercheRessource"
+          :nombre-ressources-total="nombreRessourcesTotal"
+          :nombre-ressources-affichees="ressources.length"
+          @recommencer-recherche-input="recommencerRechercheInput"
+          @reinitialiser-recherche="reinitialiserRecherche"
+        />
+        <recherche-avancee-ressource
+          v-show="rechercheAvanceeActive"
+          ref="rechercheAvanceeRessource"
+          :nombre-ressources-total="nombreRessourcesTotal"
+          :nombre-ressources-affichees="ressources.length"
+          @recommencer-recherche-avancee-input="recommencerRechercheAvanceeInput"
+          @reinitialiser-recherche-avancee="reinitialiserRechercheAvancee"
+        />
+        <legende-ressource class="legende-ressource-page-ressource" />
+      </aside>
+      <main class="main-page-ressource">
+        <liste-ressources
+          ref="listeRessource"
+          :ressources="ressources"
+          :erreur="erreur"
+          :lecture-terminee="lectureTerminee"
+          :chargement="chargement"
+          :last-page-index-human-readable="maxPagesCountFromObjectsCount()"
+          :current-page-index-human-readable="pageActuelle"
+        />
+      </main>
+    </div>
+  </i18n-host>
 </template>
 
 <style lang="scss">
