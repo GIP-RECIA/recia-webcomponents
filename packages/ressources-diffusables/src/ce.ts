@@ -13,52 +13,53 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import RechercheAvanceeRessourceSFC from './components/RechercheAvanceeRessource.ce.vue';
-import RechercheTypeToggleSFC from './components/RechercheTypeToggle.ce.vue';
-import CarteRessourceSFC from '@/components/CarteRessource.ce.vue';
-import I18nHostSFC from '@/components/I18nHost.ce.vue';
-import LegendeRessourceSFC from '@/components/LegendeRessource.ce.vue';
-import ListeRessourcesSFC from '@/components/ListeRessources.ce.vue';
-import PageRessourceSFC from '@/components/PageRessource.ce.vue';
-import RechercheRessourceSFC from '@/components/RechercheRessource.ce.vue';
-import RessourcesPaginationSFC from '@/components/RessourcesPagination.ce.vue';
-import { defineCustomElement } from 'vue';
 
-const CarteRessource = defineCustomElement(CarteRessourceSFC);
-const I18nHost = defineCustomElement(I18nHostSFC);
-const LegendeRessource = defineCustomElement(LegendeRessourceSFC);
-const ListeRessources = defineCustomElement(ListeRessourcesSFC);
-const PageRessource = defineCustomElement(PageRessourceSFC);
-const RessourcesPagination = defineCustomElement(RessourcesPaginationSFC);
-const RechercheRessource = defineCustomElement(RechercheRessourceSFC);
-const RechercheAvanceeRessource = defineCustomElement(RechercheAvanceeRessourceSFC);
-const RechercheTypeToggle = defineCustomElement(RechercheTypeToggleSFC);
+import CarteRessourceSFC from '@/components/CarteRessource.ce.vue'
+import I18nHostSFC from '@/components/I18nHost.ce.vue'
+import LegendeRessourceSFC from '@/components/LegendeRessource.ce.vue'
+import ListeRessourcesSFC from '@/components/ListeRessources.ce.vue'
+import PageRessourceSFC from '@/components/PageRessource.ce.vue'
+import RechercheAvanceeRessourceSFC from '@/components/RechercheAvanceeRessource.ce.vue'
+import RechercheRessourceSFC from '@/components/RechercheRessource.ce.vue'
+import RechercheTypeToggleSFC from '@/components/RechercheTypeToggle.ce.vue'
+import RessourcesPaginationSFC from '@/components/RessourcesPagination.ce.vue'
+import { defineCustomElement } from 'vue'
+
+const CarteRessource = defineCustomElement(CarteRessourceSFC)
+const I18nHost = defineCustomElement(I18nHostSFC)
+const LegendeRessource = defineCustomElement(LegendeRessourceSFC)
+const ListeRessources = defineCustomElement(ListeRessourcesSFC)
+const PageRessource = defineCustomElement(PageRessourceSFC)
+const RechercheAvanceeRessource = defineCustomElement(RechercheAvanceeRessourceSFC)
+const RechercheRessource = defineCustomElement(RechercheRessourceSFC)
+const RechercheTypeToggle = defineCustomElement(RechercheTypeToggleSFC)
+const RessourcesPagination = defineCustomElement(RessourcesPaginationSFC)
 
 declare module 'vue' {
   export interface GlobalComponents {
-    CarteRessource: typeof CarteRessource;
-    I18nHost: typeof I18nHost;
-    LegendeRessource: typeof LegendeRessource;
-    ListeRessources: typeof ListeRessources;
-    PageRessource: typeof PageRessource;
-    RessourcesPagination: typeof RessourcesPagination;
-    RechercheRessource: typeof RechercheRessource;
-    RechercheAvanceeRessource: typeof RechercheAvanceeRessource;
-    RechercheTypeToggle: typeof RechercheTypeToggle;
+    CarteRessource: typeof CarteRessource
+    I18nHost: typeof I18nHost
+    LegendeRessource: typeof LegendeRessource
+    ListeRessources: typeof ListeRessources
+    PageRessource: typeof PageRessource
+    RechercheAvanceeRessource: typeof RechercheAvanceeRessource
+    RechercheRessource: typeof RechercheRessource
+    RechercheTypeToggle: typeof RechercheTypeToggle
+    RessourcesPagination: typeof RessourcesPagination
   }
 }
 
-const register = () => {
-  customElements.define('carte-ressource', CarteRessource);
-  customElements.define('ui-ressources-gar', I18nHost);
-  customElements.define('legende-ressource', LegendeRessource);
-  customElements.define('liste-ressources', ListeRessources);
-  customElements.define('page-ressource', PageRessource);
-  customElements.define('ressources-pagination', RessourcesPagination);
-  customElements.define('recherche-ressource', RechercheRessource);
-  customElements.define('recherche-avancee-ressource', RechercheAvanceeRessource);
-  customElements.define('recherche-type-toggle', RechercheTypeToggle);
-};
+function register() {
+  customElements.define('carte-ressource', CarteRessource)
+  customElements.define('ui-ressources-gar', I18nHost)
+  customElements.define('legende-ressource', LegendeRessource)
+  customElements.define('liste-ressources', ListeRessources)
+  customElements.define('page-ressource', PageRessource)
+  customElements.define('recherche-avancee-ressource', RechercheAvanceeRessource)
+  customElements.define('recherche-ressource', RechercheRessource)
+  customElements.define('recherche-type-toggle', RechercheTypeToggle)
+  customElements.define('ressources-pagination', RessourcesPagination)
+}
 
 export {
   CarteRessource,
@@ -66,9 +67,9 @@ export {
   LegendeRessource,
   ListeRessources,
   PageRessource,
-  RessourcesPagination,
-  RechercheRessource,
   RechercheAvanceeRessource,
+  RechercheRessource,
   RechercheTypeToggle,
   register,
-};
+  RessourcesPagination,
+}

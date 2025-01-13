@@ -21,7 +21,7 @@ const {
   VITE_RESSOURCES_DIFFUSABLES_SIZE_API_URI,
   VITE_USER_INFO_API_URI,
   VITE_RESOURCES_PER_PAGE_DEFAULT,
-} = import.meta.env;
+} = import.meta.env
 </script>
 
 <template>

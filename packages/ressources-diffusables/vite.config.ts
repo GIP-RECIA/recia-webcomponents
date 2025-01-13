@@ -33,11 +33,15 @@ export default ({ mode }: { mode: string }) => {
           compilerOptions: {
             isCustomElement: tag => [
               'carte-ressource',
+              'ui-ressources-gar',
               'i18n-host',
               'legende-ressource',
               'liste-ressources',
+              'page-ressource',
+              'recherche-avancee-ressource',
               'recherche-ressource',
-              'ui-ressources-gar',
+              'recherche-type-toggle',
+              'ressources-pagination',
             ].includes(tag),
           },
         },
