@@ -336,7 +336,7 @@ function clickfct(targetPageNbr: number) {
 </template>
 
 <style lang="scss">
-@import '@/assets/variables.scss';
+@use '@/assets/variables.scss' as *;
 
 .cadre-page-ressource {
   display: flex;

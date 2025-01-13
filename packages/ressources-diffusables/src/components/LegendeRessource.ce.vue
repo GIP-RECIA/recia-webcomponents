@@ -64,7 +64,7 @@ const { t } = useI18n()
 </template>
 
 <style lang="scss">
-@import '@/assets/variables.scss';
+@use '@/assets/variables.scss' as *;
 
 .cadre-legende-ressource {
   text-align: left;
