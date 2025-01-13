@@ -15,93 +15,88 @@
 -->
 
 <script setup lang="ts">
-import { PaginationNumber } from '@/utils/PaginationNumber';
+import { PaginationNumber } from '@/utils/PaginationNumber'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ref, watch } from 'vue'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 const props = defineProps<{
-  lastPageIndexHumanReadable: number;
-  currentPageIndexHumanReadable: number;
-}>();
+  lastPageIndexHumanReadable: number
+  currentPageIndexHumanReadable: number
+}>()
 
-function clickfct(item: number){
-  if (item == props.currentPageIndexHumanReadable) {
-    return;
+const emit = defineEmits<{
+  (event: 'goToPage', payload: number): void
+}>()
+
+function clickfct(item: number) {
+  if (item === props.currentPageIndexHumanReadable) {
+    return
   }
-  emit('goToPage', item);
+  emit('goToPage', item)
 }
 
+const maxNumberVisible = 6
+const allPagesToDisplay = ref<Array<PaginationNumber>>([])
+watch(props, async () => {
+  console.log('pros changed')
+  allPagesToDisplay.value = pagesSet()
+})
 
-const maxNumberVisible = 6;
-const allPagesToDisplay = ref<Array<PaginationNumber>>(new Array());
-const emit = defineEmits<{
-  (event: 'goToPage', payload: number): void;
-}>();
-
-watch(props, async (oldProps, newProps) => {
- console.log("pros changed")
- allPagesToDisplay.value = pagesSet();
-});
-
-
-const pagesSet = (): Array<PaginationNumber> => {
-  let thePreArray: Array<number> = new Array();
-  let theArray: Array<PaginationNumber> = new Array();
+function pagesSet(): Array<PaginationNumber> {
+  const thePreArray: Array<number> = []
+  const theArray: Array<PaginationNumber> = []
   if (props.lastPageIndexHumanReadable <= maxNumberVisible) {
     for (let index = 0; index <= maxNumberVisible; index++) {
-      theArray.push(PaginationNumber.getPaginationNumber(index));
-      return theArray;
+      theArray.push(PaginationNumber.getPaginationNumber(index))
+      return theArray
     }
   }
 
+  const nbrPagesNonExtremite = maxNumberVisible - 2
 
-  const nbrPagesNonExtremite = maxNumberVisible - 2;
-
-  if (props.currentPageIndexHumanReadable == 1) {
+  if (props.currentPageIndexHumanReadable === 1) {
     for (let index = 1; index <= nbrPagesNonExtremite + 1; index++) {
-      thePreArray.push(index);
+      thePreArray.push(index)
     }
-    thePreArray.push(props.lastPageIndexHumanReadable);
+    thePreArray.push(props.lastPageIndexHumanReadable)
   }
 
+  // else proche 1
+  // else final
+  // else proche final
 
-  //else proche 1
-  //else final
-  //else proche final
+  // construction de l'array final
+  // push fleche gauche
 
-  //construction de l'array final
-  //push fleche gauche
-
-  //theArray.push(PaginationNumber.getFirst());
-  theArray.push(PaginationNumber.getPrevious(props.currentPageIndexHumanReadable));
+  // theArray.push(PaginationNumber.getFirst());
+  theArray.push(PaginationNumber.getPrevious(props.currentPageIndexHumanReadable))
   for (let index = 0; index < thePreArray.length; index++) {
-    const element = thePreArray[index];
+    const element = thePreArray[index]
 
     if (index > 0) {
-      if (element - thePreArray[index - 1] > 1) theArray.push(PaginationNumber.getSeparator());
+      if (element - thePreArray[index - 1] > 1)
+        theArray.push(PaginationNumber.getSeparator())
     }
 
-    theArray.push(PaginationNumber.getPaginationNumber(element));
-
+    theArray.push(PaginationNumber.getPaginationNumber(element))
   }
-  theArray.push(PaginationNumber.getNext(props.currentPageIndexHumanReadable));
-  //theArray.push(PaginationNumber.getLast(props.lastPageIndexHumanReadable));
-  return theArray;
-};
+  theArray.push(PaginationNumber.getNext(props.currentPageIndexHumanReadable))
+  // theArray.push(PaginationNumber.getLast(props.lastPageIndexHumanReadable));
+  return theArray
+}
 </script>
-
 
 <template>
   <div class="pagination">
     <button v-for="(item, index) in allPagesToDisplay" :key="index">
       <span v-if="item.isEllipsisDots">
-        <font-awesome-icon :icon="['fa', 'ellipsis-h']" class="pagination-icon" />
+        <FontAwesomeIcon :icon="['fa', 'ellipsis-h']" class="pagination-icon" />
       </span>
       <span v-else-if="item.isPrevious">
-        <font-awesome-icon :icon="['fa', 'angle-left']" class="pagination-icon" />
+        <FontAwesomeIcon :icon="['fa', 'angle-left']" class="pagination-icon" />
       </span>
       <span v-else-if="item.isNext">
-        <font-awesome-icon :icon="['fa', 'angle-right']" class="pagination-icon" />
+        <FontAwesomeIcon :icon="['fa', 'angle-right']" class="pagination-icon" />
       </span>
       <span v-else>
         {{ item.pageNumber }}
@@ -110,9 +105,7 @@ const pagesSet = (): Array<PaginationNumber> => {
   </div>
 </template>
 
-
 <style>
-
 .pagination {
   display: flex;
   align-items: baseline;
@@ -131,6 +124,4 @@ button {
   width: 3em;
   align-self: baseline;
 }
-
-
 </style>
