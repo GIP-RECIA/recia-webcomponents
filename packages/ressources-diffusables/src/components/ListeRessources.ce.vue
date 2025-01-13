@@ -58,7 +58,7 @@ const { t } = useI18n()
 </template>
 
 <style lang="scss">
-@import '@/assets/variables.scss';
+@use '@/assets/variables.scss' as *;
 
 .cadre-liste-ressources {
   padding: $margin;
