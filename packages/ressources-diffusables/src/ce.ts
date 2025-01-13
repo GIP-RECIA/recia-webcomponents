@@ -51,10 +51,10 @@ declare module 'vue' {
 
 function register() {
   customElements.define('carte-ressource', CarteRessource)
-  customElements.define('ui-ressources-gar', I18nHost)
+  customElements.define('i18n-host', I18nHost)
   customElements.define('legende-ressource', LegendeRessource)
   customElements.define('liste-ressources', ListeRessources)
-  customElements.define('page-ressource', PageRessource)
+  customElements.define('ui-ressources-gar', PageRessource)
   customElements.define('recherche-avancee-ressource', RechercheAvanceeRessource)
   customElements.define('recherche-ressource', RechercheRessource)
   customElements.define('recherche-type-toggle', RechercheTypeToggle)
