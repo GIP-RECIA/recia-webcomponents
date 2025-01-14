@@ -21,7 +21,7 @@ import { createI18n } from 'vue-i18n'
 
 export default createI18n({
   legacy: false,
-  locale: findLanguage('en'),
+  locale: findLanguage('fr'),
   fallbackLocale: 'en',
   messages: {
     en,

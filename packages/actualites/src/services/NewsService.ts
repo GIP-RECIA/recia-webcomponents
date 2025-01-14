@@ -16,7 +16,7 @@
 
 import { instance } from '@/utils/axiosUtils.ts'
 
-async function getPaginatedNews(readerId: number, pageIndex?: number | undefined, source?: string | undefined, rubriques?: Array<number> | undefined) {
+async function getPaginatedNews(readerId: number, pageIndex?: number | undefined, source?: string | undefined, rubriques?: Array<number> | undefined, lecture?: boolean | undefined) {
   try {
     const params: Record<string, any> = {}
     // Ajoute les paramètres uniquement s'ils sont définis
@@ -27,6 +27,7 @@ async function getPaginatedNews(readerId: number, pageIndex?: number | undefined
     if (rubriques && rubriques.length > 0) {
       params.rubriques = rubriques.join(',')
     }
+    params.lecture = lecture
 
     const response = await instance.get(`/news/myHome/${readerId.toString()}`, { params })
     return response.data
@@ -56,13 +57,25 @@ async function getAttachementsById(itemId: string) {
   }
 }
 
-async function getItemEnclosure(path: string) {
+async function getNewsReadingInformations() {
   try {
-    return import.meta.env.VITE_BASE_API_URL.concat(path)
+    const response = await instance.get(`/news/readingInfos`)
+    return response.data
   }
   catch (error) {
     console.error('Failed to load item :', error)
   }
 }
 
-export { getAttachementsById, getItemById, getItemEnclosure, getPaginatedNews }
+async function setReading(itemId: number | undefined, isRead: boolean) {
+  try {
+    if (itemId) {
+      return (await instance.patch(`/news/setNewsReading/${itemId.toString()}/${isRead.toString()}`))
+    }
+  }
+  catch (error) {
+    console.error('Failed to load item :', error)
+  }
+}
+
+export { getAttachementsById, getItemById, getNewsReadingInformations, getPaginatedNews, setReading }
