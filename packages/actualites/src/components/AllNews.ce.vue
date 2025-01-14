@@ -15,11 +15,13 @@
 -->
 
 <script setup lang="ts">
+import type { ItemVO } from '@/types/ItemVO.ts'
 import type { PaginatedResult } from '@/types/PaginatedResult.ts'
 import i18n from '@/plugins/i18n.ts'
-import { getPaginatedNews } from '@/services/NewsService.ts'
+import { getNewsReadingInformations, getPaginatedNews } from '@/services/NewsService.ts'
 import { PageOrigin } from '@/types/PageOrigin.ts'
 import { initToken } from '@/utils/axiosUtils.ts'
+import { currentUser } from '@/utils/soffitUtils.ts'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { onBeforeMount, ref } from 'vue'
 
@@ -28,19 +30,24 @@ const props = defineProps<{
 }>()
 
 const result = ref<PaginatedResult>()
+const readingInfos = ref<Map<string, boolean>>()
 const source = ref()
 const rubriques = ref<Array<number>>()
-const currentPage = ref() // Page courante
-const totalPages = ref() // Nombre total de pages
+const currentPage = ref()
+const totalPages = ref()
+const readingState = ref<boolean | undefined>(undefined)
 
 const { t } = i18n.global
 
 onBeforeMount(async () => {
   try {
     await initToken(props.userInfoApiUrl)
-
+    if (currentUser) {
+      const objectResult = await getNewsReadingInformations()
+      readingInfos.value = new Map(Object.entries(objectResult))
+    }
     // await getprops.userInfoApiUrlConfig(props.baseApiUrl)
-    result.value = await getPaginatedNews(2, currentPage.value > 1 ? currentPage.value : undefined, source.value ? source.value : undefined, (rubriques.value) ? rubriques.value : undefined)
+    result.value = await getPaginatedNews(2, currentPage.value > 1 ? currentPage.value : undefined, source.value ? source.value : undefined, (rubriques.value) ? rubriques.value : undefined, readingState.value)
     currentPage.value = result.value?.pageIndex
     totalPages.value = result.value?.totalPages
   }
@@ -48,7 +55,9 @@ onBeforeMount(async () => {
   }
 })
 
-function handleToggleChange(newState: string) {
+function handleToggleChange(e: CustomEvent) {
+  readingState.value = e.detail[0]
+  fetchPaginatedNews()
 }
 
 function handleFilterChange(s: CustomEvent) {
@@ -65,7 +74,13 @@ function handlePageChange(page: CustomEvent) {
 
 async function fetchPaginatedNews() {
   try {
-    result.value = await getPaginatedNews(2, currentPage.value > 1 ? currentPage.value : undefined, source.value ? source.value : undefined, (rubriques.value) ? rubriques.value : undefined)
+    result.value = await getPaginatedNews(
+      2,
+      currentPage.value > 1 ? currentPage.value : undefined,
+      source.value ? source.value : undefined,
+      (rubriques.value) ? rubriques.value : undefined,
+      readingState.value,
+    )
     totalPages.value = result.value?.totalPages || 1
   }
   catch (e: any) {
@@ -73,8 +88,27 @@ async function fetchPaginatedNews() {
   }
 }
 
+async function updateReadingInfos() {
+  const objectResult = await getNewsReadingInformations()
+  readingInfos.value = new Map(Object.entries(objectResult))
+}
+
 function getRubriques(codesRubriques: number[]) {
   return result.value ? result.value.actualite.rubriques.filter(r => codesRubriques.includes(Number(r.uuid))) : []
+}
+
+function showItemDependsOnReadingState(item: ItemVO) {
+  if (readingState.value !== undefined) {
+    if (readingState.value) {
+      return readingInfos.value?.has(item.uuid) && readingInfos.value?.get(item.uuid) === true
+    }
+    else {
+      return !readingInfos.value?.has(item.uuid) || readingInfos.value?.get(item.uuid) === false
+    }
+  }
+  else {
+    return true
+  }
 }
 </script>
 
@@ -94,7 +128,7 @@ function getRubriques(codesRubriques: number[]) {
         <custom-toggle-switch
           v-if="result"
           :states="['all', 'read', 'unread']"
-          @change="handleToggleChange"
+          @read-status="handleToggleChange"
         />
       </div>
 
@@ -107,10 +141,18 @@ function getRubriques(codesRubriques: number[]) {
       </div>
 
       <div v-if="result" class="allNews-body">
-        <div v-for="(item, index) in result.actualite?.items" :key="index" class="card-wrapper">
-          <news-card :item="item" :rubriques="getRubriques(item.rubriques)" :page-origin="PageOrigin.ALL" />
-        </div>
+        <template v-for="(item, index) in result.actualite?.items" :key="index">
+          <div v-if="showItemDependsOnReadingState(item)" class="card-wrapper">
+            <news-card
+              :item="item" :rubriques="getRubriques(item.rubriques)"
+              :page-origin="PageOrigin.ALL"
+              :is-read="readingInfos?.has(item.uuid) ? readingInfos?.get(item.uuid) : false"
+              @update-reading-infos="updateReadingInfos()"
+            />
+          </div>
+        </template>
       </div>
+
       <div v-if="result && result.totalItems > 10" class="allNews-footer">
         <page-selector
           :total-pages="totalPages"
@@ -129,6 +171,7 @@ function getRubriques(codesRubriques: number[]) {
 
 .allNews-container {
   display: grid;
+  width: 100%;
   margin-bottom: 10%;
   gap: 1rem;
 }
@@ -148,6 +191,10 @@ function getRubriques(codesRubriques: number[]) {
   font-family: 'Sora', sans-serif;
 }
 
+news-filter-section {
+  width: 100%;
+}
+
 .carousel-header-see-all-news {
   border: none;
   background: none;
@@ -162,6 +209,8 @@ function getRubriques(codesRubriques: number[]) {
 
 .allNews-body {
   display: grid;
+  width: 100%;
+  height: 100%;
   grid-template-columns: repeat(2, 1fr); /* Deux colonnes égales */
   gap: 1.5rem; /* Espacement entre les cartes */
   margin-top: 3rem;
@@ -193,5 +242,9 @@ function getRubriques(codesRubriques: number[]) {
   line-height: 30.24px;
   padding: 2rem;
   padding-left: 0.5rem;
+}
+
+page-selector {
+  padding-top: 3rem;
 }
 </style>

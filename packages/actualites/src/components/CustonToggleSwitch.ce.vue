@@ -39,7 +39,7 @@ const { t } = i18n.global
 function setState(state: string) {
   if (props.states.includes(state)) {
     currentState.value = state
-    emit('readStatus', currentState.value) // Émet l'événement avec la nouvelle valeur
+    emit('readStatus', state === 'all' ? undefined : (state === 'read')) // Émet l'événement avec la nouvelle valeur
   }
 }
 </script>
@@ -50,8 +50,8 @@ function setState(state: string) {
       <span
         v-for="(state, index) in props.states"
         :key="index"
-        class="toggle-option"
         :class="{ active: currentState === state }"
+        class="toggle-option"
         @click="setState(state)"
       >
         <div v-if="state === 'all'" class="toggle-option-more">{{ t('switch.all') }}</div>

@@ -1,6 +1,7 @@
 {
   "button": {
     "mark-as-not-read": "Marquer comme non lu",
+    "mark-as-read": "Marquer comme lu",
     "close": "Fermer"
   },
   "switch" : {

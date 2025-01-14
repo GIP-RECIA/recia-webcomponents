@@ -19,8 +19,9 @@ import type { Item } from '@/types/Item.ts'
 
 import type { LinkedFileItem } from '@/types/LinkedFileItem.ts'
 import type { Rubrique } from '@/types/Rubrique.ts'
+import type { AxiosResponse } from 'axios'
 import i18n from '@/plugins/i18n.ts'
-import { getAttachementsById, getItemById } from '@/services/NewsService.ts'
+import { getAttachementsById, getItemById, setReading } from '@/services/NewsService.ts'
 import { isLightColor } from '@/utils/ContrasteUtils.ts'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { onBeforeMount, ref } from 'vue'
@@ -29,10 +30,15 @@ import { onBeforeMount, ref } from 'vue'
 const props = defineProps<{
   itemId: string
   rubriques: Array<Rubrique>
+  isRead: boolean
 }>()
 
 // Emits
 const emit = defineEmits(['closeModal'])
+
+const {
+  VITE_USER_READING_DELAY,
+} = import.meta.env
 
 const baseUrl = import.meta.env.VITE_BASE_API_URL
 const item = ref<Item>()
@@ -40,6 +46,8 @@ const attachements = ref<Set<LinkedFileItem>>()
 const modal = ref(null)
 const showMoreInfosModal = ref(false)
 const isModalOpen = ref(true)
+const isReadingButton = ref(props.isRead)
+let idTimout: number
 
 const { t, d } = i18n.global
 
@@ -47,6 +55,12 @@ onBeforeMount(async () => {
   try {
     item.value = await getItemById(props.itemId)
     attachements.value = await getAttachementsById(props.itemId)
+
+    if (!props.isRead) {
+      idTimout = setTimeout(() => {
+        changeReadingState(true)
+      }, VITE_USER_READING_DELAY)
+    }
   }
   catch (e: any) {
     console.error(e)
@@ -59,16 +73,30 @@ function openMoreInfosModal() {
 
 function closeModal() {
   isModalOpen.value = false
+  clearTimeout(idTimout)
   setTimeout(() => {
     emit('closeModal')
   }, 300)
+}
+
+async function changeReadingState(b: boolean) {
+  if (item.value) {
+    const response: AxiosResponse = await setReading(item.value?.id, b)
+    if (response.status === 200) {
+      clearTimeout(idTimout)
+      isReadingButton.value = b
+    }
+  }
 }
 </script>
 
 <template>
   <i18n-host>
     <div v-if="item" class="modal-overlay" @click="closeModal">
-      <div ref="modal" class="modal-container" :class="{ 'slide-up': isModalOpen, 'slide-down': !isModalOpen }" @click.stop>
+      <div
+        ref="modal" class="modal-container" :class="{ 'slide-up': isModalOpen, 'slide-down': !isModalOpen }"
+        @click.stop
+      >
         <img class="modal-container-background-image" :src="baseUrl.concat(item.enclosure)" alt="">
         <div class="modal-container-content">
           <button v-if="false" class="cross-close-btn" @click="closeModal">
@@ -125,8 +153,13 @@ function closeModal() {
             <div class="modal-files" />
           </div>
           <div class="modal-footer">
-            <button class="mark-has-not-read-btn">
-              {{ t('button.mark-as-not-read') }}
+            <button class="mark-has-not-read-btn" @click="changeReadingState(!isReadingButton)">
+              <div v-if="isReadingButton">
+                {{ t('button.mark-as-not-read') }}
+              </div>
+              <div v-if="!isReadingButton">
+                {{ t('button.mark-as-read') }}
+              </div>
             </button>
             <button class="close-btn" @click="closeModal">
               {{ t('button.close') }}
