@@ -17,14 +17,21 @@
 import { CustomError } from '@/utils/CustomError.ts'
 import oidc, { type JWT } from '@uportal/open-id-connect'
 
+let currentUser: string | undefined
+
 async function getToken(apiUrl: string): Promise<{ encoded: string, decoded: JWT }> {
   const { encoded, decoded } = await oidc({
     userInfoApiUrl: apiUrl,
   })
   if (decoded.sub.startsWith('guest')) {
+    currentUser = undefined
     throw new CustomError('You are not logged', 401)
   }
+  else {
+    currentUser = decoded.sub
+  }
+
   return { encoded, decoded }
 }
 
-export { getToken }
+export { currentUser, getToken }
