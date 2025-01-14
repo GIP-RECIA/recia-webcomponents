@@ -26,7 +26,10 @@ const props = defineProps<{
   item: ItemVO
   rubriques: Array<Rubrique>
   pageOrigin: PageOrigin
+  isRead: boolean
 }>()
+
+const emit = defineEmits(['updateReadingInfos'])
 
 const baseUrl = import.meta.env.VITE_BASE_API_URL
 
@@ -46,6 +49,7 @@ function openModal() {
 }
 
 function closeModal() {
+  emit('updateReadingInfos')
   showModal.value = false
   const scrollY = document.body.style.top
   document.body.style.position = ''
@@ -64,7 +68,7 @@ function isPageOriginAll() {
 
 <template>
   <i18n-host>
-    <article :class="{ active: true && isPageOriginAll }" @click="openModal">
+    <article :class="{ active: !isRead }" @click="openModal">
       <div class="card-img">
         <img class="img" :src="baseUrl.concat(props.item.article.enclosure)" alt="">
       </div>
@@ -76,7 +80,12 @@ function isPageOriginAll() {
         <div v-if="isPageOriginAll()" class="source">
           <p>{{ d(props.item.pubDate, 'short') }}</p>
           <div class="article-wrapper-lecture">
-            {{ t('text.normal.not-read') }}
+            <div v-if="isRead">
+              {{ t('text.normal.read') }}
+            </div>
+            <div v-if="!isRead">
+              {{ t('text.normal.not-read') }}
+            </div>
           </div>
         </div>
 
@@ -95,7 +104,7 @@ function isPageOriginAll() {
     </article>
 
     <div v-if="showModal" class="open-modal" :class="{ active: showModal }">
-      <preview-ui :item-id="props.item.uuid" :rubriques="props.rubriques" @close-modal="closeModal" />
+      <preview-ui :item-id="props.item.uuid" :rubriques="props.rubriques" :is-read="props.isRead" @close-modal="closeModal" />
     </div>
   </i18n-host>
 </template>
@@ -122,7 +131,10 @@ article {
 }
 
 article:not(.active) {
-  filter: grayscale(1);
+  background-color: #f4f4f4;
+  .card-img {
+    filter: grayscale(1);
+  }
 }
 
 article:hover {

@@ -1,6 +1,7 @@
 {
   "button": {
     "mark-as-not-read": "Mark as unread",
+    "mark-as-read": "Mark as read",
     "close": "Close"
   },
   "switch" : {

@@ -28,7 +28,6 @@ const {
 </template>
 
 <style>
-
 .app-dev {
   display: flex;
   flex-direction: column;
@@ -39,5 +38,10 @@ const {
   margin: 0 auto; /* Ajoute automatiquement 10% de marge blanche de chaque côté */
   background-color: #fff; /* (Optionnel) Ajoutez une couleur de fond si nécessaire */
   gap: 2rem;
+}
+
+all-news,
+carrousel-ui {
+  width: 100%;
 }
 </style>

@@ -17,9 +17,10 @@
 <script setup lang="ts">
 import type { PaginatedResult } from '@/types/PaginatedResult.ts'
 import i18n from '@/plugins/i18n.ts'
-import { getPaginatedNews } from '@/services/NewsService.ts'
+import { getNewsReadingInformations, getPaginatedNews } from '@/services/NewsService.ts'
 import { PageOrigin } from '@/types/PageOrigin.ts'
 import { initToken, instance } from '@/utils/axiosUtils.ts'
+import { currentUser } from '@/utils/soffitUtils.ts'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { computed, onMounted, ref } from 'vue'
 
@@ -28,6 +29,8 @@ const props = defineProps<{
 }>()
 
 const result = ref<PaginatedResult>()
+const readingInfos = ref<Map<string, boolean>>()
+
 const { t } = i18n.global
 
 onMounted(async () => {
@@ -35,9 +38,12 @@ onMounted(async () => {
     if (!instance.defaults.headers.Authorization) {
       await initToken(props.userInfoApiUrl)
     }
-
     // await getprops.userInfoApiUrlConfig(props.baseApiUrl)
     result.value = await getPaginatedNews(2, undefined, undefined, undefined)
+    if (currentUser) {
+      const objectResult = await getNewsReadingInformations()
+      readingInfos.value = new Map(Object.entries(objectResult))
+    }
   }
   catch (e: any) {
     console.error(e)
@@ -74,6 +80,11 @@ function allActualites() {
 function getRubriques(codesRubriques: number[]) {
   return result.value ? result.value.actualite.rubriques.filter(r => codesRubriques.includes(Number(r.uuid))) : []
 }
+
+async function updateReadingInfos() {
+  const objectResult = await getNewsReadingInformations()
+  readingInfos.value = new Map(Object.entries(objectResult))
+}
 </script>
 
 <template>
@@ -95,11 +106,15 @@ function getRubriques(codesRubriques: number[]) {
 
       <div class="carousel-track">
         <div v-for="(item, index) in visibleItems" :key="index" class="card-wrapper">
-          <news-card :item="item" :rubriques="getRubriques(item.rubriques)" :page-origin="PageOrigin.CARROUSEL" />
+          <news-card
+            :item="item" :rubriques="getRubriques(item.rubriques)" :page-origin="PageOrigin.CARROUSEL"
+            :is-read="readingInfos?.has(item.uuid) ? readingInfos.get(item.uuid) : false"
+            @update-reading-infos="updateReadingInfos()"
+          />
         </div>
       </div>
 
-      <button class="arrow right" :disabled="currentIndex >= result?.value?.actualite?.items?.length - 3" @click="next">
+      <button class="arrow right" :disabled="currentIndex >= result?.actualite?.items?.length - 3" @click="next">
         <FontAwesomeIcon class="circle-arrow-right" :icon="['fas', 'circle-arrow-right']" />
       </button>
     </div>
@@ -108,9 +123,6 @@ function getRubriques(codesRubriques: number[]) {
 
 <style lang="scss">
 .carousel-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 16px;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   grid-auto-rows: auto;
@@ -119,7 +131,6 @@ function getRubriques(codesRubriques: number[]) {
 .carousel-track {
   display: flex;
   background: none;
-  background-color: white;
   grid-column-start: 2;
   grid-column-end: 3;
   grid-row-start: 2;

@@ -120,6 +120,7 @@ function setSection(section: Rubrique) {
 
 <style scoped lang="scss">
 .filter-section-container {
+  width: 100%;
   display: grid;
   grid-template-columns: auto 1fr;
   user-select: none;
@@ -137,6 +138,7 @@ function setSection(section: Rubrique) {
 
 .filter-section {
   display: inline-flex;
+  width: 100%;
   grid-column: auto;
   gap: 1rem;
   align-items: baseline;
