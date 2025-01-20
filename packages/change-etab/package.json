@@ -64,7 +64,7 @@
     "lint-staged": "^15.3.0",
     "npm-run-all2": "^7.0.2",
     "regenerator-runtime": "^0.14.1",
-    "sass": "^1.83.1",
+    "sass": "^1.83.4",
     "terser": "^5.37.0",
     "typescript": "^5.7.3",
     "vite": "^6.0.7",
