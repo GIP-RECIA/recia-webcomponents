@@ -115,6 +115,8 @@ function isPageOriginAll() {
 
 <style lang="scss">
 @use '@/assets/colors.scss' as *;
+@use '@/assets/global.scss' as *;
+
 
 * {
   box-sizing: border-box;
@@ -215,7 +217,7 @@ article:not(.active) {
 .source {
   flex-shrink: 0;
   display: flex;
-  font-family: 'DM Sans', sans-serif;
+  font-family: $dm-sans;
   color: $standard-colour-black;
   font-size: 12px;
   opacity: 50%;
@@ -230,7 +232,7 @@ article:not(.active) {
 .infos {
   flex-shrink: 0;
   display: flex;
-  font-family: 'DM Sans', sans-serif;
+  font-family: $dm-sans;
   color: $standard-colour-black;
   font-size: 12px;
   opacity: 75%;
@@ -239,7 +241,7 @@ article:not(.active) {
 }
 
 .card-body-title {
-  font-family: 'Sora', sans-serif;
+  font-family: $sora;
   font-size: 14px;
   font-weight: 600;
   color: $standard-colour-black;
@@ -255,7 +257,7 @@ article:not(.active) {
 }
 
 .description {
-  font-family: 'DM Sans', sans-serif;
+  font-family: $dm-sans;
   font-size: 13px;
   font-weight: 400;
   -webkit-box-orient: vertical;
