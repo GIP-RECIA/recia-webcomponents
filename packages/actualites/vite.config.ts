@@ -42,6 +42,7 @@ export default ({ mode }: { mode: string }) => {
               'view-item',
               'page-selector',
               'more-informations',
+              'bottom-sheet',
             ].includes(tag),
           },
         },
@@ -51,6 +52,7 @@ export default ({ mode }: { mode: string }) => {
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
+        '@vueuse/motion': 'node_modules/@vueuse/motion',
       },
     },
     css: {
@@ -70,9 +72,12 @@ export default ({ mode }: { mode: string }) => {
       'process.env': process.env,
     },
     server: {
+      allowedHosts: [
+        'lycees.test.recia.dev',
+      ],
       proxy: {
         '^(?:/[a-zA-Z0-9_-]+){2}/api': {
-          target: 'http://10.209.28.17:8080/publisher',
+          target: 'http://10.209.28.156:8080/publisher',
           changeOrigin: true,
           rewrite: (path) => {
             const rewrite = path.replace(/^(?:\/[\w-]+){2}\/api/, '')
