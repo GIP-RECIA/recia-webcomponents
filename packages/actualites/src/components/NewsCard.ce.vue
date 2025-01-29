@@ -18,14 +18,12 @@
 import type { ItemVO } from '@/types/ItemVO.ts'
 import type { Rubrique } from '@/types/Rubrique.ts'
 import i18n from '@/plugins/i18n.ts'
-import { PageOrigin } from '@/types/PageOrigin.ts'
 import { defineProps, onUnmounted, ref } from 'vue'
-
 // Props
 const props = defineProps<{
   item: ItemVO
   rubriques: Array<Rubrique>
-  pageOrigin: PageOrigin
+  pageOrigin: boolean
   isRead: boolean
 }>()
 
@@ -35,6 +33,8 @@ const baseUrl = import.meta.env.VITE_BASE_API_URL
 
 // État pour la modal
 const showModal = ref(false)
+const openFullImage = ref(false)
+
 const { t, d } = i18n.global
 
 onUnmounted(() => {
@@ -51,6 +51,7 @@ function openModal() {
 function closeModal() {
   emit('updateReadingInfos')
   showModal.value = false
+  openFullImage.value = false
   const scrollY = document.body.style.top
   document.body.style.position = ''
   document.body.style.top = ''
@@ -58,27 +59,27 @@ function closeModal() {
 }
 
 function isPageOriginCarrousel() {
-  return props.pageOrigin === PageOrigin.CARROUSEL
+  return !props.pageOrigin
 }
 
 function isPageOriginAll() {
-  return props.pageOrigin === PageOrigin.ALL
+  return props.pageOrigin
 }
 </script>
 
 <template>
   <i18n-host>
-    <article :class="{ active: !isRead }" @click="openModal">
+    <article :class="{ active: !isRead, pageOrigin }" @click="openModal">
       <div class="card-img">
-        <img class="img" :src="baseUrl.concat(props.item.article.enclosure)" alt="">
+        <img class="image" :src="baseUrl.concat(props.item.article.enclosure)" alt="">
       </div>
       <div class="article-wrapper">
         <div v-if="isPageOriginCarrousel()" class="source">
-          <p>{{ props.item.source }}</p>
+          <div>{{ props.item.source }}</div>
         </div>
 
-        <div v-if="isPageOriginAll()" class="source">
-          <p>{{ d(props.item.pubDate, 'short') }}</p>
+        <div v-if="isPageOriginAll()" class="infos">
+          <div>{{ d(props.item.pubDate, 'short') }}</div>
           <div class="article-wrapper-lecture">
             <div v-if="isRead">
               {{ t('text.normal.read') }}
@@ -93,83 +94,156 @@ function isPageOriginAll() {
           {{ props.item.article.title }}
         </div>
         <div class="card-body-description">
-          <p class="description">
+          <div class="description">
             {{ props.item.article.description }}
-          </p>
+          </div>
         </div>
         <div v-if="isPageOriginAll()" class="source all">
-          <p>{{ props.item.source }}</p>
+          <div>{{ props.item.source }}</div>
         </div>
       </div>
     </article>
 
     <div v-if="showModal" class="open-modal" :class="{ active: showModal }">
-      <preview-ui :item-id="props.item.uuid" :rubriques="props.rubriques" :is-read="props.isRead" @close-modal="closeModal" />
+      <bottom-sheet
+        :is-read="props.isRead" :item-id="props.item.uuid" :rubriques="props.rubriques"
+        @close-modal="closeModal"
+      />
     </div>
   </i18n-host>
 </template>
 
 <style lang="scss">
+@use '@/assets/colors.scss' as *;
+
 * {
   box-sizing: border-box;
 }
 
 article {
-  display: flex;
-  height: 200px;
-  width: auto;
+  background-color: $standard-colour-white;
   border-radius: 10px;
+  display: flex;
+  height: 138px;
+  width: auto;
   flex-direction: row;
-  transform-origin: center;
-  transition: all 0.01s ease-in-out;
-  overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.06) 0 0 10px 2px;
   cursor: pointer;
-
-  --description-font-size: 12px;
-  --description-font-line-heigth: 1.2;
+  overflow: hidden;
 }
 
 article:not(.active) {
-  background-color: #f4f4f4;
+  background-color: $standard-colour-grey;
+
   .card-img {
-    filter: grayscale(1);
+    filter: saturate(0%);
+    opacity: 40%;
   }
-}
-
-article:hover {
-  outline: 2px solid #0062bc;
-}
-
-article:hover .card-body-title {
-  color: #0062bc; /* Couleur bleue au survol */
 }
 
 .card-img {
   display: flex;
   flex: 0 0 auto;
+  width: 92px;
   height: 100%;
-  aspect-ratio: 2 / 4;
   overflow: hidden;
   position: relative;
   justify-content: center;
 }
 
-.img {
+.image {
   height: 100%; /* Remplit complètement la div */
   object-fit: cover;
   transform-origin: center;
-  transform: scale(var(--img-scale));
+}
+
+.full-image-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.full-image-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 3em;
+  padding: 1em;
+}
+
+.image.full-image {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: fill;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.24);
+}
+
+.expand.reduce {
+  display: flex;
+  border: none;
+  background-color: $standard-colour-white;
+  width: 42px;
+  height: 42px;
+  border-radius: 50px;
+  bottom: 10px;
+  right: 10px;
+  padding: 0.5em;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.icon-expand-content {
+  width: 14px;
+  height: 14px;
+  justify-self: center;
+  align-self: center;
+}
+
+.article-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 0.3rem;
+}
+
+.source {
+  flex-shrink: 0;
+  display: flex;
+  font-family: 'DM Sans', sans-serif;
+  color: $standard-colour-black;
+  font-size: 12px;
+  opacity: 50%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.source.all {
+  justify-content: right;
+}
+
+.infos {
+  flex-shrink: 0;
+  display: flex;
+  font-family: 'DM Sans', sans-serif;
+  color: $standard-colour-black;
+  font-size: 12px;
+  opacity: 75%;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .card-body-title {
-  flex-shrink: 0;
   font-family: 'Sora', sans-serif;
-  font-size: 18px;
-  font-weight: bold;
-  color: #1e1e1e; /* Couleur par défaut */
+  font-size: 14px;
+  font-weight: 600;
+  color: $standard-colour-black;
   transition: color;
-  height: auto;
 }
 
 .card-body-description {
@@ -177,48 +251,66 @@ article:hover .card-body-title {
   flex-grow: 1;
   flex-shrink: 1;
   overflow: hidden;
+  text-wrap: wrap;
 }
 
 .description {
-  display: -webkit-box; /* Nécessaire pour limiter les lignes */
-  -webkit-box-orient: vertical;
   font-family: 'DM Sans', sans-serif;
-  font-size: var(--description-font-size);
+  font-size: 13px;
+  font-weight: 400;
+  -webkit-box-orient: vertical;
   line-height: var(--description-font-line-heigth);
   text-overflow: ellipsis;
   overflow: hidden;
 }
 
-.article-wrapper-lecture {
+article.pageOrigin {
+  height: 170px;
 }
 
-.source {
-  flex-shrink: 0;
-  height: auto;
-  display: flex;
-  font-family: 'DM Sans', sans-serif;
-  color: #1e1e1e;
-  font-size: 10px;
-  opacity: 75%;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 1rem;
+article.pageOrigin.active {
+  .card-body-title {
+    color: $primary;
+  }
 }
 
-.source.all {
-  justify-content: right;
+@media only screen and (min-width: 720px) {
+  .full-image-overlay {
+    display: none;
+  }
 }
 
-.article-wrapper {
-  display: flex;
-  flex-direction: column;
-  padding-right: 1rem;
-  padding-left: 1rem;
-  border: #1e1e1e;
-}
+@media only screen and (min-width: 1024px) {
+  article:not(.pageOrigin) {
+    height: 175px;
+  }
 
-article:has(:hover, :focus) {
-  --img-scale: 1.3;
-  --title-color: #0062bc;
+  .card-body-title {
+    color: $standard-colour-black;
+  }
+
+  article.pageOrigin.active {
+    .card-body-title {
+      color: $standard-colour-black;
+    }
+  }
+
+  article.pageOrigin.active:hover {
+    .card-body-title {
+      color: $primary;
+    }
+  }
+
+  article:hover {
+    outline: 2px solid $primary;
+
+    .card-body-title {
+      color: $primary;
+    }
+  }
+
+  article.pageOrigin {
+    height: 150px;
+  }
 }
 </style>

@@ -14,13 +14,8 @@
  * limitations under the License.
  */
 
-import type { AbstractItem } from '@/types/AbstractItem.ts'
-
 export interface LinkedFileItem {
   uri: string
   filename: string
-  abstractItem: AbstractItem
-  itemId: number
-  inBody: boolean
-  contentType: string
+  weight: number
 }
