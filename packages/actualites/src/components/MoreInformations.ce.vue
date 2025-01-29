@@ -69,6 +69,8 @@ const { t, d } = i18n.global
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/global.scss' as *;
+
 * {
   box-sizing: border-box;
 }
@@ -85,14 +87,13 @@ const { t, d } = i18n.global
   box-shadow: rgba(0, 0, 0, 0.06) 0 0 5px 3px;
   z-index: 100;
   align-items: center;
-
 }
 
 .modal-content {
   color: black;
   display: flex;
   flex-direction: column;
-  font-family: 'DM Sans', sans-serif;
+  font-family: $dm-sans;
   font-size: 14px;
   padding: 1.5rem;
   gap: 1rem;

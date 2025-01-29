@@ -111,6 +111,7 @@ const visiblePages = computed(() => {
 
 <style scoped lang="scss">
 @use '@/assets/colors.scss' as *;
+@use '@/assets/global.scss' as *;
 
 .pagination {
   display: inline-flex;
@@ -125,7 +126,7 @@ button {
   border: hidden;
   justify-content: center;
   border-radius: 50%;
-  font-family: 'DM Sans', sans-serif;
+  font-family: $dm-sans;
 }
 
 button:disabled {
@@ -147,7 +148,7 @@ button:disabled {
   padding: 0.6rem;
   justify-content: center;
   align-items: center;
-  font-family: 'DM Sans', sans-serif;
+  font-family: $dm-sans;
   font-size: 14px;
   border-radius: 50%;
 }
