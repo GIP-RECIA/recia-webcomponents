@@ -15,14 +15,13 @@
 -->
 
 <script setup lang="ts">
-import type { PaginatedResult } from '@/types/PaginatedResult.ts'
+import type {PaginatedResult} from '@/types/PaginatedResult.ts'
 import i18n from '@/plugins/i18n.ts'
-import { getNewsReadingInformations, getPaginatedNews } from '@/services/NewsService.ts'
-import { PageOrigin } from '@/types/PageOrigin.ts'
-import { initToken, instance } from '@/utils/axiosUtils.ts'
-import { currentUser } from '@/utils/soffitUtils.ts'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { computed, onMounted, ref } from 'vue'
+import {getNewsReadingInformations, getPaginatedNews} from '@/services/NewsService.ts'
+import {initToken, instance} from '@/utils/axiosUtils.ts'
+import {currentUser} from '@/utils/soffitUtils.ts'
+import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
+import {computed, onMounted, ref} from 'vue'
 
 const props = defineProps<{
   userInfoApiUrl: string
@@ -31,7 +30,7 @@ const props = defineProps<{
 const result = ref<PaginatedResult>()
 const readingInfos = ref<Map<string, boolean>>()
 
-const { t } = i18n.global
+const {t} = i18n.global
 
 onMounted(async () => {
   try {
@@ -44,8 +43,7 @@ onMounted(async () => {
       const objectResult = await getNewsReadingInformations()
       readingInfos.value = new Map(Object.entries(objectResult))
     }
-  }
-  catch (e: any) {
+  } catch (e: any) {
     console.error(e)
   }
 })
@@ -91,50 +89,79 @@ async function updateReadingInfos() {
   <i18n-host>
     <div v-if="result?.actualite?.items" class="carousel-container">
       <div class="carousel-header">
-        <h1 class="carousel-header-title">
+        <div class="carousel-header-title">
           {{ t('text.title.news') }}
-        </h1>
-        <button class="carousel-header-see-all-news" @click="allActualites">
+        </div>
+        <button class="carousel-header-see-all-news computer" @click="allActualites">
           {{ t('text.normal.see-all-news') }}
-          <FontAwesomeIcon class="arrow-rigth" :icon="['fas', 'arrow-right']" />
+          <FontAwesomeIcon class="arrow-rigth" :icon="['fas', 'arrow-right']"/>
         </button>
       </div>
 
-      <button class="arrow left" :disabled="currentIndex === 0" @click="prev">
-        <FontAwesomeIcon class="circle-arrow-left" :icon="['fas', 'circle-arrow-left']" />
-      </button>
+      <div class="carousel-content-container">
+        <button class="arrow left" :disabled="currentIndex === 0" @click="prev">
+          <FontAwesomeIcon class="circle-arrow-left" :icon="['fas', 'circle-arrow-left']"/>
+        </button>
 
-      <div class="carousel-track">
-        <div v-for="(item, index) in visibleItems" :key="index" class="card-wrapper">
-          <news-card
-            :item="item" :rubriques="getRubriques(item.rubriques)" :page-origin="PageOrigin.CARROUSEL"
-            :is-read="readingInfos?.has(item.uuid) ? readingInfos.get(item.uuid) : false"
-            @update-reading-infos="updateReadingInfos()"
-          />
+        <div class="carousel-content">
+          <div v-for="(item, index) in visibleItems" :key="index" class="card-wrapper">
+            <news-card
+              :item="item" :rubriques="getRubriques(item.rubriques)" :page-origin="false"
+              :is-read="readingInfos?.has(item.uuid) ? readingInfos.get(item.uuid) : false"
+              @update-reading-infos="updateReadingInfos()"
+            />
+          </div>
         </div>
+
+        <button class="arrow right" :disabled="currentIndex >= result?.actualite?.items?.length - 3" @click="next">
+          <FontAwesomeIcon class="circle-arrow-right" :icon="['fas', 'circle-arrow-right']"/>
+        </button>
+
       </div>
 
-      <button class="arrow right" :disabled="currentIndex >= result?.actualite?.items?.length - 3" @click="next">
-        <FontAwesomeIcon class="circle-arrow-right" :icon="['fas', 'circle-arrow-right']" />
+      <button class="carousel-header-see-all-news mobile" @click="allActualites">
+        {{ t('text.normal.see-all-news') }}
+        <FontAwesomeIcon class="arrow-rigth" :icon="['fas', 'arrow-right']"/>
       </button>
     </div>
   </i18n-host>
 </template>
 
 <style lang="scss">
-.carousel-container {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  grid-auto-rows: auto;
+@use '@/assets/colors.scss' as *;
+
+* {
+  box-sizing: border-box;
 }
 
-.carousel-track {
+.carousel-container {
   display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.carousel-header {
+  display: flex;
+}
+
+.carousel-header-title {
+  color: $standard-colour-black;
+  font-family: 'Sora', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.carousel-header-see-all-news {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
   background: none;
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 2;
-  grid-row-end: 3;
+  border: none;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 8px;
 }
 
 .arrow {
@@ -143,9 +170,10 @@ async function updateReadingInfos() {
   font-size: 2rem;
   cursor: pointer;
   user-select: none;
-  padding: 0.5rem;
-  grid-row-start: 2;
-  grid-row-end: 3;
+}
+
+.arrow-rigth {
+  width: 11px;
 }
 
 .circle-arrow-left {
@@ -158,67 +186,103 @@ async function updateReadingInfos() {
   height: 2rem;
 }
 
-.arrow-rigth {
-  width: 11px;
-}
-
 .arrow:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-.carousel-track {
+.carousel-content {
   display: flex;
-  overflow: hidden;
-  flex: 1;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: transparent;
 }
 
-.card-wrapper {
-  flex: 1;
-  min-width: calc(100% / 3); /* Divise l'espace en trois parties égales */
-  box-sizing: border-box;
-  padding: 0.5rem;
+.carousel-header-see-all-news.mobile {
+  justify-content: right;
+  color: $standard-colour-black;
 }
 
-.carousel-header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
-  justify-content: space-between; /* Écarte les enfants */
-  padding: 0 16px;
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 2;
+.carousel-header-see-all-news.computer {
+  display: none;
 }
 
-.carousel-header-title {
-  font-family: 'Sora', sans-serif;
-  font-size: 24px;
+.arrow {
+  display: none;
 }
 
-.carousel-header-see-all-news {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 16px;
-  background: none;
-  border: none;
-  align-items: center;
-  cursor: pointer;
-  display: flex;
-  gap: 8px;
-  color: #1e1e1e;
-}
+/* Large devices such as laptops (1024px and up) */
+@media only screen and (min-width: 1024px) {
+  .carousel-container {
+    display: flex;
+    grid-template-columns: auto 1fr auto;
+    grid-auto-rows: auto;
+    position: relative;
+  }
+  .arrow {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    user-select: none;
+    padding: 0.5rem;
+    grid-row-start: 2;
+    grid-row-end: 3;
+  }
 
-.carousel-header-see-all-news .arrow-right {
-  transition: color 0.3s ease; /* Transition pour la flèche */
-}
+  .carousel-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    justify-content: space-between; /* Écarte les enfants */
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 2;
+  }
 
-.carousel-header-see-all-news:hover {
-  color: #28666e; /* Teinte le texte en bleu */
-}
+  .carousel-content-container {
+    position: relative;
+  }
 
-.carousel-header-see-all-news:hover .arrow-right {
-  color: #28666e; /* Teinte la flèche en bleu */
+  .circle-arrow-left {
+    position: absolute;
+    left: -2em;
+    top: calc(50% - 10px);
+  }
+
+  .circle-arrow-right {
+    position: absolute;
+    right: -2em;
+    top: calc(50% - 10px);
+  }
+
+
+  .carousel-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    flex-direction: row;
+  }
+
+  .card-wrapper {
+    min-width: calc(100% / 3); /* Divise l'espace en trois parties égales */
+    box-sizing: border-box;
+  }
+
+  .carousel-header-see-all-news.computer {
+    justify-content: right;
+    color: $primary;
+  }
+
+  .carousel-header-see-all-news.mobile {
+    display: none;
+  }
 }
 </style>

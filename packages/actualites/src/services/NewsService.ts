@@ -47,6 +47,16 @@ async function getItemById(itemId: string) {
   }
 }
 
+async function getFile(path: string) {
+  try {
+    const response = await instance.get(path)
+    return response.data
+  }
+  catch (error) {
+    console.error('Failed to load item :', error)
+  }
+}
+
 async function getAttachementsById(itemId: string) {
   try {
     const response = await instance.get(`/news/attachements/${itemId.toString()}`)
@@ -78,4 +88,4 @@ async function setReading(itemId: number | undefined, isRead: boolean) {
   }
 }
 
-export { getAttachementsById, getItemById, getNewsReadingInformations, getPaginatedNews, setReading }
+export { getAttachementsById, getFile, getItemById, getNewsReadingInformations, getPaginatedNews, setReading }

@@ -20,10 +20,10 @@ import { register as registerFontAwsome } from '@/plugins/fontawesome'
 import i18n from '@/plugins/i18n'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { createApp } from 'vue'
+
 import 'regenerator-runtime/runtime.js'
 
 const app = createApp(App)
-
 registerCustomElements()
 registerFontAwsome()
 app.component('font-awesome-icon', FontAwesomeIcon)

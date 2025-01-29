@@ -19,7 +19,6 @@ import type { ItemVO } from '@/types/ItemVO.ts'
 import type { PaginatedResult } from '@/types/PaginatedResult.ts'
 import i18n from '@/plugins/i18n.ts'
 import { getNewsReadingInformations, getPaginatedNews } from '@/services/NewsService.ts'
-import { PageOrigin } from '@/types/PageOrigin.ts'
 import { initToken } from '@/utils/axiosUtils.ts'
 import { currentUser } from '@/utils/soffitUtils.ts'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -133,10 +132,6 @@ function showItemDependsOnReadingState(item: ItemVO) {
       </div>
 
       <div v-if="result" class="allNews-filter">
-        <div class="allNews-filter-title">
-          {{ t('text.title.filters') }}
-        </div>
-
         <news-filter-section :actualites="result.actualite" @update-model-value="handleFilterChange" />
       </div>
 
@@ -145,7 +140,7 @@ function showItemDependsOnReadingState(item: ItemVO) {
           <div v-if="showItemDependsOnReadingState(item)" class="card-wrapper">
             <news-card
               :item="item" :rubriques="getRubriques(item.rubriques)"
-              :page-origin="PageOrigin.ALL"
+              :page-origin="true"
               :is-read="readingInfos?.has(item.uuid) ? readingInfos?.get(item.uuid) : false"
               @update-reading-infos="updateReadingInfos()"
             />
@@ -165,55 +160,59 @@ function showItemDependsOnReadingState(item: ItemVO) {
 </template>
 
 <style scoped lang="scss">
-* {
-  box-sizing: border-box;
-}
+@use '@/assets/global.scss' as *;
 
 .allNews-container {
-  display: grid;
-  width: 100%;
-  margin-bottom: 10%;
-  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-items: center;
 }
 
 .allNews-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+}
+
+custom-toggle-switch {
+  display: inline-flex;
+  justify-content: center;
 }
 
 .allNews-header-title {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 1rem;
-  font-size: 1.25rem;
-  font-family: 'Sora', sans-serif;
-}
-
-news-filter-section {
-  width: 100%;
+  justify-content: center;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .carousel-header-see-all-news {
   border: none;
   background: none;
 }
-
 .arrow-left {
-  width: 1rem;
+  width: 0.8rem;
   border: none;
   background: none;
   cursor: pointer;
+  padding-top: 5px;
+}
+
+.title-allNews {
+  color: $standard-colour-black;
+  font-size: 24px;
+  font-family: $sora;
+  font-weight: 700;
 }
 
 .allNews-body {
-  display: grid;
-  width: 100%;
-  height: 100%;
-  grid-template-columns: repeat(2, 1fr); /* Deux colonnes égales */
-  gap: 1.5rem; /* Espacement entre les cartes */
-  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .allNews-footer {
@@ -222,29 +221,29 @@ news-filter-section {
   padding: 2rem;
 }
 
-.card-wrapper {
-  border: none;
-  border-radius: 8px;
-  background-color: #fff;
+@media only screen and (min-width: 1024px) {
+  .allNews-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0;
+  }
+  .allNews-body {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .card-wrapper {
+  }
+
+
+
+
 }
 
-.allNews-filter-title {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  padding-bottom: 2rem;
-}
 
-.title-allNews {
-  font-size: 24px;
-  font-family: 'Sora', sans-serif;
-  font-weight: 700;
-  line-height: 30.24px;
-  padding: 2rem;
-  padding-left: 0.5rem;
-}
 
-page-selector {
-  padding-top: 3rem;
-}
 </style>

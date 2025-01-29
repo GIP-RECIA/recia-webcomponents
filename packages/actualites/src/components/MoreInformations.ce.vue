@@ -74,10 +74,10 @@ const { t, d } = i18n.global
 }
 
 .modal-container {
-  position: fixed; /* Fixe par rapport au viewport */
-  width: 326px;
   height: auto;
+  max-width: 400px;
   padding: 0.5rem;
+  padding-right: 2.5rem;
   border-radius: 10px 20px 10px 10px;
   background-color: white; /* Couleur semi-transparente */
   display: grid;
@@ -85,6 +85,7 @@ const { t, d } = i18n.global
   box-shadow: rgba(0, 0, 0, 0.06) 0 0 5px 3px;
   z-index: 100;
   align-items: center;
+
 }
 
 .modal-content {
@@ -93,7 +94,7 @@ const { t, d } = i18n.global
   flex-direction: column;
   font-family: 'DM Sans', sans-serif;
   font-size: 14px;
-  padding: 2rem;
+  padding: 1.5rem;
   gap: 1rem;
 }
 .modal-content-edition {
@@ -105,6 +106,7 @@ const { t, d } = i18n.global
 .modal-content-edition-by {
   display: flex;
   gap: 5px;
+  text-wrap: nowrap;
 }
 
 .modal-content-edition-when {

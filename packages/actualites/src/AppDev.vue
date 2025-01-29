@@ -27,7 +27,7 @@ const {
   </div>
 </template>
 
-<style>
+<style lang="scss">
 .app-dev {
   display: flex;
   flex-direction: column;
@@ -43,5 +43,32 @@ const {
 all-news,
 carrousel-ui {
   width: 100%;
+}
+
+.popover-container {
+  position: relative;
+  display: inline-block;
+
+  button {
+    display: flex;
+    position: relative;
+    z-index: 2;
+    justify-content: center;
+  }
+
+  .popover {
+    position: absolute;
+    background-color: #fff;
+    border-radius: 24px;
+    border: 1px solid;
+    top: 0;
+    right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-dev {
+    width: 90%;
+  }
 }
 </style>

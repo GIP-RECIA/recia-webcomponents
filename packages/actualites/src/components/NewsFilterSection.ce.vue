@@ -16,19 +16,24 @@
 
 <script setup lang="ts">
 import type {Rubrique} from '@/types/Rubrique.ts'
-import {computed, ref} from 'vue'
+import {computed, ref, onUnmounted, onMounted} from 'vue'
 import type {Actualite} from "@/types/Actualite.ts";
 import i18n from "@/plugins/i18n.ts";
+import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
+
 
 const props = defineProps<{
   actualites: Actualite
 }>()
 
 const emit = defineEmits(['updateModelValue'])
-const { t } = i18n.global
+const {t} = i18n.global
 
 let currentSource = ref<string | undefined>(undefined)
 let currentSection = ref<Set<number>>(new Set<number>())
+const isMenuFilterOpen = ref(false)
+const filterCounter = ref(0)
+const disableButton = ref(false)
 
 const allSections = {
   uuid: '0',
@@ -51,13 +56,30 @@ const rubriques = computed<Array<Rubrique>>(() => {
   return [allSections, ...props.actualites.rubriques.sort((a, b) => a.name.localeCompare(b.name))]
 })
 
+onMounted(() => {
+  // Vérification initiale
+  handleResize();
+
+  // Écoute les changements de taille d'écran
+  window.addEventListener('resize', handleResize);
+});
+
+onUnmounted(() => {
+  // Nettoyage de l'écouteur d'événements
+  window.removeEventListener('resize', handleResize);
+});
 
 function setSource(source: string) {
   currentSource.value = source
-  if (currentSource.value === 'Toutes les sources') {
-    currentSource.value = ""
+  console.log(currentSource.value)
+  if (currentSource.value === undefined) {
+    currentSource.value = undefined
+    filterCounter.value = 0
 
+  } else {
+    filterCounter.value = 1
   }
+
   currentSection.value.clear()
   emit('updateModelValue', currentSource.value, currentSection.value) // Émet l'événement avec la nouvelle valeur
 }
@@ -69,63 +91,153 @@ function setSection(section: Rubrique) {
   } else {
     currentSection.value.has(section.uuid) ? currentSection.value.delete(section.uuid) : currentSection.value.add(section.uuid)
   }
+  filterCounter.value = 1 + currentSection.value.size
   emit('updateModelValue', currentSource.value, currentSection.value) // Émet l'événement avec la nouvelle valeur
 }
 
+function openMenuFilter() {
+  isMenuFilterOpen.value = !isMenuFilterOpen.value
+}
+
+function handleResize() {
+  isMenuFilterOpen.value = window.innerWidth > 1024
+  disableButton.value = window.innerWidth > 1024
+}
 </script>
 
 <template>
   <i18n-host>
     <div class="filter-section-container">
-      <div class="filter-section-title">
-        {{ t('text.filter.by-sources') }}
+      <div v-if="disableButton" class="filter-title">
+        {{ t('text.title.filters') }}
       </div>
-      <div class="filter-section">
-
-        <div class="filter-section-span-container">
-          <div
-            v-for="source in sources"
-            class="filter-section-span"
-            :class="{ active: source === currentSource }"
-            @click="setSource(source)"
-          >
-            {{ source ?? t('text.filter.all-sources') }}
+      <button v-if="!disableButton" class="filter-section-container-header" @click="openMenuFilter">
+        <div class="filter-section-container-header-left">
+          <div class="filter-title">
+            {{ t('text.title.filters') }}
           </div>
+          <div v-if="filterCounter > 0" class="filter-counter">{{ filterCounter }}</div>
         </div>
-      </div>
 
-      <template v-if="currentSource">
-        <div class="separator"></div>
-        <div class="filter-section-title">
-          {{ t('text.filter.by-sections') }}
+        <div class="caret-button">
+          <FontAwesomeIcon class="caret" v-if="!isMenuFilterOpen" icon="fa-solid fa-caret-down"/>
+          <FontAwesomeIcon class="caret" v-if="isMenuFilterOpen" icon="fa-solid fa-caret-up"/>
         </div>
-        <div class="filter-section">
+      </button>
 
-          <div class="filter-section-span-container">
-            <div
-              v-for="section in rubriques"
-              class="filter-section-span"
-              :class="{ active: currentSection.size === 0 ? section.name === t('text.filter.all-sections') :  currentSection.has(section.uuid)  }"
-              @click="setSection(section)"
-            >
-              {{ section.name }}
+      <div class="grid-container">
+        <template v-if="isMenuFilterOpen">
+          <div class="filter-section-title">
+            {{ t('text.filter.by-sources') }}
+          </div>
+
+          <div class="filter-section">
+            <div class="filter-section-span-container">
+              <div
+                v-for="source in sources"
+                class="filter-section-span"
+                :class="{ active: source === currentSource }"
+                @click="setSource(source)"
+              >
+                {{ source ?? t('text.filter.all-sources') }}
+              </div>
             </div>
           </div>
+        </template>
 
-        </div>
-      </template>
+
+        <template v-if="currentSource && isMenuFilterOpen">
+          <div class="separator"></div>
+
+          <div class="filter-section-title">
+            {{ t('text.filter.by-sections') }}
+          </div>
+          <div class="filter-section">
+            <div class="filter-section-span-container">
+              <div
+                v-for="section in rubriques"
+                class="filter-section-span"
+                :class="{ active: currentSection.size === 0 ? section.name === t('text.filter.all-sections') :  currentSection.has(section.uuid)  }"
+                @click="setSection(section)"
+              >
+                {{ section.name }}
+              </div>
+
+            </div>
+
+
+          </div>
+        </template>
+
+      </div>
     </div>
   </i18n-host>
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/colors.scss' as *;
+
+* {
+  box-sizing: border-box;
+}
+
 .filter-section-container {
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  user-select: none;
+  background-color: $standard-colour-white;
+  box-shadow: 0 4px 24.4px rgba(0, 0, 0, 0.1);
   border: none;
+  border-radius: 10px;
+}
+
+.filter-section-container-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: none;
+  background-color: transparent;
+  padding: 1rem;
+  align-items: center;
+}
+
+.filter-section-container-header-left {
+  display: inline-flex;
   gap: 1rem;
+  align-items: center;
+  align-content: center;
+}
+
+.filter-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 3px 0px 0px 0px;
+}
+
+.filter-counter {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 1px 10px 1px 10px;
+  border-radius: 20px;
+  color: $standard-colour-white;
+  background-color: $primary;
+}
+
+.caret-button {
+  border: none;
+  background-color: transparent;
+  padding-top: 1px;
+}
+
+.caret {
+  width: 12px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-rows: auto;
 }
 
 .separator {
@@ -133,15 +245,6 @@ function setSection(section: Rubrique) {
   height: 1px;
   background-color: #d9d9d9; /* Gris clair */
   border: none;
-  grid-column: 1 / 3;
-}
-
-.filter-section {
-  display: inline-flex;
-  width: 100%;
-  grid-column: auto;
-  gap: 1rem;
-  align-items: baseline;
 }
 
 .filter-section-title {
@@ -149,44 +252,100 @@ function setSection(section: Rubrique) {
   text-wrap: nowrap;
   font-family: 'DM Sans', sans-serif;
   font-size: 12px;
-  padding-top: 5px;
+  padding-top: 1rem;
+  padding-left: 1rem;
+}
+
+.filter-section {
+  display: flex;
 }
 
 .filter-section-span-container {
-  display: inline-flex;
+  display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.7rem;
+  padding: 1rem;
 }
 
 .filter-section-span {
   display: flex;
   text-align: center;
   text-wrap: nowrap;
-  padding: 5px 10px;
-  color: #1e1e1e;
-  transition: color 0.3s,
-  background-color 0.3s;
-  border-radius: 20px;
+  padding: 5px 10px 5px;
+  color: $primary;
+  background-color: $primary-transparent;
+  border-radius: 50px;
   font-family: 'DM Sans', sans-serif;
   font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
 }
 
 .filter-section-span.active {
-  background-color: #1e1e1e;
-  color: white;
+  background-color: $standard-colour-black;
+  color: $standard-colour-white;
   width: auto;
 }
 
-/* Empêche les options actives d'avoir un effet au survol */
-.filter-section-span.active:hover {
-  background-color: #1e1e1e;
-  color: white;
-}
+@media only screen and (min-width: 1024px) {
+  .filter-section-container {
+    background-color: transparent;
+    box-shadow: none;
+    padding: 1rem 0rem;
+    gap: 1rem;
+  }
 
-/* Effet de survol pour les options non actives */
-.filter-section-span:not(.active):hover {
-  background-color: rgba(0, 123, 255, 0.1); /* Bleu transparent */
-  color: #007bff; /* Texte bleu */
+  .filter-section-container-header {
+    padding: 0rem;
+  }
+
+  .filter-title.disabled {
+    color: $standard-colour-black, 100%;
+  }
+
+  .caret-button {
+    display: none;
+  }
+
+  .filter-counter {
+    display: none;
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    padding: 0rem;
+    gap: 1rem;
+  }
+
+  .sources {
+    padding: 0rem;
+    grid: inherit;
+  }
+
+  .separator {
+    width: 100%;
+    height: 1px;
+    background-color: #d9d9d9; /* Gris clair */
+    border: none;
+    grid-column: 1 / 3;
+  }
+
+  .filter-section-span-container {
+    padding: 0rem;
+  }
+
+  .filter-section-title {
+    padding: 0rem;
+    padding-top: 6px;
+  }
+
+  .filter-section {
+    padding: 0rem;
+    align-items: start;
+  }
+
+  .filter-section-span {
+  }
 }
 </style>

@@ -64,18 +64,18 @@ function setState(state: string) {
 </template>
 
 <style scoped>
+@use '@/assets/global.scss' as *;
+
 .toggle-switch {
-  display: flex;
+  display: inline-flex;
   justify-content: space-between;
   align-items: center;
-  width: auto;
-  height: auto;
   background-color: #f0f0f0;
   border-radius: 20px;
   padding: 3px;
   user-select: none;
   border: none;
-  gap: 10px;
+  gap: 0.5rem;
 }
 
 .toggle-option {

@@ -104,22 +104,23 @@ const visiblePages = computed(() => {
       :disabled="currentPage === totalPages"
       @click="goToPage(totalPages)"
     >
-      <FontAwesomeIcon class="icon" :icon="['fas', 'angles-right']" />
+      <FontAwesomeIcon class="icon extrem" :icon="['fas', 'angles-right']" />
     </button>
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@use '@/assets/colors.scss' as *;
+
 .pagination {
   display: inline-flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 button {
   display: flex;
-  padding: 1rem;
-
+  padding: 0.6rem;
   background: none;
   border: hidden;
   justify-content: center;
@@ -132,36 +133,28 @@ button:disabled {
   opacity: 0.9;
 }
 
-button:hover {
-  background-color: rgba(0, 123, 255, 0.1); /* Bleu transparent */
-  color: #007bff; /* Texte bleu */
+.icon {
+  width: 9px;
+  height: 9px;
 }
 
-.icon {
-  width: 1rem;
-  height: 1rem;
-}
 
 .page-number {
   display: flex;
   cursor: pointer;
-  width: 1rem;
-  height: 1rem;
-  padding: 1rem;
+  width: 9px;
+  height: 9px;
+  padding: 0.6rem;
   justify-content: center;
   align-items: center;
   font-family: 'DM Sans', sans-serif;
-  font-size: 20px;
+  font-size: 14px;
   border-radius: 50%;
 }
 
 .page-number.active {
-  background-color: #1e1e1e;
-  color: #fff;
+  background-color: $standard-colour-black;
+  color: $standard-colour-white;
 }
 
-.page-number:not(.active):hover {
-  background-color: rgba(0, 123, 255, 0.1); /* Bleu transparent */
-  color: #007bff; /* Texte bleu */
-}
 </style>
