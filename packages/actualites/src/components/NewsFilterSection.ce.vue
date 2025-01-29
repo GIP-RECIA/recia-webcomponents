@@ -176,6 +176,7 @@ function handleResize() {
 
 <style scoped lang="scss">
 @use '@/assets/colors.scss' as *;
+@use '@/assets/global.scss' as *;
 
 * {
   box-sizing: border-box;
@@ -209,14 +210,14 @@ function handleResize() {
 }
 
 .filter-title {
-  font-family: 'DM Sans', sans-serif;
+  font-family: $dm-sans;
   font-size: 16px;
   font-weight: 700;
   padding: 3px 0px 0px 0px;
 }
 
 .filter-counter {
-  font-family: 'DM Sans', sans-serif;
+  font-family: $dm-sans;
   font-size: 14px;
   font-weight: 700;
   padding: 1px 10px 1px 10px;
@@ -250,7 +251,7 @@ function handleResize() {
 .filter-section-title {
   display: inline-flex;
   text-wrap: nowrap;
-  font-family: 'DM Sans', sans-serif;
+  font-family: $dm-sans;
   font-size: 12px;
   padding-top: 1rem;
   padding-left: 1rem;
@@ -275,7 +276,7 @@ function handleResize() {
   color: $primary;
   background-color: $primary-transparent;
   border-radius: 50px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: $dm-sans;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;

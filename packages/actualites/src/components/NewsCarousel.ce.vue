@@ -15,13 +15,13 @@
 -->
 
 <script setup lang="ts">
-import type {PaginatedResult} from '@/types/PaginatedResult.ts'
+import type { PaginatedResult } from '@/types/PaginatedResult.ts'
 import i18n from '@/plugins/i18n.ts'
-import {getNewsReadingInformations, getPaginatedNews} from '@/services/NewsService.ts'
-import {initToken, instance} from '@/utils/axiosUtils.ts'
-import {currentUser} from '@/utils/soffitUtils.ts'
-import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
-import {computed, onMounted, ref} from 'vue'
+import { getNewsReadingInformations, getPaginatedNews } from '@/services/NewsService.ts'
+import { initToken, instance } from '@/utils/axiosUtils.ts'
+import { currentUser } from '@/utils/soffitUtils.ts'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { computed, onMounted, ref } from 'vue'
 
 const props = defineProps<{
   userInfoApiUrl: string
@@ -29,8 +29,9 @@ const props = defineProps<{
 
 const result = ref<PaginatedResult>()
 const readingInfos = ref<Map<string, boolean>>()
+const loading = ref(true) // État de chargement
 
-const {t} = i18n.global
+const { t } = i18n.global
 
 onMounted(async () => {
   try {
@@ -39,12 +40,14 @@ onMounted(async () => {
     }
     // await getprops.userInfoApiUrlConfig(props.baseApiUrl)
     result.value = await getPaginatedNews(2, undefined, undefined, undefined)
-    if (currentUser) {
-      const objectResult = await getNewsReadingInformations()
-      readingInfos.value = new Map(Object.entries(objectResult))
-    }
-  } catch (e: any) {
+    const objectResult = await getNewsReadingInformations()
+    readingInfos.value = new Map(Object.entries(objectResult))
+  }
+  catch (e: any) {
     console.error(e)
+  }
+  finally {
+    loading.value = false // Fin du chargement
   }
 })
 
@@ -87,20 +90,24 @@ async function updateReadingInfos() {
 
 <template>
   <i18n-host>
-    <div v-if="result?.actualite?.items" class="carousel-container">
+    <div class="carousel-container">
       <div class="carousel-header">
         <div class="carousel-header-title">
           {{ t('text.title.news') }}
         </div>
         <button class="carousel-header-see-all-news computer" @click="allActualites">
           {{ t('text.normal.see-all-news') }}
-          <FontAwesomeIcon class="arrow-rigth" :icon="['fas', 'arrow-right']"/>
+          <FontAwesomeIcon class="arrow-rigth" :icon="['fas', 'arrow-right']" />
         </button>
       </div>
 
-      <div class="carousel-content-container">
+      <div v-if="loading" class="carousel-content">
+        <div v-for="index in 3" :key="index" class="skeleton-card"></div>
+      </div>
+
+      <div v-if="result?.actualite?.items && !loading" class="carousel-content-container">
         <button class="arrow left" :disabled="currentIndex === 0" @click="prev">
-          <FontAwesomeIcon class="circle-arrow-left" :icon="['fas', 'circle-arrow-left']"/>
+          <FontAwesomeIcon class="circle-arrow-left" :icon="['fas', 'circle-arrow-left']" />
         </button>
 
         <div class="carousel-content">
@@ -114,14 +121,13 @@ async function updateReadingInfos() {
         </div>
 
         <button class="arrow right" :disabled="currentIndex >= result?.actualite?.items?.length - 3" @click="next">
-          <FontAwesomeIcon class="circle-arrow-right" :icon="['fas', 'circle-arrow-right']"/>
+          <FontAwesomeIcon class="circle-arrow-right" :icon="['fas', 'circle-arrow-right']" />
         </button>
-
       </div>
 
       <button class="carousel-header-see-all-news mobile" @click="allActualites">
         {{ t('text.normal.see-all-news') }}
-        <FontAwesomeIcon class="arrow-rigth" :icon="['fas', 'arrow-right']"/>
+        <FontAwesomeIcon class="arrow-rigth" :icon="['fas', 'arrow-right']" />
       </button>
     </div>
   </i18n-host>
@@ -129,6 +135,7 @@ async function updateReadingInfos() {
 
 <style lang="scss">
 @use '@/assets/colors.scss' as *;
+@use '@/assets/global.scss' as *;
 
 * {
   box-sizing: border-box;
@@ -147,13 +154,13 @@ async function updateReadingInfos() {
 
 .carousel-header-title {
   color: $standard-colour-black;
-  font-family: 'Sora', sans-serif;
+  font-family: $sora;
   font-size: 18px;
   font-weight: 700;
 }
 
 .carousel-header-see-all-news {
-  font-family: 'DM Sans', sans-serif;
+  font-family: $dm-sans;
   font-size: 14px;
   font-weight: 600;
   background: none;
@@ -211,6 +218,20 @@ async function updateReadingInfos() {
   display: none;
 }
 
+.skeleton-card {
+  width: 100%;
+  height: 138px;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f5f5f5 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
 /* Large devices such as laptops (1024px and up) */
 @media only screen and (min-width: 1024px) {
   .carousel-container {
@@ -219,6 +240,10 @@ async function updateReadingInfos() {
     grid-auto-rows: auto;
     position: relative;
   }
+  .skeleton-card {
+    height: 175px;
+  }
+
   .arrow {
     display: block;
     background: none;
@@ -259,7 +284,6 @@ async function updateReadingInfos() {
     top: calc(50% - 10px);
   }
 
-
   .carousel-content {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -277,8 +301,9 @@ async function updateReadingInfos() {
   }
 
   .carousel-header-see-all-news.computer {
+    display: block;
     justify-content: right;
-    color: $primary;
+    color: $standard-colour-black;
   }
 
   .carousel-header-see-all-news.mobile {

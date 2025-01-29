@@ -47,6 +47,7 @@ const isDesktopFullImage = ref<boolean | undefined>(undefined)
 const isSelfBottomSheetOpen = ref(true)
 const bottomsheet = ref<HTMLElement>()
 const bottomsheetContentHeaderImageContainer = ref<HTMLElement>()
+const loading = ref(true)
 let idTimout: number
 let startY = 0
 let currentY = 0
@@ -64,6 +65,9 @@ onBeforeMount(async () => {
   }
   catch (e: any) {
     console.error(e)
+  }
+  finally {
+    loading.value = false
   }
 })
 
@@ -196,8 +200,8 @@ onBeforeUnmount(() => {
       :class="{ 'slide-down': !isSelfBottomSheetOpen, 'slide-up': isSelfBottomSheetOpen }"
       @click.stop
     >
-      <template v-if="item">
-        <img class="bottomsheet-container-background-desktop-image" :src="baseUrl.concat(item.enclosure)" alt="">
+      <template  v-if="true">
+        <img v-if="item && !loading" class="bottomsheet-container-background-desktop-image" :src="baseUrl.concat(item.enclosure)" alt="">
 
         <div class="bottomsheet-mobile-content-grip-area">
           <div class="bottomsheet-mobile-content-grip-area-handle-bar" />
@@ -210,8 +214,10 @@ onBeforeUnmount(() => {
         <div class="bottomsheet-content-header">
           <div class="bottomsheet-content-header-image-group">
             <div ref="bottomsheetContentHeaderImageContainer" class="bottomsheet-content-header-image-container" :class="{ enlarge: isDesktopFullImage, shrink: isDesktopFullImage === false }" @click="fullImage">
-              <img :src="baseUrl.concat(item.enclosure)" alt="" class="bottomsheet-content-header-image-container-img" :class="{ enlarge: isDesktopFullImage, shrink: isDesktopFullImage === false }">
-
+              <img v-if="item && !loading" :src="baseUrl.concat(item.enclosure)" alt="" class="bottomsheet-content-header-image-container-img" :class="{ enlarge: isDesktopFullImage, shrink: isDesktopFullImage === false }">
+              <div v-if="loading" class="bottomsheet-content-header-image-container-img">
+                <div v-for="index in 1" :key="index" class="skeleton-card" :style="{ borderRadius: '10px' }"/>
+              </div>
               <button class="bottomsheet-content-header-image-group-expand-container">
                 <img
                   class="bottomsheet-content-header-image-group-expand-container-icon"
@@ -229,10 +235,13 @@ onBeforeUnmount(() => {
           </div>
 
           <div class="bottomsheet-content-header-informations">
-            <div class="bottomsheet-content-header-informations-item-autor">
-              {{
-                t('text.creation-info.global', { name: item.createdBy.displayName }) + d(item.createdBy.createdDate, 'long')
-              }}
+            <div v-if="item && !loading" class="bottomsheet-content-header-informations-item-autor">
+              <div >
+                {{
+                  t('text.creation-info.global', { name: item.createdBy.displayName }) + d(item.createdBy.createdDate, 'long')
+                }}
+              </div>
+
               <div class="bottomsheet-content-header-informations-info-modal-container">
                 <button
                   class="bottomsheet-content-header-informations-info-modal-button"
@@ -250,10 +259,17 @@ onBeforeUnmount(() => {
               </div>
             </div>
 
-            <div class="bottomsheet-content-header-informations-item-title">
+            <div v-if="loading" class="bottomsheet-content-header-informations-item-autor">
+              <div v-for="index in 1" :key="index" class="skeleton-card" :style="{ borderRadius: '10px', height: '20px', width: '40%' }"/>
+            </div>
+
+            <div v-if="item && !loading" class="bottomsheet-content-header-informations-item-title">
               {{ item.title }}
             </div>
-            <div class="bottomsheet-content-header-informations-sections">
+            <div v-if="loading" class="bottomsheet-content-header-informations-item-title">
+              <div v-for="index in 1" :key="index" class="skeleton-card" :style="{ borderRadius: '10px', height: '30px', width: '80%', marginTop: '12px', marginBottom: '8px' }"/>
+            </div>
+            <div v-if="item && !loading" class="bottomsheet-content-header-informations-sections">
               <span
                 v-for="section in props.rubriques"
                 :key="section.uuid"
@@ -270,10 +286,14 @@ onBeforeUnmount(() => {
                 {{ t('text.creation-info.publish-by', { organization: item.organization.name }) }}
               </span>
             </div>
+            <div v-if="loading" class="bottomsheet-content-header-informations-sections">
+              <div v-for="index in 2" :key="index" class="skeleton-card" :style="{ borderRadius: '10px', height: '20px', width: '15%' }"/>
+            </div>
           </div>
         </div>
 
-        <div class="bottomsheet-content-body" v-html="item.body" />
+        <div v-if="item && !loading" class="bottomsheet-content-body" v-html="item.body" />
+        <div v-if="loading" class="bottomsheet-content-body"/>
       </template>
       <div class="bottomsheet-content-footer">
         <div class="bottomsheet-content-footer-separator" />
@@ -515,7 +535,7 @@ onBeforeUnmount(() => {
     .bottomsheet-content-body {
       font-family: $dm-sans;
       font-size: 16px;
-
+      min-height: 45%;
       padding: 1em;
 
       img {
@@ -639,6 +659,23 @@ onBeforeUnmount(() => {
   }
   100% {
     transform: scale(1); /* Retour à la taille normale */
+  }
+}
+
+.skeleton-card {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f5f5f5 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
   }
 }
 
@@ -785,12 +822,15 @@ onBeforeUnmount(() => {
           flex-direction: column;
           padding: 1em;
           gap: 2px;
+          width: 100%;
+
+          justify-content: center;
 
           .bottomsheet-content-header-informations-item-autor {
             font-family: $dm-sans;
             font-weight: normal;
             font-size: 14px;
-
+            min-height: 20px;
             display: flex;
             flex-direction: row;
             justify-content: left;

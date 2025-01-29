@@ -63,7 +63,7 @@ function setState(state: string) {
   </i18n-host>
 </template>
 
-<style scoped>
+<style lang="scss">
 @use '@/assets/global.scss' as *;
 
 .toggle-switch {
@@ -86,7 +86,7 @@ function setState(state: string) {
     background-color 0.3s;
   padding: 5px 0;
   border-radius: 20px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: $dm-sans;
   font-size: 14px;
   cursor: pointer;
   width: auto;
@@ -109,12 +109,12 @@ function setState(state: string) {
 /* Empêche les options actives d'avoir un effet au survol */
 .toggle-option.active:hover {
   background-color: #1e1e1e;
-  color: white;
+  color: $standard-colour-white;
 }
 
 /* Effet de survol pour les options non actives */
 .toggle-option:not(.active):hover {
   background-color: rgba(0, 123, 255, 0.1); /* Bleu transparent */
-  color: #007bff; /* Texte bleu */
+  color:$primary; /* Texte bleu */
 }
 </style>

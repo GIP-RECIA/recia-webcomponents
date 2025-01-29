@@ -35,6 +35,7 @@ const rubriques = ref<Array<number>>()
 const currentPage = ref()
 const totalPages = ref()
 const readingState = ref<boolean | undefined>(undefined)
+const loading = ref(true) // État de chargement
 
 const { t } = i18n.global
 
@@ -51,6 +52,9 @@ onBeforeMount(async () => {
     totalPages.value = result.value?.totalPages
   }
   catch (e: any) {
+  }
+  finally {
+    loading.value = false // Fin du chargement
   }
 })
 
@@ -113,7 +117,7 @@ function showItemDependsOnReadingState(item: ItemVO) {
 
 <template>
   <i18n-host>
-    <div v-if="result" id="allNews" class="allNews-container">
+    <div id="allNews" class="allNews-container">
       <div class="allNews-header">
         <div class="allNews-header-title">
           <button class="carousel-header-see-all-news">
@@ -125,17 +129,20 @@ function showItemDependsOnReadingState(item: ItemVO) {
         </div>
 
         <custom-toggle-switch
-          v-if="result"
           :states="['all', 'read', 'unread']"
           @read-status="handleToggleChange"
         />
       </div>
 
       <div v-if="result" class="allNews-filter">
-        <news-filter-section :actualites="result.actualite" @update-model-value="handleFilterChange" />
+        <news-filter-section  :actualites="result.actualite" @update-model-value="handleFilterChange" />
       </div>
 
-      <div v-if="result" class="allNews-body">
+      <div v-if="loading" class="allNews-body">
+        <div v-for="index in 10" :key="index" class="skeleton-card" />
+      </div>
+
+      <div v-if="result && !loading" class="allNews-body">
         <template v-for="(item, index) in result.actualite?.items" :key="index">
           <div v-if="showItemDependsOnReadingState(item)" class="card-wrapper">
             <news-card
@@ -221,6 +228,25 @@ custom-toggle-switch {
   padding: 2rem;
 }
 
+.skeleton-card {
+  width: 100%;
+  height: 170px;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f5f5f5 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: 8px;
+  margin-bottom: 1em;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
 @media only screen and (min-width: 1024px) {
   .allNews-header {
     display: flex;
@@ -239,11 +265,8 @@ custom-toggle-switch {
   .card-wrapper {
   }
 
-
-
-
+  .skeleton-card {
+    height: 150px;
+  }
 }
-
-
-
 </style>
