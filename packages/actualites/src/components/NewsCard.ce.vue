@@ -313,9 +313,9 @@ article.pageOrigin.active {
     }
   }
 
-  article.pageOrigin:focus-visible {
+  article:focus-visible {
     outline: 2px solid $primary;
-
+    box-shadow: color-mix(in srgb, $primary, #0000 80%) 0 4px 26px 0;
     .card-body-title {
       color: $primary;
     }
