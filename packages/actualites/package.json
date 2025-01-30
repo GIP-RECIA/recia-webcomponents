@@ -40,7 +40,7 @@
   "scripts": {
     "dev": "dotenv-checker && vite --host --port 5173",
     "build": "run-p type-check build-only && npm run build:min",
-    "build:min": "npm exec terser -- -c -m --module dist/xxx.js > dist/xxx.min.js",
+    "build:min": "npm exec terser -- -c -m --module dist/actualites.js > dist/actualites.min.js",
     "lint": "eslint src/*",
     "preview": "vite preview",
     "test:unit": "echo No tests available",
@@ -79,7 +79,7 @@
     "regenerator-runtime": "^0.14.1",
     "sass": "^1.83.4",
     "terser": "^5.36.0",
-    "typescript": "^5.6.3",
+    "typescript": "5.6.3",
     "vite": "^5.4.11",
     "vue": "^3.5.13",
     "vue-i18n": "10.0.5",
