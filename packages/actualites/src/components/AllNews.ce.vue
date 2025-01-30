@@ -135,7 +135,7 @@ function showItemDependsOnReadingState(item: ItemVO) {
       </div>
 
       <div v-if="result" class="allNews-filter">
-        <news-filter-section  :actualites="result.actualite" @update-model-value="handleFilterChange" />
+        <news-filter-section :actualites="result.actualite" @update-model-value="handleFilterChange" />
       </div>
 
       <div v-if="loading" class="allNews-body">

@@ -62,7 +62,7 @@ const visiblePages = computed(() => {
   <div class="pagination">
     <!-- Bouton pour aller à la première page -->
     <button
-      class="first-page"
+      class="arrow"
       :disabled="currentPage === 1"
       @click="goToPage(1)"
     >
@@ -71,7 +71,7 @@ const visiblePages = computed(() => {
 
     <!-- Bouton pour reculer d'une page -->
     <button
-      class="previous-page"
+      class="arrow"
       :disabled="currentPage === 1"
       @click="goToPage(currentPage - 1)"
     >
@@ -84,14 +84,16 @@ const visiblePages = computed(() => {
       :key="page"
       class="page-number"
       :class="{ active: page === currentPage }"
+      tabindex="0"
       @click="goToPage(page)"
+      @keydown.enter="goToPage(page)"
     >
       {{ page }}
     </span>
 
     <!-- Bouton pour avancer d'une page -->
     <button
-      class="next-page"
+      class="arrow"
       :disabled="currentPage === totalPages"
       @click="goToPage(currentPage + 1)"
     >
@@ -100,7 +102,7 @@ const visiblePages = computed(() => {
 
     <!-- Bouton pour aller à la dernière page -->
     <button
-      class="last-page"
+      class="arrow"
       :disabled="currentPage === totalPages"
       @click="goToPage(totalPages)"
     >
@@ -116,29 +118,38 @@ const visiblePages = computed(() => {
 .pagination {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
 }
 
-button {
+button.arrow {
   display: flex;
-  padding: 0.6rem;
-  background: none;
-  border: hidden;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: none;
   justify-content: center;
-  border-radius: 50%;
+  border-radius: 14px;
   font-family: $dm-sans;
+  justify-items: center;
+  align-items: center;
 }
 
-button:disabled {
+button.arrow:disabled {
   cursor: not-allowed;
   opacity: 0.9;
+}
+
+button.arrow:focus-visible {
+  background-color: $primary-transparent;
+  color: $primary;
+  outline: 3px solid $primary;
 }
 
 .icon {
   width: 9px;
   height: 9px;
 }
-
 
 .page-number {
   display: flex;
@@ -153,9 +164,19 @@ button:disabled {
   border-radius: 50%;
 }
 
+.page-number:focus-visible {
+  color: $primary;
+  background-color: $primary-transparent;
+  outline: 3px solid $primary;
+}
+
 .page-number.active {
   background-color: $standard-colour-black;
   color: $standard-colour-white;
 }
-
+.page-number.active:focus-visible {
+  background-color: $primary;
+  color: $standard-colour-white;
+  outline: 3px solid $primary-transparent;
+}
 </style>

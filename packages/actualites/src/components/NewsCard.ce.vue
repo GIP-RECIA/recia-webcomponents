@@ -69,7 +69,7 @@ function isPageOriginAll() {
 
 <template>
   <i18n-host>
-    <article :class="{ active: !isRead, pageOrigin }" @click="openModal">
+    <article tabindex="0" :class="{ active: !isRead, pageOrigin }" @click="openModal" @keydown.enter="openModal">
       <div class="card-img">
         <img class="image" :src="baseUrl.concat(props.item.article.enclosure)" alt="">
       </div>
@@ -132,6 +132,14 @@ article {
   box-shadow: rgba(0, 0, 0, 0.06) 0 0 10px 2px;
   cursor: pointer;
   overflow: hidden;
+}
+
+article:focus-visible {
+  outline: 2px solid $primary;
+
+  .card-body-title {
+    color: $primary;
+  }
 }
 
 article:not(.active) {
@@ -297,13 +305,15 @@ article.pageOrigin.active {
     }
   }
 
-  article.pageOrigin.active:hover {
+  article:hover {
+    outline: 2px solid $primary;
+    box-shadow: color-mix(in srgb, $primary, #0000 80%) 0 4px 26px 0;
     .card-body-title {
       color: $primary;
     }
   }
 
-  article:hover {
+  article.pageOrigin:focus-visible {
     outline: 2px solid $primary;
 
     .card-body-title {

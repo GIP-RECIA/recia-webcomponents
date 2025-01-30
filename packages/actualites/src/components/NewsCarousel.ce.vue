@@ -95,9 +95,9 @@ async function updateReadingInfos() {
         <div class="carousel-header-title">
           {{ t('text.title.news') }}
         </div>
-        <button class="carousel-header-see-all-news computer" @click="allActualites">
+        <button tabindex="0" class="carousel-header-see-all-news computer" @click="allActualites">
           {{ t('text.normal.see-all-news') }}
-          <FontAwesomeIcon class="arrow-rigth" :icon="['fas', 'arrow-right']" />
+          <FontAwesomeIcon class="arrow-rigth" :icon="['fas', 'arrow-right']"/>
         </button>
       </div>
 
@@ -106,7 +106,7 @@ async function updateReadingInfos() {
       </div>
 
       <div v-if="result?.actualite?.items && !loading" class="carousel-content-container">
-        <button class="arrow left" :disabled="currentIndex === 0" @click="prev">
+        <button tabindex="0" class="arrow left" :disabled="currentIndex === 0" @click="prev" @keydown.enter="prev">
           <FontAwesomeIcon class="circle-arrow-left" :icon="['fas', 'circle-arrow-left']" />
         </button>
 
@@ -120,7 +120,7 @@ async function updateReadingInfos() {
           </div>
         </div>
 
-        <button class="arrow right" :disabled="currentIndex >= result?.actualite?.items?.length - 3" @click="next">
+        <button tabindex="0" class="arrow right" :disabled="currentIndex >= result?.actualite?.items?.length - 3" @click="next" @keydown.enter="next">
           <FontAwesomeIcon class="circle-arrow-right" :icon="['fas', 'circle-arrow-right']" />
         </button>
       </div>
@@ -168,29 +168,27 @@ async function updateReadingInfos() {
   display: flex;
   align-items: center;
   cursor: pointer;
-  gap: 8px;
 }
 
 .arrow {
-  background: none;
-  border: none;
-  font-size: 2rem;
+  padding: 0;
+  margin: 0;
   cursor: pointer;
-  user-select: none;
 }
 
 .arrow-rigth {
   width: 11px;
+  margin-left: 1em;
 }
 
 .circle-arrow-left {
-  width: 2rem;
-  height: 2rem;
+  width: 42px;
+  height: 42px;
 }
 
 .circle-arrow-right {
-  width: 2rem;
-  height: 2rem;
+  width: 42px;
+  height: 42px;
 }
 
 .arrow:disabled {
@@ -245,15 +243,36 @@ async function updateReadingInfos() {
   }
 
   .arrow {
+    height: 42px;
+    width: auto;
+    position: absolute;
     display: block;
     background: none;
     border: none;
+    border-radius: 24px;
     font-size: 2rem;
     cursor: pointer;
     user-select: none;
-    padding: 0.5rem;
-    grid-row-start: 2;
-    grid-row-end: 3;
+    margin: 0;
+  }
+
+  .arrow:focus-visible {
+    outline: 3px solid $primary-transparent;
+    color: $standard-colour-white;
+
+    .circle-arrow-left {
+      background-color: $primary;
+    }
+  }
+
+  .arrow.left {
+    left: -2em;
+    top: calc(50% - 21px);
+  }
+
+  .arrow.right {
+    right: -2em;
+    top: calc(50% - 21px);
   }
 
   .carousel-header {
@@ -273,15 +292,12 @@ async function updateReadingInfos() {
   }
 
   .circle-arrow-left {
-    position: absolute;
-    left: -2em;
-    top: calc(50% - 10px);
+
+
   }
 
   .circle-arrow-right {
-    position: absolute;
-    right: -2em;
-    top: calc(50% - 10px);
+
   }
 
   .carousel-content {
@@ -304,6 +320,11 @@ async function updateReadingInfos() {
     display: block;
     justify-content: right;
     color: $standard-colour-black;
+  }
+
+  .carousel-header-see-all-news.computer:hover {
+    color: $primary;
+    text-decoration: $primary underline;
   }
 
   .carousel-header-see-all-news.mobile {

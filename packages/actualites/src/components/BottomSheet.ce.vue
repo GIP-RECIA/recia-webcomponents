@@ -293,9 +293,8 @@ onBeforeUnmount(() => {
         </div>
 
         <div v-if="item && !loading" class="bottomsheet-content-body" v-html="item.body" />
-        <div v-if="loading" class="bottomsheet-content-body"/>
       </template>
-      <div class="bottomsheet-content-footer">
+      <div v-if="item && !loading" class="bottomsheet-content-footer">
         <div class="bottomsheet-content-footer-separator" />
         <div class="bottomsheet-content-footer-button-group">
           <button class="mark-has-not-read-btn" @click="changeReadingState(!isReadingButton)">
@@ -535,7 +534,6 @@ onBeforeUnmount(() => {
     .bottomsheet-content-body {
       font-family: $dm-sans;
       font-size: 16px;
-      min-height: 45%;
       padding: 1em;
 
       img {

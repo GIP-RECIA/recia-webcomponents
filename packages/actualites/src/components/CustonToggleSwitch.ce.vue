@@ -53,6 +53,8 @@ function setState(state: string) {
         :class="{ active: currentState === state }"
         class="toggle-option"
         @click="setState(state)"
+        tabindex="0"
+        @keydown.enter ="setState(state)"
       >
         <div v-if="state === 'all'" class="toggle-option-more">{{ t('switch.all') }}</div>
         <div v-if="state === 'read'" class="toggle-option-more">{{ t('switch.read') }}</div>
@@ -92,6 +94,19 @@ function setState(state: string) {
   width: auto;
   justify-content: center;
 }
+
+.toggle-option:focus-visible {
+  background-color: $primary-transparent;
+  color: $primary;
+  outline: 3px solid $primary;
+}
+.toggle-option.active:focus-visible {
+  background-color: $primary;
+  color: $standard-colour-white;
+  outline: 3px solid $primary-transparent;
+}
+
+
 
 .toggle-option-more {
   display: inline-flex;
