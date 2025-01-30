@@ -138,6 +138,8 @@ function handleResize() {
                 class="filter-section-span"
                 :class="{ active: source === currentSource }"
                 @click="setSource(source)"
+                tabindex="0"
+                @keydown.enter="setSource(source)"
               >
                 {{ source ?? t('text.filter.all-sources') }}
               </div>
@@ -159,6 +161,8 @@ function handleResize() {
                 class="filter-section-span"
                 :class="{ active: currentSection.size === 0 ? section.name === t('text.filter.all-sections') :  currentSection.has(section.uuid)  }"
                 @click="setSection(section)"
+                tabindex="0"
+                @keydown.enter="setSection(section)"
               >
                 {{ section.name }}
               </div>
@@ -288,6 +292,17 @@ function handleResize() {
   width: auto;
 }
 
+.filter-section-span:focus-visible {
+  outline: 3px solid $primary;
+  background-color: $primary-transparent;
+}
+
+.filter-section-span.active:focus-visible {
+  outline: 3px solid $primary-transparent;
+  background-color: $primary;
+  color: $standard-colour-white;
+}
+
 @media only screen and (min-width: 1024px) {
   .filter-section-container {
     background-color: transparent;
@@ -347,6 +362,13 @@ function handleResize() {
   }
 
   .filter-section-span {
+    background-color: transparent;
+    color: $standard-colour-black;
+  }
+
+  .filter-section-span:hover {
+    background-color: $primary-transparent;
+    color: $primary;
   }
 }
 </style>
