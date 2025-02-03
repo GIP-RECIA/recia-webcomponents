@@ -39,7 +39,6 @@ export default ({ mode }: { mode: string }) => {
               'custom-toggle-switch',
               'news-card',
               'news-filter-section',
-              'view-item',
               'page-selector',
               'more-informations',
               'bottom-sheet',
