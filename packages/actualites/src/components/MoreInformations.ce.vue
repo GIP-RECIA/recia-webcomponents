@@ -68,7 +68,7 @@ const { t, d } = i18n.global
   </i18n-host>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 @use '@/assets/global.scss' as *;
 
 * {

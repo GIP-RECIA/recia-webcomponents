@@ -18,7 +18,7 @@
 import type { ItemVO } from '@/types/ItemVO.ts'
 import type { Rubrique } from '@/types/Rubrique.ts'
 import i18n from '@/plugins/i18n.ts'
-import { defineProps, onUnmounted, ref } from 'vue'
+import { onUnmounted, ref } from 'vue'
 
 // Props
 const props = defineProps<{

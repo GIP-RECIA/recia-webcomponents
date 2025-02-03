@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import i18n from '@/plugins/i18n.ts'
-import { defineEmits, defineProps, ref } from 'vue'
+import { ref } from 'vue'
 
 // Définir les props
 const props = defineProps({
