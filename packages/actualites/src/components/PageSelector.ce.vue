@@ -111,7 +111,7 @@ const visiblePages = computed(() => {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 @use '@/assets/colors.scss' as *;
 @use '@/assets/global.scss' as *;
 

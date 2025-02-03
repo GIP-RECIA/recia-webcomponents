@@ -173,7 +173,7 @@ function handleResize() {
   </i18n-host>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 @use '@/assets/colors.scss' as *;
 @use '@/assets/global.scss' as *;
 
