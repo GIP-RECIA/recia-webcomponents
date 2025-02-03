@@ -4,13 +4,13 @@
     "mark-as-read": "Marquer comme lu",
     "close": "Fermer"
   },
-  "switch" : {
+  "switch": {
     "all": "Toutes",
     "read": "Lues",
     "not-read": "Non Lues"
   },
   "text": {
-    "creation-info" : {
+    "creation-info": {
       "global": "Par {name}, le ",
       "create-by": "Créé par ",
       "update-by": "Mise à jour par {name}",
@@ -28,7 +28,7 @@
       "all-news": "Toutes les actualités",
       "filters": "Filtres"
     },
-    "filter" : {
+    "filter": {
       "all-sources": "Toutes les sources",
       "all-sections": "Toutes les rubriques",
       "by-sources": "Par sources :",

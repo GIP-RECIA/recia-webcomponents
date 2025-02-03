@@ -81,7 +81,7 @@ const { t, d } = i18n.global
   padding: 0.5rem;
   padding-right: 2.5rem;
   border-radius: 10px 20px 10px 10px;
-  background-color: white; /* Couleur semi-transparente */
+  background-color: white; // Couleur semi-transparente
   display: grid;
   grid-template-columns: auto 1fr;
   box-shadow: rgba(0, 0, 0, 0.06) 0 0 5px 3px;
@@ -98,6 +98,7 @@ const { t, d } = i18n.global
   padding: 1.5rem;
   gap: 1rem;
 }
+
 .modal-content-edition {
   display: flex;
   flex-direction: column;

@@ -201,6 +201,7 @@ custom-toggle-switch {
   border: none;
   background: none;
 }
+
 .arrow-left {
   width: 0.8rem;
   border: none;
@@ -242,6 +243,7 @@ custom-toggle-switch {
   0% {
     background-position: 100% 0;
   }
+
   100% {
     background-position: -100% 0;
   }
@@ -255,6 +257,7 @@ custom-toggle-switch {
     align-items: center;
     padding-bottom: 0;
   }
+
   .allNews-body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

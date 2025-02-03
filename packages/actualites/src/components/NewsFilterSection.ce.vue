@@ -15,19 +15,18 @@
 -->
 
 <script setup lang="ts">
-import type {Rubrique} from '@/types/Rubrique.ts'
-import {computed, ref, onUnmounted, onMounted} from 'vue'
-import type {Actualite} from "@/types/Actualite.ts";
+import type { Rubrique } from '@/types/Rubrique.ts'
+import { computed, ref, onUnmounted, onMounted } from 'vue'
+import type { Actualite } from "@/types/Actualite.ts";
 import i18n from "@/plugins/i18n.ts";
-import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
-
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const props = defineProps<{
   actualites: Actualite
 }>()
 
 const emit = defineEmits(['updateModelValue'])
-const {t} = i18n.global
+const { t } = i18n.global
 
 let currentSource = ref<string | undefined>(undefined)
 let currentSection = ref<Set<number>>(new Set<number>())
@@ -40,7 +39,7 @@ const allSections = {
   name: t('text.filter.all-sections')
 }
 
-const sources = computed<Array<string>>(() => props.actualites ? [undefined, ...props.actualites.sources] : [])
+const sources = computed<Array<string | undefined>>(() => props.actualites ? [undefined, ...props.actualites.sources] : [])
 
 const rubriques = computed<Array<Rubrique>>(() => {
   const rubriqueMap = new Map<string, Rubrique>()
@@ -120,8 +119,8 @@ function handleResize() {
         </div>
 
         <div class="caret-button">
-          <FontAwesomeIcon class="caret" v-if="!isMenuFilterOpen" icon="fa-solid fa-caret-down"/>
-          <FontAwesomeIcon class="caret" v-if="isMenuFilterOpen" icon="fa-solid fa-caret-up"/>
+          <FontAwesomeIcon class="caret" v-if="!isMenuFilterOpen" icon="fa-solid fa-caret-down" />
+          <FontAwesomeIcon class="caret" v-if="isMenuFilterOpen" icon="fa-solid fa-caret-up" />
         </div>
       </button>
 
@@ -139,14 +138,12 @@ function handleResize() {
                 :class="{ active: source === currentSource }"
                 @click="setSource(source)"
                 tabindex="0"
-                @keydown.enter="setSource(source)"
-              >
+                @keydown.enter="setSource(source)">
                 {{ source ?? t('text.filter.all-sources') }}
               </div>
             </div>
           </div>
         </template>
-
 
         <template v-if="currentSource && isMenuFilterOpen">
           <div class="separator"></div>
@@ -159,7 +156,7 @@ function handleResize() {
               <div
                 v-for="section in rubriques"
                 class="filter-section-span"
-                :class="{ active: currentSection.size === 0 ? section.name === t('text.filter.all-sections') :  currentSection.has(section.uuid)  }"
+                :class="{ active: currentSection.size === 0 ? section.name === t('text.filter.all-sections') : currentSection.has(section.uuid) }"
                 @click="setSection(section)"
                 tabindex="0"
                 @keydown.enter="setSection(section)"
@@ -168,8 +165,6 @@ function handleResize() {
               </div>
 
             </div>
-
-
           </div>
         </template>
 
@@ -248,7 +243,7 @@ function handleResize() {
 .separator {
   width: 100%;
   height: 1px;
-  background-color: #d9d9d9; /* Gris clair */
+  background-color: #d9d9d9; // Gris clair
   border: none;
 }
 
@@ -342,7 +337,7 @@ function handleResize() {
   .separator {
     width: 100%;
     height: 1px;
-    background-color: #d9d9d9; /* Gris clair */
+    background-color: #d9d9d9; // Gris clair
     border: none;
     grid-column: 1 / 3;
   }

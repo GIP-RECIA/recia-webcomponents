@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type {User} from "@/types/User.ts";
+import type { User } from '@/types/User.ts'
 
-export interface Organization{
+export interface Organization {
   id: number
   createdBy: User
   createdDate: Date
@@ -29,5 +29,4 @@ export interface Organization{
   allowNotifications: boolean
   identifiers: Set<string>
   contextKey: Set<object>
-
 }

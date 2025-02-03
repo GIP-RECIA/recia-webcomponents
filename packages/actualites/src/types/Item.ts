@@ -17,10 +17,8 @@
 import type { Organization } from '@/types/Organization.ts'
 import type { Redactor } from '@/types/Redactor.ts'
 import type { User } from '@/types/User.ts'
-import type {LinkedFileItem} from "@/types/LinkedFileItem.ts";
 
 export interface Item {
-
   type: string
   id: number
   createdBy: User

@@ -19,7 +19,6 @@ import type { PaginatedResult } from '@/types/PaginatedResult.ts'
 import i18n from '@/plugins/i18n.ts'
 import { getNewsReadingInformations, getPaginatedNews } from '@/services/NewsService.ts'
 import { initToken, instance } from '@/utils/axiosUtils.ts'
-import { currentUser } from '@/utils/soffitUtils.ts'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { computed, onMounted, ref } from 'vue'
 
@@ -74,9 +73,7 @@ function next(): void {
   }
 }
 
-function allActualites() {
-
-}
+function allActualites() {}
 
 function getRubriques(codesRubriques: number[]) {
   return result.value ? result.value.actualite.rubriques.filter(r => codesRubriques.includes(Number(r.uuid))) : []
@@ -97,12 +94,12 @@ async function updateReadingInfos() {
         </div>
         <button tabindex="0" class="carousel-header-see-all-news computer" @click="allActualites">
           {{ t('text.normal.see-all-news') }}
-          <FontAwesomeIcon class="arrow-rigth" :icon="['fas', 'arrow-right']"/>
+          <FontAwesomeIcon class="arrow-rigth" :icon="['fas', 'arrow-right']" />
         </button>
       </div>
 
       <div v-if="loading" class="carousel-content">
-        <div v-for="index in 3" :key="index" class="skeleton-card"></div>
+        <div v-for="index in 3" :key="index" class="skeleton-card" />
       </div>
 
       <div v-if="result?.actualite?.items && !loading" class="carousel-content-container">
@@ -113,14 +110,22 @@ async function updateReadingInfos() {
         <div class="carousel-content">
           <div v-for="(item, index) in visibleItems" :key="index" class="card-wrapper">
             <news-card
-              :item="item" :rubriques="getRubriques(item.rubriques)" :page-origin="false"
+              :item="item"
+              :rubriques="getRubriques(item.rubriques)"
+              :page-origin="false"
               :is-read="readingInfos?.has(item.uuid) ? readingInfos.get(item.uuid) : false"
               @update-reading-infos="updateReadingInfos()"
             />
           </div>
         </div>
 
-        <button tabindex="0" class="arrow right" :disabled="currentIndex >= result?.actualite?.items?.length - 3" @click="next" @keydown.enter="next">
+        <button
+          tabindex="0"
+          class="arrow right"
+          :disabled="currentIndex >= result?.actualite?.items?.length - 3"
+          @click="next"
+          @keydown.enter="next"
+        >
           <FontAwesomeIcon class="circle-arrow-right" :icon="['fas', 'circle-arrow-right']" />
         </button>
       </div>
@@ -226,8 +231,13 @@ async function updateReadingInfos() {
 }
 
 @keyframes shimmer {
-  0% { background-position: 100% 0; }
-  100% { background-position: -100% 0; }
+  0% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: -100% 0;
+  }
 }
 
 /* Large devices such as laptops (1024px and up) */
@@ -238,6 +248,7 @@ async function updateReadingInfos() {
     grid-auto-rows: auto;
     position: relative;
   }
+
   .skeleton-card {
     height: 175px;
   }
@@ -280,7 +291,7 @@ async function updateReadingInfos() {
     flex-direction: row;
     align-items: center;
     gap: 8px;
-    justify-content: space-between; /* Écarte les enfants */
+    justify-content: space-between; // Écarte les enfants */
     grid-column-start: 2;
     grid-column-end: 3;
     grid-row-start: 1;
@@ -292,12 +303,9 @@ async function updateReadingInfos() {
   }
 
   .circle-arrow-left {
-
-
   }
 
   .circle-arrow-right {
-
   }
 
   .carousel-content {
@@ -312,7 +320,7 @@ async function updateReadingInfos() {
   }
 
   .card-wrapper {
-    min-width: calc(100% / 3); /* Divise l'espace en trois parties égales */
+    min-width: calc(100% / 3); // Divise l'espace en trois parties égales
     box-sizing: border-box;
   }
 

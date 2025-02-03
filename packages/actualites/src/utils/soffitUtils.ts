@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
+import type { JWT } from '@uportal/open-id-connect'
 import { CustomError } from '@/utils/CustomError.ts'
-import oidc, { type JWT } from '@uportal/open-id-connect'
+import oidc from '@uportal/open-id-connect'
 
 let currentUser: string | undefined
 

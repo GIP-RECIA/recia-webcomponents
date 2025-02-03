@@ -65,4 +65,16 @@ function register() {
   customElements.define('bottom-sheet', BottomSheet)
 }
 
-export { AllNews, BottomSheet, Carrousel, CustomToggleSwitch, I18nHost, MoreInformations, NewsCard, NewsFilterSection, PageSelector, register, ViewItem }
+export {
+  AllNews,
+  BottomSheet,
+  Carrousel,
+  CustomToggleSwitch,
+  I18nHost,
+  MoreInformations,
+  NewsCard,
+  NewsFilterSection,
+  PageSelector,
+  register,
+  ViewItem,
+}
