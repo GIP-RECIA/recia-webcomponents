@@ -16,56 +16,54 @@
 
 <script setup lang="ts">
 import type { Item } from '@/types/Item.ts'
-import i18n from '@/plugins/i18n.ts'
 import { capitalize } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 defineProps<{
   item: Item
 }>()
 
-const { t, d } = i18n.global
+const { t, d } = useI18n()
 </script>
 
 <template>
-  <i18n-host>
-    <div class="modal-container">
-      <div class="modal-content">
-        <div class="modal-content-edition">
-          <div class="modal-content-edition-by">
-            {{ t('text.creation-info.create-by') }}
-            <div :style="{ fontWeight: 'bold' }">
-              {{ capitalize(item.createdBy.displayName) }}
-            </div>
-          </div>
-          <div class="modal-content-edition-when">
-            {{ t('text.creation-info.when', { date: d(item.createdDate, 'medium'), datetime: d(item.createdDate, 'datetime') }) }}
+  <div class="modal-container">
+    <div class="modal-content">
+      <div class="modal-content-edition">
+        <div class="modal-content-edition-by">
+          {{ t('text.creation-info.create-by') }}
+          <div :style="{ fontWeight: 'bold' }">
+            {{ capitalize(item.createdBy.displayName) }}
           </div>
         </div>
-        <div class="modal-content-edition">
-          <div class="modal-content-edition-by">
-            {{ t('text.creation-info.update-by') }}
-            <div :style="{ fontWeight: 'bold' }">
-              {{ capitalize(item.lastModifiedBy.displayName) }}
-            </div>
-          </div>
-          <div class="modal-content-edition-when">
-            {{ t('text.creation-info.when', { date: d(item.lastModifiedDate, 'medium'), datetime: d(item.lastModifiedDate, 'datetime') }) }}
+        <div class="modal-content-edition-when">
+          {{ t('text.creation-info.when', { date: d(item.createdDate, 'medium'), datetime: d(item.createdDate, 'datetime') }) }}
+        </div>
+      </div>
+      <div class="modal-content-edition">
+        <div class="modal-content-edition-by">
+          {{ t('text.creation-info.update-by') }}
+          <div :style="{ fontWeight: 'bold' }">
+            {{ capitalize(item.lastModifiedBy.displayName) }}
           </div>
         </div>
-        <div class="modal-content-edition">
-          <div class="modal-content-edition-by">
-            {{ t('text.creation-info.validate-by') }}
-            <div :style="{ fontWeight: 'bold' }">
-              {{ capitalize(item.validatedBy.displayName) }}
-            </div>
+        <div class="modal-content-edition-when">
+          {{ t('text.creation-info.when', { date: d(item.lastModifiedDate, 'medium'), datetime: d(item.lastModifiedDate, 'datetime') }) }}
+        </div>
+      </div>
+      <div class="modal-content-edition">
+        <div class="modal-content-edition-by">
+          {{ t('text.creation-info.validate-by') }}
+          <div :style="{ fontWeight: 'bold' }">
+            {{ capitalize(item.validatedBy.displayName) }}
           </div>
-          <div class="modal-content-edition-when">
-            {{ t('text.creation-info.when', { date: d(item.validatedDate, 'medium'), datetime: d(item.validatedDate, 'datetime') }) }}
-          </div>
+        </div>
+        <div class="modal-content-edition-when">
+          {{ t('text.creation-info.when', { date: d(item.validatedDate, 'medium'), datetime: d(item.validatedDate, 'datetime') }) }}
         </div>
       </div>
     </div>
-  </i18n-host>
+  </div>
 </template>
 
 <style lang="scss">

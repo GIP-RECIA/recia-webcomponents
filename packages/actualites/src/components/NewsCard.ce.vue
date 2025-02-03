@@ -17,8 +17,8 @@
 <script setup lang="ts">
 import type { ItemVO } from '@/types/ItemVO.ts'
 import type { Rubrique } from '@/types/Rubrique.ts'
-import i18n from '@/plugins/i18n.ts'
 import { onUnmounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 // Props
 const props = defineProps<{
@@ -36,7 +36,7 @@ const baseUrl = import.meta.env.VITE_BASE_API_URL
 const showModal = ref(false)
 const openFullImage = ref(false)
 
-const { t, d } = i18n.global
+const { t, d } = useI18n()
 
 onUnmounted(() => {
 
@@ -69,57 +69,54 @@ function isPageOriginAll() {
 </script>
 
 <template>
-  <i18n-host>
-    <article tabindex="0" :class="{ active: !isRead, pageOrigin }" @click="openModal" @keydown.enter="openModal">
-      <div class="card-img">
-        <img class="image" :src="baseUrl.concat(props.item.article.enclosure)" alt="">
-      </div>
-      <div class="article-wrapper">
-        <div v-if="isPageOriginCarrousel()" class="source">
-          <div>{{ props.item.source }}</div>
-        </div>
-
-        <div v-if="isPageOriginAll()" class="infos">
-          <div>{{ d(props.item.pubDate, 'short') }}</div>
-          <div class="article-wrapper-lecture">
-            <div v-if="isRead">
-              {{ t('text.normal.read') }}
-            </div>
-            <div v-if="!isRead">
-              {{ t('text.normal.not-read') }}
-            </div>
-          </div>
-        </div>
-
-        <div class="card-body-title">
-          {{ props.item.article.title }}
-        </div>
-        <div class="card-body-description">
-          <div class="description">
-            {{ props.item.article.description }}
-          </div>
-        </div>
-        <div v-if="isPageOriginAll()" class="source all">
-          <div>{{ props.item.source }}</div>
-        </div>
-      </div>
-    </article>
-
-    <div v-if="showModal" class="open-modal" :class="{ active: showModal }">
-      <bottom-sheet
-        :is-read="props.isRead"
-        :item-id="props.item.uuid"
-        :rubriques="props.rubriques"
-        @close-modal="closeModal"
-      />
+  <article tabindex="0" :class="{ active: !isRead, pageOrigin }" @click="openModal" @keydown.enter="openModal">
+    <div class="card-img">
+      <img class="image" :src="baseUrl.concat(props.item.article.enclosure)" alt="">
     </div>
-  </i18n-host>
+    <div class="article-wrapper">
+      <div v-if="isPageOriginCarrousel()" class="source">
+        <div>{{ props.item.source }}</div>
+      </div>
+
+      <div v-if="isPageOriginAll()" class="infos">
+        <div>{{ d(props.item.pubDate, 'short') }}</div>
+        <div class="article-wrapper-lecture">
+          <div v-if="isRead">
+            {{ t('text.normal.read') }}
+          </div>
+          <div v-if="!isRead">
+            {{ t('text.normal.not-read') }}
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body-title">
+        {{ props.item.article.title }}
+      </div>
+      <div class="card-body-description">
+        <div class="description">
+          {{ props.item.article.description }}
+        </div>
+      </div>
+      <div v-if="isPageOriginAll()" class="source all">
+        <div>{{ props.item.source }}</div>
+      </div>
+    </div>
+  </article>
+
+  <div v-if="showModal" class="open-modal" :class="{ active: showModal }">
+    <bottom-sheet
+      :is-read="props.isRead"
+      :item-id="props.item.uuid"
+      :rubriques="props.rubriques"
+      @close-modal="closeModal"
+    />
+  </div>
 </template>
 
 <style lang="scss">
 @use '@/assets/colors.scss' as *;
 @use '@/assets/global.scss' as *;
-
 
 * {
   box-sizing: border-box;
