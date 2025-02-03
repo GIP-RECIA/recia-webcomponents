@@ -15,8 +15,8 @@
 -->
 
 <script setup lang="ts">
-import i18n from '@/plugins/i18n.ts'
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 // Définir les props
 const props = defineProps({
@@ -33,7 +33,7 @@ const emit = defineEmits(['readStatus'])
 // État actuel
 const currentState = ref(props.states[0])
 
-const { t } = i18n.global
+const { t } = useI18n()
 
 // Fonction pour définir un nouvel état
 function setState(state: string) {
@@ -45,23 +45,21 @@ function setState(state: string) {
 </script>
 
 <template>
-  <i18n-host>
-    <div class="toggle-switch">
-      <span
-        v-for="(state, index) in props.states"
-        :key="index"
-        :class="{ active: currentState === state }"
-        class="toggle-option"
-        @click="setState(state)"
-        tabindex="0"
-        @keydown.enter="setState(state)"
-      >
-        <div v-if="state === 'all'" class="toggle-option-more">{{ t('switch.all') }}</div>
-        <div v-if="state === 'read'" class="toggle-option-more">{{ t('switch.read') }}</div>
-        <div v-if="state === 'unread'" class="toggle-option-more">{{ t('switch.not-read') }}</div>
-      </span>
-    </div>
-  </i18n-host>
+  <div class="toggle-switch">
+    <span
+      v-for="(state, index) in props.states"
+      :key="index"
+      :class="{ active: currentState === state }"
+      class="toggle-option"
+      tabindex="0"
+      @click="setState(state)"
+      @keydown.enter="setState(state)"
+    >
+      <div v-if="state === 'all'" class="toggle-option-more">{{ t('switch.all') }}</div>
+      <div v-if="state === 'read'" class="toggle-option-more">{{ t('switch.read') }}</div>
+      <div v-if="state === 'unread'" class="toggle-option-more">{{ t('switch.not-read') }}</div>
+    </span>
+  </div>
 </template>
 
 <style lang="scss">

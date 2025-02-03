@@ -193,178 +193,180 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="bottomsheet-overlay" @click="closeModal">
-    <div
-      ref="bottomsheet"
-      class="bottomsheet-container"
-      :class="{ 'slide-down': !isSelfBottomSheetOpen, 'slide-up': isSelfBottomSheetOpen }"
-      @click.stop
-    >
-      <template v-if="true">
-        <img
-          v-if="item && !loading"
-          class="bottomsheet-container-background-desktop-image"
-          :src="baseUrl.concat(item.enclosure)"
-          alt=""
-        >
+  <i18n-host>
+    <div class="bottomsheet-overlay" @click="closeModal">
+      <div
+        ref="bottomsheet"
+        class="bottomsheet-container"
+        :class="{ 'slide-down': !isSelfBottomSheetOpen, 'slide-up': isSelfBottomSheetOpen }"
+        @click.stop
+      >
+        <template v-if="true">
+          <img
+            v-if="item && !loading"
+            class="bottomsheet-container-background-desktop-image"
+            :src="baseUrl.concat(item.enclosure)"
+            alt=""
+          >
 
-        <div class="bottomsheet-mobile-content-grip-area">
-          <div class="bottomsheet-mobile-content-grip-area-handle-bar" />
-        </div>
-
-        <button class="bottomsheet-content-header-close-btn" @click="closeModal">
-          <FontAwesomeIcon class="bottomsheet-content-header-close-btn-icon" :icon="['fas', 'xmark']" />
-        </button>
-
-        <div class="bottomsheet-content-header">
-          <div class="bottomsheet-content-header-image-group">
-            <div
-              ref="bottomsheetContentHeaderImageContainer"
-              class="bottomsheet-content-header-image-container"
-              :class="{ enlarge: isDesktopFullImage, shrink: isDesktopFullImage === false }"
-              @click="fullImage"
-            >
-              <img
-                v-if="item && !loading"
-                :src="baseUrl.concat(item.enclosure)"
-                alt=""
-                class="bottomsheet-content-header-image-container-img"
-                :class="{ enlarge: isDesktopFullImage, shrink: isDesktopFullImage === false }"
-              >
-              <div v-if="loading" class="bottomsheet-content-header-image-container-img">
-                <div v-for="index in 1" :key="index" class="skeleton-card" :style="{ borderRadius: '10px' }" />
-              </div>
-              <button class="bottomsheet-content-header-image-group-expand-container">
-                <img
-                  class="bottomsheet-content-header-image-group-expand-container-icon"
-                  src="/src/assets/svg/expand_content.svg" alt="icon-expand-content"
-                >
-              </button>
-
-              <button class="bottomsheet-content-header-image-group-reduce-container">
-                <img
-                  class="bottomsheet-content-header-image-group-reduce-icon"
-                  src="/src/assets/svg/reduce_content.svg"
-                  alt="icon-reduce-content"
-                >
-              </button>
-            </div>
+          <div class="bottomsheet-mobile-content-grip-area">
+            <div class="bottomsheet-mobile-content-grip-area-handle-bar" />
           </div>
 
-          <div class="bottomsheet-content-header-informations">
-            <div v-if="item && !loading" class="bottomsheet-content-header-informations-item-autor">
-              <div>
-                {{
-                  t('text.creation-info.global', { name: item.createdBy.displayName }) + d(item.createdBy.createdDate, 'long')
-                }}
+          <button class="bottomsheet-content-header-close-btn" @click="closeModal">
+            <FontAwesomeIcon class="bottomsheet-content-header-close-btn-icon" :icon="['fas', 'xmark']" />
+          </button>
+
+          <div class="bottomsheet-content-header">
+            <div class="bottomsheet-content-header-image-group">
+              <div
+                ref="bottomsheetContentHeaderImageContainer"
+                class="bottomsheet-content-header-image-container"
+                :class="{ enlarge: isDesktopFullImage, shrink: isDesktopFullImage === false }"
+                @click="fullImage"
+              >
+                <img
+                  v-if="item && !loading"
+                  :src="baseUrl.concat(item.enclosure)"
+                  alt=""
+                  class="bottomsheet-content-header-image-container-img"
+                  :class="{ enlarge: isDesktopFullImage, shrink: isDesktopFullImage === false }"
+                >
+                <div v-if="loading" class="bottomsheet-content-header-image-container-img">
+                  <div v-for="index in 1" :key="index" class="skeleton-card" :style="{ borderRadius: '10px' }" />
+                </div>
+                <button class="bottomsheet-content-header-image-group-expand-container">
+                  <img
+                    class="bottomsheet-content-header-image-group-expand-container-icon"
+                    src="/src/assets/svg/expand_content.svg" alt="icon-expand-content"
+                  >
+                </button>
+
+                <button class="bottomsheet-content-header-image-group-reduce-container">
+                  <img
+                    class="bottomsheet-content-header-image-group-reduce-icon"
+                    src="/src/assets/svg/reduce_content.svg"
+                    alt="icon-reduce-content"
+                  >
+                </button>
+              </div>
+            </div>
+
+            <div class="bottomsheet-content-header-informations">
+              <div v-if="item && !loading" class="bottomsheet-content-header-informations-item-autor">
+                <div>
+                  {{
+                    t('text.creation-info.global', { name: item.createdBy.displayName }) + d(item.createdBy.createdDate, 'long')
+                  }}
+                </div>
+
+                <div class="bottomsheet-content-header-informations-info-modal-container">
+                  <button
+                    class="bottomsheet-content-header-informations-info-modal-button"
+                    :class="{ active: showMoreInfosModal }"
+                    @click="openMoreInfosModal"
+                  >
+                    <div class="bottomsheet-content-header-informations-info-modal-icon-container">
+                      <div class="bottomsheet-content-header-informations-info-modal-icon">
+                        i
+                      </div>
+                    </div>
+                  </button>
+                  <more-informations
+                    v-if="showMoreInfosModal"
+                    class="modal-more-infos"
+                    :item="item"
+                  />
+                </div>
               </div>
 
-              <div class="bottomsheet-content-header-informations-info-modal-container">
-                <button
-                  class="bottomsheet-content-header-informations-info-modal-button"
-                  :class="{ active: showMoreInfosModal }"
-                  @click="openMoreInfosModal"
+              <div v-if="loading" class="bottomsheet-content-header-informations-item-autor">
+                <div
+                  v-for="index in 1"
+                  :key="index"
+                  class="skeleton-card"
+                  :style="{ borderRadius: '10px', height: '20px', width: '40%' }"
+                />
+              </div>
+
+              <div v-if="item && !loading" class="bottomsheet-content-header-informations-item-title">
+                {{ item.title }}
+              </div>
+              <div v-if="loading" class="bottomsheet-content-header-informations-item-title">
+                <div
+                  v-for="index in 1"
+                  :key="index"
+                  class="skeleton-card"
+                  :style="{ borderRadius: '10px', height: '30px', width: '80%', marginTop: '12px', marginBottom: '8px' }"
+                />
+              </div>
+              <div v-if="item && !loading" class="bottomsheet-content-header-informations-sections">
+                <span
+                  v-for="section in props.rubriques"
+                  :key="section.uuid"
+                  class="bottomsheet-content-header-informations-sections-tag"
+                  :class="{ 'light-text': isLightColor(section.color), 'dark-background': !isLightColor(section.color) }"
+                  :style="{ '--backgroundColor': `${section.color}` }"
                 >
-                  <div class="bottomsheet-content-header-informations-info-modal-icon-container">
-                    <div class="bottomsheet-content-header-informations-info-modal-icon">
-                      i
-                    </div>
-                  </div>
-                </button>
-                <more-informations
-                  v-if="showMoreInfosModal"
-                  class="modal-more-infos"
-                  :item="item"
+                  {{ section.name }}
+                </span>
+                <span
+                  class="bottomsheet-content-header-informations-sections-tag dark-background"
+                  :style="{ backgroundColor: 'black' }"
+                >
+                  {{ t('text.creation-info.publish-by', { organization: item.organization.name }) }}
+                </span>
+              </div>
+              <div v-if="loading" class="bottomsheet-content-header-informations-sections">
+                <div
+                  v-for="index in 2"
+                  :key="index"
+                  class="skeleton-card"
+                  :style="{ borderRadius: '10px', height: '20px', width: '15%' }"
                 />
               </div>
             </div>
+          </div>
 
-            <div v-if="loading" class="bottomsheet-content-header-informations-item-autor">
-              <div
-                v-for="index in 1"
-                :key="index"
-                class="skeleton-card"
-                :style="{ borderRadius: '10px', height: '20px', width: '40%' }"
-              />
-            </div>
-
-            <div v-if="item && !loading" class="bottomsheet-content-header-informations-item-title">
-              {{ item.title }}
-            </div>
-            <div v-if="loading" class="bottomsheet-content-header-informations-item-title">
-              <div
-                v-for="index in 1"
-                :key="index"
-                class="skeleton-card"
-                :style="{ borderRadius: '10px', height: '30px', width: '80%', marginTop: '12px', marginBottom: '8px' }"
-              />
-            </div>
-            <div v-if="item && !loading" class="bottomsheet-content-header-informations-sections">
-              <span
-                v-for="section in props.rubriques"
-                :key="section.uuid"
-                class="bottomsheet-content-header-informations-sections-tag"
-                :class="{ 'light-text': isLightColor(section.color), 'dark-background': !isLightColor(section.color) }"
-                :style="{ '--backgroundColor': `${section.color}` }"
-              >
-                {{ section.name }}
-              </span>
-              <span
-                class="bottomsheet-content-header-informations-sections-tag dark-background"
-                :style="{ backgroundColor: 'black' }"
-              >
-                {{ t('text.creation-info.publish-by', { organization: item.organization.name }) }}
-              </span>
-            </div>
-            <div v-if="loading" class="bottomsheet-content-header-informations-sections">
-              <div
-                v-for="index in 2"
-                :key="index"
-                class="skeleton-card"
-                :style="{ borderRadius: '10px', height: '20px', width: '15%' }"
-              />
-            </div>
+          <div v-if="item && !loading" class="bottomsheet-content-body" v-html="item.body" />
+        </template>
+        <div v-if="item && !loading" class="bottomsheet-content-footer">
+          <div class="bottomsheet-content-footer-separator" />
+          <div class="bottomsheet-content-footer-button-group">
+            <button class="mark-has-not-read-btn" @click="changeReadingState(!isReadingButton)">
+              <div v-if="isReadingButton">
+                {{ t('button.mark-as-not-read') }}
+              </div>
+              <div v-if="!isReadingButton">
+                {{ t('button.mark-as-read') }}
+              </div>
+            </button>
+            <button class="close-btn" @click="closeModal">
+              {{ t('button.close') }}
+            </button>
           </div>
         </div>
+      </div>
 
-        <div v-if="item && !loading" class="bottomsheet-content-body" v-html="item.body" />
-      </template>
-      <div v-if="item && !loading" class="bottomsheet-content-footer">
-        <div class="bottomsheet-content-footer-separator" />
-        <div class="bottomsheet-content-footer-button-group">
-          <button class="mark-has-not-read-btn" @click="changeReadingState(!isReadingButton)">
-            <div v-if="isReadingButton">
-              {{ t('button.mark-as-not-read') }}
-            </div>
-            <div v-if="!isReadingButton">
-              {{ t('button.mark-as-read') }}
-            </div>
-          </button>
-          <button class="close-btn" @click="closeModal">
-            {{ t('button.close') }}
+      <div v-if="isMobileFullImage" class="bottomsheet-content-header-image-group-full-image-overlay" @click.stop>
+        <div class="bottomsheet-content-header-image-group-full-image-container" @click="fullImage">
+          <img
+            class="bottomsheet-content-header-image-group-full-image"
+            :src="baseUrl.concat(item?.enclosure)"
+            alt="full-image"
+            @click.stop
+          >
+          <button class="bottomsheet-content-header-image-group-reduce-container">
+            <img
+              class="bottomsheet-content-header-image-group-reduce-icon"
+              src="/src/assets/svg/reduce_content.svg"
+              alt="icon-reduce-content"
+            >
           </button>
         </div>
       </div>
     </div>
-
-    <div v-if="isMobileFullImage" class="bottomsheet-content-header-image-group-full-image-overlay" @click.stop>
-      <div class="bottomsheet-content-header-image-group-full-image-container" @click="fullImage">
-        <img
-          class="bottomsheet-content-header-image-group-full-image"
-          :src="baseUrl.concat(item?.enclosure)"
-          alt="full-image"
-          @click.stop
-        >
-        <button class="bottomsheet-content-header-image-group-reduce-container">
-          <img
-            class="bottomsheet-content-header-image-group-reduce-icon"
-            src="/src/assets/svg/reduce_content.svg"
-            alt="icon-reduce-content"
-          >
-        </button>
-      </div>
-    </div>
-  </div>
+  </i18n-host>
 </template>
 
 <style lang="scss">
