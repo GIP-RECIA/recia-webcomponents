@@ -174,6 +174,7 @@ button.arrow:focus-visible {
   background-color: $standard-colour-black;
   color: $standard-colour-white;
 }
+
 .page-number.active:focus-visible {
   background-color: $primary;
   color: $standard-colour-white;

@@ -200,8 +200,13 @@ onBeforeUnmount(() => {
       :class="{ 'slide-down': !isSelfBottomSheetOpen, 'slide-up': isSelfBottomSheetOpen }"
       @click.stop
     >
-      <template  v-if="true">
-        <img v-if="item && !loading" class="bottomsheet-container-background-desktop-image" :src="baseUrl.concat(item.enclosure)" alt="">
+      <template v-if="true">
+        <img
+          v-if="item && !loading"
+          class="bottomsheet-container-background-desktop-image"
+          :src="baseUrl.concat(item.enclosure)"
+          alt=""
+        >
 
         <div class="bottomsheet-mobile-content-grip-area">
           <div class="bottomsheet-mobile-content-grip-area-handle-bar" />
@@ -213,10 +218,21 @@ onBeforeUnmount(() => {
 
         <div class="bottomsheet-content-header">
           <div class="bottomsheet-content-header-image-group">
-            <div ref="bottomsheetContentHeaderImageContainer" class="bottomsheet-content-header-image-container" :class="{ enlarge: isDesktopFullImage, shrink: isDesktopFullImage === false }" @click="fullImage">
-              <img v-if="item && !loading" :src="baseUrl.concat(item.enclosure)" alt="" class="bottomsheet-content-header-image-container-img" :class="{ enlarge: isDesktopFullImage, shrink: isDesktopFullImage === false }">
+            <div
+              ref="bottomsheetContentHeaderImageContainer"
+              class="bottomsheet-content-header-image-container"
+              :class="{ enlarge: isDesktopFullImage, shrink: isDesktopFullImage === false }"
+              @click="fullImage"
+            >
+              <img
+                v-if="item && !loading"
+                :src="baseUrl.concat(item.enclosure)"
+                alt=""
+                class="bottomsheet-content-header-image-container-img"
+                :class="{ enlarge: isDesktopFullImage, shrink: isDesktopFullImage === false }"
+              >
               <div v-if="loading" class="bottomsheet-content-header-image-container-img">
-                <div v-for="index in 1" :key="index" class="skeleton-card" :style="{ borderRadius: '10px' }"/>
+                <div v-for="index in 1" :key="index" class="skeleton-card" :style="{ borderRadius: '10px' }" />
               </div>
               <button class="bottomsheet-content-header-image-group-expand-container">
                 <img
@@ -227,7 +243,8 @@ onBeforeUnmount(() => {
 
               <button class="bottomsheet-content-header-image-group-reduce-container">
                 <img
-                  class="bottomsheet-content-header-image-group-reduce-icon" src="/src/assets/svg/reduce_content.svg"
+                  class="bottomsheet-content-header-image-group-reduce-icon"
+                  src="/src/assets/svg/reduce_content.svg"
                   alt="icon-reduce-content"
                 >
               </button>
@@ -236,7 +253,7 @@ onBeforeUnmount(() => {
 
           <div class="bottomsheet-content-header-informations">
             <div v-if="item && !loading" class="bottomsheet-content-header-informations-item-autor">
-              <div >
+              <div>
                 {{
                   t('text.creation-info.global', { name: item.createdBy.displayName }) + d(item.createdBy.createdDate, 'long')
                 }}
@@ -245,7 +262,8 @@ onBeforeUnmount(() => {
               <div class="bottomsheet-content-header-informations-info-modal-container">
                 <button
                   class="bottomsheet-content-header-informations-info-modal-button"
-                  :class="{ active: showMoreInfosModal }" @click="openMoreInfosModal"
+                  :class="{ active: showMoreInfosModal }"
+                  @click="openMoreInfosModal"
                 >
                   <div class="bottomsheet-content-header-informations-info-modal-icon-container">
                     <div class="bottomsheet-content-header-informations-info-modal-icon">
@@ -254,20 +272,32 @@ onBeforeUnmount(() => {
                   </div>
                 </button>
                 <more-informations
-                  v-if="showMoreInfosModal" class="modal-more-infos" :item="item"
+                  v-if="showMoreInfosModal"
+                  class="modal-more-infos"
+                  :item="item"
                 />
               </div>
             </div>
 
             <div v-if="loading" class="bottomsheet-content-header-informations-item-autor">
-              <div v-for="index in 1" :key="index" class="skeleton-card" :style="{ borderRadius: '10px', height: '20px', width: '40%' }"/>
+              <div
+                v-for="index in 1"
+                :key="index"
+                class="skeleton-card"
+                :style="{ borderRadius: '10px', height: '20px', width: '40%' }"
+              />
             </div>
 
             <div v-if="item && !loading" class="bottomsheet-content-header-informations-item-title">
               {{ item.title }}
             </div>
             <div v-if="loading" class="bottomsheet-content-header-informations-item-title">
-              <div v-for="index in 1" :key="index" class="skeleton-card" :style="{ borderRadius: '10px', height: '30px', width: '80%', marginTop: '12px', marginBottom: '8px' }"/>
+              <div
+                v-for="index in 1"
+                :key="index"
+                class="skeleton-card"
+                :style="{ borderRadius: '10px', height: '30px', width: '80%', marginTop: '12px', marginBottom: '8px' }"
+              />
             </div>
             <div v-if="item && !loading" class="bottomsheet-content-header-informations-sections">
               <span
@@ -287,7 +317,12 @@ onBeforeUnmount(() => {
               </span>
             </div>
             <div v-if="loading" class="bottomsheet-content-header-informations-sections">
-              <div v-for="index in 2" :key="index" class="skeleton-card" :style="{ borderRadius: '10px', height: '20px', width: '15%' }"/>
+              <div
+                v-for="index in 2"
+                :key="index"
+                class="skeleton-card"
+                :style="{ borderRadius: '10px', height: '20px', width: '15%' }"
+              />
             </div>
           </div>
         </div>
@@ -315,12 +350,15 @@ onBeforeUnmount(() => {
     <div v-if="isMobileFullImage" class="bottomsheet-content-header-image-group-full-image-overlay" @click.stop>
       <div class="bottomsheet-content-header-image-group-full-image-container" @click="fullImage">
         <img
-          class="bottomsheet-content-header-image-group-full-image" :src="baseUrl.concat(item?.enclosure)"
-          alt="full-image" @click.stop
+          class="bottomsheet-content-header-image-group-full-image"
+          :src="baseUrl.concat(item?.enclosure)"
+          alt="full-image"
+          @click.stop
         >
         <button class="bottomsheet-content-header-image-group-reduce-container">
           <img
-            class="bottomsheet-content-header-image-group-reduce-icon" src="/src/assets/svg/reduce_content.svg"
+            class="bottomsheet-content-header-image-group-reduce-icon"
+            src="/src/assets/svg/reduce_content.svg"
             alt="icon-reduce-content"
           >
         </button>
@@ -626,6 +664,7 @@ onBeforeUnmount(() => {
   from {
     transform: translateY(100%);
   }
+
   to {
     transform: translateY(0);
   }
@@ -635,6 +674,7 @@ onBeforeUnmount(() => {
   from {
     transform: translateY(0%);
   }
+
   to {
     transform: translateY(100%);
   }
@@ -645,18 +685,20 @@ onBeforeUnmount(() => {
   0% {
     transform: scale(1);
   }
+
   100% {
-    transform: scale(2.5); /* Taille augmentée de 50% */
+    transform: scale(2.5); // Taille augmentée de 50%
   }
 }
 
 /* Réduire */
 @keyframes shrink {
   0% {
-    transform: scale(2.5); /* Taille initialement augmentée */
+    transform: scale(2.5); // Taille initialement augmentée
   }
+
   100% {
-    transform: scale(1); /* Retour à la taille normale */
+    transform: scale(1); // Retour à la taille normale
   }
 }
 
@@ -672,6 +714,7 @@ onBeforeUnmount(() => {
   0% {
     background-position: 100% 0;
   }
+
   100% {
     background-position: -100% 0;
   }
@@ -776,6 +819,7 @@ onBeforeUnmount(() => {
 
           .bottomsheet-content-header-image-container.enlarge {
             outline-color: $primary;
+
             .bottomsheet-content-header-image-container-img.enlarge {
               transform-origin: top left;
               animation: enlarge 0.3s forwards;

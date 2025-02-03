@@ -19,6 +19,7 @@ import type { ItemVO } from '@/types/ItemVO.ts'
 import type { Rubrique } from '@/types/Rubrique.ts'
 import i18n from '@/plugins/i18n.ts'
 import { defineProps, onUnmounted, ref } from 'vue'
+
 // Props
 const props = defineProps<{
   item: ItemVO
@@ -106,7 +107,9 @@ function isPageOriginAll() {
 
     <div v-if="showModal" class="open-modal" :class="{ active: showModal }">
       <bottom-sheet
-        :is-read="props.isRead" :item-id="props.item.uuid" :rubriques="props.rubriques"
+        :is-read="props.isRead"
+        :item-id="props.item.uuid"
+        :rubriques="props.rubriques"
         @close-modal="closeModal"
       />
     </div>
@@ -162,7 +165,7 @@ article:not(.active) {
 }
 
 .image {
-  height: 100%; /* Remplit complètement la div */
+  height: 100%; // Remplit complètement la div
   object-fit: cover;
   transform-origin: center;
 }
@@ -308,6 +311,7 @@ article.pageOrigin.active {
   article:hover {
     outline: 2px solid $primary;
     box-shadow: color-mix(in srgb, $primary, #0000 80%) 0 4px 26px 0;
+
     .card-body-title {
       color: $primary;
     }
@@ -316,6 +320,7 @@ article.pageOrigin.active {
   article:focus-visible {
     outline: 2px solid $primary;
     box-shadow: color-mix(in srgb, $primary, #0000 80%) 0 4px 26px 0;
+
     .card-body-title {
       color: $primary;
     }

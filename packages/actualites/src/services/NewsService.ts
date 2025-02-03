@@ -16,7 +16,13 @@
 
 import { instance } from '@/utils/axiosUtils.ts'
 
-async function getPaginatedNews(readerId: number, pageIndex?: number | undefined, source?: string | undefined, rubriques?: Array<number> | undefined, lecture?: boolean | undefined) {
+async function getPaginatedNews(
+  readerId: number,
+  pageIndex?: number | undefined,
+  source?: string | undefined,
+  rubriques?: Array<number> | undefined,
+  lecture?: boolean | undefined,
+) {
   try {
     const params: Record<string, any> = {}
     // Ajoute les paramètres uniquement s'ils sont définis
@@ -88,4 +94,11 @@ async function setReading(itemId: number | undefined, isRead: boolean) {
   }
 }
 
-export { getAttachementsById, getFile, getItemById, getNewsReadingInformations, getPaginatedNews, setReading }
+export {
+  getAttachementsById,
+  getFile,
+  getItemById,
+  getNewsReadingInformations,
+  getPaginatedNews,
+  setReading,
+}

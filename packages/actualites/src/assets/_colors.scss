@@ -15,21 +15,19 @@
  */
 
 $standard-colour-white: #fff;
-$standard-colour-black: #1E1E1E;
-$standard-colour-ligth-black: #2C2C2C;
+$standard-colour-black: #1e1e1e;
+$standard-colour-ligth-black: #2c2c2c;
 $standard-colour-dark-black: #171717;
 $standard-colour-dark-grey: #737373;
-$standard-colour-ligth-grey: #F4F4F4;
-$standard-colour-grey: #E9E9E9;
+$standard-colour-ligth-grey: #f4f4f4;
+$standard-colour-grey: #e9e9e9;
 
 $primary-pressed: var(--primary-pressed, #004584);
-$primary: var(--primary, #0062BC);
-$primary-transparent: var(--primary-transparent, #0062BC0D);
-$secondary-pressed: var(--secondary-pressed, #CCE0F2);
-$secondary-hover: var(--secondary-hover, #E6EFF8);
-$primary-pressed-dark-mode: var(--primary-pressed-dark-mode, #8AC7FF);
-$primary-dark-mode: var(--primary-dark-mode, #57AEFF);
-$secondary-pressed-dark-mode: var(--secondary-pressed-dark-mode, #212E3A);
-$secondary-hover-dark-mode: var(--secondary-hover-dark-mode, #1A1F23);
-
-
+$primary: var(--primary, #0062bc);
+$primary-transparent: var(--primary-transparent, #0062bc0d);
+$secondary-pressed: var(--secondary-pressed, #cce0f2);
+$secondary-hover: var(--secondary-hover, #e6eff8);
+$primary-pressed-dark-mode: var(--primary-pressed-dark-mode, #8ac7ff);
+$primary-dark-mode: var(--primary-dark-mode, #57aeff);
+$secondary-pressed-dark-mode: var(--secondary-pressed-dark-mode, #212e3a);
+$secondary-hover-dark-mode: var(--secondary-hover-dark-mode, #1a1f23);

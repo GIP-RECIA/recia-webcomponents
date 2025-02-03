@@ -15,7 +15,6 @@
  */
 
 export interface Redactor {
-
   id: number
   name: string
   displayName: string
@@ -25,5 +24,4 @@ export interface Redactor {
   nbLevelsOfClassification: number
   optionalPublishTime: boolean
   nbDaysMaxDuration: number
-
 }

@@ -54,12 +54,11 @@ function setState(state: string) {
         class="toggle-option"
         @click="setState(state)"
         tabindex="0"
-        @keydown.enter ="setState(state)"
+        @keydown.enter="setState(state)"
       >
         <div v-if="state === 'all'" class="toggle-option-more">{{ t('switch.all') }}</div>
         <div v-if="state === 'read'" class="toggle-option-more">{{ t('switch.read') }}</div>
         <div v-if="state === 'unread'" class="toggle-option-more">{{ t('switch.not-read') }}</div>
-
       </span>
     </div>
   </i18n-host>
@@ -100,13 +99,12 @@ function setState(state: string) {
   color: $primary;
   outline: 3px solid $primary;
 }
+
 .toggle-option.active:focus-visible {
   background-color: $primary;
   color: $standard-colour-white;
   outline: 3px solid $primary-transparent;
 }
-
-
 
 .toggle-option-more {
   display: inline-flex;
@@ -129,7 +127,7 @@ function setState(state: string) {
 
 /* Effet de survol pour les options non actives */
 .toggle-option:not(.active):hover {
-  background-color: rgba(0, 123, 255, 0.1); /* Bleu transparent */
-  color:$primary; /* Texte bleu */
+  background-color: rgba(0, 123, 255, 0.1); // Bleu transparent
+  color: $primary; // Texte bleu
 }
 </style>

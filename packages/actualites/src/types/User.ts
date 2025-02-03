@@ -15,7 +15,6 @@
  */
 
 export interface User {
-
   login: string
   displayName: string
   enabled: boolean
@@ -24,5 +23,4 @@ export interface User {
   langKey: string
   createdDate: Date
   lastModifiedDate: Date
-
 }
