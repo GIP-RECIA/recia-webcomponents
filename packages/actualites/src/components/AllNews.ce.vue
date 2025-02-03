@@ -166,7 +166,7 @@ function showItemDependsOnReadingState(item: ItemVO) {
   </i18n-host>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 @use '@/assets/global.scss' as *;
 
 .allNews-container {
