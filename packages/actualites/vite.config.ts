@@ -52,7 +52,6 @@ export default ({ mode }: { mode: string }) => {
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
-        '@vueuse/motion': 'node_modules/@vueuse/motion',
       },
     },
     css: {
