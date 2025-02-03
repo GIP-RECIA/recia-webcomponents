@@ -18,15 +18,15 @@
 import type { Rubrique } from '@/types/Rubrique.ts'
 import { computed, ref, onUnmounted, onMounted } from 'vue'
 import type { Actualite } from "@/types/Actualite.ts";
-import i18n from "@/plugins/i18n.ts";
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps<{
   actualites: Actualite
 }>()
 
 const emit = defineEmits(['updateModelValue'])
-const { t } = i18n.global
+const { t } = useI18n()
 
 let currentSource = ref<string | undefined>(undefined)
 let currentSection = ref<Set<number>>(new Set<number>())
@@ -105,7 +105,6 @@ function handleResize() {
 </script>
 
 <template>
-  <i18n-host>
     <div class="filter-section-container">
       <div v-if="disableButton" class="filter-title">
         {{ t('text.title.filters') }}
@@ -170,7 +169,6 @@ function handleResize() {
 
       </div>
     </div>
-  </i18n-host>
 </template>
 
 <style lang="scss">
