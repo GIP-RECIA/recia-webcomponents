@@ -1430,7 +1430,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@gip-recia/mce-ui@workspace:packages/mce"
   dependencies:
-    "@antfu/eslint-config": "npm:^3.14.0"
+    "@antfu/eslint-config": "npm:^4.1.1"
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.2"
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.2"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
@@ -1443,17 +1443,17 @@ __metadata:
     "@vue/tsconfig": "npm:^0.7.0"
     axios: "npm:^1.7.9"
     dotenv-checker: "npm:^1.1.7"
-    eslint: "npm:^9.18.0"
+    eslint: "npm:^9.19.0"
     eslint-plugin-format: "npm:^1.0.1"
-    lint-staged: "npm:^15.3.0"
+    lint-staged: "npm:^15.4.3"
     npm-run-all2: "npm:^7.0.2"
     regenerator-runtime: "npm:^0.14.1"
-    sass: "npm:^1.83.1"
+    sass: "npm:^1.83.4"
     terser: "npm:^5.37.0"
     typescript: "npm:^5.7.3"
-    vite: "npm:^6.0.7"
+    vite: "npm:^6.0.9"
     vue: "npm:^3.5.13"
-    vue-i18n: "npm:^11.0.1"
+    vue-i18n: "npm:^11.1.0"
     vue-tsc: "npm:^2.2.0"
   languageName: unknown
   linkType: soft
