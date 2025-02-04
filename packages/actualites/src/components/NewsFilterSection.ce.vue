@@ -172,7 +172,6 @@ function handleResize() {
 </template>
 
 <style lang="scss">
-@use '@/assets/colors.scss' as *;
 @use '@/assets/global.scss' as *;
 
 * {
