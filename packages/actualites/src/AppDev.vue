@@ -32,38 +32,14 @@ const {
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 70%; /* 80% de la largeur totale (10% de marge de chaque côté) */
-  justify-content: center; /* Centre horizontalement le contenu interne */
-  align-items: center; /* Centre verticalement */
-  margin: 0 auto; /* Ajoute automatiquement 10% de marge blanche de chaque côté */
-  background-color: #fff; /* (Optionnel) Ajoutez une couleur de fond si nécessaire */
+  width: 70%; // 80% de la largeur totale (10% de marge de chaque côté)
+  margin: 0 auto;
   gap: 2rem;
 }
 
 all-news,
 carrousel-ui {
   width: 100%;
-}
-
-.popover-container {
-  position: relative;
-  display: inline-block;
-
-  button {
-    display: flex;
-    position: relative;
-    z-index: 2;
-    justify-content: center;
-  }
-
-  .popover {
-    position: absolute;
-    background-color: #fff;
-    border-radius: 24px;
-    border: 1px solid;
-    top: 0;
-    right: 0;
-  }
 }
 
 @media (max-width: 768px) {
