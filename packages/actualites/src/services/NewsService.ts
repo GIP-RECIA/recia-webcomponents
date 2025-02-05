@@ -18,7 +18,6 @@ import { instance } from '@/utils/axiosUtils.ts'
 
 async function getPaginatedNews(
   getUserNewsUrl: string,
-  readerId: number,
   pageIndex?: number | undefined,
   source?: string | undefined,
   rubriques?: Array<number> | undefined,
