@@ -20,7 +20,6 @@ import axios from 'axios'
 
 const instance = axios.create({
   timeout: import.meta.env.VITE_AXIOS_TIMEOUT,
-  baseURL: import.meta.env.VITE_BASE_API_URL,
 })
 const isDev: boolean = import.meta.env.DEV
 
