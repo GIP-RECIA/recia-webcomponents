@@ -21,6 +21,7 @@ import type { AxiosResponse } from 'axios'
 import i18n from '@/plugins/i18n.ts'
 import { getItemById, setReading } from '@/services/NewsService.ts'
 import { isLightColor } from '@/utils/ContrasteUtils.ts'
+import { isUserConnected } from '@/utils/soffitUtils.ts'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useWindowSize } from '@vueuse/core'
 import { onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from 'vue'
@@ -347,7 +348,7 @@ onBeforeUnmount(() => {
         <div v-if="item && !loading" class="bottomsheet-content-footer">
           <div class="bottomsheet-content-footer-separator" />
           <div class="bottomsheet-content-footer-button-group">
-            <button class="mark-has-not-read-btn" @click="changeReadingState(!isReadingButton)">
+            <button v-if="isUserConnected" class="mark-has-not-read-btn" @click="changeReadingState(!isReadingButton)">
               <div v-if="isReadingButton">
                 {{ t('button.mark-as-not-read') }}
               </div>
