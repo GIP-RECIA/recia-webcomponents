@@ -18,8 +18,6 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { computed, ref } from 'vue'
 
-// Props
-
 const props = withDefaults(
   defineProps<{
     totalPages: number
@@ -30,21 +28,17 @@ const props = withDefaults(
   },
 )
 
-// Émission d'événements
 const emit = defineEmits(['updateModelValue'])
 
-// Variables et état
 const currentPage = ref(1)
 
-// Navigation entre pages
-function goToPage(page) {
+function goToPage(page: number) {
   if (page >= 1 && page <= props.totalPages) {
     currentPage.value = page
     emit('updateModelValue', page)
   }
 }
 
-// Pages visibles (dynamique)
 const visiblePages = computed(() => {
   const half = Math.floor(props.maxVisiblePages / 2)
   let start = Math.max(currentPage.value - half, 1)
@@ -59,124 +53,110 @@ const visiblePages = computed(() => {
 </script>
 
 <template>
-  <div class="pagination">
-    <!-- Bouton pour aller à la première page -->
-    <button
-      class="arrow"
-      :disabled="currentPage === 1"
-      @click="goToPage(1)"
-    >
-      <FontAwesomeIcon class="icon" :icon="['fas', 'angles-left']" />
-    </button>
-
-    <!-- Bouton pour reculer d'une page -->
-    <button
-      class="arrow"
-      :disabled="currentPage === 1"
-      @click="goToPage(currentPage - 1)"
-    >
-      <FontAwesomeIcon class="icon" :icon="['fas', 'angle-left']" />
-    </button>
-
-    <!-- Numéros de page -->
-    <span
-      v-for="page in visiblePages"
-      :key="page"
-      class="page-number"
-      :class="{ active: page === currentPage }"
-      tabindex="0"
-      @click="goToPage(page)"
-      @keydown.enter="goToPage(page)"
-    >
-      {{ page }}
-    </span>
-
-    <!-- Bouton pour avancer d'une page -->
-    <button
-      class="arrow"
-      :disabled="currentPage === totalPages"
-      @click="goToPage(currentPage + 1)"
-    >
-      <FontAwesomeIcon class="icon" :icon="['fas', 'angle-right']" />
-    </button>
-
-    <!-- Bouton pour aller à la dernière page -->
-    <button
-      class="arrow"
-      :disabled="currentPage === totalPages"
-      @click="goToPage(totalPages)"
-    >
-      <FontAwesomeIcon class="icon extrem" :icon="['fas', 'angles-right']" />
-    </button>
-  </div>
+  <ul>
+    <li>
+      <button :disabled="currentPage === 1" @click="goToPage(1)">
+        <FontAwesomeIcon :icon="['fas', 'angles-left']" />
+      </button>
+    </li>
+    <li>
+      <button :disabled="currentPage === 1" @click="goToPage(currentPage - 1)">
+        <FontAwesomeIcon :icon="['fas', 'angle-left']" />
+      </button>
+    </li>
+    <li v-for="page in visiblePages" :key="page">
+      <button :class="{ active: page === currentPage }" @click="goToPage(page)">
+        {{ page }}
+      </button>
+    </li>
+    <li>
+      <button :disabled="currentPage === totalPages" @click="goToPage(currentPage + 1)">
+        <FontAwesomeIcon :icon="['fas', 'angle-right']" />
+      </button>
+    </li>
+    <li>
+      <button :disabled="currentPage === totalPages" @click="goToPage(totalPages)">
+        <FontAwesomeIcon :icon="['fas', 'angles-right']" />
+      </button>
+    </li>
+  </ul>
 </template>
 
 <style lang="scss">
 @use '@/assets/global.scss' as *;
 
-.pagination {
+* {
+  box-sizing: border-box;
+}
+
+ul,
+li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  border: none;
+  background: none;
+}
+
+ul {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-}
 
-button.arrow {
-  display: flex;
-  width: 28px;
-  height: 28px;
-  background: transparent;
-  border: none;
-  justify-content: center;
-  border-radius: 14px;
-  font-family: $dm-sans;
-  justify-items: center;
-  align-items: center;
-}
+  > li > button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 34px;
+    width: 34px;
+    border-radius: 80px;
+    font-family: $dm-sans;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
 
-button.arrow:disabled {
-  cursor: not-allowed;
-  opacity: 0.9;
-}
+    &.active {
+      background-color: $standard-colour-black;
+      color: white;
 
-button.arrow:focus-visible {
-  background-color: $primary-transparent;
-  color: $primary;
-  outline: 3px solid $primary;
-}
+      &:hover {
+        background-color: $primary;
+      }
 
-.icon {
-  width: 9px;
-  height: 9px;
-}
+      &:focus-visible {
+        background-color: $primary;
+        color: $standard-colour-white;
+        outline: 3px solid #0062bc4d;
+      }
+    }
 
-.page-number {
-  display: flex;
-  cursor: pointer;
-  width: 9px;
-  height: 9px;
-  padding: 0.6rem;
-  justify-content: center;
-  align-items: center;
-  font-family: $dm-sans;
-  font-size: 14px;
-  border-radius: 50%;
-}
+    &:not(.active) {
+      &:hover {
+        background-color: $primary-transparent;
+        color: $primary;
+      }
 
-.page-number:focus-visible {
-  color: $primary;
-  background-color: $primary-transparent;
-  outline: 3px solid $primary;
-}
+      &:focus-visible {
+        background-color: $primary-transparent;
+        color: $primary;
+        outline: 3px solid $primary;
+      }
+    }
 
-.page-number.active {
-  background-color: $standard-colour-black;
-  color: $standard-colour-white;
-}
+    &:disabled,
+    &.disabled {
+      opacity: 0.33;
+      pointer-events: none;
+    }
 
-.page-number.active:focus-visible {
-  background-color: $primary;
-  color: $standard-colour-white;
-  outline: 3px solid $primary-transparent;
+    > svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
 }
 </style>
