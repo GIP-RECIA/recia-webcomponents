@@ -17,13 +17,32 @@
 <script setup lang="ts">
 const {
   VITE_USER_INFO_API_URI,
+  VITE_BASE_API_URL,
+  VITE_USER_NEWS_URI,
+  VITE_GET_ITEM_URI,
+  VITE_GET_NEWS_READING_URI,
+  VITE_SET_NEWS_READING_URI,
 } = import.meta.env
 </script>
 
 <template>
   <div class="app-dev">
-    <carrousel-ui :user-info-api-url="VITE_USER_INFO_API_URI" />
-    <all-news :user-info-api-url="VITE_USER_INFO_API_URI" />
+    <carrousel-ui
+      :user-info-api-url="VITE_USER_INFO_API_URI"
+      :base-url="VITE_BASE_API_URL"
+      :get-user-news-url="VITE_USER_NEWS_URI"
+      :get-item-by-id-url="VITE_GET_ITEM_URI"
+      :get-news-reading-informations-url="VITE_GET_NEWS_READING_URI"
+      :set-reading-url="VITE_SET_NEWS_READING_URI"
+    />
+    <all-news
+      :user-info-api-url="VITE_USER_INFO_API_URI"
+      :base-url="VITE_BASE_API_URL"
+      :get-user-news-url="VITE_USER_NEWS_URI"
+      :get-item-by-id-url="VITE_GET_ITEM_URI"
+      :get-news-reading-informations-url="VITE_GET_NEWS_READING_URI"
+      :set-reading-url="VITE_SET_NEWS_READING_URI"
+    />
   </div>
 </template>
 
