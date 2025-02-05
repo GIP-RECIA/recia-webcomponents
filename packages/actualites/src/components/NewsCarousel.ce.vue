@@ -23,7 +23,12 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { computed, onMounted, ref } from 'vue'
 
 const props = defineProps<{
+  getItemByIdUrl: string
+  baseUrl: string
   userInfoApiUrl: string
+  getUserNewsUrl: string
+  setReadingUrl: string
+  getNewsReadingInformationsUrl: string
 }>()
 
 const result = ref<PaginatedResult>()
@@ -38,8 +43,8 @@ onMounted(async () => {
       await initToken(props.userInfoApiUrl)
     }
     // await getprops.userInfoApiUrlConfig(props.baseApiUrl)
-    result.value = await getPaginatedNews(2, undefined, undefined, undefined)
-    const objectResult = await getNewsReadingInformations()
+    result.value = await getPaginatedNews(props.getUserNewsUrl, undefined, undefined, undefined)
+    const objectResult = await getNewsReadingInformations(props.getNewsReadingInformationsUrl)
     readingInfos.value = new Map(Object.entries(objectResult))
   }
   catch (e: any) {
@@ -80,7 +85,7 @@ function getRubriques(codesRubriques: number[]) {
 }
 
 async function updateReadingInfos() {
-  const objectResult = await getNewsReadingInformations()
+  const objectResult = await getNewsReadingInformations(props.getNewsReadingInformationsUrl)
   readingInfos.value = new Map(Object.entries(objectResult))
 }
 </script>
@@ -113,6 +118,8 @@ async function updateReadingInfos() {
               :item="item"
               :rubriques="getRubriques(item.rubriques)"
               :page-origin="false"
+              :getItemByIdUrl="props.getItemByIdUrl"
+              :setReadingUrl="props.setReadingUrl"
               :is-read="readingInfos?.has(item.uuid) ? readingInfos.get(item.uuid) : false"
               @update-reading-infos="updateReadingInfos()"
             />

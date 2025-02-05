@@ -17,6 +17,7 @@
 import { instance } from '@/utils/axiosUtils.ts'
 
 async function getPaginatedNews(
+  getUserNewsUrl: string,
   readerId: number,
   pageIndex?: number | undefined,
   source?: string | undefined,
@@ -35,7 +36,7 @@ async function getPaginatedNews(
     }
     params.lecture = lecture
 
-    const response = await instance.get(`/news/myHome/${readerId.toString()}`, { params })
+    const response = await instance.get(getUserNewsUrl, { params })
     return response.data
   }
   catch (e: any) {
@@ -43,9 +44,9 @@ async function getPaginatedNews(
   }
 }
 
-async function getItemById(itemId: string) {
+async function getItemById(getItemByIdUrl: string, itemId: string) {
   try {
-    const response = await instance.get(`/news/item/${itemId.toString()}`)
+    const response = await instance.get(`${getItemByIdUrl + itemId.toString()}`)
     return response.data
   }
   catch (error) {
@@ -53,9 +54,9 @@ async function getItemById(itemId: string) {
   }
 }
 
-async function getFile(path: string) {
+async function getNewsReadingInformations(getNewsReadingInformations: string) {
   try {
-    const response = await instance.get(path)
+    const response = await instance.get(getNewsReadingInformations)
     return response.data
   }
   catch (error) {
@@ -63,30 +64,10 @@ async function getFile(path: string) {
   }
 }
 
-async function getAttachementsById(itemId: string) {
-  try {
-    const response = await instance.get(`/news/attachements/${itemId.toString()}`)
-    return response.data
-  }
-  catch (error) {
-    console.error('Failed to load item :', error)
-  }
-}
-
-async function getNewsReadingInformations() {
-  try {
-    const response = await instance.get(`/news/readingInfos`)
-    return response.data
-  }
-  catch (error) {
-    console.error('Failed to load item :', error)
-  }
-}
-
-async function setReading(itemId: number | undefined, isRead: boolean) {
+async function setReading(setReadingUrl: string, itemId: number | undefined, isRead: boolean) {
   try {
     if (itemId) {
-      return (await instance.patch(`/news/setNewsReading/${itemId.toString()}/${isRead.toString()}`))
+      return (await instance.patch(`${setReadingUrl + itemId.toString()}/${isRead.toString()}`))
     }
   }
   catch (error) {

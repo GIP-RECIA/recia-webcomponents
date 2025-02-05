@@ -25,7 +25,12 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { onBeforeMount, ref } from 'vue'
 
 const props = defineProps<{
+  baseUrl: string
+  getItemByIdUrl: string
   userInfoApiUrl: string
+  getUserNewsUrl: string
+  getNewsReadingInformationsUrl: string
+  setReadingUrl: string
 }>()
 
 const result = ref<PaginatedResult>()
@@ -43,11 +48,11 @@ onBeforeMount(async () => {
   try {
     await initToken(props.userInfoApiUrl)
     if (currentUser) {
-      const objectResult = await getNewsReadingInformations()
+      const objectResult = await getNewsReadingInformations(props.getNewsReadingInformationsUrl)
       readingInfos.value = new Map(Object.entries(objectResult))
     }
     // await getprops.userInfoApiUrlConfig(props.baseApiUrl)
-    result.value = await getPaginatedNews(2, currentPage.value > 1 ? currentPage.value : undefined, source.value ? source.value : undefined, (rubriques.value) ? rubriques.value : undefined, readingState.value)
+    result.value = await getPaginatedNews(props.getUserNewsUrl, currentPage.value > 1 ? currentPage.value : undefined, source.value ? source.value : undefined, (rubriques.value) ? rubriques.value : undefined, readingState.value)
     currentPage.value = result.value?.pageIndex
     totalPages.value = result.value?.totalPages
   }
@@ -78,7 +83,7 @@ function handlePageChange(page: CustomEvent) {
 async function fetchPaginatedNews() {
   try {
     result.value = await getPaginatedNews(
-      2,
+      props.getUserNewsUrl,
       currentPage.value > 1 ? currentPage.value : undefined,
       source.value ? source.value : undefined,
       (rubriques.value) ? rubriques.value : undefined,
@@ -92,7 +97,7 @@ async function fetchPaginatedNews() {
 }
 
 async function updateReadingInfos() {
-  const objectResult = await getNewsReadingInformations()
+  const objectResult = await getNewsReadingInformations(props.getNewsReadingInformationsUrl)
   readingInfos.value = new Map(Object.entries(objectResult))
 }
 
@@ -146,8 +151,11 @@ function showItemDependsOnReadingState(item: ItemVO) {
         <template v-for="(item, index) in result.actualite?.items" :key="index">
           <div v-if="showItemDependsOnReadingState(item)" class="card-wrapper">
             <news-card
+              :base-url="baseUrl"
               :item="item" :rubriques="getRubriques(item.rubriques)"
               :page-origin="true"
+              :set-reading-url="setReadingUrl"
+              :get-item-by-id-url="props.getItemByIdUrl"
               :is-read="readingInfos?.has(item.uuid) ? readingInfos?.get(item.uuid) : false"
               @update-reading-infos="updateReadingInfos()"
             />

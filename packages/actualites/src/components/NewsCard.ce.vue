@@ -23,14 +23,15 @@ import { useI18n } from 'vue-i18n'
 // Props
 const props = defineProps<{
   item: ItemVO
+  setReadingUrl: string
+  getItemByIdUrl: string
   rubriques: Array<Rubrique>
   pageOrigin: boolean
   isRead: boolean
+  baseUrl: string
 }>()
 
 const emit = defineEmits(['updateReadingInfos'])
-
-const baseUrl = import.meta.env.VITE_BASE_API_URL
 
 // État pour la modal
 const showModal = ref(false)
@@ -106,9 +107,12 @@ function isPageOriginAll() {
 
   <div v-if="showModal" class="open-modal" :class="{ active: showModal }">
     <bottom-sheet
-      :is-read="props.isRead"
-      :item-id="props.item.uuid"
-      :rubriques="props.rubriques"
+      :is-read="isRead"
+      :item-id="item.uuid"
+      :rubriques="rubriques"
+      :set-reading-url="setReadingUrl"
+      :get-item-by-id-url="getItemByIdUrl"
+      :base-url="baseUrl"
       @close-modal="closeModal"
     />
   </div>
