@@ -21,7 +21,6 @@ import i18n from '@/plugins/i18n.ts'
 import { getNewsReadingInformations, getPaginatedNews } from '@/services/NewsService.ts'
 import { initToken } from '@/utils/axiosUtils.ts'
 import { isUserConnected } from '@/utils/soffitUtils.ts'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { onBeforeMount, ref } from 'vue'
 
 const props = defineProps<{
@@ -125,8 +124,11 @@ function showItemDependsOnReadingState(item: ItemVO) {
     <div id="allNews" class="allNews-container">
       <div class="allNews-header">
         <div class="allNews-header-title">
-          <button class="carousel-header-see-all-news">
-            <FontAwesomeIcon class="arrow-left" :icon="['fas', 'arrow-left']" />
+          <button class="allNews-header-title-button">
+            <img
+              class="allNews-header-title-button-icon"
+              src="/src/assets/svg/arrow_left.svg" alt="arrow_left"
+            >
           </button>
           <div class="title-allNews">
             {{ t('text.title.all-news') }}
@@ -204,17 +206,12 @@ custom-toggle-switch {
   padding-bottom: 1rem;
 }
 
-.carousel-header-see-all-news {
-  border: none;
-  background: none;
-}
-
-.arrow-left {
-  width: 0.8rem;
+.allNews-header-title-button {
+  display: inline-flex;
+  justify-content: center;
   border: none;
   background: none;
   cursor: pointer;
-  padding-top: 5px;
 }
 
 .title-allNews {
