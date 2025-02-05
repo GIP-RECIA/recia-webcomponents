@@ -65,6 +65,7 @@ export default ({ mode }: { mode: string }) => {
         entry: './src/main.ts',
         name: pkg.name,
       },
+      sourcemap: true,
     },
     define: {
       'process.env': process.env,
