@@ -36,7 +36,7 @@ const result = ref<PaginatedResult>()
 const readingInfos = ref<Map<string, boolean>>()
 const source = ref()
 const rubriques = ref<Array<number>>()
-const currentPage = ref()
+const currentPage = ref<number | undefined>()
 const totalPages = ref()
 const readingState = ref<boolean | undefined>(undefined)
 const loading = ref(true) // État de chargement
@@ -64,6 +64,8 @@ onBeforeMount(async () => {
 
 function handleToggleChange(e: CustomEvent) {
   readingState.value = e.detail[0]
+  currentPage.value = undefined
+  console.log('currentPage.value : ' + currentPage.value)
   fetchPaginatedNews()
 }
 
@@ -166,6 +168,7 @@ function showItemDependsOnReadingState(item: ItemVO) {
 
       <div v-if="result && result.totalItems > 10" class="allNews-footer">
         <page-selector
+          :currentPagee="currentPage"
           :total-pages="totalPages"
           :max-visible-pages="5"
           @update-model-value="handlePageChange"

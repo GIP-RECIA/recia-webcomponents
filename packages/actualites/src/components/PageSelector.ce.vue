@@ -16,10 +16,11 @@
 
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { computed, ref } from 'vue'
+import {computed, ref, watch} from 'vue'
 
 const props = withDefaults(
   defineProps<{
+    currentPagee: number
     totalPages: number
     maxVisiblePages: number
   }>(),
@@ -30,7 +31,11 @@ const props = withDefaults(
 
 const emit = defineEmits(['updateModelValue'])
 
-const currentPage = ref(1)
+const currentPage = ref(props.currentPagee ? props.currentPagee : 1)
+
+watch(() => props.currentPagee, () => { currentPage.value = props.currentPagee ? props.currentPagee : 1 })
+
+console.log('currentPage.value currentPage.value : '  + currentPage.value)
 
 function goToPage(page: number) {
   if (page >= 1 && page <= props.totalPages) {
