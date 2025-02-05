@@ -69,5 +69,20 @@ export default ({ mode }: { mode: string }) => {
     define: {
       'process.env': process.env,
     },
+    server: {
+      allowedHosts: true,
+      proxy: {
+        '^(?:/[a-zA-Z0-9_-]+){2}/api': {
+          target: process.env.VITE_PROXY_URL,
+          changeOrigin: true,
+          rewrite: (path) => {
+            const rewrite = path.replace(/^(?:\/[\w-]+){2}\/api/, '')
+            console.log(`${path} => ${rewrite}`)
+
+            return rewrite
+          },
+        },
+      },
+    },
   })
 }
