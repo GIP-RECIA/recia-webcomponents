@@ -25,6 +25,7 @@ import '@gip-recia/actualites'
 Dans une page HTML :
 
 ```html
+
 <script src="./path/to/.min.js"></script>
 ```
 
@@ -39,8 +40,14 @@ document.body.appendChild(xxx)
 
 Propriétés disponibles :
 
-| Nom | Type | Obligatoire | Default | Description |
-| --- | :--: | :---------: | :-----: | ----------- |
+|                Nom                |  Type  | Obligatoire | Default |                                     Description                                     |
+|:---------------------------------:|:------:|:-----------:|:-------:|:-----------------------------------------------------------------------------------:|
+|              baseUrl              | string |    true     |   ""    |                                                                                     |
+|         user-info-api-url         | string |    true     |   ""    |                Url dédiée à la récupération du token via le portail                 |
+|        get-item-by-id-url         | string |    true     |   ""    |               Url permettant de récupérer les informations d'un item                |
+|         get-user-news-url         | string |    true     |   ""    | Url permettant de récupérer une liste d'item en fonction des paramètres de filtrage |
+| get-news-reading-informations-url | string |    true     |   ""    |      Url permettant de récupérer les informations de lecture de l'utilisateur       |
+|          set-reading-url          | string |    true     |   ""    |   Url permettant la gestion de la lecture d'un item en fonction de l'utilisateur    |
 
 <br/>
 
@@ -55,4 +62,5 @@ Propriétés disponibles :
 Plusieurs variables CSS peuvent être définis pour personnaliser le webcomponent :
 
 | Nom | Description |
-| --- | ----------- |
+|-----|-------------|
+

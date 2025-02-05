@@ -14,24 +14,22 @@
  * limitations under the License.
  */
 
-import { CustomError } from '@/utils/CustomError.ts'
 import oidc, { type JWT } from '@uportal/open-id-connect'
 
-let currentUser: string | undefined
+let isUserConnected: boolean = false
 
 async function getToken(apiUrl: string): Promise<{ encoded: string, decoded: JWT }> {
   const { encoded, decoded } = await oidc({
     userInfoApiUrl: apiUrl,
   })
   if (decoded.sub.startsWith('guest')) {
-    currentUser = undefined
-    throw new CustomError('You are not logged', 401)
+    isUserConnected = false
   }
   else {
-    currentUser = decoded.sub
+    isUserConnected = true
   }
 
   return { encoded, decoded }
 }
 
-export { currentUser, getToken }
+export { getToken, isUserConnected }

@@ -67,24 +67,12 @@ export default ({ mode }: { mode: string }) => {
         entry: './src/main.ts',
         name: pkg.name,
       },
+      sourcemap: true,
     },
     define: {
       'process.env': process.env,
     },
     server: {
-      allowedHosts: [
-        'lycees.test.recia.dev',
-      ],
-      proxy: {
-        '^(?:/[a-zA-Z0-9_-]+){2}/api': {
-          target: 'http://10.209.28.156:8080/publisher',
-          changeOrigin: true,
-          rewrite: (path) => {
-            const rewrite = path.replace(/^(?:\/[\w-]+){2}\/api/, '')
-            return rewrite
-          },
-        },
-      },
     },
   })
 }

@@ -22,14 +22,17 @@ import { defineProps, onUnmounted, ref } from 'vue'
 // Props
 const props = defineProps<{
   item: ItemVO
+  setReadingUrl: string
+  getItemByIdUrl: string
   rubriques: Array<Rubrique>
   pageOrigin: boolean
   isRead: boolean
+  baseUrl: string
 }>()
 
 const emit = defineEmits(['updateReadingInfos'])
 
-const baseUrl = import.meta.env.VITE_BASE_API_URL
+console.log(props)
 
 // État pour la modal
 const showModal = ref(false)
@@ -106,7 +109,12 @@ function isPageOriginAll() {
 
     <div v-if="showModal" class="open-modal" :class="{ active: showModal }">
       <bottom-sheet
-        :is-read="props.isRead" :item-id="props.item.uuid" :rubriques="props.rubriques"
+        :is-read="props.isRead"
+        :item-id="props.item.uuid"
+        :rubriques="props.rubriques"
+        :set-reading-url="setReadingUrl"
+        :get-item-by-id-url="props.getItemByIdUrl"
+        :base-url="baseUrl"
         @close-modal="closeModal"
       />
     </div>
@@ -116,7 +124,6 @@ function isPageOriginAll() {
 <style lang="scss">
 @use '@/assets/colors.scss' as *;
 @use '@/assets/global.scss' as *;
-
 
 * {
   box-sizing: border-box;
@@ -218,8 +225,13 @@ article:not(.active) {
 .article-wrapper {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   padding: 16px;
   gap: 0.3rem;
+}
+
+.article-wrapper-lecture {
+  font-style: italic;
 }
 
 .source {

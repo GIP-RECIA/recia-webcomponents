@@ -19,7 +19,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { computed, ref } from 'vue'
 
 // Props
-
 const props = withDefaults(
   defineProps<{
     totalPages: number
@@ -140,6 +139,11 @@ button.arrow:disabled {
   opacity: 0.9;
 }
 
+button.arrow:hover {
+  background-color: $primary-transparent;
+  color: $primary;
+}
+
 button.arrow:focus-visible {
   background-color: $primary-transparent;
   color: $primary;
@@ -168,6 +172,11 @@ button.arrow:focus-visible {
   color: $primary;
   background-color: $primary-transparent;
   outline: 3px solid $primary;
+}
+
+.page-number:hover {
+  color: $primary;
+  background-color: $primary-transparent;
 }
 
 .page-number.active {

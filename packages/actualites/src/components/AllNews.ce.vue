@@ -15,18 +15,25 @@
 -->
 
 <script setup lang="ts">
-import type { ItemVO } from '@/types/ItemVO.ts'
-import type { PaginatedResult } from '@/types/PaginatedResult.ts'
+import type {ItemVO} from '@/types/ItemVO.ts'
+import type {PaginatedResult} from '@/types/PaginatedResult.ts'
 import i18n from '@/plugins/i18n.ts'
-import { getNewsReadingInformations, getPaginatedNews } from '@/services/NewsService.ts'
-import { initToken } from '@/utils/axiosUtils.ts'
-import { currentUser } from '@/utils/soffitUtils.ts'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { onBeforeMount, ref } from 'vue'
+import {getNewsReadingInformations, getPaginatedNews} from '@/services/NewsService.ts'
+import {initToken} from '@/utils/axiosUtils.ts'
+import {isUserConnected} from '@/utils/soffitUtils.ts'
+import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
+import {onBeforeMount, ref} from 'vue'
 
 const props = defineProps<{
+  baseUrl: string
+  getItemByIdUrl: string
   userInfoApiUrl: string
+  getUserNewsUrl: string
+  getNewsReadingInformationsUrl: string
+  setReadingUrl: string
 }>()
+
+console.log(props)
 
 const result = ref<PaginatedResult>()
 const readingInfos = ref<Map<string, boolean>>()
@@ -37,23 +44,22 @@ const totalPages = ref()
 const readingState = ref<boolean | undefined>(undefined)
 const loading = ref(true) // État de chargement
 
-const { t } = i18n.global
+const {t} = i18n.global
 
 onBeforeMount(async () => {
   try {
     await initToken(props.userInfoApiUrl)
-    if (currentUser) {
-      const objectResult = await getNewsReadingInformations()
+    if (isUserConnected) {
+      const objectResult = await getNewsReadingInformations(props.getNewsReadingInformationsUrl)
       readingInfos.value = new Map(Object.entries(objectResult))
     }
     // await getprops.userInfoApiUrlConfig(props.baseApiUrl)
-    result.value = await getPaginatedNews(2, currentPage.value > 1 ? currentPage.value : undefined, source.value ? source.value : undefined, (rubriques.value) ? rubriques.value : undefined, readingState.value)
+    console.log(props.getUserNewsUrl, currentPage.value > 1 ? currentPage.value : undefined, source.value ? source.value : undefined, (rubriques.value) ? rubriques.value : undefined, readingState.value)
+    result.value = await getPaginatedNews(props.getUserNewsUrl, currentPage.value > 1 ? currentPage.value : undefined, source.value ? source.value : undefined, (rubriques.value) ? rubriques.value : undefined, readingState.value)
     currentPage.value = result.value?.pageIndex
     totalPages.value = result.value?.totalPages
-  }
-  catch (e: any) {
-  }
-  finally {
+  } catch (e: any) {
+  } finally {
     loading.value = false // Fin du chargement
   }
 })
@@ -78,21 +84,20 @@ function handlePageChange(page: CustomEvent) {
 async function fetchPaginatedNews() {
   try {
     result.value = await getPaginatedNews(
-      2,
+      props.getUserNewsUrl,
       currentPage.value > 1 ? currentPage.value : undefined,
       source.value ? source.value : undefined,
       (rubriques.value) ? rubriques.value : undefined,
       readingState.value,
     )
     totalPages.value = result.value?.totalPages || 1
-  }
-  catch (e: any) {
+  } catch (e: any) {
     console.error(e)
   }
 }
 
 async function updateReadingInfos() {
-  const objectResult = await getNewsReadingInformations()
+  const objectResult = await getNewsReadingInformations(props.getNewsReadingInformationsUrl)
   readingInfos.value = new Map(Object.entries(objectResult))
 }
 
@@ -104,12 +109,10 @@ function showItemDependsOnReadingState(item: ItemVO) {
   if (readingState.value !== undefined) {
     if (readingState.value) {
       return readingInfos.value?.has(item.uuid) && readingInfos.value?.get(item.uuid) === true
-    }
-    else {
+    } else {
       return !readingInfos.value?.has(item.uuid) || readingInfos.value?.get(item.uuid) === false
     }
-  }
-  else {
+  } else {
     return true
   }
 }
@@ -121,7 +124,7 @@ function showItemDependsOnReadingState(item: ItemVO) {
       <div class="allNews-header">
         <div class="allNews-header-title">
           <button class="carousel-header-see-all-news">
-            <FontAwesomeIcon class="arrow-left" :icon="['fas', 'arrow-left']" />
+            <FontAwesomeIcon class="arrow-left" :icon="['fas', 'arrow-left']"/>
           </button>
           <div class="title-allNews">
             {{ t('text.title.all-news') }}
@@ -135,19 +138,22 @@ function showItemDependsOnReadingState(item: ItemVO) {
       </div>
 
       <div v-if="result" class="allNews-filter">
-        <news-filter-section :actualites="result.actualite" @update-model-value="handleFilterChange" />
+        <news-filter-section :actualites="result.actualite" @update-model-value="handleFilterChange"/>
       </div>
 
       <div v-if="loading" class="allNews-body">
-        <div v-for="index in 10" :key="index" class="skeleton-card" />
+        <div v-for="index in 10" :key="index" class="skeleton-card"/>
       </div>
 
       <div v-if="result && !loading" class="allNews-body">
         <template v-for="(item, index) in result.actualite?.items" :key="index">
           <div v-if="showItemDependsOnReadingState(item)" class="card-wrapper">
             <news-card
+              :baseUrl="baseUrl"
               :item="item" :rubriques="getRubriques(item.rubriques)"
               :page-origin="true"
+              :setReadingUrl="setReadingUrl"
+              :getItemByIdUrl="props.getItemByIdUrl"
               :is-read="readingInfos?.has(item.uuid) ? readingInfos?.get(item.uuid) : false"
               @update-reading-infos="updateReadingInfos()"
             />
@@ -201,6 +207,7 @@ custom-toggle-switch {
   border: none;
   background: none;
 }
+
 .arrow-left {
   width: 0.8rem;
   border: none;

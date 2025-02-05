@@ -22,8 +22,20 @@ const {
 
 <template>
   <div class="app-dev">
-    <carrousel-ui :user-info-api-url="VITE_USER_INFO_API_URI" />
-    <all-news :user-info-api-url="VITE_USER_INFO_API_URI" />
+    <carrousel-ui
+      :user-info-api-url="VITE_USER_INFO_API_URI"
+      get-user-news-url="http://10.209.28.156:8080/publisher/news/myNews/2"
+      base-url="http://10.209.28.156:8080/publisher/news/"
+      get-item-by-id-url=""
+      get-news-reading-informations-url=""
+    />
+    <all-news
+      :user-info-api-url="VITE_USER_INFO_API_URI"
+      get-user-news-url=""
+      base-url=""
+      get-item-by-id-url=""
+      get-news-reading-informations-url=""
+    />
   </div>
 </template>
 

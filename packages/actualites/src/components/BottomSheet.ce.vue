@@ -21,12 +21,18 @@ import type { AxiosResponse } from 'axios'
 import i18n from '@/plugins/i18n.ts'
 import { getItemById, setReading } from '@/services/NewsService.ts'
 import { isLightColor } from '@/utils/ContrasteUtils.ts'
+import { isUserConnected } from '@/utils/soffitUtils.ts'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { onBeforeMount, onBeforeUnmount, onMounted, ref } from 'vue'
+import { useWindowSize } from '@vueuse/core'
+
+import { onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 // Props
 const props = defineProps<{
   itemId: string
+  baseUrl: string
+  setReadingUrl: string
+  getItemByIdUrl: string
   rubriques: Array<Rubrique>
   isRead: boolean
 }>()
@@ -37,7 +43,6 @@ const {
   VITE_USER_READING_DELAY,
 } = import.meta.env
 
-const baseUrl = import.meta.env.VITE_BASE_API_URL
 const item = ref<Item>()
 const { t, d } = i18n.global
 const isReadingButton = ref(props.isRead)
@@ -55,7 +60,7 @@ let isDragging = false
 
 onBeforeMount(async () => {
   try {
-    item.value = await getItemById(props.itemId)
+    item.value = await getItemById(props.getItemByIdUrl, props.itemId)
     htmlContentTreatement()
     if (!props.isRead) {
       idTimout = setTimeout(() => {
@@ -86,6 +91,16 @@ function fullImage() {
   }
 }
 
+const { width } = useWindowSize()
+
+watch(width, () => {
+  if (width < '720') {
+    isDesktopFullImage.value = false
+  } else {
+    isMobileFullImage.value = false
+  }
+})
+
 onMounted(() => {
   if (bottomsheet.value) {
     bottomsheet.value.addEventListener('touchstart', handleTouchStart)
@@ -106,7 +121,7 @@ function htmlContentTreatement() {
       const currentSrc = img.getAttribute('src')
       if (currentSrc) {
         // Prepend the prefix to the src
-        img.setAttribute('src', `${baseUrl.concat(currentSrc)}`)
+        img.setAttribute('src', `${props.baseUrl.concat(`/${currentSrc}`)}`)
       }
     })
 
@@ -127,7 +142,7 @@ function closeModal() {
 
 async function changeReadingState(b: boolean) {
   if (item.value) {
-    const response: AxiosResponse = await setReading(item.value?.id, b)
+    const response: AxiosResponse = await setReading(props.setReadingUrl, item.value?.id, b)
     if (response.status === 200) {
       clearTimeout(idTimout)
       isReadingButton.value = b
@@ -200,8 +215,8 @@ onBeforeUnmount(() => {
       :class="{ 'slide-down': !isSelfBottomSheetOpen, 'slide-up': isSelfBottomSheetOpen }"
       @click.stop
     >
-      <template  v-if="true">
-        <img v-if="item && !loading" class="bottomsheet-container-background-desktop-image" :src="baseUrl.concat(item.enclosure)" alt="">
+      <template v-if="true">
+        <img v-if="item && !loading" class="bottomsheet-container-background-desktop-image" :src="baseUrl.concat(`/${item.enclosure}`)" alt="">
 
         <div class="bottomsheet-mobile-content-grip-area">
           <div class="bottomsheet-mobile-content-grip-area-handle-bar" />
@@ -214,9 +229,9 @@ onBeforeUnmount(() => {
         <div class="bottomsheet-content-header">
           <div class="bottomsheet-content-header-image-group">
             <div ref="bottomsheetContentHeaderImageContainer" class="bottomsheet-content-header-image-container" :class="{ enlarge: isDesktopFullImage, shrink: isDesktopFullImage === false }" @click="fullImage">
-              <img v-if="item && !loading" :src="baseUrl.concat(item.enclosure)" alt="" class="bottomsheet-content-header-image-container-img" :class="{ enlarge: isDesktopFullImage, shrink: isDesktopFullImage === false }">
+              <img v-if="item && !loading" :src="baseUrl.concat(`/${item.enclosure}`)" alt="" class="bottomsheet-content-header-image-container-img" :class="{ enlarge: isDesktopFullImage, shrink: isDesktopFullImage === false }">
               <div v-if="loading" class="bottomsheet-content-header-image-container-img">
-                <div v-for="index in 1" :key="index" class="skeleton-card" :style="{ borderRadius: '10px' }"/>
+                <div v-for="index in 1" :key="index" class="skeleton-card" :style="{ borderRadius: '10px' }" />
               </div>
               <button class="bottomsheet-content-header-image-group-expand-container">
                 <img
@@ -236,7 +251,7 @@ onBeforeUnmount(() => {
 
           <div class="bottomsheet-content-header-informations">
             <div v-if="item && !loading" class="bottomsheet-content-header-informations-item-autor">
-              <div >
+              <div>
                 {{
                   t('text.creation-info.global', { name: item.createdBy.displayName }) + d(item.createdBy.createdDate, 'long')
                 }}
@@ -260,14 +275,14 @@ onBeforeUnmount(() => {
             </div>
 
             <div v-if="loading" class="bottomsheet-content-header-informations-item-autor">
-              <div v-for="index in 1" :key="index" class="skeleton-card" :style="{ borderRadius: '10px', height: '20px', width: '40%' }"/>
+              <div v-for="index in 1" :key="index" class="skeleton-card" :style="{ borderRadius: '10px', height: '20px', width: '40%' }" />
             </div>
 
             <div v-if="item && !loading" class="bottomsheet-content-header-informations-item-title">
               {{ item.title }}
             </div>
             <div v-if="loading" class="bottomsheet-content-header-informations-item-title">
-              <div v-for="index in 1" :key="index" class="skeleton-card" :style="{ borderRadius: '10px', height: '30px', width: '80%', marginTop: '12px', marginBottom: '8px' }"/>
+              <div v-for="index in 1" :key="index" class="skeleton-card" :style="{ borderRadius: '10px', height: '30px', width: '80%', marginTop: '12px', marginBottom: '8px' }" />
             </div>
             <div v-if="item && !loading" class="bottomsheet-content-header-informations-sections">
               <span
@@ -287,7 +302,7 @@ onBeforeUnmount(() => {
               </span>
             </div>
             <div v-if="loading" class="bottomsheet-content-header-informations-sections">
-              <div v-for="index in 2" :key="index" class="skeleton-card" :style="{ borderRadius: '10px', height: '20px', width: '15%' }"/>
+              <div v-for="index in 2" :key="index" class="skeleton-card" :style="{ borderRadius: '10px', height: '20px', width: '15%' }" />
             </div>
           </div>
         </div>
@@ -297,8 +312,8 @@ onBeforeUnmount(() => {
       <div v-if="item && !loading" class="bottomsheet-content-footer">
         <div class="bottomsheet-content-footer-separator" />
         <div class="bottomsheet-content-footer-button-group">
-          <button class="mark-has-not-read-btn" @click="changeReadingState(!isReadingButton)">
-            <div v-if="isReadingButton">
+          <button v-if="isUserConnected" class="mark-has-not-read-btn" @click="changeReadingState(!isReadingButton)">
+            <div v-if="isReadingButton ">
               {{ t('button.mark-as-not-read') }}
             </div>
             <div v-if="!isReadingButton">
@@ -312,10 +327,10 @@ onBeforeUnmount(() => {
       </div>
     </div>
 
-    <div v-if="isMobileFullImage" class="bottomsheet-content-header-image-group-full-image-overlay" @click.stop>
+    <div v-if="isMobileFullImage && item" class="bottomsheet-content-header-image-group-full-image-overlay" @click.stop>
       <div class="bottomsheet-content-header-image-group-full-image-container" @click="fullImage">
         <img
-          class="bottomsheet-content-header-image-group-full-image" :src="baseUrl.concat(item?.enclosure)"
+          class="bottomsheet-content-header-image-group-full-image" :src="baseUrl.concat(`/${item.enclosure}`)"
           alt="full-image" @click.stop
         >
         <button class="bottomsheet-content-header-image-group-reduce-container">

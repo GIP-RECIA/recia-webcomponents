@@ -32,7 +32,8 @@ const emit = defineEmits(['readStatus'])
 
 // État actuel
 const currentState = ref(props.states[0])
-
+console.log(props)
+console.log('props.states[0] : '+props.states[0])
 const { t } = i18n.global
 
 // Fonction pour définir un nouvel état
