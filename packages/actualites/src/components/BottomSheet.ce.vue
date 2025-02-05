@@ -22,11 +22,15 @@ import i18n from '@/plugins/i18n.ts'
 import { getItemById, setReading } from '@/services/NewsService.ts'
 import { isLightColor } from '@/utils/ContrasteUtils.ts'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { onBeforeMount, onBeforeUnmount, onMounted, ref } from 'vue'
+import { useWindowSize } from '@vueuse/core'
+import { onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 // Props
 const props = defineProps<{
   itemId: string
+  baseUrl: string
+  setReadingUrl: string
+  getItemByIdUrl: string
   rubriques: Array<Rubrique>
   isRead: boolean
 }>()
@@ -37,7 +41,6 @@ const {
   VITE_USER_READING_DELAY,
 } = import.meta.env
 
-const baseUrl = import.meta.env.VITE_BASE_API_URL
 const item = ref<Item>()
 const { t, d } = i18n.global
 const isReadingButton = ref(props.isRead)
@@ -55,7 +58,7 @@ let isDragging = false
 
 onBeforeMount(async () => {
   try {
-    item.value = await getItemById(props.itemId)
+    item.value = await getItemById(props.getItemByIdUrl, props.itemId)
     htmlContentTreatement()
     if (!props.isRead) {
       idTimout = setTimeout(() => {
@@ -86,6 +89,17 @@ function fullImage() {
   }
 }
 
+const { width } = useWindowSize()
+
+watch(width, () => {
+  if (width < '720') {
+    isDesktopFullImage.value = false
+  }
+  else {
+    isMobileFullImage.value = false
+  }
+})
+
 onMounted(() => {
   if (bottomsheet.value) {
     bottomsheet.value.addEventListener('touchstart', handleTouchStart)
@@ -106,7 +120,7 @@ function htmlContentTreatement() {
       const currentSrc = img.getAttribute('src')
       if (currentSrc) {
         // Prepend the prefix to the src
-        img.setAttribute('src', `${baseUrl.concat(currentSrc)}`)
+        img.setAttribute('src', `${props.baseUrl.concat(`/${currentSrc}`)}`)
       }
     })
 
@@ -127,7 +141,7 @@ function closeModal() {
 
 async function changeReadingState(b: boolean) {
   if (item.value) {
-    const response: AxiosResponse = await setReading(item.value?.id, b)
+    const response: AxiosResponse = await setReading(props.setReadingUrl, item.value?.id, b)
     if (response.status === 200) {
       clearTimeout(idTimout)
       isReadingButton.value = b
@@ -205,7 +219,7 @@ onBeforeUnmount(() => {
           <img
             v-if="item && !loading"
             class="bottomsheet-container-background-desktop-image"
-            :src="baseUrl.concat(item.enclosure)"
+            :src="baseUrl.concat(`/${item.enclosure}`)"
             alt=""
           >
 
@@ -227,7 +241,7 @@ onBeforeUnmount(() => {
               >
                 <img
                   v-if="item && !loading"
-                  :src="baseUrl.concat(item.enclosure)"
+                  :src="baseUrl.concat(`/${item.enclosure}`)"
                   alt=""
                   class="bottomsheet-content-header-image-container-img"
                   :class="{ enlarge: isDesktopFullImage, shrink: isDesktopFullImage === false }"
@@ -348,11 +362,11 @@ onBeforeUnmount(() => {
         </div>
       </div>
 
-      <div v-if="isMobileFullImage" class="bottomsheet-content-header-image-group-full-image-overlay" @click.stop>
+      <div v-if="isMobileFullImage && item" class="bottomsheet-content-header-image-group-full-image-overlay" @click.stop>
         <div class="bottomsheet-content-header-image-group-full-image-container" @click="fullImage">
           <img
             class="bottomsheet-content-header-image-group-full-image"
-            :src="baseUrl.concat(item?.enclosure)"
+            :src="baseUrl.concat(`/${item.enclosure}`)"
             alt="full-image"
             @click.stop
           >
