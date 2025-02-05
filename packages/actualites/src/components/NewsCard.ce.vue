@@ -217,8 +217,13 @@ article:not(.active) {
 .article-wrapper {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   padding: 16px;
   gap: 0.3rem;
+}
+
+.article-wrapper-lecture {
+  font-style: italic;
 }
 
 .source {
