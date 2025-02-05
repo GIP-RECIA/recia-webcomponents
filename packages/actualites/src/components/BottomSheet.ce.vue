@@ -386,9 +386,23 @@ onBeforeUnmount(() => {
 
 <style lang="scss">
 @use '@/assets/global.scss' as *;
+@use '@/assets/buttons.scss' as *;
 
 * {
   box-sizing: border-box;
+}
+
+button {
+  border: none;
+  background: none;
+}
+
+.mark-has-not-read-btn {
+  @extend %button-secondary;
+}
+
+.close-btn {
+  @extend %button-primary;
 }
 
 .bottomsheet-overlay {
