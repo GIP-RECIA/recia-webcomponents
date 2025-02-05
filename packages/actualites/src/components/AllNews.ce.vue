@@ -129,7 +129,7 @@ function showItemDependsOnReadingState(item: ItemVO) {
         </div>
 
         <custom-toggle-switch
-          :states="['all', 'read', 'unread']"
+          :states="['all', 'read', 'not-read']"
           @read-status="handleToggleChange"
         />
       </div>
