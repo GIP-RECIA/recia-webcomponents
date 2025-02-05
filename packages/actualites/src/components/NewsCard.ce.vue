@@ -313,6 +313,12 @@ article.pageOrigin.active {
     }
   }
 
+  article.pageOrigin.active:hover {
+    .card-body-title {
+      color: $primary;
+    }
+  }
+
   article:hover {
     outline: 2px solid $primary;
     box-shadow: color-mix(in srgb, $primary, #0000 80%) 0 4px 26px 0;
@@ -326,6 +332,12 @@ article.pageOrigin.active {
     outline: 2px solid $primary;
     box-shadow: color-mix(in srgb, $primary, #0000 80%) 0 4px 26px 0;
 
+    .card-body-title {
+      color: $primary;
+    }
+  }
+
+  article.pageOrigin.active:focus-visible {
     .card-body-title {
       color: $primary;
     }
