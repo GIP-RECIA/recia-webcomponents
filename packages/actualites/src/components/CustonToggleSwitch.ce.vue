@@ -53,6 +53,7 @@ function setState(state: string) {
 
 <style lang="scss">
 @use '@/assets/global.scss' as *;
+@use '@/assets/buttons.scss' as *;
 
 * {
   box-sizing: border-box;
@@ -78,45 +79,7 @@ ul {
   gap: 8px;
 
   li > button {
-    text-align: center;
-    color: #666;
-    transition:
-      color 0.3s,
-      background-color 0.3s;
-    padding: 4px 12px;
-    border-radius: 50px;
-    font-family: $dm-sans;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-
-    &.active {
-      background-color: $standard-colour-black;
-      color: white;
-
-      &:hover {
-        background-color: $primary;
-      }
-
-      &:focus-visible {
-        background-color: $primary;
-        color: $standard-colour-white;
-        outline: 3px solid #0062bc4d;
-      }
-    }
-
-    &:not(.active) {
-      &:hover {
-        background-color: $primary-transparent;
-        color: $primary;
-      }
-
-      &:focus-visible {
-        background-color: $primary-transparent;
-        color: $primary;
-        outline: 3px solid $primary;
-      }
-    }
+    @extend %tag-small;
   }
 }
 </style>
