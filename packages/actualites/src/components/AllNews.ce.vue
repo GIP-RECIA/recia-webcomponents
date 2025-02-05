@@ -20,7 +20,7 @@ import type { PaginatedResult } from '@/types/PaginatedResult.ts'
 import i18n from '@/plugins/i18n.ts'
 import { getNewsReadingInformations, getPaginatedNews } from '@/services/NewsService.ts'
 import { initToken } from '@/utils/axiosUtils.ts'
-import { currentUser } from '@/utils/soffitUtils.ts'
+import { isUserConnected } from '@/utils/soffitUtils.ts'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { onBeforeMount, ref } from 'vue'
 
@@ -47,7 +47,7 @@ const { t } = i18n.global
 onBeforeMount(async () => {
   try {
     await initToken(props.userInfoApiUrl)
-    if (currentUser) {
+    if (isUserConnected) {
       const objectResult = await getNewsReadingInformations(props.getNewsReadingInformationsUrl)
       readingInfos.value = new Map(Object.entries(objectResult))
     }
