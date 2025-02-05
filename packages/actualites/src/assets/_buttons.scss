@@ -1,0 +1,141 @@
+@use 'variables' as *;
+
+%tag-and-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 8px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 50px;
+  text-decoration: none;
+  color: unset;
+}
+
+%disabled {
+  opacity: 0.33;
+  pointer-events: none;
+}
+
+%tag {
+  @extend %tag-and-button;
+  padding: 8px 16px;
+  font-family: $dm-sans;
+  font-weight: 500;
+  font-size: 14px;
+
+  &.active {
+    background-color: $standard-colour-black;
+    color: white;
+
+    &:hover {
+      background-color: $primary;
+    }
+
+    &:focus-visible {
+      background-color: $primary;
+      color: $standard-colour-white;
+      outline: 3px solid #0062bc4d;
+    }
+  }
+
+  &:not(.active) {
+    &:hover {
+      background-color: $primary-transparent;
+      color: $primary;
+    }
+
+    &:focus-visible {
+      background-color: $primary-transparent;
+      color: $primary;
+      outline: 3px solid $primary;
+    }
+  }
+
+  &:disabled,
+  &.disabled {
+    opacity: 0.33;
+    pointer-events: none;
+  }
+}
+
+%tag-circle {
+  @extend %tag;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  padding: 8px;
+}
+
+%tag-small {
+  @extend %tag;
+  padding: 4px 12px;
+}
+
+%tag-small-circle {
+  @extend %tag;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  padding: 4px;
+}
+
+%button {
+  @extend %tag-and-button;
+  padding: 12px 24px;
+  font-family: $sora;
+  font-weight: 600;
+  font-size: 16px;
+  background-color: $basic-black;
+  color: $standard-colour-white;
+}
+
+%button-primary {
+  @extend %button;
+
+  &:hover {
+    background-color: $primary;
+  }
+
+  &:focus-visible {
+    background-color: $primary;
+    outline: 4px solid #0062bc4d;
+  }
+
+  &:disabled,
+  &.disabled {
+    @extend %disabled;
+  }
+}
+
+%button-primary-circle {
+  @extend %button-primary;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  padding: 12px;
+}
+
+%button-secondary {
+  @extend %button;
+  background-color: $basic-grey;
+  color: $basic-black;
+
+  &:hover {
+    background-color: $secondary-hover;
+    color: $primary;
+  }
+
+  &:focus-visible {
+    background-color: $secondary-hover;
+    color: $primary;
+    outline: 4px solid $primary;
+  }
+
+  &:disabled,
+  &.disabled {
+    @extend %disabled;
+  }
+}

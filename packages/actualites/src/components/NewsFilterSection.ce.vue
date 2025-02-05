@@ -173,6 +173,7 @@ function handleResize() {
 
 <style lang="scss">
 @use '@/assets/global.scss' as *;
+@use '@/assets/buttons.scss' as *;
 
 * {
   box-sizing: border-box;
@@ -265,34 +266,7 @@ function handleResize() {
 }
 
 .filter-section-span {
-  display: flex;
-  text-align: center;
-  text-wrap: nowrap;
-  padding: 5px 10px 5px;
-  color: $primary;
-  background-color: $primary-transparent;
-  border-radius: 50px;
-  font-family: $dm-sans;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.filter-section-span.active {
-  background-color: $standard-colour-black;
-  color: $standard-colour-white;
-  width: auto;
-}
-
-.filter-section-span:focus-visible {
-  outline: 3px solid $primary;
-  background-color: $primary-transparent;
-}
-
-.filter-section-span.active:focus-visible {
-  outline: 3px solid $primary-transparent;
-  background-color: $primary;
-  color: $standard-colour-white;
+  @extend %tag;
 }
 
 @media only screen and (min-width: 1024px) {
@@ -351,16 +325,6 @@ function handleResize() {
   .filter-section {
     padding: 0rem;
     align-items: start;
-  }
-
-  .filter-section-span {
-    background-color: transparent;
-    color: $standard-colour-black;
-  }
-
-  .filter-section-span:hover {
-    background-color: $primary-transparent;
-    color: $primary;
   }
 }
 </style>
