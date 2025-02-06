@@ -89,23 +89,8 @@ const visiblePages = computed(() => {
 @use '@/assets/global.scss' as *;
 @use '@/assets/buttons.scss' as *;
 
-* {
-  box-sizing: border-box;
-}
-
-ul,
-li {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-button {
-  border: none;
-  background: none;
-}
-
 ul {
+  list-style-type: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;

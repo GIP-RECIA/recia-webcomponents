@@ -69,10 +69,6 @@ const { t, d } = useI18n()
 <style lang="scss">
 @use '@/assets/global.scss' as *;
 
-* {
-  box-sizing: border-box;
-}
-
 .modal-container {
   height: auto;
   max-width: 400px;

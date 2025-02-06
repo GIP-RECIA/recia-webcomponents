@@ -84,10 +84,6 @@ function isPageOriginAll() {
 <style lang="scss">
 @use '@/assets/global.scss' as *;
 
-* {
-  box-sizing: border-box;
-}
-
 article {
   background-color: $standard-colour-white;
   border-radius: 10px;

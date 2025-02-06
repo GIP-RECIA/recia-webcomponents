@@ -389,21 +389,18 @@ onBeforeUnmount(() => {
 @use '@/assets/global.scss' as *;
 @use '@/assets/buttons.scss' as *;
 
-* {
-  box-sizing: border-box;
-}
-
-button {
-  border: none;
-  background: none;
-}
-
 .mark-has-not-read-btn {
   @extend %button-secondary;
 }
 
 .close-btn {
   @extend %button-primary;
+}
+
+.bottomsheet-content-body {
+  p:not(:last-child) {
+    margin-bottom: 1em;
+  }
 }
 
 .bottomsheet-overlay {
