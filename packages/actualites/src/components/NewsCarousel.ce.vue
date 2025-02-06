@@ -88,6 +88,31 @@ async function updateReadingInfos() {
   const objectResult = await getNewsReadingInformations(props.getNewsReadingInformationsUrl)
   readingInfos.value = new Map(Object.entries(objectResult))
 }
+
+// État pour la modal
+const showModal = ref(false)
+const openFullImage = ref(false)
+const itemIdOpenModal = ref<string>()
+const itemRubriquesOpenModal = ref()
+
+// Méthodes
+function openModal(uuid: string, codesRubriques: number[]) {
+  itemIdOpenModal.value = uuid
+  itemRubriquesOpenModal.value = getRubriques(codesRubriques)
+  showModal.value = true
+  document.body.style.top = `-${window.scrollY}px`
+  document.body.style.position = 'fixed'
+}
+
+function closeModal() {
+  updateReadingInfos()
+  showModal.value = false
+  openFullImage.value = false
+  const scrollY = document.body.style.top
+  document.body.style.position = ''
+  document.body.style.top = ''
+  window.scrollTo(0, Number.parseInt(scrollY || '0') * -1)
+}
 </script>
 
 <template>
@@ -129,6 +154,8 @@ async function updateReadingInfos() {
               :set-reading-url="props.setReadingUrl"
               :is-read="readingInfos?.has(item.uuid) ? readingInfos.get(item.uuid) : false"
               @update-reading-infos="updateReadingInfos()"
+              @click="openModal(item.uuid, item.rubriques)"
+              @keydown.enter="openModal(item.uuid, item.rubriques)"
             />
           </div>
         </div>
@@ -148,6 +175,18 @@ async function updateReadingInfos() {
           />
         </button>
       </div>
+    </div>
+
+    <div v-if="showModal" class="open-modal" :class="{ active: showModal }">
+      <bottom-sheet
+        :is-read="readingInfos?.has(itemIdOpenModal) ? readingInfos?.get(itemIdOpenModal) : false"
+        :item-id="itemIdOpenModal"
+        :rubriques="itemRubriquesOpenModal"
+        :set-reading-url="setReadingUrl"
+        :get-item-by-id-url="getItemByIdUrl"
+        :base-url="baseUrl"
+        @close-modal="closeModal"
+      />
     </div>
   </i18n-host>
 </template>
@@ -198,7 +237,7 @@ async function updateReadingInfos() {
 .carousel-header-see-all-news-button-icon {
   width: 1.25em;
   height: 1.25em;
-  mask: url('/src/assets/svg/arrow_right.svg');
+  mask: url(@/assets/svg/arrow_right.svg);
   mask-repeat: no-repeat;
   mask-size: contain;
   background-color: $standard-colour-black;
