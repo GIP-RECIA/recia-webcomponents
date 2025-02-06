@@ -135,6 +135,7 @@ function htmlContentTreatement() {
 function closeModal() {
   isSelfBottomSheetOpen.value = false
   isMobileFullImage.value = false
+  clearTimeout(idTimout)
   setTimeout(() => {
     emit('closeModal')
   }, 300)
