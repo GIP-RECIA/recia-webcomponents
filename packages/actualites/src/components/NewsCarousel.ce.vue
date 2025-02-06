@@ -94,9 +94,9 @@ async function updateReadingInfos() {
   <i18n-host>
     <div class="carousel-container">
       <div class="carousel-header">
-        <div class="carousel-header-title">
+        <h2 class="carousel-header-title">
           {{ t('text.title.news') }}
-        </div>
+        </h2>
         <div class="carousel-header-see-all-news computer">
           <button class="carousel-header-see-all-news-button" @click="allActualites">
             {{ t('text.normal.see-all-news') }}
@@ -177,10 +177,10 @@ button {
 }
 
 .carousel-header-title {
-  color: $standard-colour-black;
   font-family: $sora;
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: bold;
+  color: $standard-colour-black;
 }
 
 .carousel-header-see-all-news {
