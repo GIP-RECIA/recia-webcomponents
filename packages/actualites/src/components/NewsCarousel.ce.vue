@@ -98,9 +98,11 @@ async function updateReadingInfos() {
           {{ t('text.title.news') }}
         </div>
         <div class="carousel-header-see-all-news computer">
-          <button @click="allActualites">
+          <button class="carousel-header-see-all-news-button" @click="allActualites">
             {{ t('text.normal.see-all-news') }}
-            <FontAwesomeIcon :icon="['fas', 'arrow-right']" />
+            <i
+              class="carousel-header-see-all-news-button-icon"
+            />
           </button>
         </div>
       </div>
@@ -120,6 +122,7 @@ async function updateReadingInfos() {
           <div v-for="(item, index) in visibleItems" :key="index" class="card-wrapper">
             <news-card
               :item="item"
+              :base-url="baseUrl"
               :rubriques="getRubriques(item.rubriques)"
               :page-origin="false"
               :get-item-by-id-url="props.getItemByIdUrl"
@@ -138,9 +141,11 @@ async function updateReadingInfos() {
       </div>
 
       <div class="carousel-header-see-all-news mobile">
-        <button @click="allActualites">
+        <button class="carousel-header-see-all-news-button" @click="allActualites">
           {{ t('text.normal.see-all-news') }}
-          <FontAwesomeIcon :icon="['fas', 'arrow-right']" />
+          <i
+            class="carousel-header-see-all-news-button-icon"
+          />
         </button>
       </div>
     </div>
@@ -196,6 +201,28 @@ button {
 
   &.computer {
     display: none;
+  }
+}
+
+.carousel-header-see-all-news-button-icon {
+  width: 1.25em;
+  height: 1.25em;
+  mask: url('/src/assets/svg/arrow_right.svg');
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  background-color: $standard-colour-black;
+  aspect-ratio: 1/1;
+}
+
+button:hover {
+  .carousel-header-see-all-news-button-icon {
+    background-color: $primary;
+  }
+}
+
+button:focus-visible {
+  .carousel-header-see-all-news-button-icon {
+    background-color: $primary;
   }
 }
 
