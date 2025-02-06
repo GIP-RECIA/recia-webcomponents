@@ -97,7 +97,7 @@ async function updateReadingInfos() {
         <div class="carousel-header-title">
           {{ t('text.title.news') }}
         </div>
-        <button tabindex="0" class="carousel-header-see-all-news computer" @click="allActualites">
+        <button class="carousel-header-see-all-news computer" @click="allActualites">
           {{ t('text.normal.see-all-news') }}
           <FontAwesomeIcon class="arrow-rigth" :icon="['fas', 'arrow-right']" />
         </button>
@@ -108,9 +108,11 @@ async function updateReadingInfos() {
       </div>
 
       <div v-if="result?.actualite?.items && !loading" class="carousel-content-container">
-        <button tabindex="0" class="arrow left" :disabled="currentIndex === 0" @click="prev" @keydown.enter="prev">
-          <FontAwesomeIcon class="circle-arrow-left" :icon="['fas', 'circle-arrow-left']" />
-        </button>
+        <div class="arrow left">
+          <button :disabled="currentIndex === 0" @click="prev">
+            <FontAwesomeIcon :icon="['fas', 'arrow-left']" />
+          </button>
+        </div>
 
         <div class="carousel-content">
           <div v-for="(item, index) in visibleItems" :key="index" class="card-wrapper">
@@ -118,23 +120,19 @@ async function updateReadingInfos() {
               :item="item"
               :rubriques="getRubriques(item.rubriques)"
               :page-origin="false"
-              :getItemByIdUrl="props.getItemByIdUrl"
-              :setReadingUrl="props.setReadingUrl"
+              :get-item-by-id-url="props.getItemByIdUrl"
+              :set-reading-url="props.setReadingUrl"
               :is-read="readingInfos?.has(item.uuid) ? readingInfos.get(item.uuid) : false"
               @update-reading-infos="updateReadingInfos()"
             />
           </div>
         </div>
 
-        <button
-          tabindex="0"
-          class="arrow right"
-          :disabled="currentIndex >= result?.actualite?.items?.length - 3"
-          @click="next"
-          @keydown.enter="next"
-        >
-          <FontAwesomeIcon class="circle-arrow-right" :icon="['fas', 'circle-arrow-right']" />
-        </button>
+        <div class="arrow right">
+          <button :disabled="currentIndex >= result?.actualite?.items?.length - 3" @click="next">
+            <FontAwesomeIcon :icon="['fas', 'arrow-right']" />
+          </button>
+        </div>
       </div>
 
       <button class="carousel-header-see-all-news mobile" @click="allActualites">
@@ -147,9 +145,15 @@ async function updateReadingInfos() {
 
 <style lang="scss">
 @use '@/assets/global.scss' as *;
+@use '@/assets/buttons.scss' as *;
 
 * {
   box-sizing: border-box;
+}
+
+button {
+  border: none;
+  background: none;
 }
 
 .carousel-container {
@@ -182,29 +186,54 @@ async function updateReadingInfos() {
 }
 
 .arrow {
-  padding: 0;
-  margin: 0;
-  cursor: pointer;
+  display: none;
+  position: absolute;
+
+  > button {
+    @extend %button-primary-circle;
+    width: 42px;
+    height: 42px;
+
+    > svg {
+      height: 18px;
+      width: 18px;
+    }
+  }
+
+  &.left {
+    left: 0;
+    top: calc(50% - 21px);
+
+    > button {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      margin-left: -63px;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+  }
+
+  &.right {
+    right: 0;
+    top: calc(50% - 21px);
+
+    > button {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      margin-right: -63px;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+  }
 }
 
 .arrow-rigth {
   width: 11px;
   margin-left: 1em;
-}
-
-.circle-arrow-left {
-  width: 42px;
-  height: 42px;
-}
-
-.circle-arrow-right {
-  width: 42px;
-  height: 42px;
-}
-
-.arrow:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
 }
 
 .carousel-content {
@@ -220,10 +249,6 @@ async function updateReadingInfos() {
 }
 
 .carousel-header-see-all-news.computer {
-  display: none;
-}
-
-.arrow {
   display: none;
 }
 
@@ -260,36 +285,7 @@ async function updateReadingInfos() {
   }
 
   .arrow {
-    height: 42px;
-    width: auto;
-    position: absolute;
     display: block;
-    background: none;
-    border: none;
-    border-radius: 24px;
-    font-size: 2rem;
-    cursor: pointer;
-    user-select: none;
-    margin: 0;
-  }
-
-  .arrow:focus-visible {
-    outline: 3px solid $primary-transparent;
-    color: $standard-colour-white;
-
-    .circle-arrow-left {
-      background-color: $primary;
-    }
-  }
-
-  .arrow.left {
-    left: -2em;
-    top: calc(50% - 21px);
-  }
-
-  .arrow.right {
-    right: -2em;
-    top: calc(50% - 21px);
   }
 
   .carousel-header {
@@ -306,12 +302,6 @@ async function updateReadingInfos() {
 
   .carousel-content-container {
     position: relative;
-  }
-
-  .circle-arrow-left {
-  }
-
-  .circle-arrow-right {
   }
 
   .carousel-content {
