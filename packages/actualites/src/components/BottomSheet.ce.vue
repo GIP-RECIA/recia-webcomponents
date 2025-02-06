@@ -604,6 +604,7 @@ button {
     }
 
     .bottomsheet-content-body {
+      flex-grow: 1;
       font-family: $dm-sans;
       font-size: 16px;
       padding: 1em;
