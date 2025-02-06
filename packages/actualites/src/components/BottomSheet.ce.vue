@@ -434,9 +434,11 @@ button {
     }
 
     .bottomsheet-mobile-content-grip-area {
+      display: flex;
       padding: 16px;
       color: transparent;
       background-color: transparent;
+      justify-content: center;
 
       .bottomsheet-mobile-content-grip-area-handle-bar {
         width: 104px;
