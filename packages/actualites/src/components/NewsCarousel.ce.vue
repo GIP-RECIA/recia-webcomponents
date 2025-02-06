@@ -156,15 +156,6 @@ async function updateReadingInfos() {
 @use '@/assets/global.scss' as *;
 @use '@/assets/buttons.scss' as *;
 
-* {
-  box-sizing: border-box;
-}
-
-button {
-  border: none;
-  background: none;
-}
-
 .carousel-container {
   display: flex;
   flex-direction: column;
