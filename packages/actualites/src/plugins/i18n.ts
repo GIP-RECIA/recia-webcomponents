@@ -43,7 +43,7 @@ export default createI18n({
       },
       long: {
         year: 'numeric',
-        month: 'short',
+        month: 'long',
         day: 'numeric',
         weekday: 'long',
       },
@@ -66,7 +66,7 @@ export default createI18n({
       },
       long: {
         year: 'numeric',
-        month: 'short',
+        month: 'long',
         day: 'numeric',
         weekday: 'long',
       },
