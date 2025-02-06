@@ -104,12 +104,12 @@
   font-family: $sora;
   font-weight: 600;
   font-size: 16px;
-  background-color: $basic-black;
-  color: $standard-colour-white;
 }
 
 %button-primary {
   @extend %button;
+  background-color: $basic-black;
+  color: $standard-colour-white;
 
   &:hover {
     background-color: $primary;
@@ -147,6 +147,32 @@
   &:focus-visible {
     background-color: $secondary-hover;
     color: $primary;
+    outline: 4px solid $primary;
+  }
+
+  &:disabled,
+  &.disabled {
+    @extend %disabled;
+  }
+}
+
+%button-tertiary {
+  @extend %button;
+  padding: 8px 16px;
+  font-family: $dm-sans;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 17px;
+  color: $basic-black;
+
+  &:hover {
+    color: $primary;
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    color: $primary;
+    text-decoration: underline;
     outline: 4px solid $primary;
   }
 
