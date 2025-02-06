@@ -70,7 +70,6 @@ onUnmounted(() => {
 
 function setSource(source: string) {
   currentSource.value = source
-  console.log(currentSource.value)
   if (currentSource.value === undefined) {
     currentSource.value = undefined
     filterCounter.value = 0

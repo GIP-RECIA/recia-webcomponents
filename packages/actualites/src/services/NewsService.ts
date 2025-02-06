@@ -75,8 +75,6 @@ async function setReading(setReadingUrl: string, itemId: number | undefined, isR
 }
 
 export {
-  getAttachementsById,
-  getFile,
   getItemById,
   getNewsReadingInformations,
   getPaginatedNews,

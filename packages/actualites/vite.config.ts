@@ -78,8 +78,6 @@ export default ({ mode }: { mode: string }) => {
           changeOrigin: true,
           rewrite: (path) => {
             const rewrite = path.replace(/^(?:\/[\w-]+){2}\/api/, '')
-            console.log(`${path} => ${rewrite}`)
-
             return rewrite
           },
         },
