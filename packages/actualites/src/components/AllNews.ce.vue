@@ -22,7 +22,6 @@ import { getNewsReadingInformations, getPaginatedNews } from '@/services/NewsSer
 import { initToken } from '@/utils/axiosUtils.ts'
 import { isUserConnected } from '@/utils/soffitUtils.ts'
 import { onBeforeMount, ref } from 'vue'
-import {compileString} from "sass";
 
 const props = defineProps<{
   baseUrl: string
@@ -194,7 +193,7 @@ function closeModal() {
 
       <div v-if="result && result.totalItems > 10" class="allNews-footer">
         <page-selector
-          :currentPagee="currentPage"
+          :current-pagee="currentPage"
           :total-pages="totalPages"
           :max-visible-pages="5"
           @update-model-value="handlePageChange"
