@@ -174,10 +174,6 @@ function handleResize() {
 @use '@/assets/global.scss' as *;
 @use '@/assets/buttons.scss' as *;
 
-* {
-  box-sizing: border-box;
-}
-
 .filter-section-container {
   display: flex;
   flex-direction: column;

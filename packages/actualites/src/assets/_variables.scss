@@ -23,6 +23,17 @@ $grid-breakpoints: (
   xxl: 1400px,
 );
 
+$font-size-breakpoints: (
+  xs: 0.875,
+  sm: 0.75,
+  md: 1,
+  lg: 1.125,
+  xl: 1.25,
+  xxl: 1.5,
+);
+
+$base-font-size: 1rem;
+
 $sora: 'Sora', 'sans-serif';
 $dm-sans: 'DM Sans', 'sans-serif';
 
