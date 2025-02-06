@@ -97,10 +97,12 @@ async function updateReadingInfos() {
         <div class="carousel-header-title">
           {{ t('text.title.news') }}
         </div>
-        <button class="carousel-header-see-all-news computer" @click="allActualites">
-          {{ t('text.normal.see-all-news') }}
-          <FontAwesomeIcon class="arrow-rigth" :icon="['fas', 'arrow-right']" />
-        </button>
+        <div class="carousel-header-see-all-news computer">
+          <button @click="allActualites">
+            {{ t('text.normal.see-all-news') }}
+            <FontAwesomeIcon :icon="['fas', 'arrow-right']" />
+          </button>
+        </div>
       </div>
 
       <div v-if="loading" class="carousel-content">
@@ -135,10 +137,12 @@ async function updateReadingInfos() {
         </div>
       </div>
 
-      <button class="carousel-header-see-all-news mobile" @click="allActualites">
-        {{ t('text.normal.see-all-news') }}
-        <FontAwesomeIcon class="arrow-rigth" :icon="['fas', 'arrow-right']" />
-      </button>
+      <div class="carousel-header-see-all-news mobile">
+        <button @click="allActualites">
+          {{ t('text.normal.see-all-news') }}
+          <FontAwesomeIcon :icon="['fas', 'arrow-right']" />
+        </button>
+      </div>
     </div>
   </i18n-host>
 </template>
@@ -175,14 +179,24 @@ button {
 }
 
 .carousel-header-see-all-news {
-  font-family: $dm-sans;
-  font-size: 14px;
-  font-weight: 600;
-  background: none;
-  border: none;
   display: flex;
-  align-items: center;
-  cursor: pointer;
+
+  > button {
+    @extend %button-tertiary;
+
+    > svg {
+      height: 18px;
+      width: 18px;
+    }
+  }
+
+  &.mobile {
+    justify-content: right;
+  }
+
+  &.computer {
+    display: none;
+  }
 }
 
 .arrow {
@@ -241,15 +255,6 @@ button {
   flex-direction: column;
   gap: 1rem;
   background-color: transparent;
-}
-
-.carousel-header-see-all-news.mobile {
-  justify-content: right;
-  color: $standard-colour-black;
-}
-
-.carousel-header-see-all-news.computer {
-  display: none;
 }
 
 .skeleton-card {
@@ -320,19 +325,14 @@ button {
     box-sizing: border-box;
   }
 
-  .carousel-header-see-all-news.computer {
-    display: block;
-    justify-content: right;
-    color: $standard-colour-black;
-  }
+  .carousel-header-see-all-news {
+    &.mobile {
+      display: none;
+    }
 
-  .carousel-header-see-all-news.computer:hover {
-    color: $primary;
-    text-decoration: $primary underline;
-  }
-
-  .carousel-header-see-all-news.mobile {
-    display: none;
+    &.computer {
+      display: unset;
+    }
   }
 }
 </style>
