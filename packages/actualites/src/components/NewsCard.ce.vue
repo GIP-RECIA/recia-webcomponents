@@ -16,8 +16,7 @@
 
 <script setup lang="ts">
 import type { ItemVO } from '@/types/ItemVO.ts'
-import type { Rubrique } from '@/types/Rubrique.ts'
-import { onUnmounted, ref } from 'vue'
+import { onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 // Props
@@ -25,40 +24,16 @@ const props = defineProps<{
   item: ItemVO
   setReadingUrl: string
   getItemByIdUrl: string
-  rubriques: Array<Rubrique>
   pageOrigin: boolean
   isRead: boolean
   baseUrl: string
 }>()
-
-const emit = defineEmits(['updateReadingInfos'])
-
-// État pour la modal
-const showModal = ref(false)
-const openFullImage = ref(false)
 
 const { t, d } = useI18n()
 
 onUnmounted(() => {
 
 })
-
-// Méthodes
-function openModal() {
-  showModal.value = true
-  document.body.style.top = `-${window.scrollY}px`
-  document.body.style.position = 'fixed'
-}
-
-function closeModal() {
-  emit('updateReadingInfos')
-  showModal.value = false
-  openFullImage.value = false
-  const scrollY = document.body.style.top
-  document.body.style.position = ''
-  document.body.style.top = ''
-  window.scrollTo(0, Number.parseInt(scrollY || '0') * -1)
-}
 
 function isPageOriginCarrousel() {
   return !props.pageOrigin
@@ -70,7 +45,7 @@ function isPageOriginAll() {
 </script>
 
 <template>
-  <article tabindex="0" :class="{ active: !isRead, pageOrigin }" @click="openModal" @keydown.enter="openModal">
+  <article tabindex="0" :class="{ active: !isRead, pageOrigin }">
     <div class="card-img">
       <img class="image" :src="baseUrl.concat(props.item.article.enclosure)" alt="">
     </div>
@@ -104,18 +79,6 @@ function isPageOriginAll() {
       </div>
     </div>
   </article>
-
-  <div v-if="showModal" class="open-modal" :class="{ active: showModal }">
-    <bottom-sheet
-      :is-read="isRead"
-      :item-id="item.uuid"
-      :rubriques="rubriques"
-      :set-reading-url="setReadingUrl"
-      :get-item-by-id-url="getItemByIdUrl"
-      :base-url="baseUrl"
-      @close-modal="closeModal"
-    />
-  </div>
 </template>
 
 <style lang="scss">

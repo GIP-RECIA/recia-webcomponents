@@ -22,6 +22,7 @@ import { getNewsReadingInformations, getPaginatedNews } from '@/services/NewsSer
 import { initToken } from '@/utils/axiosUtils.ts'
 import { isUserConnected } from '@/utils/soffitUtils.ts'
 import { onBeforeMount, ref } from 'vue'
+import {compileString} from "sass";
 
 const props = defineProps<{
   baseUrl: string
@@ -65,7 +66,6 @@ onBeforeMount(async () => {
 function handleToggleChange(e: CustomEvent) {
   readingState.value = e.detail[0]
   currentPage.value = undefined
-  console.log('currentPage.value : ' + currentPage.value)
   fetchPaginatedNews()
 }
 
@@ -119,6 +119,30 @@ function showItemDependsOnReadingState(item: ItemVO) {
     return true
   }
 }
+// État pour la modal
+const showModal = ref(false)
+const openFullImage = ref(false)
+const itemIdOpenModal = ref<string>()
+const itemRubriquesOpenModal = ref()
+
+// Méthodes
+function openModal(uuid: string, codesRubriques: number[]) {
+  itemIdOpenModal.value = uuid
+  itemRubriquesOpenModal.value = getRubriques(codesRubriques)
+  showModal.value = true
+  document.body.style.top = `-${window.scrollY}px`
+  document.body.style.position = 'fixed'
+}
+
+function closeModal() {
+  updateReadingInfos()
+  showModal.value = false
+  openFullImage.value = false
+  const scrollY = document.body.style.top
+  document.body.style.position = ''
+  document.body.style.top = ''
+  window.scrollTo(0, Number.parseInt(scrollY || '0') * -1)
+}
 </script>
 
 <template>
@@ -155,12 +179,14 @@ function showItemDependsOnReadingState(item: ItemVO) {
           <div v-if="showItemDependsOnReadingState(item)" class="card-wrapper">
             <news-card
               :base-url="baseUrl"
-              :item="item" :rubriques="getRubriques(item.rubriques)"
+              :item="item"
               :page-origin="true"
               :set-reading-url="setReadingUrl"
               :get-item-by-id-url="props.getItemByIdUrl"
               :is-read="readingInfos?.has(item.uuid) ? readingInfos?.get(item.uuid) : false"
               @update-reading-infos="updateReadingInfos()"
+              @click="openModal(item.uuid, item.rubriques)"
+              @keydown.enter="openModal(item.uuid, item.rubriques)"
             />
           </div>
         </template>
@@ -174,6 +200,18 @@ function showItemDependsOnReadingState(item: ItemVO) {
           @update-model-value="handlePageChange"
         />
       </div>
+    </div>
+
+    <div v-if="showModal" class="open-modal" :class="{ active: showModal }">
+      <bottom-sheet
+        :is-read="readingInfos?.has(itemIdOpenModal) ? readingInfos?.get(itemIdOpenModal) : false"
+        :item-id="itemIdOpenModal"
+        :rubriques="itemRubriquesOpenModal"
+        :set-reading-url="setReadingUrl"
+        :get-item-by-id-url="getItemByIdUrl"
+        :base-url="baseUrl"
+        @close-modal="closeModal"
+      />
     </div>
   </i18n-host>
 </template>

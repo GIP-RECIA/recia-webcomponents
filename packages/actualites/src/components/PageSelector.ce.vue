@@ -35,8 +35,6 @@ const currentPage = ref(props.currentPagee ? props.currentPagee : 1)
 
 watch(() => props.currentPagee, () => { currentPage.value = props.currentPagee ? props.currentPagee : 1 })
 
-console.log('currentPage.value currentPage.value : '  + currentPage.value)
-
 function goToPage(page: number) {
   if (page >= 1 && page <= props.totalPages) {
     currentPage.value = page
