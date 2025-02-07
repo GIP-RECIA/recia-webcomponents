@@ -229,9 +229,11 @@ onBeforeUnmount(() => {
             <div class="bottomsheet-mobile-content-grip-area-handle-bar" />
           </div>
 
-          <button class="bottomsheet-content-header-close-btn" @click="closeModal">
-            <FontAwesomeIcon class="bottomsheet-content-header-close-btn-icon" :icon="['fas', 'xmark']" />
-          </button>
+          <div class="bottomsheet-content-header-close-btn">
+            <button @click="closeModal">
+              <FontAwesomeIcon :icon="['fas', 'xmark']" />
+            </button>
+          </div>
 
           <div class="bottomsheet-content-header">
             <div class="bottomsheet-content-header-image-group">
@@ -444,6 +446,18 @@ onBeforeUnmount(() => {
 
     .bottomsheet-content-header-close-btn {
       display: none;
+      position: absolute;
+      top: 2em;
+      right: 2em;
+
+      > button {
+        @extend %button-tertiary-circle;
+
+        > svg {
+          height: 24px;
+          width: 24px;
+        }
+      }
     }
 
     .bottomsheet-content-header {
@@ -560,12 +574,6 @@ onBeforeUnmount(() => {
               right: -0.4rem;
             }
           }
-        }
-
-        .bottomsheet-content-header-informations-item-title {
-          font-family: $sora;
-          font-size: 24px;
-          font-weight: bold;
         }
 
         .bottomsheet-content-header-informations-sections {
@@ -771,20 +779,7 @@ onBeforeUnmount(() => {
       }
 
       .bottomsheet-content-header-close-btn {
-        display: block;
-        position: absolute;
-        top: 2em;
-        right: 2em;
-
-        border: none;
-        background-color: transparent;
-
-        cursor: pointer;
-
-        .bottomsheet-content-header-close-btn-icon {
-          width: 24px;
-          height: 24px;
-        }
+        display: unset;
       }
 
       .bottomsheet-content-header {
@@ -924,7 +919,8 @@ onBeforeUnmount(() => {
                 }
               }
 
-              .bottomsheet-content-header-informations-info-modal-button:hover {
+              .bottomsheet-content-header-informations-info-modal-button:hover,
+              .bottomsheet-content-header-informations-info-modal-button:focus-visible {
                 background-color: $primary-transparent;
 
                 .bottomsheet-content-header-informations-info-modal-icon-container {
@@ -954,9 +950,6 @@ onBeforeUnmount(() => {
                 right: -0.4rem;
               }
             }
-          }
-
-          .bottomsheet-content-header-informations-item-title {
           }
 
           .bottomsheet-content-header-informations-sections {

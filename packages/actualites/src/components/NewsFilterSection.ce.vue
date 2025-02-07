@@ -197,6 +197,11 @@ function handleResize() {
   background-color: transparent;
   padding: 1rem;
   align-items: center;
+
+  &:focus-visible {
+    outline: 4px solid $primary;
+    border-radius: 10px;
+  }
 }
 
 .filter-section-container-header-left {
@@ -256,6 +261,10 @@ function handleResize() {
 
 .filter-section {
   display: flex;
+
+  > ul {
+    list-style: none;
+  }
 }
 
 .filter-section-span-container {
@@ -267,6 +276,11 @@ function handleResize() {
 
 .filter-section-span {
   @extend %tag;
+
+  &.mobile:not(.active) {
+    background-color: $primary-transparent;
+    color: $primary;
+  }
 }
 
 @media only screen and (min-width: 1024px) {
