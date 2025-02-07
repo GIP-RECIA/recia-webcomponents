@@ -113,7 +113,7 @@ article {
     flex-direction: column;
     flex-grow: 1;
     padding: 16px;
-    gap: 0.3rem;
+    gap: 0.3em;
 
     .article-wrapper-lecture {
       font-style: italic;
