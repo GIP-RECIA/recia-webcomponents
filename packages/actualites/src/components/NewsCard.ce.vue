@@ -76,7 +76,7 @@ article {
 
   &:focus-visible {
     outline: 2px solid $primary;
-
+    --img-scale: 1.3;
     h3 {
       color: $primary;
     }
@@ -104,6 +104,7 @@ article {
       height: 100%; // Remplit complètement la div
       object-fit: cover;
       transform-origin: center;
+      transition: transform 0.2s ease-in-out;
     }
   }
 
@@ -134,7 +135,7 @@ article {
     }
 
     .infos {
-      flex-shrink: 0;
+      flex-shrzink: 0;
       display: flex;
       font-family: $dm-sans;
       color: $standard-colour-black;
@@ -198,6 +199,9 @@ article {
     &:focus-visible {
       outline: 2px solid $primary;
       box-shadow: color-mix(in srgb, $primary, #0000 80%) 0 4px 26px 0;
+      .image {
+        transform: scale(1.3);
+      }
 
       &:not(.active) {
         outline: 2px solid $standard-colour-ligth-black;
