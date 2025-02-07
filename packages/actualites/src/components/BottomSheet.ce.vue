@@ -52,6 +52,8 @@ const isSelfBottomSheetOpen = ref(true)
 const bottomsheet = ref<HTMLElement>()
 const bottomsheetContentHeaderImageContainer = ref<HTMLElement>()
 const loading = ref(true)
+const showTooltip = ref(false)
+
 let idTimout: number
 let startY = 0
 let currentY = 0
@@ -75,7 +77,6 @@ onBeforeMount(async () => {
     loading.value = false
   }
 })
-
 
 function fullImage() {
   if (window.innerWidth < 720) {
@@ -199,6 +200,7 @@ function isAtTop(element: HTMLElement): boolean {
 
 function openMoreInfosModal() {
   showMoreInfosModal.value = !showMoreInfosModal.value
+  showTooltip.value = false
 }
 
 onBeforeUnmount(() => {
@@ -289,6 +291,10 @@ onBeforeUnmount(() => {
                     class="bottomsheet-content-header-informations-info-modal-button"
                     :class="{ active: showMoreInfosModal }"
                     @click="openMoreInfosModal"
+                    @mouseenter="showTooltip = true && !showMoreInfosModal"
+                    @mouseleave="showTooltip = false "
+                    @focus="showTooltip = true && !showMoreInfosModal"
+                    @blur="showTooltip = false"
                   >
                     <div class="bottomsheet-content-header-informations-info-modal-icon-container">
                       <div class="bottomsheet-content-header-informations-info-modal-icon">
@@ -296,6 +302,12 @@ onBeforeUnmount(() => {
                       </div>
                     </div>
                   </button>
+                  <div v-if="showTooltip" class="tooltip-container">
+                    <div class="tooltip">
+                      {{ t('text.creation-info.more-info') }}
+                      <div class="arrow-down" />
+                    </div>
+                  </div>
                   <more-informations
                     v-if="showMoreInfosModal"
                     class="modal-more-infos"
@@ -367,7 +379,10 @@ onBeforeUnmount(() => {
         </div>
       </div>
 
-      <div v-if="isMobileFullImage && item" class="bottomsheet-content-header-image-group-full-image-overlay" @click.stop>
+      <div
+        v-if="isMobileFullImage && item" class="bottomsheet-content-header-image-group-full-image-overlay"
+        @click.stop
+      >
         <div class="bottomsheet-content-header-image-group-full-image-container" @click="fullImage">
           <img
             class="bottomsheet-content-header-image-group-full-image"
@@ -543,6 +558,8 @@ onBeforeUnmount(() => {
               z-index: 100;
 
               .bottomsheet-content-header-informations-info-modal-icon-container {
+                position: relative;
+
                 width: 24px;
                 height: 24px;
                 border: 2px solid $primary;
@@ -557,6 +574,43 @@ onBeforeUnmount(() => {
                   font-size: 14px;
                   color: $primary;
                   padding-top: 1px;
+                }
+              }
+            }
+
+            .tooltip-container {
+              position: absolute;
+
+              top: -2.5em;
+              left: -1em;
+
+              display: block;
+
+              .tooltip-wrapper {
+              }
+
+              .tooltip {
+                position: relative;
+                padding: 0.5em;
+                font-family: $dm-sans;
+                font-size: 10px;
+                font-weight: bold;
+                text-wrap: nowrap;
+                color: $standard-colour-white;
+                background-color: $standard-colour-black;
+                border-radius: 4px;
+                box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+
+                .arrow-down {
+                  position: absolute;
+                  left: 2.6em;
+                  bottom: -6px;
+                  width: 0;
+                  height: 0;
+                  border-left: 6px solid transparent;
+                  border-right: 6px solid transparent;
+
+                  border-top: 6px solid $standard-colour-black;
                 }
               }
             }
