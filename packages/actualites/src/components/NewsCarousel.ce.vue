@@ -197,7 +197,7 @@ function closeModal() {
 .carousel-container {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1em;
   justify-content: center;
 }
 
@@ -302,7 +302,7 @@ button:focus-visible {
 .carousel-content {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1em;
   background-color: transparent;
 }
 

@@ -223,7 +223,7 @@ function closeModal() {
 .allNews-container {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.5em;
   justify-items: center;
 }
 
@@ -243,9 +243,9 @@ custom-toggle-switch {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  gap: 1em;
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
 
 .allNews-header-title-button {
@@ -262,13 +262,13 @@ custom-toggle-switch {
 .allNews-body {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1em;
 }
 
 .allNews-footer {
   display: flex;
   justify-content: center;
-  padding: 2rem;
+  padding: 2em;
 }
 
 .skeleton-card {
@@ -303,8 +303,8 @@ custom-toggle-switch {
   .allNews-body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    margin-top: 2rem;
+    gap: 1.5em;
+    margin-top: 2em;
   }
 
   .card-wrapper {

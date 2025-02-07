@@ -629,8 +629,8 @@ onBeforeUnmount(() => {
 
             .modal-more-infos {
               position: absolute;
-              top: -0.4rem;
-              right: -0.4rem;
+              top: -0.4em;
+              right: -0.4em;
             }
           }
         }
@@ -1009,8 +1009,8 @@ onBeforeUnmount(() => {
 
               .modal-more-infos {
                 position: absolute;
-                top: -0.4rem;
-                right: -0.4rem;
+                top: -0.4em;
+                right: -0.4em;
               }
             }
           }

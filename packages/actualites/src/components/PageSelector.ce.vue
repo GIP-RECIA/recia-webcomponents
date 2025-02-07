@@ -97,7 +97,7 @@ ul {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.5em;
 
   > li > button {
     @extend %tag-circle;

@@ -53,7 +53,7 @@ const {
   height: 100%;
   width: 70%; // 80% de la largeur totale (10% de marge de chaque côté)
   margin: 0 auto;
-  gap: 2rem;
+  gap: 2em;
 }
 
 all-news,
