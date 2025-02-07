@@ -87,7 +87,6 @@ const visiblePages = computed(() => {
 
 <style lang="scss">
 @use '@/assets/global.scss' as *;
-@use '@/assets/buttons.scss' as *;
 
 ul {
   list-style-type: none;
