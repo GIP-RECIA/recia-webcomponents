@@ -16,7 +16,8 @@
       "update-by": "Updated by ",
       "validate-by": "Validated by ",
       "when": "on {date} at {datetime}",
-      "publish-by": "Published by {organization}"
+      "publish-by": "Published by {organization}",
+      "more-info": "More information"
     },
     "normal": {
       "see-all-news": "see all the news",
