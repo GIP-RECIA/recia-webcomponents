@@ -1566,6 +1566,7 @@ __metadata:
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^5.2.4"
     "@vue/tsconfig": "npm:^0.7.0"
+    "@vueform/multiselect": "npm:^2.6.11"
     "@vueuse/core": "npm:^13.3.0"
     axios: "npm:^1.10.0"
     dotenv-checker: "npm:^1.1.7"
@@ -4293,6 +4294,13 @@ __metadata:
     vue:
       optional: true
   checksum: 10/29b5dd11cc179de707dfd549d0e80e220f4a0f6f7d90b9a52769bc655e599b9166b28af1218819245fbdd30a74d80fdd484538cdda6876d9d369ae623f234834
+  languageName: node
+  linkType: hard
+
+"@vueform/multiselect@npm:^2.6.11":
+  version: 2.6.11
+  resolution: "@vueform/multiselect@npm:2.6.11"
+  checksum: 10/51cdddf1b919fb2f6074182baf258525fe0f4d5f4800d50ea9eb8d16bdf7da23762b9424cfb7c36fef53f1a299dca8e26bc80bd7cf8dcc07159fa3970ef4a6bd
   languageName: node
   linkType: hard
 
