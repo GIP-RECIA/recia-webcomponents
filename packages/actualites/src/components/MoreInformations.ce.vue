@@ -72,8 +72,8 @@ const { t, d } = useI18n()
 .modal-container {
   height: auto;
   max-width: 400px;
-  padding: 0.5rem;
-  padding-right: 2.5rem;
+  padding: 0.5em;
+  padding-right: 2.5em;
   border-radius: 10px 20px 10px 10px;
   background-color: white; // Couleur semi-transparente
   display: grid;
@@ -89,14 +89,14 @@ const { t, d } = useI18n()
   flex-direction: column;
   font-family: $dm-sans;
   font-size: 14px;
-  padding: 1.5rem;
-  gap: 1rem;
+  padding: 1.5em;
+  gap: 1em;
 }
 
 .modal-content-edition {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.3em;
 }
 
 .modal-content-edition-by {

@@ -194,7 +194,7 @@ function handleResize() {
   justify-content: space-between;
   border: none;
   background-color: transparent;
-  padding: 1rem;
+  padding: 1em;
   align-items: center;
 
   &:focus-visible {
@@ -205,7 +205,7 @@ function handleResize() {
 
 .filter-section-container-header-left {
   display: inline-flex;
-  gap: 1rem;
+  gap: 1em;
   align-items: center;
   align-content: center;
 }
@@ -254,8 +254,8 @@ function handleResize() {
   text-wrap: nowrap;
   font-family: $dm-sans;
   font-size: 12px;
-  padding-top: 1rem;
-  padding-left: 1rem;
+  padding-top: 1em;
+  padding-left: 1em;
 }
 
 .filter-section {
@@ -269,8 +269,8 @@ function handleResize() {
 .filter-section-span-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.7rem;
-  padding: 1rem;
+  gap: 0.7em;
+  padding: 1em;
 }
 
 .filter-section-span {
@@ -286,12 +286,12 @@ function handleResize() {
   .filter-section-container {
     background-color: transparent;
     box-shadow: none;
-    padding: 1rem 0rem;
-    gap: 1rem;
+    padding: 1em 0;
+    gap: 1em;
   }
 
   .filter-section-container-header {
-    padding: 0rem;
+    padding: 0;
   }
 
   .filter-title.disabled {
@@ -309,12 +309,12 @@ function handleResize() {
   .grid-container {
     display: grid;
     grid-template-columns: auto 1fr;
-    padding: 0rem;
-    gap: 1rem;
+    padding: 0;
+    gap: 1em;
   }
 
   .sources {
-    padding: 0rem;
+    padding: 0;
     grid: inherit;
   }
 
@@ -327,16 +327,16 @@ function handleResize() {
   }
 
   .filter-section-span-container {
-    padding: 0rem;
+    padding: 0;
   }
 
   .filter-section-title {
-    padding: 0rem;
+    padding: 0;
     padding-top: 6px;
   }
 
   .filter-section {
-    padding: 0rem;
+    padding: 0;
     align-items: start;
   }
 }
