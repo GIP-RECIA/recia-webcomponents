@@ -384,7 +384,6 @@ onBeforeUnmount(() => {
 
 <style lang="scss">
 @use '@/assets/global.scss' as *;
-@use '@/assets/buttons.scss' as *;
 
 .mark-has-not-read-btn {
   @extend %button-secondary;
