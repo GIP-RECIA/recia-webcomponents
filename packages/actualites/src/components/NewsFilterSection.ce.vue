@@ -177,7 +177,6 @@ function handleResize() {
 
 <style lang="scss">
 @use '@/assets/global.scss' as *;
-@use '@/assets/buttons.scss' as *;
 
 .filter-section-container {
   display: flex;

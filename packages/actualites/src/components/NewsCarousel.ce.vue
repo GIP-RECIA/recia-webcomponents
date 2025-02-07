@@ -193,7 +193,6 @@ function closeModal() {
 
 <style lang="scss">
 @use '@/assets/global.scss' as *;
-@use '@/assets/buttons.scss' as *;
 
 .carousel-container {
   display: flex;
