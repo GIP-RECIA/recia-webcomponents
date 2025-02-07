@@ -29,6 +29,7 @@ const props = defineProps<{
   getUserNewsUrl: string
   setReadingUrl: string
   getNewsReadingInformationsUrl: string
+  allNewsPageUrl: string
 }>()
 
 const result = ref<PaginatedResult>()
@@ -123,12 +124,12 @@ function closeModal() {
           {{ t('text.title.news') }}
         </h2>
         <div class="carousel-header-see-all-news computer">
-          <button class="carousel-header-see-all-news-button" @click="allActualites">
+          <a class="carousel-header-see-all-news-button" href="allNewsPageUrl">
             {{ t('text.normal.see-all-news') }}
             <i
               class="carousel-header-see-all-news-button-icon"
             />
-          </button>
+          </a>
         </div>
       </div>
 
@@ -168,12 +169,12 @@ function closeModal() {
       </div>
 
       <div class="carousel-header-see-all-news mobile">
-        <button class="carousel-header-see-all-news-button" @click="allActualites">
+        <a class="carousel-header-see-all-news-button" href="allNewsPageUrl">
           {{ t('text.normal.see-all-news') }}
           <i
             class="carousel-header-see-all-news-button-icon"
           />
-        </button>
+        </a>
       </div>
     </div>
 
