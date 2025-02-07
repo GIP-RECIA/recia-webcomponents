@@ -43,6 +43,7 @@ const props = withDefaults(
     fnameMediacentreUi?: string
     escosirencurent?: string
     escosiren?: string
+    helpLocation? : string,
   }>(),
   {
     baseApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_API_URI,
@@ -54,6 +55,7 @@ const props = withDefaults(
     fnameMediacentreUi: import.meta.env.VITE_APP_MEDIACENTRE_FNAME,
     escosirencurent: import.meta.env.VITE_APP_MEDIACENTRE_CLAIM_ESCOSIREN_COURANT,
     escosiren: import.meta.env.VITE_APP_MEDIACENTRE_CLAIM_ESCOSIREN,
+    helpLocation: import.meta.env.VITE_APP_MEDIACENTRE_HELP_PAGE_LOCATION,
   },
 )
 
@@ -354,6 +356,7 @@ watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed, old
       <aside class="aside-page-mediacentre">
         <menu-mediacentre :filtres="filtres" :checked="filtre" @update-checked="updateFiltre" />
       </aside>
+      <div class="main-page-wrapper">
       <main class="main-page-mediacentre">
         <liste-ressources
           v-if="!chargement"
@@ -368,6 +371,8 @@ watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed, old
           @open-modal="openModal"
         />
       </main>
+      <p><a :href="helpLocation" target="_blank" rel="noopener noreferrer">{{ t('page-mediacentre.help') }}</a></p>
+    </div>
       <Teleport to="body">
         <InfoModal id="modale" debug="false">
           <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
@@ -488,6 +493,21 @@ watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed, old
   }
 }
 
-:host {
+.main-page-wrapper {
+  width: 100%;
+  height: 95%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  p {
+    text-align: center;
+    width: 100%;
+    a {
+      width: auto;
+      display: block;
+      color: revert;
+      text-decoration: none;
+    }
+  }
 }
 </style>
