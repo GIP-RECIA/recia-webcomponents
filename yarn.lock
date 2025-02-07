@@ -1406,8 +1406,8 @@ __metadata:
 
 "@gip-recia/info-modal@file:../info-modal/package.tgz::locator=%40gip-recia%2Fmediacentre-ui%40workspace%3Apackages%2Fmediacentre":
   version: 0.0.1
-  resolution: "@gip-recia/info-modal@file:../info-modal/package.tgz#../info-modal/package.tgz::hash=d63514&locator=%40gip-recia%2Fmediacentre-ui%40workspace%3Apackages%2Fmediacentre"
-  checksum: 10/8b994e9d4044149b83902d50f9460522b5e796710829e1eb66a0b7268fca86d53f931d12b68c1e3942708a516d264d8a85c6a14a8960f8ed97aa2d3b2fd2535d
+  resolution: "@gip-recia/info-modal@file:../info-modal/package.tgz#../info-modal/package.tgz::hash=8b198b&locator=%40gip-recia%2Fmediacentre-ui%40workspace%3Apackages%2Fmediacentre"
+  checksum: 10/f0d5e786043f2adeb41f0f9b9e0ff13b27067a50d219ef8ac09410fcfd3ba323f640a6eaa753751c678c1b698a0ea08674f412d946c5976d34b1b5b639a621b7
   languageName: node
   linkType: hard
 
