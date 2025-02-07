@@ -305,10 +305,10 @@ onBeforeUnmount(() => {
                 />
               </div>
 
-              <div v-if="item && !loading" class="bottomsheet-content-header-informations-item-title">
+              <h1 v-if="item && !loading">
                 {{ item.title }}
-              </div>
-              <div v-if="loading" class="bottomsheet-content-header-informations-item-title">
+              </h1>
+              <div v-if="loading">
                 <div
                   v-for="index in 1"
                   :key="index"
@@ -350,12 +350,7 @@ onBeforeUnmount(() => {
           <div class="bottomsheet-content-footer-separator" />
           <div class="bottomsheet-content-footer-button-group">
             <button v-if="isUserConnected" class="mark-has-not-read-btn" @click="changeReadingState(!isReadingButton)">
-              <div v-if="isReadingButton">
-                {{ t('button.mark-as-not-read') }}
-              </div>
-              <div v-if="!isReadingButton">
-                {{ t('button.mark-as-read') }}
-              </div>
+              {{ t(`button.mark-as${isReadingButton ? '-not' : ''}-read`) }}
             </button>
             <button class="close-btn" @click="closeModal">
               {{ t('button.close') }}
