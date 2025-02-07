@@ -30,6 +30,7 @@ const props = defineProps<{
   getUserNewsUrl: string
   getNewsReadingInformationsUrl: string
   setReadingUrl: string
+  backUrl: string
 }>()
 
 const result = ref<PaginatedResult>()
@@ -150,12 +151,13 @@ function closeModal() {
     <div id="allNews" class="allNews-container">
       <div class="allNews-header">
         <div class="allNews-header-title">
-          <button class="allNews-header-title-button">
+          <a class="allNews-header-title-button" href="backUrl" title="Retour à l'acceuil">
             <img
               class="allNews-header-title-button-icon"
-              src="/src/assets/svg/arrow_left.svg" alt="arrow_left"
+              src="/src/assets/svg/arrow_left.svg"
+              alt=""
             >
-          </button>
+          </a>
           <h1 class="title-allNews">
             {{ t('text.title.all-news') }}
           </h1>
