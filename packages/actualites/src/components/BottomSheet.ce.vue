@@ -66,6 +66,7 @@ onBeforeMount(async () => {
         changeReadingState(true)
       }, VITE_USER_READING_DELAY)
     }
+    bottomsheetContentHeaderImageContainer.value?.focus()
   }
   catch (e: any) {
     console.error(e)
@@ -74,6 +75,7 @@ onBeforeMount(async () => {
     loading.value = false
   }
 })
+
 
 function fullImage() {
   if (window.innerWidth < 720) {
@@ -213,9 +215,11 @@ onBeforeUnmount(() => {
     <div class="bottomsheet-overlay" @click="closeModal">
       <div
         ref="bottomsheet"
+        tabindex="-1"
         class="bottomsheet-container"
         :class="{ 'slide-down': !isSelfBottomSheetOpen, 'slide-up': isSelfBottomSheetOpen }"
         @click.stop
+        @keydown.esc="closeModal"
       >
         <template v-if="true">
           <img
@@ -239,9 +243,11 @@ onBeforeUnmount(() => {
             <div class="bottomsheet-content-header-image-group">
               <div
                 ref="bottomsheetContentHeaderImageContainer"
+                tabindex="-1"
                 class="bottomsheet-content-header-image-container"
                 :class="{ enlarge: isDesktopFullImage, shrink: isDesktopFullImage === false }"
                 @click="fullImage"
+                @keydown.enter="fullImage"
               >
                 <img
                   v-if="item && !loading"
@@ -814,6 +820,10 @@ onBeforeUnmount(() => {
             .bottomsheet-content-header-image-group-expand-container {
               display: none;
             }
+          }
+
+          .bottomsheet-content-header-image-container:not(.enlarge):focus-visible {
+            outline-color: $primary;
           }
 
           .bottomsheet-content-header-image-container:not(.enlarge):hover {

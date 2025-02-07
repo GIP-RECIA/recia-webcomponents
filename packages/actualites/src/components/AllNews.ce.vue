@@ -40,6 +40,7 @@ const currentPage = ref<number | undefined>()
 const totalPages = ref()
 const readingState = ref<boolean | undefined>(undefined)
 const loading = ref(true) // État de chargement
+const bottomsheet = ref<HTMLElement>()
 
 const { t } = i18n.global
 
@@ -203,6 +204,7 @@ function closeModal() {
 
     <div v-if="showModal" class="open-modal" :class="{ active: showModal }">
       <bottom-sheet
+        ref="bottomsheet"
         :is-read="readingInfos?.has(itemIdOpenModal) ? readingInfos?.get(itemIdOpenModal) : false"
         :item-id="itemIdOpenModal"
         :rubriques="itemRubriquesOpenModal"
