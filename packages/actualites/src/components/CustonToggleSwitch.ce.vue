@@ -64,7 +64,13 @@ ul {
   gap: 8px;
 
   li > button {
-    @extend %tag-small;
+    @extend %tag;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  ul > li > button {
+    padding: 4px 12px;
   }
 }
 </style>
