@@ -16,25 +16,30 @@
 
 <script setup lang="ts">
 import type { Filtres } from '@/types/FiltresType'
+import { displayedEtablissementSiren, etablissementsData, filtre } from '@/utils/store'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import Multiselect from '@vueform/multiselect'
 import { useBreakpoints } from '@vueuse/core'
-import { capitalize, ref } from 'vue'
+import { capitalize, onMounted, ref, watch } from 'vue'
+
 import { useI18n } from 'vue-i18n'
 
+defineOptions({ name: 'MenuMedia' })
+
+// eslint-disable-next-line unused-imports/no-unused-vars
 const props = defineProps<{
   checked: string
   filtres: Array<Filtres>
 }>()
 
-const emit = defineEmits(['update-checked'])
+const emit = defineEmits(['updateChecked'])
 
 const { t } = useI18n()
-
-const filtre = ref(props.checked || '')
 const activeCategory = ref('tout')
 const activeCategoryName = ref(t('menu-mediacentre.all-resources'))
 const isUnfolded = ref(false)
-
+const multiselectOptions = ref()
+const multiselectCurrentValue = ref()
 const breakpoints = useBreakpoints({
   mobile: 770,
   laptop: 1024,
@@ -47,7 +52,7 @@ function changementFiltre(idFiltre: string, idCategorie: string, categoryName: s
   }
   activeCategoryName.value = categoryName
   showCategoriesContainer()
-  emit('update-checked', idFiltre, idCategorie)
+  emit('updateChecked', idFiltre, idCategorie)
 }
 
 function showCategoriesContainer(): void {
@@ -62,6 +67,26 @@ function showSubCategories(idCategory: string): void {
     activeCategory.value = idCategory
   }
 }
+
+watch(() => etablissementsData.value, async () => {
+  const valueLabelObjects = []
+  for (const [key, value] of etablissementsData.value.tout) {
+    valueLabelObjects.push({ value: key, label: value })
+  }
+  multiselectOptions.value = valueLabelObjects
+  multiselectCurrentValue.value = etablissementsData.value.courant
+}, { immediate: true })
+
+watch(() => filtre.value, async (newFiltre) => {
+  if (newFiltre === 'tout') {
+    activeCategory.value = 'tout'
+    activeCategoryName.value = 'Toutes les ressources'
+  }
+})
+
+function etablissementSelected(e: string) {
+  displayedEtablissementSiren.value = e
+}
 </script>
 
 <template>
@@ -75,57 +100,73 @@ function showSubCategories(idCategory: string): void {
       </div>
     </div>
 
-    <div
-      class="categories-container"
-      :class="[breakpoints.active() !== undefined && breakpoints.active() === ref('mobile') ? 'toggle' : '']"
-    >
-      <button
-        id="tout"
-        active
-        :class="[activeCategory === 'tout' ? 'active' : '']"
-        class="sub-categories-container without-sub-cat"
-        value="tout"
-        @click="changementFiltre('tout', 'tout', t('menu-mediacentre.all-resources'))"
-      >
-        <h3>{{ capitalize(t('menu-mediacentre.all-resources')) }}</h3>
-      </button>
+    <div class="menu-wrapper">
+      <div class="displayed-etab">
+        {{ t('menu-mediacentre.displayed-etab') }}
+      </div>
+      <Multiselect
+        mode="single"
+        class="multiselect"
+        name="value"
+        :value="multiselectCurrentValue"
 
-      <button
-        id="favoris"
-        :class="[activeCategory === 'favoris' ? 'active' : '']"
-        class="sub-categories-container without-sub-cat"
-        value="favoris"
-        @click="changementFiltre('favoris', 'favoris', t('menu-mediacentre.my-favorites'))"
-      >
-        <h3>{{ capitalize(t('menu-mediacentre.my-favorites')) }}</h3>
-      </button>
-
+        :can-deselect="false"
+        :can-clear="false"
+        :options="multiselectOptions"
+        @select="etablissementSelected"
+      />
       <div
-        v-for="(category, index) in filtres"
-        :id="category.filterEnum"
-        :key="index"
-        class="dynamic-categories-container"
+        class="categories-container"
+        :class="[breakpoints.active() !== undefined && breakpoints.active() === ref('mobile') ? 'toggle' : '']"
       >
         <button
-          :id="category.name"
-          class="sub-categories-container"
-          :class="[activeCategory === category.name ? 'active' : '']"
-          @click="showSubCategories(category.name)"
+          id="tout"
+          active
+          :class="[activeCategory === 'tout' ? 'active' : '']"
+          class="sub-categories-container without-sub-cat"
+          value="tout"
+          @click="changementFiltre('tout', 'tout', t('menu-mediacentre.all-resources'))"
         >
-          <h3>{{ capitalize(t(category.name)) }}</h3>
-          <FontAwesomeIcon class="caret-menu-icon" :icon="['fas', 'caret-right']" />
+          <h3>{{ capitalize(t('menu-mediacentre.all-resources')) }}</h3>
         </button>
-        <div class="container" :class="[activeCategory === category.name ? 'active' : '']">
-          <div v-for="(subCat, idx) of category.filters" :key="idx">
-            <button
-              :class="{ active: filtre === subCat.id }"
-              class="sub-category-container"
-              @click.prevent="changementFiltre(subCat.id, category.filterEnum, subCat.nom)"
-            >
-              <span>
-                {{ capitalize(subCat.nom) }}
-              </span>
-            </button>
+
+        <button
+          id="favoris"
+          :class="[activeCategory === 'favoris' ? 'active' : '']"
+          class="sub-categories-container without-sub-cat"
+          value="favoris"
+          @click="changementFiltre('favoris', 'favoris', t('menu-mediacentre.my-favorites'))"
+        >
+          <h3>{{ capitalize(t('menu-mediacentre.my-favorites')) }}</h3>
+        </button>
+
+        <div
+          v-for="(category, index) in filtres"
+          :id="category.filterEnum"
+          :key="index"
+          class="dynamic-categories-container"
+        >
+          <button
+            :id="category.name"
+            class="sub-categories-container"
+            :class="[activeCategory === category.name ? 'active' : '']"
+            @click="showSubCategories(category.name)"
+          >
+            <h3>{{ capitalize(t(category.name)) }}</h3>
+            <FontAwesomeIcon class="caret-menu-icon" :icon="['fas', 'caret-right']" />
+          </button>
+          <div class="container" :class="[activeCategory === category.name ? 'active' : '']">
+            <div v-for="(subCat, idx) of category.filters" :key="idx">
+              <button
+                :class="{ active: filtre === subCat.id }"
+                class="sub-category-container"
+                @click.prevent="changementFiltre(subCat.id, category.filterEnum, subCat.nom)"
+              >
+                <span>
+                  {{ capitalize(subCat.nom) }}
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -258,7 +299,22 @@ function showSubCategories(idCategory: string): void {
   transition: height 0.3s ease-in-out;
 }
 
+.menu-wrapper {
+  background-color: $background-color-menu;
+  padding: 1px;
+}
+
+.displayed-etab {
+  text-align: start;
+  padding-left: 0.2em;
+  font-weight: bold;
+}
+
 @media (max-width: 650px) {
+  .displayed-etab {
+    padding-left: 0.6em;
+  }
+
   .cadre-menu-mediacentre {
     text-align: center;
     width: 100%;
@@ -366,5 +422,54 @@ function showSubCategories(idCategory: string): void {
     height: 100%;
     visibility: visible;
   }
+  .multiselect {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    width: auto;
+  }
+}
+
+@import '@vueform/multiselect/themes/default.css';
+
+@import '../assets/scss/variables';
+.multiselect {
+  margin-bottom: 2em;
+}
+
+.multiselect-wrapper {
+  font-weight: bold;
+}
+
+:host {
+  --ms-font-size: 0.8rem;
+  --ms-line-height: 1.375;
+  --ms-bg: #ffffff;
+  --ms-bg-disabled: #f3f4f6;
+  --ms-border-color: #d1d5db;
+  --ms-border-width: 1px;
+  --ms-border-color-active: #d1d5db;
+  --ms-border-width-active: 1px;
+  --ms-radius: 4px;
+  --ms-py: 0.5rem;
+  --ms-px: 0.875rem;
+  --ms-ring-width: 3px;
+  --ms-ring-color: #10b98130;
+  --ms-placeholder-color: #9ca3af;
+  --ms-max-height: 10rem;
+
+  --ms-option-font-size: 1rem;
+  --ms-option-line-height: 1.375;
+  --ms-option-bg-pointed: #ffffff;
+  --ms-option-color-pointed: #1f2937;
+  --ms-option-bg-selected: #{$vueform-option-selected-background};
+  --ms-option-color-selected: #{$vueform-option-selected};
+  --ms-option-bg-disabled: #ffffff;
+  --ms-option-color-disabled: #d1d5db;
+  --ms-option-bg-selected-pointed: #{$vueform-option-selected-background};
+  --ms-option-color-selected-pointed: #{$vueform-option-selected};
+  --ms-option-bg-selected-disabled: #ffffff;
+  --ms-option-color-selected-disabled: #d1fae5;
+  --ms-option-py: 0.5rem;
+  --ms-option-px: 0.75rem;
 }
 </style>
