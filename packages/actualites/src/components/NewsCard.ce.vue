@@ -47,7 +47,7 @@ const { t, d } = useI18n()
         </span>
       </p>
 
-      <h3 class="h4 card-body-title">
+      <h3 class="h4">
         {{ item.article.title }}
       </h3>
       <p class="card-body-description">
@@ -73,176 +73,127 @@ article {
   box-shadow: rgba(0, 0, 0, 0.06) 0 0 10px 2px;
   cursor: pointer;
   overflow: hidden;
-}
 
-article:focus-visible {
-  outline: 2px solid $primary;
+  &:focus-visible {
+    outline: 2px solid $primary;
 
-  .card-body-title {
-    color: $primary;
-  }
-}
-
-article:not(.active) {
-  background-color: $standard-colour-grey;
-
-  .card-img {
-    filter: saturate(0%);
-    opacity: 40%;
-  }
-}
-
-.card-img {
-  display: flex;
-  flex: 0 0 auto;
-  width: 92px;
-  height: 100%;
-  overflow: hidden;
-  position: relative;
-  justify-content: center;
-}
-
-.image {
-  height: 100%; // Remplit complètement la div
-  object-fit: cover;
-  transform-origin: center;
-}
-
-.full-image-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-}
-
-.full-image-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  gap: 3em;
-  padding: 1em;
-}
-
-.image.full-image {
-  width: 100%;
-  border-radius: 10px;
-  object-fit: fill;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.24);
-}
-
-.expand.reduce {
-  display: flex;
-  border: none;
-  background-color: $standard-colour-white;
-  width: 42px;
-  height: 42px;
-  border-radius: 50px;
-  bottom: 10px;
-  right: 10px;
-  padding: 0.5em;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.icon-expand-content {
-  width: 14px;
-  height: 14px;
-  justify-self: center;
-  align-self: center;
-}
-
-.article-wrapper {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  padding: 16px;
-  gap: 0.3rem;
-}
-
-.article-wrapper-lecture {
-  font-style: italic;
-}
-
-.source {
-  flex-shrink: 0;
-  display: flex;
-  font-family: $dm-sans;
-  color: $standard-colour-black;
-  font-size: 12px;
-  opacity: 50%;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.source.all {
-  justify-content: right;
-}
-
-.infos {
-  flex-shrink: 0;
-  display: flex;
-  font-family: $dm-sans;
-  color: $standard-colour-black;
-  font-size: 12px;
-  opacity: 75%;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.card-body-description {
-  height: 100%;
-  flex-grow: 1;
-  flex-shrink: 1;
-  overflow: hidden;
-  text-wrap: wrap;
-  font-family: $dm-sans;
-  font-size: 13px;
-  font-weight: 400;
-  -webkit-box-orient: vertical;
-  line-height: var(--description-font-line-heigth);
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
-article.pageOrigin {
-  height: 170px;
-}
-
-article.pageOrigin.active {
-  .card-body-title {
-    color: $primary;
-  }
-}
-
-@media only screen and (min-width: 720px) {
-  .full-image-overlay {
-    display: none;
-  }
-}
-
-@media only screen and (min-width: 1024px) {
-  article:not(.pageOrigin) {
-    height: 175px;
-  }
-
-  article.pageOrigin.active {
-    .card-body-title {
-      color: $standard-colour-black;
-    }
-  }
-
-  article.pageOrigin.active:hover {
-    .card-body-title {
+    h3 {
       color: $primary;
     }
   }
 
+  &:not(.active) {
+    background-color: $standard-colour-grey;
+
+    .card-img {
+      filter: saturate(0%);
+      opacity: 40%;
+    }
+  }
+
+  .card-img {
+    display: flex;
+    flex: 0 0 auto;
+    width: 92px;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    justify-content: center;
+
+    .image {
+      height: 100%; // Remplit complètement la div
+      object-fit: cover;
+      transform-origin: center;
+    }
+  }
+
+  .article-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 16px;
+    gap: 0.3rem;
+
+    .article-wrapper-lecture {
+      font-style: italic;
+    }
+
+    .source {
+      flex-shrink: 0;
+      display: flex;
+      font-family: $dm-sans;
+      color: $standard-colour-black;
+      font-size: 12px;
+      opacity: 50%;
+      justify-content: space-between;
+      align-items: center;
+
+      &.all {
+        justify-content: right;
+      }
+    }
+
+    .infos {
+      flex-shrink: 0;
+      display: flex;
+      font-family: $dm-sans;
+      color: $standard-colour-black;
+      font-size: 12px;
+      opacity: 75%;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-body-description {
+      height: 100%;
+      flex-grow: 1;
+      flex-shrink: 1;
+      overflow: hidden;
+      text-wrap: wrap;
+      font-family: $dm-sans;
+      font-size: 13px;
+      font-weight: 400;
+      -webkit-box-orient: vertical;
+      line-height: var(--description-font-line-heigth);
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+
+  &.pageOrigin {
+    height: 170px;
+
+    &.active {
+      h3 {
+        color: $primary;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) {
   article {
+    &:not(.pageOrigin) {
+      height: 175px;
+    }
+
+    &.pageOrigin {
+      height: 150px;
+
+      &.active {
+        h3 {
+          color: $standard-colour-black;
+        }
+
+        &:hover,
+        &:focus-visible {
+          h3 {
+            color: $primary;
+          }
+        }
+      }
+    }
+
     &:hover,
     &:focus-visible {
       outline: 2px solid $primary;
@@ -253,20 +204,10 @@ article.pageOrigin.active {
         box-shadow: unset;
       }
 
-      .card-body-title {
+      h3 {
         color: $primary;
       }
     }
-  }
-
-  article.pageOrigin.active:focus-visible {
-    .card-body-title {
-      color: $primary;
-    }
-  }
-
-  article.pageOrigin {
-    height: 150px;
   }
 }
 </style>
