@@ -119,7 +119,7 @@ function closeModal() {
   <i18n-host>
     <div class="carousel-container">
       <div class="carousel-header">
-        <h2 class="carousel-header-title">
+        <h2>
           {{ t('text.title.news') }}
         </h2>
         <div class="carousel-header-see-all-news computer">
@@ -204,13 +204,6 @@ function closeModal() {
 
 .carousel-header {
   display: flex;
-}
-
-.carousel-header-title {
-  font-family: $sora;
-  font-size: 20px;
-  font-weight: bold;
-  color: $standard-colour-black;
 }
 
 .carousel-header-see-all-news {

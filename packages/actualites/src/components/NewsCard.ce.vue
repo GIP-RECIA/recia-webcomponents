@@ -50,33 +50,26 @@ function isPageOriginAll() {
       <img class="image" :src="baseUrl.concat(props.item.article.enclosure)" alt="">
     </div>
     <div class="article-wrapper">
-      <div v-if="isPageOriginCarrousel()" class="source">
-        <div>{{ props.item.source }}</div>
-      </div>
+      <p v-if="isPageOriginCarrousel()" class="source">
+        {{ props.item.source }}
+      </p>
 
-      <div v-if="isPageOriginAll()" class="infos">
-        <div>{{ d(props.item.pubDate, 'short') }}</div>
-        <div class="article-wrapper-lecture">
-          <div v-if="isRead">
-            {{ t('text.normal.read') }}
-          </div>
-          <div v-if="!isRead">
-            {{ t('text.normal.not-read') }}
-          </div>
-        </div>
-      </div>
+      <p v-if="isPageOriginAll()" class="infos">
+        <span>{{ d(props.item.pubDate, 'short') }}</span>
+        <span class="article-wrapper-lecture">
+          {{ t(`text.normal.${isRead ? '' : 'not-'}read`) }}
+        </span>
+      </p>
 
-      <div class="card-body-title">
+      <h3 class="h4 card-body-title">
         {{ props.item.article.title }}
-      </div>
-      <div class="card-body-description">
-        <div class="description">
-          {{ props.item.article.description }}
-        </div>
-      </div>
-      <div v-if="isPageOriginAll()" class="source all">
-        <div>{{ props.item.source }}</div>
-      </div>
+      </h3>
+      <p class="card-body-description">
+        {{ props.item.article.description }}
+      </p>
+      <p v-if="isPageOriginAll()" class="source all">
+        {{ props.item.source }}
+      </p>
     </div>
   </article>
 </template>
@@ -215,23 +208,12 @@ article:not(.active) {
   align-items: center;
 }
 
-.card-body-title {
-  font-family: $sora;
-  font-size: 14px;
-  font-weight: 600;
-  color: $standard-colour-black;
-  transition: color;
-}
-
 .card-body-description {
   height: 100%;
   flex-grow: 1;
   flex-shrink: 1;
   overflow: hidden;
   text-wrap: wrap;
-}
-
-.description {
   font-family: $dm-sans;
   font-size: 13px;
   font-weight: 400;
@@ -260,10 +242,6 @@ article.pageOrigin.active {
 @media only screen and (min-width: 1024px) {
   article:not(.pageOrigin) {
     height: 175px;
-  }
-
-  .card-body-title {
-    color: $standard-colour-black;
   }
 
   article.pageOrigin.active {

@@ -129,17 +129,20 @@ function handleResize() {
           </div>
 
           <div class="filter-section">
-            <div class="filter-section-span-container">
-              <div
-                v-for="source in sources"
-                class="filter-section-span"
-                :class="{ active: source === currentSource }"
-                @click="setSource(source)"
-                tabindex="0"
-                @keydown.enter="setSource(source)">
-                {{ source ?? t('text.filter.all-sources') }}
-              </div>
-            </div>
+            <ul class="filter-section-span-container">
+              <li v-for="source in sources" :key="source">
+                <button
+                  class="filter-section-span"
+                  :class="{
+                    active: source === currentSource,
+                    mobile: !disableButton
+                   }"
+                  @click="setSource(source)"
+                >
+                  {{ source ?? t('text.filter.all-sources') }}
+                </button>
+              </li>
+            </ul>
           </div>
         </template>
 
@@ -150,19 +153,21 @@ function handleResize() {
             {{ t('text.filter.by-sections') }}
           </div>
           <div class="filter-section">
-            <div class="filter-section-span-container">
-              <div
-                v-for="section in rubriques"
-                class="filter-section-span"
-                :class="{ active: currentSection.size === 0 ? section.name === t('text.filter.all-sections') : currentSection.has(section.uuid) }"
-                @click="setSection(section)"
-                tabindex="0"
-                @keydown.enter="setSection(section)"
-              >
-                {{ section.name }}
-              </div>
+            <ul class="filter-section-span-container">
+              <li v-for="(section, index) in rubriques" :key="index">
+                <button
+                  class="filter-section-span"
+                  :class="{
+                    active: currentSection.size === 0 ? section.name === t('text.filter.all-sections') : currentSection.has(section.uuid),
+                    mobile: !disableButton
+                   }"
+                  @click="setSection(section)"
+                >
+                  {{ section.name }}
+                </button>
+              </li>
 
-            </div>
+            </ul>
           </div>
         </template>
 

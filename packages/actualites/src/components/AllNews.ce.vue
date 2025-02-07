@@ -155,9 +155,9 @@ function closeModal() {
               src="/src/assets/svg/arrow_left.svg" alt="arrow_left"
             >
           </button>
-          <div class="title-allNews">
+          <h1 class="title-allNews">
             {{ t('text.title.all-news') }}
-          </div>
+          </h1>
         </div>
 
         <custom-toggle-switch
@@ -217,6 +217,7 @@ function closeModal() {
 
 <style lang="scss">
 @use '@/assets/global.scss' as *;
+@use '@/assets/buttons.scss' as *;
 
 .allNews-container {
   display: flex;
@@ -247,11 +248,7 @@ custom-toggle-switch {
 }
 
 .allNews-header-title-button {
-  display: inline-flex;
-  justify-content: center;
-  border: none;
-  background: none;
-  cursor: pointer;
+  @extend %button-tertiary-circle;
 }
 
 .title-allNews {
