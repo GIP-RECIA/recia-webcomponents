@@ -62,6 +62,9 @@ export default ({ mode }: { mode: string }) => {
         name: pkg.name,
       },
     },
+    server: {
+      allowedHosts: true,
+    },
     define: {
       'process.env': process.env,
     },
