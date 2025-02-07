@@ -242,7 +242,7 @@ custom-toggle-switch {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 1rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
 }

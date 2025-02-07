@@ -256,21 +256,20 @@ article.pageOrigin.active {
     }
   }
 
-  article:hover {
-    outline: 2px solid $primary;
-    box-shadow: color-mix(in srgb, $primary, #0000 80%) 0 4px 26px 0;
+  article {
+    &:hover,
+    &:focus-visible {
+      outline: 2px solid $primary;
+      box-shadow: color-mix(in srgb, $primary, #0000 80%) 0 4px 26px 0;
 
-    .card-body-title {
-      color: $primary;
-    }
-  }
+      &:not(.active) {
+        outline: 2px solid $standard-colour-ligth-black;
+        box-shadow: unset;
+      }
 
-  article:focus-visible {
-    outline: 2px solid $primary;
-    box-shadow: color-mix(in srgb, $primary, #0000 80%) 0 4px 26px 0;
-
-    .card-body-title {
-      color: $primary;
+      .card-body-title {
+        color: $primary;
+      }
     }
   }
 
