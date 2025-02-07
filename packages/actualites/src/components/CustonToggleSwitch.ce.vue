@@ -18,20 +18,15 @@
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-const props = withDefaults(defineProps<{
-  states: Array<string>
-}>(), {
-  states: () => ['all', 'read', 'not-read'],
-})
-
 const emit = defineEmits(['readStatus'])
 
-const currentState = ref(props.states[0])
+const states: string[] = ['all', 'read', 'not-read']
+const currentState = ref(states[0])
 
 const { t } = useI18n()
 
 function setState(state: string) {
-  if (props.states.includes(state)) {
+  if (states.includes(state)) {
     currentState.value = state
     emit('readStatus', state === 'all' ? undefined : (state === 'read'))
   }
@@ -41,8 +36,8 @@ function setState(state: string) {
 <template>
   <ul>
     <li
-      v-for="(state, index) in props.states"
-      :key="index"
+      v-for="state in states"
+      :key="state"
     >
       <button :class="{ active: currentState === state }" @click="setState(state)">
         {{ t(`switch.${state}`) }}
