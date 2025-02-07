@@ -181,3 +181,11 @@
     @extend %disabled;
   }
 }
+
+%button-tertiary-circle {
+  @extend %button-tertiary;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  padding: 8px;
+}
