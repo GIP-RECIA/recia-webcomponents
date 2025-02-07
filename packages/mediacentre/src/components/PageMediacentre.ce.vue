@@ -24,9 +24,14 @@ import { getFilters as filtrage } from '@/services/ServiceFiltreMediacentre'
 import { createResourceFromJson } from '@/types/RessourceType'
 import { initToken } from '@/utils/axiosUtils'
 import { CustomError } from '@/utils/CustomError'
+import { EtablissementsData } from '@/utils/EtablissementsData'
+import { soffit } from '@/utils/soffitUtils'
+import { displayedEtablissementSiren, etablissementsData, etablissementsMap, filtre } from '@/utils/store'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { getConfig, getFavorites, getFilters, getResources, putFavorites } from '../services/ServiceMediacentre'
+
+defineOptions({ name: 'PageMedia' })
 
 const props = withDefaults(
   defineProps<{
@@ -37,6 +42,8 @@ const props = withDefaults(
     getUserFavoriteResourcesUrl?: string
     putUserFavoriteResourcesUrl?: string
     fnameMediacentreUi?: string
+    escosirencurent?: string
+    escosiren?: string
   }>(),
   {
     baseApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_API_URI,
@@ -46,12 +53,15 @@ const props = withDefaults(
     getUserFavoriteResourcesUrl: import.meta.env.VITE_APP_MEDIACENTRE_USER_GET_USER_FAVORITE_RESOURCES_API_URI,
     putUserFavoriteResourcesUrl: import.meta.env.VITE_APP_MEDIACENTRE_USER_PUT_USER_FAVORITE_RESOURCES_API_URI,
     fnameMediacentreUi: import.meta.env.VITE_APP_MEDIACENTRE_FNAME,
+    escosirencurent: import.meta.env.VITE_APP_MEDIACENTRE_CLAIM_ESCOSIREN_COURANT,
+    escosiren: import.meta.env.VITE_APP_MEDIACENTRE_CLAIM_ESCOSIREN,
   },
 )
 
-const filtre = ref('tout')
+// const filtre = ref('tout')
 const filtres = ref<Array<Filtres>>([])
 const ressources = ref<Array<Ressource>>([])
+const ressourcesForSelectedEtab = ref<Array<Ressource>>([])
 const filteredResources = ref<Array<Ressource>>([])
 const chargement = ref<boolean>(false)
 const chargementApp = ref<boolean>(false)
@@ -61,6 +71,8 @@ const resourceReference = ref<string>('')
 const resourceEditor = ref<string>('')
 const resourceDescription = ref<string | undefined>()
 const erreur = ref<string>('')
+const etabIds = ref<string[]>()
+const filtresResponse = ref<Array<string>>([])
 
 const { t } = i18n.global
 
@@ -92,6 +104,7 @@ onMounted(async (): Promise<void> => {
     await getRessources()
     await setFavoris()
     await getFiltres()
+    updateEtablissementsDataInStore()
     getResourcesByFilter(filtre.value, '')
   }
   catch (e: any) {
@@ -101,6 +114,56 @@ onMounted(async (): Promise<void> => {
     chargementApp.value = false
   }
 })
+
+function getAllEtabId() {
+  if (soffit.value === undefined) {
+    return
+  }
+  etabIds.value = (soffit.value[props.escosiren] as string[])
+}
+
+function updateEtablissementsDataInStore(): void {
+  getAllEtabId()
+  if (soffit.value === undefined) {
+    return
+  }
+  const mapEtabIdEtabName: Map<string, string> = new Map()
+  if (etabIds.value === undefined) {
+    return
+  }
+  for (let index = 0; index < etabIds.value.length; index++) {
+    const etabId = etabIds.value[index]
+
+    for (let indexRes = 0; indexRes < ressources.value.length; indexRes++) {
+      const ressource = ressources.value[indexRes]
+      if (ressource.idEtablissement[0].id === etabId) {
+        if (ressource.idEtablissement[0].nom !== undefined) {
+          mapEtabIdEtabName.set(etabId, ressource.idEtablissement[0].nom)
+        }
+        continue
+      }
+    }
+  }
+  const sirencourant: string | undefined = getIdOfEtablissementCourant()
+  if (sirencourant === undefined) {
+    return
+  }
+  const myEtabsData = new EtablissementsData()
+  myEtabsData.courant = sirencourant
+  myEtabsData.tout = mapEtabIdEtabName
+  etablissementsData.value = myEtabsData
+  displayedEtablissementSiren.value = sirencourant
+}
+
+function getIdOfEtablissementCourant(): string | undefined {
+  if (soffit.value === undefined) {
+    return undefined
+  }
+  const temp = soffit.value[props.escosirencurent] as string[]
+  if (temp.length === 1) {
+    return temp[0]
+  }
+}
 
 async function getRessources(): Promise<void> {
   chargement.value = true
@@ -144,7 +207,7 @@ async function updateFavori(event: CustomEvent) {
   const idResource = event.detail[0]
   const isFavorite = event.detail[1]
 
-  const resourceFavorite = ressources.value.find(res => res.idRessource === idResource)
+  const resourceFavorite = ressourcesForSelectedEtab.value.find(res => res.idRessource === idResource)
   resourceFavorite!.isFavorite = isFavorite
   try {
     const resourceFavoriteIds = await getFavorites(props.getUserFavoriteResourcesUrl, props.fnameMediacentreUi)
@@ -173,7 +236,7 @@ async function getFavoris(): Promise<void> {
   chargement.value = true
   try {
     const idResourceFavorites = await getFavorites(props.getUserFavoriteResourcesUrl, props.fnameMediacentreUi)
-    filteredResources.value = ressources.value.filter(res => idResourceFavorites.includes(res.idRessource))
+    filteredResources.value = ressourcesForSelectedEtab.value.filter(res => idResourceFavorites.includes(res.idRessource))
     filteredResources.value.forEach(res => (res.isFavorite = true))
   }
   catch (error: any) {
@@ -184,30 +247,48 @@ async function getFavoris(): Promise<void> {
   }
 }
 
+function hasResourcesForCurrentEtab(): boolean {
+  if(soffit.value === undefined){
+    return false
+  }
+  if(Array.isArray(soffit.value[props.escosirencurent]) == false){
+    return false
+  }
+  let escosirencurentarray: string[] = <Array<string>>soffit.value[props.escosirencurent]
+  if(escosirencurentarray.length === 0){
+    return false
+  }
+
+  const cle:string = escosirencurentarray[0]
+
+  const index = ressources.value.findIndex(ressource => ressource.idEtablissement.findIndex(idEtabFromSubArray => idEtabFromSubArray.id === cle) > -1)
+  return index > -1
+}
+
 function getResourcesByFilter(filtre: string, idCategorie: string): void {
   chargement.value = true
   try {
     switch (idCategorie) {
       case 'NIVEAU_EDUCATIF_FILTER':
-        filteredResources.value = ressources.value.filter(ressource =>
+        filteredResources.value = ressourcesForSelectedEtab.value.filter(ressource =>
           ressource.niveauEducatif.some(e => e.nom === filtre),
         )
         break
       case 'TYPE_PRESENTATION_FILTER':
-        filteredResources.value = ressources.value.filter(ressource => ressource.typePresentation.code === filtre)
+        filteredResources.value = ressourcesForSelectedEtab.value.filter(ressource => ressource.typePresentation.code === filtre)
         break
-      case 'UAI_FILTER':
-        filteredResources.value = ressources.value.filter(ressource =>
-          ressource.idEtablissement.some(e => e.UAI === filtre),
-        )
-        break
+      // case 'UAI_FILTER':
+      //   filteredResources.value = ressourcesForSelectedEtab.value.filter(ressource =>
+      //     ressource.idEtablissement.some(e => e.id === filtre),
+      //   )
+      //   break
       case 'DOMAINE_ENSEIGNEMENT_FILTER':
-        filteredResources.value = ressources.value.filter(ressource =>
+        filteredResources.value = ressourcesForSelectedEtab.value.filter(ressource =>
           ressource.domaineEnseignement.some(e => e.nom === filtre),
         )
         break
       default:
-        filteredResources.value = ressources.value
+        filteredResources.value = ressourcesForSelectedEtab.value
         break
     }
   }
@@ -223,7 +304,7 @@ async function getFiltres(): Promise<void> {
   chargement.value = true
   try {
     const reponse = await getFilters(props.baseApiUrl)
-    filtres.value = filtrage(ressources.value, reponse)
+    filtresResponse.value = reponse
   }
   catch (error: any) {
     console.error(error)
@@ -232,6 +313,35 @@ async function getFiltres(): Promise<void> {
     chargement.value = false
   }
 }
+
+function generateFiltresValues() {
+  chargement.value = true
+
+  try {
+    filtres.value = filtrage(ressourcesForSelectedEtab.value, filtresResponse.value)
+  }
+  catch (error: any) {
+    console.error(error)
+  }
+  finally {
+    chargement.value = false
+  }
+}
+
+watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed, oldSirenEtabDisplayed) => {
+  const arrayRessourcesPerEtab: Array<Ressource> = []
+  for (let index = 0; index < ressources.value.length; index++) {
+    const element = ressources.value[index]
+    if (element.idEtablissement[0].id === newSirenEtabDisplayed) {
+      arrayRessourcesPerEtab.push(element)
+    }
+  }
+  ressourcesForSelectedEtab.value = arrayRessourcesPerEtab
+  filtre.value = 'tout'
+  getResourcesByFilter(filtre.value, '')
+  generateFiltresValues()
+  const buttons = document.getElementsByClassName('categories-container')
+})
 </script>
 
 <template>
@@ -245,7 +355,6 @@ async function getFiltres(): Promise<void> {
       <aside class="aside-page-mediacentre">
         <menu-mediacentre :filtres="filtres" :checked="filtre" @update-checked="updateFiltre" />
       </aside>
-
       <main class="main-page-mediacentre">
         <liste-ressources
           v-if="!chargement"
@@ -326,7 +435,7 @@ async function getFiltres(): Promise<void> {
 
   .main-page-mediacentre {
     width: 100%;
-    height: 100%;
+    height: 95%;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -378,5 +487,8 @@ async function getFiltres(): Promise<void> {
       }
     }
   }
+}
+
+:host {
 }
 </style>
