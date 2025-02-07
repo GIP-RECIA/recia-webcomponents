@@ -16,11 +16,9 @@
 
 <script setup lang="ts">
 import type { ItemVO } from '@/types/ItemVO.ts'
-import { onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-// Props
-const props = defineProps<{
+defineProps<{
   item: ItemVO
   setReadingUrl: string
   getItemByIdUrl: string
@@ -30,45 +28,33 @@ const props = defineProps<{
 }>()
 
 const { t, d } = useI18n()
-
-onUnmounted(() => {
-
-})
-
-function isPageOriginCarrousel() {
-  return !props.pageOrigin
-}
-
-function isPageOriginAll() {
-  return props.pageOrigin
-}
 </script>
 
 <template>
   <article tabindex="0" :class="{ active: !isRead, pageOrigin }">
     <div class="card-img">
-      <img class="image" :src="baseUrl.concat(props.item.article.enclosure)" alt="">
+      <img class="image" :src="baseUrl.concat(item.article.enclosure)" alt="">
     </div>
     <div class="article-wrapper">
-      <p v-if="isPageOriginCarrousel()" class="source">
-        {{ props.item.source }}
+      <p v-if="!pageOrigin" class="source">
+        {{ item.source }}
       </p>
 
-      <p v-if="isPageOriginAll()" class="infos">
-        <span>{{ d(props.item.pubDate, 'short') }}</span>
+      <p v-if="pageOrigin" class="infos">
+        <span>{{ d(item.pubDate, 'short') }}</span>
         <span class="article-wrapper-lecture">
           {{ t(`text.normal.${isRead ? '' : 'not-'}read`) }}
         </span>
       </p>
 
       <h3 class="h4 card-body-title">
-        {{ props.item.article.title }}
+        {{ item.article.title }}
       </h3>
       <p class="card-body-description">
-        {{ props.item.article.description }}
+        {{ item.article.description }}
       </p>
-      <p v-if="isPageOriginAll()" class="source all">
-        {{ props.item.source }}
+      <p v-if="pageOrigin" class="source all">
+        {{ item.source }}
       </p>
     </div>
   </article>
