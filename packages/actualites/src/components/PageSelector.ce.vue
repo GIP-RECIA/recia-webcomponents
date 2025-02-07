@@ -20,11 +20,12 @@ import { computed, ref, watch } from 'vue'
 
 const props = withDefaults(
   defineProps<{
-    currentPagee: number
+    currentPagee?: number
     totalPages: number
-    maxVisiblePages: number
+    maxVisiblePages?: number
   }>(),
   {
+    currentPagee: 1,
     maxVisiblePages: 5,
   },
 )
@@ -33,7 +34,10 @@ const emit = defineEmits(['updateModelValue'])
 
 const currentPage = ref(props.currentPagee ? props.currentPagee : 1)
 
-watch(() => props.currentPagee, () => { currentPage.value = props.currentPagee ? props.currentPagee : 1 })
+watch(
+  () => props.currentPagee,
+  () => { currentPage.value = props.currentPagee ? props.currentPagee : 1 },
+)
 
 function goToPage(page: number) {
   if (page >= 1 && page <= props.totalPages) {
