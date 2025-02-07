@@ -16,7 +16,8 @@
       "update-by": "Mise à jour par {name}",
       "validate-by": "Validé par {name}",
       "when": "le {date} à {datetime}",
-      "publish-by": "Publié par {organization}"
+      "publish-by": "Publié par {organization}",
+      "more-info": "Plus d'informations"
     },
     "normal": {
       "see-all-news": "voir toutes les actualités",
