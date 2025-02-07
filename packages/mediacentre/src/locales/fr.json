@@ -1,5 +1,7 @@
 {
-  "page-mediacentre": {},
+  "page-mediacentre": {
+    "help": "Aide"
+  },
   "liste-ressources-mediacentre": {
     "no-resources": "Vous n'avez aucune ressource.",
     "no-favorite-resources": "Vous n'avez aucune ressource favorite."
@@ -10,7 +12,9 @@
     "niveau-educatif-filter": "Par niveau éducatif",
     "type-presentation-filter": "Par type de ressource",
     "domaine-enseignement-filter": "Par matière",
-    "uai-filter": "Par établissement"
+    "uai-filter": "Par établissement",
+    "displayed-etab": "Etablissement selectionné :"
+
   },
   "resource-info-modal-mediacentre": {
     "editor": "Édité par "
