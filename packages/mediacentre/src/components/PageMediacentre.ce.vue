@@ -73,7 +73,6 @@ const resourceReference = ref<string>('')
 const resourceEditor = ref<string>('')
 const resourceDescription = ref<string | undefined>()
 const erreur = ref<string>('')
-const etabIds = ref<string[]>()
 const filtresResponse = ref<Array<string>>([])
 
 const { t } = i18n.global
@@ -117,24 +116,24 @@ onMounted(async (): Promise<void> => {
   }
 })
 
-function getAllEtabId() {
+function getAllEtabId(): string[] | undefined {
   if (soffit.value === undefined) {
-    return
+    return undefined
   }
-  etabIds.value = (soffit.value[props.escosiren] as string[])
+  return (soffit.value[props.escosiren] as string[])
 }
 
 function updateEtablissementsDataInStore(): void {
-  getAllEtabId()
-  if (soffit.value === undefined) {
+  const etabIds: string[] | undefined =  getAllEtabId()
+  if (etabIds === undefined) {
     return
   }
   const mapEtabIdEtabName: Map<string, string> = new Map()
-  if (etabIds.value === undefined) {
+  if (etabIds === undefined) {
     return
   }
-  for (let index = 0; index < etabIds.value.length; index++) {
-    const etabId = etabIds.value[index]
+  for (let index = 0; index < etabIds.length; index++) {
+    const etabId = etabIds[index]
 
     for (let indexRes = 0; indexRes < ressources.value.length; indexRes++) {
       const ressource = ressources.value[indexRes]
