@@ -42,8 +42,8 @@ const props = withDefaults(
     getUserFavoriteResourcesUrl?: string
     putUserFavoriteResourcesUrl?: string
     fnameMediacentreUi?: string
-    escosirencurent?: string
-    escosiren?: string
+    sirenCurrent?: string
+    siren?: string
     helpLocation? : string,
   }>(),
   {
@@ -54,8 +54,8 @@ const props = withDefaults(
     getUserFavoriteResourcesUrl: import.meta.env.VITE_APP_MEDIACENTRE_CONTEXT + import.meta.env.VITE_APP_MEDIACENTRE_USER_GET_USER_FAVORITE_RESOURCES_API_URI,
     putUserFavoriteResourcesUrl: import.meta.env.VITE_APP_MEDIACENTRE_CONTEXT + import.meta.env.VITE_APP_MEDIACENTRE_USER_PUT_USER_FAVORITE_RESOURCES_API_URI,
     fnameMediacentreUi: import.meta.env.VITE_APP_MEDIACENTRE_FNAME,
-    escosirencurent: import.meta.env.VITE_APP_MEDIACENTRE_CLAIM_SIREN_CURRENT,
-    escosiren: import.meta.env.VITE_APP_MEDIACENTRE_CLAIM_SIREN,
+    sirenCurrent: import.meta.env.VITE_APP_MEDIACENTRE_CLAIM_SIREN_CURRENT,
+    siren: import.meta.env.VITE_APP_MEDIACENTRE_CLAIM_SIREN,
     helpLocation: import.meta.env.VITE_APP_MEDIACENTRE_HELP_PAGE_LOCATION,
   },
 )
@@ -119,7 +119,7 @@ function getAllEtabId(): string[] | undefined {
   if (soffit.value === undefined) {
     return undefined
   }
-  return (soffit.value[props.escosiren] as string[])
+  return (soffit.value[props.siren] as string[])
 }
 
 function updateEtablissementsDataInStore(): void {
@@ -175,7 +175,7 @@ function getIdOfEtablissementCourant(): string | undefined {
   if (soffit.value === undefined) {
     return undefined
   }
-  const temp = soffit.value[props.escosirencurent] as string[]
+  const temp = soffit.value[props.sirenCurrent] as string[]
   if (temp.length === 1) {
     return temp[0]
   }
@@ -267,10 +267,10 @@ function hasResourcesForCurrentEtab(): boolean {
   if(soffit.value === undefined){
     return false
   }
-  if(Array.isArray(soffit.value[props.escosirencurent]) == false){
+  if(Array.isArray(soffit.value[props.sirenCurrent]) == false){
     return false
   }
-  let escosirencurentarray: string[] = <Array<string>>soffit.value[props.escosirencurent]
+  let escosirencurentarray: string[] = <Array<string>>soffit.value[props.sirenCurrent]
   if(escosirencurentarray.length === 0){
     return false
   }
