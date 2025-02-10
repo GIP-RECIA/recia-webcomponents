@@ -59,7 +59,6 @@ const props = withDefaults(
   },
 )
 
-// const filtre = ref('tout')
 const filtres = ref<Array<Filtres>>([])
 const resources = ref<Array<Ressource>>([])
 const resourcesForSelectedEtab = ref<Array<Ressource>>([])
@@ -293,11 +292,6 @@ function getResourcesByFilter(filtre: string, idCategorie: string): void {
       case 'TYPE_PRESENTATION_FILTER':
         filteredResources.value = resourcesForSelectedEtab.value.filter(ressource => ressource.typePresentation.code === filtre)
         break
-      // case 'UAI_FILTER':
-      //   filteredResources.value = ressourcesForSelectedEtab.value.filter(ressource =>
-      //     ressource.idEtablissement.some(e => e.id === filtre),
-      //   )
-      //   break
       case 'DOMAINE_ENSEIGNEMENT_FILTER':
         filteredResources.value = resourcesForSelectedEtab.value.filter(ressource =>
           ressource.domaineEnseignement.some(e => e.nom === filtre),
