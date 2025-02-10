@@ -138,11 +138,18 @@ function updateEtablissementsDataInStore(): void {
 
     for (let indexRes = 0; indexRes < ressources.value.length; indexRes++) {
       const ressource = ressources.value[indexRes]
-      if (ressource.idEtablissement[0].id === etabId) {
-        if (ressource.idEtablissement[0].nom !== undefined) {
-          mapEtabIdEtabName.set(etabId, ressource.idEtablissement[0].nom)
-        }
+      if(ressource.idEtablissement === undefined || ressource.idEtablissement === null || ressource.idEtablissement.length ===0){
         continue
+      }
+      for (let index = 0; index < ressource.idEtablissement.length; index++) {
+        const iteratedEtablissement = ressource.idEtablissement[index];
+        if (iteratedEtablissement.id === etabId) {
+          if (iteratedEtablissement.nom !== undefined) {
+            mapEtabIdEtabName.set(etabId, iteratedEtablissement.nom)
+          } else {
+            mapEtabIdEtabName.set(etabId, iteratedEtablissement.id)
+          }
+        }
       }
     }
   }
@@ -150,11 +157,20 @@ function updateEtablissementsDataInStore(): void {
   if (sirencourant === undefined) {
     return
   }
+  if(mapEtabIdEtabName.size === 0){
+    mapEtabIdEtabName.set(sirencourant,"---")
+  }
   const myEtabsData = new EtablissementsData()
-  myEtabsData.courant = sirencourant
+  if( mapEtabIdEtabName.has(sirencourant)){
+    myEtabsData.courant = sirencourant
+  }else{
+     const key = mapEtabIdEtabName.keys().next().value
+    myEtabsData.courant = key === undefined ? '-1' : key
+
+  }
   myEtabsData.tout = mapEtabIdEtabName
   etablissementsData.value = myEtabsData
-  displayedEtablissementSiren.value = sirencourant
+  displayedEtablissementSiren.value = myEtabsData.courant
 }
 
 function getIdOfEtablissementCourant(): string | undefined {
@@ -334,8 +350,15 @@ watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed, old
   const arrayRessourcesPerEtab: Array<Ressource> = []
   for (let index = 0; index < ressources.value.length; index++) {
     const element = ressources.value[index]
-    if (element.idEtablissement[0].id === newSirenEtabDisplayed) {
+    if (element.idEtablissement === undefined || element.idEtablissement === null || element.idEtablissement.length === 0 ) {
       arrayRessourcesPerEtab.push(element)
+    }else{
+      for (let index = 0; index < element.idEtablissement.length; index++) {
+        const subElement = element.idEtablissement[index];
+        if(subElement.id === newSirenEtabDisplayed){
+          arrayRessourcesPerEtab.push(element)
+        }
+      }
     }
   }
   ressourcesForSelectedEtab.value = arrayRessourcesPerEtab
