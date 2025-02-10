@@ -46,7 +46,7 @@
     "release:major": "yarn run -T commit-and-tag-version -t 'change-etab/v' --release-as major"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^4.1.1",
+    "@antfu/eslint-config": "^4.2.0",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/vue-fontawesome": "^3.0.8",
