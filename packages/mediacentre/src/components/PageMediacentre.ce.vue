@@ -54,8 +54,8 @@ const props = withDefaults(
     getUserFavoriteResourcesUrl: import.meta.env.VITE_APP_MEDIACENTRE_CONTEXT + import.meta.env.VITE_APP_MEDIACENTRE_USER_GET_USER_FAVORITE_RESOURCES_API_URI,
     putUserFavoriteResourcesUrl: import.meta.env.VITE_APP_MEDIACENTRE_CONTEXT + import.meta.env.VITE_APP_MEDIACENTRE_USER_PUT_USER_FAVORITE_RESOURCES_API_URI,
     fnameMediacentreUi: import.meta.env.VITE_APP_MEDIACENTRE_FNAME,
-    escosirencurent: import.meta.env.VITE_APP_MEDIACENTRE_CLAIM_ESCOSIREN_COURANT,
-    escosiren: import.meta.env.VITE_APP_MEDIACENTRE_CLAIM_ESCOSIREN,
+    escosirencurent: import.meta.env.VITE_APP_MEDIACENTRE_CLAIM_SIREN_CURRENT,
+    escosiren: import.meta.env.VITE_APP_MEDIACENTRE_CLAIM_SIREN,
     helpLocation: import.meta.env.VITE_APP_MEDIACENTRE_HELP_PAGE_LOCATION,
   },
 )
