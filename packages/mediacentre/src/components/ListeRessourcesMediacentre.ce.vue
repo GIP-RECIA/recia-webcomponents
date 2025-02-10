@@ -29,7 +29,7 @@ const props = defineProps<{
   nbResources: number
 }>()
 
-const emit = defineEmits(['update-favorite', 'open-modal'])
+const emit = defineEmits(['updateFavorite', 'openModal'])
 
 const { t } = useI18n()
 
@@ -69,13 +69,13 @@ function openModal(event: CustomEvent): void {
   const resourceEditor = event.detail[1]
   const resourceDescription = event.detail[2]
   const resourceReference = event.detail[3]
-  emit('open-modal', isModalOpen, resourceTitle, resourceEditor, resourceDescription, resourceReference)
+  emit('openModal', isModalOpen, resourceTitle, resourceEditor, resourceDescription, resourceReference)
 }
 
 function sendUpdateFavorite(event: CustomEvent) {
   const idResource = event.detail[0]
   const isFavorite = event.detail[1]
-  emit('update-favorite', idResource, isFavorite)
+  emit('updateFavorite', idResource, isFavorite)
 }
 </script>
 
