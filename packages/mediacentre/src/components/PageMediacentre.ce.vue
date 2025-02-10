@@ -61,8 +61,8 @@ const props = withDefaults(
 
 // const filtre = ref('tout')
 const filtres = ref<Array<Filtres>>([])
-const ressources = ref<Array<Ressource>>([])
-const ressourcesForSelectedEtab = ref<Array<Ressource>>([])
+const resources = ref<Array<Ressource>>([])
+const resourcesForSelectedEtab = ref<Array<Ressource>>([])
 const filteredResources = ref<Array<Ressource>>([])
 const chargement = ref<boolean>(false)
 const chargementApp = ref<boolean>(false)
@@ -101,7 +101,7 @@ onMounted(async (): Promise<void> => {
     chargementApp.value = true
     await initToken(props.userInfoApiUrl)
     await getConfig(props.configApiUrl)
-    await getRessources()
+    await updateRessources()
     await setFavoris()
     await getFiltres()
     updateEtablissementsDataInStore()
@@ -134,8 +134,8 @@ function updateEtablissementsDataInStore(): void {
   for (let index = 0; index < etabIds.length; index++) {
     const etabId = etabIds[index]
 
-    for (let indexRes = 0; indexRes < ressources.value.length; indexRes++) {
-      const ressource = ressources.value[indexRes]
+    for (let indexRes = 0; indexRes < resources.value.length; indexRes++) {
+      const ressource = resources.value[indexRes]
       if(ressource.idEtablissement === undefined || ressource.idEtablissement === null || ressource.idEtablissement.length ===0){
         continue
       }
@@ -181,13 +181,13 @@ function getIdOfEtablissementCourant(): string | undefined {
   }
 }
 
-async function getRessources(): Promise<void> {
+async function updateRessources(): Promise<void> {
   chargement.value = true
   try {
     const reponse = await getResources(props.baseApiUrl, props.userRightsApiUrl)
     const res = reponse
 
-    ressources.value = res.map(createResourceFromJson)
+    resources.value = res.map(createResourceFromJson)
   }
   catch (e: any) {
     throw new CustomError(e.message, e.statusCode)
@@ -211,7 +211,7 @@ function updateFiltre(value: CustomEvent): void {
 async function setFavoris(): Promise<void> {
   try {
     const resourceFavoriteIds = await getFavorites(props.getUserFavoriteResourcesUrl, props.fnameMediacentreUi)
-    const resourceFavorites = ressources.value.filter(res => resourceFavoriteIds.includes(res.idRessource))
+    const resourceFavorites = resources.value.filter(res => resourceFavoriteIds.includes(res.idRessource))
     resourceFavorites.forEach(res => (res.isFavorite = true))
   }
   catch (e: any) {
@@ -223,7 +223,7 @@ async function updateFavori(event: CustomEvent) {
   const idResource = event.detail[0]
   const isFavorite = event.detail[1]
 
-  const resourceFavorite = ressourcesForSelectedEtab.value.find(res => res.idRessource === idResource)
+  const resourceFavorite = resourcesForSelectedEtab.value.find(res => res.idRessource === idResource)
   resourceFavorite!.isFavorite = isFavorite
   try {
     const resourceFavoriteIds = await getFavorites(props.getUserFavoriteResourcesUrl, props.fnameMediacentreUi)
@@ -252,7 +252,7 @@ async function getFavoris(): Promise<void> {
   chargement.value = true
   try {
     const idResourceFavorites = await getFavorites(props.getUserFavoriteResourcesUrl, props.fnameMediacentreUi)
-    filteredResources.value = ressourcesForSelectedEtab.value.filter(res => idResourceFavorites.includes(res.idRessource))
+    filteredResources.value = resourcesForSelectedEtab.value.filter(res => idResourceFavorites.includes(res.idRessource))
     filteredResources.value.forEach(res => (res.isFavorite = true))
   }
   catch (error: any) {
@@ -277,7 +277,7 @@ function hasResourcesForCurrentEtab(): boolean {
 
   const cle:string = escosirencurentarray[0]
 
-  const index = ressources.value.findIndex(ressource => ressource.idEtablissement.findIndex(idEtabFromSubArray => idEtabFromSubArray.id === cle) > -1)
+  const index = resources.value.findIndex(ressource => ressource.idEtablissement.findIndex(idEtabFromSubArray => idEtabFromSubArray.id === cle) > -1)
   return index > -1
 }
 
@@ -286,12 +286,12 @@ function getResourcesByFilter(filtre: string, idCategorie: string): void {
   try {
     switch (idCategorie) {
       case 'NIVEAU_EDUCATIF_FILTER':
-        filteredResources.value = ressourcesForSelectedEtab.value.filter(ressource =>
+        filteredResources.value = resourcesForSelectedEtab.value.filter(ressource =>
           ressource.niveauEducatif.some(e => e.nom === filtre),
         )
         break
       case 'TYPE_PRESENTATION_FILTER':
-        filteredResources.value = ressourcesForSelectedEtab.value.filter(ressource => ressource.typePresentation.code === filtre)
+        filteredResources.value = resourcesForSelectedEtab.value.filter(ressource => ressource.typePresentation.code === filtre)
         break
       // case 'UAI_FILTER':
       //   filteredResources.value = ressourcesForSelectedEtab.value.filter(ressource =>
@@ -299,12 +299,12 @@ function getResourcesByFilter(filtre: string, idCategorie: string): void {
       //   )
       //   break
       case 'DOMAINE_ENSEIGNEMENT_FILTER':
-        filteredResources.value = ressourcesForSelectedEtab.value.filter(ressource =>
+        filteredResources.value = resourcesForSelectedEtab.value.filter(ressource =>
           ressource.domaineEnseignement.some(e => e.nom === filtre),
         )
         break
       default:
-        filteredResources.value = ressourcesForSelectedEtab.value
+        filteredResources.value = resourcesForSelectedEtab.value
         break
     }
   }
@@ -334,7 +334,7 @@ function generateFiltresValues() {
   chargement.value = true
 
   try {
-    filtres.value = filtrage(ressourcesForSelectedEtab.value, filtresResponse.value)
+    filtres.value = filtrage(resourcesForSelectedEtab.value, filtresResponse.value)
   }
   catch (error: any) {
     console.error(error)
@@ -346,8 +346,8 @@ function generateFiltresValues() {
 
 watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed, oldSirenEtabDisplayed) => {
   const arrayRessourcesPerEtab: Array<Ressource> = []
-  for (let index = 0; index < ressources.value.length; index++) {
-    const element = ressources.value[index]
+  for (let index = 0; index < resources.value.length; index++) {
+    const element = resources.value[index]
     if (element.idEtablissement === undefined || element.idEtablissement === null || element.idEtablissement.length === 0 ) {
       arrayRessourcesPerEtab.push(element)
     }else{
@@ -359,7 +359,7 @@ watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed, old
       }
     }
   }
-  ressourcesForSelectedEtab.value = arrayRessourcesPerEtab
+  resourcesForSelectedEtab.value = arrayRessourcesPerEtab
   filtre.value = 'tout'
   getResourcesByFilter(filtre.value, '')
   generateFiltresValues()
