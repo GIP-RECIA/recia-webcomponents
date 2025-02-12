@@ -42,7 +42,7 @@ mediacentre-ui {
 }
 /* Variables */
 :root {
-  --ui-mediacentre-background-color: #ffffff;
+  --ui-mediacentre-background-color: #f3f3f3;
   --ui-mediacentre-font-color: #000000;
   --ui-mediacentre-border-color: #d35959;
   --ui-mediacentre-menu-title-background-color: #ededed;
