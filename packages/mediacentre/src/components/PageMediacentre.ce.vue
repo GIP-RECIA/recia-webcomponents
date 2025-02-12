@@ -26,7 +26,7 @@ import { initToken } from '@/utils/axiosUtils'
 import { CustomError } from '@/utils/CustomError'
 import { EtablissementsData } from '@/utils/EtablissementsData'
 import { soffit } from '@/utils/soffitUtils'
-import { displayedEtablissementSiren, etablissementsData, etablissementsMap, filtre } from '@/utils/store'
+import { displayedEtablissementSiren, etablissementsData, filtre } from '@/utils/store'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { computed, onMounted, ref, watch } from 'vue'
 import { getConfig, getFavorites, getFilters, getResources, putFavorites } from '../services/ServiceMediacentre'
@@ -44,7 +44,7 @@ const props = withDefaults(
     fnameMediacentreUi?: string
     sirenCurrent?: string
     siren?: string
-    helpLocation? : string,
+    helpLocation?: string
   }>(),
   {
     baseApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_API_URI,
@@ -123,7 +123,7 @@ function getAllEtabId(): string[] | undefined {
 }
 
 function updateEtablissementsDataInStore(): void {
-  const etabIds: string[] | undefined =  getAllEtabId()
+  const etabIds: string[] | undefined = getAllEtabId()
   if (etabIds === undefined) {
     return
   }
@@ -136,15 +136,16 @@ function updateEtablissementsDataInStore(): void {
 
     for (let indexRes = 0; indexRes < resources.value.length; indexRes++) {
       const ressource = resources.value[indexRes]
-      if(ressource.idEtablissement === undefined || ressource.idEtablissement === null || ressource.idEtablissement.length ===0){
+      if (ressource.idEtablissement === undefined || ressource.idEtablissement === null || ressource.idEtablissement.length === 0) {
         continue
       }
       for (let index = 0; index < ressource.idEtablissement.length; index++) {
-        const iteratedEtablissement = ressource.idEtablissement[index];
+        const iteratedEtablissement = ressource.idEtablissement[index]
         if (iteratedEtablissement.id === etabId) {
           if (iteratedEtablissement.nom !== undefined) {
             mapEtabIdEtabName.set(etabId, iteratedEtablissement.nom)
-          } else {
+          }
+          else {
             mapEtabIdEtabName.set(etabId, iteratedEtablissement.id)
           }
         }
@@ -155,16 +156,16 @@ function updateEtablissementsDataInStore(): void {
   if (sirencourant === undefined) {
     return
   }
-  if(mapEtabIdEtabName.size === 0){
-    mapEtabIdEtabName.set(sirencourant,"---")
+  if (mapEtabIdEtabName.size === 0) {
+    mapEtabIdEtabName.set(sirencourant, '---')
   }
   const myEtabsData = new EtablissementsData()
-  if( mapEtabIdEtabName.has(sirencourant)){
+  if (mapEtabIdEtabName.has(sirencourant)) {
     myEtabsData.courant = sirencourant
-  }else{
-     const key = mapEtabIdEtabName.keys().next().value
+  }
+  else {
+    const key = mapEtabIdEtabName.keys().next().value
     myEtabsData.courant = key === undefined ? '-1' : key
-
   }
   myEtabsData.tout = mapEtabIdEtabName
   etablissementsData.value = myEtabsData
@@ -263,24 +264,6 @@ async function getFavoris(): Promise<void> {
   }
 }
 
-function hasResourcesForCurrentEtab(): boolean {
-  if(soffit.value === undefined){
-    return false
-  }
-  if(Array.isArray(soffit.value[props.sirenCurrent]) == false){
-    return false
-  }
-  let escosirencurentarray: string[] = <Array<string>>soffit.value[props.sirenCurrent]
-  if(escosirencurentarray.length === 0){
-    return false
-  }
-
-  const cle:string = escosirencurentarray[0]
-
-  const index = resources.value.findIndex(ressource => ressource.idEtablissement.findIndex(idEtabFromSubArray => idEtabFromSubArray.id === cle) > -1)
-  return index > -1
-}
-
 function getResourcesByFilter(filtre: string, idCategorie: string): void {
   chargement.value = true
   try {
@@ -339,16 +322,17 @@ function generateFiltresValues() {
   }
 }
 
-watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed, oldSirenEtabDisplayed) => {
+watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed) => {
   const arrayRessourcesPerEtab: Array<Ressource> = []
   for (let index = 0; index < resources.value.length; index++) {
     const element = resources.value[index]
-    if (element.idEtablissement === undefined || element.idEtablissement === null || element.idEtablissement.length === 0 ) {
+    if (element.idEtablissement === undefined || element.idEtablissement === null || element.idEtablissement.length === 0) {
       arrayRessourcesPerEtab.push(element)
-    }else{
+    }
+    else {
       for (let index = 0; index < element.idEtablissement.length; index++) {
-        const subElement = element.idEtablissement[index];
-        if(subElement.id === newSirenEtabDisplayed){
+        const subElement = element.idEtablissement[index]
+        if (subElement.id === newSirenEtabDisplayed) {
           arrayRessourcesPerEtab.push(element)
         }
       }
@@ -358,7 +342,6 @@ watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed, old
   filtre.value = 'tout'
   getResourcesByFilter(filtre.value, '')
   generateFiltresValues()
-  const buttons = document.getElementsByClassName('categories-container')
 })
 </script>
 
@@ -374,22 +357,22 @@ watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed, old
         <menu-mediacentre :filtres="filtres" :checked="filtre" @update-checked="updateFiltre" />
       </aside>
       <div class="main-page-wrapper">
-      <main class="main-page-mediacentre">
-        <liste-ressources
-          v-if="!chargement"
-          :filtre="filtre"
-          :ressources="filteredResources"
-          :chargement="chargement"
-          :base-api-url="baseApiUrl"
-          :user-info-api-url="userInfoApiUrl"
-          :erreur="erreur"
-          :nb-resources="countNbFilteredResources"
-          @update-favorite="updateFavori"
-          @open-modal="openModal"
-        />
-      </main>
-      <p><a :href="helpLocation" target="_blank" rel="noopener noreferrer">{{ t('page-mediacentre.help') }}</a></p>
-    </div>
+        <main class="main-page-mediacentre">
+          <liste-ressources
+            v-if="!chargement"
+            :filtre="filtre"
+            :ressources="filteredResources"
+            :chargement="chargement"
+            :base-api-url="baseApiUrl"
+            :user-info-api-url="userInfoApiUrl"
+            :erreur="erreur"
+            :nb-resources="countNbFilteredResources"
+            @update-favorite="updateFavori"
+            @open-modal="openModal"
+          />
+        </main>
+        <p><a :href="helpLocation" target="_blank" rel="noopener noreferrer">{{ t('page-mediacentre.help') }}</a></p>
+      </div>
       <Teleport to="body">
         <info-modal id="modale" debug="false">
           <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
