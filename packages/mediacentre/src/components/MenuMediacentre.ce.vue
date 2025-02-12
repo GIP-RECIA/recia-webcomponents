@@ -20,7 +20,7 @@ import { displayedEtablissementSiren, etablissementsData, filtre } from '@/utils
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import Multiselect from '@vueform/multiselect'
 import { useBreakpoints } from '@vueuse/core'
-import { capitalize, onMounted, ref, watch } from 'vue'
+import { capitalize, ref, watch } from 'vue'
 
 import { useI18n } from 'vue-i18n'
 
