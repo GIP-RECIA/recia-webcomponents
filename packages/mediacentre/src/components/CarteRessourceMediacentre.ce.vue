@@ -80,7 +80,7 @@ function toggleFavoris(): void {
   >
     <div class="background-carte-ressource-mediacentre">
       <div class="action-zone-carte-ressource-mediacentre">
-        <button class="icone-bouton-carte-ressource-mediacentre" @click.prevent="toggleFavoris">
+        <button class="icone-bouton-carte-ressource-mediacentre" title="" @click.prevent="toggleFavoris">
           <FontAwesomeIcon
             class="icone-favorite-carte-ressource-mediacentre"
             :icon="[ressource.isFavorite ? 'fas' : 'far', 'star']"
