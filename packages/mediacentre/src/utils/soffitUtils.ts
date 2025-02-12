@@ -15,8 +15,8 @@
  */
 
 import type { JWT } from '@uportal/open-id-connect'
-import { ref } from 'vue'
 import oidc from '@uportal/open-id-connect'
+import { ref } from 'vue'
 import { CustomError } from './CustomError'
 
 const soffit = ref<JWT>()
