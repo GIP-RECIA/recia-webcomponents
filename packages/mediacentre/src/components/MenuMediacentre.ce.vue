@@ -101,14 +101,15 @@ function etablissementSelected(e: string) {
     </div>
 
     <div class="menu-wrapper">
-      <div class="displayed-etab">
+      <label v-if="multiselectOptions.length > 0" for="mediacentre-ui-schoolselect" class="displayed-etab">
         {{ t('menu-mediacentre.displayed-etab') }}
-      </div>
+      </label>
       <Multiselect
         v-if="multiselectOptions.length > 0"
+        id="mediacentre-ui-schoolSelect"
         mode="single"
         class="multiselect"
-        name="value"
+        name="mediacentre-ui-schoolSelect"
         :value="multiselectCurrentValue"
         :close-on-select="false"
         :can-deselect="false"
