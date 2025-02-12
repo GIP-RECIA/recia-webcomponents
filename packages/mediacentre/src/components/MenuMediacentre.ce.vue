@@ -110,7 +110,7 @@ function etablissementSelected(e: string) {
         class="multiselect"
         name="value"
         :value="multiselectCurrentValue"
-
+        :close-on-select="false"
         :can-deselect="false"
         :can-clear="false"
         :options="multiselectOptions"
