@@ -179,16 +179,16 @@ function etablissementSelected(e: string) {
 .cadre-menu-mediacentre {
   max-height: 100%;
   text-align: center;
-  background-color: transparent;
-  width: 15em;
+  background-color: #fff;
+  width: 320px;
   box-shadow: 0px 10px 15px -7px rgba(0, 0, 0, 0.1);
   overflow-y: hidden;
   display: flex;
   flex-direction: column;
-  padding-top: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
   height: fit-content;
-
-  border-radius: 1em;
+  border-radius: 0.5em;
   & :only-child {
     box-sizing: border-box;
   }
@@ -202,9 +202,9 @@ function etablissementSelected(e: string) {
   display: flex;
   flex-direction: row;
   align-items: center;
-  text-align: center;
+  text-align: start;
   justify-content: space-between;
-  background-color: $background-color;
+  background-color: #fff;
   width: 100%;
   padding: 0 1em;
   border: none;
@@ -246,7 +246,7 @@ function etablissementSelected(e: string) {
 }
 
 .sub-category-container {
-  background-color: $background-color;
+  background-color: #fff;
   width: 100%;
   border-collapse: collapse;
   border: none;
@@ -288,7 +288,7 @@ function etablissementSelected(e: string) {
   display: flex;
   flex-direction: column;
   max-height: 100%;
-  border-radius: 1em;
+  // border-radius: 1em;
   overflow-y: scroll;
 }
 
@@ -301,7 +301,7 @@ function etablissementSelected(e: string) {
 }
 
 .menu-wrapper {
-  background-color: $background-color-menu;
+  background-color: #fff;
   padding: 1px;
 }
 
@@ -339,7 +339,7 @@ function etablissementSelected(e: string) {
 
     .category-name-badge {
       text-align: center;
-      border-radius: 1em;
+      // border-radius: 1em;
       background-color: $background-color;
       font-weight: bold;
       font-size: 1em;
@@ -434,31 +434,39 @@ function etablissementSelected(e: string) {
 
 @import '../assets/scss/variables';
 .multiselect {
-  margin-bottom: 2em;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: 28px;
 }
 
 .multiselect-wrapper {
   font-weight: bold;
 }
 
+.multiselect-option {
+  &.is-selected {
+    font-weight: bold;
+  }
+}
+
 :host {
-  --ms-font-size: 0.8rem;
+  --ms-font-size: 14px;
   --ms-line-height: 1.375;
   --ms-bg: #ffffff;
   --ms-bg-disabled: #f3f4f6;
   --ms-border-color: #d1d5db;
-  --ms-border-width: 1px;
+  --ms-border-width: 0px;
   --ms-border-color-active: #d1d5db;
-  --ms-border-width-active: 1px;
+  --ms-border-width-active: 0px;
   --ms-radius: 4px;
   --ms-py: 0.5rem;
   --ms-px: 0.875rem;
-  --ms-ring-width: 3px;
+  --ms-ring-width: 0px;
   --ms-ring-color: #10b98130;
   --ms-placeholder-color: #9ca3af;
   --ms-max-height: 10rem;
 
-  --ms-option-font-size: 1rem;
+  --ms-option-font-size: 14px;
   --ms-option-line-height: 1.375;
   --ms-option-bg-pointed: #ffffff;
   --ms-option-color-pointed: #1f2937;
