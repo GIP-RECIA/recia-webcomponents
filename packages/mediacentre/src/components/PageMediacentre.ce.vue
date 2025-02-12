@@ -156,9 +156,6 @@ function updateEtablissementsDataInStore(): void {
   if (sirencourant === undefined) {
     return
   }
-  if (mapEtabIdEtabName.size === 0) {
-    mapEtabIdEtabName.set(sirencourant, '---')
-  }
   const myEtabsData = new EtablissementsData()
   if (mapEtabIdEtabName.has(sirencourant)) {
     myEtabsData.courant = sirencourant
