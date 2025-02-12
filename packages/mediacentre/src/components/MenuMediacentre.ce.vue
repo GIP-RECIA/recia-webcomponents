@@ -105,6 +105,7 @@ function etablissementSelected(e: string) {
         {{ t('menu-mediacentre.displayed-etab') }}
       </div>
       <Multiselect
+        v-if="multiselectOptions.length > 0"
         mode="single"
         class="multiselect"
         name="value"
