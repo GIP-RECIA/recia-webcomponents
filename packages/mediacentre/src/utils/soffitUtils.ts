@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-import oidc, { type JWT } from '@uportal/open-id-connect'
+import type { JWT } from '@uportal/open-id-connect'
+import oidc from '@uportal/open-id-connect'
 import { ref } from 'vue'
 import { CustomError } from './CustomError'
 
