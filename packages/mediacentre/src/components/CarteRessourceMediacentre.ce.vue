@@ -120,7 +120,6 @@ function toggleFavoris(): void {
   text-decoration: none;
   cursor: pointer;
   border-radius: 1em;
-  border-top: 1em solid $border-color;
   background-color: $card-background-color;
   box-shadow:
     0px 0px 28px -8px rgba(0, 0, 0, 0.1),

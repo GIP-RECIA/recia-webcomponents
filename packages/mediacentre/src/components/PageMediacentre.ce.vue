@@ -417,8 +417,8 @@ watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed) => 
 .cadre-page-mediacentre {
   display: flex;
   flex-direction: row;
-  gap: 4em;
-  padding: 2em;
+  gap: 10px;
+  padding: 5px;
   height: 100%;
   width: 100%;
 
