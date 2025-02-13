@@ -15,10 +15,12 @@
  */
 
 import type { ConfigType } from '@/types/ConfigType'
+import type { GestionAffectation } from '@/utils/GestionAffectation'
 import { instance } from '@/utils/axiosUtils'
 import { CustomError } from '@/utils/CustomError'
 
 let config: Array<ConfigType> = []
+let userGroups: Array<string>
 
 async function flushMediacentreFavorites(putUrl: string, fname: string) {
   try {
@@ -26,6 +28,24 @@ async function flushMediacentreFavorites(putUrl: string, fname: string) {
   }
   catch (e: any) {
     throw new CustomError(e.message, e.code)
+  }
+}
+
+async function getGestionAffectations(gestionAffectationUrl: string, groupsApiUrl: string): Promise<Array<GestionAffectation> | undefined> {
+  try {
+    if (userGroups === undefined) {
+      userGroups = await getGroups(groupsApiUrl)
+    }
+    const response = await instance.post(gestionAffectationUrl, { isMemberOf: userGroups })
+    return response.data
+  }
+  catch (e: any) {
+    if (e.response) {
+      throw new CustomError(e.response.data.message, e.response.status)
+    }
+    else if (e.code === 'ECONNABORTED') {
+      throw new CustomError(e.message, e.code)
+    }
   }
 }
 
@@ -85,7 +105,9 @@ async function getGroups(groupsApiUrl: string) {
 
 async function getResources(baseApiUrl: string, groupsApiUrl: string) {
   try {
-    const userGroups: Array<string> = await getGroups(groupsApiUrl)
+    if (userGroups === undefined) {
+      userGroups = await getGroups(groupsApiUrl)
+    }
     const response = await instance.post(baseApiUrl, { isMemberOf: userGroups })
     return response.data
   }
@@ -149,4 +171,4 @@ async function putFavorites(putUserFavoriteResourcesUrl: string, idResource: str
   }
 }
 
-export { flushMediacentreFavorites, getConfig, getFavorites, getFilters, getResources, putFavorites }
+export { flushMediacentreFavorites, getConfig, getFavorites, getFilters, getGestionAffectations, getResources, putFavorites }
