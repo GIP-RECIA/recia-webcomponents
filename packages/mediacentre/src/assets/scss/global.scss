@@ -15,8 +15,17 @@
  */
 
 @forward 'variables';
+@use 'variables' as *;
 @use 'buttons';
 
 * {
   box-sizing: border-box;
+}
+
+a {
+  color: $blue-link;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 }
