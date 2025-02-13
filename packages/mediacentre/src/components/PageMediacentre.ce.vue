@@ -26,10 +26,10 @@ import { initToken } from '@/utils/axiosUtils'
 import { CustomError } from '@/utils/CustomError'
 import { EtablissementsData } from '@/utils/EtablissementsData'
 import { soffit } from '@/utils/soffitUtils'
-import { displayedEtablissementSiren, etablissementsData, filtre } from '@/utils/store'
+import { displayedEtablissementSiren, etablissementsData, filtre, gestionAffectations } from '@/utils/store'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { computed, onMounted, ref, watch } from 'vue'
-import { getConfig, getFavorites, getFilters, getResources, putFavorites } from '../services/ServiceMediacentre'
+import { getConfig, getFavorites, getFilters, getGestionAffectations, getResources, putFavorites } from '../services/ServiceMediacentre'
 
 defineOptions({ name: 'PageMedia' })
 
@@ -37,6 +37,7 @@ const props = withDefaults(
   defineProps<{
     baseApiUrl?: string
     configApiUrl?: string
+    gestionApiUrl?: string
     userInfoApiUrl?: string
     userRightsApiUrl?: string
     getUserFavoriteResourcesUrl?: string
@@ -49,6 +50,7 @@ const props = withDefaults(
   {
     baseApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_API_URI,
     configApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_CONFIG_API_URI,
+    gestionApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_GESTION_API_URI,
     userInfoApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_CONTEXT + import.meta.env.VITE_APP_MEDIACENTRE_USER_INFO_API_URI,
     userRightsApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_CONTEXT + import.meta.env.VITE_APP_MEDIACENTRE_USER_RIGHTS_API_URI,
     getUserFavoriteResourcesUrl: import.meta.env.VITE_APP_MEDIACENTRE_CONTEXT + import.meta.env.VITE_APP_MEDIACENTRE_USER_GET_USER_FAVORITE_RESOURCES_API_URI,
@@ -73,7 +75,8 @@ const resourceEditor = ref<string>('')
 const resourceDescription = ref<string | undefined>()
 const erreur = ref<string>('')
 const filtresResponse = ref<Array<string>>([])
-
+const modalToUse = ref<string>('card')
+const gestionHTML = ref<string>('')
 const { t } = i18n.global
 
 let triggerElement: any
@@ -102,6 +105,7 @@ onMounted(async (): Promise<void> => {
     await initToken(props.userInfoApiUrl)
     await getConfig(props.configApiUrl)
     await updateRessources()
+    await updateGestionValue()
     await setFavoris()
     await getFiltres()
     updateEtablissementsDataInStore()
@@ -239,11 +243,18 @@ async function updateFavori(event: CustomEvent) {
 }
 
 function openModal(event: CustomEvent) {
+  modalToUse.value = 'card'
   isModalOpen.value = true
   resourceTitle.value = event.detail[1]
   resourceEditor.value = event.detail[2]
   resourceDescription.value = event.detail[3]
   resourceReference.value = event.detail[4]
+}
+
+function openGestionModal(event: CustomEvent) {
+  modalToUse.value = 'gestion'
+  isModalOpen.value = true
+  gestionHTML.value = event.detail[0]
 }
 
 async function getFavoris(): Promise<void> {
@@ -305,6 +316,22 @@ async function getFiltres(): Promise<void> {
   }
 }
 
+async function updateGestionValue() {
+  chargement.value = true
+  try {
+    const response = await getGestionAffectations(props.gestionApiUrl, props.userRightsApiUrl)
+    if (response !== undefined) {
+      gestionAffectations.value = response
+    }
+  }
+  catch (error: any) {
+    console.error(error)
+  }
+  finally {
+    chargement.value = false
+  }
+}
+
 function generateFiltresValues() {
   chargement.value = true
 
@@ -351,7 +378,7 @@ watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed) => 
     </div>
     <div v-else class="cadre-page-mediacentre">
       <aside class="aside-page-mediacentre">
-        <menu-mediacentre :filtres="filtres" :checked="filtre" @update-checked="updateFiltre" />
+        <menu-mediacentre :filtres="filtres" :checked="filtre" @update-checked="updateFiltre" @open-gestion-modal="openGestionModal" />
       </aside>
       <div class="main-page-wrapper">
         <main class="main-page-mediacentre">
@@ -372,18 +399,26 @@ watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed) => 
       </div>
       <Teleport to="body">
         <info-modal id="modale" debug="false">
-          <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
-          <div slot="modal-body">
-            <div style="display: flex; flex-direction: column; gap: 3em">
-              <div style="display: flex; flex-direction: column; gap: 0.5em">
-                <span>Ref : {{ resourceReference }}</span>
-                <span>{{ t('resource-info-modal-mediacentre.editor') }} {{ resourceEditor }}</span>
-              </div>
-              <div v-if="resourceDescription" class="description-modal">
-                {{ resourceDescription }}
+          <template v-if="modalToUse === 'card'">
+            <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
+            <div slot="modal-body">
+              <div style="display: flex; flex-direction: column; gap: 3em">
+                <div style="display: flex; flex-direction: column; gap: 0.5em">
+                  <span>Ref : {{ resourceReference }}</span>
+                  <span>{{ t('resource-info-modal-mediacentre.editor') }} {{ resourceEditor }}</span>
+                </div>
+                <div v-if="resourceDescription" class="description-modal">
+                  {{ resourceDescription }}
+                </div>
               </div>
             </div>
-          </div>
+          </template>
+          <template v-if="modalToUse === 'gestion'">
+            <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
+            <div slot="modal-body">
+              <p v-html="gestionHTML" />
+            </div>
+          </template>
         </info-modal>
       </Teleport>
     </div>

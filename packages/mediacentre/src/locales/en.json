@@ -19,7 +19,9 @@
   "resource-info-modal-mediacentre": {
     "editor": "Edited by "
   },
-
+  "gestion": {
+    "menu-label": "GAR assignments"
+  },
   "error-messages": {
     "400": "An error has occurred, please try again.",
     "401": "You are not logged in, please login.",

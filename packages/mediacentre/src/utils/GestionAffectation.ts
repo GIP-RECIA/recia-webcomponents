@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-import type { GestionAffectation } from '@/utils/GestionAffectation'
-import { EtablissementsData } from '@/utils/EtablissementsData'
-import { ref } from 'vue'
+export class GestionAffectation {
+  public constructor() {
+    this.id = ''
+    this.isLink = false
+    this.title = ''
+    this.description = ''
+  }
 
-const etablissementsMap = ref<Map<string, string>>(new Map())
-const etablissementsData = ref<EtablissementsData>(new EtablissementsData())
-const displayedEtablissementSiren = ref<string>('')
-const filtre = ref<string>('tout')
-const gestionAffectations = ref<Array<GestionAffectation>>([])
-
-export { displayedEtablissementSiren, etablissementsData, etablissementsMap, filtre, gestionAffectations }
+  id: string
+  isLink: boolean
+  title: string
+  description: string
+}
