@@ -15,6 +15,7 @@
  */
 
 $border-color: var(--ui-mediacentre-border-color, #25b2f3);
+$text-on-border-color: var(--ui-mediacentre-color-on-border, #fff);
 $background-color: var(--ui-mediacentre-background-color, #ffffff);
 $card-background-color: var(--ui-mediacentre-card-background-color, #ffffff);
 $font-color: var(--ui-mediacentre-font-color, #000000);
@@ -24,3 +25,15 @@ $category-active-background-color: var(--ui-mediacentre-category-active-backgrou
 $vueform-option-selected-background: var(--recia-btn-primary-bg, #0d9eff);
 $vueform-option-selected: var(--recia-btn-primary-color, #fff);
 $background-color-menu: var(--recia-basic-grey, #f4f4f4);
+
+$dm-sans: 'DM Sans', 'sans-serif';
+$sora: 'Sora', 'sans-serif';
+$standard-colour-white: #fff;
+$standard-colour-black: #1e1e1e;
+$primary: var(--primary, #0062bc);
+$primary-transparent: var(--primary-transparent, #0062bc0d);
+$basic-black: #1e1e1e;
+$basic-grey: #f4f4f4;
+$secondary-hover: var(--secondary-hover, #e6eff8);
+
+$blue-link: var(--ui-mediacentre-blue-link, #005099);

@@ -177,6 +177,8 @@ function etablissementSelected(e: string) {
 </template>
 
 <style lang="scss">
+@import '@vueform/multiselect/themes/default.css';
+
 .cadre-menu-mediacentre {
   max-height: 100%;
   text-align: center;
@@ -431,9 +433,6 @@ function etablissementSelected(e: string) {
   }
 }
 
-@import '@vueform/multiselect/themes/default.css';
-
-@import '../assets/scss/variables';
 .multiselect {
   margin-top: 5px;
   margin-bottom: 5px;
