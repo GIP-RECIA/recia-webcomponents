@@ -16,7 +16,8 @@
 
 <script setup lang="ts">
 import type { Filtres } from '@/types/FiltresType'
-import { displayedEtablissementSiren, etablissementsData, filtre } from '@/utils/store'
+import type { GestionAffectation } from '@/utils/GestionAffectation'
+import { displayedEtablissementSiren, etablissementsData, filtre, gestionAffectations } from '@/utils/store'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import Multiselect from '@vueform/multiselect'
 import { useBreakpoints } from '@vueuse/core'
@@ -32,7 +33,7 @@ const props = defineProps<{
   filtres: Array<Filtres>
 }>()
 
-const emit = defineEmits(['updateChecked'])
+const emit = defineEmits(['updateChecked', 'openGestionModal'])
 
 const { t } = useI18n()
 const activeCategory = ref('tout')
@@ -86,6 +87,22 @@ watch(() => filtre.value, async (newFiltre) => {
 
 function etablissementSelected(e: string) {
   displayedEtablissementSiren.value = e
+}
+
+function openGestionModal(gestion: GestionAffectation, event: Event): void {
+  const openModalCustomEvent = new CustomEvent('openModale', {
+    detail: {
+      title: gestion.title,
+      originalEvent: event.composedPath()[0] as HTMLElement,
+    },
+    bubbles: true, // Permet à l'événement de remonter dans le DOM
+    composed: true, // Permet à l'événement de sortir du shadow DOM
+  })
+  document.dispatchEvent(openModalCustomEvent)
+  emit(
+    'openGestionModal',
+    gestion.description,
+  )
 }
 </script>
 
@@ -162,6 +179,8 @@ function etablissementSelected(e: string) {
               <button
                 :class="{ active: filtre === subCat.id }"
                 class="sub-category-container"
+                aria-haspopup="dialog"
+                aria-controls="modal"
                 @click.prevent="changementFiltre(subCat.id, category.filterEnum, subCat.nom)"
               >
                 <span>
@@ -173,11 +192,36 @@ function etablissementSelected(e: string) {
         </div>
       </div>
     </div>
+    <div v-if="gestionAffectations.length > 0" class="gestion-gar">
+      <h2 class="gestion-label">
+        {{ t("gestion.menu-label") }}
+      </h2>
+      <template v-for="gestionAffectation in gestionAffectations" :key="gestionAffectation.id">
+        <template v-if="gestionAffectation.isLink">
+          <p><a :href="gestionAffectation.description">{{ gestionAffectation.title }}</a></p>
+        </template>
+        <template v-else>
+          <button class="gestion-button" @click.prevent="openGestionModal(gestionAffectation, $event)">
+            {{ gestionAffectation.title }}
+          </button>
+        </template>
+      </template>
+    </div>
   </div>
 </template>
 
 <style lang="scss">
 @import '@vueform/multiselect/themes/default.css';
+
+.gestion-button {
+  @extend %button-primary;
+  border: none;
+  font-size: 14px;
+}
+
+.gestion-label {
+  font-size: 18px;
+}
 
 .cadre-menu-mediacentre {
   max-height: 100%;
@@ -304,6 +348,7 @@ function etablissementSelected(e: string) {
 }
 
 .menu-wrapper {
+  text-align: start;
   background-color: #fff;
   padding: 1px;
 }
@@ -446,6 +491,14 @@ function etablissementSelected(e: string) {
 .multiselect-option {
   &.is-selected {
     font-weight: bold;
+  }
+}
+
+p {
+  padding-left: 5px;
+  text-align: start;
+  &.gar-description {
+    font-size: 12px;
   }
 }
 
