@@ -14,22 +14,14 @@
  * limitations under the License.
  */
 
-/* eslint-disable node/prefer-global/process */
-import { defineConfig, loadEnv } from 'vite'
-import pkg from './package.json'
+import type { GestionAffectation } from '@/utils/GestionAffectation'
+import { EtablissementsData } from '@/utils/EtablissementsData'
+import { ref } from 'vue'
 
-// https://vitejs.dev/config/
-export default ({ mode }: { mode: string }) => {
-  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
+const etablissementsMap = ref<Map<string, string>>(new Map())
+const etablissementsData = ref<EtablissementsData>(new EtablissementsData())
+const displayedEtablissementSiren = ref<string>('')
+const filtre = ref<string>('tout')
+const gestionAffectations = ref<Array<GestionAffectation>>([])
 
-  return defineConfig({
-    build: {
-      sourcemap: true,
-      lib: {
-        entry: './src/info-modal.ts',
-        formats: ['es'],
-        name: pkg.name,
-      },
-    },
-  })
-}
+export { displayedEtablissementSiren, etablissementsData, etablissementsMap, filtre, gestionAffectations }

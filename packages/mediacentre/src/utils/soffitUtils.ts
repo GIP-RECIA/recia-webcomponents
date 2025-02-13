@@ -14,8 +14,12 @@
  * limitations under the License.
  */
 
-import oidc, { type JWT } from '@uportal/open-id-connect'
+import type { JWT } from '@uportal/open-id-connect'
+import oidc from '@uportal/open-id-connect'
+import { ref } from 'vue'
 import { CustomError } from './CustomError'
+
+const soffit = ref<JWT>()
 
 async function getToken(apiUrl: string): Promise<{ encoded: string, decoded: JWT }> {
   const { encoded, decoded } = await oidc({
@@ -24,7 +28,8 @@ async function getToken(apiUrl: string): Promise<{ encoded: string, decoded: JWT
   if (decoded.sub.startsWith('guest')) {
     throw new CustomError('You are not logged', 401)
   }
+  soffit.value = decoded
   return { encoded, decoded }
 }
 
-export { getToken }
+export { getToken, soffit }

@@ -14,22 +14,12 @@
  * limitations under the License.
  */
 
-/* eslint-disable node/prefer-global/process */
-import { defineConfig, loadEnv } from 'vite'
-import pkg from './package.json'
+export class EtablissementsData {
+  public constructor() {
+    this.courant = ''
+    this.tout = new Map()
+  }
 
-// https://vitejs.dev/config/
-export default ({ mode }: { mode: string }) => {
-  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
-
-  return defineConfig({
-    build: {
-      sourcemap: true,
-      lib: {
-        entry: './src/info-modal.ts',
-        formats: ['es'],
-        name: pkg.name,
-      },
-    },
-  })
+  courant: string
+  tout: Map<string, string>
 }

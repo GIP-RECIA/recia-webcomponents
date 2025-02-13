@@ -1413,6 +1413,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@gip-recia/info-modal@file:../info-modal/package.tgz::locator=%40gip-recia%2Fmediacentre-ui%40workspace%3Apackages%2Fmediacentre":
+  version: 0.0.1
+  resolution: "@gip-recia/info-modal@file:../info-modal/package.tgz#../info-modal/package.tgz::hash=8b198b&locator=%40gip-recia%2Fmediacentre-ui%40workspace%3Apackages%2Fmediacentre"
+  checksum: 10/f0d5e786043f2adeb41f0f9b9e0ff13b27067a50d219ef8ac09410fcfd3ba323f640a6eaa753751c678c1b698a0ea08674f412d946c5976d34b1b5b639a621b7
+  languageName: node
+  linkType: hard
+
 "@gip-recia/info-modal@workspace:packages/info-modal":
   version: 0.0.0-use.local
   resolution: "@gip-recia/info-modal@workspace:packages/info-modal"
@@ -1444,6 +1451,7 @@ __metadata:
     "@fortawesome/free-regular-svg-icons": "npm:^6.7.2"
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.2"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
+    "@gip-recia/info-modal": "file:../info-modal/package.tgz"
     "@intlify/unplugin-vue-i18n": "npm:^6.0.3"
     "@tsconfig/node22": "npm:^22.0.0"
     "@types/lodash.debounce": "npm:^4"
@@ -1452,6 +1460,7 @@ __metadata:
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^5.2.1"
     "@vue/tsconfig": "npm:^0.7.0"
+    "@vueform/multiselect": "npm:^2.6.11"
     "@vueuse/core": "npm:^12.5.0"
     axios: "npm:^1.7.9"
     dotenv-checker: "npm:^1.1.7"
@@ -4074,6 +4083,13 @@ __metadata:
     vue:
       optional: true
   checksum: 10/29b5dd11cc179de707dfd549d0e80e220f4a0f6f7d90b9a52769bc655e599b9166b28af1218819245fbdd30a74d80fdd484538cdda6876d9d369ae623f234834
+  languageName: node
+  linkType: hard
+
+"@vueform/multiselect@npm:^2.6.11":
+  version: 2.6.11
+  resolution: "@vueform/multiselect@npm:2.6.11"
+  checksum: 10/51cdddf1b919fb2f6074182baf258525fe0f4d5f4800d50ea9eb8d16bdf7da23762b9424cfb7c36fef53f1a299dca8e26bc80bd7cf8dcc07159fa3970ef4a6bd
   languageName: node
   linkType: hard
 

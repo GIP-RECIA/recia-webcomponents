@@ -52,7 +52,7 @@ export default ({ mode }: { mode: string }) => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@import "@/assets/scss/global.scss";`,
+          additionalData: `@use "@/assets/scss/global.scss" as *;`,
         },
       },
     },
@@ -61,6 +61,9 @@ export default ({ mode }: { mode: string }) => {
         entry: './src/main.ts',
         name: pkg.name,
       },
+    },
+    server: {
+      allowedHosts: true,
     },
     define: {
       'process.env': process.env,
