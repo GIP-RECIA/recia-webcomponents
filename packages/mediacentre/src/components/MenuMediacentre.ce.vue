@@ -197,7 +197,7 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
         {{ t("gestion.menu-label") }}
       </h2>
       <template v-for="gestionAffectation in gestionAffectations" :key="gestionAffectation.id">
-        <template v-if="gestionAffectation.isLink">
+        <template v-if="gestionAffectation.link">
           <p><a :href="gestionAffectation.description">{{ gestionAffectation.title }}</a></p>
         </template>
         <template v-else>

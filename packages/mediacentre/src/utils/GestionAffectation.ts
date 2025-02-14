@@ -17,13 +17,13 @@
 export class GestionAffectation {
   public constructor() {
     this.id = ''
-    this.isLink = false
+    this.link = false
     this.title = ''
     this.description = ''
   }
 
   id: string
-  isLink: boolean
+  link: boolean
   title: string
   description: string
 }
