@@ -1398,7 +1398,7 @@ __metadata:
     "@vue/tsconfig": "npm:^0.7.0"
     axios: "npm:^1.7.9"
     dotenv-checker: "npm:^1.1.7"
-    eslint: "npm:^9.20.0"
+    eslint: "npm:^9.20.1"
     eslint-plugin-format: "npm:^1.0.1"
     lint-staged: "npm:^15.4.3"
     npm-run-all2: "npm:^7.0.2"
@@ -1422,7 +1422,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.2"
     "@tsconfig/node22": "npm:^22.0.0"
     "@types/node": "npm:^22"
-    eslint: "npm:^9.20.0"
+    eslint: "npm:^9.20.1"
     eslint-plugin-format: "npm:^1.0.1"
     lit: "npm:^3.2.1"
     lit-analyzer: "npm:^2.0.3"
@@ -1455,7 +1455,7 @@ __metadata:
     "@vueuse/core": "npm:^12.5.0"
     axios: "npm:^1.7.9"
     dotenv-checker: "npm:^1.1.7"
-    eslint: "npm:^9.20.0"
+    eslint: "npm:^9.20.1"
     eslint-plugin-format: "npm:^1.0.1"
     lint-staged: "npm:^15.4.3"
     lodash.debounce: "npm:^4.0.8"
@@ -1490,7 +1490,7 @@ __metadata:
     axios: "npm:^1.7.9"
     cropperjs: "npm:^1.6.2"
     dotenv-checker: "npm:^1.1.7"
-    eslint: "npm:^9.20.0"
+    eslint: "npm:^9.20.1"
     eslint-plugin-format: "npm:^1.0.1"
     lint-staged: "npm:^15.4.3"
     npm-run-all2: "npm:^7.0.2"
@@ -1564,7 +1564,7 @@ __metadata:
     "@vitejs/plugin-react": "npm:^4.3.4"
     axios: "npm:^1.7.9"
     dotenv-checker: "npm:^1.1.7"
-    eslint: "npm:^9.20.0"
+    eslint: "npm:^9.20.1"
     eslint-plugin-format: "npm:^1.0.1"
     eslint-plugin-react-hooks: "npm:^5.1.0"
     eslint-plugin-react-refresh: "npm:^0.4.19"
@@ -1603,7 +1603,7 @@ __metadata:
     "@vue/tsconfig": "npm:^0.7.0"
     axios: "npm:^1.7.9"
     dotenv-checker: "npm:^1.1.7"
-    eslint: "npm:^9.20.0"
+    eslint: "npm:^9.20.1"
     eslint-plugin-format: "npm:^1.0.1"
     lint-staged: "npm:^15.4.3"
     lodash.debounce: "npm:^4.0.8"
@@ -1691,7 +1691,7 @@ __metadata:
     "@vitejs/plugin-react": "npm:^4.3.4"
     axios: "npm:^1.7.9"
     dotenv-checker: "npm:^1.1.7"
-    eslint: "npm:^9.20.0"
+    eslint: "npm:^9.20.1"
     eslint-plugin-format: "npm:^1.0.1"
     eslint-plugin-react-hooks: "npm:^5.1.0"
     eslint-plugin-react-refresh: "npm:^0.4.19"
@@ -6329,9 +6329,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^9.20.0":
-  version: 9.20.0
-  resolution: "eslint@npm:9.20.0"
+"eslint@npm:^9.20.1":
+  version: 9.20.1
+  resolution: "eslint@npm:9.20.1"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.2.0"
     "@eslint-community/regexpp": "npm:^4.12.1"
@@ -6374,7 +6374,7 @@ __metadata:
       optional: true
   bin:
     eslint: bin/eslint.js
-  checksum: 10/6a7686fbda51a0dfe812ef39c251e2c2b0e828196059732d280be6aa375a1f4b5b0b34fed98de30ee363c3bf1b7e8d2a4eccf20b4112f3ad6709f067404a815c
+  checksum: 10/b1d870135c8ff628685e72c0e9cd161476835e8e69e803d89d87fc4aebe85fc6b51ca422c3c4bc62f0ef7bbd9b10feda76e37e4801706e75931c1791d0e051a8
   languageName: node
   linkType: hard
 

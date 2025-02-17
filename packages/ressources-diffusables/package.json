@@ -71,7 +71,7 @@
     "@vue/tsconfig": "^0.7.0",
     "axios": "^1.7.9",
     "dotenv-checker": "^1.1.7",
-    "eslint": "^9.20.0",
+    "eslint": "^9.20.1",
     "eslint-plugin-format": "^1.0.1",
     "lint-staged": "^15.4.3",
     "lodash.debounce": "^4.0.8",
