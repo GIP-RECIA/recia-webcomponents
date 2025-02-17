@@ -1404,7 +1404,7 @@ __metadata:
     npm-run-all2: "npm:^7.0.2"
     regenerator-runtime: "npm:^0.14.1"
     sass: "npm:^1.85.0"
-    terser: "npm:^5.38.1"
+    terser: "npm:^5.39.0"
     typescript: "npm:^5.7.3"
     vite: "npm:^6.1.0"
     vue: "npm:^3.5.13"
@@ -1428,7 +1428,7 @@ __metadata:
     lit-analyzer: "npm:^2.0.3"
     lit-scss-loader: "npm:^2.0.1"
     sass: "npm:^1.85.0"
-    terser: "npm:^5.38.1"
+    terser: "npm:^5.39.0"
     typescript: "npm:^5.7.3"
     vite: "npm:^6.1.0"
     vite-plugin-sass: "npm:^0.1.0"
@@ -1463,7 +1463,7 @@ __metadata:
     npm-run-all2: "npm:^7.0.2"
     regenerator-runtime: "npm:^0.14.1"
     sass: "npm:^1.85.0"
-    terser: "npm:^5.38.1"
+    terser: "npm:^5.39.0"
     typescript: "npm:^5.7.3"
     vite: "npm:^6.1.0"
     vue: "npm:^3.5.13"
@@ -1496,7 +1496,7 @@ __metadata:
     npm-run-all2: "npm:^7.0.2"
     regenerator-runtime: "npm:^0.14.1"
     sass: "npm:^1.85.0"
-    terser: "npm:^5.38.1"
+    terser: "npm:^5.39.0"
     typescript: "npm:^5.7.3"
     vite: "npm:^6.1.0"
     vite-plugin-css-injected-by-js: "npm:^3.5.2"
@@ -1575,7 +1575,7 @@ __metadata:
     react-dom: "npm:^18.3.1"
     regenerator-runtime: "npm:^0.14.1"
     sass: "npm:^1.85.0"
-    terser: "npm:^5.38.1"
+    terser: "npm:^5.39.0"
     typescript: "npm:^5.7.3"
     vite: "npm:^6.1.0"
     vite-plugin-css-injected-by-js: "npm:^3.5.2"
@@ -1610,7 +1610,7 @@ __metadata:
     npm-run-all2: "npm:^7.0.2"
     regenerator-runtime: "npm:^0.14.1"
     sass: "npm:^1.85.0"
-    terser: "npm:^5.38.1"
+    terser: "npm:^5.39.0"
     typescript: "npm:^5.7.3"
     vite: "npm:^6.1.0"
     vue: "npm:^3.5.13"
@@ -1701,7 +1701,7 @@ __metadata:
     react-dom: "npm:^18.3.1"
     regenerator-runtime: "npm:^0.14.1"
     sass: "npm:^1.85.0"
-    terser: "npm:^5.38.1"
+    terser: "npm:^5.39.0"
     typescript: "npm:^5.7.3"
     vite: "npm:^6.1.0"
     y-presence: "npm:^0.2.3"
@@ -10856,9 +10856,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"terser@npm:^5.38.1":
-  version: 5.38.1
-  resolution: "terser@npm:5.38.1"
+"terser@npm:^5.39.0":
+  version: 5.39.0
+  resolution: "terser@npm:5.39.0"
   dependencies:
     "@jridgewell/source-map": "npm:^0.3.3"
     acorn: "npm:^8.8.2"
@@ -10866,7 +10866,7 @@ __metadata:
     source-map-support: "npm:~0.5.20"
   bin:
     terser: bin/terser
-  checksum: 10/5c32213210e6e07fef2100c231aadf4a7f7be7903cc65daa3edc886075444b940f65991acf30f8b271e13a2f395b81bba1fa248409cc57160315339a40be3e2a
+  checksum: 10/d84aff642398329f7179bbeaca28cac76a86100e2372d98d39d9b86c48023b6b9f797d983d6e7c0610b3f957c53d01ada1befa25d625614cb2ccd20714f1e98b
   languageName: node
   linkType: hard
 
