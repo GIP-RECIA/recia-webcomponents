@@ -1403,7 +1403,7 @@ __metadata:
     lint-staged: "npm:^15.4.3"
     npm-run-all2: "npm:^7.0.2"
     regenerator-runtime: "npm:^0.14.1"
-    sass: "npm:^1.84.0"
+    sass: "npm:^1.85.0"
     terser: "npm:^5.38.1"
     typescript: "npm:^5.7.3"
     vite: "npm:^6.1.0"
@@ -1427,7 +1427,7 @@ __metadata:
     lit: "npm:^3.2.1"
     lit-analyzer: "npm:^2.0.3"
     lit-scss-loader: "npm:^2.0.1"
-    sass: "npm:^1.84.0"
+    sass: "npm:^1.85.0"
     terser: "npm:^5.38.1"
     typescript: "npm:^5.7.3"
     vite: "npm:^6.1.0"
@@ -1462,7 +1462,7 @@ __metadata:
     lodash.throttle: "npm:^4.1.1"
     npm-run-all2: "npm:^7.0.2"
     regenerator-runtime: "npm:^0.14.1"
-    sass: "npm:^1.84.0"
+    sass: "npm:^1.85.0"
     terser: "npm:^5.38.1"
     typescript: "npm:^5.7.3"
     vite: "npm:^6.1.0"
@@ -1495,7 +1495,7 @@ __metadata:
     lint-staged: "npm:^15.4.3"
     npm-run-all2: "npm:^7.0.2"
     regenerator-runtime: "npm:^0.14.1"
-    sass: "npm:^1.84.0"
+    sass: "npm:^1.85.0"
     terser: "npm:^5.38.1"
     typescript: "npm:^5.7.3"
     vite: "npm:^6.1.0"
@@ -1574,7 +1574,7 @@ __metadata:
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
     regenerator-runtime: "npm:^0.14.1"
-    sass: "npm:^1.84.0"
+    sass: "npm:^1.85.0"
     terser: "npm:^5.38.1"
     typescript: "npm:^5.7.3"
     vite: "npm:^6.1.0"
@@ -1609,7 +1609,7 @@ __metadata:
     lodash.debounce: "npm:^4.0.8"
     npm-run-all2: "npm:^7.0.2"
     regenerator-runtime: "npm:^0.14.1"
-    sass: "npm:^1.84.0"
+    sass: "npm:^1.85.0"
     terser: "npm:^5.38.1"
     typescript: "npm:^5.7.3"
     vite: "npm:^6.1.0"
@@ -1700,7 +1700,7 @@ __metadata:
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
     regenerator-runtime: "npm:^0.14.1"
-    sass: "npm:^1.84.0"
+    sass: "npm:^1.85.0"
     terser: "npm:^5.38.1"
     typescript: "npm:^5.7.3"
     vite: "npm:^6.1.0"
@@ -10328,9 +10328,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.84.0":
-  version: 1.84.0
-  resolution: "sass@npm:1.84.0"
+"sass@npm:^1.85.0":
+  version: 1.85.0
+  resolution: "sass@npm:1.85.0"
   dependencies:
     "@parcel/watcher": "npm:^2.4.1"
     chokidar: "npm:^4.0.0"
@@ -10341,7 +10341,7 @@ __metadata:
       optional: true
   bin:
     sass: sass.js
-  checksum: 10/e0c093f13800276f7441c6925aa707dbba59a7ecd6e21925f1e04980970c3fb18b1cc5e7193f9bbed569a87dfb41ed780f5c6153f0b3def3e0ae1ccf80cf282e
+  checksum: 10/4af4627505087b692a29c575f346b12e30a3f58dd0254832ebc9ccff456e6f8a2c16d1f9b45d83d6aaae867e6fb54b98c485ddf79a226e328d595b54725c7f84
   languageName: node
   linkType: hard
 
