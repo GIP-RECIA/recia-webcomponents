@@ -513,7 +513,6 @@ watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed) => 
 
     .main-page-mediacentre {
       box-sizing: border-box;
-      // height: calc(100% - 70px);
       height: calc(100% - 30px);
       margin: 0;
       padding: 0;
@@ -530,7 +529,6 @@ watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed) => 
 
 .main-page-wrapper {
   width: 100%;
-  // height: 95%;
   height: calc(100% - 70px);
   display: flex;
   flex-direction: column;
