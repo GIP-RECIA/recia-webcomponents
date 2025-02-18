@@ -19,7 +19,7 @@ npm install @gip-recia/mediacentre-ui
 Dans un module JavaScript :
 
 ```js
-import '@gip-recia/mediacentre-ui';
+import '@gip-recia/mediacentre-ui'
 ```
 
 Dans une page HTML :
@@ -31,8 +31,8 @@ Dans une page HTML :
 3. Ajout du composant sur une page HTML :
 
 ```js
-const component = document.createElement('mediacentre-ui');
-document.body.appendChild(component);
+const component = document.createElement('mediacentre-ui')
+document.body.appendChild(component)
 ```
 
 ## Paramètres
@@ -41,13 +41,17 @@ Propriétés disponibles :
 
 | Nom                               |   Type   | Obligatoire | Default | Description                                                                                                |
 | --------------------------------- | :------: | :---------: | :-----: | ---------------------------------------------------------------------------------------------------------- |
-| `mediacentre-context-url`         | `string` |    `non`    |         | contexte de l'URL.                                                                                         |
 | `base-api-url`                    | `string` |    `non`    |         | URL de l'API REST MediaCentre.                                                                             |
+| `config-api-url`                  | `string` |    `non`    |         | URL de la configuration de l'API REST MediaCentre.                                                         |
+| `gestion-api-url`                 | `string` |    `non`    |         | URL des informations de gestion du GAR de de l'API REST MediaCentre.                                       |
 | `user-info-api-url`               | `string` |    `non`    |         | URL de l'API des informations utilisateurs.                                                                |
 | `user-rights-api-url`             | `string` |    `non`    |         | URL de l'API des droits utilisateurs.                                                                      |
 | `get-user-favorite-resources-url` | `string` |    `non`    |         | URL de l'API pour récupèrer la liste des identifiants des ressources favorites de l'utilisateur.           |
 | `put-user-favorite-resources-url` | `string` |    `non`    |         | URL de l'API pour modifier la liste des identifiants des ressources favorites de l'utilisateur.            |
 | `fname-mediacentre-ui`            | `string` |    `non`    |         | Fname de la portlet du Mediacentre-UI (utilisé pour la gestion des ressources favorites de l'utilisateur). |
+| `siren-current`                   | `string` |    `non`    |         | Clé de la soffit pour obtenir la valeur du SIREN de l'établissement courant.                               |
+| `siren`                           | `string` |    `non`    |         | Clé de la soffit pour obtenir la valeur de la liste des SIREN des établissements de l'utilisateur.         |
+| `help-location`                   | `string` |    `non`    |         | URL de la page d'aide du Médiacentre.                                                                      |
 
 <br/>
 
