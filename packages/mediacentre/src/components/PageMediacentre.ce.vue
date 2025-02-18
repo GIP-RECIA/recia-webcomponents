@@ -398,7 +398,7 @@ watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed) => 
         <p><a :href="helpLocation" target="_blank" rel="noopener noreferrer">{{ t('page-mediacentre.help') }}</a></p>
       </div>
       <Teleport to="body">
-        <info-modal id="modale" debug="false">
+        <info-modal id="modale" debug="false" style="z-index: 99;">
           <template v-if="modalToUse === 'card'">
             <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
             <div slot="modal-body">
