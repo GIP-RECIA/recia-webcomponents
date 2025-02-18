@@ -378,7 +378,7 @@ watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed) => 
     </div>
     <div v-else class="cadre-page-mediacentre">
       <aside class="aside-page-mediacentre">
-        <menu-mediacentre :filtres="filtres" :checked="filtre" @update-checked="updateFiltre" @open-gestion-modal="openGestionModal" />
+        <menu-mediacentre class="menu-mediacentre" :filtres="filtres" :checked="filtre" @update-checked="updateFiltre" @open-gestion-modal="openGestionModal" />
       </aside>
       <div class="main-page-wrapper">
         <main class="main-page-mediacentre">
@@ -395,7 +395,9 @@ watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed) => 
             @open-modal="openModal"
           />
         </main>
-        <p><a :href="helpLocation" target="_blank" rel="noopener noreferrer">{{ t('page-mediacentre.help') }}</a></p>
+        <p class="help">
+          <a :href="helpLocation" target="_blank" rel="noopener noreferrer">{{ t('page-mediacentre.help') }}</a>
+        </p>
       </div>
       <Teleport to="body">
         <info-modal id="modale" debug="false" style="z-index: 99;">
@@ -465,13 +467,13 @@ watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed) => 
     margin-right: 1em;
 
     menu-mediacentre {
-      height: 100%;
+      position: relative;
+      height: 70px;
     }
   }
 
   .main-page-mediacentre {
     width: 100%;
-    height: 95%;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -511,7 +513,8 @@ watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed) => 
 
     .main-page-mediacentre {
       box-sizing: border-box;
-      height: calc(100% - 70px);
+      // height: calc(100% - 70px);
+      height: calc(100% - 30px);
       margin: 0;
       padding: 0;
       flex-shrink: 0;
@@ -527,7 +530,8 @@ watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed) => 
 
 .main-page-wrapper {
   width: 100%;
-  height: 95%;
+  // height: 95%;
+  height: calc(100% - 70px);
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -540,6 +544,15 @@ watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed) => 
       color: revert;
       text-decoration: none;
     }
+  }
+}
+
+p {
+  &.help {
+    height: 20px;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 5px;
   }
 }
 </style>
