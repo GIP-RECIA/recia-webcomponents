@@ -108,7 +108,7 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
 
 <template>
   <div class="cadre-menu-mediacentre" :class="[isUnfolded === true ? 'unfold' : '']">
-    <div class="menu-title">
+    <div class="menu-title" tabindex="-1">
       <button id="menu-titre" class="menu-toggle" :class="{ active: isUnfolded }" @click="showCategoriesContainer()">
         <FontAwesomeIcon class="menu-icon" :icon="['fas', 'bars']" />
       </button>
@@ -116,96 +116,97 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
         {{ capitalize(activeCategoryName) }}
       </div>
     </div>
-
     <div class="menu-wrapper">
-      <label v-if="multiselectOptions.length > 0" for="mediacentre-ui-schoolselect" class="displayed-etab">
-        {{ t('menu-mediacentre.displayed-etab') }}
-      </label>
-      <Multiselect
-        v-if="multiselectOptions.length > 0"
-        id="mediacentre-ui-schoolSelect"
-        mode="single"
-        class="multiselect"
-        name="mediacentre-ui-schoolSelect"
-        :value="multiselectCurrentValue"
-        :close-on-select="false"
-        :can-deselect="false"
-        :can-clear="false"
-        :options="multiselectOptions"
-        @select="etablissementSelected"
-      />
-      <div
-        class="categories-container"
-        :class="[breakpoints.active() !== undefined && breakpoints.active() === ref('mobile') ? 'toggle' : '']"
-      >
-        <button
-          id="tout"
-          active
-          :class="[activeCategory === 'tout' ? 'active' : '']"
-          class="sub-categories-container without-sub-cat"
-          value="tout"
-          @click="changementFiltre('tout', 'tout', t('menu-mediacentre.all-resources'))"
-        >
-          <h3>{{ capitalize(t('menu-mediacentre.all-resources')) }}</h3>
-        </button>
-
-        <button
-          id="favoris"
-          :class="[activeCategory === 'favoris' ? 'active' : '']"
-          class="sub-categories-container without-sub-cat"
-          value="favoris"
-          @click="changementFiltre('favoris', 'favoris', t('menu-mediacentre.my-favorites'))"
-        >
-          <h3>{{ capitalize(t('menu-mediacentre.my-favorites')) }}</h3>
-        </button>
-
+      <div class="menu-filters-and-etabs">
+        <label v-if="multiselectOptions.length > 0" for="mediacentre-ui-schoolselect" class="displayed-etab">
+          {{ t('menu-mediacentre.displayed-etab') }}
+        </label>
+        <Multiselect
+          v-if="multiselectOptions.length > 0"
+          id="mediacentre-ui-schoolSelect"
+          mode="single"
+          class="multiselect"
+          name="mediacentre-ui-schoolSelect"
+          :value="multiselectCurrentValue"
+          :close-on-select="false"
+          :can-deselect="false"
+          :can-clear="false"
+          :options="multiselectOptions"
+          @select="etablissementSelected"
+        />
         <div
-          v-for="(category, index) in filtres"
-          :id="category.filterEnum"
-          :key="index"
-          class="dynamic-categories-container"
+          class="categories-container"
+          :class="[breakpoints.active() !== undefined && breakpoints.active() === ref('mobile') ? 'toggle' : '']"
         >
           <button
-            :id="category.name"
-            class="sub-categories-container"
-            :class="[activeCategory === category.name ? 'active' : '']"
-            @click="showSubCategories(category.name)"
+            id="tout"
+            active
+            :class="[activeCategory === 'tout' ? 'active' : '']"
+            class="sub-categories-container without-sub-cat"
+            value="tout"
+            @click="changementFiltre('tout', 'tout', t('menu-mediacentre.all-resources'))"
           >
-            <h3>{{ capitalize(t(category.name)) }}</h3>
-            <FontAwesomeIcon class="caret-menu-icon" :icon="['fas', 'caret-right']" />
+            <h3>{{ capitalize(t('menu-mediacentre.all-resources')) }}</h3>
           </button>
-          <div class="container" :class="[activeCategory === category.name ? 'active' : '']">
-            <div v-for="(subCat, idx) of category.filters" :key="idx">
-              <button
-                :class="{ active: filtre === subCat.id }"
-                class="sub-category-container"
-                aria-haspopup="dialog"
-                aria-controls="modal"
-                @click.prevent="changementFiltre(subCat.id, category.filterEnum, subCat.nom)"
-              >
-                <span>
-                  {{ capitalize(subCat.nom) }}
-                </span>
-              </button>
+
+          <button
+            id="favoris"
+            :class="[activeCategory === 'favoris' ? 'active' : '']"
+            class="sub-categories-container without-sub-cat"
+            value="favoris"
+            @click="changementFiltre('favoris', 'favoris', t('menu-mediacentre.my-favorites'))"
+          >
+            <h3>{{ capitalize(t('menu-mediacentre.my-favorites')) }}</h3>
+          </button>
+
+          <div
+            v-for="(category, index) in filtres"
+            :id="category.filterEnum"
+            :key="index"
+            class="dynamic-categories-container"
+          >
+            <button
+              :id="category.name"
+              class="sub-categories-container"
+              :class="[activeCategory === category.name ? 'active' : '']"
+              @click="showSubCategories(category.name)"
+            >
+              <h3>{{ capitalize(t(category.name)) }}</h3>
+              <FontAwesomeIcon class="caret-menu-icon" :icon="['fas', 'caret-right']" />
+            </button>
+            <div class="container" :class="[activeCategory === category.name ? 'active' : '']">
+              <div v-for="(subCat, idx) of category.filters" :key="idx">
+                <button
+                  :class="{ active: filtre === subCat.id }"
+                  class="sub-category-container"
+                  aria-haspopup="dialog"
+                  aria-controls="modal"
+                  @click.prevent="changementFiltre(subCat.id, category.filterEnum, subCat.nom)"
+                >
+                  <span>
+                    {{ capitalize(subCat.nom) }}
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div v-if="gestionAffectations.length > 0" class="gestion-gar">
-      <h2 class="gestion-label">
-        {{ t("gestion.menu-label") }}
-      </h2>
-      <template v-for="gestionAffectation in gestionAffectations" :key="gestionAffectation.id">
-        <template v-if="gestionAffectation.link">
-          <p><a :href="gestionAffectation.description">{{ gestionAffectation.title }}</a></p>
+      <div v-if="gestionAffectations.length > 0" class="gestion-gar">
+        <h2 class="gestion-label">
+          {{ t("gestion.menu-label") }}
+        </h2>
+        <template v-for="gestionAffectation in gestionAffectations" :key="gestionAffectation.id">
+          <template v-if="gestionAffectation.link">
+            <p><a :href="gestionAffectation.description">{{ gestionAffectation.title }}</a></p>
+          </template>
+          <template v-else>
+            <button class="gestion-button" @click.prevent="openGestionModal(gestionAffectation, $event)">
+              {{ gestionAffectation.title }}
+            </button>
+          </template>
         </template>
-        <template v-else>
-          <button class="gestion-button" @click.prevent="openGestionModal(gestionAffectation, $event)">
-            {{ gestionAffectation.title }}
-          </button>
-        </template>
-      </template>
+      </div>
     </div>
   </div>
 </template>
@@ -223,13 +224,17 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
   font-size: 18px;
 }
 
+.gestion-gar {
+  background-color: #fff;
+  padding-bottom: 5px;
+}
+
 .cadre-menu-mediacentre {
   max-height: 100%;
   text-align: center;
   background-color: #fff;
   width: 320px;
   box-shadow: 0px 10px 15px -7px rgba(0, 0, 0, 0.1);
-  overflow-y: hidden;
   display: flex;
   flex-direction: column;
   padding-top: 0.5em;
@@ -347,10 +352,14 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
   transition: height 0.3s ease-in-out;
 }
 
-.menu-wrapper {
+.menu-filters-and-etabs {
   text-align: start;
   background-color: #fff;
   padding: 1px;
+}
+
+.menu-wrapper {
+  background-color: #fff;
 }
 
 .displayed-etab {
@@ -364,6 +373,12 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
     padding-left: 0.6em;
   }
 
+  :not(.unfold) {
+    .menu-wrapper {
+      overflow: scroll;
+    }
+  }
+
   .cadre-menu-mediacentre {
     text-align: center;
     width: 100%;
@@ -372,6 +387,17 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
     border-radius: unset;
     height: 5em;
     transition: height 0.3s ease-in-out;
+    background-color: transparent;
+    position: absolute;
+    box-shadow: none;
+
+    &:not(.unfold) {
+      .menu-wrapper {
+        * {
+          visibility: hidden;
+        }
+      }
+    }
 
     .menu-title {
       display: flex;
@@ -392,7 +418,7 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
       font-weight: bold;
       font-size: 1em;
       padding: 0.5em 1em;
-      overflow: hidden;
+      // overflow: hidden;
       text-overflow: ellipsis;
       word-wrap: unset;
       white-space: nowrap;
@@ -428,6 +454,7 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
   .unfold {
     height: 100vh;
     min-height: 100vh;
+    background-color: transparent;
     .categories-container {
       visibility: visible;
 
@@ -512,12 +539,12 @@ p {
   --ms-border-color-active: #d1d5db;
   --ms-border-width-active: 0px;
   --ms-radius: 4px;
-  --ms-py: 0.5rem;
-  --ms-px: 0.875rem;
+  --ms-py: 0.5em;
+  --ms-px: 0.875em;
   --ms-ring-width: 0px;
   --ms-ring-color: #10b98130;
   --ms-placeholder-color: #9ca3af;
-  --ms-max-height: 10rem;
+  --ms-max-height: 10em;
 
   --ms-option-font-size: 14px;
   --ms-option-line-height: 1.375;
