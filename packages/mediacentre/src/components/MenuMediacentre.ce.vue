@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import type { Filtres } from '@/types/FiltresType'
 import type { GestionAffectation } from '@/utils/GestionAffectation'
-import { displayedEtablissementSiren, etablissementsData, filtre, gestionAffectations } from '@/utils/store'
+import { displayedEtablissementUai, etablissementsData, filtre, gestionAffectations } from '@/utils/store'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import Multiselect from '@vueform/multiselect'
 import { useBreakpoints } from '@vueuse/core'
@@ -86,7 +86,7 @@ watch(() => filtre.value, async (newFiltre) => {
 })
 
 function etablissementSelected(e: string) {
-  displayedEtablissementSiren.value = e
+  displayedEtablissementUai.value = e
 }
 
 function openGestionModal(gestion: GestionAffectation, event: Event): void {
