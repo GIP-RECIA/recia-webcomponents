@@ -26,7 +26,7 @@ import { initToken } from '@/utils/axiosUtils'
 import { CustomError } from '@/utils/CustomError'
 import { EtablissementsData } from '@/utils/EtablissementsData'
 import { soffit } from '@/utils/soffitUtils'
-import { displayedEtablissementSiren, etablissementsData, filtre, gestionAffectations } from '@/utils/store'
+import { displayedEtablissementUai, etablissementsData, filtre, gestionAffectations } from '@/utils/store'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { computed, onMounted, ref, watch } from 'vue'
 import { getConfig, getFavorites, getFilters, getGestionAffectations, getResources, putFavorites } from '../services/ServiceMediacentre'
@@ -43,8 +43,8 @@ const props = withDefaults(
     getUserFavoriteResourcesUrl?: string
     putUserFavoriteResourcesUrl?: string
     fnameMediacentreUi?: string
-    sirenCurrent?: string
-    siren?: string
+    uaiCurrent?: string
+    uai?: string
     helpLocation?: string
   }>(),
   {
@@ -56,8 +56,8 @@ const props = withDefaults(
     getUserFavoriteResourcesUrl: import.meta.env.VITE_APP_MEDIACENTRE_CONTEXT + import.meta.env.VITE_APP_MEDIACENTRE_USER_GET_USER_FAVORITE_RESOURCES_API_URI,
     putUserFavoriteResourcesUrl: import.meta.env.VITE_APP_MEDIACENTRE_CONTEXT + import.meta.env.VITE_APP_MEDIACENTRE_USER_PUT_USER_FAVORITE_RESOURCES_API_URI,
     fnameMediacentreUi: import.meta.env.VITE_APP_MEDIACENTRE_FNAME,
-    sirenCurrent: import.meta.env.VITE_APP_MEDIACENTRE_CLAIM_SIREN_CURRENT,
-    siren: import.meta.env.VITE_APP_MEDIACENTRE_CLAIM_SIREN,
+    uaiCurrent: import.meta.env.VITE_APP_MEDIACENTRE_CLAIM_UAI_CURRENT,
+    uai: import.meta.env.VITE_APP_MEDIACENTRE_CLAIM_UAI,
     helpLocation: import.meta.env.VITE_APP_MEDIACENTRE_HELP_PAGE_LOCATION,
   },
 )
@@ -119,24 +119,24 @@ onMounted(async (): Promise<void> => {
   }
 })
 
-function getAllEtabId(): string[] | undefined {
+function getAllEtabUai(): string[] | undefined {
   if (soffit.value === undefined) {
     return undefined
   }
-  return (soffit.value[props.siren] as string[])
+  return (soffit.value[props.uai] as string[])
 }
 
 function updateEtablissementsDataInStore(): void {
-  const etabIds: string[] | undefined = getAllEtabId()
-  if (etabIds === undefined) {
+  const etabUais: string[] | undefined = getAllEtabUai()
+  if (etabUais === undefined) {
     return
   }
-  const mapEtabIdEtabName: Map<string, string> = new Map()
-  if (etabIds === undefined) {
+  const mapEtabUaiEtabName: Map<string, string> = new Map()
+  if (etabUais === undefined) {
     return
   }
-  for (let index = 0; index < etabIds.length; index++) {
-    const etabId = etabIds[index]
+  for (let index = 0; index < etabUais.length; index++) {
+    const etabUai = etabUais[index]
 
     for (let indexRes = 0; indexRes < resources.value.length; indexRes++) {
       const ressource = resources.value[indexRes]
@@ -145,39 +145,39 @@ function updateEtablissementsDataInStore(): void {
       }
       for (let index = 0; index < ressource.idEtablissement.length; index++) {
         const iteratedEtablissement = ressource.idEtablissement[index]
-        if (iteratedEtablissement.id === etabId) {
+        if (iteratedEtablissement.UAI === etabUai) {
           if (iteratedEtablissement.nom !== undefined) {
-            mapEtabIdEtabName.set(etabId, iteratedEtablissement.nom)
+            mapEtabUaiEtabName.set(etabUai, iteratedEtablissement.nom)
           }
           else {
-            mapEtabIdEtabName.set(etabId, iteratedEtablissement.id)
+            mapEtabUaiEtabName.set(etabUai, t('menu-mediacentre.unknown-etab'))
           }
         }
       }
     }
   }
-  const sirencourant: string | undefined = getIdOfEtablissementCourant()
-  if (sirencourant === undefined) {
+  const uaicourant: string | undefined = getUaiOfEtablissementCourant()
+  if (uaicourant === undefined) {
     return
   }
   const myEtabsData = new EtablissementsData()
-  if (mapEtabIdEtabName.has(sirencourant)) {
-    myEtabsData.courant = sirencourant
+  if (mapEtabUaiEtabName.has(uaicourant)) {
+    myEtabsData.courant = uaicourant
   }
   else {
-    const key = mapEtabIdEtabName.keys().next().value
+    const key = mapEtabUaiEtabName.keys().next().value
     myEtabsData.courant = key === undefined ? '-1' : key
   }
-  myEtabsData.tout = mapEtabIdEtabName
+  myEtabsData.tout = mapEtabUaiEtabName
   etablissementsData.value = myEtabsData
-  displayedEtablissementSiren.value = myEtabsData.courant
+  displayedEtablissementUai.value = myEtabsData.courant
 }
 
-function getIdOfEtablissementCourant(): string | undefined {
+function getUaiOfEtablissementCourant(): string | undefined {
   if (soffit.value === undefined) {
     return undefined
   }
-  const temp = soffit.value[props.sirenCurrent] as string[]
+  const temp = soffit.value[props.uaiCurrent] as string[]
   if (temp.length === 1) {
     return temp[0]
   }
@@ -346,7 +346,7 @@ function generateFiltresValues() {
   }
 }
 
-watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed) => {
+watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
   const arrayRessourcesPerEtab: Array<Ressource> = []
   for (let index = 0; index < resources.value.length; index++) {
     const element = resources.value[index]
@@ -356,7 +356,7 @@ watch(() => displayedEtablissementSiren.value, async (newSirenEtabDisplayed) => 
     else {
       for (let index = 0; index < element.idEtablissement.length; index++) {
         const subElement = element.idEtablissement[index]
-        if (subElement.id === newSirenEtabDisplayed) {
+        if (subElement.UAI === newUaiEtabDisplayed) {
           arrayRessourcesPerEtab.push(element)
         }
       }
