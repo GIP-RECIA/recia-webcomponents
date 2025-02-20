@@ -17,50 +17,51 @@
 import oidc from '@uportal/open-id-connect'
 import axios from 'axios'
 
-const getToken = async (userInfoApiUrl: string): Promise<string | undefined> => {
+async function getToken(userInfoApiUrl: string): Promise<string | undefined> {
   try {
     const { encoded } = await oidc({
-      userInfoApiUrl: userInfoApiUrl
+      userInfoApiUrl,
     })
     return encoded
-  } catch (error) {
+  }
+  catch (error) {
     console.error('error: ', error)
   }
 }
-const getMCE = async (url: string, userInfoApiUrl: string) => {
+async function getMCE(url: string, userInfoApiUrl: string) {
   return await axios.get(`${url}`, {
     headers: {
-      Authorization: `Bearer ${await getToken(userInfoApiUrl)}`,
-      'content-type': 'application/jwt'
-    }
+      'Authorization': `Bearer ${await getToken(userInfoApiUrl)}`,
+      'content-type': 'application/jwt',
+    },
   })
 }
 
-const getContentOnglet = async (url: string, userInfoApiUrl: string) => {
+async function getContentOnglet(url: string, userInfoApiUrl: string) {
   return await axios.get(`${url}`, {
     headers: {
-      Authorization: `Bearer ${await getToken(userInfoApiUrl)}`,
-      'content-type': 'application/jwt'
-    }
+      'Authorization': `Bearer ${await getToken(userInfoApiUrl)}`,
+      'content-type': 'application/jwt',
+    },
   })
 }
 
-const getServicesEnt = async (url: string, userInfoApiUrl: string) => {
+async function getServicesEnt(url: string, userInfoApiUrl: string) {
   return await axios.get(`${url}`, {
     headers: {
-      Authorization: `Bearer ${await getToken(userInfoApiUrl)}`,
-      'content-type': 'application/jwt'
-    }
+      'Authorization': `Bearer ${await getToken(userInfoApiUrl)}`,
+      'content-type': 'application/jwt',
+    },
   })
 }
 
-const getDetailEnfant = async (url: string, userInfoApiUrl: string) => {
+async function getDetailEnfant(url: string, userInfoApiUrl: string) {
   return await axios.get(`${url}`, {
     headers: {
-      Authorization: `Bearer ${await getToken(userInfoApiUrl)}`,
-      'content-type': 'application/jwt'
-    }
+      'Authorization': `Bearer ${await getToken(userInfoApiUrl)}`,
+      'content-type': 'application/jwt',
+    },
   })
 }
 
-export { getMCE, getContentOnglet, getServicesEnt, getDetailEnfant }
+export { getContentOnglet, getDetailEnfant, getMCE, getServicesEnt }

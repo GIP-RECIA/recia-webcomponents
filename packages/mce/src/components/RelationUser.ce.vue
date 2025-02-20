@@ -15,36 +15,31 @@
 -->
 
 <script setup lang="ts">
-import { getDetailEnfant } from '@/services/serviceMce';
-import type { Relation } from '@/types/relationType';
-import { ref, watchEffect } from 'vue';
-
+import type { Relation } from '@/types/relationType'
+import { getDetailEnfant } from '@/services/serviceMce'
+import { ref, watchEffect } from 'vue'
 
 const props = defineProps<{
-    mceApi: string 
-    userInfoApiUrl: string
-    details: Array<Relation>
-    titre: string
-    onglet: string
+  mceApi: string
+  userInfoApiUrl: string
+  details: Array<Relation>
+  titre: string
+  onglet: string
 }>()
 
-
+const emit = defineEmits(['openModal'])
 const relations = ref<Array<Relation>>([])
 const personne = ref<any>()
 
 watchEffect((): void => {
   void (() => {
     relations.value = props.details
-    
   })()
 })
-const emit = defineEmits(['openModal'])
 
-
-async function openModal(event: Event, uid: string): Promise<void> { 
- 
-  const response = await getDetailEnfant(props.mceApi+ uid, props.userInfoApiUrl)
-  personne.value = response.data  
+async function openModal(event: Event, uid: string): Promise<void> {
+  const response = await getDetailEnfant(props.mceApi + uid, props.userInfoApiUrl)
+  personne.value = response.data
 
   const openModalCustomEvent = new CustomEvent('openModale', {
     detail: {
@@ -53,37 +48,34 @@ async function openModal(event: Event, uid: string): Promise<void> {
     },
     bubbles: true, // Permet à l'événement de remonter dans le DOM
     composed: true, // Permet à l'événement de sortir du shadow DOM
-    
+
   })
   document.dispatchEvent(openModalCustomEvent)
   emit(
     'openModal',
-    personne.value
+    personne.value,
   )
 }
-
 </script>
 
-
 <template>
-    <div class="section_eleve">
-      <div class="heading-titre">
-        <span class="titre">{{titre}}</span>
-      </div>
-      <div class="relations">
-        <template v-for="(val, index) in relations" :key="index">
-          <div class="relation" @click.prevent="(e) => openModal(e, val.uidRelation)">
-              <span class="type">{{ val.typeRelation == "20" && "Pere"? "Père" : val.typeRelation }}</span>
-              <span class="name-person">{{ val.displayNameRelation }}</span>
-              <span>{{ val.autoriteParental == true? "Autorité parental" : ""}}</span>
-          </div>
-        </template>
-      </div>
+  <div class="section_eleve">
+    <div class="heading-titre">
+      <span class="titre">{{ titre }}</span>
     </div>
+    <div class="relations">
+      <template v-for="(val, index) in relations" :key="index">
+        <div class="relation" @click.prevent="(e) => openModal(e, val.uidRelation)">
+          <span class="type">{{ val.typeRelation === "20" && "Pere" ? "Père" : val.typeRelation }}</span>
+          <span class="name-person">{{ val.displayNameRelation }}</span>
+          <span>{{ val.autoriteParental === true ? "Autorité parental" : "" }}</span>
+        </div>
+      </template>
+    </div>
+  </div>
 </template>
 
 <style lang="scss">
-
 .relations {
   display: grid;
   padding: 0px 15px;
@@ -107,7 +99,6 @@ async function openModal(event: Event, uid: string): Promise<void> {
 }
 
 @media (max-width: 815px) {
-  
   .relations {
     display: grid;
     gap: 1em;
@@ -128,5 +119,4 @@ async function openModal(event: Event, uid: string): Promise<void> {
     font-weight: bold;
   }
 }
-
 </style>
