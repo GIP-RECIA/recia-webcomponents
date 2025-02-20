@@ -24,6 +24,8 @@ import InfoGeneralCe from './components/InfoGeneral.ce.vue'
 import RelationUserCe from './components/RelationUser.ce.vue'
 import UserInfoCe from './components/UserInfo.ce.vue'
 import ServicesEntCe from './components/ServicesEnt.ce.vue'
+import ModalContentCe from './components/ModalContent.ce.vue'
+
 
 const I18nHost = defineCustomElement(I18nHostCe)
 const PageMce = defineCustomElement(PageMceCe)
@@ -34,6 +36,8 @@ const InfoGeneral = defineCustomElement(InfoGeneralCe)
 const RelationUser = defineCustomElement(RelationUserCe)
 const UserInfo = defineCustomElement(UserInfoCe)
 const ServicesEnt = defineCustomElement(ServicesEntCe)
+const ModalContent = defineCustomElement(ModalContentCe)
+
 
 declare module 'vue' {
   export interface GlobalComponents {
@@ -46,6 +50,7 @@ declare module 'vue' {
     RelationUser: typeof RelationUser
     UserInfo: typeof UserInfo
     ServicesEnt: typeof ServicesEnt
+    ModalContent: typeof ModalContent
   }
 }
 
@@ -59,6 +64,7 @@ const register = () => {
   customElements.define('relation-user', RelationUser)
   customElements.define('user-info', UserInfo)
   customElements.define('services-ent', ServicesEnt)
+  customElements.define('modal-content', ModalContent)
 }
 
 export {
@@ -71,5 +77,6 @@ export {
   RelationUser,
   UserInfo,
   ServicesEnt,
+  ModalContent,
   register
 }

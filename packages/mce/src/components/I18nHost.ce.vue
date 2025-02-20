@@ -25,9 +25,10 @@ defineProps<{
   mceApi: string
   userInfoApiUrl: string
   portailApiUrl: string
+  avatarDefault: string
 }>()
 </script>
 
 <template>
-  <page-mce :mce-api="mceApi" :user-info-api-url="userInfoApiUrl" :portail-api-url="portailApiUrl"/>
+  <page-mce :mce-api="mceApi" :user-info-api-url="userInfoApiUrl" :portail-api-url="portailApiUrl" :avatar-default="avatarDefault"/>
 </template>

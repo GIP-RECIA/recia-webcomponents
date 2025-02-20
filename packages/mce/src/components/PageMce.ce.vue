@@ -17,18 +17,24 @@
 <script setup lang="ts">
 import { getMCE, getServicesEnt } from '@/services/serviceMce'
 import { ref, onMounted } from 'vue'
+import './info-modal/info-modal.js'
 
 const props = defineProps<{
   mceApi: string
   userInfoApiUrl: string
   portailApiUrl: string
+  avatarDefault: string
 }>()
 
 
 const mce = ref<any>([])
 let ongletCurrent = ref<string>('')
 const listOnglets = ref<Array<string>>([])
-
+const isModalOpen = ref(false)
+const ongletTitle = ref<string>('')
+const typeOnglet = ref<string>('')
+const personDetail = ref<any>()
+const avatar = ref<string>('')
 
 interface Service {
   id: number;
@@ -79,6 +85,12 @@ onMounted(async () => {
     ongletCurrent.value = mce.value.listMenu[0]
     listOnglets.value = mce.value.listMenu
 
+    if (mce.value.avatar == null) {
+      avatar.value = props.avatarDefault
+    } else {
+      avatar.value = mce.value.avatar
+    }
+
     await getAllPortlets(props.portailApiUrl,props.userInfoApiUrl);
     
   } catch (error: any) {
@@ -96,16 +108,21 @@ function select(payload: CustomEvent, isBoolean: boolean) {
   }
   
 }
+function openModal(event: CustomEvent) {
+  isModalOpen.value = true
+  personDetail.value = event.detail[1]
+}
+
 </script>
 <template>
   <div class="parent">
 
     <div class="user-details">
-      <user-info :avatar="mce.avatar" :userName="mce.userName" :etab="mce.etab" :userMail="mce.userMail" :bod="mce.bod" :identifiant="mce.identifiant"/>
+      <user-info :avatar="avatar" :userName="mce.userName" :etab="mce.etab" :userMail="mce.userMail" :bod="mce.bod" :identifiant="mce.identifiant" :mdp="mce.mdp" :userPublic="mce.userPublic"/>
       </div>
       <div class="sectionTwo">
       <div class="content">
-          <list-onglet :list="listOnglets" :onglet-current="ongletCurrent" :user-info-api-url="userInfoApiUrl" class-btn="onglet-name" @selectOnglet="select($event, false)"/>
+          <list-onglet v-if="listOnglets.length > 1" :list="listOnglets" :onglet-current="ongletCurrent" :user-info-api-url="userInfoApiUrl" class-btn="onglet-name" @selectOnglet="select($event, false)"/>
           <section-onglet
             :mce-api="mceApi"
             :list-menu="ongletCurrent"
@@ -116,10 +133,26 @@ function select(payload: CustomEvent, isBoolean: boolean) {
             :apprentis="mce.apprentis"
             :services="portlets"
             :etabCurrent="mce.etab"
+            @open-modal="openModal"
           />
         </div>
+        <Teleport to="body">
+        <info-modal id="modale" debug="false">
+          <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
+          <div slot="modal-body">
+            <div style="display: flex; flex-direction: column; gap: 3em">
+              <div style="display: flex; flex-direction: column; gap: 0.5em">
+                
+                <modal-content :personDetail="personDetail"></modal-content>
+
+              </div>
+            </div>
+          </div>
+        </info-modal>
+      </Teleport>
       </div>
     </div>
+
 </template>
 
 <style lang="scss">
@@ -152,7 +185,7 @@ body {
       background-color: white;
       padding: 20px;
       border-radius: 28px;
-      box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12);
+      box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
       flex-grow: 0.3;
   }
 
@@ -167,25 +200,47 @@ body {
     gap: 20px;
     background-color: white;
     border-radius: 28px;
-    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
     flex-grow: 2;
   }
 
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 815px) {
 
   .parent {
     display: flex;
     flex-flow: wrap;
+    position: sticky;
+    width: 100%;
+
+    .user-details {
+      height: auto;
+      width: 100%;
+      background-color: transparent;
+      box-shadow: none;
+
+
+    }
+
+    .sectionTwo {
+      background-color: transparent;
+      box-shadow: none;
+    }
   }
 
-  .user-details{
-    display: contents;
 
-  }
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    display: flex;
+    flex-direction: column;
+  }
+}
 
 </style>
