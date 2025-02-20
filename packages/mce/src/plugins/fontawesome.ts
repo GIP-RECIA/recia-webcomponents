@@ -14,16 +14,11 @@
  * limitations under the License.
  */
 
-import App from '@/App.vue'
-import { register as registerCustomElements } from '@/ce'
-import { register as registerFontAwsome } from '@/plugins/fontawesome'
-import i18n from '@/plugins/i18n'
-import { createApp } from 'vue'
-import 'regenerator-runtime/runtime.js'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
-const app = createApp(App)
+function register() {
+  library.add(faXmark)
+}
 
-registerCustomElements()
-registerFontAwsome()
-
-app.use(i18n)
+export { register }
