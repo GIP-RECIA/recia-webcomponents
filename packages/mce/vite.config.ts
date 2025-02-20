@@ -39,7 +39,9 @@ export default ({ mode }: { mode: string }) => {
                 'info-general',
                 'relation-user',
                 'user-info',
-                'services-ent'
+                'services-ent',
+                'info-modal',
+                'modal-content'
               ].includes(tag)
           }
         }

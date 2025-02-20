@@ -23,18 +23,31 @@ const props = defineProps<{
     userMail: string
     bod: string
     identifiant: string
+    mdp: boolean
+    userPublic: string
 
 }>()
+
+function modifAvatar() {
+  alert("change avatar")
+}
 </script>
 <template>
       <div class="profile-container">
         <div class="profile-picture">
-          <img class="avatar" :src="avatar" alt="" />
+          <div class="image-container" @click="modifAvatar">
+            <img class="avatar" :src="avatar" alt="" />
+
+            <button class="edit-picture">
+              <img class="edit-picture-icon" src="../assets/pen-solid.svg" alt="">
+            </button>
+          </div>
           <span class="user-name">{{ userName }}</span>
+
 
         </div>
         <div class="profile-info">
-          <label>
+          <label v-if="identifiant!=null">
             <span>Identifiant</span>
             <input type="text" :value="identifiant">
           </label>
@@ -42,13 +55,21 @@ const props = defineProps<{
             <span>Email</span>
             <input type="text" :value="userMail">
           </label>
-          <label>
+          <label v-if="bod != null">
             <span>Date de naissance</span>
             <input type="text" :value="bod">
           </label>
           <label>
             <span>Structure rattachement</span>
             <input type="text" :value="etab">
+          </label>
+          <label v-if="mdp == true">
+            <span>Mot de passe <button>modifier</button></span>
+            <input type="text" value="*******">
+          </label>
+          <label v-if="userPublic?.length>=1">
+            <span>Mon identifiant</span>
+            <input type="text" :value="userPublic">
           </label>
         </div>
         </div>
@@ -67,11 +88,61 @@ const props = defineProps<{
     display: flex;
     flex-direction: column;
     gap: 10px;
+    align-items: center;
 
-    .avatar {
-      border-radius: 50%;
+    .image-container {
+      position: relative;
+      display: flex;
       width: 130px;
       height: 130px;
+      border-radius: 50%;
+      outline: solid #eef0f8;
+      box-shadow: 0 .5px 2.5px 1px #00000080;
+
+      .avatar {
+        border-radius: 50%;
+        position: relative;
+        background-color: #26448a;
+      }
+
+      .edit-picture {
+        display: none;
+      }
+
+
+    }
+
+    .image-container:hover {
+
+        cursor: pointer;
+        outline: 3px solid #26448a;
+        box-shadow: 0 .5px 2.5px 1px #00000080;
+
+        .avatar {
+          opacity: 0.4;
+
+        }
+
+        .edit-picture {
+            width: 35px;
+            height: 35px;
+            border: none;
+            border-radius: 50px;
+            bottom: 48px;
+            right: 48px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            outline: solid #eef0f8;
+            box-shadow: 0 .5px 2.5px 1px #00000080;
+            position: absolute;
+
+            .edit-picture-icon {
+              width: 11px;
+              height: 11px;
+            }
+        }
     }
 
     .user-name {
@@ -132,6 +203,40 @@ const props = defineProps<{
   border-radius: 50%;
 }
 
+@media (max-width: 815px) {
 
+  .profile-container {
+
+    .profile-picture {
+      .image-container{
+        .edit-picture {
+            width: 35px;
+            height: 35px;
+            border: none;
+            border-radius: 50px;
+            left: 95px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            outline: solid #eef0f8;
+            box-shadow: 0 .5px 2.5px 1px #00000080;
+            position: absolute;
+
+            .edit-picture-icon {
+              width: 11px;
+              height: 11px;
+            }
+          }
+      }
+    }
+
+    .profile-info {
+      background-color: white;
+      padding: 15px;
+      border-radius: 28px;
+    }
+  }
+}
 
 </style>

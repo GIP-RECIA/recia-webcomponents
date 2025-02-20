@@ -21,6 +21,8 @@ import { ref, watchEffect } from 'vue';
 
 const props = defineProps<{
     details: General
+    titreClsGrp: string
+    titreEns: string
 }>()
 
 const infoGeneral = ref<General>({
@@ -119,7 +121,7 @@ watchEffect((): void => {
     <!-- Mes classes et groupes pédago elève section -->
     <div v-else class="sectionCG_Eleve">
       <div class="heading-titre">
-        <span class="titre">Mes classes et groupes pédagogiques</span>
+        <span class="titre">{{ titreClsGrp }}</span>
       </div>
 
       <div class="etabs">
@@ -133,7 +135,7 @@ watchEffect((): void => {
       </div>
 
       <div class="heading-titre">
-        <span class="titre">Enseignements suivis</span>
+        <span class="titre">{{ titreEns }}</span>
       </div>
       <div class="enseignements">
       <template v-for="(ens, index) in sectionEleve?.enseignementSuivis" :key="index">
@@ -279,7 +281,7 @@ watchEffect((): void => {
 
     .enseignements-prof {
       display: grid;
-      grid-template-columns: 200px 200px;
+      grid-template-columns: 200px 200px 200px;
       column-gap: 15px;
       
       .enseignement-prof {
@@ -317,6 +319,81 @@ watchEffect((): void => {
 
       }
 
+    }
+  }
+}
+
+@media (max-width: 815px) {
+
+  .etabs {
+
+    .etab {
+      background-color: white;
+      width: 100%;
+
+      .classe {
+        background-color: #eee;
+      }
+
+      .groupe {
+        background-color: #eee;
+
+      }
+    }
+  }
+  .enseignements {
+    display: grid;
+    gap: 1em;
+    grid-template-columns: 1fr;
+
+    .ens {
+      background-color: white;
+
+    }
+  }
+
+  // section prof
+  .etabs-cg {
+    display: grid;
+    gap: 1em;
+    grid-template-columns: 1fr;
+
+    .classe-groupe {
+
+      .enseignements-prof {
+        gap: 1em;
+        grid-template-columns: 1fr;
+
+        .enseignement-prof {
+          background-color: white;
+
+          .classe-prof {
+            text-align: left;
+            background-color: #eee;
+          }
+
+          .groupe-prof {
+            text-align: left;
+            background-color: #eee;
+          }
+        }
+      }
+    }
+  }
+
+  .etabs-fonctions {
+
+    .etab-fonction {
+
+      .fonctions {
+        background-color: white;
+        width: auto;
+
+        .discipline {
+          text-align: left;
+          background-color: #eee;
+        }
+      }
     }
   }
 }

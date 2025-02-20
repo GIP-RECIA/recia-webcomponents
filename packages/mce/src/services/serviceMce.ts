@@ -19,10 +19,9 @@ import axios from 'axios'
 
 const getToken = async (userInfoApiUrl: string): Promise<string | undefined> => {
   try {
-    const { encoded, decoded } = await oidc({
+    const { encoded } = await oidc({
       userInfoApiUrl: userInfoApiUrl
     })
-    console.log(encoded)
     return encoded
   } catch (error) {
     console.error('error: ', error)
@@ -55,4 +54,13 @@ const getServicesEnt = async (url: string, userInfoApiUrl: string) => {
   })
 }
 
-export { getMCE, getContentOnglet, getServicesEnt }
+const getDetailEnfant = async (url: string, userInfoApiUrl: string) => {
+  return await axios.get(`${url}`, {
+    headers: {
+      Authorization: `Bearer ${await getToken(userInfoApiUrl)}`,
+      'content-type': 'application/jwt'
+    }
+  })
+}
+
+export { getMCE, getContentOnglet, getServicesEnt, getDetailEnfant }
