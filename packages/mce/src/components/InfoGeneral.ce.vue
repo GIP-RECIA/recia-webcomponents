@@ -15,28 +15,28 @@
 -->
 
 <script setup lang="ts">
-import type { PersonneFonction } from '@/types/fonctionType';
-import type { EnseignementProf, Etabs, General, SectionEleve, SectionProf } from '@/types/generalType';
-import { ref, watchEffect } from 'vue';
+import type { PersonneFonction } from '@/types/fonctionType'
+import type { EnseignementProf, Etabs, General, SectionEleve, SectionProf } from '@/types/generalType'
+import { ref, watchEffect } from 'vue'
 
 const props = defineProps<{
-    details: General
-    titreClsGrp: string
-    titreEns: string
+  details: General
+  titreClsGrp: string
+  titreEns: string
 }>()
 
 const infoGeneral = ref<General>({
-listFonctions: [],
-sectionClassesGroupes: {
+  listFonctions: [],
+  sectionClassesGroupes: {
     sectionEleve: {
-    etabs: [],
-    enseignementSuivis: []
-},
+      etabs: [],
+      enseignementSuivis: [],
+    },
     sectionProf: {
-    etabs: {
-    }
-}
-    }
+      etabs: {
+      },
+    },
+  },
 })
 const fonctions = ref<Array<PersonneFonction>>([])
 const sectionProf = ref<SectionProf>()
@@ -54,96 +54,92 @@ watchEffect((): void => {
     sectionEleve.value = infoGeneral.value.sectionClassesGroupes.sectionEleve
     sectionProf.value = infoGeneral.value.sectionClassesGroupes.sectionProf
 
-    etabs.value = sectionEleve.value.etabs        
+    etabs.value = sectionEleve.value.etabs
     etabsProf.value = sectionProf.value.etabs
- 
+
     if (etabs.value.length) {
-        isProf.value = false
-    }     
-    
+      isProf.value = false
+    }
   })()
 })
-
-
 </script>
 
 <template>
-        <div v-if="fonctions.length" class="sectionFonction">
-          <div class="heading-titre">
-            <span class="titre">Mes fonctions</span>
-          </div>
-          <div class="etabs-fonctions">
-            <template v-for="(it, index) in fonctions" :key="index">
-              <div class="etab-fonction">
-                  <span>{{ it.struct.name }} ({{ it.struct.type }})</span>
-                  <div class="fonctions">
-                      <span class="fonction">{{ it.fonction || '-'}}</span>
-                      <span class="discipline">{{ it.discipline || '-' }}</span>
-                  </div>
-              </div>
-            </template>
+  <div v-if="fonctions.length" class="sectionFonction">
+    <div class="heading-titre">
+      <span class="titre">Mes fonctions</span>
+    </div>
+    <div class="etabs-fonctions">
+      <template v-for="(it, index) in fonctions" :key="index">
+        <div class="etab-fonction">
+          <span>{{ it.struct.name }} ({{ it.struct.type }})</span>
+          <div class="fonctions">
+            <span class="fonction">{{ it.fonction || '-' }}</span>
+            <span class="discipline">{{ it.discipline || '-' }}</span>
           </div>
         </div>
+      </template>
+    </div>
+  </div>
 
-
-    <!-- Mes classes et groupes pédago prof section -->
-    <div v-if="isProf" class="sectionCG">
-      <div class="heading-titre">
-        <span class="titre">Mes classes et groupes pédagogiques</span>
-      </div>
-      <div class="etabs-cg">
-        <template v-for="(classgroup, index) in sectionProf" :key="index">
-            <template v-for="(etabs, indexEtab) in classgroup" :key="indexEtab">
-            <!-- First item row -->
-            <div class="classe-groupe">
+  <!-- Mes classes et groupes pédago prof section -->
+  <div v-if="isProf" class="sectionCG">
+    <div class="heading-titre">
+      <span class="titre">Mes classes et groupes pédagogiques</span>
+    </div>
+    <div class="etabs-cg">
+      <template v-for="(classgroup, index) in sectionProf" :key="index">
+        <template v-for="(etabs, indexEtab) in classgroup" :key="indexEtab">
+          <!-- First item row -->
+          <div class="classe-groupe">
             <span>{{ indexEtab }}</span>
 
-              <div class="enseignements-prof">
-              <template v-for="(item,indexItem) in etabs" :key="indexItem">
+            <div class="enseignements-prof">
+              <template v-for="(item, indexItem) in etabs" :key="indexItem">
                 <div class="enseignement-prof">
-                    <span class="ens-prof">{{ item.matiere}}</span>
-                    <template v-for="(classes, index) in item.cg?.classes" :key="index">
-                      <span :class="[ item.cg?.classes != null ? 'classe-prof' : 'none-classe']">Classe : {{ classes}}</span>
-                    </template>
-                    <template v-for="(groupes, index) in item.cg?.groupes" :key="index">
-                      <span :class="[ item.cg?.groupes != null ? 'groupe-prof' : 'none-groupe']">Groupe : {{ groupes }}</span>
-                    </template>
+                  <span class="ens-prof">{{ item.matiere }}</span>
+                  <template v-for="(classes, index) in item.cg?.classes" :key="index">
+                    <span :class="[item.cg?.classes != null ? 'classe-prof' : 'none-classe']">Classe : {{ classes }}</span>
+                  </template>
+                  <template v-for="(groupes, index) in item.cg?.groupes" :key="index">
+                    <span :class="[item.cg?.groupes != null ? 'groupe-prof' : 'none-groupe']">Groupe : {{ groupes }}</span>
+                  </template>
                 </div>
               </template>
             </div>
-            </div>
-        </template>
-      </template>
-      </div>
-    
-    </div>
-
-    <!-- Mes classes et groupes pédago elève section -->
-    <div v-else class="sectionCG_Eleve">
-      <div class="heading-titre">
-        <span class="titre">{{ titreClsGrp }}</span>
-      </div>
-
-      <div class="etabs">
-        <template v-for="(classgroup, index) in etabs" :key="index">
-          <div class="etab">
-              <span class="etab-name">{{ classgroup.nameEtab }}</span>
-              <span class="classe">Classe : {{ classgroup.classes[0] || '-'}}</span>
-              <span class="groupe">Groupe : {{ classgroup.groupes[0] || '-' }}</span>
           </div>
         </template>
-      </div>
-
-      <div class="heading-titre">
-        <span class="titre">{{ titreEns }}</span>
-      </div>
-      <div class="enseignements">
-      <template v-for="(ens, index) in sectionEleve?.enseignementSuivis" :key="index">
-          <div class="ens">{{ ens }}</div>
       </template>
-      </div>
-
     </div>
+  </div>
+
+  <!-- Mes classes et groupes pédago elève section -->
+  <div v-else class="sectionCG_Eleve">
+    <div class="heading-titre">
+      <span class="titre">{{ titreClsGrp }}</span>
+    </div>
+
+    <div class="etabs">
+      <template v-for="(classgroup, index) in etabs" :key="index">
+        <div class="etab">
+          <span class="etab-name">{{ classgroup.nameEtab }}</span>
+          <span class="classe">Classe : {{ classgroup.classes[0] || '-' }}</span>
+          <span class="groupe">Groupe : {{ classgroup.groupes[0] || '-' }}</span>
+        </div>
+      </template>
+    </div>
+
+    <div class="heading-titre">
+      <span class="titre">{{ titreEns }}</span>
+    </div>
+    <div class="enseignements">
+      <template v-for="(ens, index) in sectionEleve?.enseignementSuivis" :key="index">
+        <div class="ens">
+          {{ ens }}
+        </div>
+      </template>
+    </div>
+  </div>
 </template>
 
 <style lang="scss">
@@ -153,15 +149,14 @@ watchEffect((): void => {
   gap: 20px;
   background-color: white;
   border-radius: 5px;
-  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0 1px 6px 0 rgba(0, 0, 0, 0.12),
+    0 1px 6px 0 rgba(0, 0, 0, 0.12);
 }
-
 
 .ens-suivis {
   grid-column: span 3;
-
 }
-
 
 .heading-titre {
   padding: 10px 15px;
@@ -231,17 +226,15 @@ watchEffect((): void => {
   }
 }
 
-// mes fonction : prof 
+// mes fonction : prof
 .etabs-fonctions {
   display: grid;
   padding: 0px 15px;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    column-gap: 20px;
-    row-gap: 15px;
-
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  column-gap: 20px;
+  row-gap: 15px;
 
   .etab-fonction {
-
     .fonctions {
       display: flex;
       flex-direction: column;
@@ -263,12 +256,11 @@ watchEffect((): void => {
         font-size: 11px;
         text-align: center;
       }
-
     }
   }
 }
 
-// mes cg : prof 
+// mes cg : prof
 .etabs-cg {
   display: grid;
   padding: 0px 15px;
@@ -276,14 +268,12 @@ watchEffect((): void => {
   column-gap: 20px;
   row-gap: 15px;
 
-
   .classe-groupe {
-
     .enseignements-prof {
       display: grid;
       grid-template-columns: 200px 200px 200px;
       column-gap: 15px;
-      
+
       .enseignement-prof {
         display: flex;
         flex-direction: column;
@@ -316,17 +306,13 @@ watchEffect((): void => {
         .none-groupe {
           display: none;
         }
-
       }
-
     }
   }
 }
 
 @media (max-width: 815px) {
-
   .etabs {
-
     .etab {
       background-color: white;
       width: 100%;
@@ -337,7 +323,6 @@ watchEffect((): void => {
 
       .groupe {
         background-color: #eee;
-
       }
     }
   }
@@ -348,7 +333,6 @@ watchEffect((): void => {
 
     .ens {
       background-color: white;
-
     }
   }
 
@@ -359,7 +343,6 @@ watchEffect((): void => {
     grid-template-columns: 1fr;
 
     .classe-groupe {
-
       .enseignements-prof {
         gap: 1em;
         grid-template-columns: 1fr;
@@ -382,9 +365,7 @@ watchEffect((): void => {
   }
 
   .etabs-fonctions {
-
     .etab-fonction {
-
       .fonctions {
         background-color: white;
         width: auto;
