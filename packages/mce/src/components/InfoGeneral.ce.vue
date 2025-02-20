@@ -19,6 +19,8 @@ import type { PersonneFonction } from '@/types/fonctionType'
 import type { EnseignementProf, Etabs, General, SectionEleve, SectionProf } from '@/types/generalType'
 import { ref, watchEffect } from 'vue'
 
+defineOptions({ name: 'InfoGeneral' })
+
 const props = defineProps<{
   details: General
   titreClsGrp: string

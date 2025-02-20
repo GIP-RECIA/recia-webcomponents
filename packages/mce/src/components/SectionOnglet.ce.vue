@@ -15,6 +15,8 @@
 -->
 
 <script setup lang="ts">
+defineOptions({ name: 'SectionOnglet' })
+
 defineProps<{
   mceApi: string
   listMenu: string
