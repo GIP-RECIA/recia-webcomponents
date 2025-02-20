@@ -115,7 +115,16 @@ function openModal(event: CustomEvent) {
   <i18n-host>
     <div class="parent">
       <div class="user-details">
-        <user-info :avatar="mce.avatar" :user-name="mce.userName" :etab="mce.etab" :user-mail="mce.userMail" :bod="mce.bod" :identifiant="mce.identifiant" :mdp="mce.mdp" :user-public="mce.userPublic" />
+        <user-info
+          :avatar="avatar"
+          :user-name="mce.userName"
+          :etab="mce.etab"
+          :user-mail="mce.userMail"
+          :bod="mce.bod"
+          :identifiant="mce.identifiant"
+          :mdp="mce.mdp"
+          :user-public="mce.userPublic"
+        />
       </div>
       <div class="sectionTwo">
         <div class="content">
