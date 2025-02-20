@@ -86,4 +86,22 @@ const props = defineProps<{
   }
 }
 
+@media (max-width: 815px) {
+
+  .etabs {
+
+    .etab {
+      background-color: white;
+
+      .services {
+        grid-template-columns: auto auto;
+        gap: 1em;
+
+        .service {
+          background-color: #eee;
+        }
+      }
+    }
+  }
+}
 </style>
