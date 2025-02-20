@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import { getContentOnglet } from '@/services/serviceMce'
-import { ref, watchEffect, computed } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 
 const props = defineProps<{
   mceApi: string
@@ -37,46 +37,55 @@ watchEffect((): void => {
 })
 
 async function fetchDetailOnglet(name: string) {
-  if (name != '') {
+  if (name !== '') {
     try {
       console.log('mceApi: ', props.mceApi)
       const response = await getContentOnglet(props.mceApi + name, props.userInfoApiUrl)
       details.value = response.data
 
       if (
-        details.value.sectionClassesGroupes != undefined &&
-        details.value.listFonctions != undefined
+        details.value.sectionClassesGroupes !== undefined
+        && details.value.listFonctions !== undefined
       ) {
         fonctions.value = details.value.listFonctions
 
         sectionProf.value = details.value.sectionClassesGroupes.sectionProf
         sectionEleve.value = details.value.sectionClassesGroupes.sectionEleve
       }
-    } catch (error) {
+    }
+    catch (error) {
       console.error('error: ', error)
     }
   }
 }
 
 const ongletActive = computed<boolean>(() => {
-  if (sectionEleve.value.etabs.length && sectionEleve.value != undefined) {
+  if (sectionEleve.value.etabs.length && sectionEleve.value !== undefined) {
     return false
   }
 
   return true
 })
-
 </script>
+
 <template>
   <div class="content">
     <!-- Mes fonctions prof uniquement section -->
     <div v-if="fonctions.length" class="sectionFonction">
       <dl data-title="Mes fonctions">
         <!-- Table header for "My fonctions" -->
-        <dt class="dl-header">Établissement</dt>
-        <dt class="dl-header">Fonction</dt>
-        <dt class="dl-header">Discipline</dt>
-        <dt class="dl-header">Activé</dt>
+        <dt class="dl-header">
+          Établissement
+        </dt>
+        <dt class="dl-header">
+          Fonction
+        </dt>
+        <dt class="dl-header">
+          Discipline
+        </dt>
+        <dt class="dl-header">
+          Activé
+        </dt>
 
         <!-- Data rows -->
         <template v-for="(it, index) in fonctions" :key="index">
@@ -85,12 +94,12 @@ const ongletActive = computed<boolean>(() => {
           <dd>{{ it.discipline }}</dd>
           <dd>
             <input
+              :id="it.discipline"
               type="checkbox"
               name=""
-              :id="it.discipline"
               :value="it.discipline"
               :checked="it.active"
-            />
+            >
           </dd>
         </template>
       </dl>
@@ -100,10 +109,18 @@ const ongletActive = computed<boolean>(() => {
     <div v-if="ongletActive" class="sectionCG">
       <dl data-title="Mes classes et groupes pédagoqiues">
         <!-- Table header for "My classes and groups" -->
-        <dt class="dl-header">Établissement</dt>
-        <dt class="dl-header">Enseignement</dt>
-        <dt class="dl-header">Classes</dt>
-        <dt class="dl-header">Groups</dt>
+        <dt class="dl-header">
+          Établissement
+        </dt>
+        <dt class="dl-header">
+          Enseignement
+        </dt>
+        <dt class="dl-header">
+          Classes
+        </dt>
+        <dt class="dl-header">
+          Groups
+        </dt>
 
         <!-- Data rows -->
         <template v-for="(classgroup, index) in sectionProf.etabs" :key="index">
@@ -112,8 +129,12 @@ const ongletActive = computed<boolean>(() => {
 
           <template v-for="item in classgroup" :key="item">
             <dd>{{ item.matiere }}</dd>
-            <dd v-for="classe in item.cg.classes" :key="classe">{{ classe || '-' }}</dd>
-            <dd v-for="groupe in item.cg.groupes" :key="groupe">{{ groupe || '-' }}</dd>
+            <dd v-for="classe in item.cg.classes" :key="classe">
+              {{ classe || '-' }}
+            </dd>
+            <dd v-for="groupe in item.cg.groupes" :key="groupe">
+              {{ groupe || '-' }}
+            </dd>
           </template>
         </template>
       </dl>
@@ -123,9 +144,15 @@ const ongletActive = computed<boolean>(() => {
     <div v-else class="sectionCG_Eleve">
       <dl data-title="Mes classes et groupes pédagoqiues">
         <!-- Table header for "My classes and groups" -->
-        <dt class="dl-header">Établissement</dt>
-        <dt class="dl-header">Classes</dt>
-        <dt class="dl-header">Groups</dt>
+        <dt class="dl-header">
+          Établissement
+        </dt>
+        <dt class="dl-header">
+          Classes
+        </dt>
+        <dt class="dl-header">
+          Groups
+        </dt>
 
         <!-- Data rows -->
         <template v-for="(classgroup, index) in sectionEleve.etabs" :key="index">
@@ -145,12 +172,16 @@ const ongletActive = computed<boolean>(() => {
     </div>
 
     <!-- Mes responsable section -->
-    <div v-if="props.listMenu == 'PARENT_ELEVE'" class="section_eleve">
+    <div v-if="props.listMenu === 'PARENT_ELEVE'" class="section_eleve">
       <span>Personne en relation avec moi</span>
       <dl>
-        <dt class="dl-header">Nom</dt>
-        <dt class="dl-header">Relation</dt>
-        <dt></dt>
+        <dt class="dl-header">
+          Nom
+        </dt>
+        <dt class="dl-header">
+          Relation
+        </dt>
+        <dt />
 
         <template v-for="(val, index) in details" :key="index">
           <dd>{{ val.displayNameRelation }}</dd>

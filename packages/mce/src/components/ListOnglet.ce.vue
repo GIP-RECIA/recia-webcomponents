@@ -15,30 +15,8 @@
 -->
 
 <script setup lang="ts">
-import { ref, computed, onBeforeUnmount, onMounted } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-
-
-const { t } = useI18n()
-const m = (key: string): string => t(`list-onglet.${key}`)
-let currentIndex = ref(0)
-const windowWidth = ref<number>(window.innerWidth);
-
-const isMobile = computed(() => {
-  return windowWidth.value <= 768;
-});
-
-const handleResize = () => {
-  windowWidth.value = window.innerWidth;
-};
-
-onMounted(() => {
-  window.addEventListener('resize', handleResize);
-})
-
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', handleResize);
-});
 
 const props = defineProps<{
   list: Array<string>
@@ -47,36 +25,58 @@ const props = defineProps<{
   userInfoApiUrl: string
 }>()
 
-const emit = defineEmits<(e: 'selectOnglet', payload: any, isSelected: boolean) => void>();
+const emit = defineEmits<(e: 'selectOnglet', payload: any, isSelected: boolean) => void>()
 
-function selected(onglet: string) {    
-  emit('selectOnglet', onglet, false);
+const { t } = useI18n()
+const m = (key: string): string => t(`list-onglet.${key}`)
+
+function selected(onglet: string) {
+  emit('selectOnglet', onglet, false)
 }
+
+const currentIndex = ref(0)
+const windowWidth = ref<number>(window.innerWidth)
+
+const isMobile = computed(() => {
+  return windowWidth.value <= 768
+})
+
+function handleResize() {
+  windowWidth.value = window.innerWidth
+}
+
+onMounted(() => {
+  window.addEventListener('resize', handleResize)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', handleResize)
+})
 
 function nextSlide() {
   if (currentIndex.value < props.list.length - 1) {
-        currentIndex.value++;
+    currentIndex.value++
   }
 }
 
 function prevSlide() {
   if (currentIndex.value > 0) {
-      currentIndex.value--;
+    currentIndex.value--
   }
 }
 </script>
 
 <template>
-    <!-- <div class="list-menu">
+  <!-- <div class="list-menu">
     <div v-for="item in list" :key="item">
       <button :class="[classBtn, item == ongletCurrent ? 'active' : '']" @click="selected(item)">{{ m(item) }}</button>
     </div>
     </div> -->
 
-    <div class="list-menu">
+  <div class="list-menu">
     <!-- Desktop View -->
     <div v-for="item in list" v-if="!isMobile" :key="item">
-      <button :class="[classBtn, item == ongletCurrent ? 'active' : '']" @click="selected(item)">
+      <button :class="[classBtn, item === ongletCurrent ? 'active' : '']" @click="selected(item)">
         {{ m(item) }}
       </button>
     </div>
@@ -84,19 +84,21 @@ function prevSlide() {
     <!-- Mobile View (Carousel) -->
     <div v-else class="carousel">
       <div class="carousel-controls">
-        <button class="prev" @click="prevSlide">‹</button>
+        <button class="prev" @click="prevSlide">
+          ‹
+        </button>
         <div class="carousel-container">
           <div
             class="carousel-track"
             :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
           >
             <div
-              class="carousel-content"
               v-for="item in list"
               :key="item"
+              class="carousel-content"
             >
               <button
-                :class="[classBtn, item == ongletCurrent ? 'active' : '']"
+                :class="[classBtn, item === ongletCurrent ? 'active' : '']"
                 @click="selected(item)"
               >
                 {{ m(item) }}
@@ -104,7 +106,9 @@ function prevSlide() {
             </div>
           </div>
         </div>
-        <button class="next" @click="nextSlide">›</button>
+        <button class="next" @click="nextSlide">
+          ›
+        </button>
       </div>
     </div>
   </div>
@@ -202,5 +206,4 @@ button.active {
     gap: 40px;
   }
 }
-
 </style>

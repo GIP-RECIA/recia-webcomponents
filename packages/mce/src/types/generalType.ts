@@ -16,32 +16,32 @@
 
 import type { PersonneFonction } from './fonctionType'
 
-export type General = {
+export interface General {
   listFonctions: Array<PersonneFonction>
   sectionClassesGroupes: ClasseGroupe
 }
 
-export type ClasseGroupe = {
+export interface ClasseGroupe {
   sectionEleve: SectionEleve
   sectionProf: SectionProf
 }
 
-export type SectionProf = {
+export interface SectionProf {
   etabs: Record<string, EnseignementProf[]>
 }
 
-export type SectionEleve = {
+export interface SectionEleve {
   etabs: Array<Etabs>
   enseignementSuivis: Array<string>
 }
 
-export type Etabs = {
+export interface Etabs {
   nameEtab: string
   classes: Array<string>
   groupes: Array<string>
 }
 
-export type EnseignementProf = {
+export interface EnseignementProf {
   matiere: string
   cg: Etabs
 }

@@ -15,32 +15,29 @@
 -->
 
 <script setup lang="ts">
-
-const props = defineProps<{
-    details: Array<string>
-    etab: string
+defineProps<{
+  details: Array<string>
+  etab: string
 }>()
-
 </script>
 
 <template>
-    <div class="heading-titre">
-        <span class="titre">Services auxquels j'ai accès dans l'ENT</span>
-    </div>
-    <div class="etabs">
-        <div class="etab">
-        <span class="etab-name">{{ etab }}</span>
-        <div class="services">
-            <template v-for="(service, index) in details" :key="index">
-                    <span class="service"> {{ service }}</span>
-            </template>
-        </div>
-        </div>
+  <div class="heading-titre">
+    <span class="titre">Services auxquels j'ai accès dans l'ENT</span>
+  </div>
+  <div class="etabs">
+    <div class="etab">
+      <span class="etab-name">{{ etab }}</span>
+      <div class="services">
+        <template v-for="(service, index) in details" :key="index">
+          <span class="service"> {{ service }}</span>
+        </template>
       </div>
-
+    </div>
+  </div>
 </template>
-<style lang="scss">
 
+<style lang="scss">
 .heading-titre {
   padding: 10px 15px;
 
@@ -75,21 +72,20 @@ const props = defineProps<{
       grid-template-columns: auto auto auto auto;
       column-gap: 15px;
       row-gap: 10px;
-        .service {
-          background-color: white;
-          padding: 5px;
-          border-radius: 14px;
-          text-align: center;
-          align-content: center;
-        }
+
+      .service {
+        background-color: white;
+        padding: 5px;
+        border-radius: 14px;
+        text-align: center;
+        align-content: center;
+      }
     }
   }
 }
 
 @media (max-width: 815px) {
-
   .etabs {
-
     .etab {
       background-color: white;
 
