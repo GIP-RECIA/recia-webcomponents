@@ -15,8 +15,7 @@
 -->
 
 <script setup lang="ts">
-
-const props = defineProps<{
+defineProps<{
   mceApi: string
   listMenu: string
   userInfoApiUrl: string
@@ -30,33 +29,56 @@ const props = defineProps<{
 
 const emit = defineEmits(['open-modal'])
 
-
 function openModal(event: CustomEvent): void {
   const isModalOpen = true
   const personDetail = event.detail[0]
   emit('open-modal', isModalOpen, personDetail)
 }
-
 </script>
 
 <template>
-    <div v-if="props.listMenu == 'GENERALE'">
-        <info-general :details="fonctionClassesGroupe" titre-cls-grp="Mes classes et groupes pédagogiques" titre-ens="Enseignements suivis"/>
-    </div>
+  <div v-if="listMenu === 'GENERALE'">
+    <info-general
+      :details="fonctionClassesGroupe"
+      titre-cls-grp="Mes classes et groupes pédagogiques"
+      titre-ens="Enseignements suivis"
+    />
+  </div>
 
-    <div v-else-if="props.listMenu == 'PARENT_ELEVE'">
-        <relation-user :details="parentEleve" titre="Personne en rélation avec moi" :onglet="listMenu"/>
-    </div>
+  <div v-else-if="listMenu === 'PARENT_ELEVE'">
+    <relation-user
+      :details="parentEleve"
+      titre="Personne en rélation avec moi"
+      :onglet="listMenu"
+    />
+  </div>
 
-    <div v-else-if="props.listMenu == 'RELATION_ELEVE'">
-        <relation-user :mceApi="mceApi" :userInfoApiUrl="userInfoApiUrl" :details="relationEleve" titre="Les élèves de mes relations." :onglet="listMenu" @open-modal="openModal"/>
-    </div>
+  <div v-else-if="listMenu === 'RELATION_ELEVE'">
+    <relation-user
+      :mce-api="mceApi"
+      :user-info-api-url="userInfoApiUrl"
+      :details="relationEleve"
+      titre="Les élèves de mes relations."
+      :onglet="listMenu"
+      @open-modal="openModal"
+    />
+  </div>
 
-    <div v-else-if="props.listMenu == 'APPRENTIS'">
-        <relation-user :mceApi="mceApi" :userInfoApiUrl="userInfoApiUrl" :details="apprentis" titre="Mes apprentis" :onglet="listMenu"/>
-    </div>
+  <div v-else-if="listMenu === 'APPRENTIS'">
+    <relation-user
+      :mce-api="mceApi"
+      :user-info-api-url="userInfoApiUrl"
+      :details="apprentis"
+      titre="Mes apprentis"
+      :onglet="listMenu"
+    />
+  </div>
 
-    <div v-else-if="props.listMenu == 'SERVICE'">
-        <services-ent :details="services" :etab="etabCurrent" :onglet="listMenu"/>
-    </div>
+  <div v-else-if="listMenu === 'SERVICE'">
+    <services-ent
+      :details="services"
+      :etab="etabCurrent"
+      :onglet="listMenu"
+    />
+  </div>
 </template>
