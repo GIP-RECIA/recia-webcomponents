@@ -15,6 +15,8 @@
 -->
 
 <script setup lang="ts">
+defineOptions({ name: 'AppDev' })
+
 const {
   VITE_MCE_API_URI,
   VITE_USER_INFO_API_URI,

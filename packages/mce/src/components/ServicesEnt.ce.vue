@@ -15,6 +15,8 @@
 -->
 
 <script setup lang="ts">
+defineOptions({ name: 'ServicesEnt' })
+
 defineProps<{
   details: Array<string>
   etab: string

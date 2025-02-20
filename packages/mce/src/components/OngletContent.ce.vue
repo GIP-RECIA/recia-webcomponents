@@ -18,6 +18,8 @@
 import { getContentOnglet } from '@/services/serviceMce'
 import { computed, ref, watchEffect } from 'vue'
 
+defineOptions({ name: 'OngletContent' })
+
 const props = defineProps<{
   mceApi: string
   listMenu: string

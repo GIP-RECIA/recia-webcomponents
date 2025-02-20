@@ -19,6 +19,8 @@ import i18n from '@/plugins/i18n'
 import { provide } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 
+defineOptions({ name: 'I18nHost' })
+
 provide(I18nInjectionKey, i18n)
 </script>
 
