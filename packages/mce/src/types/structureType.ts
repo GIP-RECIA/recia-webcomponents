@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export type Structure = {
+export interface Structure {
   id: string
   name: string
   displayName: string

@@ -14,69 +14,67 @@
  * limitations under the License.
  */
 
+import I18nHostCe from '@/components/I18nHost.ce.vue'
+import InfoGeneralCe from '@/components/InfoGeneral.ce.vue'
+import ListOngletCe from '@/components/ListOnglet.ce.vue'
+import ModalContentCe from '@/components/ModalContent.ce.vue'
+import OngletContentCe from '@/components/OngletContent.ce.vue'
+import PageMceCe from '@/components/PageMce.ce.vue'
+import RelationUserCe from '@/components/RelationUser.ce.vue'
+import SectionOngletCe from '@/components/SectionOnglet.ce.vue'
+import ServicesEntCe from '@/components/ServicesEnt.ce.vue'
+import UserInfoCe from '@/components/UserInfo.ce.vue'
 import { defineCustomElement } from 'vue'
-import I18nHostCe from './components/I18nHost.ce.vue'
-import PageMceCe from './components/PageMce.ce.vue'
-import OngletContentCe from './components/OngletContent.ce.vue'
-import ListOngletCe from './components/ListOnglet.ce.vue'
-import SectionOngletCe from './components/SectionOnglet.ce.vue'
-import InfoGeneralCe from './components/InfoGeneral.ce.vue'
-import RelationUserCe from './components/RelationUser.ce.vue'
-import UserInfoCe from './components/UserInfo.ce.vue'
-import ServicesEntCe from './components/ServicesEnt.ce.vue'
-import ModalContentCe from './components/ModalContent.ce.vue'
-
 
 const I18nHost = defineCustomElement(I18nHostCe)
-const PageMce = defineCustomElement(PageMceCe)
-const OngletContent = defineCustomElement(OngletContentCe)
-const ListOnglet = defineCustomElement(ListOngletCe)
-const SectionOnglet = defineCustomElement(SectionOngletCe)
 const InfoGeneral = defineCustomElement(InfoGeneralCe)
-const RelationUser = defineCustomElement(RelationUserCe)
-const UserInfo = defineCustomElement(UserInfoCe)
-const ServicesEnt = defineCustomElement(ServicesEntCe)
+const ListOnglet = defineCustomElement(ListOngletCe)
 const ModalContent = defineCustomElement(ModalContentCe)
-
+const OngletContent = defineCustomElement(OngletContentCe)
+const PageMce = defineCustomElement(PageMceCe)
+const RelationUser = defineCustomElement(RelationUserCe)
+const SectionOnglet = defineCustomElement(SectionOngletCe)
+const ServicesEnt = defineCustomElement(ServicesEntCe)
+const UserInfo = defineCustomElement(UserInfoCe)
 
 declare module 'vue' {
   export interface GlobalComponents {
     I18nHost: typeof I18nHost
-    PageMce: typeof PageMce
-    OngletContent: typeof OngletContent
-    ListOnglet: typeof ListOnglet
-    SectionOnglet: typeof SectionOnglet
     InfoGeneral: typeof InfoGeneral
-    RelationUser: typeof RelationUser
-    UserInfo: typeof UserInfo
-    ServicesEnt: typeof ServicesEnt
+    ListOnglet: typeof ListOnglet
     ModalContent: typeof ModalContent
+    OngletContent: typeof OngletContent
+    PageMce: typeof PageMce
+    RelationUser: typeof RelationUser
+    SectionOnglet: typeof SectionOnglet
+    ServicesEnt: typeof ServicesEnt
+    UserInfo: typeof UserInfo
   }
 }
 
-const register = () => {
-  customElements.define('mce-ui', I18nHost)
-  customElements.define('page-mce', PageMce)
-  customElements.define('onglet-content', OngletContent)
-  customElements.define('list-onglet', ListOnglet)
-  customElements.define('section-onglet', SectionOnglet)
+function register() {
+  customElements.define('i18n-host', I18nHost)
   customElements.define('info-general', InfoGeneral)
-  customElements.define('relation-user', RelationUser)
-  customElements.define('user-info', UserInfo)
-  customElements.define('services-ent', ServicesEnt)
+  customElements.define('list-onglet', ListOnglet)
   customElements.define('modal-content', ModalContent)
+  customElements.define('onglet-content', OngletContent)
+  customElements.define('mce-ui', PageMce)
+  customElements.define('relation-user', RelationUser)
+  customElements.define('section-onglet', SectionOnglet)
+  customElements.define('services-ent', ServicesEnt)
+  customElements.define('user-info', UserInfo)
 }
 
 export {
   I18nHost,
-  PageMce,
-  OngletContent,
-  ListOnglet,
-  SectionOnglet,
   InfoGeneral,
-  RelationUser,
-  UserInfo,
-  ServicesEnt,
+  ListOnglet,
   ModalContent,
-  register
+  OngletContent,
+  PageMce,
+  register,
+  RelationUser,
+  SectionOnglet,
+  ServicesEnt,
+  UserInfo,
 }

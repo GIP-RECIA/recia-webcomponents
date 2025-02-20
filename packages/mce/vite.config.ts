@@ -14,58 +14,57 @@
  * limitations under the License.
  */
 
-import pkg from './package.json'
-import { fileURLToPath, URL } from 'node:url'
-import vueI18n from '@intlify/unplugin-vue-i18n/vite'
-import { defineConfig, loadEnv } from 'vite'
+/* eslint-disable node/prefer-global/process */
+import { fileURLToPath } from 'node:url'
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import vue from '@vitejs/plugin-vue'
+import { defineConfig, loadEnv } from 'vite'
+import pkg from './package.json'
 
 // https://vitejs.dev/config/
 export default ({ mode }: { mode: string }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
+
   return defineConfig({
     base: process.env.VITE_BASE_URI,
     plugins: [
       vue({
         template: {
           compilerOptions: {
-            isCustomElement: (tag) =>
-              [
-                'mce-ui',
-                'page-mce',
-                'onglet-content',
-                'list-onglet',
-                'section-onglet',
-                'info-general',
-                'relation-user',
-                'user-info',
-                'services-ent',
-                'info-modal',
-                'modal-content'
-              ].includes(tag)
-          }
-        }
+            isCustomElement: tag => [
+              'i18n-host',
+              'info-general',
+              'list-onglet',
+              'mce-ui',
+              'modal-content',
+              'onglet-content',
+              'relation-user',
+              'section-onglet',
+              'services-ent',
+              'user-info',
+              'info-modal',
+            ].includes(tag),
+          },
+        },
       }),
-      vueI18n({})
+      VueI18nPlugin({}),
     ],
     resolve: {
       alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url))
-      }
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
+      },
     },
     server: {
-      hmr: {
-        path: 'ws'
-      }
+      allowedHosts: true,
     },
     build: {
       lib: {
         entry: './src/main.ts',
-        name: pkg.name
-      }
+        name: pkg.name,
+      },
     },
     define: {
-      'process.env': process.env
-    }
+      'process.env': process.env,
+    },
   })
 }

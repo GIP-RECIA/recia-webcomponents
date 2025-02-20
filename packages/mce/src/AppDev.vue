@@ -15,10 +15,26 @@
 -->
 
 <script setup lang="ts">
-const { VITE_MCE_API_URI, VITE_USER_INFO_API_URI, VITE_PORTAIL_API_URI, VITE_AVATAR_DEFAULT } = import.meta.env
+const {
+  VITE_MCE_API_URI,
+  VITE_USER_INFO_API_URI,
+  VITE_PORTAIL_API_URI,
+  VITE_AVATAR_DEFAULT,
+} = import.meta.env
 </script>
 
 <template>
-  <mce-ui :mce-api="VITE_MCE_API_URI" :user-info-api-url="VITE_USER_INFO_API_URI" :portail-api-url="VITE_PORTAIL_API_URI"
-  :avatar-default="VITE_AVATAR_DEFAULT"></mce-ui>
+  <mce-ui
+    :mce-api="VITE_MCE_API_URI"
+    :user-info-api-url="VITE_USER_INFO_API_URI"
+    :portail-api-url="VITE_PORTAIL_API_URI"
+    :avatar-default="VITE_AVATAR_DEFAULT"
+  />
 </template>
+
+<style lang="scss">
+html,
+body {
+  background-color: #eee !important;
+}
+</style>

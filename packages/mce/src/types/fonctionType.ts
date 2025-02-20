@@ -16,7 +16,7 @@
 
 import type { Structure } from './structureType'
 
-export type PersonneFonction = {
+export interface PersonneFonction {
   fonction: string
   discipline: string
   structure: string
