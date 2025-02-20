@@ -19,6 +19,8 @@ import type { Relation } from '@/types/relationType'
 import { getDetailEnfant } from '@/services/serviceMce'
 import { ref, watchEffect } from 'vue'
 
+defineOptions({ name: 'RelationUser' })
+
 const props = defineProps<{
   mceApi: string
   userInfoApiUrl: string

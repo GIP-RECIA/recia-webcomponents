@@ -18,6 +18,8 @@
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
+defineOptions({ name: 'ListeOnglet' })
+
 const props = defineProps<{
   list: Array<string>
   ongletCurrent: string

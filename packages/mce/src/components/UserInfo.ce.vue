@@ -15,6 +15,8 @@
 -->
 
 <script setup lang="ts">
+defineOptions({ name: 'UserInfo' })
+
 defineProps<{
   avatar: string
   userName: string

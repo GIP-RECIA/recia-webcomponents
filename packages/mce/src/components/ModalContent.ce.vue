@@ -18,6 +18,8 @@
 import type { Etabs, General, SectionEleve } from '@/types/generalType'
 import { ref, watchEffect } from 'vue'
 
+defineOptions({ name: 'ModalContent' })
+
 const props = defineProps<{
   personDetail: any
 }>()

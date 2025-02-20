@@ -19,6 +19,8 @@ import { getMCE, getServicesEnt } from '@/services/serviceMce'
 import { onMounted, ref } from 'vue'
 import './info-modal/info-modal.js'
 
+defineOptions({ name: 'PageMce' })
+
 const props = defineProps<{
   mceApi: string
   userInfoApiUrl: string
