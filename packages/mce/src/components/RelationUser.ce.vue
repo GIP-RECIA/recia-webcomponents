@@ -15,18 +15,22 @@
 -->
 
 <script setup lang="ts">
+import { getDetailEnfant } from '@/services/serviceMce';
 import type { Relation } from '@/types/relationType';
 import { ref, watchEffect } from 'vue';
 
 
 const props = defineProps<{
+    mceApi: string 
+    userInfoApiUrl: string
     details: Array<Relation>
     titre: string
     onglet: string
 }>()
 
 
-const relations = ref<Array<Relation>>()
+const relations = ref<Array<Relation>>([])
+const personne = ref<any>()
 
 watchEffect((): void => {
   void (() => {
@@ -34,6 +38,29 @@ watchEffect((): void => {
     
   })()
 })
+const emit = defineEmits(['openModal'])
+
+
+async function openModal(event: Event, uid: string): Promise<void> { 
+ 
+  const response = await getDetailEnfant(props.mceApi+ uid, props.userInfoApiUrl)
+  personne.value = response.data  
+
+  const openModalCustomEvent = new CustomEvent('openModale', {
+    detail: {
+      title: personne.value?.userName,
+      originalEvent: event.composedPath()[0] as HTMLElement,
+    },
+    bubbles: true, // Permet à l'événement de remonter dans le DOM
+    composed: true, // Permet à l'événement de sortir du shadow DOM
+    
+  })
+  document.dispatchEvent(openModalCustomEvent)
+  emit(
+    'openModal',
+    personne.value
+  )
+}
 
 </script>
 
@@ -45,7 +72,7 @@ watchEffect((): void => {
       </div>
       <div class="relations">
         <template v-for="(val, index) in relations" :key="index">
-          <div class="relation">
+          <div class="relation" @click.prevent="(e) => openModal(e, val.uidRelation)">
               <span class="type">{{ val.typeRelation == "20" && "Pere"? "Père" : val.typeRelation }}</span>
               <span class="name-person">{{ val.displayNameRelation }}</span>
               <span>{{ val.autoriteParental == true? "Autorité parental" : ""}}</span>
@@ -79,6 +106,18 @@ watchEffect((): void => {
   }
 }
 
+@media (max-width: 815px) {
+  
+  .relations {
+    display: grid;
+    gap: 1em;
+    grid-template-columns: 1fr;
+
+    .relation {
+      background-color: white;
+    }
+  }
+}
 
 .heading-titre {
   padding: 10px 15px;

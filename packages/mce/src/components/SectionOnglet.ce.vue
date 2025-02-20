@@ -28,11 +28,20 @@ const props = defineProps<{
   etabCurrent: string
 }>()
 
+const emit = defineEmits(['open-modal'])
+
+
+function openModal(event: CustomEvent): void {
+  const isModalOpen = true
+  const personDetail = event.detail[0]
+  emit('open-modal', isModalOpen, personDetail)
+}
+
 </script>
 
 <template>
     <div v-if="props.listMenu == 'GENERALE'">
-        <info-general :details="fonctionClassesGroupe"/>
+        <info-general :details="fonctionClassesGroupe" titre-cls-grp="Mes classes et groupes pédagogiques" titre-ens="Enseignements suivis"/>
     </div>
 
     <div v-else-if="props.listMenu == 'PARENT_ELEVE'">
@@ -40,11 +49,11 @@ const props = defineProps<{
     </div>
 
     <div v-else-if="props.listMenu == 'RELATION_ELEVE'">
-        <relation-user :details="relationEleve" titre="Les élèves de mes relations." :onglet="listMenu"/>
+        <relation-user :mceApi="mceApi" :userInfoApiUrl="userInfoApiUrl" :details="relationEleve" titre="Les élèves de mes relations." :onglet="listMenu" @open-modal="openModal"/>
     </div>
 
     <div v-else-if="props.listMenu == 'APPRENTIS'">
-        <relation-user :details="apprentis" titre="Mes apprentis" :onglet="listMenu"/>
+        <relation-user :mceApi="mceApi" :userInfoApiUrl="userInfoApiUrl" :details="apprentis" titre="Mes apprentis" :onglet="listMenu"/>
     </div>
 
     <div v-else-if="props.listMenu == 'SERVICE'">
