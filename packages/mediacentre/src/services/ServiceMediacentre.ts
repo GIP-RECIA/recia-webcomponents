@@ -121,6 +121,24 @@ async function getResources(baseApiUrl: string, groupsApiUrl: string) {
   }
 }
 
+async function getResourceById(redirectApiUrl: string, groupsApiUrl: string) {
+  try {
+    if (userGroups === undefined) {
+      userGroups = await getGroups(groupsApiUrl)
+    }
+    const response = await instance.post(redirectApiUrl, { isMemberOf: userGroups })
+    return response.data
+  }
+  catch (e: any) {
+    if (e.response) {
+      throw new CustomError(e.response.data.message, e.response.status)
+    }
+    else if (e.code === 'ECONNABORTED') {
+      throw new CustomError(e.message, e.code)
+    }
+  }
+}
+
 async function getFilters(baseApiUrl: string) {
   try {
     const response = await instance.get(`${baseApiUrl}/filters`)
@@ -171,4 +189,4 @@ async function putFavorites(putUserFavoriteResourcesUrl: string, idResource: str
   }
 }
 
-export { flushMediacentreFavorites, getConfig, getFavorites, getFilters, getGestionAffectations, getResources, putFavorites }
+export { flushMediacentreFavorites, getConfig, getFavorites, getFilters, getGestionAffectations, getResourceById, getResources, putFavorites }
