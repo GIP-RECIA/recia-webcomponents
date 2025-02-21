@@ -43,33 +43,34 @@ function modifAvatar() {
           <img class="edit-picture-icon" src="../assets/pen-solid.svg" alt="">
         </button>
       </div>
-      <span class="user-name">{{ userName }}</span>
+      <b class="user-name">{{ userName }}</b>
     </div>
     <div class="profile-info">
-      <label v-if="identifiant !== null">
-        <span>Identifiant</span>
-        <input type="text" :value="identifiant">
-      </label>
-      <label>
-        <span>Email</span>
-        <input type="text" :value="userMail">
-      </label>
-      <label v-if="bod !== null">
-        <span>Date de naissance</span>
-        <input type="text" :value="bod">
-      </label>
-      <label>
-        <span>Structure rattachement</span>
-        <input type="text" :value="etab">
-      </label>
-      <label v-if="mdp === true">
-        <span>Mot de passe <button>modifier</button></span>
-        <input type="text" value="*******">
-      </label>
-      <label v-if="userPublic?.length >= 1">
-        <span>Mon identifiant</span>
-        <input type="text" :value="userPublic">
-      </label>
+      <div v-if="identifiant !== null">
+        <b>Identifiant</b>
+        <div>{{ identifiant }}</div>
+      </div>
+      <div v-if="userMail !== null">
+        <b>Email</b>
+        <div>{{ userMail }}</div>
+      </div>
+      <div v-if="bod !== null">
+        <b>Date de naissance</b>
+        <div>{{ bod }}</div>
+      </div>
+      <div v-if="etab !== null">
+        <b>Structure rattachement</b>
+        <div>{{ etab }}</div>
+      </div>
+      <div v-if="mdp === true">
+        <b>Mot de passe <button>modifier</button></b>
+        <div>*******</div>
+      </div>
+      <div v-if="userPublic?.length >= 1">
+        <b>Mon identifiant</b>
+        <div>{{ userPublic }}</div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -154,12 +155,7 @@ function modifAvatar() {
     row-gap: 13.67px;
     flex-direction: column;
 
-    label {
-      display: flex;
-      flex-direction: column;
-      padding-top: 5px;
-
-      span {
+      b {
         color: black;
         display: block;
         font-size: 0.875em;
@@ -169,15 +165,15 @@ function modifAvatar() {
         font-weight: bold;
       }
 
-      input {
+      div {
         order: 2;
         outline: none;
         top: 0.08rem;
         border: 0;
-        border-bottom: 2px solid #eee;
+        border-bottom: 1px solid #eee;
         font-weight: 300;
       }
-    }
+
   }
 }
 
