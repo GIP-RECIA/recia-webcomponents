@@ -1,6 +1,8 @@
 {
   "page-mediacentre": {
-    "help": "Aide"
+    "help": "Aide",
+    "redirect-failed": "La ressource à laquelle vous souhaitez accéder n'est pas disponible ! \nSoit votre établissement n'a pas réalisé les configurations nécessaires, soit votre établissement n'utilise pas ce service. \nPour en savoir plus veuillez contacter un administrateur.",
+    "self-redirect": "Vous pouvez retourner au Médiacentre en cliquant <a href=\"{url}\">ici</a>."
   },
   "liste-ressources-mediacentre": {
     "no-resources": "Vous n'avez aucune ressource.",
@@ -15,7 +17,6 @@
     "uai-filter": "Par établissement",
     "displayed-etab": "Etablissement selectionné :",
     "unknown-etab": "Etablissement inconnu"
-
   },
   "resource-info-modal-mediacentre": {
     "editor": "Édité par "
