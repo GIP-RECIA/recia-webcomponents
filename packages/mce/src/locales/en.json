@@ -5,5 +5,14 @@
     "PARENT_ELEVE": "My responsibles",
     "APPRENTIS": "My trainees",
     "RELATION_ELEVE": "My student relations"
+  },
+
+  "user-info": {
+    "login": "Login",
+    "email": "Email",
+    "bod": "Date of birth",
+    "structure": "Attached structure",
+    "password": "Password",
+    "access": "My login"
   }
 }

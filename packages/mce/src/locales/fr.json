@@ -5,5 +5,14 @@
     "PARENT_ELEVE": "Mes responsables",
     "APPRENTIS": "Mes apprentis",
     "RELATION_ELEVE": "Mes relations élèves"
+  },
+
+  "user-info": {
+    "login": "Identifiant",
+    "email": "Mail",
+    "bod": "Date de naissance",
+    "structure": "Structure rattachement",
+    "password": "Mot de passe",
+    "access": "Mon identifiant"
   }
 }
