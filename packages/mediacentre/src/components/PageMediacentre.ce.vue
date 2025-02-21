@@ -704,7 +704,7 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
     a {
       width: auto;
       display: block;
-      color: revert;
+      color: $blue-link;
       text-decoration: none;
     }
   }
@@ -718,6 +718,7 @@ p {
     margin-top: 5px;
     margin-bottom: 5px;
     text-align: center;
+    color: $blue-link;
   }
 }
 
