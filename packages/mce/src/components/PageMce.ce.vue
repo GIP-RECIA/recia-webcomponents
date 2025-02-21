@@ -32,8 +32,6 @@ const mce = ref<any>([])
 const ongletCurrent = ref<string>('')
 const listOnglets = ref<Array<string>>([])
 const isModalOpen = ref(false)
-const ongletTitle = ref<string>('')
-const typeOnglet = ref<string>('')
 const personDetail = ref<any>()
 const avatar = ref<string>('')
 
@@ -97,7 +95,7 @@ onMounted(async () => {
   }
 })
 
-function select(payload: CustomEvent, isBoolean: boolean) {
+function select(payload: CustomEvent) {
   const getOnglet = payload.detail[0]
 
   if (getOnglet !== ongletCurrent.value) {
@@ -117,9 +115,9 @@ function openModal(event: CustomEvent) {
       <div class="user-details">
         <user-info
           :avatar="avatar"
-          :user-name="mce.userName"
+          :userName="mce.userName"
           :etab="mce.etab"
-          :user-mail="mce.userMail"
+          :userMail="mce.userMail"
           :bod="mce.bod"
           :identifiant="mce.identifiant"
           :mdp="mce.mdp"
@@ -134,11 +132,11 @@ function openModal(event: CustomEvent) {
             :onglet-current="ongletCurrent"
             :user-info-api-url="userInfoApiUrl"
             class-btn="onglet-name"
-            @select-onglet="select($event, false)"
+            @select-onglet="select($event)"
           />
           <section-onglet
             :mce-api="mceApi"
-            :list-menu="ongletCurrent"
+            :listMenu="ongletCurrent"
             :user-info-api-url="userInfoApiUrl"
             :fonction-classes-groupe="mce.fonctionClassesGroupe"
             :parent-eleve="mce.parentEleve"
