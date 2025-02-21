@@ -15,6 +15,8 @@
 -->
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
 defineOptions({ name: 'UserInfo' })
 
 defineProps<{
@@ -27,6 +29,9 @@ defineProps<{
   mdp: boolean
   userPublic: string
 }>()
+
+const { t } = useI18n()
+const m = (key: string): string => t(`user-info.${key}`)
 
 function modifAvatar() {
   alert('change avatar')
@@ -47,27 +52,27 @@ function modifAvatar() {
     </div>
     <div class="profile-info">
       <div v-if="identifiant !== null">
-        <b>Identifiant</b>
+        <b>{{ m('login')}}</b>
         <div>{{ identifiant }}</div>
       </div>
       <div v-if="userMail !== null">
-        <b>Email</b>
+        <b>{{ m('email')}}</b>
         <div>{{ userMail }}</div>
       </div>
       <div v-if="bod !== null">
-        <b>Date de naissance</b>
+        <b>{{ m('bod')}}</b>
         <div>{{ bod }}</div>
       </div>
       <div v-if="etab !== null">
-        <b>Structure rattachement</b>
+        <b>{{ m('structure')}}</b>
         <div>{{ etab }}</div>
       </div>
       <div v-if="mdp === true">
-        <b>Mot de passe <button>modifier</button></b>
+        <b>{{ m('password')}} <button>modifier</button></b>
         <div>*******</div>
       </div>
       <div v-if="userPublic?.length >= 1">
-        <b>Mon identifiant</b>
+        <b>{{ m('access')}}</b>
         <div>{{ userPublic }}</div>
       </div>
 
