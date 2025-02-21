@@ -27,13 +27,13 @@ const props = defineProps<{
   userInfoApiUrl: string
 }>()
 
-const emit = defineEmits<(e: 'selectOnglet', payload: any, isSelected: boolean) => void>()
+const emit = defineEmits<(e: 'selectOnglet', payload: any) => void>()
 
 const { t } = useI18n()
 const m = (key: string): string => t(`list-onglet.${key}`)
 
 function selected(onglet: string) {
-  emit('selectOnglet', onglet, false)
+  emit('selectOnglet', onglet)
 }
 
 const currentIndex = ref(0)
@@ -77,11 +77,13 @@ function prevSlide() {
 
   <div class="list-menu">
     <!-- Desktop View -->
-    <div v-for="item in list" v-if="!isMobile" :key="item">
-      <button :class="[classBtn, item === ongletCurrent ? 'active' : '']" @click="selected(item)">
-        {{ m(item) }}
-      </button>
-    </div>
+    <template v-if="!isMobile">
+      <div v-for="item in list" :key="item">
+        <button :class="[classBtn, item === ongletCurrent ? 'active' : '']" @click="selected(item)">
+          {{ m(item) }}
+        </button>
+      </div>
+    </template>
 
     <!-- Mobile View (Carousel) -->
     <div v-else class="carousel">
