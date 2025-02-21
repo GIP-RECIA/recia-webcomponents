@@ -118,11 +118,11 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
     </div>
     <div class="menu-wrapper">
       <div class="menu-filters-and-etabs">
-        <label v-if="multiselectOptions.length > 0" for="mediacentre-ui-schoolselect" class="displayed-etab">
+        <label v-if="multiselectOptions.length > 1" for="mediacentre-ui-schoolselect" class="displayed-etab">
           {{ t('menu-mediacentre.displayed-etab') }}
         </label>
         <Multiselect
-          v-if="multiselectOptions.length > 0"
+          v-if="multiselectOptions.length > 1"
           id="mediacentre-ui-schoolSelect"
           mode="single"
           class="multiselect"
@@ -225,14 +225,14 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
 }
 
 .gestion-gar {
-  background-color: #fff;
+  background-color: $background-color-menu;
   padding-bottom: 5px;
 }
 
 .cadre-menu-mediacentre {
   max-height: 100%;
   text-align: center;
-  background-color: #fff;
+  background-color: transparent;
   width: 320px;
   box-shadow: 0px 10px 15px -7px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -256,7 +256,7 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
   align-items: center;
   text-align: start;
   justify-content: space-between;
-  background-color: #fff;
+  background-color: $background-color-menu;
   width: 100%;
   padding: 0 1em;
   border: none;
@@ -298,7 +298,7 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
 }
 
 .sub-category-container {
-  background-color: #fff;
+  background-color: $background-color-menu;
   width: 100%;
   border-collapse: collapse;
   border: none;
@@ -354,12 +354,15 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
 
 .menu-filters-and-etabs {
   text-align: start;
-  background-color: #fff;
+  background-color: $background-color-menu;
   padding: 1px;
 }
 
 .menu-wrapper {
-  background-color: #fff;
+  background-color: $background-color-menu;
+  border-radius: 1em;
+  padding-top: 0.7em;
+  padding-bottom: 0.7em;
 }
 
 .displayed-etab {
@@ -375,8 +378,12 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
 
   :not(.unfold) {
     .menu-wrapper {
-      overflow: scroll;
+      overflow: hidden;
     }
+  }
+  .menu-wrapper {
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   .cadre-menu-mediacentre {
