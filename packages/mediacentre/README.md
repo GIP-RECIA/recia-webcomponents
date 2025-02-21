@@ -82,3 +82,9 @@ Plusieurs variables CSS peuvent être définis pour personnaliser le webcomponen
 | `--ui-mediacentre-menu-title-background-color`      | Couleur de fond du titre du menu et de l'icône infos.        |
 | `--ui-mediacentre-category-hover-background-color`  | Couleur de fond au survol d'une catégorie.                   |
 | `--ui-mediacentre-category-active-background-color` | Couleur de fond d'une catégorie sélectionnée.                |
+| `--recia-btn-primary-bg`                            | Couleur de fond des boutons et des selects.                  |
+| `--recia-btn-primary-color`                         | Couleur du texte des boutons et des selectse.                |
+| `--mediacentre-menu-bg`                             | Couleur de fond du menu.                                     |
+| `--primary-transparent`                             | Couleur de fond des boutons.                                 |
+| `--ui-mediacentre-category-active-background-color` | Couleur de fond d'une catégorie sélectionnée.                |
+| `--ui-mediacentre-blue-link`                        | Couleur des hyperliens.                                      |
