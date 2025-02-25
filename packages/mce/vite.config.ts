@@ -32,6 +32,7 @@ export default ({ mode }: { mode: string }) => {
         template: {
           compilerOptions: {
             isCustomElement: tag => [
+              'avatar-user',
               'i18n-host',
               'info-general',
               'list-onglet',
