@@ -52,14 +52,14 @@ const isProf = ref<boolean>(true)
 watchEffect((): void => {
   void (() => {
     infoGeneral.value = props.details
-    fonctions.value = infoGeneral.value.listFonctions
-    sectionEleve.value = infoGeneral.value.sectionClassesGroupes.sectionEleve
-    sectionProf.value = infoGeneral.value.sectionClassesGroupes.sectionProf
+    fonctions.value = infoGeneral.value?.listFonctions
+    sectionEleve.value = infoGeneral.value?.sectionClassesGroupes.sectionEleve
+    sectionProf.value = infoGeneral.value?.sectionClassesGroupes.sectionProf
 
-    etabs.value = sectionEleve.value.etabs
-    etabsProf.value = sectionProf.value.etabs
+    etabs.value = sectionEleve.value?.etabs
+    etabsProf.value = sectionProf.value?.etabs
 
-    if (etabs.value.length) {
+    if (etabs.value?.length) {
       isProf.value = false
     }
   })()
@@ -67,7 +67,7 @@ watchEffect((): void => {
 </script>
 
 <template>
-  <div v-if="fonctions.length" class="sectionFonction">
+  <div v-if="fonctions?.length" class="sectionFonction">
     <div class="heading-titre">
       <span class="titre">Mes fonctions</span>
     </div>
