@@ -122,6 +122,7 @@ function openModal(event: CustomEvent) {
           :identifiant="mce.identifiant"
           :mdp="mce.mdp"
           :user-public="mce.userPublic"
+          :user-id="mce.uid"
         />
       </div>
       <div class="sectionTwo">

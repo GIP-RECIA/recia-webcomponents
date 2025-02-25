@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import AvatarUserCe from '@/components/AvatarUser.ce.vue'
 import I18nHostCe from '@/components/I18nHost.ce.vue'
 import InfoGeneralCe from '@/components/InfoGeneral.ce.vue'
 import ListOngletCe from '@/components/ListOnglet.ce.vue'
@@ -26,6 +27,7 @@ import ServicesEntCe from '@/components/ServicesEnt.ce.vue'
 import UserInfoCe from '@/components/UserInfo.ce.vue'
 import { defineCustomElement } from 'vue'
 
+const AvatarUser = defineCustomElement(AvatarUserCe)
 const I18nHost = defineCustomElement(I18nHostCe)
 const InfoGeneral = defineCustomElement(InfoGeneralCe)
 const ListOnglet = defineCustomElement(ListOngletCe)
@@ -39,6 +41,7 @@ const UserInfo = defineCustomElement(UserInfoCe)
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AvatarUser: typeof AvatarUser
     I18nHost: typeof I18nHost
     InfoGeneral: typeof InfoGeneral
     ListOnglet: typeof ListOnglet
@@ -53,6 +56,7 @@ declare module 'vue' {
 }
 
 function register() {
+  customElements.define('avatar-user', AvatarUser)
   customElements.define('i18n-host', I18nHost)
   customElements.define('info-general', InfoGeneral)
   customElements.define('list-onglet', ListOnglet)
@@ -66,6 +70,7 @@ function register() {
 }
 
 export {
+  AvatarUser,
   I18nHost,
   InfoGeneral,
   ListOnglet,
