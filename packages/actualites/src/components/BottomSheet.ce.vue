@@ -224,13 +224,6 @@ onBeforeUnmount(() => {
         @keydown.esc="closeModal"
       >
         <template v-if="true">
-          <img
-            v-if="item && !loading"
-            class="bottomsheet-container-background-desktop-image"
-            :src="baseUrl.concat(`/${item.enclosure}`)"
-            alt=""
-          >
-
           <div class="bottomsheet-mobile-content-grip-area">
             <div class="bottomsheet-mobile-content-grip-area-handle-bar" />
           </div>
@@ -242,6 +235,13 @@ onBeforeUnmount(() => {
           </div>
 
           <div class="bottomsheet-content-header">
+            <div class="bottomsheet-container-background-desktop-image">
+              <img
+                v-if="item && !loading"
+                :src="baseUrl.concat(`/${item.enclosure}`)"
+                alt=""
+              >
+            </div>
             <div class="bottomsheet-content-header-image-group">
               <div
                 ref="bottomsheetContentHeaderImageContainer"
@@ -821,16 +821,22 @@ onBeforeUnmount(() => {
       position: relative;
 
       .bottomsheet-container-background-desktop-image {
-        width: 100%;
-        height: 22%;
-        display: block;
         position: absolute;
-        top: 0;
-        left: 0;
+        top: -14px;
+        left: -14px;
+        right: -14px;
+        height: 212px;
+        overflow: hidden;
+        display: block;
         z-index: -1;
         filter: blur(10px);
-        opacity: 0.3;
-        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%);
+        opacity: 0.33;
+
+        > * {
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+        }
       }
 
       .bottomsheet-mobile-content-grip-area {
