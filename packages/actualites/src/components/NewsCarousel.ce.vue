@@ -227,6 +227,10 @@ function closeModal() {
   }
 }
 
+.carousel-header-see-all-news-button {
+  @extend %button-tertiary;
+}
+
 .carousel-header-see-all-news-button-icon {
   width: 1.25em;
   height: 1.25em;
