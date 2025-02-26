@@ -181,7 +181,6 @@ body {
   display: flex;
   position: absolute;
   left: 120px;
-  top: 80px;
   width: 85%;
   gap: 20px;
   overflow-y: scroll;
