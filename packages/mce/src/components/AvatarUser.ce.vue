@@ -15,14 +15,18 @@
 -->
 
 <script setup lang="ts">
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import Cropper from 'cropperjs'
 import { onMounted, onUnmounted, ref, watch, watchEffect } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 defineProps<{
   avatar: string
   user: string
 }
 >()
+const { t } = useI18n()
+const m = (key: string): string => t(`avatar-user.${key}`)
 
 const open = ref<boolean>(false)
 const selectedFile = ref<any>(null)
@@ -120,18 +124,24 @@ function closeModal() {
       @change="fileChanged"
     >
     <button class="edit-picture">
-      <img class="edit-picture-icon" src="../assets/pen-solid.svg" alt="">
+      <FontAwesomeIcon :icon="['fas', 'pen']" class="edit-picture-icon" />
     </button>
   </div>
 
   <!-- Modal Cropper Avatar -->
 
-  <div v-if="open" class="modal">
+  <div v-if="open" class="modal-mask">
     <input id="uidUser" type="hidden" name="uidUser" :value="user">
-    <div>
-      <div class="close">
-        <button type="button" class="close" @click="closeModal" />
-      </div>
+    <div class="modal-component" @click.stop>
+      <header>
+        <h1 class="modal-title">
+          {{ m('title-header') }}
+        </h1>
+        <button class="btn-close" @click="closeModal">
+          <FontAwesomeIcon :icon="['fa', 'xmark']" />
+        </button>
+      </header>
+
       <div class="images">
         <div v-show="imageCrop" class="crop-img">
           <img ref="img" :src="imageCrop" alt="" width="360" height="300">
@@ -142,14 +152,15 @@ function closeModal() {
           </div>
         </div>
       </div>
-      <div class="buttons">
+
+      <footer>
         <button class="btn-selectImg" @click="imageInput.click()">
-          Select image
+          {{ m('select-image') }}
         </button>
         <button v-show="imageCrop" class="btn-cropImg">
-          Appliquer
+          {{ m('apply') }}
         </button>
-      </div>
+      </footer>
     </div>
   </div>
 </template>
@@ -202,74 +213,148 @@ function closeModal() {
     position: absolute;
 
     .edit-picture-icon {
-      width: 11px;
-      height: 11px;
+      width: 13px;
+      height: 13px;
     }
   }
 }
 
-.modal {
+.modal-mask {
   position: fixed;
-  float: left;
+  left: 0;
   top: 0;
   right: 0;
   bottom: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 999;
-}
+  z-index: 1055;
+  height: 100%;
+  width: 100%;
+  transition:
+    opacity 0.2s ease-in-out,
+    visibility 0.2s ease-in-out;
+  background-color: #a0a0a06b;
 
-.modal > div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  width: 550px;
-  padding: 20px;
-  border-radius: 8px;
-  bottom: 10%;
-  max-width: 90%;
-}
+  .modal-component {
+    position: absolute;
+    min-width: 600px;
+    width: fit-content;
+    height: fit-content;
+    padding: 0;
+    margin: auto;
+    overflow: hidden;
+    background-color: #ffffff;
+    border-radius: 28px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
+    flex-shrink: 0;
+    justify-content: center;
+    color: #333;
 
-.close {
-  margin-left: auto;
-  cursor: pointer;
-}
+    @media (width < 600px) {
+      min-width: 350px;
+    }
 
-.images {
-  max-width: 100%;
-  overflow: hidden;
-}
+    /* Style for header */
+    header {
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-.buttons {
-  margin: 15px;
-}
+      .modal-title {
+        padding: 0;
+        margin: 0;
+        word-wrap: unset;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 20px;
+      }
 
-.crop-img {
-  flex: 1;
-  margin-bottom: 10px;
-}
+      .btn-close {
+        opacity: 0.4;
+        font-weight: bold;
+        line-height: 1;
+        cursor: pointer;
+        margin-left: auto;
+        width: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+        border: none;
+      }
 
-.previewImg {
-  flex: 1;
-  margin: auto;
-}
+      .btn-close:hover {
+        opacity: 0.5;
+      }
+    }
 
-#previewImg {
-  width: 72px;
-  height: 72px;
-  overflow: hidden;
-  margin: auto;
-  border: solid #d0d0d0;
-  border-radius: 50%;
+    /* Style for main */
 
-  img {
-    background-color: #26448a;
+    .images {
+      display: flex;
+      flex-direction: column;
+      max-width: 100%;
+      overflow: hidden;
+
+      .crop-img {
+        flex: 1;
+        margin: 10px;
+      }
+
+      .previewImg {
+        flex: 1;
+        margin: auto;
+      }
+
+      #previewImg {
+        width: 72px;
+        height: 72px;
+        overflow: hidden;
+        margin: auto;
+        border: solid #d0d0d0;
+        border-radius: 50%;
+
+        img {
+          background-color: #26448a;
+        }
+      }
+    }
+
+    /* Style for footer */
+    footer {
+      display: flex;
+      padding: 15px;
+      flex-direction: row;
+      justify-content: center;
+      column-gap: 5px;
+
+      .btn-selectImg,
+      .btn-cropImg {
+        padding: 8px;
+        cursor: pointer;
+        border-radius: 10px;
+        border: none;
+        color: #ffffff;
+      }
+
+      .btn-selectImg {
+        background-color: #a5a5a5;
+      }
+
+      .btn-selectImg:hover {
+        background-color: #888888;
+      }
+
+      .btn-cropImg {
+        background-color: #25b2f3;
+      }
+    }
   }
 }
 
@@ -297,8 +382,8 @@ function closeModal() {
       position: absolute;
 
       .edit-picture-icon {
-        width: 11px;
-        height: 11px;
+        width: 13px;
+        height: 13px;
       }
     }
   }
