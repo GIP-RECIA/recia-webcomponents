@@ -178,7 +178,7 @@ watchEffect((): void => {
   display: grid;
   padding: 0px 15px;
 
-  grid-template-columns: 200px 200px 200px;
+  grid-template-columns: 1fr 1fr 1fr;
   column-gap: 20px;
   row-gap: 15px;
 

@@ -51,7 +51,6 @@ defineProps<{
 }
 
 .etabs {
-  display: flex;
   padding: 0px 15px 20px 15px;
 
   .etab {
@@ -59,7 +58,6 @@ defineProps<{
     flex-direction: column;
     padding: 15px 15px;
     background-color: #eee;
-    width: fit-content;
     border-radius: 12px;
     gap: 4px;
 
@@ -71,7 +69,7 @@ defineProps<{
     .services {
       padding: 5px 0px;
       display: grid;
-      grid-template-columns: auto auto auto auto;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
       column-gap: 15px;
       row-gap: 10px;
 
