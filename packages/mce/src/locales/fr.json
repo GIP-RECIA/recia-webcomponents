@@ -14,5 +14,11 @@
     "structure": "Structure rattachement",
     "password": "Mot de passe",
     "access": "Mon identifiant"
+  },
+
+  "avatar-user": {
+    "title-header": "Modifier avatar",
+    "select-image": "Sélectionner image",
+    "apply": "Appliquer"
   }
 }
