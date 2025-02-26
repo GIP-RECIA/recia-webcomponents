@@ -14,5 +14,11 @@
     "structure": "Attached structure",
     "password": "Password",
     "access": "My login"
+  },
+
+  "avatar-user": {
+    "title-header": "Change avatar",
+    "select-image": "Select image",
+    "apply": "Apply"
   }
 }
