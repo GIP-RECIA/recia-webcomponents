@@ -15,12 +15,18 @@
 -->
 
 <script setup lang="ts">
+import { computed } from 'vue'
+
 defineOptions({ name: 'ServicesEnt' })
 
-defineProps<{
+const props = defineProps<{
   details: Array<string>
   etab: string
 }>()
+
+const services = computed(() => {
+  return [...(props.details || [])].sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }))
+})
 </script>
 
 <template>
@@ -31,7 +37,7 @@ defineProps<{
     <div class="etab">
       <span class="etab-name">{{ etab }}</span>
       <div class="services">
-        <template v-for="(service, index) in details" :key="index">
+        <template v-for="(service, index) in services" :key="index">
           <span class="service"> {{ service }}</span>
         </template>
       </div>
