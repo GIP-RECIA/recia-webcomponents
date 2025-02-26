@@ -15,10 +15,10 @@
  */
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faPen, faXmark } from '@fortawesome/free-solid-svg-icons'
 
 function register() {
-  library.add(faXmark)
+  library.add(faXmark, faPen)
 }
 
 export { register }
