@@ -124,7 +124,7 @@ function closeModal() {
           {{ t('text.title.news') }}
         </h2>
         <div class="carousel-header-see-all-news computer">
-          <a class="carousel-header-see-all-news-button" href="allNewsPageUrl">
+          <a class="carousel-header-see-all-news-button" :href="allNewsPageUrl">
             {{ t('text.normal.see-all-news') }}
             <i
               class="carousel-header-see-all-news-button-icon"

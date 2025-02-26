@@ -151,7 +151,7 @@ function closeModal() {
     <div id="allNews" class="allNews-container">
       <div class="allNews-header">
         <div class="allNews-header-title">
-          <a class="allNews-header-title-button" href="backUrl" title="Retour à l'acceuil">
+          <a class="allNews-header-title-button" :href="backUrl" title="Retour à l'acceuil">
             <img
               class="allNews-header-title-button-icon"
               src="/src/assets/svg/arrow_left.svg"
