@@ -404,6 +404,7 @@ onBeforeUnmount(() => {
 </template>
 
 <style lang="scss">
+@use 'sass:map';
 @use '@/assets/global.scss' as *;
 
 .mark-has-not-read-btn {
@@ -430,9 +431,7 @@ onBeforeUnmount(() => {
   z-index: 10;
 
   .bottomsheet-container {
-    width: 88%;
-    height: 90%;
-    max-height: 90%;
+    height: calc(100% - 35px);
     background-color: $standard-colour-white;
     border-radius: 10px 10px 0 0;
 
@@ -442,6 +441,15 @@ onBeforeUnmount(() => {
     z-index: 20;
 
     overflow: auto;
+    margin: 35px 16px 0;
+
+    @each $name, $value in $grid-breakpoints {
+      @if $value != 0 {
+        @media screen and (width >= $value) {
+          max-width: map.get($container-max-widths, $name);
+        }
+      }
+    }
 
     .bottomsheet-container-background-desktop-image {
       display: none;
