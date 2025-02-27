@@ -16,6 +16,25 @@
     "access": "Mon identifiant"
   },
 
+  "info-general": {
+    "title-fonction": "Mes fonctions",
+    "title-classe-groupe": "Mes classes et groupes pédagogiques",
+    "title-courses": "Enseignements suivis",
+    "class": "Classe",
+    "group": "Groupe"
+  },
+
+  "services-ent": {
+    "title-services": "Services auxquels j'ai accès dans l'ENT"
+  },
+
+  "relation-user": {
+    "title-relation-parent": "Les élèves de ma relation",
+    "title-relation-student": "Personne en relation avec moi",
+    "title-relation-master": "Mes apprentis",
+    "parental-authority": "Autorité parentale"
+  },
+
   "avatar-user": {
     "title-header": "Modifier avatar",
     "select-image": "Sélectionner image",
