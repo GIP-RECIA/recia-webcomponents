@@ -42,15 +42,13 @@ function openModal(event: CustomEvent): void {
   <div v-if="listMenu === 'GENERALE'">
     <info-general
       :details="fonctionClassesGroupe"
-      titre-cls-grp="Mes classes et groupes pédagogiques"
-      titre-ens="Enseignements suivis"
     />
   </div>
 
   <div v-else-if="listMenu === 'PARENT_ELEVE'">
     <relation-user
       :details="parentEleve"
-      titre="Personne en rélation avec moi"
+      titre="student"
       :onglet="listMenu"
     />
   </div>
@@ -60,7 +58,7 @@ function openModal(event: CustomEvent): void {
       :mce-api="mceApi"
       :user-info-api-url="userInfoApiUrl"
       :details="relationEleve"
-      titre="Les élèves de mes relations."
+      titre="parent"
       :onglet="listMenu"
       @open-modal="openModal"
     />
@@ -71,7 +69,7 @@ function openModal(event: CustomEvent): void {
       :mce-api="mceApi"
       :user-info-api-url="userInfoApiUrl"
       :details="apprentis"
-      titre="Mes apprentis"
+      titre="master"
       :onglet="listMenu"
     />
   </div>

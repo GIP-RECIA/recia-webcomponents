@@ -18,6 +18,7 @@
 import type { Relation } from '@/types/relationType'
 import { getDetailEnfant } from '@/services/serviceMce'
 import { ref, watchEffect } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 defineOptions({ name: 'RelationUser' })
 
@@ -28,6 +29,9 @@ const props = defineProps<{
   titre: string
   onglet: string
 }>()
+
+const { t } = useI18n()
+const m = (key: string): string => t(`relation-user.${key}`)
 
 const emit = defineEmits(['openModal'])
 const relations = ref<Array<Relation>>([])
@@ -63,14 +67,14 @@ async function openModal(event: Event, uid: string): Promise<void> {
 <template>
   <div class="section_eleve">
     <div class="heading-titre">
-      <span class="titre">{{ titre }}</span>
+      <span class="titre">{{ m('title-relation-'+titre) }}</span>
     </div>
     <div class="relations">
       <template v-for="(val, index) in relations" :key="index">
         <div class="relation" @click.prevent="(e) => openModal(e, val.uidRelation)">
-          <span class="type">{{ val.typeRelation === "20" && "Pere" ? "Père" : val.typeRelation }}</span>
-          <span class="name-person">{{ val.displayNameRelation }}</span>
-          <span>{{ val.autoriteParental === true ? "Autorité parental" : "" }}</span>
+          <!-- <span class="type">{{ val.typeRelation === "20" && "Pere" ? "Père" : val.typeRelation }}</span> -->
+          <b class="name-person">{{ val.displayNameRelation }}</b>
+          <span>{{ val.autoriteParental === true ? m('parental-authority') : "" }}</span>
         </div>
       </template>
     </div>
@@ -81,7 +85,7 @@ async function openModal(event: Event, uid: string): Promise<void> {
 .relations {
   display: grid;
   padding: 0px 15px;
-  grid-template-columns: 200px 200px 200px;
+  grid-template-columns: 1fr 1fr 1fr;
   column-gap: 20px;
   row-gap: 15px;
 
