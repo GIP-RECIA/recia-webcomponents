@@ -16,6 +16,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 defineOptions({ name: 'ServicesEnt' })
 
@@ -24,6 +25,9 @@ const props = defineProps<{
   etab: string
 }>()
 
+const { t } = useI18n()
+const m = (key: string): string => t(`services-ent.${key}`)
+
 const services = computed(() => {
   return [...(props.details || [])].sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }))
 })
@@ -31,7 +35,7 @@ const services = computed(() => {
 
 <template>
   <div class="heading-titre">
-    <span class="titre">Services auxquels j'ai accès dans l'ENT</span>
+    <span class="titre">{{ m('title-services') }}</span>
   </div>
   <div class="etabs">
     <div class="etab">
