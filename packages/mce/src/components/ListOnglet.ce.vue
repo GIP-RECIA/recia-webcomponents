@@ -15,6 +15,7 @@
 -->
 
 <script setup lang="ts">
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -88,8 +89,8 @@ function prevSlide() {
     <!-- Mobile View (Carousel) -->
     <div v-else class="carousel">
       <div class="carousel-controls">
-        <button class="prev" @click="prevSlide">
-          ‹
+        <button class="prev" :disabled="currentIndex === 0" @click="prevSlide">
+          <FontAwesomeIcon :icon="['fas', 'circle-chevron-left']" class="btn-slide" />
         </button>
         <div class="carousel-container">
           <div
@@ -110,8 +111,8 @@ function prevSlide() {
             </div>
           </div>
         </div>
-        <button class="next" @click="nextSlide">
-          ›
+        <button class="next" :disabled="currentIndex === list.length - 1" @click="nextSlide">
+          <FontAwesomeIcon :icon="['fas', 'circle-chevron-right']" class="btn-slide" />
         </button>
       </div>
     </div>
@@ -149,6 +150,16 @@ ul {
     display: block;
   }
 }*/
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-slide {
+  width: 18px;
+  height: 18px;
+}
 .list-menu {
   display: flex;
   flex-direction: column;
@@ -180,7 +191,7 @@ button {
   border: none;
   background-color: transparent;
   border-radius: 28px;
-  padding: 14px;
+  padding: 12px;
 }
 
 button.active {
