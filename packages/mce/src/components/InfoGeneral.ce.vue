@@ -18,14 +18,16 @@
 import type { PersonneFonction } from '@/types/fonctionType'
 import type { EnseignementProf, Etabs, General, SectionEleve, SectionProf } from '@/types/generalType'
 import { ref, watchEffect } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 defineOptions({ name: 'InfoGeneral' })
 
 const props = defineProps<{
   details: General
-  titreClsGrp: string
-  titreEns: string
 }>()
+
+const { t } = useI18n()
+const m = (key: string): string => t(`info-general.${key}`)
 
 const infoGeneral = ref<General>({
   listFonctions: [],
@@ -69,7 +71,7 @@ watchEffect((): void => {
 <template>
   <div v-if="fonctions?.length" class="sectionFonction">
     <div class="heading-titre">
-      <span class="titre">Mes fonctions</span>
+      <span class="titre">{{ m('title-fonction')}}</span>
     </div>
     <div class="etabs-fonctions">
       <template v-for="(it, index) in fonctions" :key="index">
@@ -87,7 +89,7 @@ watchEffect((): void => {
   <!-- Mes classes et groupes pédago prof section -->
   <div v-if="isProf" class="sectionCG">
     <div class="heading-titre">
-      <span class="titre">Mes classes et groupes pédagogiques</span>
+      <span class="titre">{{ m('title-classe-groupe')}}</span>
     </div>
     <div class="etabs-cg">
       <template v-for="(classgroup, index) in sectionProf" :key="index">
@@ -101,10 +103,10 @@ watchEffect((): void => {
                 <div class="enseignement-prof">
                   <span class="ens-prof">{{ item.matiere }}</span>
                   <template v-for="(classes, index) in item.cg?.classes" :key="index">
-                    <span :class="[item.cg?.classes != null ? 'classe-prof' : 'none-classe']">Classe : {{ classes }}</span>
+                    <span :class="[item.cg?.classes != null ? 'classe-prof' : 'none-classe']">{{ m('class')}} : {{ classes }}</span>
                   </template>
                   <template v-for="(groupes, index) in item.cg?.groupes" :key="index">
-                    <span :class="[item.cg?.groupes != null ? 'groupe-prof' : 'none-groupe']">Groupe : {{ groupes }}</span>
+                    <span :class="[item.cg?.groupes != null ? 'groupe-prof' : 'none-groupe']">{{ m('group')}} : {{ groupes }}</span>
                   </template>
                 </div>
               </template>
@@ -118,21 +120,21 @@ watchEffect((): void => {
   <!-- Mes classes et groupes pédago elève section -->
   <div v-else class="sectionCG_Eleve">
     <div class="heading-titre">
-      <span class="titre">{{ titreClsGrp }}</span>
+      <span class="titre">{{ m('title-classe-groupe')}}</span>
     </div>
 
     <div class="etabs">
       <template v-for="(classgroup, index) in etabs" :key="index">
         <div class="etab">
           <span class="etab-name">{{ classgroup.nameEtab }}</span>
-          <span class="classe">Classe : {{ classgroup.classes[0] || '-' }}</span>
-          <span class="groupe">Groupe : {{ classgroup.groupes[0] || '-' }}</span>
+          <span class="classe">{{ m('class')}} : {{ classgroup.classes[0] || '-' }}</span>
+          <span class="groupe">{{ m('group')}} : {{ classgroup.groupes[0] || '-' }}</span>
         </div>
       </template>
     </div>
 
     <div class="heading-titre">
-      <span class="titre">{{ titreEns }}</span>
+      <span class="titre">{{ m('title-courses')}}</span>
     </div>
     <div class="enseignements">
       <template v-for="(ens, index) in sectionEleve?.enseignementSuivis" :key="index">

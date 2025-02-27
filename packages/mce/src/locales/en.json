@@ -16,6 +16,25 @@
     "access": "My login"
   },
 
+  "info-general": {
+    "title-fonction": "My functions",
+    "title-classe-groupe": "My classes and educational groups",
+    "title-courses": "Courses taken",
+    "class": "Class",
+    "group": "Group"
+  },
+
+  "services-ent": {
+    "title-services": "My services available in ENT"
+  },
+
+  "relation-user": {
+    "title-relation-parent": "The students in my relationship",
+    "title-relation-student": "Person connected with me",
+    "title-relation-master": "My apprentices",
+    "parental-authority": "Parental authority"
+  },
+
   "avatar-user": {
     "title-header": "Change avatar",
     "select-image": "Select image",
