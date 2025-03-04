@@ -255,7 +255,7 @@ custom-toggle-switch {
 }
 
 .title-allNews {
-  color: $standard-colour-black;
+  color: $basic-black;
   font-size: 24px;
   font-family: $sora;
   font-weight: 700;

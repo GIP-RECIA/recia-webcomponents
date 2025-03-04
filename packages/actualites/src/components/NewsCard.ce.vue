@@ -64,7 +64,7 @@ const { t, d } = useI18n()
 @use '@/assets/global.scss' as *;
 
 article {
-  background-color: $standard-colour-white;
+  background-color: $white;
   border-radius: 10px;
   display: flex;
   height: 138px;
@@ -83,7 +83,7 @@ article {
   }
 
   &:not(.active) {
-    background-color: $standard-colour-grey;
+    background-color: $stroke;
 
     .card-img {
       filter: saturate(0%);
@@ -123,7 +123,7 @@ article {
       flex-shrink: 0;
       display: flex;
       font-family: $dm-sans;
-      color: $standard-colour-black;
+      color: $basic-black;
       font-size: 12px;
       opacity: 50%;
       justify-content: space-between;
@@ -138,7 +138,7 @@ article {
       flex-shrzink: 0;
       display: flex;
       font-family: $dm-sans;
-      color: $standard-colour-black;
+      color: $basic-black;
       font-size: 12px;
       opacity: 75%;
       justify-content: space-between;
@@ -183,7 +183,7 @@ article {
 
       &.active {
         h3 {
-          color: $standard-colour-black;
+          color: $basic-black;
         }
 
         &:hover,
@@ -204,7 +204,7 @@ article {
       }
 
       &:not(.active) {
-        outline: 2px solid $standard-colour-ligth-black;
+        outline: 2px solid $lighter-black;
         box-shadow: unset;
       }
 

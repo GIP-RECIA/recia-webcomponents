@@ -237,7 +237,7 @@ function closeModal() {
   mask: url(@/assets/svg/arrow_right.svg);
   mask-repeat: no-repeat;
   mask-size: contain;
-  background-color: $standard-colour-black;
+  background-color: $basic-black;
   aspect-ratio: 1/1;
 }
 

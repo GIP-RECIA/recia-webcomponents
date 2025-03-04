@@ -43,7 +43,7 @@
   font-size: 14px;
 
   &.active {
-    background-color: $standard-colour-black;
+    background-color: $basic-black;
     color: white;
 
     &:hover {
@@ -52,19 +52,19 @@
 
     &:focus-visible {
       background-color: $primary;
-      color: $standard-colour-white;
+      color: $white;
       outline: 3px solid #0062bc4d;
     }
   }
 
   &:not(.active) {
     &:hover {
-      background-color: $primary-transparent;
+      background-color: $primary-05;
       color: $primary;
     }
 
     &:focus-visible {
-      background-color: $primary-transparent;
+      background-color: $primary-05;
       color: $primary;
       outline: 3px solid $primary;
     }
@@ -109,7 +109,7 @@
 %button-primary {
   @extend %button;
   background-color: $basic-black;
-  color: $standard-colour-white;
+  color: $white;
 
   &:hover {
     background-color: $primary;
