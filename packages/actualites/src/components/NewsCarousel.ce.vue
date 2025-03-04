@@ -169,7 +169,7 @@ function closeModal() {
       </div>
 
       <div class="carousel-header-see-all-news mobile">
-        <a class="carousel-header-see-all-news-button" href="allNewsPageUrl">
+        <a class="carousel-header-see-all-news-button" :href="allNewsPageUrl">
           {{ t('text.normal.see-all-news') }}
           <i
             class="carousel-header-see-all-news-button-icon"
