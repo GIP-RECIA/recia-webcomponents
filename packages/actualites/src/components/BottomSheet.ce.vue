@@ -432,7 +432,7 @@ onBeforeUnmount(() => {
 
   .bottomsheet-container {
     height: calc(100% - 35px);
-    background-color: $standard-colour-white;
+    background-color: $white;
     border-radius: 10px 10px 0 0;
 
     display: flex;
@@ -465,7 +465,7 @@ onBeforeUnmount(() => {
       .bottomsheet-mobile-content-grip-area-handle-bar {
         width: 104px;
         height: 6px;
-        background-color: $standard-colour-ligth-black;
+        background-color: $lighter-black;
         opacity: 33%;
         border-radius: 3px;
         justify-self: center;
@@ -512,7 +512,7 @@ onBeforeUnmount(() => {
           height: 42px;
           border: none;
           border-radius: 50px;
-          background-color: $standard-colour-white;
+          background-color: $white;
           bottom: 12px;
           right: 12px;
 
@@ -556,7 +556,7 @@ onBeforeUnmount(() => {
               height: 40px;
               border: none;
               border-radius: 40px;
-              background-color: $primary-transparent;
+              background-color: $primary-05;
 
               display: flex;
               justify-content: center;
@@ -604,8 +604,8 @@ onBeforeUnmount(() => {
                 font-size: 10px;
                 font-weight: bold;
                 text-wrap: nowrap;
-                color: $standard-colour-white;
-                background-color: $standard-colour-black;
+                color: $white;
+                background-color: $basic-black;
                 border-radius: 4px;
                 box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
 
@@ -618,7 +618,7 @@ onBeforeUnmount(() => {
                   border-left: 6px solid transparent;
                   border-right: 6px solid transparent;
 
-                  border-top: 6px solid $standard-colour-black;
+                  border-top: 6px solid $basic-black;
                 }
               }
             }
@@ -627,11 +627,11 @@ onBeforeUnmount(() => {
               background-color: $primary;
 
               .bottomsheet-content-header-informations-info-modal-icon-container {
-                border-color: $standard-colour-white;
+                border-color: $white;
               }
 
               .bottomsheet-content-header-informations-info-modal-icon {
-                color: $standard-colour-white;
+                color: $white;
               }
             }
 
@@ -664,7 +664,7 @@ onBeforeUnmount(() => {
           }
 
           .bottomsheet-content-header-informations-sections-tag.dark-background {
-            color: $standard-colour-white;
+            color: $white;
           }
         }
       }
@@ -688,7 +688,7 @@ onBeforeUnmount(() => {
       .bottomsheet-content-footer-separator {
         width: 100%;
         height: 1px;
-        background-color: $standard-colour-ligth-grey;
+        background-color: $basic-grey;
         border: none;
       }
 
@@ -746,7 +746,7 @@ onBeforeUnmount(() => {
         height: 42px;
         border: none;
         border-radius: 50px;
-        background-color: $standard-colour-white;
+        background-color: $white;
         box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.1);
 
         display: flex;
@@ -866,7 +866,7 @@ onBeforeUnmount(() => {
             width: 220px;
             height: 220px;
             display: flex;
-            outline: 4px solid $standard-colour-white;
+            outline: 4px solid $white;
             box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.1);
             border-radius: 10px;
 
@@ -923,7 +923,7 @@ onBeforeUnmount(() => {
               transform-origin: top left;
               animation: enlarge 0.3s forwards;
               border-radius: 5px;
-              outline: 2px solid $standard-colour-white;
+              outline: 2px solid $white;
               box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.1);
               z-index: 1000;
             }
@@ -938,7 +938,7 @@ onBeforeUnmount(() => {
               height: 42px;
               border: none;
               border-radius: 50px;
-              background-color: $standard-colour-white;
+              background-color: $white;
               box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.1);
 
               display: flex;
@@ -988,17 +988,17 @@ onBeforeUnmount(() => {
                 background-color: transparent;
 
                 .bottomsheet-content-header-informations-info-modal-icon-container {
-                  border: 2px solid $standard-colour-black;
+                  border: 2px solid $basic-black;
 
                   .bottomsheet-content-header-informations-info-modal-icon {
-                    color: $standard-colour-black;
+                    color: $basic-black;
                   }
                 }
               }
 
               .bottomsheet-content-header-informations-info-modal-button:hover,
               .bottomsheet-content-header-informations-info-modal-button:focus-visible {
-                background-color: $primary-transparent;
+                background-color: $primary-05;
 
                 .bottomsheet-content-header-informations-info-modal-icon-container {
                   border: 2px solid $primary;
@@ -1013,10 +1013,10 @@ onBeforeUnmount(() => {
                 background-color: $primary;
 
                 .bottomsheet-content-header-informations-info-modal-icon-container {
-                  border-color: $standard-colour-white;
+                  border-color: $white;
 
                   .bottomsheet-content-header-informations-info-modal-icon {
-                    color: $standard-colour-white;
+                    color: $white;
                   }
                 }
               }
@@ -1080,12 +1080,12 @@ onBeforeUnmount(() => {
 
       .bottomsheet-content-body::-webkit-scrollbar-thumb {
         border-radius: 8px;
-        background-color: $standard-colour-grey;
+        background-color: $stroke;
       }
 
       .bottomsheet-content-footer {
         width: 100%;
-        background-color: $standard-colour-white;
+        background-color: $white;
         display: flex;
         flex-direction: column;
         position: absolute;

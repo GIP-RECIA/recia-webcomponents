@@ -182,7 +182,7 @@ function handleResize() {
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: $standard-colour-white;
+  background-color: $white;
   box-shadow: 0 4px 24.4px rgba(0, 0, 0, 0.1);
   border: none;
   border-radius: 10px;
@@ -223,7 +223,7 @@ function handleResize() {
   font-weight: 700;
   padding: 1px 10px 1px 10px;
   border-radius: 20px;
-  color: $standard-colour-white;
+  color: $white;
   background-color: $primary;
 }
 
@@ -277,7 +277,7 @@ function handleResize() {
   @extend %tag;
 
   &.mobile:not(.active) {
-    background-color: $primary-transparent;
+    background-color: $primary-05;
     color: $primary;
   }
 }
@@ -295,7 +295,7 @@ function handleResize() {
   }
 
   .filter-title.disabled {
-    color: $standard-colour-black, 100%;
+    color: $basic-black, 100%;
   }
 
   .caret-button {
