@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+$prefix: recia-;
+
 $grid-breakpoints: (
   xs: 0,
   sm: 576px,
@@ -32,8 +34,9 @@ $container-max-widths: (
 );
 
 $font-size-breakpoints: (
-  xs: 0.875,
-  sm: 0.75,
+  xxs: 0.625,
+  xs: 0.75,
+  sm: 0.875,
   md: 1,
   lg: 1.125,
   xl: 1.25,
@@ -45,23 +48,15 @@ $base-font-size: 16px; // 1rem
 $sora: 'Sora', 'sans-serif';
 $dm-sans: 'DM Sans', 'sans-serif';
 
-$basic-grey: #f4f4f4;
-$basic-black: #1e1e1e;
+$white: var(--#{$prefix}white, #fff);
+$stroke: var(--#{$prefix}stroke, #e9e9e9);
+$basic-grey: var(--#{$prefix}basic-grey, #f4f4f4);
+$basic-black: var(--#{$prefix}basic-black, #1e1e1e);
+$lighter-black: var(--#{$prefix}lighter-black, #2c2c2c);
 
-$standard-colour-white: #fff;
-$standard-colour-black: #1e1e1e;
-$standard-colour-ligth-black: #2c2c2c;
-$standard-colour-dark-black: #171717;
-$standard-colour-dark-grey: #737373;
-$standard-colour-ligth-grey: #f4f4f4;
-$standard-colour-grey: #e9e9e9;
+$primary: var(--#{$prefix}primary, #0062bc);
+$primary-pressed: var(--#{$prefix}primary-pressed, #004584);
+$secondary-hover: var(--#{$prefix}secondary-hover, #e6eff8);
+$secondary-pressed: var(--#{$prefix}secondary-pressed, #cce0f2);
 
-$primary-pressed: var(--primary-pressed, #004584);
-$primary: var(--primary, #0062bc);
-$primary-transparent: var(--primary-transparent, #0062bc0d);
-$secondary-pressed: var(--secondary-pressed, #cce0f2);
-$secondary-hover: var(--secondary-hover, #e6eff8);
-$primary-pressed-dark-mode: var(--primary-pressed-dark-mode, #8ac7ff);
-$primary-dark-mode: var(--primary-dark-mode, #57aeff);
-$secondary-pressed-dark-mode: var(--secondary-pressed-dark-mode, #212e3a);
-$secondary-hover-dark-mode: var(--secondary-hover-dark-mode, #1a1f23);
+$primary-05: rgba(from var(--#{$prefix}primary) r g b / 0.05);
