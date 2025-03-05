@@ -138,7 +138,7 @@ function closeModal() {
       </div>
 
       <div v-if="result?.actualite?.items && !loading" class="carousel-content-container">
-        <div class="arrow left">
+        <div v-show="visibleItems.length > 0" class="arrow left">
           <button :disabled="currentIndex === 0" @click="prev">
             <FontAwesomeIcon :icon="['fas', 'arrow-left']" />
           </button>
@@ -161,7 +161,7 @@ function closeModal() {
           </div>
         </div>
 
-        <div class="arrow right">
+        <div v-show="visibleItems.length > 0" class="arrow right">
           <button :disabled="currentIndex >= result?.actualite?.items?.length - 3" @click="next">
             <FontAwesomeIcon :icon="['fas', 'arrow-right']" />
           </button>
