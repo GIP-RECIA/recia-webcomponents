@@ -52,7 +52,7 @@ function setState(state: string) {
 ul {
   list-style-type: none;
   display: inline-flex;
-  background-color: rgba($basic-black, 0.05);
+  background-color: rgba(from $basic-black r g b / 0.05);
   border-radius: 50px;
   padding: 4px;
   gap: 8px;
