@@ -78,7 +78,7 @@ const { t, d } = useI18n()
   background-color: white; // Couleur semi-transparente
   display: grid;
   grid-template-columns: auto 1fr;
-  box-shadow: rgba(0, 0, 0, 0.06) 0 0 5px 3px;
+  box-shadow: $shadow-strong rgba(0, 0, 0, 0.25);
   z-index: 100;
   align-items: center;
 }

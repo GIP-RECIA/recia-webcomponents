@@ -70,7 +70,7 @@ article {
   height: 138px;
   width: auto;
   flex-direction: row;
-  box-shadow: rgba(0, 0, 0, 0.06) 0 0 10px 2px;
+  box-shadow: $shadow-neutral rgba(0, 0, 0, 0.06);
   cursor: pointer;
   overflow: hidden;
 
@@ -198,7 +198,7 @@ article {
     &:hover,
     &:focus-visible {
       outline: 2px solid $primary;
-      box-shadow: color-mix(in srgb, $primary, #0000 80%) 0 4px 26px 0;
+      box-shadow: $shadow-hover $primary-20;
       .image {
         transform: scale(1.3);
       }

@@ -59,4 +59,10 @@ $primary-pressed: var(--#{$prefix}primary-pressed, #004584);
 $secondary-hover: var(--#{$prefix}secondary-hover, #e6eff8);
 $secondary-pressed: var(--#{$prefix}secondary-pressed, #cce0f2);
 
+$primary-20: var(--#{$prefix}primary-20, rgba(#0062bc, 0.2));
 $primary-05: rgba(from var(--#{$prefix}primary) r g b / 0.05);
+
+$shadow-neutral: var(--#{$prefix}shadow-neutral, 0 4px 15.9px 0);
+$shadow-strong: var(--#{$prefix}shadow-strong, 0 4px 24.4px 0);
+$shadow-hover: var(--#{$prefix}shadow-hover, 0 4px 26px 0);
+$shadow-low-elevation: var(--#{$prefix}shadow-low-elevation, 0 2px 6px 0);
