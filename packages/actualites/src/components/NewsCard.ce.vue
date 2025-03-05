@@ -73,10 +73,16 @@ article {
   box-shadow: $shadow-neutral rgba(0, 0, 0, 0.06);
   cursor: pointer;
   overflow: hidden;
+  transition:
+    outline 0.15s ease-out,
+    box-shadow 0.15s ease-out;
+
+  h3 {
+    transition: color 0.15s ease-out;
+  }
 
   &:focus-visible {
     outline: 2px solid $primary;
-    --img-scale: 1.3;
     h3 {
       color: $primary;
     }
@@ -104,7 +110,7 @@ article {
       height: 100%; // Remplit complètement la div
       object-fit: cover;
       transform-origin: center;
-      transition: transform 0.2s ease-in-out;
+      transition: transform 0.15s ease-out;
     }
   }
 
