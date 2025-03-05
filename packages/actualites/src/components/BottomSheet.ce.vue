@@ -431,7 +431,8 @@ onBeforeUnmount(() => {
   z-index: 1055;
 
   .bottomsheet-container {
-    height: calc(100% - 35px);
+    height: 90%;
+    width: 100%;
     background-color: $white;
     border-radius: 10px 10px 0 0;
 
