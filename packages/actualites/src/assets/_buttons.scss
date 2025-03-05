@@ -53,7 +53,7 @@
     &:focus-visible {
       background-color: $primary;
       color: $white;
-      outline: 3px solid #0062bc4d;
+      outline: 3px solid $primary-20;
     }
   }
 
@@ -117,7 +117,7 @@
 
   &:focus-visible {
     background-color: $primary;
-    outline: 4px solid #0062bc4d;
+    outline: 4px solid $primary-20;
   }
 
   &:disabled,
