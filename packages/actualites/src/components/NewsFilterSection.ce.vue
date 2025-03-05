@@ -183,7 +183,7 @@ function handleResize() {
   flex-direction: column;
   width: 100%;
   background-color: $white;
-  box-shadow: 0 4px 24.4px rgba(0, 0, 0, 0.1);
+  box-shadow: $shadow-neutral rgba(0, 0, 0, 0.1);
   border: none;
   border-radius: 10px;
 }

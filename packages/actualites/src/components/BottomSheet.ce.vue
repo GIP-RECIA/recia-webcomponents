@@ -607,7 +607,7 @@ onBeforeUnmount(() => {
                 color: $white;
                 background-color: $basic-black;
                 border-radius: 4px;
-                box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+                box-shadow: $shadow-low-elevation rgba(0, 0, 0, 0.2);
 
                 .arrow-down {
                   position: absolute;
@@ -738,7 +738,7 @@ onBeforeUnmount(() => {
         width: auto;
         height: auto;
         border-radius: 10px;
-        box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.1);
+        box-shadow: $shadow-strong rgba(0, 0, 0, 0.1);
       }
 
       .bottomsheet-content-header-image-group-reduce-container {
@@ -747,7 +747,7 @@ onBeforeUnmount(() => {
         border: none;
         border-radius: 50px;
         background-color: $white;
-        box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.1);
+        box-shadow: $shadow-strong rgba(0, 0, 0, 0.1);
 
         display: flex;
         justify-content: center;
@@ -827,6 +827,7 @@ onBeforeUnmount(() => {
     .bottomsheet-container {
       overflow: hidden;
       position: relative;
+      box-shadow: $shadow-strong rgba(#000000, 0.1);
 
       .bottomsheet-container-background-desktop-image {
         position: absolute;
@@ -867,7 +868,7 @@ onBeforeUnmount(() => {
             height: 220px;
             display: flex;
             outline: 4px solid $white;
-            box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.1);
+            box-shadow: $shadow-strong rgba(0, 0, 0, 0.1);
             border-radius: 10px;
 
             .bottomsheet-content-header-image-container-img {
@@ -924,7 +925,7 @@ onBeforeUnmount(() => {
               animation: enlarge 0.3s forwards;
               border-radius: 5px;
               outline: 2px solid $white;
-              box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.1);
+              box-shadow: $shadow-strong rgba(0, 0, 0, 0.1);
               z-index: 1000;
             }
 
@@ -939,7 +940,7 @@ onBeforeUnmount(() => {
               border: none;
               border-radius: 50px;
               background-color: $white;
-              box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.1);
+              box-shadow: $shadow-strong rgba(0, 0, 0, 0.1);
 
               display: flex;
               justify-content: center;
@@ -1011,6 +1012,7 @@ onBeforeUnmount(() => {
 
               .bottomsheet-content-header-informations-info-modal-button.active {
                 background-color: $primary;
+                box-shadow: $shadow-hover $primary-20;
 
                 .bottomsheet-content-header-informations-info-modal-icon-container {
                   border-color: $white;
