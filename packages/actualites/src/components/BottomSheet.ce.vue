@@ -867,7 +867,7 @@ onBeforeUnmount(() => {
             width: 220px;
             height: 220px;
             display: flex;
-            outline: 4px solid $white;
+            outline: 3px solid $white;
             box-shadow: $shadow-strong rgba(0, 0, 0, 0.1);
             border-radius: 10px;
 
