@@ -255,12 +255,16 @@ button:focus-visible {
 
 .arrow {
   display: none;
-  position: absolute;
 
   > button {
     @extend %button-primary-circle;
     width: 42px;
     height: 42px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
 
     > svg {
       height: 18px;
@@ -268,40 +272,15 @@ button:focus-visible {
     }
   }
 
-  &.left {
+  &.left > button {
     left: 0;
-    top: calc(50% - 21px);
-
-    > button {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      margin-left: -63px;
-      margin-top: auto;
-      margin-bottom: auto;
-    }
+    margin-left: -63px;
   }
 
-  &.right {
+  &.right > button {
     right: 0;
-    top: calc(50% - 21px);
-
-    > button {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      margin-right: -63px;
-      margin-top: auto;
-      margin-bottom: auto;
-    }
+    margin-right: -63px;
   }
-}
-
-.arrow-rigth {
-  width: 11px;
-  margin-left: 1em;
 }
 
 .carousel-content {
