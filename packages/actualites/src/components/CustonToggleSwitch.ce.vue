@@ -35,10 +35,7 @@ function setState(state: string) {
 
 <template>
   <ul>
-    <li
-      v-for="state in states"
-      :key="state"
-    >
+    <li v-for="state in states" :key="state">
       <button :class="{ active: currentState === state }" @click="setState(state)">
         {{ t(`switch.${state}`) }}
       </button>
@@ -57,12 +54,12 @@ ul {
   padding: 4px;
   gap: 8px;
 
-  li > button {
+  > li > button {
     @extend %tag;
   }
 }
 
-@media only screen and (min-width: 1024px) {
+@media only screen and (width > 1024px) {
   ul > li > button {
     padding: 4px 12px;
   }
