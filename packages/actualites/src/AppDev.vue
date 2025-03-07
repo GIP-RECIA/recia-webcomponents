@@ -33,6 +33,7 @@ const {
     :get-item-by-id-url="VITE_GET_ITEM_URI"
     :get-news-reading-informations-url="VITE_GET_NEWS_READING_URI"
     :set-reading-url="VITE_SET_NEWS_READING_URI"
+    all-news-page-url="#"
   />
   <all-news
     :user-info-api-url="VITE_USER_INFO_API_URI"
@@ -41,6 +42,7 @@ const {
     :get-item-by-id-url="VITE_GET_ITEM_URI"
     :get-news-reading-informations-url="VITE_GET_NEWS_READING_URI"
     :set-reading-url="VITE_SET_NEWS_READING_URI"
+    back-url="#"
   />
 </template>
 

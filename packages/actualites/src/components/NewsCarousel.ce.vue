@@ -34,16 +34,14 @@ const props = defineProps<{
 
 const result = ref<PaginatedResult>()
 const readingInfos = ref<Map<string, boolean>>()
-const loading = ref(true) // État de chargement
+const loading = ref(true)
 
 const { t } = i18n.global
 
 onMounted(async () => {
   try {
-    if (!instance.defaults.headers.Authorization) {
+    if (!instance.defaults.headers.Authorization)
       await initToken(props.userInfoApiUrl)
-    }
-    // await getprops.userInfoApiUrlConfig(props.baseApiUrl)
     result.value = await getPaginatedNews(props.getUserNewsUrl, undefined, undefined, undefined)
     const objectResult = await getNewsReadingInformations(props.getNewsReadingInformationsUrl)
     readingInfos.value = new Map(Object.entries(objectResult))
@@ -52,37 +50,34 @@ onMounted(async () => {
     console.error(e)
   }
   finally {
-    loading.value = false // Fin du chargement
+    loading.value = false
   }
 })
 
 const currentIndex = ref(0)
 
-// Calcul des cartes visibles
 const visibleItems = computed(() => {
-  return result.value.actualite.items ? result.value.actualite.items.slice(currentIndex.value, currentIndex.value + 3) : []
+  return result.value?.actualite.items
+    ? result.value.actualite.items.slice(currentIndex.value, currentIndex.value + 3)
+    : []
 })
 
-// Fonction pour passer à l'élément précédent
 function prev() {
-  if (currentIndex.value > 0) {
+  if (currentIndex.value > 0)
     currentIndex.value--
-  }
 }
 
-// Fonction pour passer à l'élément suivant
 function next(): void {
-  if (!result.value.actualite)
+  if (!result.value || !result.value.actualite)
     return
-  if (currentIndex.value < result.value.actualite.items.length - 3) {
+  if (currentIndex.value < result.value.actualite.items.length - 3)
     currentIndex.value++
-  }
 }
-
-function allActualites() {}
 
 function getRubriques(codesRubriques: number[]) {
-  return result.value ? result.value.actualite.rubriques.filter(r => codesRubriques.includes(Number(r.uuid))) : []
+  return result.value
+    ? result.value.actualite.rubriques.filter(r => codesRubriques.includes(Number(r.uuid)))
+    : []
 }
 
 async function updateReadingInfos() {
@@ -90,13 +85,13 @@ async function updateReadingInfos() {
   readingInfos.value = new Map(Object.entries(objectResult))
 }
 
-// État pour la modal
+// Modal
+
 const showModal = ref(false)
 const openFullImage = ref(false)
 const itemIdOpenModal = ref<string>()
 const itemRubriquesOpenModal = ref()
 
-// Méthodes
 function openModal(uuid: string, codesRubriques: number[]) {
   itemIdOpenModal.value = uuid
   itemRubriquesOpenModal.value = getRubriques(codesRubriques)
@@ -114,7 +109,7 @@ function closeModal() {
 
 <template>
   <i18n-host>
-    <div class="carousel-container">
+    <div class="carousel">
       <div class="carousel-header">
         <h2>
           {{ t('text.title.news') }}
@@ -122,9 +117,7 @@ function closeModal() {
         <div class="carousel-header-see-all-news computer">
           <a class="carousel-header-see-all-news-button" :href="allNewsPageUrl">
             {{ t('text.normal.see-all-news') }}
-            <i
-              class="carousel-header-see-all-news-button-icon"
-            />
+            <i class="carousel-header-see-all-news-button-icon" />
           </a>
         </div>
       </div>
@@ -141,20 +134,20 @@ function closeModal() {
         </div>
 
         <div class="carousel-content">
-          <div v-for="(item, index) in visibleItems" :key="index" class="card-wrapper">
-            <news-card
-              :item="item"
-              :base-url="baseUrl"
-              :rubriques="getRubriques(item.rubriques)"
-              :page-origin="false"
-              :get-item-by-id-url="props.getItemByIdUrl"
-              :set-reading-url="props.setReadingUrl"
-              :is-read="readingInfos?.has(item.uuid) ? readingInfos.get(item.uuid) : false"
-              @update-reading-infos="updateReadingInfos()"
-              @click="openModal(item.uuid, item.rubriques)"
-              @keydown.enter="openModal(item.uuid, item.rubriques)"
-            />
-          </div>
+          <news-card
+            v-for="(item, index) in visibleItems"
+            :key="index"
+            :item="item"
+            :base-url="baseUrl"
+            :rubriques="getRubriques(item.rubriques)"
+            :page-origin="false"
+            :get-item-by-id-url="props.getItemByIdUrl"
+            :set-reading-url="props.setReadingUrl"
+            :is-read="readingInfos?.has(item.uuid) ? readingInfos.get(item.uuid) : false"
+            @update-reading-infos="updateReadingInfos()"
+            @click="openModal(item.uuid, item.rubriques)"
+            @keydown.enter="openModal(item.uuid, item.rubriques)"
+          />
         </div>
 
         <div v-show="visibleItems.length > 0" class="arrow right">
@@ -167,123 +160,108 @@ function closeModal() {
       <div class="carousel-header-see-all-news mobile">
         <a class="carousel-header-see-all-news-button" :href="allNewsPageUrl">
           {{ t('text.normal.see-all-news') }}
-          <i
-            class="carousel-header-see-all-news-button-icon"
-          />
+          <i class="carousel-header-see-all-news-button-icon" />
         </a>
       </div>
     </div>
 
-    <div v-if="showModal" class="open-modal" :class="{ active: showModal }">
-      <bottom-sheet
-        :is-read="readingInfos?.has(itemIdOpenModal) ? readingInfos?.get(itemIdOpenModal) : false"
-        :item-id="itemIdOpenModal"
-        :rubriques="itemRubriquesOpenModal"
-        :set-reading-url="setReadingUrl"
-        :get-item-by-id-url="getItemByIdUrl"
-        :base-url="baseUrl"
-        @close-modal="closeModal"
-      />
-    </div>
+    <bottom-sheet
+      v-if="showModal"
+      :is-read="readingInfos?.has(itemIdOpenModal) ? readingInfos?.get(itemIdOpenModal) : false"
+      :item-id="itemIdOpenModal"
+      :rubriques="itemRubriquesOpenModal"
+      :set-reading-url="setReadingUrl"
+      :get-item-by-id-url="getItemByIdUrl"
+      :base-url="baseUrl"
+      @close-modal="closeModal"
+    />
   </i18n-host>
 </template>
 
 <style lang="scss">
 @use '@/assets/global.scss' as *;
 
-.carousel-container {
+.carousel {
   display: flex;
   flex-direction: column;
   gap: 1em;
   justify-content: center;
-}
 
-.carousel-header {
-  display: flex;
-}
+  &-header {
+    display: flex;
 
-.carousel-header-see-all-news {
-  display: flex;
+    &-see-all-news {
+      display: flex;
 
-  > button {
-    @extend %button-tertiary;
+      > button {
+        @extend %button-tertiary;
 
-    > svg {
-      height: 18px;
-      width: 18px;
+        > svg {
+          height: 18px;
+          width: 18px;
+        }
+      }
+
+      &.mobile {
+        justify-content: right;
+      }
+
+      &.computer {
+        display: none;
+      }
+
+      &-button {
+        @extend %button-tertiary;
+
+        &-icon {
+          width: 1.25em;
+          height: 1.25em;
+          mask: url(@/assets/svg/arrow_right.svg);
+          mask-repeat: no-repeat;
+          mask-size: contain;
+          background-color: $basic-black;
+          aspect-ratio: 1/1;
+        }
+      }
     }
   }
 
-  &.mobile {
-    justify-content: right;
+  &-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    background-color: transparent;
   }
 
-  &.computer {
+  .arrow {
     display: none;
-  }
-}
 
-.carousel-header-see-all-news-button {
-  @extend %button-tertiary;
-}
+    > button {
+      @extend %button-primary-circle;
+      width: 42px;
+      height: 42px;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      margin-top: auto;
+      margin-bottom: auto;
 
-.carousel-header-see-all-news-button-icon {
-  width: 1.25em;
-  height: 1.25em;
-  mask: url(@/assets/svg/arrow_right.svg);
-  mask-repeat: no-repeat;
-  mask-size: contain;
-  background-color: $basic-black;
-  aspect-ratio: 1/1;
-}
+      > svg {
+        height: 18px;
+        width: 18px;
+      }
+    }
 
-button:hover {
-  .carousel-header-see-all-news-button-icon {
-    background-color: $primary;
-  }
-}
+    &.left > button {
+      left: 0;
+      margin-left: -63px;
+    }
 
-button:focus-visible {
-  .carousel-header-see-all-news-button-icon {
-    background-color: $primary;
-  }
-}
-
-.arrow {
-  display: none;
-
-  > button {
-    @extend %button-primary-circle;
-    width: 42px;
-    height: 42px;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin-top: auto;
-    margin-bottom: auto;
-
-    > svg {
-      height: 18px;
-      width: 18px;
+    &.right > button {
+      right: 0;
+      margin-right: -63px;
     }
   }
-
-  &.left > button {
-    left: 0;
-    margin-left: -63px;
-  }
-
-  &.right > button {
-    right: 0;
-    margin-right: -63px;
-  }
-}
-
-.carousel-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-  background-color: transparent;
 }
 
 .skeleton-card {
@@ -305,63 +283,57 @@ button:focus-visible {
   }
 }
 
-/* Large devices such as laptops (1024px and up) */
-@media only screen and (min-width: 1024px) {
-  .carousel-container {
+@media only screen and (width > 1024px) {
+  .carousel {
     display: flex;
     grid-template-columns: auto 1fr auto;
     grid-auto-rows: auto;
     position: relative;
+
+    &-header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+      justify-content: space-between;
+      grid-column-start: 2;
+      grid-column-end: 3;
+      grid-row-start: 1;
+      grid-row-end: 2;
+
+      &-see-all-news {
+        &.mobile {
+          display: none;
+        }
+
+        &.computer {
+          display: unset;
+        }
+      }
+    }
+
+    &-content {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      width: 100%;
+      grid-row-start: 2;
+      grid-row-end: 3;
+      grid-column-start: 2;
+      grid-column-end: 3;
+      flex-direction: row;
+
+      &-container {
+        position: relative;
+      }
+    }
+
+    .arrow {
+      display: block;
+    }
   }
 
   .skeleton-card {
     height: 175px;
-  }
-
-  .arrow {
-    display: block;
-  }
-
-  .carousel-header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
-    justify-content: space-between; // Écarte les enfants */
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 1;
-    grid-row-end: 2;
-  }
-
-  .carousel-content-container {
-    position: relative;
-  }
-
-  .carousel-content {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    width: 100%;
-    grid-row-start: 2;
-    grid-row-end: 3;
-    grid-column-start: 2;
-    grid-column-end: 3;
-    flex-direction: row;
-  }
-
-  .card-wrapper {
-    min-width: calc(100% / 3); // Divise l'espace en trois parties égales
-    box-sizing: border-box;
-  }
-
-  .carousel-header-see-all-news {
-    &.mobile {
-      display: none;
-    }
-
-    &.computer {
-      display: unset;
-    }
   }
 }
 </style>
