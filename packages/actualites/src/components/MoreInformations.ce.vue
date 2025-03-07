@@ -27,37 +27,31 @@ const { t, d } = useI18n()
 </script>
 
 <template>
-  <div class="modal-container">
+  <div class="modal">
     <div class="modal-content">
       <div class="modal-content-edition">
-        <div class="modal-content-edition-by">
-          {{ t('text.creation-info.create-by') }}
-          <div :style="{ fontWeight: 'bold' }">
-            {{ capitalize(item.createdBy.displayName) }}
-          </div>
-        </div>
+        <div
+          class="modal-content-edition-by"
+          v-html="t('text.creation-info.create-by', { name: `<strong>${capitalize(item.createdBy.displayName)}</strong>` })"
+        />
         <div class="modal-content-edition-when">
           {{ t('text.creation-info.when', { date: d(item.createdDate, 'medium'), datetime: d(item.createdDate, 'datetime') }) }}
         </div>
       </div>
       <div class="modal-content-edition">
-        <div class="modal-content-edition-by">
-          {{ t('text.creation-info.update-by') }}
-          <div :style="{ fontWeight: 'bold' }">
-            {{ capitalize(item.lastModifiedBy.displayName) }}
-          </div>
-        </div>
+        <div
+          class="modal-content-edition-by"
+          v-html="t('text.creation-info.update-by', { name: `<strong>${capitalize(item.lastModifiedBy.displayName)}</strong>` })"
+        />
         <div class="modal-content-edition-when">
           {{ t('text.creation-info.when', { date: d(item.lastModifiedDate, 'medium'), datetime: d(item.lastModifiedDate, 'datetime') }) }}
         </div>
       </div>
       <div class="modal-content-edition">
-        <div class="modal-content-edition-by">
-          {{ t('text.creation-info.validate-by') }}
-          <div :style="{ fontWeight: 'bold' }">
-            {{ capitalize(item.validatedBy.displayName) }}
-          </div>
-        </div>
+        <div
+          class="modal-content-edition-by"
+          v-html="t('text.creation-info.validate-by', { name: `<strong>${capitalize(item.validatedBy.displayName)}</strong>` })"
+        />
         <div class="modal-content-edition-when">
           {{ t('text.creation-info.when', { date: d(item.validatedDate, 'medium'), datetime: d(item.validatedDate, 'datetime') }) }}
         </div>
@@ -69,43 +63,36 @@ const { t, d } = useI18n()
 <style lang="scss">
 @use '@/assets/global.scss' as *;
 
-.modal-container {
+.modal {
   height: auto;
   max-width: 400px;
-  padding: 0.5em;
-  padding-right: 2.5em;
-  border-radius: 10px 20px 10px 10px;
+  padding: 32px;
+  padding-right: 58px;
+  border-radius: 10px;
+  border-top-right-radius: 20px;
   background-color: white; // Couleur semi-transparente
-  display: grid;
-  grid-template-columns: auto 1fr;
   box-shadow: $shadow-strong rgba(0, 0, 0, 0.25);
   z-index: 100;
   align-items: center;
-}
 
-.modal-content {
-  color: black;
-  display: flex;
-  flex-direction: column;
-  font-family: $dm-sans;
-  font-size: 14px;
-  padding: 1.5em;
-  gap: 1em;
-}
+  &-content {
+    display: flex;
+    flex-direction: column;
+    font-family: $dm-sans;
+    font-size: 14px;
+    gap: 12px;
 
-.modal-content-edition {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3em;
-}
+    &-edition {
+      line-height: 24px;
 
-.modal-content-edition-by {
-  display: flex;
-  gap: 5px;
-  text-wrap: nowrap;
-}
+      &-by {
+        text-wrap: nowrap;
+      }
 
-.modal-content-edition-when {
-  font-size: 12px;
+      &-when {
+        font-size: 12px;
+      }
+    }
+  }
 }
 </style>
