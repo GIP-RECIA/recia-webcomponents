@@ -101,18 +101,14 @@ function openModal(uuid: string, codesRubriques: number[]) {
   itemIdOpenModal.value = uuid
   itemRubriquesOpenModal.value = getRubriques(codesRubriques)
   showModal.value = true
-  document.body.style.top = `-${window.scrollY}px`
-  document.body.style.position = 'fixed'
+  document.body.style.overflowY = 'hidden'
 }
 
 function closeModal() {
   updateReadingInfos()
   showModal.value = false
   openFullImage.value = false
-  const scrollY = document.body.style.top
-  document.body.style.position = ''
-  document.body.style.top = ''
-  window.scrollTo(0, Number.parseInt(scrollY || '0') * -1)
+  document.body.style.overflowY = ''
 }
 </script>
 
