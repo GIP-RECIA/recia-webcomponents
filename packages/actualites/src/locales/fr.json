@@ -12,7 +12,7 @@
   "text": {
     "creation-info": {
       "global": "Par {name}, le ",
-      "create-by": "Créé par ",
+      "create-by": "Créé par {name}",
       "update-by": "Mise à jour par {name}",
       "validate-by": "Validé par {name}",
       "when": "le {date} à {datetime}",

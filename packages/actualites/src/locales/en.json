@@ -12,9 +12,9 @@
   "text": {
     "creation-info": {
       "global": "By {name}, on ",
-      "create-by": "Created by ",
-      "update-by": "Updated by ",
-      "validate-by": "Validated by ",
+      "create-by": "Created by {name}",
+      "update-by": "Updated by {name}",
+      "validate-by": "Validated by {organization}",
       "when": "on {date} at {datetime}",
       "publish-by": "Published by {organization}",
       "more-info": "More information"
