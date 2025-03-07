@@ -56,17 +56,18 @@ const rubriques = computed<Array<Rubrique>>(() => {
 })
 
 onMounted(() => {
-  // Vérification initiale
   handleResize();
-
-  // Écoute les changements de taille d'écran
   window.addEventListener('resize', handleResize);
 });
 
 onUnmounted(() => {
-  // Nettoyage de l'écouteur d'événements
   window.removeEventListener('resize', handleResize);
 });
+
+function handleResize() {
+  isMenuFilterOpen.value = window.innerWidth > 1024
+  disableButton.value = window.innerWidth > 1024
+}
 
 function setSource(source: string) {
   currentSource.value = source
@@ -79,27 +80,23 @@ function setSource(source: string) {
   }
 
   currentSection.value.clear()
-  emit('updateModelValue', currentSource.value, currentSection.value) // Émet l'événement avec la nouvelle valeur
+  emit('updateModelValue', currentSource.value, currentSection.value)
 }
 
 function setSection(section: Rubrique) {
-
   if (section.uuid === '0') {
     currentSection.value.clear()
   } else {
-    currentSection.value.has(section.uuid) ? currentSection.value.delete(section.uuid) : currentSection.value.add(section.uuid)
+    currentSection.value.has(section.uuid)
+    ? currentSection.value.delete(section.uuid)
+    : currentSection.value.add(section.uuid)
   }
   filterCounter.value = 1 + currentSection.value.size
-  emit('updateModelValue', currentSource.value, currentSection.value) // Émet l'événement avec la nouvelle valeur
+  emit('updateModelValue', currentSource.value, currentSection.value)
 }
 
 function openMenuFilter() {
   isMenuFilterOpen.value = !isMenuFilterOpen.value
-}
-
-function handleResize() {
-  isMenuFilterOpen.value = window.innerWidth > 1024
-  disableButton.value = window.innerWidth > 1024
 }
 </script>
 
@@ -117,8 +114,7 @@ function handleResize() {
         </div>
 
         <div class="caret-button">
-          <FontAwesomeIcon class="caret" v-if="!isMenuFilterOpen" icon="fa-solid fa-caret-down" />
-          <FontAwesomeIcon class="caret" v-if="isMenuFilterOpen" icon="fa-solid fa-caret-up" />
+          <FontAwesomeIcon :icon="`fa-solid fa-caret-${ isMenuFilterOpen ? 'up' : 'down'}`" />
         </div>
       </button>
 
@@ -137,7 +133,7 @@ function handleResize() {
                     active: source === currentSource,
                     mobile: !disableButton
                    }"
-                  @click="setSource(source)"
+                  @click="setSource(source!)"
                 >
                   {{ source ?? t('text.filter.all-sources') }}
                 </button>
@@ -158,7 +154,9 @@ function handleResize() {
                 <button
                   class="filter-section-span"
                   :class="{
-                    active: currentSection.size === 0 ? section.name === t('text.filter.all-sections') : currentSection.has(section.uuid),
+                    active: currentSection.size === 0
+                      ? section.name === t('text.filter.all-sections')
+                      : currentSection.has(section.uuid),
                     mobile: !disableButton
                    }"
                   @click="setSection(section)"
@@ -166,7 +164,6 @@ function handleResize() {
                   {{ section.name }}
                 </button>
               </li>
-
             </ul>
           </div>
         </template>
@@ -186,136 +183,49 @@ function handleResize() {
   box-shadow: $shadow-neutral rgba(0, 0, 0, 0.1);
   border: none;
   border-radius: 10px;
-}
 
-.filter-section-container-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  border: none;
-  background-color: transparent;
-  padding: 1em;
-  align-items: center;
-
-  &:focus-visible {
-    outline: 4px solid $primary;
-    border-radius: 10px;
-  }
-}
-
-.filter-section-container-header-left {
-  display: inline-flex;
-  gap: 1em;
-  align-items: center;
-  align-content: center;
-}
-
-.filter-title {
-  font-family: $dm-sans;
-  font-size: 16px;
-  font-weight: 700;
-  padding: 3px 0px 0px 0px;
-}
-
-.filter-counter {
-  font-family: $dm-sans;
-  font-size: 14px;
-  font-weight: 700;
-  padding: 1px 10px 1px 10px;
-  border-radius: 20px;
-  color: $white;
-  background-color: $primary;
-}
-
-.caret-button {
-  border: none;
-  background-color: transparent;
-  padding-top: 1px;
-}
-
-.caret {
-  width: 12px;
-}
-
-.grid-container {
-  display: grid;
-  grid-template-rows: auto;
-}
-
-.separator {
-  width: 100%;
-  height: 1px;
-  background-color: #d9d9d9; // Gris clair
-  border: none;
-}
-
-.filter-section-title {
-  display: inline-flex;
-  text-wrap: nowrap;
-  font-family: $dm-sans;
-  font-size: 12px;
-  padding-top: 1em;
-  padding-left: 1em;
-}
-
-.filter-section {
-  display: flex;
-
-  > ul {
-    list-style: none;
-  }
-}
-
-.filter-section-span-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.7em;
-  padding: 1em;
-}
-
-.filter-section-span {
-  @extend %tag;
-
-  &.mobile:not(.active) {
-    background-color: $primary-05;
-    color: $primary;
-  }
-}
-
-@media only screen and (min-width: 1024px) {
-  .filter-section-container {
+  &-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: none;
     background-color: transparent;
-    box-shadow: none;
-    padding: 1em 0;
-    gap: 1em;
+    padding: 1em;
+    align-items: center;
+
+    &:focus-visible {
+      outline: 4px solid $primary;
+      border-radius: 10px;
+    }
+
+    &-left {
+      display: inline-flex;
+      gap: 1em;
+      align-items: center;
+      align-content: center;
+    }
   }
 
-  .filter-section-container-header {
-    padding: 0;
-  }
-
-  .filter-title.disabled {
-    color: $basic-black, 100%;
-  }
-
-  .caret-button {
-    display: none;
+  .filter-title {
+    font-family: $dm-sans;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 3px 0px 0px 0px;
   }
 
   .filter-counter {
-    display: none;
+    font-family: $dm-sans;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 1px 10px 1px 10px;
+    border-radius: 20px;
+    color: $white;
+    background-color: $primary;
   }
 
   .grid-container {
     display: grid;
-    grid-template-columns: auto 1fr;
-    padding: 0;
-    gap: 1em;
-  }
-
-  .sources {
-    padding: 0;
-    grid: inherit;
+    grid-template-rows: auto;
   }
 
   .separator {
@@ -323,21 +233,104 @@ function handleResize() {
     height: 1px;
     background-color: #d9d9d9; // Gris clair
     border: none;
-    grid-column: 1 / 3;
-  }
-
-  .filter-section-span-container {
-    padding: 0;
-  }
-
-  .filter-section-title {
-    padding: 0;
-    padding-top: 6px;
   }
 
   .filter-section {
-    padding: 0;
-    align-items: start;
+    display: flex;
+
+    > ul {
+      list-style: none;
+    }
+
+    &-title {
+      display: inline-flex;
+      text-wrap: nowrap;
+      font-family: $dm-sans;
+      font-size: 12px;
+      padding-top: 1em;
+      padding-left: 1em;
+    }
+
+    &-span {
+      @extend %tag;
+
+      &.mobile:not(.active) {
+        background-color: $primary-05;
+        color: $primary;
+      }
+
+      &-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.7em;
+        padding: 1em;
+      }
+    }
+  }
+
+  .caret-button {
+    border: none;
+    background-color: transparent;
+    padding-top: 1px;
+
+    > svg {
+      width: 12px;
+    }
+  }
+}
+
+@media only screen and (width > 1024px) {
+  .filter-section-container {
+    background-color: transparent;
+    box-shadow: none;
+    padding: 1em 0;
+    gap: 1em;
+
+    &-header {
+      padding: 0;
+    }
+
+    .filter-title.disabled {
+      color: $basic-black, 100%;
+    }
+
+    .filter-counter {
+      display: none;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      padding: 0;
+      gap: 1em;
+    }
+
+    .separator {
+      grid-column: 1 / 3;
+    }
+
+    .filter-section {
+      padding: 0;
+      align-items: start;
+
+      &-title {
+        padding: 0;
+        padding-top: 6px;
+      }
+
+      &-span-container {
+        padding: 0;
+      }
+    }
+
+    .caret-button {
+      display: none;
+    }
+
+    .sources {
+      padding: 0;
+      grid: inherit;
+    }
   }
 }
 </style>
