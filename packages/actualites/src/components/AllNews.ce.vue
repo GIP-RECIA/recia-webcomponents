@@ -40,8 +40,7 @@ const rubriques = ref<Array<number>>()
 const currentPage = ref<number | undefined>()
 const totalPages = ref()
 const readingState = ref<boolean | undefined>(undefined)
-const loading = ref(true) // État de chargement
-const bottomsheet = ref<HTMLElement>()
+const loading = ref(true)
 
 const { t } = i18n.global
 
@@ -52,15 +51,13 @@ onBeforeMount(async () => {
       const objectResult = await getNewsReadingInformations(props.getNewsReadingInformationsUrl)
       readingInfos.value = new Map(Object.entries(objectResult))
     }
-    // await getprops.userInfoApiUrlConfig(props.baseApiUrl)
-    result.value = await getPaginatedNews(props.getUserNewsUrl, currentPage.value > 1 ? currentPage.value : undefined, source.value ? source.value : undefined, (rubriques.value) ? rubriques.value : undefined, readingState.value)
-    currentPage.value = result.value?.pageIndex
-    totalPages.value = result.value?.totalPages
+    await fetchPaginatedNews()
   }
-  catch (e: any) {
+  catch (e) {
+    console.error(e)
   }
   finally {
-    loading.value = false // Fin du chargement
+    loading.value = false
   }
 })
 
@@ -86,9 +83,9 @@ async function fetchPaginatedNews() {
   try {
     result.value = await getPaginatedNews(
       props.getUserNewsUrl,
-      currentPage.value > 1 ? currentPage.value : undefined,
+      currentPage.value,
       source.value ? source.value : undefined,
-      (rubriques.value) ? rubriques.value : undefined,
+      rubriques.value ? rubriques.value : undefined,
       readingState.value,
     )
     totalPages.value = result.value?.totalPages || 1
@@ -104,29 +101,30 @@ async function updateReadingInfos() {
 }
 
 function getRubriques(codesRubriques: number[]) {
-  return result.value ? result.value.actualite.rubriques.filter(r => codesRubriques.includes(Number(r.uuid))) : []
+  return result.value
+    ? result.value.actualite.rubriques.filter(r => codesRubriques.includes(Number(r.uuid)))
+    : []
 }
 
 function showItemDependsOnReadingState(item: ItemVO) {
   if (readingState.value !== undefined) {
-    if (readingState.value) {
+    if (readingState.value)
       return readingInfos.value?.has(item.uuid) && readingInfos.value?.get(item.uuid) === true
-    }
-    else {
+    else
       return !readingInfos.value?.has(item.uuid) || readingInfos.value?.get(item.uuid) === false
-    }
   }
   else {
     return true
   }
 }
-// État pour la modal
+
+// Modal
+
 const showModal = ref(false)
 const openFullImage = ref(false)
-const itemIdOpenModal = ref<string>()
+const itemIdOpenModal = ref<string>('')
 const itemRubriquesOpenModal = ref()
 
-// Méthodes
 function openModal(uuid: string, codesRubriques: number[]) {
   itemIdOpenModal.value = uuid
   itemRubriquesOpenModal.value = getRubriques(codesRubriques)
@@ -144,29 +142,27 @@ function closeModal() {
 
 <template>
   <i18n-host>
-    <div id="allNews" class="allNews-container">
+    <div id="allNews" class="allNews">
       <div class="allNews-header">
         <div class="allNews-header-title">
-          <a class="allNews-header-title-button" :href="backUrl" title="Retour à l'acceuil">
-            <img
-              class="allNews-header-title-button-icon"
-              src="/src/assets/svg/arrow_left.svg"
-              alt=""
-            >
+          <a
+            class="allNews-header-title-button"
+            :href="backUrl"
+            title="Retour à l'acceuil"
+          >
+            <img src="/src/assets/svg/arrow_left.svg" alt="">
           </a>
-          <h1 class="title-allNews">
-            {{ t('text.title.all-news') }}
-          </h1>
+          <h1>{{ t('text.title.all-news') }}</h1>
         </div>
 
-        <custom-toggle-switch
-          @read-status="handleToggleChange"
-        />
+        <custom-toggle-switch @read-status="handleToggleChange" />
       </div>
 
-      <div v-if="result" class="allNews-filter">
-        <news-filter-section :actualites="result.actualite" @update-model-value="handleFilterChange" />
-      </div>
+      <news-filter-section
+        v-if="result"
+        :actualites="result.actualite"
+        @update-model-value="handleFilterChange"
+      />
 
       <div v-if="loading" class="allNews-body">
         <div v-for="index in 10" :key="index" class="skeleton-card" />
@@ -174,99 +170,88 @@ function closeModal() {
 
       <div v-if="result && !loading" class="allNews-body">
         <template v-for="(item, index) in result.actualite?.items" :key="index">
-          <div v-if="showItemDependsOnReadingState(item)" class="card-wrapper">
-            <news-card
-              :base-url="baseUrl"
-              :item="item"
-              :page-origin="true"
-              :set-reading-url="setReadingUrl"
-              :get-item-by-id-url="props.getItemByIdUrl"
-              :is-read="readingInfos?.has(item.uuid) ? readingInfos?.get(item.uuid) : false"
-              @update-reading-infos="updateReadingInfos()"
-              @click="openModal(item.uuid, item.rubriques)"
-              @keydown.enter="openModal(item.uuid, item.rubriques)"
-            />
-          </div>
+          <news-card
+            v-if="showItemDependsOnReadingState(item)"
+            :base-url="baseUrl"
+            :item="item"
+            :page-origin="true"
+            :set-reading-url="setReadingUrl"
+            :get-item-by-id-url="props.getItemByIdUrl"
+            :is-read="readingInfos?.has(item.uuid) ? readingInfos?.get(item.uuid) : false"
+            @update-reading-infos="updateReadingInfos()"
+            @click="openModal(item.uuid, item.rubriques)"
+            @keydown.enter="openModal(item.uuid, item.rubriques)"
+          />
         </template>
       </div>
 
-      <div v-if="result && result.totalItems > 10" class="allNews-footer">
-        <page-selector
-          :current-pagee="currentPage"
-          :total-pages="totalPages"
-          :max-visible-pages="5"
-          @update-model-value="handlePageChange"
-        />
-      </div>
-    </div>
-
-    <div v-if="showModal" class="open-modal" :class="{ active: showModal }">
-      <bottom-sheet
-        ref="bottomsheet"
-        :is-read="readingInfos?.has(itemIdOpenModal) ? readingInfos?.get(itemIdOpenModal) : false"
-        :item-id="itemIdOpenModal"
-        :rubriques="itemRubriquesOpenModal"
-        :set-reading-url="setReadingUrl"
-        :get-item-by-id-url="getItemByIdUrl"
-        :base-url="baseUrl"
-        @close-modal="closeModal"
+      <page-selector
+        v-if="result && result.totalItems > 10"
+        :current-pagee="currentPage"
+        :total-pages="totalPages"
+        :max-visible-pages="5"
+        @update-model-value="handlePageChange"
       />
     </div>
+
+    <bottom-sheet
+      v-if="showModal"
+      :is-read="readingInfos?.has(itemIdOpenModal) ? readingInfos?.get(itemIdOpenModal) : false"
+      :item-id="itemIdOpenModal"
+      :rubriques="itemRubriquesOpenModal"
+      :set-reading-url="setReadingUrl"
+      :get-item-by-id-url="getItemByIdUrl"
+      :base-url="baseUrl"
+      @close-modal="closeModal"
+    />
   </i18n-host>
 </template>
 
 <style lang="scss">
 @use '@/assets/global.scss' as *;
 
-.allNews-container {
+.allNews {
   display: flex;
   flex-direction: column;
   gap: 1.5em;
   justify-items: center;
+
+  &-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+
+    &-title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1em;
+      padding-top: 1em;
+      padding-bottom: 1em;
+
+      &-button {
+        @extend %button-tertiary-circle;
+      }
+    }
+  }
+
+  &-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
 }
 
-.allNews-header {
+page-selector {
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  justify-items: center;
+  padding: 2em;
 }
 
 custom-toggle-switch {
   display: inline-flex;
   justify-content: center;
-}
-
-.allNews-header-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1em;
-  padding-top: 1em;
-  padding-bottom: 1em;
-}
-
-.allNews-header-title-button {
-  @extend %button-tertiary-circle;
-}
-
-.title-allNews {
-  color: $basic-black;
-  font-size: 24px;
-  font-family: $sora;
-  font-weight: 700;
-}
-
-.allNews-body {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-}
-
-.allNews-footer {
-  display: flex;
-  justify-content: center;
-  padding: 2em;
 }
 
 .skeleton-card {
@@ -289,23 +274,22 @@ custom-toggle-switch {
   }
 }
 
-@media only screen and (min-width: 1024px) {
-  .allNews-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 0;
-  }
+@media only screen and (width > 1024px) {
+  .allNews {
+    &-header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0;
+    }
 
-  .allNews-body {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5em;
-    margin-top: 2em;
-  }
-
-  .card-wrapper {
+    &-body {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5em;
+      margin-top: 2em;
+    }
   }
 
   .skeleton-card {
