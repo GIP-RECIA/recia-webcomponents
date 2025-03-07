@@ -36,9 +36,9 @@ const { t, d } = useI18n()
       <img class="image" :src="baseUrl.concat(item.article.enclosure)" alt="">
     </div>
     <div class="article-wrapper">
-      <p v-if="!pageOrigin" class="source">
+      <span v-if="!pageOrigin" class="source">
         {{ item.source }}
-      </p>
+      </span>
 
       <p v-if="pageOrigin" class="infos">
         <span>{{ d(item.pubDate, 'short') }}</span>
@@ -53,9 +53,9 @@ const { t, d } = useI18n()
       <p class="card-body-description">
         {{ item.article.description }}
       </p>
-      <p v-if="pageOrigin" class="source all">
+      <span v-if="pageOrigin" class="source all">
         {{ item.source }}
-      </p>
+      </span>
     </div>
   </article>
 </template>
@@ -107,7 +107,7 @@ article {
     justify-content: center;
 
     .image {
-      height: 100%; // Remplit complètement la div
+      height: 100%;
       object-fit: cover;
       transform-origin: center;
       transition: transform 0.15s ease-out;
@@ -121,7 +121,7 @@ article {
     padding: 16px;
     gap: 0.3em;
 
-    .article-wrapper-lecture {
+    &-lecture {
       font-style: italic;
     }
 
@@ -141,7 +141,6 @@ article {
     }
 
     .infos {
-      flex-shrzink: 0;
       display: flex;
       font-family: $dm-sans;
       color: $basic-black;
@@ -178,7 +177,7 @@ article {
   }
 }
 
-@media only screen and (min-width: 1024px) {
+@media only screen and (width > 1024px) {
   article {
     &:not(.pageOrigin) {
       height: 175px;
