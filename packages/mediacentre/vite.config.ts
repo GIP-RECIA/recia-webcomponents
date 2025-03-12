@@ -37,6 +37,7 @@ export default ({ mode }: { mode: string }) => {
               'info-modal',
               'liste-ressources',
               'mediacentre-ui',
+              'mediacentre-redirect',
               'menu-mediacentre',
             ].includes(tag),
           },
@@ -58,8 +59,17 @@ export default ({ mode }: { mode: string }) => {
     },
     build: {
       lib: {
-        entry: './src/main.ts',
-        name: pkg.name,
+        entry: {
+          'mediacentre-ui': './src/main-ui.ts',
+          'mediacentre-redirect': './src/main-redirect.ts',
+        },
+        formats: ['es'],
+      },
+      rollupOptions: {
+        output: {
+          entryFileNames: '[name].js',
+          chunkFileNames: 'mediacentre-[name].js',
+        },
       },
     },
     server: {
