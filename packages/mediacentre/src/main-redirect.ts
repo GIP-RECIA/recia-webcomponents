@@ -14,19 +14,12 @@
  * limitations under the License.
  */
 
-import App from '@/AppDev.vue'
-import { registerDev as registerCustomElements } from '@/ce'
-import { register as registerFontAwsome } from '@/plugins/fontawesome'
+import App from '@/AppRedirect.vue'
+import { registerRedirect as registerCustomElements } from '@/ce'
 import i18n from '@/plugins/i18n'
 import { createApp } from 'vue'
 import 'regenerator-runtime/runtime.js'
-import '@gip-recia/info-modal'
 
 const app = createApp(App)
-
 registerCustomElements()
-registerFontAwsome()
-
 app.use(i18n)
-
-app.mount('#app')

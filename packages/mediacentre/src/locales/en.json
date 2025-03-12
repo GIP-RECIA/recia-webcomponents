@@ -1,8 +1,7 @@
 {
   "page-mediacentre": {
     "help": "Help",
-    "redirect-failed": "The resource you try to reach isn't available!\nEither your school did not the required configurations, or your school doesn't use this service.\nTo know more, please contact an administrator.",
-    "self-redirect": "You can go back to the Médiacentre by clicking <a href=\"{url}\">here</a>."
+    "redirect-failed": "The resource you try to reach isn't available!\nEither your school did not the required configurations, or your school doesn't use this service.\nTo know more, please contact an administrator."
   },
   "liste-ressources-mediacentre": {
     "no-resources": "You don't have any resources.",
