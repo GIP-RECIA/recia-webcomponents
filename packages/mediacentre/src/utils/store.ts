@@ -23,6 +23,5 @@ const etablissementsData = ref<EtablissementsData>(new EtablissementsData())
 const displayedEtablissementUai = ref<string>('')
 const filtre = ref<string>('tout')
 const gestionAffectations = ref<Array<GestionAffectation>>([])
-const mustRedirect = ref<boolean>(false)
 
-export { displayedEtablissementUai, etablissementsData, etablissementsMap, filtre, gestionAffectations, mustRedirect }
+export { displayedEtablissementUai, etablissementsData, etablissementsMap, filtre, gestionAffectations }

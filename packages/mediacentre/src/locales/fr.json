@@ -1,8 +1,7 @@
 {
   "page-mediacentre": {
     "help": "Aide",
-    "redirect-failed": "La ressource à laquelle vous souhaitez accéder n'est pas disponible ! \nSoit votre établissement n'a pas réalisé les configurations nécessaires, soit votre établissement n'utilise pas ce service. \nPour en savoir plus veuillez contacter un administrateur.",
-    "self-redirect": "Vous pouvez retourner au Médiacentre en cliquant <a href=\"{url}\">ici</a>."
+    "redirect-failed": "La ressource à laquelle vous souhaitez accéder n'est pas disponible ! \nSoit votre établissement n'a pas réalisé les configurations nécessaires, soit votre établissement n'utilise pas ce service. \nPour en savoir plus veuillez contacter un administrateur."
   },
   "liste-ressources-mediacentre": {
     "no-resources": "Vous n'avez aucune ressource.",

@@ -38,6 +38,7 @@ export default ({ mode }: ConfigEnv) => {
               'info-modal',
               'liste-ressources',
               'mediacentre-ui',
+              'mediacentre-redirect',
               'menu-mediacentre',
             ].includes(tag),
           },

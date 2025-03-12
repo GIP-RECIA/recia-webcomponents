@@ -26,10 +26,10 @@ import { initToken } from '@/utils/axiosUtils'
 import { CustomError } from '@/utils/CustomError'
 import { EtablissementsData } from '@/utils/EtablissementsData'
 import { soffit } from '@/utils/soffitUtils'
-import { displayedEtablissementUai, etablissementsData, filtre, gestionAffectations, mustRedirect } from '@/utils/store'
+import { displayedEtablissementUai, etablissementsData, filtre, gestionAffectations } from '@/utils/store'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { computed, onMounted, ref, watch } from 'vue'
-import { getConfig, getFavorites, getFilters, getGestionAffectations, getResourceById, getResources, putFavorites } from '../services/ServiceMediacentre'
+import { getConfig, getFavorites, getFilters, getGestionAffectations, getResources, putFavorites } from '../services/ServiceMediacentre'
 
 defineOptions({ name: 'PageMedia' })
 
@@ -64,8 +64,6 @@ const props = withDefaults(
   },
 )
 
-const wantedToRedirectButNoResourceFound = ref<boolean>(false)
-const urlMediacentre = ref<string>('')
 const filtres = ref<Array<Filtres>>([])
 const resources = ref<Array<Ressource>>([])
 const resourcesForSelectedEtab = ref<Array<Ressource>>([])
@@ -107,17 +105,7 @@ onMounted(async (): Promise<void> => {
   try {
     chargementApp.value = true
     await initToken(props.userInfoApiUrl)
-
-    // evaluate redirection to adapt display to redirection mode before an exeception can be returned from the api
-    checkIfMustRedirect()
-
     await getConfig(props.configApiUrl)
-
-    // redirect after getting config from the api
-    if (mustRedirect.value) {
-      await redirect()
-      return
-    }
     await updateRessources()
     await updateGestionValue()
     await setFavoris()
@@ -132,135 +120,6 @@ onMounted(async (): Promise<void> => {
     chargementApp.value = false
   }
 })
-
-function checkIfMustRedirect() {
-  const splittedUrl: string[] = window.location.href.split('?')
-
-  if (splittedUrl.length === 2) {
-    if (splittedUrl[1].toLowerCase().includes('redirect')) {
-      const splittedParams: string[] = splittedUrl[1].split('&')
-      for (const param of splittedParams) {
-        if (param.toLowerCase().includes('redirect')) {
-          const redirectValue = param.split('=')
-          if (redirectValue.length === 2) {
-            if (redirectValue[1].length > 0) {
-              mustRedirect.value = true
-            }
-          }
-        }
-      }
-    }
-  }
-
-  // const redirectionRegex = new RegExp(props.redirectionRegex)
-  // const redirectionRegexResults: RegExpExecArray | null = redirectionRegex.exec(window.location.href)
-  // mustRedirect.value = redirectionRegexResults !== null
-}
-
-async function redirect(): Promise<void> {
-  const splittedUrl: string[] = window.location.href.split('?')
-
-  if (splittedUrl.length === 2) {
-    if (splittedUrl[1].toLowerCase().includes('redirect')) {
-      mustRedirect.value = true
-    }
-  }
-
-  const splittedParams: string[] = splittedUrl[1].split('&')
-
-  let base64: boolean = false
-  let ressourceId: string = ''
-
-  for (const param of splittedParams) {
-    if (param.toLowerCase().includes('base64')) {
-      base64 = true
-
-      const splittedBase64Param = param.split('=')
-
-      if (splittedBase64Param.length === 2) {
-        if (splittedBase64Param[1] === 'false') {
-          base64 = false
-        }
-      }
-    }
-    else if (param.toLowerCase().includes('redirect')) {
-      const splittedRedirectParam = param.split('=')
-      if (splittedRedirectParam.length === 2) {
-        ressourceId = splittedRedirectParam[1]
-      }
-    }
-  }
-
-  try {
-    let res: Ressource | undefined
-    await getResourceToRedirectTo(ressourceId, base64)
-      .then((data) => {
-        res = data
-      })
-
-      .catch((e: any) => {
-        console.error(e.statusCode)
-        wantedToRedirectButNoResourceFound.value = true
-      })
-
-    if (wantedToRedirectButNoResourceFound.value) {
-      urlMediacentre.value = window.location.href.split('?')[0]
-      return
-    }
-
-    if (res === undefined) {
-      return
-    }
-    window.location.replace(res.urlAccesRessource)
-  }
-  catch (e: any) {
-    console.error(e)
-  }
-
-  // // re - evaluate url with regex to not handle nullability of variable transmited from checkIfMustRedirect
-  // const redirectionRegex = new RegExp(props.redirectionRegex)
-  // const redirectionRegexResults: RegExpExecArray | null = redirectionRegex.exec(window.location.href)
-
-  // if (redirectionRegexResults !== null) {
-  //   try {
-  //     // mustRedirect.value = true
-  //     const resourceId: string = redirectionRegexResults[1]
-  //     let isBase64: boolean = false
-
-  //     if (redirectionRegexResults[2] !== undefined) {
-  //       const base64Value = redirectionRegexResults[2]
-  //       if (base64Value !== 'false') {
-  //         isBase64 = true
-  //       }
-  //     }
-
-  //     let res: Ressource | undefined
-  //     await getResourceToRedirectTo(resourceId, isBase64)
-  //       .then((data) => {
-  //         res = data
-  //       })
-
-  //       .catch((e: any) => {
-  //         console.error(e.statusCode)
-  //         wantedToRedirectButNoResourceFound.value = true
-  //       })
-
-  //     if (wantedToRedirectButNoResourceFound.value) {
-  //       urlMediacentre.value = window.location.href.split('?')[0]
-
-  //       return
-  //     }
-
-  //     if (res === undefined) {
-  //       return
-  //     }
-  //     window.location.replace(res.urlAccesRessource)
-  //   }
-  //   catch (e: any) {
-  //     console.error(e)
-  //   }
-  // }
-}
 
 function getAllEtabUai(): string[] | undefined {
   if (soffit.value === undefined) {
@@ -333,20 +192,6 @@ async function updateRessources(): Promise<void> {
     const res = reponse
 
     resources.value = res.map(createResourceFromJson)
-  }
-  catch (e: any) {
-    throw new CustomError(e.message, e.statusCode)
-  }
-  finally {
-    chargement.value = false
-  }
-}
-
-async function getResourceToRedirectTo(resourceId: string, isBase64: boolean): Promise<Ressource> {
-  chargement.value = true
-  try {
-    const reponse = await getResourceById(`${props.baseApiUrl}/${resourceId}?base64=${isBase64}`, props.userRightsApiUrl)
-    return createResourceFromJson(reponse)
   }
   catch (e: any) {
     throw new CustomError(e.message, e.statusCode)
@@ -534,13 +379,13 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
       </div>
     </div>
     <div v-else class="cadre-page-mediacentre">
-      <aside v-if="mustRedirect === false" class="aside-page-mediacentre">
+      <aside class="aside-page-mediacentre">
         <menu-mediacentre class="menu-mediacentre" :filtres="filtres" :checked="filtre" @update-checked="updateFiltre" @open-gestion-modal="openGestionModal" />
       </aside>
       <div class="main-page-wrapper">
         <main class="main-page-mediacentre">
           <liste-ressources
-            v-if="!chargement && mustRedirect === false"
+            v-if="!chargement"
             :filtre="filtre"
             :ressources="filteredResources"
             :chargement="chargement"
@@ -551,17 +396,8 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
             @update-favorite="updateFavori"
             @open-modal="openModal"
           />
-          <div v-else-if="wantedToRedirectButNoResourceFound">
-            <p class="preserve-breaks">
-              {{ t("page-mediacentre.redirect-failed") }}
-            </p>
-            <p v-html="t('page-mediacentre.self-redirect', { url: urlMediacentre })" />
-          </div>
-          <div v-else-if="erreur.length > 0">
-            <p>{{ erreur }}</p>
-          </div>
         </main>
-        <p v-if="mustRedirect === false" class="help">
+        <p class="help">
           <a :href="helpLocation" target="_blank" rel="noopener noreferrer">{{ t('page-mediacentre.help') }}</a>
         </p>
       </div>
