@@ -383,7 +383,7 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
         <menu-mediacentre class="menu-mediacentre" :filtres="filtres" :checked="filtre" @update-checked="updateFiltre" @open-gestion-modal="openGestionModal" />
       </aside>
       <div class="main-page-wrapper">
-        <main class="main-page-mediacentre">
+        <div class="main-page-mediacentre">
           <liste-ressources
             v-if="!chargement"
             :filtre="filtre"
@@ -396,7 +396,7 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
             @update-favorite="updateFavori"
             @open-modal="openModal"
           />
-        </main>
+        </div>
         <p class="help">
           <a :href="helpLocation" target="_blank" rel="noopener noreferrer">{{ t('page-mediacentre.help') }}</a>
         </p>
