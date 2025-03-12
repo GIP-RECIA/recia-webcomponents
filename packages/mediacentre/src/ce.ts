@@ -19,6 +19,7 @@ import I18nHostSFC from '@/components/I18nHost.ce.vue'
 import ListeRessourcesSFC from '@/components/ListeRessourcesMediacentre.ce.vue'
 import MenuMediacentreSFC from '@/components/MenuMediacentre.ce.vue'
 import PageMediacentreSFC from '@/components/PageMediacentre.ce.vue'
+import RedirectMediacentreSFC from '@/components/RedirectMediacentre.ce.vue'
 import { defineCustomElement } from 'vue'
 
 const CarteRessource = defineCustomElement(CarteRessourceSFC)
@@ -26,6 +27,7 @@ const I18nHost = defineCustomElement(I18nHostSFC)
 const ListeRessources = defineCustomElement(ListeRessourcesSFC)
 const Menu = defineCustomElement(MenuMediacentreSFC)
 const Page = defineCustomElement(PageMediacentreSFC)
+const Redirect = defineCustomElement(RedirectMediacentreSFC)
 
 declare module 'vue' {
   export interface GlobalComponents {
@@ -34,11 +36,12 @@ declare module 'vue' {
     ListeRessources: typeof ListeRessources
     Menu: typeof Menu
     Page: typeof Page
+    Redirect: typeof Redirect
   }
 }
 
 // https://fr.vuejs.org/guide/extras/web-components#tips-for-a-vue-custom-elements-library
-function register() {
+function registerUi() {
   customElements.define('carte-ressource', CarteRessource)
   customElements.define('i18n-host', I18nHost)
   customElements.define('liste-ressources', ListeRessources)
@@ -46,4 +49,18 @@ function register() {
   customElements.define('mediacentre-ui', Page)
 }
 
-export { CarteRessource, I18nHost, ListeRessources, Menu, Page, register }
+function registerRedirect() {
+  customElements.define('i18n-host', I18nHost)
+  customElements.define('mediacentre-redirect', Redirect)
+}
+
+function registerDev() {
+  customElements.define('carte-ressource', CarteRessource)
+  customElements.define('i18n-host', I18nHost)
+  customElements.define('liste-ressources', ListeRessources)
+  customElements.define('menu-mediacentre', Menu)
+  customElements.define('mediacentre-ui', Page)
+  customElements.define('mediacentre-redirect', Redirect)
+}
+
+export { CarteRessource, I18nHost, ListeRessources, Menu, Page, Redirect, registerDev, registerRedirect, registerUi }
