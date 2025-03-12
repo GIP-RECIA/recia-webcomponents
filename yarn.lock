@@ -15,7 +15,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@antfu/eslint-config@npm:^4.1.1, @antfu/eslint-config@npm:^4.10.1":
+"@antfu/eslint-config@npm:^4.10.1, @antfu/eslint-config@npm:^4.8.1":
   version: 4.10.1
   resolution: "@antfu/eslint-config@npm:4.10.1"
   dependencies:
@@ -1393,7 +1393,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@gip-recia/actualites@workspace:packages/actualites"
   dependencies:
-    "@antfu/eslint-config": "npm:^4.1.1"
+    "@antfu/eslint-config": "npm:^4.8.1"
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.2"
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.2"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
@@ -1406,22 +1406,22 @@ __metadata:
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^5.2.1"
     "@vue/tsconfig": "npm:^0.7.0"
-    axios: "npm:^1.7.9"
+    axios: "npm:^1.8.2"
     dotenv-checker: "npm:^1.1.7"
-    eslint: "npm:^9.19.0"
+    eslint: "npm:^9.22.0"
     eslint-plugin-format: "npm:^1.0.1"
     lint-staged: "npm:^15.4.3"
     lodash.debounce: "npm:^4.0.8"
     lodash.throttle: "npm:^4.1.1"
     npm-run-all2: "npm:^7.0.2"
     regenerator-runtime: "npm:^0.14.1"
-    sass: "npm:^1.83.4"
-    terser: "npm:^5.37.0"
-    typescript: "npm:^5.7.3"
-    vite: "npm:^6.0.9"
+    sass: "npm:^1.85.1"
+    terser: "npm:^5.39.0"
+    typescript: "npm:^5.8.2"
+    vite: "npm:^6.2.1"
     vue: "npm:^3.5.13"
-    vue-i18n: "npm:^11.1.0"
-    vue-tsc: "npm:^2.2.0"
+    vue-i18n: "npm:^11.1.2"
+    vue-tsc: "npm:^2.2.8"
   languageName: unknown
   linkType: soft
 
@@ -4402,7 +4402,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.7.9, axios@npm:^1.8.3":
+"axios@npm:^1.8.2, axios@npm:^1.8.3":
   version: 1.8.3
   resolution: "axios@npm:1.8.3"
   dependencies:
@@ -6400,7 +6400,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^9.19.0, eslint@npm:^9.22.0":
+"eslint@npm:^9.22.0":
   version: 9.22.0
   resolution: "eslint@npm:9.22.0"
   dependencies:
@@ -10498,7 +10498,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.83.4, sass@npm:^1.85.1":
+"sass@npm:^1.85.1":
   version: 1.85.1
   resolution: "sass@npm:1.85.1"
   dependencies:
@@ -11028,7 +11028,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"terser@npm:^5.37.0, terser@npm:^5.39.0":
+"terser@npm:^5.39.0":
   version: 5.39.0
   resolution: "terser@npm:5.39.0"
   dependencies:
@@ -11250,7 +11250,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.7.3, typescript@npm:^5.8.2":
+"typescript@npm:^5.8.2":
   version: 5.8.2
   resolution: "typescript@npm:5.8.2"
   bin:
@@ -11270,7 +11270,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.7.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.8.2#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A^5.8.2#optional!builtin<compat/typescript>":
   version: 5.8.2
   resolution: "typescript@patch:typescript@npm%3A5.8.2#optional!builtin<compat/typescript>::version=5.8.2&hash=5786d5"
   bin:
@@ -11523,7 +11523,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^6.0.9, vite@npm:^6.2.2":
+"vite@npm:^6.2.1, vite@npm:^6.2.2":
   version: 6.2.2
   resolution: "vite@npm:6.2.2"
   dependencies:
@@ -11664,7 +11664,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-i18n@npm:^11.1.0, vue-i18n@npm:^11.1.2":
+"vue-i18n@npm:^11.1.2":
   version: 11.1.2
   resolution: "vue-i18n@npm:11.1.2"
   dependencies:
@@ -11677,7 +11677,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-tsc@npm:^2.2.0, vue-tsc@npm:^2.2.8":
+"vue-tsc@npm:^2.2.8":
   version: 2.2.8
   resolution: "vue-tsc@npm:2.2.8"
   dependencies:
