@@ -13,9 +13,38 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const isRedirect = ref<boolean>(false)
+const isBase64 = ref<boolean>(false)
+const redirectArgument = ref<string>('')
+
+function swap(): void {
+  isRedirect.value = !isRedirect.value
+}
+</script>
 
 <template>
-  <mediacentre-ui id="mediacentre-ui" />
+  <div class="dev-only">
+    <button @click="swap">
+      Swap
+    </button>
+
+    <br>
+    <label v-show="isRedirect === false" for="redirectArgument">
+
+      Redirect value: <input id="redirectArgument" v-model="redirectArgument" name="redirectArgument" type="text">
+
+    </label>
+
+    <label v-show="isRedirect === false" for="isBase64"><br>
+
+      Is base 64: <input id="isBase64" :checked="isBase64" name="isBase64" type="checkbox"></label>
+  </div>
+
+  <mediacentre-redirect v-if="isRedirect" id="mediacentre-redirect" :resource-id="redirectArgument" />
+  <mediacentre-ui v-else id="mediacentre-ui" />
 </template>
 
 <style lang="scss">
@@ -33,6 +62,10 @@ body {
 #app {
   height: 100%;
   width: 100%;
+}
+
+.dev-only {
+  border: solid red 2px;
 }
 
 mediacentre-ui {
