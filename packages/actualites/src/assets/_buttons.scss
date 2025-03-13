@@ -1,0 +1,191 @@
+/**
+ * Copyright (C) 2023 GIP-RECIA, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@use 'variables' as *;
+
+%tag-and-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 8px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 50px;
+  text-decoration: none;
+  color: unset;
+}
+
+%disabled {
+  opacity: 0.33;
+  pointer-events: none;
+}
+
+%tag {
+  @extend %tag-and-button;
+  padding: 8px 16px;
+  font-family: $dm-sans;
+  font-weight: 500;
+  font-size: 14px;
+
+  &.active {
+    background-color: $basic-black;
+    color: white;
+
+    &:hover {
+      background-color: $primary;
+    }
+
+    &:focus-visible {
+      background-color: $primary;
+      color: $white;
+      outline: 3px solid $primary-20;
+    }
+  }
+
+  &:not(.active) {
+    &:hover {
+      background-color: $primary-05;
+      color: $primary;
+    }
+
+    &:focus-visible {
+      background-color: $primary-05;
+      color: $primary;
+      outline: 3px solid $primary;
+    }
+  }
+
+  &:disabled,
+  &.disabled {
+    opacity: 0.33;
+    pointer-events: none;
+  }
+}
+
+%tag-circle {
+  @extend %tag;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  padding: 8px;
+}
+
+%tag-small {
+  @extend %tag;
+  padding: 4px 12px;
+}
+
+%tag-small-circle {
+  @extend %tag;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  padding: 4px;
+}
+
+%button {
+  @extend %tag-and-button;
+  padding: 12px 24px;
+  font-family: $sora;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+%button-primary {
+  @extend %button;
+  background-color: $basic-black;
+  color: $white;
+
+  &:hover {
+    background-color: $primary;
+  }
+
+  &:focus-visible {
+    background-color: $primary;
+    outline: 4px solid $primary-20;
+  }
+
+  &:disabled,
+  &.disabled {
+    @extend %disabled;
+  }
+}
+
+%button-primary-circle {
+  @extend %button-primary;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  padding: 12px;
+}
+
+%button-secondary {
+  @extend %button;
+  background-color: $basic-grey;
+  color: $basic-black;
+
+  &:hover {
+    background-color: $secondary-hover;
+    color: $primary;
+  }
+
+  &:focus-visible {
+    background-color: $secondary-hover;
+    color: $primary;
+    outline: 4px solid $primary;
+  }
+
+  &:disabled,
+  &.disabled {
+    @extend %disabled;
+  }
+}
+
+%button-tertiary {
+  @extend %button;
+  padding: 8px 16px;
+  font-family: $dm-sans;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 17px;
+  color: $basic-black;
+
+  &:hover {
+    color: $primary;
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    color: $primary;
+    text-decoration: underline;
+    outline: 4px solid $primary;
+  }
+
+  &:disabled,
+  &.disabled {
+    @extend %disabled;
+  }
+}
+
+%button-tertiary-circle {
+  @extend %button-tertiary;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  padding: 8px;
+}

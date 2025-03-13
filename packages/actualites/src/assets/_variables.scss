@@ -1,0 +1,68 @@
+/**
+ * Copyright (C) 2023 GIP-RECIA, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+$prefix: recia-;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+);
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px,
+);
+
+$font-size-breakpoints: (
+  xxs: 0.625,
+  xs: 0.75,
+  sm: 0.875,
+  md: 1,
+  lg: 1.125,
+  xl: 1.25,
+  xxl: 1.5,
+);
+
+$base-font-size: 16px; // 1rem
+
+$sora: 'Sora', 'sans-serif';
+$dm-sans: 'DM Sans', 'sans-serif';
+
+$white: var(--#{$prefix}white, #fff);
+$stroke: var(--#{$prefix}stroke, #e9e9e9);
+$basic-grey: var(--#{$prefix}basic-grey, #f4f4f4);
+$basic-black: var(--#{$prefix}basic-black, #1e1e1e);
+$lighter-black: var(--#{$prefix}lighter-black, #2c2c2c);
+
+$primary: var(--#{$prefix}primary, #0062bc);
+$primary-pressed: var(--#{$prefix}primary-pressed, #004584);
+$secondary-hover: var(--#{$prefix}secondary-hover, #e6eff8);
+$secondary-pressed: var(--#{$prefix}secondary-pressed, #cce0f2);
+
+$primary-20: var(--#{$prefix}primary-20, rgba(#0062bc, 0.2));
+$primary-05: rgba(from $primary r g b / 0.05);
+
+$shadow-neutral: var(--#{$prefix}shadow-neutral, 0 4px 15.9px 0);
+$shadow-strong: var(--#{$prefix}shadow-strong, 0 4px 24.4px 0);
+$shadow-hover: var(--#{$prefix}shadow-hover, 0 4px 26px 0);
+$shadow-low-elevation: var(--#{$prefix}shadow-low-elevation, 0 2px 6px 0);

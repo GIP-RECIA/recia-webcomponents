@@ -1,0 +1,43 @@
+{
+  "button": {
+    "mark-as-not-read": "Mark as unread",
+    "mark-as-read": "Mark as read",
+    "close": "Close"
+  },
+  "switch": {
+    "all": "All",
+    "read": "Read",
+    "not-read": "Unread"
+  },
+  "text": {
+    "no-news": "No news",
+    "creation-info": {
+      "global": "By {name}, on ",
+      "create": "@:text.creation-info.create-by \n @:text.creation-info.when",
+      "update": "@:text.creation-info.update-by \n @:text.creation-info.when",
+      "validate": "@:text.creation-info.validate-by \n @:text.creation-info.when",
+      "create-by": "Created by {name}",
+      "update-by": "Updated by {name}",
+      "validate-by": "Validated by {name}",
+      "when": "on {date} at {datetime}",
+      "publish-by": "Published by {organization}",
+      "more-info": "More information"
+    },
+    "normal": {
+      "see-all-news": "see all the news",
+      "read": "read",
+      "not-read": "unread"
+    },
+    "title": {
+      "news": "News",
+      "all-news": "All the news",
+      "filters": "Filters"
+    },
+    "filter": {
+      "all-sources": "All sources",
+      "all-sections": "All categories",
+      "by-sources": "By sources :",
+      "by-sections": "By categories :"
+    }
+  }
+}

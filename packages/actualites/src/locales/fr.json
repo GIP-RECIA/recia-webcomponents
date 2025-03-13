@@ -1,0 +1,43 @@
+{
+  "button": {
+    "mark-as-not-read": "Marquer comme non lu",
+    "mark-as-read": "Marquer comme lu",
+    "close": "Fermer"
+  },
+  "switch": {
+    "all": "Toutes",
+    "read": "Lues",
+    "not-read": "Non lues"
+  },
+  "text": {
+    "no-news": "Aucune actualité",
+    "creation-info": {
+      "global": "Par {name}, le ",
+      "create": "@:text.creation-info.create-by \n @:text.creation-info.when",
+      "update": "@:text.creation-info.update-by \n @:text.creation-info.when",
+      "validate": "@:text.creation-info.validate-by \n @:text.creation-info.when",
+      "create-by": "Créé par {name}",
+      "update-by": "Mise à jour par {name}",
+      "validate-by": "Validé par {name}",
+      "when": "le {date} à {datetime}",
+      "publish-by": "Publié par {organization}",
+      "more-info": "Plus d'informations"
+    },
+    "normal": {
+      "see-all-news": "voir toutes les actualités",
+      "read": "lu",
+      "not-read": "non lu"
+    },
+    "title": {
+      "news": "Actualités",
+      "all-news": "Toutes les actualités",
+      "filters": "Filtres"
+    },
+    "filter": {
+      "all-sources": "Toutes les sources",
+      "all-sections": "Toutes les rubriques",
+      "by-sources": "Par sources :",
+      "by-sections": "Par rubriques :"
+    }
+  }
+}
