@@ -19,7 +19,6 @@ import type { PaginatedResult } from '@/types/PaginatedResult.ts'
 import i18n from '@/plugins/i18n.ts'
 import { getNewsReadingInformations, getPaginatedNews } from '@/services/NewsService.ts'
 import { initToken, instance } from '@/utils/axiosUtils.ts'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { computed, onMounted, ref } from 'vue'
 
 const props = defineProps<{
@@ -117,7 +116,7 @@ function closeModal() {
         <div class="carousel-header-see-all-news computer">
           <a class="carousel-header-see-all-news-button" :href="allNewsPageUrl">
             {{ t('text.normal.see-all-news') }}
-            <FontAwesomeIcon :icon="['fas', 'arrow-right']" />
+            <font-awesome-icon icon="fa-solid fa-arrow-right" />
           </a>
         </div>
       </div>
@@ -129,7 +128,7 @@ function closeModal() {
       <div v-if="result?.actualite?.items && !loading" class="carousel-content-container">
         <div v-show="visibleItems.length > 0" class="arrow left">
           <button :disabled="currentIndex === 0" @click="prev">
-            <FontAwesomeIcon :icon="['fas', 'arrow-left']" />
+            <font-awesome-icon icon="fa-solid fa-arrow-left" />
           </button>
         </div>
 
@@ -152,7 +151,7 @@ function closeModal() {
 
         <div v-show="visibleItems.length > 0" class="arrow right">
           <button :disabled="currentIndex >= result?.actualite?.items?.length - 3" @click="next">
-            <FontAwesomeIcon :icon="['fas', 'arrow-right']" />
+            <font-awesome-icon icon="fa-solid fa-arrow-right" />
           </button>
         </div>
       </div>
@@ -160,7 +159,7 @@ function closeModal() {
       <div class="carousel-header-see-all-news mobile">
         <a class="carousel-header-see-all-news-button" :href="allNewsPageUrl">
           {{ t('text.normal.see-all-news') }}
-          <FontAwesomeIcon :icon="['fas', 'arrow-right']" />
+          <font-awesome-icon icon="fa-solid fa-arrow-right" />
         </a>
       </div>
     </div>

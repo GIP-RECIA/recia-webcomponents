@@ -17,6 +17,7 @@
 import AllNewsSFC from '@/components/AllNews.ce.vue'
 import BottomSheetCeSfc from '@/components/BottomSheet.ce.vue'
 import CustomToggleSwitchSFC from '@/components/CustonToggleSwitch.ce.vue'
+import FontAwesomeIconSFC from '@/components/FontAwsomeIcon.ce.vue'
 import I18nHostSFC from '@/components/I18nHost.ce.vue'
 import NewsCardSFC from '@/components/NewsCard.ce.vue'
 import CarrouselSFC from '@/components/NewsCarousel.ce.vue'
@@ -25,36 +26,39 @@ import PageSelectorSFC from '@/components/PageSelector.ce.vue'
 import { defineCustomElement } from 'vue'
 
 const I18nHost = defineCustomElement(I18nHostSFC)
-const NewsCard = defineCustomElement(NewsCardSFC)
-const Carrousel = defineCustomElement(CarrouselSFC)
+const FontAwesomeIcon = defineCustomElement(FontAwesomeIconSFC)
 const AllNews = defineCustomElement(AllNewsSFC)
+const BottomSheet = defineCustomElement(BottomSheetCeSfc)
+const Carrousel = defineCustomElement(CarrouselSFC)
 const CustomToggleSwitch = defineCustomElement(CustomToggleSwitchSFC)
+const NewsCard = defineCustomElement(NewsCardSFC)
 const NewsFilterSection = defineCustomElement(NewsFilterSectionSFC)
 const PageSelector = defineCustomElement(PageSelectorSFC)
-const BottomSheet = defineCustomElement(BottomSheetCeSfc)
 
 declare module 'vue' {
   export interface GlobalComponents {
     I18nHost: typeof I18nHost
-    NewsCard: typeof NewsCard
-    Carrousel: typeof Carrousel
+    FontAwesomeIcon: typeof FontAwesomeIcon
     AllNews: typeof AllNews
+    Bottomsheet: typeof BottomSheet
+    Carrousel: typeof Carrousel
     CustomToggleSwitch: typeof CustomToggleSwitch
+    NewsCard: typeof NewsCard
     NewsFilterSection: typeof NewsFilterSection
     PageSelector: typeof PageSelector
-    BottomsheetMobile: typeof BottomSheet
   }
 }
 
 function register() {
   customElements.define('i18n-host', I18nHost)
-  customElements.define('carrousel-ui', Carrousel)
+  customElements.define('font-awesome-icon', FontAwesomeIcon)
   customElements.define('all-news', AllNews)
+  customElements.define('bottom-sheet', BottomSheet)
+  customElements.define('carrousel-ui', Carrousel)
   customElements.define('custom-toggle-switch', CustomToggleSwitch)
   customElements.define('news-card', NewsCard)
   customElements.define('news-filter-section', NewsFilterSection)
   customElements.define('page-selector', PageSelector)
-  customElements.define('bottom-sheet', BottomSheet)
 }
 
 export {
@@ -62,6 +66,7 @@ export {
   BottomSheet,
   Carrousel,
   CustomToggleSwitch,
+  FontAwesomeIcon,
   I18nHost,
   NewsCard,
   NewsFilterSection,

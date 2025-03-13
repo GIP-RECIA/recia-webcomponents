@@ -22,7 +22,6 @@ import i18n from '@/plugins/i18n.ts'
 import { getItemById, setReading } from '@/services/NewsService.ts'
 import { isLightColor } from '@/utils/ContrasteUtils.ts'
 import { isUserConnected } from '@/utils/soffitUtils.ts'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useWindowSize } from '@vueuse/core'
 import { capitalize, onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
@@ -230,7 +229,7 @@ onBeforeUnmount(() => {
 
           <div class="bottomsheet-content-header-close-btn">
             <button @click="closeModal">
-              <FontAwesomeIcon :icon="['fas', 'xmark']" />
+              <font-awesome-icon icon="fa-solid fa-xmark" />
             </button>
           </div>
 

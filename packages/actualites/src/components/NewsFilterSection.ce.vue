@@ -18,7 +18,6 @@
 import type { Rubrique } from '@/types/Rubrique.ts'
 import { computed, ref, onUnmounted, onMounted } from 'vue'
 import type { Actualite } from "@/types/Actualite.ts";
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps<{
@@ -114,7 +113,7 @@ function openMenuFilter() {
         </div>
 
         <div class="caret-button">
-          <FontAwesomeIcon :icon="`fa-solid fa-caret-${ isMenuFilterOpen ? 'up' : 'down'}`" />
+          <font-awesome-icon :icon="`fa-solid fa-caret-${ isMenuFilterOpen ? 'up' : 'down'}`" />
         </div>
       </button>
 

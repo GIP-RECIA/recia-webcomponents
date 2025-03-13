@@ -33,14 +33,14 @@ export default ({ mode }: { mode: string }) => {
           compilerOptions: {
             isCustomElement: tag => [
               'i18n-host',
-              'carrousel-ui',
-              'preview-ui',
+              'font-awesome-icon',
               'all-news',
+              'bottom-sheet',
+              'carrousel-ui',
               'custom-toggle-switch',
               'news-card',
               'news-filter-section',
               'page-selector',
-              'bottom-sheet',
             ].includes(tag),
           },
         },
