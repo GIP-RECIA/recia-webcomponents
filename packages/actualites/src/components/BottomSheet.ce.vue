@@ -79,7 +79,7 @@ onBeforeMount(async () => {
 })
 
 function fullImage() {
-  if (window.innerWidth < 720) {
+  if (window.innerWidth < 768) {
     isMobileFullImage.value = !isMobileFullImage.value
     if (isMobileFullImage.value) {
       bottomsheet.value!.style.overflow = 'visible'
@@ -96,7 +96,7 @@ function fullImage() {
 const { width } = useWindowSize()
 
 watch(width, () => {
-  if (width < '720') {
+  if (width < '768') {
     isDesktopFullImage.value = false
   }
   else {
@@ -810,7 +810,7 @@ onBeforeUnmount(() => {
   }
 }
 
-@media only screen and (width > 720px) {
+@media only screen and (width >= map.get($grid-breakpoints, md)) {
   .bottomsheet {
     &-container {
       overflow: hidden;
