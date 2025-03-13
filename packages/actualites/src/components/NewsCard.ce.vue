@@ -70,11 +70,13 @@ article {
   height: 138px;
   width: auto;
   flex-direction: row;
-  box-shadow: $shadow-neutral rgba(0, 0, 0, 0.06);
+  box-shadow: $shadow-neutral rgba(0, 0, 0, 0.1);
   cursor: pointer;
   overflow: hidden;
   transition:
     outline 0.15s ease-out,
+    box-shadow 0.15s ease-out,
+    background-color 0.15s ease-out,
     box-shadow 0.15s ease-out;
 
   h3 {
@@ -89,7 +91,16 @@ article {
   }
 
   &:not(.active) {
-    background-color: $stroke;
+    background-color: $basic-grey;
+    box-shadow: unset;
+
+    &:hover {
+      background-color: $white;
+
+      .card-img {
+        opacity: unset;
+      }
+    }
 
     .card-img {
       filter: saturate(0%);
@@ -105,6 +116,9 @@ article {
     overflow: hidden;
     position: relative;
     justify-content: center;
+    transition:
+      opacity 0.15s ease-out,
+      filter 0.15s ease-out;
 
     .image {
       height: 100%;
