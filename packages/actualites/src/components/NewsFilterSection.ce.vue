@@ -272,10 +272,6 @@ function openMenuFilter() {
     border: none;
     background-color: transparent;
     padding-top: 1px;
-
-    > svg {
-      width: 12px;
-    }
   }
 }
 

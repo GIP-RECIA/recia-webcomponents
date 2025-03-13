@@ -101,11 +101,6 @@ ul {
 
   > li > button {
     @extend %tag-circle;
-
-    > svg {
-      width: 14px;
-      height: 14px;
-    }
   }
 }
 </style>
