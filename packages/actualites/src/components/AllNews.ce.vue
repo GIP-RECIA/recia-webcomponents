@@ -237,7 +237,7 @@ function closeModal() {
 
       &-button {
         @extend %button-tertiary-circle;
-        font-size: 1rem;
+        font-size: 16px; // 1rem
       }
     }
   }
