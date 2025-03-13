@@ -14,13 +14,7 @@
  * limitations under the License.
  */
 
-import App from '@/App.vue'
 import { register as registerCustomElements } from '@/ce'
-import i18n from '@/plugins/i18n'
-import { createApp } from 'vue'
 import 'regenerator-runtime/runtime.js'
 
-const app = createApp(App)
 registerCustomElements()
-
-app.use(i18n)
