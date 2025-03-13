@@ -237,12 +237,12 @@ onBeforeUnmount(() => {
           <div class="bottomsheet-content-header">
             <div class="bottomsheet-container-background-desktop-image">
               <img
-                v-if="item && !loading"
+                v-if="item && item.enclosure !== null && !loading"
                 :src="baseUrl.concat(`/${item.enclosure}`)"
                 alt=""
               >
             </div>
-            <div class="bottomsheet-content-header-image-group">
+            <div v-show="item?.enclosure !== null || loading" class="bottomsheet-content-header-image-group">
               <div
                 ref="bottomsheetContentHeaderImageContainer"
                 tabindex="-1"
@@ -252,7 +252,7 @@ onBeforeUnmount(() => {
                 @keydown.enter="fullImage"
               >
                 <img
-                  v-if="item && !loading"
+                  v-if="item && item.enclosure !== null && !loading"
                   :src="baseUrl.concat(`/${item.enclosure}`)"
                   alt=""
                   class="bottomsheet-content-header-image-container-img"
