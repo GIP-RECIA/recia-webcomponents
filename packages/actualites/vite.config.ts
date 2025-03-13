@@ -40,7 +40,6 @@ export default ({ mode }: { mode: string }) => {
               'news-card',
               'news-filter-section',
               'page-selector',
-              'more-informations',
               'bottom-sheet',
             ].includes(tag),
           },

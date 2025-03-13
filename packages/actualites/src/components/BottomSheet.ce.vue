@@ -24,7 +24,7 @@ import { isLightColor } from '@/utils/ContrasteUtils.ts'
 import { isUserConnected } from '@/utils/soffitUtils.ts'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useWindowSize } from '@vueuse/core'
-import { onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { capitalize, onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 // Props
 const props = defineProps<{
@@ -308,11 +308,29 @@ onBeforeUnmount(() => {
                       <div class="arrow-down" />
                     </div>
                   </div>
-                  <more-informations
-                    v-if="showMoreInfosModal"
-                    class="modal-more-infos"
-                    :item="item"
-                  />
+                  <ul v-show="showMoreInfosModal" class="modal">
+                    <li
+                      v-html="t('text.creation-info.create', {
+                        name: `<strong>${capitalize(item.createdBy.displayName)}</strong>`,
+                        date: d(item.createdDate, 'medium'),
+                        datetime: d(item.createdDate, 'datetime'),
+                      })"
+                    />
+                    <li
+                      v-html="t('text.creation-info.update', {
+                        name: `<strong>${capitalize(item.lastModifiedBy.displayName)}</strong>`,
+                        date: d(item.lastModifiedDate, 'medium'),
+                        datetime: d(item.lastModifiedDate, 'datetime'),
+                      })"
+                    />
+                    <li
+                      v-html="t('text.creation-info.validate', {
+                        name: `<strong>${capitalize(item.validatedBy.displayName)}</strong>`,
+                        date: d(item.validatedDate, 'medium'),
+                        datetime: d(item.validatedDate, 'datetime'),
+                      })"
+                    />
+                  </ul>
                 </div>
               </div>
 
@@ -746,10 +764,34 @@ onBeforeUnmount(() => {
   }
 }
 
-.modal-more-infos {
-  position: absolute;
-  top: -0.4em;
-  right: -0.4em;
+.bottomsheet-content-header-informations-info-modal-container {
+  > .modal {
+    list-style: none;
+    text-wrap: nowrap;
+    white-space-collapse: preserve-breaks;
+    background-color: $white;
+    font-size: 14px;
+    line-height: 24px;
+    padding: 32px;
+    padding-right: 58px;
+    border-radius: 10px;
+    border-top-right-radius: 20px;
+    box-shadow: $shadow-strong rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+    position: absolute;
+    top: -9px;
+    right: -9px;
+    min-width: none;
+    @media screen and (width <= map.get($grid-breakpoints, sm)) {
+      max-width: calc(100vw - 46px);
+    }
+
+    > li {
+      opacity: 0.8;
+    }
+  }
 }
 
 @keyframes slide-up {

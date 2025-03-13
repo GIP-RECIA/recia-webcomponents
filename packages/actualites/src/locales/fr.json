@@ -12,6 +12,9 @@
   "text": {
     "creation-info": {
       "global": "Par {name}, le ",
+      "create": "@:text.creation-info.create-by \n @:text.creation-info.when",
+      "update": "@:text.creation-info.update-by \n @:text.creation-info.when",
+      "validate": "@:text.creation-info.validate-by \n @:text.creation-info.when",
       "create-by": "Créé par {name}",
       "update-by": "Mise à jour par {name}",
       "validate-by": "Validé par {name}",
