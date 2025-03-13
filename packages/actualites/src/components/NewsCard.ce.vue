@@ -32,7 +32,7 @@ const { t, d } = useI18n()
 
 <template>
   <article tabindex="0" :class="{ active: !isRead, pageOrigin }">
-    <div class="card-img">
+    <div v-show="item.article.enclosure !== null" class="card-img">
       <img class="image" :src="baseUrl.concat(item.article.enclosure)" alt="">
     </div>
     <div class="article-wrapper">
