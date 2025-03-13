@@ -10,6 +10,7 @@
     "not-read": "Unread"
   },
   "text": {
+    "no-news": "No news",
     "creation-info": {
       "global": "By {name}, on ",
       "create": "@:text.creation-info.create-by \n @:text.creation-info.when",
