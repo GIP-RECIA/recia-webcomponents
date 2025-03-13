@@ -129,14 +129,14 @@ function openModal(uuid: string, codesRubriques: number[]) {
   itemIdOpenModal.value = uuid
   itemRubriquesOpenModal.value = getRubriques(codesRubriques)
   showModal.value = true
-  document.body.style.overflowY = 'hidden'
+  document.documentElement.style.overflowY = 'hidden'
 }
 
 function closeModal() {
   updateReadingInfos()
   showModal.value = false
   openFullImage.value = false
-  document.body.style.overflowY = ''
+  document.documentElement.style.overflowY = ''
 }
 </script>
 
