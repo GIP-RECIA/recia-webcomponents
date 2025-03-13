@@ -654,11 +654,7 @@ onBeforeUnmount(() => {
 
         > button {
           @extend %button-tertiary-circle;
-
-          > svg {
-            height: 24px;
-            width: 24px;
-          }
+          font-size: 24px;
         }
       }
     }

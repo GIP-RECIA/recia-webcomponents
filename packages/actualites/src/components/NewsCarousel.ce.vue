@@ -117,7 +117,7 @@ function closeModal() {
         <div class="carousel-header-see-all-news computer">
           <a class="carousel-header-see-all-news-button" :href="allNewsPageUrl">
             {{ t('text.normal.see-all-news') }}
-            <i class="carousel-header-see-all-news-button-icon" />
+            <FontAwesomeIcon :icon="['fas', 'arrow-right']" />
           </a>
         </div>
       </div>
@@ -160,7 +160,7 @@ function closeModal() {
       <div class="carousel-header-see-all-news mobile">
         <a class="carousel-header-see-all-news-button" :href="allNewsPageUrl">
           {{ t('text.normal.see-all-news') }}
-          <i class="carousel-header-see-all-news-button-icon" />
+          <FontAwesomeIcon :icon="['fas', 'arrow-right']" />
         </a>
       </div>
     </div>
@@ -193,15 +193,6 @@ function closeModal() {
     &-see-all-news {
       display: flex;
 
-      > button {
-        @extend %button-tertiary;
-
-        > svg {
-          height: 18px;
-          width: 18px;
-        }
-      }
-
       &.mobile {
         justify-content: right;
       }
@@ -212,16 +203,6 @@ function closeModal() {
 
       &-button {
         @extend %button-tertiary;
-
-        &-icon {
-          width: 1.25em;
-          height: 1.25em;
-          mask: url(@/assets/svg/arrow_right.svg);
-          mask-repeat: no-repeat;
-          mask-size: contain;
-          background-color: $basic-black;
-          aspect-ratio: 1/1;
-        }
       }
     }
   }
@@ -245,11 +226,6 @@ function closeModal() {
       bottom: 0;
       margin-top: auto;
       margin-bottom: auto;
-
-      > svg {
-        height: 18px;
-        width: 18px;
-      }
     }
 
     &.left > button {
