@@ -18,7 +18,7 @@
       "validate": "@:text.creation-info.validate-by \n @:text.creation-info.when",
       "create-by": "Created by {name}",
       "update-by": "Updated by {name}",
-      "validate-by": "Validated by {organization}",
+      "validate-by": "Validated by {name}",
       "when": "on {date} at {datetime}",
       "publish-by": "Published by {organization}",
       "more-info": "More information"
