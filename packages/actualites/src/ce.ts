@@ -18,7 +18,6 @@ import AllNewsSFC from '@/components/AllNews.ce.vue'
 import BottomSheetCeSfc from '@/components/BottomSheet.ce.vue'
 import CustomToggleSwitchSFC from '@/components/CustonToggleSwitch.ce.vue'
 import I18nHostSFC from '@/components/I18nHost.ce.vue'
-import MoreInformationsSFC from '@/components/MoreInformations.ce.vue'
 import NewsCardSFC from '@/components/NewsCard.ce.vue'
 import CarrouselSFC from '@/components/NewsCarousel.ce.vue'
 import NewsFilterSectionSFC from '@/components/NewsFilterSection.ce.vue'
@@ -32,7 +31,6 @@ const AllNews = defineCustomElement(AllNewsSFC)
 const CustomToggleSwitch = defineCustomElement(CustomToggleSwitchSFC)
 const NewsFilterSection = defineCustomElement(NewsFilterSectionSFC)
 const PageSelector = defineCustomElement(PageSelectorSFC)
-const MoreInformations = defineCustomElement(MoreInformationsSFC)
 const BottomSheet = defineCustomElement(BottomSheetCeSfc)
 
 declare module 'vue' {
@@ -44,7 +42,6 @@ declare module 'vue' {
     CustomToggleSwitch: typeof CustomToggleSwitch
     NewsFilterSection: typeof NewsFilterSection
     PageSelector: typeof PageSelector
-    MoreInformations: typeof MoreInformations
     BottomsheetMobile: typeof BottomSheet
   }
 }
@@ -57,7 +54,6 @@ function register() {
   customElements.define('news-card', NewsCard)
   customElements.define('news-filter-section', NewsFilterSection)
   customElements.define('page-selector', PageSelector)
-  customElements.define('more-informations', MoreInformations)
   customElements.define('bottom-sheet', BottomSheet)
 }
 
@@ -67,7 +63,6 @@ export {
   Carrousel,
   CustomToggleSwitch,
   I18nHost,
-  MoreInformations,
   NewsCard,
   NewsFilterSection,
   PageSelector,
