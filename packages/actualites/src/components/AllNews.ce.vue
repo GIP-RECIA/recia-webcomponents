@@ -184,6 +184,11 @@ function closeModal() {
           />
         </template>
       </div>
+      <div v-else class="allNews-empty">
+        <h3 class="h4">
+          {{ t('text.no-news') }}
+        </h3>
+      </div>
 
       <page-selector
         v-if="result && result.totalItems > 10"
@@ -241,6 +246,13 @@ function closeModal() {
     display: flex;
     flex-direction: column;
     gap: 1em;
+  }
+
+  &-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3 * 138px;
   }
 }
 

@@ -10,6 +10,7 @@
     "not-read": "Non lues"
   },
   "text": {
+    "no-news": "Aucune actualité",
     "creation-info": {
       "global": "Par {name}, le ",
       "create": "@:text.creation-info.create-by \n @:text.creation-info.when",

@@ -61,6 +61,8 @@ const visibleItems = computed(() => {
     : []
 })
 
+const isAvailableNews = computed(() => visibleItems.value.length > 0)
+
 function prev() {
   if (currentIndex.value > 0)
     currentIndex.value--
@@ -125,8 +127,8 @@ function closeModal() {
         <div v-for="index in 3" :key="index" class="skeleton-card" />
       </div>
 
-      <div v-if="result?.actualite?.items && !loading" class="carousel-content-container">
-        <div v-show="visibleItems.length > 0" class="arrow left">
+      <div v-else class="carousel-content-container">
+        <div v-show="isAvailableNews" class="arrow left">
           <button :disabled="currentIndex === 0" @click="prev">
             <font-awesome-icon icon="fa-solid fa-arrow-left" />
           </button>
@@ -147,9 +149,14 @@ function closeModal() {
             @click="openModal(item.uuid, item.rubriques)"
             @keydown.enter="openModal(item.uuid, item.rubriques)"
           />
+          <div v-if="!isAvailableNews" class="empty">
+            <h3 class="h4">
+              {{ t('text.no-news') }}
+            </h3>
+          </div>
         </div>
 
-        <div v-show="visibleItems.length > 0" class="arrow right">
+        <div v-show="isAvailableNews" class="arrow right">
           <button :disabled="currentIndex >= result?.actualite?.items?.length - 3" @click="next">
             <font-awesome-icon icon="fa-solid fa-arrow-right" />
           </button>
@@ -211,6 +218,26 @@ function closeModal() {
     flex-direction: column;
     gap: 1em;
     background-color: transparent;
+  }
+
+  .empty {
+    background-color: $basic-grey;
+    border-radius: 10px;
+    display: flex;
+    height: 175px;
+    width: auto;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition:
+      outline 0.15s ease-out,
+      box-shadow 0.15s ease-out,
+      background-color 0.15s ease-out,
+      box-shadow 0.15s ease-out;
+
+    h3 {
+      transition: color 0.15s ease-out;
+    }
   }
 
   .arrow {
