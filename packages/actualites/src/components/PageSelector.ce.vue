@@ -15,7 +15,6 @@
 -->
 
 <script setup lang="ts">
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { computed, ref, watch } from 'vue'
 
 const props = withDefaults(
@@ -63,12 +62,12 @@ const visiblePages = computed(() => {
   <ul>
     <li>
       <button :disabled="currentPage === 1" @click="goToPage(1)">
-        <FontAwesomeIcon :icon="['fas', 'angles-left']" />
+        <font-awesome-icon :icon="['fas', 'angles-left']" />
       </button>
     </li>
     <li>
       <button :disabled="currentPage === 1" @click="goToPage(currentPage - 1)">
-        <FontAwesomeIcon :icon="['fas', 'angle-left']" />
+        <font-awesome-icon :icon="['fas', 'angle-left']" />
       </button>
     </li>
     <li v-for="page in visiblePages" :key="page">
@@ -78,12 +77,12 @@ const visiblePages = computed(() => {
     </li>
     <li>
       <button :disabled="currentPage === totalPages" @click="goToPage(currentPage + 1)">
-        <FontAwesomeIcon :icon="['fas', 'angle-right']" />
+        <font-awesome-icon :icon="['fas', 'angle-right']" />
       </button>
     </li>
     <li>
       <button :disabled="currentPage === totalPages" @click="goToPage(totalPages)">
-        <FontAwesomeIcon :icon="['fas', 'angles-right']" />
+        <font-awesome-icon :icon="['fas', 'angles-right']" />
       </button>
     </li>
   </ul>

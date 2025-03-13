@@ -21,7 +21,6 @@ import i18n from '@/plugins/i18n.ts'
 import { getNewsReadingInformations, getPaginatedNews } from '@/services/NewsService.ts'
 import { initToken } from '@/utils/axiosUtils.ts'
 import { isUserConnected } from '@/utils/soffitUtils.ts'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { onBeforeMount, ref } from 'vue'
 
 const props = defineProps<{
@@ -151,7 +150,7 @@ function closeModal() {
             :href="backUrl"
             title="Retour à l'acceuil"
           >
-            <FontAwesomeIcon :icon="['fas', 'arrow-left']" />
+            <font-awesome-icon icon="fa-solid fa-arrow-left" />
           </a>
           <h1>{{ t('text.title.all-news') }}</h1>
         </div>
