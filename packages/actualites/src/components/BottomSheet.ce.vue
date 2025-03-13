@@ -261,7 +261,7 @@ onBeforeUnmount(() => {
                 <div v-if="loading" class="bottomsheet-content-header-image-container-img">
                   <div v-for="index in 1" :key="index" class="skeleton-card" :style="{ borderRadius: '10px' }" />
                 </div>
-                <button class="bottomsheet-content-header-image-group-expand-container">
+                <button v-show="!loading" class="bottomsheet-content-header-image-group-expand-container">
                   <img
                     class="bottomsheet-content-header-image-group-expand-container-icon"
                     src="/src/assets/svg/expand_content.svg" alt="icon-expand-content"
