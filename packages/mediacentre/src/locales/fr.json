@@ -26,7 +26,7 @@
   "error-messages": {
     "400": "Une erreur est survenue, merci de rééssayer.",
     "401": "Vous n'êtes pas connecté, merci de vous authentifier.",
-    "403": "Vous n'êtes pas autorisé à accèder à ses ressources.",
+    "403": "Vous n'êtes pas autorisé à accèder à ces ressources.",
     "500": "Une erreur interne au serveur est survenue, merci de rééssayer ulterieurement.",
     "503": "Le serveur est temporairement indisponible, merci de rééssayer ulterieurement."
   }
