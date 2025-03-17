@@ -15,7 +15,7 @@
  */
 
 import App from '@/AppDev.vue'
-import { registerDev as registerCustomElements } from '@/ce'
+import { registerElements as registerCustomElements } from '@/ce'
 import { register as registerFontAwsome } from '@/plugins/fontawesome'
 import i18n from '@/plugins/i18n'
 import { createApp } from 'vue'
