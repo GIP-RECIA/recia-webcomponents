@@ -240,10 +240,9 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
   box-shadow: 0 4px 15.9px 0 rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
   height: fit-content;
-  border-radius: 0.5em;
+  border-radius: 0.8em;
+  overflow: hidden;
   & :only-child {
     box-sizing: border-box;
   }
@@ -301,6 +300,7 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
 }
 
 .sub-category-container {
+  text-align: left;
   background-color: $background-color-menu;
   width: 100%;
   border-collapse: collapse;
@@ -363,9 +363,7 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
 
 .menu-wrapper {
   background-color: $background-color-menu;
-  border-radius: 1em;
-  padding-top: 0.7em;
-  padding-bottom: 0.7em;
+  border-radius: 0.5em;
 }
 
 .displayed-etab {
@@ -398,7 +396,6 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
     height: 5em;
     transition: height 0.3s ease-in-out;
     background-color: transparent;
-    position: absolute;
     box-shadow: none;
 
     &:not(.unfold) {
@@ -423,15 +420,14 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
 
     .category-name-badge {
       text-align: center;
-      // border-radius: 1em;
       background-color: $background-color;
       font-weight: bold;
       font-size: 1em;
       padding: 0.5em 1em;
-      // overflow: hidden;
       text-overflow: ellipsis;
       word-wrap: unset;
       white-space: nowrap;
+      width: 100%;
       height: 2.5em;
     }
   }
@@ -462,8 +458,7 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
   }
 
   .unfold {
-    height: 100vh;
-    min-height: 100vh;
+    height: auto;
     background-color: transparent;
     .categories-container {
       visibility: visible;
