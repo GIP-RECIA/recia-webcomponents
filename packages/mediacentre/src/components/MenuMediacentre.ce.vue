@@ -118,7 +118,7 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
     </div>
     <div class="menu-wrapper">
       <div class="menu-filters-and-etabs">
-        <label v-if="multiselectOptions.length > 1" for="mediacentre-ui-schoolselect" class="displayed-etab">
+        <label v-if="multiselectOptions.length > 0" for="mediacentre-ui-schoolselect" class="displayed-etab">
           {{ t('menu-mediacentre.displayed-etab') }}
         </label>
         <Multiselect
@@ -134,6 +134,9 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
           :options="multiselectOptions"
           @select="etablissementSelected"
         />
+        <p v-if="multiselectOptions.length === 1" class="current-etab-label">
+          {{ multiselectCurrentValue }}
+        </p>
         <div
           class="categories-container"
           :class="[breakpoints.active() !== undefined && breakpoints.active() === ref('mobile') ? 'toggle' : '']"
@@ -533,6 +536,9 @@ p {
   text-align: start;
   &.gar-description {
     font-size: 12px;
+  }
+  &.current-etab-label {
+    margin: 3px;
   }
 }
 
