@@ -1402,7 +1402,7 @@ __metadata:
     "@types/node": "npm:^22"
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
-    "@vitejs/plugin-vue": "npm:^5.2.1"
+    "@vitejs/plugin-vue": "npm:^5.2.2"
     "@vue/tsconfig": "npm:^0.7.0"
     axios: "npm:^1.8.2"
     dotenv-checker: "npm:^1.1.7"
@@ -1458,7 +1458,7 @@ __metadata:
     "@types/node": "npm:^22"
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
-    "@vitejs/plugin-vue": "npm:^5.2.1"
+    "@vitejs/plugin-vue": "npm:^5.2.2"
     "@vue/tsconfig": "npm:^0.7.0"
     "@vueuse/core": "npm:^13.0.0"
     axios: "npm:^1.8.2"
@@ -1493,7 +1493,7 @@ __metadata:
     "@types/node": "npm:^22"
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
-    "@vitejs/plugin-vue": "npm:^5.2.1"
+    "@vitejs/plugin-vue": "npm:^5.2.2"
     "@vue/tsconfig": "npm:^0.7.0"
     axios: "npm:^1.8.2"
     cropperjs: "npm:^1.6.2"
@@ -1607,7 +1607,7 @@ __metadata:
     "@types/node": "npm:^22"
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
-    "@vitejs/plugin-vue": "npm:^5.2.1"
+    "@vitejs/plugin-vue": "npm:^5.2.2"
     "@vue/tsconfig": "npm:^0.7.0"
     axios: "npm:^1.8.2"
     dotenv-checker: "npm:^1.1.7"
@@ -3871,13 +3871,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitejs/plugin-vue@npm:^5.2.1":
-  version: 5.2.1
-  resolution: "@vitejs/plugin-vue@npm:5.2.1"
+"@vitejs/plugin-vue@npm:^5.2.2":
+  version: 5.2.2
+  resolution: "@vitejs/plugin-vue@npm:5.2.2"
   peerDependencies:
     vite: ^5.0.0 || ^6.0.0
     vue: ^3.2.25
-  checksum: 10/60edb926bf919aebe5ef527402bbb84902a23bcba57ea718285e4d700abf9718bc9411806440dc7e8ea0cef06d93c0078e2d456137b4eb3fd70d17288e9db081
+  checksum: 10/99d5b1f278df1f4f7dd4f21c07d36601e94494d3f6e83488194a4bae3e9523b428910fcd47f1ad0c23e114027cc82112328c88d371226170ff9401aea2784595
   languageName: node
   linkType: hard
 
