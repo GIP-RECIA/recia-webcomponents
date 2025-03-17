@@ -60,16 +60,9 @@ export default ({ mode }: { mode: string }) => {
     build: {
       lib: {
         entry: {
-          'mediacentre-ui': './src/main-ui.ts',
-          'mediacentre-redirect': './src/main-redirect.ts',
+          'mediacentre-ui': './src/main.ts',
         },
         formats: ['es'],
-      },
-      rollupOptions: {
-        output: {
-          entryFileNames: '[name].js',
-          chunkFileNames: 'mediacentre-[name].js',
-        },
       },
     },
     server: {

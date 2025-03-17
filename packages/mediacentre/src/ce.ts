@@ -41,20 +41,7 @@ declare module 'vue' {
 }
 
 // https://fr.vuejs.org/guide/extras/web-components#tips-for-a-vue-custom-elements-library
-function registerUi() {
-  customElements.define('carte-ressource', CarteRessource)
-  customElements.define('i18n-host', I18nHost)
-  customElements.define('liste-ressources', ListeRessources)
-  customElements.define('menu-mediacentre', Menu)
-  customElements.define('mediacentre-ui', Page)
-}
-
-function registerRedirect() {
-  customElements.define('i18n-host', I18nHost)
-  customElements.define('mediacentre-redirect', Redirect)
-}
-
-function registerDev() {
+function registerElements() {
   customElements.define('carte-ressource', CarteRessource)
   customElements.define('i18n-host', I18nHost)
   customElements.define('liste-ressources', ListeRessources)
@@ -63,4 +50,4 @@ function registerDev() {
   customElements.define('mediacentre-redirect', Redirect)
 }
 
-export { CarteRessource, I18nHost, ListeRessources, Menu, Page, Redirect, registerDev, registerRedirect, registerUi }
+export { CarteRessource, I18nHost, ListeRessources, Menu, Page, Redirect, registerElements }
