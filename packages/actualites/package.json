@@ -39,8 +39,8 @@
   },
   "scripts": {
     "dev": "dotenv-checker && vite --host --port 5173",
-    "build": "run-p type-check build-only && npm run build:min",
-    "build:min": "npm exec terser -- -c -m --module dist/actualites.js > dist/actualites.min.js",
+    "build": "run-p type-check build-only && yarn run build:min",
+    "build:min": "npm exec terser -- -c -m --module -f comments=false -o dist/actualites.min.js -- dist/actualites.js",
     "lint": "eslint src/*",
     "preview": "vite preview",
     "test:unit": "echo No tests available",
