@@ -1526,7 +1526,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gip-recia/info-modal@npm:^0.0.1, @gip-recia/info-modal@workspace:packages/info-modal":
+"@gip-recia/info-modal@npm:^0.0.1":
+  version: 0.0.1
+  resolution: "@gip-recia/info-modal@npm:0.0.1"
+  checksum: 10/5ea371219d8b227332570cca5b0e34e9096183149ad5b5c78ff3bb34e31d8a86eea64819d5ba09c9446be47f48f0faa3a3785cbfb8a9fa6aadfa8f38cf2f2849
+  languageName: node
+  linkType: hard
+
+"@gip-recia/info-modal@workspace:packages/info-modal":
   version: 0.0.0-use.local
   resolution: "@gip-recia/info-modal@workspace:packages/info-modal"
   dependencies:
