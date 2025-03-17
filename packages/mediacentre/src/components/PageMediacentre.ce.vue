@@ -458,7 +458,7 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
   flex-direction: row;
   gap: 10px;
   padding: 5px;
-  height: 100%;
+  height: fit-content;
   width: 100%;
 
   .aside-page-mediacentre {
@@ -467,11 +467,6 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
     display: flex;
     flex-direction: row;
     margin-right: 1em;
-
-    menu-mediacentre {
-      position: relative;
-      height: 70px;
-    }
   }
 
   .main-page-mediacentre {
@@ -493,11 +488,8 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
     align-content: space-around;
     overflow: hidden;
     row-gap: 0;
-    height: 100%;
 
     .aside-page-mediacentre {
-      height: fit-content;
-      max-height: 100%;
       min-height: 5em;
       justify-content: center;
       padding: 0;
@@ -507,8 +499,8 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
       transition: height 3s ease-in-out;
 
       menu-mediacentre {
-        max-height: 100vh;
         width: 100%;
+        height: auto;
       }
     }
 
