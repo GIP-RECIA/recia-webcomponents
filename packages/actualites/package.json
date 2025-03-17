@@ -25,12 +25,10 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/xxx.js",
-      "require": "./dist/xxx.umd.cjs"
+      "import": "./dist/actualites.js"
     }
   },
-  "main": "./dist/xxx.umd.cjs",
-  "module": "./dist/xxx.js",
+  "module": "./dist/actualites.js",
   "files": [
     "dist"
   ],
