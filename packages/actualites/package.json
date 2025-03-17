@@ -1,7 +1,7 @@
 {
   "name": "@gip-recia/actualites",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "",
   "contributors": [
     {
@@ -44,10 +44,7 @@
     "test:unit": "echo No tests available",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",
-    "release": "yarn run -T commit-and-tag-version -t 'actualites/v'",
-    "release:patch": "yarn run -T commit-and-tag-version -t 'actualites/v' --release-as patch",
-    "release:minor": "yarn run -T commit-and-tag-version -t 'actualites/v' --release-as minor",
-    "release:major": "yarn run -T commit-and-tag-version -t 'actualites/v' --release-as major"
+    "release": "yarn run -T commit-and-tag-version -t 'actualites/v' --path . --release-as $1 || echo 'Please specify a version type (yarn run release -- [patch, minor, major])'"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.10.1",
