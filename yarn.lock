@@ -1404,7 +1404,7 @@ __metadata:
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^5.2.1"
     "@vue/tsconfig": "npm:^0.7.0"
-    axios: "npm:^1.8.2"
+    axios: "npm:^1.8.3"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^9.22.0"
     eslint-plugin-format: "npm:^1.0.1"
@@ -1461,7 +1461,7 @@ __metadata:
     "@vitejs/plugin-vue": "npm:^5.2.1"
     "@vue/tsconfig": "npm:^0.7.0"
     "@vueuse/core": "npm:^13.0.0"
-    axios: "npm:^1.8.2"
+    axios: "npm:^1.8.3"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^9.22.0"
     eslint-plugin-format: "npm:^1.0.1"
@@ -1495,7 +1495,7 @@ __metadata:
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^5.2.1"
     "@vue/tsconfig": "npm:^0.7.0"
-    axios: "npm:^1.8.2"
+    axios: "npm:^1.8.3"
     cropperjs: "npm:^1.6.2"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^9.22.0"
@@ -1570,7 +1570,7 @@ __metadata:
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-react": "npm:^4.3.4"
-    axios: "npm:^1.8.2"
+    axios: "npm:^1.8.3"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^9.22.0"
     eslint-plugin-format: "npm:^1.0.1"
@@ -1609,7 +1609,7 @@ __metadata:
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^5.2.1"
     "@vue/tsconfig": "npm:^0.7.0"
-    axios: "npm:^1.8.2"
+    axios: "npm:^1.8.3"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^9.22.0"
     eslint-plugin-format: "npm:^1.0.1"
@@ -1697,7 +1697,7 @@ __metadata:
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-react": "npm:^4.3.4"
-    axios: "npm:^1.8.2"
+    axios: "npm:^1.8.3"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^9.22.0"
     eslint-plugin-format: "npm:^1.0.1"
@@ -4366,14 +4366,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.8.2":
-  version: 1.8.2
-  resolution: "axios@npm:1.8.2"
+"axios@npm:^1.8.3":
+  version: 1.8.3
+  resolution: "axios@npm:1.8.3"
   dependencies:
     follow-redirects: "npm:^1.15.6"
     form-data: "npm:^4.0.0"
     proxy-from-env: "npm:^1.1.0"
-  checksum: 10/d4328758128d0602cc809a8e7627622cb7839b379eae5e4d6b9d603dd4d5fb89159985630243ec107cf5c675cd8825dba737a319dff9499f3b7688d9a69ec9ed
+  checksum: 10/050f911cadd6d47a38ddbf91d2f8da2c34661dda8077e7ad6546e8178701125366fddbba07211a648b6815cf6c2c3c91c0a65d8b968e3d1a6054a21141ff9c01
   languageName: node
   linkType: hard
 
