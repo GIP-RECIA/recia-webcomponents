@@ -237,7 +237,7 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
   text-align: center;
   background-color: transparent;
   width: 320px;
-  box-shadow: 0px 10px 15px -7px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15.9px 0 rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   padding-top: 0.5em;
