@@ -14,7 +14,7 @@
     "type-presentation-filter": "Par type de ressource",
     "domaine-enseignement-filter": "Par matière",
     "uai-filter": "Par établissement",
-    "displayed-etab": "Etablissement selectionné :",
+    "displayed-etab": "Etablissement affiché :",
     "unknown-etab": "Etablissement inconnu"
   },
   "resource-info-modal-mediacentre": {
