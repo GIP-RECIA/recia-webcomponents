@@ -88,7 +88,7 @@ function toggleFavoris(): void {
           />
         </button>
       </div>
-      <img class="resource-image" :src="props.ressource.urlVignette">
+      <img v-if="props.ressource.urlVignette !== undefined && props.ressource.urlVignette.length > 0" class="resource-image" :src="props.ressource.urlVignette">
     </div>
     <div class="resource-name">
       <span>
