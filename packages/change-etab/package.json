@@ -55,7 +55,7 @@
     "@types/node": "^22",
     "@types/regenerator-runtime": "^0",
     "@uportal/open-id-connect": "^1.40.2",
-    "@vitejs/plugin-vue": "^5.2.1",
+    "@vitejs/plugin-vue": "^5.2.2",
     "@vue/tsconfig": "^0.7.0",
     "axios": "^1.8.3",
     "dotenv-checker": "^1.1.7",
