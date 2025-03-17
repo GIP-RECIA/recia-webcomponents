@@ -121,9 +121,7 @@ function toggleFavoris(): void {
   cursor: pointer;
   border-radius: 1em;
   background-color: $card-background-color;
-  box-shadow:
-    0px 0px 28px -8px rgba(0, 0, 0, 0.1),
-    100px 100px 100px -100px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15.9px 0 rgba(0, 0, 0, 0.1);
 
   .background-carte-ressource-mediacentre {
     position: relative;
