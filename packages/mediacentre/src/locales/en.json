@@ -14,7 +14,7 @@
     "type-presentation-filter": "By resource type",
     "domaine-enseignement-filter": "By subject",
     "uai-filter": "By school",
-    "display-etab": "Selected school:",
+    "display-etab": "Displayed school:",
     "unknown-etab": "Unknown school"
   },
   "resource-info-modal-mediacentre": {
