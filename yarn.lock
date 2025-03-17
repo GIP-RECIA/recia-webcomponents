@@ -15,7 +15,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@antfu/eslint-config@npm:^4.10.1, @antfu/eslint-config@npm:^4.8.1":
+"@antfu/eslint-config@npm:^4.10.1":
   version: 4.10.1
   resolution: "@antfu/eslint-config@npm:4.10.1"
   dependencies:
@@ -1393,7 +1393,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@gip-recia/actualites@workspace:packages/actualites"
   dependencies:
-    "@antfu/eslint-config": "npm:^4.8.1"
+    "@antfu/eslint-config": "npm:^4.10.1"
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.2"
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.2"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
@@ -1404,13 +1404,13 @@ __metadata:
     "@types/node": "npm:^22"
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
-    "@vitejs/plugin-vue": "npm:^5.2.1"
+    "@vitejs/plugin-vue": "npm:^5.2.2"
     "@vue/tsconfig": "npm:^0.7.0"
-    axios: "npm:^1.8.2"
+    axios: "npm:^1.8.3"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^9.22.0"
     eslint-plugin-format: "npm:^1.0.1"
-    lint-staged: "npm:^15.4.3"
+    lint-staged: "npm:^15.5.0"
     lodash.debounce: "npm:^4.0.8"
     lodash.throttle: "npm:^4.1.1"
     npm-run-all2: "npm:^7.0.2"
@@ -1418,7 +1418,7 @@ __metadata:
     sass: "npm:^1.85.1"
     terser: "npm:^5.39.0"
     typescript: "npm:^5.8.2"
-    vite: "npm:^6.2.1"
+    vite: "npm:^6.2.2"
     vue: "npm:^3.5.13"
     vue-i18n: "npm:^11.1.2"
     vue-tsc: "npm:^2.2.8"
@@ -3907,7 +3907,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitejs/plugin-vue@npm:^5.2.1, @vitejs/plugin-vue@npm:^5.2.2":
+"@vitejs/plugin-vue@npm:^5.2.2":
   version: 5.2.2
   resolution: "@vitejs/plugin-vue@npm:5.2.2"
   peerDependencies:
@@ -4402,7 +4402,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.8.2, axios@npm:^1.8.3":
+"axios@npm:^1.8.3":
   version: 1.8.3
   resolution: "axios@npm:1.8.3"
   dependencies:
@@ -7909,7 +7909,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:^15.4.3, lint-staged@npm:^15.5.0":
+"lint-staged@npm:^15.5.0":
   version: 15.5.0
   resolution: "lint-staged@npm:15.5.0"
   dependencies:
@@ -11523,7 +11523,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^6.2.1, vite@npm:^6.2.2":
+"vite@npm:^6.2.2":
   version: 6.2.2
   resolution: "vite@npm:6.2.2"
   dependencies:
