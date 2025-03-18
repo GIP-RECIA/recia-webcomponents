@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.0.1](https://github.com/GIP-RECIA/recia-webcomponents/compare/actualites/v1.0.0...actualites/v1.0.1) (2025-03-18)
+
+
+### Bug Fixes
+
+* **actualites:** hide elements when no interaction is needed ([950ce76](https://github.com/GIP-RECIA/recia-webcomponents/commit/950ce76f55140081f507e4e18c5eb0aebff383d1))
+
 ## 1.0.0 (2025-03-17)
 
 
