@@ -19,11 +19,9 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/param-etab.js",
-      "require": "./dist/param-etab.umd.cjs"
+      "import": "./dist/param-etab.js"
     }
   },
-  "main": "./dist/param-etab.umd.cjs",
   "module": "./dist/param-etab.js",
   "files": [
     "dist"
@@ -33,17 +31,14 @@
   },
   "scripts": {
     "dev": "dotenv-checker && vite --host",
-    "build": "run-p type-check build-only && npm run build:min",
-    "build:min": "npm exec terser -- -c -m --module dist/param-etab.js > dist/param-etab.min.js",
+    "build": "run-p type-check build-only && yarn run build:min",
+    "build:min": "npm exec terser -- -c -m --module -f comments=false -o dist/param-etab.min.js -- dist/param-etab.js",
     "lint": "eslint src/*",
     "preview": "vite preview",
     "test:unit": "echo No tests available",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",
-    "release": "yarn run -T commit-and-tag-version -t 'param-etab/v'",
-    "release:patch": "yarn run -T commit-and-tag-version -t 'param-etab/v' --release-as patch",
-    "release:minor": "yarn run -T commit-and-tag-version -t 'param-etab/v' --release-as minor",
-    "release:major": "yarn run -T commit-and-tag-version -t 'param-etab/v' --release-as major"
+    "release": "yarn run -T commit-and-tag-version -t 'param-etab/v' --path . --release-as $1 || echo 'Please specify a version type (yarn run release -- [patch, minor, major])'"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.10.1",

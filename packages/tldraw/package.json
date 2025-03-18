@@ -24,11 +24,9 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/tldraw-webcomponent.js",
-      "require": "./dist/tldraw-webcomponent.js"
+      "import": "./dist/tldraw-webcomponent.js"
     }
   },
-  "main": "./dist/tldraw-webcomponent.js",
   "module": "./dist/tldraw-webcomponent.js",
   "files": [
     "dist"
@@ -38,15 +36,12 @@
   },
   "scripts": {
     "dev": "dotenv-checker && vite --host",
-    "build": "vite build && yarn build:min",
-    "build:min": "npm exec terser -- -c -m --module dist/tldraw-webcomponent.js > dist/tldraw-webcomponent.min.js",
+    "build": "vite build && yarn run build:min",
+    "build:min": "npm exec terser -- -c -m --module -f comments=false -o dist/tldraw-webcomponent.min.js -- dist/tldraw-webcomponent.js",
     "lint": "eslint src/*",
     "preview": "vite preview",
     "test:unit": "echo No tests available",
-    "release": "yarn run -T commit-and-tag-version -t 'tldraw-webcomponent/v'",
-    "release:patch": "yarn run -T commit-and-tag-version -t 'tldraw-webcomponent/v' --release-as patch",
-    "release:minor": "yarn run -T commit-and-tag-version -t 'tldraw-webcomponent/v' --release-as minor",
-    "release:major": "yarn run -T commit-and-tag-version -t 'tldraw-webcomponent/v' --release-as major"
+    "release": "yarn run -T commit-and-tag-version -t 'tldraw-webcomponent/v' --path . --release-as $1 || echo 'Please specify a version type (yarn run release -- [patch, minor, major])'"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.10.1",

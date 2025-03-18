@@ -19,11 +19,9 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/mediacentre-ui.js",
-      "require": "./dist/mediacentre-ui.cjs"
+      "import": "./dist/mediacentre-ui.js"
     }
   },
-  "main": "./dist/mediacentre-ui.umd.cjs",
   "module": "./dist/mediacentre-ui.js",
   "files": [
     "dist"
@@ -33,17 +31,14 @@
   },
   "scripts": {
     "dev": "dotenv-checker && vite --host",
-    "build": "run-p type-check build-only && npm run build:min",
-    "build:min": "npm exec terser -- -c -m --module dist/mediacentre-ui.js > dist/mediacentre-ui.min.js",
+    "build": "run-p type-check build-only && yarn run build:min",
+    "build:min": "npm exec terser -- -c -m --module -f comments=false -o dist/mediacentre-ui.min.js -- dist/mediacentre-ui.js",
     "lint": "eslint src/*",
     "preview": "vite preview",
     "test:unit": "echo No tests available",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",
-    "release": "yarn run -T commit-and-tag-version -t 'mediacentre-ui/v'",
-    "release:patch": "yarn run -T commit-and-tag-version -t 'mediacentre-ui/v' --release-as patch",
-    "release:minor": "yarn run -T commit-and-tag-version -t 'mediacentre-ui/v' --release-as minor",
-    "release:major": "yarn run -T commit-and-tag-version -t 'mediacentre-ui/v' --release-as major"
+    "release": "yarn run -T commit-and-tag-version -t 'mediacentre-ui/v' --path . --release-as $1 || echo 'Please specify a version type (yarn run release -- [patch, minor, major])'"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.10.1",
