@@ -36,7 +36,7 @@
     "access": "public"
   },
   "scripts": {
-    "dev": "dotenv-checker && vite --host --port 5173",
+    "dev": "dotenv-checker && vite --host",
     "build": "run-p type-check build-only && yarn run build:min",
     "build:min": "npm exec terser -- -c -m --module -f comments=false -o dist/actualites.min.js -- dist/actualites.js",
     "lint": "eslint src/*",

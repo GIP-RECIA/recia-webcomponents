@@ -14,8 +14,8 @@
     "url": "https://github.com/GIP-RECIA/recia-webcomponents/issues"
   },
   "keywords": [
-    "gip-recia",
-    "param-etab"
+    "param-etab",
+    "gip-recia"
   ],
   "exports": {
     ".": {
