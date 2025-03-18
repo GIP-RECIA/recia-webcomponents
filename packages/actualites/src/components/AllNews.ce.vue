@@ -155,11 +155,14 @@ function closeModal() {
           <h1>{{ t('text.title.all-news') }}</h1>
         </div>
 
-        <custom-toggle-switch @read-status="handleToggleChange" />
+        <custom-toggle-switch
+          v-if="result && result.actualite.sources.length > 0 && !loading"
+          @read-status="handleToggleChange"
+        />
       </div>
 
       <news-filter-section
-        v-if="result"
+        v-if="result && result.actualite.sources.length > 0"
         :actualites="result.actualite"
         @update-model-value="handleFilterChange"
       />
@@ -168,7 +171,7 @@ function closeModal() {
         <div v-for="index in 10" :key="index" class="skeleton-card" />
       </div>
 
-      <div v-if="result && !loading" class="allNews-body">
+      <div v-if="result && result.actualite.items.length > 0 && !loading" class="allNews-body">
         <template v-for="(item, index) in result.actualite?.items" :key="index">
           <news-card
             v-if="showItemDependsOnReadingState(item)"
