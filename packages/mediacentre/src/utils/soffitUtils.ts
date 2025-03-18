@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-import oidc, { type JWT } from '@uportal/open-id-connect'
+import type { JWT } from '@uportal/open-id-connect'
+import oidc from '@uportal/open-id-connect'
 import { CustomError } from './CustomError'
 
 async function getToken(apiUrl: string): Promise<{ encoded: string, decoded: JWT }> {

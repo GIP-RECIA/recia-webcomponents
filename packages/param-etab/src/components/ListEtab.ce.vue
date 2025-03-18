@@ -15,7 +15,8 @@
 -->
 
 <script setup lang="ts">
-import { computed, type Ref, ref } from 'vue'
+import type { Ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{

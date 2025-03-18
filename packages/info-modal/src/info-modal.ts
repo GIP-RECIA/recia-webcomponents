@@ -18,8 +18,8 @@ import type { CSSResult, TemplateResult } from 'lit'
 import { icon, library } from '@fortawesome/fontawesome-svg-core'
 import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark'
 import { css, html, LitElement, unsafeCSS } from 'lit'
-import { customElement, property, state } from 'lit/decorators.js'
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js'
+import { customElement, property, state } from 'lit/decorators.js'
 import styles from './info-modal.scss?inline'
 
 @customElement('info-modal')

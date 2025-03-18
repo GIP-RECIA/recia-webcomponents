@@ -16,10 +16,11 @@
 
 <script setup lang="ts">
 import type { Filtres } from '@/types/FiltresType'
+import type { Ressource } from '@/types/RessourceType'
 import i18n from '@/plugins/i18n.ts'
 import { setError } from '@/services/ServiceErreurMediacentre'
 import { getFilters as filtrage } from '@/services/ServiceFiltreMediacentre'
-import { createResourceFromJson, type Ressource } from '@/types/RessourceType'
+import { createResourceFromJson } from '@/types/RessourceType'
 import { initToken } from '@/utils/axiosUtils'
 import { CustomError } from '@/utils/CustomError'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
