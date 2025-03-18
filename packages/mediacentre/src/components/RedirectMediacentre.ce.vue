@@ -39,8 +39,8 @@ const props = withDefaults(
     configApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_CONFIG_API_URI,
     isBase64: false,
     resourceId: '',
-    userInfoApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_CONTEXT + import.meta.env.VITE_APP_MEDIACENTRE_USER_INFO_API_URI,
-    userRightsApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_CONTEXT + import.meta.env.VITE_APP_MEDIACENTRE_USER_RIGHTS_API_URI,
+    userInfoApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_UPORTAL_CONTEXT + import.meta.env.VITE_APP_MEDIACENTRE_USER_INFO_API_URI,
+    userRightsApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_UPORTAL_CONTEXT + import.meta.env.VITE_APP_MEDIACENTRE_USER_RIGHTS_API_URI,
   },
 )
 
