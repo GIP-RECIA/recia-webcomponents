@@ -27,7 +27,7 @@ export default ({ mode }: ConfigEnv) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
 
   return defineConfig({
-    base: '',
+    base: process.env.VITE_BASE_URI,
     plugins: [
       vue({
         template: {
