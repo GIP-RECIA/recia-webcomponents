@@ -1,7 +1,7 @@
 {
   "name": "@gip-recia/mediacentre-ui",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "UI du Médiacentre en Vue.js.",
   "contributors": [],
   "license": "Apache-2.0",
