@@ -56,7 +56,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/vue-fontawesome": "^3.0.8",
-    "@intlify/unplugin-vue-i18n": "^6.0.3",
+    "@intlify/unplugin-vue-i18n": "^6.0.5",
     "@tsconfig/node22": "^22.0.1",
     "@types/lodash.debounce": "^4",
     "@types/node": "^22",
