@@ -15,6 +15,7 @@
  */
 
 import { register as registerCustomElements } from '@/ce'
+import '@fortawesome/fontawesome-free/css/solid.css'
 import 'regenerator-runtime/runtime.js'
 
 registerCustomElements()

@@ -17,6 +17,7 @@
 import App from '@/App.vue'
 import { register as registerCustomElements } from '@/ce'
 import { createApp } from 'vue'
+import '@fortawesome/fontawesome-free/css/solid.css'
 import 'regenerator-runtime/runtime.js'
 
 const app = createApp(App)

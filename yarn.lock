@@ -1385,6 +1385,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/fontawesome-free@npm:^6.7.2":
+  version: 6.7.2
+  resolution: "@fortawesome/fontawesome-free@npm:6.7.2"
+  checksum: 10/88101fee12470ede1e7f2588b86121924259d98889b950e2ccde71d934f4f344b592d1360700de4e92d81262014d3ae33fe995c7799f2be2abddcee3102413d6
+  languageName: node
+  linkType: hard
+
 "@fortawesome/fontawesome-svg-core@npm:^6.7.2":
   version: 6.7.2
   resolution: "@fortawesome/fontawesome-svg-core@npm:6.7.2"
@@ -1439,6 +1446,7 @@ __metadata:
   resolution: "@gip-recia/actualites@workspace:packages/actualites"
   dependencies:
     "@antfu/eslint-config": "npm:^4.11.0"
+    "@fortawesome/fontawesome-free": "npm:^6.7.2"
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.2"
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.2"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
@@ -1464,6 +1472,7 @@ __metadata:
     terser: "npm:^5.39.0"
     typescript: "npm:^5.8.2"
     vite: "npm:^6.2.3"
+    vite-plugin-css-injected-by-js: "npm:^3.5.2"
     vue: "npm:^3.5.13"
     vue-i18n: "npm:^11.1.2"
     vue-tsc: "npm:^2.2.8"

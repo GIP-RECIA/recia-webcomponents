@@ -117,18 +117,16 @@ function htmlContentTreatement() {
   if (item.value) {
     const doc = parser.parseFromString(item.value.body, 'text/html')
 
-    const images = doc.querySelectorAll('img')
+    const setBaseUrl = (selector: string, attribute: string): void => {
+      doc.querySelectorAll(selector)?.forEach((element) => {
+        const currentValue = element.getAttribute(attribute)
+        if (currentValue && !currentValue.startsWith('/') && !currentValue.startsWith('http'))
+          element.setAttribute(attribute, `${props.baseUrl}/${currentValue}`)
+      })
+    }
 
-    images.forEach((img) => {
-      const currentSrc = img.getAttribute('src')
-      if (currentSrc) {
-        // Prepend the prefix to the src
-        img.setAttribute('src', `${props.baseUrl.concat(`/${currentSrc}`)}`)
-      }
-    })
-
-    const links = Array.from(doc.querySelectorAll('a'))
-    links.forEach(link => link.remove())
+    setBaseUrl('img', 'src')
+    setBaseUrl('a', 'href')
 
     item.value.body = doc.body.innerHTML
   }
@@ -423,6 +421,7 @@ onBeforeUnmount(() => {
 <style lang="scss">
 @use 'sass:map';
 @use '@/assets/global.scss' as *;
+@import '@fortawesome/fontawesome-free/css/all.css';
 
 .mark-has-not-read-btn {
   @extend %button-secondary;
@@ -688,6 +687,17 @@ onBeforeUnmount(() => {
 
       img {
         max-width: 100%;
+      }
+
+      a {
+        color: unset;
+        text-decoration: none;
+        outline: none;
+
+        &:hover,
+        &:focus-visible {
+          color: $primary;
+        }
       }
     }
 
