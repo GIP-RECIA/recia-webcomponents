@@ -45,7 +45,6 @@ Propriétés disponibles :
 
 | Nom                                 |   Type   | Obligatoire | Default | Description                                                                         |
 | ----------------------------------- | :------: | :---------: | :-----: | ----------------------------------------------------------------------------------- |
-| `base-url`                          | `string` |   `true`    |         |                                                                                     |
 | `user-info-api-url`                 | `string` |   `true`    |         | URL dédiée à la récupération du token via le portail                                |
 | `get-user-news-url`                 | `string` |   `true`    |         | URL permettant de récupérer une liste d'item en fonction des paramètres de filtrage |
 | `get-item-by-id-url`                | `string` |   `true`    |         | URL permettant de récupérer les informations d'un item                              |
@@ -57,7 +56,6 @@ Propriétés disponibles :
 
 ```html
 <carrousel-ui
-  base-url=""
   user-info-api-url=""
   get-user-news-url=""
   get-item-by-id-url=""
@@ -71,7 +69,6 @@ Propriétés disponibles :
 
 | Nom                                 |   Type   | Obligatoire | Default | Description                                                                         |
 | ----------------------------------- | :------: | :---------: | :-----: | ----------------------------------------------------------------------------------- |
-| `base-url`                          | `string` |   `true`    |         |                                                                                     |
 | `user-info-api-url`                 | `string` |   `true`    |         | URL dédiée à la récupération du token via le portail                                |
 | `get-user-news-url`                 | `string` |   `true`    |         | URL permettant de récupérer une liste d'item en fonction des paramètres de filtrage |
 | `get-item-by-id-url`                | `string` |   `true`    |         | URL permettant de récupérer les informations d'un item                              |
@@ -81,7 +78,6 @@ Propriétés disponibles :
 
 ```html
 <all-news
-  base-url=""
   user-info-api-url=""
   get-user-news-url=""
   get-item-by-id-url=""

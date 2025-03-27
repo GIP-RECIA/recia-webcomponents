@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ItemVO } from '@/types/ItemVO.ts'
-import type { Rubrique } from '@/types/Rubrique.ts'
+import type { ItemVO } from './ItemVO.ts'
+import type { Rubrique } from './Rubrique.ts'
 
 export interface Actualite {
   rubriques: Array<Rubrique>

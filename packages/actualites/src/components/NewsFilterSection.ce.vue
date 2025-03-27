@@ -33,9 +33,13 @@ const isMenuFilterOpen = ref(false)
 const filterCounter = ref(0)
 const disableButton = ref(false)
 
-const allSections = {
+const allSections: Rubrique = {
   uuid: '0',
-  name: t('text.filter.all-sections')
+  name: t('text.filter.all-sections'),
+  color: '',
+  mediaUrl: null,
+  highlight: false,
+  hiddenIfEmpty: false
 }
 
 const sources = computed<Array<string | undefined>>(() => props.actualites ? [undefined, ...props.actualites.sources] : [])

@@ -17,7 +17,6 @@
 <script setup lang="ts">
 const {
   VITE_USER_INFO_API_URI,
-  VITE_BASE_API_URL,
   VITE_USER_NEWS_URI,
   VITE_GET_ITEM_URI,
   VITE_GET_NEWS_READING_URI,
@@ -28,7 +27,6 @@ const {
 <template>
   <carrousel-ui
     :user-info-api-url="VITE_USER_INFO_API_URI"
-    :base-url="VITE_BASE_API_URL"
     :get-user-news-url="VITE_USER_NEWS_URI"
     :get-item-by-id-url="VITE_GET_ITEM_URI"
     :get-news-reading-informations-url="VITE_GET_NEWS_READING_URI"
@@ -37,7 +35,6 @@ const {
   />
   <all-news
     :user-info-api-url="VITE_USER_INFO_API_URI"
-    :base-url="VITE_BASE_API_URL"
     :get-user-news-url="VITE_USER_NEWS_URI"
     :get-item-by-id-url="VITE_GET_ITEM_URI"
     :get-news-reading-informations-url="VITE_GET_NEWS_READING_URI"

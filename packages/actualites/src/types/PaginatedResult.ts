@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Actualite } from '@/types/Actualite.ts'
+import type { Actualite } from './Actualite.ts'
 
 export interface PaginatedResult {
   actualite: Actualite

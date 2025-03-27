@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
-export enum PageOrigin {
-  CARROUSEL = 'carrousel',
-  ALL = 'all',
+import type { ItemVO } from './ItemVO.ts'
+
+export interface ItemVOForRead extends ItemVO {
+  createdBy: string
+  pubBy: string
+  lastModifiedBy: string
+  validatedBy: string
+  body: string
 }

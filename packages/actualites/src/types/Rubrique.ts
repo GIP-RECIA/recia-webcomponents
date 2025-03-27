@@ -18,6 +18,7 @@ export interface Rubrique {
   uuid: string
   name: string
   color: string
-  mediaUrl: string
+  mediaUrl: string | null
+  highlight: boolean
   hiddenIfEmpty: boolean
 }

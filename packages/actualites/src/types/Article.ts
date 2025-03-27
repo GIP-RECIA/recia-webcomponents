@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { LinkedFile } from '@/types/LinkedFile.ts'
+import type { LinkedFile } from './LinkedFile.ts'
 
 export interface Article {
   title: string

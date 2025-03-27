@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Article } from '@/types/Article.ts'
-import type { Visibility } from '@/types/Visibility.ts'
+import type { ArticleVO } from './ArticleVO.ts'
+import type { Visibility } from './Visibility.ts'
 
 export interface ItemVO {
-  article: Article
+  article: ArticleVO
   type: string
   creator: string
   pubDate: string

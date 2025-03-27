@@ -15,7 +15,7 @@
 -->
 
 <script setup lang="ts">
-import type { Item } from '@/types/Item.ts'
+import type { ItemVOForRead } from '@/types/ItemVOForRead.ts'
 import type { Rubrique } from '@/types/Rubrique.ts'
 import type { AxiosResponse } from 'axios'
 import i18n from '@/plugins/i18n.ts'
@@ -25,10 +25,8 @@ import { isUserConnected } from '@/utils/soffitUtils.ts'
 import { useWindowSize } from '@vueuse/core'
 import { capitalize, onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
-// Props
 const props = defineProps<{
   itemId: string
-  baseUrl: string
   setReadingUrl: string
   getItemByIdUrl: string
   rubriques: Array<Rubrique>
@@ -41,7 +39,7 @@ const {
   VITE_USER_READING_DELAY,
 } = import.meta.env
 
-const item = ref<Item>()
+const item = ref<ItemVOForRead>()
 const { t, d } = i18n.global
 const isReadingButton = ref(props.isRead)
 const showMoreInfosModal = ref(false)
@@ -61,7 +59,6 @@ let isDragging = false
 onBeforeMount(async () => {
   try {
     item.value = await getItemById(props.getItemByIdUrl, props.itemId)
-    htmlContentTreatement()
     if (!props.isRead) {
       idTimout = setTimeout(() => {
         changeReadingState(true)
@@ -111,27 +108,6 @@ onMounted(() => {
   }
 })
 
-function htmlContentTreatement() {
-  const parser = new DOMParser()
-
-  if (item.value) {
-    const doc = parser.parseFromString(item.value.body, 'text/html')
-
-    const setBaseUrl = (selector: string, attribute: string): void => {
-      doc.querySelectorAll(selector)?.forEach((element) => {
-        const currentValue = element.getAttribute(attribute)
-        if (currentValue && !currentValue.startsWith('/') && !currentValue.startsWith('http'))
-          element.setAttribute(attribute, `${props.baseUrl}/${currentValue}`)
-      })
-    }
-
-    setBaseUrl('img', 'src')
-    setBaseUrl('a', 'href')
-
-    item.value.body = doc.body.innerHTML
-  }
-}
-
 function closeModal() {
   isSelfBottomSheetOpen.value = false
   isMobileFullImage.value = false
@@ -143,7 +119,7 @@ function closeModal() {
 
 async function changeReadingState(b: boolean) {
   if (item.value) {
-    const response: AxiosResponse = await setReading(props.setReadingUrl, item.value?.id, b)
+    const response: AxiosResponse = await setReading(props.setReadingUrl, item.value.article.guid, b)
     if (response.status === 200) {
       clearTimeout(idTimout)
       isReadingButton.value = b
@@ -234,12 +210,12 @@ onBeforeUnmount(() => {
           <div class="bottomsheet-content-header">
             <div class="bottomsheet-container-background-desktop-image">
               <img
-                v-if="item && item.enclosure !== null && !loading"
-                :src="baseUrl.concat(`/${item.enclosure}`)"
+                v-if="item && item.article.enclosure !== null && !loading"
+                :src="item.article.enclosure"
                 alt=""
               >
             </div>
-            <div v-show="item?.enclosure !== null || loading" class="bottomsheet-content-header-image-group">
+            <div v-show="item?.article.enclosure !== null || loading" class="bottomsheet-content-header-image-group">
               <div
                 ref="bottomsheetContentHeaderImageContainer"
                 tabindex="-1"
@@ -249,8 +225,8 @@ onBeforeUnmount(() => {
                 @keydown.enter="fullImage"
               >
                 <img
-                  v-if="item && item.enclosure !== null && !loading"
-                  :src="baseUrl.concat(`/${item.enclosure}`)"
+                  v-if="item && item.article.enclosure !== null && !loading"
+                  :src="item.article.enclosure"
                   alt=""
                   class="bottomsheet-content-header-image-container-img"
                   :class="{ enlarge: isDesktopFullImage, shrink: isDesktopFullImage === false }"
@@ -279,7 +255,7 @@ onBeforeUnmount(() => {
               <div v-if="item && !loading" class="bottomsheet-content-header-informations-item-autor">
                 <div>
                   {{
-                    t('text.creation-info.global', { name: item.createdBy.displayName }) + d(item.createdBy.createdDate, 'long')
+                    t('text.creation-info.global', { name: item.createdBy }) + d(item.createdDate, 'long')
                   }}
                 </div>
 
@@ -308,23 +284,23 @@ onBeforeUnmount(() => {
                   <ul v-show="showMoreInfosModal" class="modal">
                     <li
                       v-html="t('text.creation-info.create', {
-                        name: `<strong>${capitalize(item.createdBy.displayName)}</strong>`,
+                        name: `<strong>${capitalize(item.createdBy)}</strong>`,
                         date: d(item.createdDate, 'medium'),
                         datetime: d(item.createdDate, 'datetime'),
                       })"
                     />
                     <li
                       v-html="t('text.creation-info.update', {
-                        name: `<strong>${capitalize(item.lastModifiedBy.displayName)}</strong>`,
-                        date: d(item.lastModifiedDate, 'medium'),
-                        datetime: d(item.lastModifiedDate, 'datetime'),
+                        name: `<strong>${capitalize(item.lastModifiedBy)}</strong>`,
+                        date: d(item.modifiedDate, 'medium'),
+                        datetime: d(item.modifiedDate, 'datetime'),
                       })"
                     />
                     <li
                       v-html="t('text.creation-info.validate', {
-                        name: `<strong>${capitalize(item.validatedBy.displayName)}</strong>`,
-                        date: d(item.validatedDate, 'medium'),
-                        datetime: d(item.validatedDate, 'datetime'),
+                        name: `<strong>${capitalize(item.validatedBy)}</strong>`,
+                        date: d(item.pubDate, 'medium'),
+                        datetime: d(item.pubDate, 'datetime'),
                       })"
                     />
                   </ul>
@@ -341,7 +317,7 @@ onBeforeUnmount(() => {
               </div>
 
               <h1 v-if="item && !loading">
-                {{ item.title }}
+                {{ item.article.title }}
               </h1>
               <div v-if="loading">
                 <div
@@ -353,7 +329,7 @@ onBeforeUnmount(() => {
               </div>
               <div v-if="item && !loading" class="bottomsheet-content-header-informations-sections">
                 <span
-                  v-for="section in props.rubriques"
+                  v-for="section in props.rubriques.filter((rubrique) => item?.rubriques?.map((rubrique) => rubrique.toString()).includes(rubrique.uuid))"
                   :key="section.uuid"
                   class="bottomsheet-content-header-informations-sections-tag"
                   :class="{ 'light-text': isLightColor(section.color), 'dark-background': !isLightColor(section.color) }"
@@ -365,7 +341,7 @@ onBeforeUnmount(() => {
                   class="bottomsheet-content-header-informations-sections-tag dark-background"
                   :style="{ backgroundColor: 'black' }"
                 >
-                  {{ t('text.creation-info.publish-by', { organization: item.organization.name }) }}
+                  {{ t('text.creation-info.publish-by', { organization: item.pubBy }) }}
                 </span>
               </div>
               <div v-if="loading" class="bottomsheet-content-header-informations-sections">
@@ -401,7 +377,7 @@ onBeforeUnmount(() => {
         <div class="bottomsheet-content-header-image-group-full-image-container" @click="fullImage">
           <img
             class="bottomsheet-content-header-image-group-full-image"
-            :src="baseUrl.concat(`/${item.enclosure}`)"
+            :src="item.article.enclosure"
             alt="full-image"
             @click.stop
           >

@@ -24,7 +24,6 @@ import { isUserConnected } from '@/utils/soffitUtils.ts'
 import { onBeforeMount, ref } from 'vue'
 
 const props = defineProps<{
-  baseUrl: string
   getItemByIdUrl: string
   userInfoApiUrl: string
   getUserNewsUrl: string
@@ -100,12 +99,6 @@ async function updateReadingInfos() {
   readingInfos.value = new Map(Object.entries(objectResult))
 }
 
-function getRubriques(codesRubriques: number[]) {
-  return result.value
-    ? result.value.actualite.rubriques.filter(r => codesRubriques.includes(Number(r.uuid)))
-    : []
-}
-
 function showItemDependsOnReadingState(item: ItemVO) {
   if (readingState.value !== undefined) {
     if (readingState.value)
@@ -123,11 +116,9 @@ function showItemDependsOnReadingState(item: ItemVO) {
 const showModal = ref(false)
 const openFullImage = ref(false)
 const itemIdOpenModal = ref<string>('')
-const itemRubriquesOpenModal = ref()
 
-function openModal(uuid: string, codesRubriques: number[]) {
+function openModal(uuid: string) {
   itemIdOpenModal.value = uuid
-  itemRubriquesOpenModal.value = getRubriques(codesRubriques)
   showModal.value = true
   document.documentElement.style.overflowY = 'hidden'
 }
@@ -175,15 +166,14 @@ function closeModal() {
         <template v-for="(item, index) in result.actualite?.items" :key="index">
           <news-card
             v-if="showItemDependsOnReadingState(item)"
-            :base-url="baseUrl"
             :item="item"
             :page-origin="true"
             :set-reading-url="setReadingUrl"
             :get-item-by-id-url="props.getItemByIdUrl"
             :is-read="readingInfos?.has(item.uuid) ? readingInfos?.get(item.uuid) : false"
             @update-reading-infos="updateReadingInfos()"
-            @click="openModal(item.uuid, item.rubriques)"
-            @keydown.enter="openModal(item.uuid, item.rubriques)"
+            @click="openModal(item.uuid)"
+            @keydown.enter="openModal(item.uuid)"
           />
         </template>
       </div>
@@ -203,13 +193,12 @@ function closeModal() {
     </div>
 
     <bottom-sheet
-      v-if="showModal"
+      v-if="result && showModal"
       :is-read="readingInfos?.has(itemIdOpenModal) ? readingInfos?.get(itemIdOpenModal) : false"
       :item-id="itemIdOpenModal"
-      :rubriques="itemRubriquesOpenModal"
+      :rubriques="result.actualite.rubriques"
       :set-reading-url="setReadingUrl"
       :get-item-by-id-url="getItemByIdUrl"
-      :base-url="baseUrl"
       @close-modal="closeModal"
     />
   </i18n-host>

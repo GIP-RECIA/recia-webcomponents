@@ -24,7 +24,6 @@ defineProps<{
   getItemByIdUrl: string
   pageOrigin: boolean
   isRead: boolean
-  baseUrl: string
 }>()
 
 const { t, d } = useI18n()
@@ -33,7 +32,7 @@ const { t, d } = useI18n()
 <template>
   <article tabindex="0" :class="{ active: !isRead, pageOrigin }">
     <div v-if="item.article.enclosure !== null" class="card-img">
-      <img class="image" :src="baseUrl.concat(item.article.enclosure)" alt="">
+      <img class="image" :src="item.article.enclosure" alt="">
     </div>
     <div class="article-wrapper">
       <span v-if="!pageOrigin" class="source">

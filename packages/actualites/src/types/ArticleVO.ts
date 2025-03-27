@@ -14,28 +14,17 @@
  * limitations under the License.
  */
 
-import type { Organization } from '@/types/Organization.ts'
-import type { Redactor } from '@/types/Redactor.ts'
-import type { User } from '@/types/User.ts'
+import type { LinkedFile } from './LinkedFile.ts'
 
-export interface AbstractItem {
-  type: string
-  id: number
-  createdBy: User
-  createdDate: Date
-  lastModifiedBy: User
-  lastModifiedDate: Date
-  title: string
-  enclosure: string
-  endDate: Date
-  startDate: Date
-  validatedBy: User
-  validatedDate: Date
-  status: string
-  summary: string
-  rssAllowed: boolean
-  organization: Organization
-  redactor: Redactor
-  displayName: string
-  contextKey: Set<object>
+export interface ArticleVO {
+  'title': string
+  'link': string
+  'enclosure': string
+  'description': string
+  'pubDate': Date
+  'guid': number
+  'categories': string[]
+  'dc:creator': string
+  'dc:date': Date
+  'files': LinkedFile[]
 }
