@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.1.0](https://github.com/GIP-RECIA/recia-webcomponents/compare/actualites/v1.0.1...actualites/v1.1.0) (2025-03-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **actualites:** remove base url and change API return types
+
+### Features
+
+* **actualites:** add bottom sheet loading error message ([73ea0a7](https://github.com/GIP-RECIA/recia-webcomponents/commit/73ea0a73d06ebb7961362099c157247aafaef62d))
+* **actualites:** hides rubriques on loading ([898e528](https://github.com/GIP-RECIA/recia-webcomponents/commit/898e52820dc3e15f9682dcde11e389ba52ba2888))
+* **actualites:** remove base url and change API return types ([af1618e](https://github.com/GIP-RECIA/recia-webcomponents/commit/af1618ee34e272d7078cbc29b1f06cf13e4df383))
+
+
+### Bug Fixes
+
+* **actualites:** add news body links ([93f8183](https://github.com/GIP-RECIA/recia-webcomponents/commit/93f81839cfb5ae69b57c39983d3df8a91782bbfd))
+
 ## [1.0.1](https://github.com/GIP-RECIA/recia-webcomponents/compare/actualites/v1.0.0...actualites/v1.0.1) (2025-03-18)
 
 
