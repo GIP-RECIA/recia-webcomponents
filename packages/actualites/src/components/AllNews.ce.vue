@@ -39,6 +39,7 @@ const rubriques = ref<Array<number>>()
 const currentPage = ref<number | undefined>()
 const totalPages = ref()
 const readingState = ref<boolean | undefined>(undefined)
+const initialLoading = ref(true)
 const loading = ref(true)
 
 const { t } = i18n.global
@@ -56,7 +57,7 @@ onBeforeMount(async () => {
     console.error(e)
   }
   finally {
-    loading.value = false
+    initialLoading.value = false
   }
 })
 
@@ -79,6 +80,7 @@ function handlePageChange(page: CustomEvent) {
 }
 
 async function fetchPaginatedNews() {
+  loading.value = true
   try {
     result.value = await getPaginatedNews(
       props.getUserNewsUrl,
@@ -91,6 +93,9 @@ async function fetchPaginatedNews() {
   }
   catch (e: any) {
     console.error(e)
+  }
+  finally {
+    loading.value = false
   }
 }
 
@@ -147,7 +152,7 @@ function closeModal() {
         </div>
 
         <custom-toggle-switch
-          v-if="result && result.actualite.sources.length > 0 && !loading"
+          v-if="result && result.actualite.sources.length > 0 && !initialLoading"
           @read-status="handleToggleChange"
         />
       </div>
@@ -155,14 +160,14 @@ function closeModal() {
       <news-filter-section
         v-if="result && result.actualite.sources.length > 0"
         :actualites="result.actualite"
+        :loading="loading"
         @update-model-value="handleFilterChange"
       />
 
-      <div v-if="loading" class="allNews-body">
+      <div v-if="initialLoading" class="allNews-body">
         <div v-for="index in 10" :key="index" class="skeleton-card" />
       </div>
-
-      <div v-if="result && result.actualite.items.length > 0 && !loading" class="allNews-body">
+      <div v-else-if="result && result.actualite.items.length > 0" class="allNews-body">
         <template v-for="(item, index) in result.actualite?.items" :key="index">
           <news-card
             v-if="showItemDependsOnReadingState(item)"

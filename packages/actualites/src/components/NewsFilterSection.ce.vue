@@ -22,6 +22,7 @@ import { useI18n } from 'vue-i18n';
 
 const props = defineProps<{
   actualites: Actualite
+  loading: boolean
 }>()
 
 const emit = defineEmits(['updateModelValue'])
@@ -153,7 +154,7 @@ function openMenuFilter() {
           </div>
           <div class="filter-section">
             <ul class="filter-section-span-container">
-              <li v-for="(section, index) in rubriques" :key="index">
+              <li v-for="(section, index) in (loading ? [allSections] : rubriques)" :key="index">
                 <button
                   class="filter-section-span"
                   :class="{
