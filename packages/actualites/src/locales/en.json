@@ -11,6 +11,7 @@
   },
   "text": {
     "no-news": "No news",
+    "loading-error": "An error has occurred.\nPlease try again later.",
     "creation-info": {
       "global": "By {name}, on ",
       "create": "@:text.creation-info.create-by \n @:text.creation-info.when",

@@ -47,8 +47,8 @@ const isMobileFullImage = ref(false)
 const isDesktopFullImage = ref<boolean | undefined>(undefined)
 const isSelfBottomSheetOpen = ref(true)
 const bottomsheet = ref<HTMLElement>()
-const bottomsheetContentHeaderImageContainer = ref<HTMLElement>()
 const loading = ref(true)
+const isError = ref(false)
 const showTooltip = ref(false)
 
 let idTimout: number
@@ -58,20 +58,25 @@ let isDragging = false
 
 onBeforeMount(async () => {
   try {
-    item.value = await getItemById(props.getItemByIdUrl, props.itemId)
+    const response = await getItemById(props.getItemByIdUrl, props.itemId)
+    item.value = response.data
     if (!props.isRead) {
       idTimout = setTimeout(() => {
         changeReadingState(true)
       }, VITE_USER_READING_DELAY)
     }
-    bottomsheetContentHeaderImageContainer.value?.focus()
   }
   catch (e: any) {
-    console.error(e)
+    isError.value = true
+    console.error('Failed to load item :', e)
   }
   finally {
     loading.value = false
   }
+})
+
+onMounted(() => {
+  bottomsheet.value?.focus()
 })
 
 function fullImage() {
@@ -196,17 +201,17 @@ onBeforeUnmount(() => {
         @click.stop
         @keydown.esc="closeModal"
       >
-        <template v-if="true">
-          <div class="bottomsheet-mobile-content-grip-area">
-            <div class="bottomsheet-mobile-content-grip-area-handle-bar" />
-          </div>
+        <div class="bottomsheet-mobile-content-grip-area">
+          <div class="bottomsheet-mobile-content-grip-area-handle-bar" />
+        </div>
 
-          <div class="bottomsheet-content-header-close-btn">
-            <button @click="closeModal">
-              <font-awesome-icon icon="fa-solid fa-xmark" />
-            </button>
-          </div>
+        <div class="bottomsheet-content-header-close-btn">
+          <button @click="closeModal">
+            <font-awesome-icon icon="fa-solid fa-xmark" />
+          </button>
+        </div>
 
+        <template v-if="!isError">
           <div class="bottomsheet-content-header">
             <div class="bottomsheet-container-background-desktop-image">
               <img
@@ -217,7 +222,6 @@ onBeforeUnmount(() => {
             </div>
             <div v-show="item?.article.enclosure !== null || loading" class="bottomsheet-content-header-image-group">
               <div
-                ref="bottomsheetContentHeaderImageContainer"
                 tabindex="-1"
                 class="bottomsheet-content-header-image-container"
                 :class="{ enlarge: isDesktopFullImage, shrink: isDesktopFullImage === false }"
@@ -357,12 +361,18 @@ onBeforeUnmount(() => {
 
           <div v-if="item && !loading" class="bottomsheet-content-body" v-html="item.body" />
         </template>
-        <div v-if="item && !loading" class="bottomsheet-content-footer">
+        <div v-else class="bottomsheet-content-body bottomsheet-content-error">
+          <span class="h3">
+            {{ t('text.loading-error') }}
+          </span>
+        </div>
+        <div v-if="(item && !loading) || isError" class="bottomsheet-content-footer">
           <div class="bottomsheet-content-footer-separator" />
           <div class="bottomsheet-content-footer-button-group">
-            <button v-if="isUserConnected" class="mark-has-not-read-btn" @click="changeReadingState(!isReadingButton)">
+            <button v-if="isUserConnected && !isError" class="mark-has-not-read-btn" @click="changeReadingState(!isReadingButton)">
               {{ t(`button.mark-as${isReadingButton ? '-not' : ''}-read`) }}
             </button>
+            <div v-else />
             <button class="close-btn" @click="closeModal">
               {{ t('button.close') }}
             </button>
@@ -371,7 +381,7 @@ onBeforeUnmount(() => {
       </div>
 
       <div
-        v-if="isMobileFullImage && item" class="bottomsheet-content-header-image-group-full-image-overlay"
+        v-if="isMobileFullImage && item && !isError" class="bottomsheet-content-header-image-group-full-image-overlay"
         @click.stop
       >
         <div class="bottomsheet-content-header-image-group-full-image-container" @click="fullImage">
@@ -430,6 +440,7 @@ onBeforeUnmount(() => {
     overflow-x: hidden;
     overflow-y: auto;
     margin: 35px 16px 0;
+    outline: 0;
 
     @each $name, $value in $grid-breakpoints {
       @if $value != 0 {
@@ -675,6 +686,15 @@ onBeforeUnmount(() => {
           color: $primary;
         }
       }
+    }
+
+    &-error {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      white-space-collapse: preserve-breaks;
     }
 
     &-footer {

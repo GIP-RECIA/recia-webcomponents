@@ -11,6 +11,7 @@
   },
   "text": {
     "no-news": "Aucune actualité",
+    "loading-error": "Une erreur est survenue.\nMerci de réessayer plus tard.",
     "creation-info": {
       "global": "Par {name}, le ",
       "create": "@:text.creation-info.create-by \n @:text.creation-info.when",

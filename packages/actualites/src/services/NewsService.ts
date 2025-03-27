@@ -44,13 +44,7 @@ async function getPaginatedNews(
 }
 
 async function getItemById(getItemByIdUrl: string, itemId: string) {
-  try {
-    const response = await instance.get(`${getItemByIdUrl + itemId.toString()}`)
-    return response.data
-  }
-  catch (error) {
-    console.error('Failed to load item :', error)
-  }
+  return await instance.get(`${getItemByIdUrl + itemId.toString()}`)
 }
 
 async function getNewsReadingInformations(getNewsReadingInformations: string) {
