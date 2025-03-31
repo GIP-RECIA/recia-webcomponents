@@ -959,64 +959,64 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint-react/ast@npm:1.38.0":
-  version: 1.38.0
-  resolution: "@eslint-react/ast@npm:1.38.0"
+"@eslint-react/ast@npm:1.38.4":
+  version: 1.38.4
+  resolution: "@eslint-react/ast@npm:1.38.4"
   dependencies:
-    "@eslint-react/eff": "npm:1.38.0"
+    "@eslint-react/eff": "npm:1.38.4"
     "@typescript-eslint/types": "npm:^8.28.0"
     "@typescript-eslint/typescript-estree": "npm:^8.28.0"
     "@typescript-eslint/utils": "npm:^8.28.0"
     string-ts: "npm:^2.2.1"
-    ts-pattern: "npm:^5.6.2"
-  checksum: 10/84ee0cf7ac4ecb7d45c94fc06798918d56f7239796ff4d1ac38ed4db05902c663aa653217d0179bc9bb2b1bdd74afaf9a43dcc5b5f33718b29acf8b94af2a9ea
+    ts-pattern: "npm:^5.7.0"
+  checksum: 10/c8cc90ac34380088a0d017077efe06eda0c2c2d451178e5f1587fc757efa72b55121bbb232a5c404a1de03cc8c96d87d8280d40a36aea1cd78a9fe038b403489
   languageName: node
   linkType: hard
 
-"@eslint-react/core@npm:1.38.0":
-  version: 1.38.0
-  resolution: "@eslint-react/core@npm:1.38.0"
+"@eslint-react/core@npm:1.38.4":
+  version: 1.38.4
+  resolution: "@eslint-react/core@npm:1.38.4"
   dependencies:
-    "@eslint-react/ast": "npm:1.38.0"
-    "@eslint-react/eff": "npm:1.38.0"
-    "@eslint-react/jsx": "npm:1.38.0"
-    "@eslint-react/kit": "npm:1.38.0"
-    "@eslint-react/shared": "npm:1.38.0"
-    "@eslint-react/var": "npm:1.38.0"
+    "@eslint-react/ast": "npm:1.38.4"
+    "@eslint-react/eff": "npm:1.38.4"
+    "@eslint-react/jsx": "npm:1.38.4"
+    "@eslint-react/kit": "npm:1.38.4"
+    "@eslint-react/shared": "npm:1.38.4"
+    "@eslint-react/var": "npm:1.38.4"
     "@typescript-eslint/scope-manager": "npm:^8.28.0"
     "@typescript-eslint/type-utils": "npm:^8.28.0"
     "@typescript-eslint/types": "npm:^8.28.0"
     "@typescript-eslint/utils": "npm:^8.28.0"
     birecord: "npm:^0.1.1"
-    ts-pattern: "npm:^5.6.2"
-  checksum: 10/613a323e5709d903a70f3aae7419d07fce6d9d4cfc017dc9c94c541b7f81267a8fc02c2c68ff67d280ae7b101e1e2819ef0aa9582d49f074b85cc5513ddf85de
+    ts-pattern: "npm:^5.7.0"
+  checksum: 10/f83c2bf520ffb46529a0182759552b976cd41c13ff2c7b47c51518a3adf8d24913ecfe9dcc00933740fa24090198f2add2ac4c28faa81dda7c1f21db91663c94
   languageName: node
   linkType: hard
 
-"@eslint-react/eff@npm:1.38.0":
-  version: 1.38.0
-  resolution: "@eslint-react/eff@npm:1.38.0"
-  checksum: 10/5489a24fa54aa6aaab7d352c4fcb71acba8a2ef812a6f0ab748db263c64a44a32cb91808e63fd7e69834a799b635ff2256fc6b232853ffec6a63f83840b0c283
+"@eslint-react/eff@npm:1.38.4":
+  version: 1.38.4
+  resolution: "@eslint-react/eff@npm:1.38.4"
+  checksum: 10/3270ec72f5dfb9c17e74078b895f9919f805cdd4e7d02e580a2ad2d0e6c388b7bbfde15306d82a81176eed4b63ec3f407e368a688a3985e82b1b6993fc6d3da4
   languageName: node
   linkType: hard
 
-"@eslint-react/eslint-plugin@npm:^1.38.0":
-  version: 1.38.0
-  resolution: "@eslint-react/eslint-plugin@npm:1.38.0"
+"@eslint-react/eslint-plugin@npm:^1.38.4":
+  version: 1.38.4
+  resolution: "@eslint-react/eslint-plugin@npm:1.38.4"
   dependencies:
-    "@eslint-react/eff": "npm:1.38.0"
-    "@eslint-react/kit": "npm:1.38.0"
-    "@eslint-react/shared": "npm:1.38.0"
+    "@eslint-react/eff": "npm:1.38.4"
+    "@eslint-react/kit": "npm:1.38.4"
+    "@eslint-react/shared": "npm:1.38.4"
     "@typescript-eslint/scope-manager": "npm:^8.28.0"
     "@typescript-eslint/type-utils": "npm:^8.28.0"
     "@typescript-eslint/types": "npm:^8.28.0"
     "@typescript-eslint/utils": "npm:^8.28.0"
-    eslint-plugin-react-debug: "npm:1.38.0"
-    eslint-plugin-react-dom: "npm:1.38.0"
-    eslint-plugin-react-hooks-extra: "npm:1.38.0"
-    eslint-plugin-react-naming-convention: "npm:1.38.0"
-    eslint-plugin-react-web-api: "npm:1.38.0"
-    eslint-plugin-react-x: "npm:1.38.0"
+    eslint-plugin-react-debug: "npm:1.38.4"
+    eslint-plugin-react-dom: "npm:1.38.4"
+    eslint-plugin-react-hooks-extra: "npm:1.38.4"
+    eslint-plugin-react-naming-convention: "npm:1.38.4"
+    eslint-plugin-react-web-api: "npm:1.38.4"
+    eslint-plugin-react-x: "npm:1.38.4"
   peerDependencies:
     eslint: ^8.57.0 || ^9.0.0
     typescript: ^4.9.5 || ^5.3.3
@@ -1025,61 +1025,61 @@ __metadata:
       optional: false
     typescript:
       optional: true
-  checksum: 10/88cc2c515b61f27c5c4fde13e3946c1d49f43ddef2de58afb4b42ef6f68090530255066cf78148db3c98dc0ea0ad087f5c978c1f6a77a4d7c5446b33b3d77d33
+  checksum: 10/595b0ec04218c02d8caf7ad5cd6e3950d43c932f8d8b8e67ea84958a8b5bc358f829c121737379b5dece80ff931bf2fbd7f8219a623ef2b534666935a7943106
   languageName: node
   linkType: hard
 
-"@eslint-react/jsx@npm:1.38.0":
-  version: 1.38.0
-  resolution: "@eslint-react/jsx@npm:1.38.0"
+"@eslint-react/jsx@npm:1.38.4":
+  version: 1.38.4
+  resolution: "@eslint-react/jsx@npm:1.38.4"
   dependencies:
-    "@eslint-react/ast": "npm:1.38.0"
-    "@eslint-react/eff": "npm:1.38.0"
-    "@eslint-react/var": "npm:1.38.0"
+    "@eslint-react/ast": "npm:1.38.4"
+    "@eslint-react/eff": "npm:1.38.4"
+    "@eslint-react/var": "npm:1.38.4"
     "@typescript-eslint/scope-manager": "npm:^8.28.0"
     "@typescript-eslint/types": "npm:^8.28.0"
     "@typescript-eslint/utils": "npm:^8.28.0"
-    ts-pattern: "npm:^5.6.2"
-  checksum: 10/ea16a5ba016934080cd2c5983ad07b1982f6a3ee243997fbb3048242bee9e5a363f23ba94b5257485d99c27f7be96197b028fa94a57dffeaa0a78b431c028693
+    ts-pattern: "npm:^5.7.0"
+  checksum: 10/7df328081b8fe46ad594504467da2dfe4efa0d1d110049c7ae3f33f8411135173fd694142600a8f01388c558ab770fe527af18e016cfccfe68d4aea4919e5e91
   languageName: node
   linkType: hard
 
-"@eslint-react/kit@npm:1.38.0":
-  version: 1.38.0
-  resolution: "@eslint-react/kit@npm:1.38.0"
+"@eslint-react/kit@npm:1.38.4":
+  version: 1.38.4
+  resolution: "@eslint-react/kit@npm:1.38.4"
   dependencies:
-    "@eslint-react/eff": "npm:1.38.0"
+    "@eslint-react/eff": "npm:1.38.4"
     "@typescript-eslint/utils": "npm:^8.28.0"
-    ts-pattern: "npm:^5.6.2"
-  checksum: 10/fbf0e0c43553eedb481ddfb278de70f5324591c94c743369748d9ac26a1d4b33d7dd36bd01db962b69649892fd819c4e93be1a99873e944964530ef69f920c42
+    ts-pattern: "npm:^5.7.0"
+  checksum: 10/9aec681f8fa97e84ce110e7814b32dc618495792553ee7f28c5da3381d35c847f0692a081f0deba6accb9ddf8f7f3105d7a156973e8c9022f92bc6203331fe03
   languageName: node
   linkType: hard
 
-"@eslint-react/shared@npm:1.38.0":
-  version: 1.38.0
-  resolution: "@eslint-react/shared@npm:1.38.0"
+"@eslint-react/shared@npm:1.38.4":
+  version: 1.38.4
+  resolution: "@eslint-react/shared@npm:1.38.4"
   dependencies:
-    "@eslint-react/eff": "npm:1.38.0"
-    "@eslint-react/kit": "npm:1.38.0"
+    "@eslint-react/eff": "npm:1.38.4"
+    "@eslint-react/kit": "npm:1.38.4"
     "@typescript-eslint/utils": "npm:^8.28.0"
     picomatch: "npm:^4.0.2"
-    ts-pattern: "npm:^5.6.2"
-  checksum: 10/722208a123c0119b4324726c3efaa99cd6c9db89eacddf876277202876f19e8495d7fc68c48fa7ed8047043193bf42ee58158d55f7860a1ef04e04337c991359
+    ts-pattern: "npm:^5.7.0"
+  checksum: 10/add0aed43807bcd13ff6a4155bb14f78f21eb6435711becc06dd866d9fa69575135b56d1d47a41f0075124b35b71f9affc8fd74f4a17151065bb8f1da715f81d
   languageName: node
   linkType: hard
 
-"@eslint-react/var@npm:1.38.0":
-  version: 1.38.0
-  resolution: "@eslint-react/var@npm:1.38.0"
+"@eslint-react/var@npm:1.38.4":
+  version: 1.38.4
+  resolution: "@eslint-react/var@npm:1.38.4"
   dependencies:
-    "@eslint-react/ast": "npm:1.38.0"
-    "@eslint-react/eff": "npm:1.38.0"
+    "@eslint-react/ast": "npm:1.38.4"
+    "@eslint-react/eff": "npm:1.38.4"
     "@typescript-eslint/scope-manager": "npm:^8.28.0"
     "@typescript-eslint/types": "npm:^8.28.0"
     "@typescript-eslint/utils": "npm:^8.28.0"
     string-ts: "npm:^2.2.1"
-    ts-pattern: "npm:^5.6.2"
-  checksum: 10/8cadd4f7f8c1f8eba2f329bdc4ba9a0ca54845b393f9d8163fb8de32db313ffe097a67fa4c7a970c772e34899d81ed7a8b421520e5f2fbdca7bdea03adb0b643
+    ts-pattern: "npm:^5.7.0"
+  checksum: 10/51b8ad8f4bc32177085c7285853d0770f39510ca82393cd05e080e25246eddf28df1d8e0767c7e7091ddd3a64cd318ae9b87f9eef1447fc0438b63bc51a30095
   languageName: node
   linkType: hard
 
@@ -1646,7 +1646,7 @@ __metadata:
   resolution: "@gip-recia/tldraw-webcomponent@workspace:packages/tldraw"
   dependencies:
     "@antfu/eslint-config": "npm:^4.11.0"
-    "@eslint-react/eslint-plugin": "npm:^1.38.0"
+    "@eslint-react/eslint-plugin": "npm:^1.38.4"
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.2"
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.2"
     "@fortawesome/react-fontawesome": "npm:^0.2.2"
@@ -1774,7 +1774,7 @@ __metadata:
   resolution: "@gip-recia/wisemapping-webcomponent@workspace:packages/wisemapping"
   dependencies:
     "@antfu/eslint-config": "npm:^4.11.0"
-    "@eslint-react/eslint-plugin": "npm:^1.38.0"
+    "@eslint-react/eslint-plugin": "npm:^1.38.4"
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.2"
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.2"
     "@fortawesome/react-fontawesome": "npm:^0.2.2"
@@ -6278,23 +6278,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-debug@npm:1.38.0":
-  version: 1.38.0
-  resolution: "eslint-plugin-react-debug@npm:1.38.0"
+"eslint-plugin-react-debug@npm:1.38.4":
+  version: 1.38.4
+  resolution: "eslint-plugin-react-debug@npm:1.38.4"
   dependencies:
-    "@eslint-react/ast": "npm:1.38.0"
-    "@eslint-react/core": "npm:1.38.0"
-    "@eslint-react/eff": "npm:1.38.0"
-    "@eslint-react/jsx": "npm:1.38.0"
-    "@eslint-react/kit": "npm:1.38.0"
-    "@eslint-react/shared": "npm:1.38.0"
-    "@eslint-react/var": "npm:1.38.0"
+    "@eslint-react/ast": "npm:1.38.4"
+    "@eslint-react/core": "npm:1.38.4"
+    "@eslint-react/eff": "npm:1.38.4"
+    "@eslint-react/jsx": "npm:1.38.4"
+    "@eslint-react/kit": "npm:1.38.4"
+    "@eslint-react/shared": "npm:1.38.4"
+    "@eslint-react/var": "npm:1.38.4"
     "@typescript-eslint/scope-manager": "npm:^8.28.0"
     "@typescript-eslint/type-utils": "npm:^8.28.0"
     "@typescript-eslint/types": "npm:^8.28.0"
     "@typescript-eslint/utils": "npm:^8.28.0"
     string-ts: "npm:^2.2.1"
-    ts-pattern: "npm:^5.6.2"
+    ts-pattern: "npm:^5.7.0"
   peerDependencies:
     eslint: ^8.57.0 || ^9.0.0
     typescript: ^4.9.5 || ^5.3.3
@@ -6303,27 +6303,27 @@ __metadata:
       optional: false
     typescript:
       optional: true
-  checksum: 10/de94adc13b8f8361c47745134b74123b7e0ca69f3b5115ef5625493677e5e0888368794251e550caf2e1301aaf764e1c78c3bc23be0b6de9c1dca772556f0d7a
+  checksum: 10/04773810f872271ea708a76905ee9f55fdfdc70765645ea9f49a75af5f741fe6e68c46dcae1ed02fbae2b4d627041d198c4ba692edba06a99509691a5b9d60d1
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-dom@npm:1.38.0":
-  version: 1.38.0
-  resolution: "eslint-plugin-react-dom@npm:1.38.0"
+"eslint-plugin-react-dom@npm:1.38.4":
+  version: 1.38.4
+  resolution: "eslint-plugin-react-dom@npm:1.38.4"
   dependencies:
-    "@eslint-react/ast": "npm:1.38.0"
-    "@eslint-react/core": "npm:1.38.0"
-    "@eslint-react/eff": "npm:1.38.0"
-    "@eslint-react/jsx": "npm:1.38.0"
-    "@eslint-react/kit": "npm:1.38.0"
-    "@eslint-react/shared": "npm:1.38.0"
-    "@eslint-react/var": "npm:1.38.0"
+    "@eslint-react/ast": "npm:1.38.4"
+    "@eslint-react/core": "npm:1.38.4"
+    "@eslint-react/eff": "npm:1.38.4"
+    "@eslint-react/jsx": "npm:1.38.4"
+    "@eslint-react/kit": "npm:1.38.4"
+    "@eslint-react/shared": "npm:1.38.4"
+    "@eslint-react/var": "npm:1.38.4"
     "@typescript-eslint/scope-manager": "npm:^8.28.0"
     "@typescript-eslint/types": "npm:^8.28.0"
     "@typescript-eslint/utils": "npm:^8.28.0"
     compare-versions: "npm:^6.1.1"
     string-ts: "npm:^2.2.1"
-    ts-pattern: "npm:^5.6.2"
+    ts-pattern: "npm:^5.7.0"
   peerDependencies:
     eslint: ^8.57.0 || ^9.0.0
     typescript: ^4.9.5 || ^5.3.3
@@ -6332,27 +6332,27 @@ __metadata:
       optional: false
     typescript:
       optional: true
-  checksum: 10/58820702193fdf77d24315a673df3c8f8b95ecb335dfe3f670a63e04c127273148941d43f423b33f6b6038f4b37181169f11b51d37e30b45d7f2c32cbb82bef9
+  checksum: 10/3192f7d3404163e6a9d06b9bdcfc9a682f3160e0b8c012c09722c53b235f1018855c0cbc2276caf5c975b4e507bdbca0d0a2702142d8d9c9f4a79464c1e2f215
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-hooks-extra@npm:1.38.0":
-  version: 1.38.0
-  resolution: "eslint-plugin-react-hooks-extra@npm:1.38.0"
+"eslint-plugin-react-hooks-extra@npm:1.38.4":
+  version: 1.38.4
+  resolution: "eslint-plugin-react-hooks-extra@npm:1.38.4"
   dependencies:
-    "@eslint-react/ast": "npm:1.38.0"
-    "@eslint-react/core": "npm:1.38.0"
-    "@eslint-react/eff": "npm:1.38.0"
-    "@eslint-react/jsx": "npm:1.38.0"
-    "@eslint-react/kit": "npm:1.38.0"
-    "@eslint-react/shared": "npm:1.38.0"
-    "@eslint-react/var": "npm:1.38.0"
+    "@eslint-react/ast": "npm:1.38.4"
+    "@eslint-react/core": "npm:1.38.4"
+    "@eslint-react/eff": "npm:1.38.4"
+    "@eslint-react/jsx": "npm:1.38.4"
+    "@eslint-react/kit": "npm:1.38.4"
+    "@eslint-react/shared": "npm:1.38.4"
+    "@eslint-react/var": "npm:1.38.4"
     "@typescript-eslint/scope-manager": "npm:^8.28.0"
     "@typescript-eslint/type-utils": "npm:^8.28.0"
     "@typescript-eslint/types": "npm:^8.28.0"
     "@typescript-eslint/utils": "npm:^8.28.0"
     string-ts: "npm:^2.2.1"
-    ts-pattern: "npm:^5.6.2"
+    ts-pattern: "npm:^5.7.0"
   peerDependencies:
     eslint: ^8.57.0 || ^9.0.0
     typescript: ^4.9.5 || ^5.3.3
@@ -6361,7 +6361,7 @@ __metadata:
       optional: false
     typescript:
       optional: true
-  checksum: 10/72f895a33af0787021e36198e011bc9965c690c0826c3014a01e0eb5541ea6d0c5fd2de4a45ad11d18282353cb4d6d317522963281d51ac859582b2b7720b5c2
+  checksum: 10/d6d6bf305b5b5eb7d76d22ce9ed3dee6fda8a70b97a936e117101f41668e5058f33b730f51114957355f50d4a85255f71a9e0733bd930eaf925048cbdaab243a
   languageName: node
   linkType: hard
 
@@ -6374,23 +6374,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-naming-convention@npm:1.38.0":
-  version: 1.38.0
-  resolution: "eslint-plugin-react-naming-convention@npm:1.38.0"
+"eslint-plugin-react-naming-convention@npm:1.38.4":
+  version: 1.38.4
+  resolution: "eslint-plugin-react-naming-convention@npm:1.38.4"
   dependencies:
-    "@eslint-react/ast": "npm:1.38.0"
-    "@eslint-react/core": "npm:1.38.0"
-    "@eslint-react/eff": "npm:1.38.0"
-    "@eslint-react/jsx": "npm:1.38.0"
-    "@eslint-react/kit": "npm:1.38.0"
-    "@eslint-react/shared": "npm:1.38.0"
-    "@eslint-react/var": "npm:1.38.0"
+    "@eslint-react/ast": "npm:1.38.4"
+    "@eslint-react/core": "npm:1.38.4"
+    "@eslint-react/eff": "npm:1.38.4"
+    "@eslint-react/jsx": "npm:1.38.4"
+    "@eslint-react/kit": "npm:1.38.4"
+    "@eslint-react/shared": "npm:1.38.4"
+    "@eslint-react/var": "npm:1.38.4"
     "@typescript-eslint/scope-manager": "npm:^8.28.0"
     "@typescript-eslint/type-utils": "npm:^8.28.0"
     "@typescript-eslint/types": "npm:^8.28.0"
     "@typescript-eslint/utils": "npm:^8.28.0"
     string-ts: "npm:^2.2.1"
-    ts-pattern: "npm:^5.6.2"
+    ts-pattern: "npm:^5.7.0"
   peerDependencies:
     eslint: ^8.57.0 || ^9.0.0
     typescript: ^4.9.5 || ^5.3.3
@@ -6399,7 +6399,7 @@ __metadata:
       optional: false
     typescript:
       optional: true
-  checksum: 10/c7f98b89d8dd46bef041bfb91c5c0e5251db589adf9242eb30fabafce00d20cd3488c5180a226a11148bb298c8d4e8bf411e88bcad66f2bb464ad59e3f4baa0a
+  checksum: 10/925934ac841a358711a9947bce56af5fa54ffced374348a2cf83659c741a04fc65ba9dee4faa56556cc001f047d433e9da85c7ab1c10b01e64a9a3ce2f9ad456
   languageName: node
   linkType: hard
 
@@ -6412,22 +6412,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-web-api@npm:1.38.0":
-  version: 1.38.0
-  resolution: "eslint-plugin-react-web-api@npm:1.38.0"
+"eslint-plugin-react-web-api@npm:1.38.4":
+  version: 1.38.4
+  resolution: "eslint-plugin-react-web-api@npm:1.38.4"
   dependencies:
-    "@eslint-react/ast": "npm:1.38.0"
-    "@eslint-react/core": "npm:1.38.0"
-    "@eslint-react/eff": "npm:1.38.0"
-    "@eslint-react/jsx": "npm:1.38.0"
-    "@eslint-react/kit": "npm:1.38.0"
-    "@eslint-react/shared": "npm:1.38.0"
-    "@eslint-react/var": "npm:1.38.0"
+    "@eslint-react/ast": "npm:1.38.4"
+    "@eslint-react/core": "npm:1.38.4"
+    "@eslint-react/eff": "npm:1.38.4"
+    "@eslint-react/jsx": "npm:1.38.4"
+    "@eslint-react/kit": "npm:1.38.4"
+    "@eslint-react/shared": "npm:1.38.4"
+    "@eslint-react/var": "npm:1.38.4"
     "@typescript-eslint/scope-manager": "npm:^8.28.0"
     "@typescript-eslint/types": "npm:^8.28.0"
     "@typescript-eslint/utils": "npm:^8.28.0"
     string-ts: "npm:^2.2.1"
-    ts-pattern: "npm:^5.6.2"
+    ts-pattern: "npm:^5.7.0"
   peerDependencies:
     eslint: ^8.57.0 || ^9.0.0
     typescript: ^4.9.5 || ^5.3.3
@@ -6436,21 +6436,21 @@ __metadata:
       optional: false
     typescript:
       optional: true
-  checksum: 10/81ff848c3c1d99e9c23daf4a0828f0a89a5a077b88cac343670fc0c80cb0f8bb9f7dabbc8a4e19942e41e1e5ef5b6bf6d6046058b7eb219b2121c8141fafb938
+  checksum: 10/c7b056ff8dd904f4f0e670fa5c221a2d158c475109aea9f5eaba36919f554b46e07fa8d8461583133502d5afd47d8e82b3d2ecf06fd0e7f0e600a54cdf55172d
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-x@npm:1.38.0":
-  version: 1.38.0
-  resolution: "eslint-plugin-react-x@npm:1.38.0"
+"eslint-plugin-react-x@npm:1.38.4":
+  version: 1.38.4
+  resolution: "eslint-plugin-react-x@npm:1.38.4"
   dependencies:
-    "@eslint-react/ast": "npm:1.38.0"
-    "@eslint-react/core": "npm:1.38.0"
-    "@eslint-react/eff": "npm:1.38.0"
-    "@eslint-react/jsx": "npm:1.38.0"
-    "@eslint-react/kit": "npm:1.38.0"
-    "@eslint-react/shared": "npm:1.38.0"
-    "@eslint-react/var": "npm:1.38.0"
+    "@eslint-react/ast": "npm:1.38.4"
+    "@eslint-react/core": "npm:1.38.4"
+    "@eslint-react/eff": "npm:1.38.4"
+    "@eslint-react/jsx": "npm:1.38.4"
+    "@eslint-react/kit": "npm:1.38.4"
+    "@eslint-react/shared": "npm:1.38.4"
+    "@eslint-react/var": "npm:1.38.4"
     "@typescript-eslint/scope-manager": "npm:^8.28.0"
     "@typescript-eslint/type-utils": "npm:^8.28.0"
     "@typescript-eslint/types": "npm:^8.28.0"
@@ -6458,10 +6458,10 @@ __metadata:
     compare-versions: "npm:^6.1.1"
     is-immutable-type: "npm:^5.0.1"
     string-ts: "npm:^2.2.1"
-    ts-pattern: "npm:^5.6.2"
+    ts-pattern: "npm:^5.7.0"
   peerDependencies:
     eslint: ^8.57.0 || ^9.0.0
-    ts-api-utils: ^2.0.1
+    ts-api-utils: ^2.1.0
     typescript: ^4.9.5 || ^5.3.3
   peerDependenciesMeta:
     eslint:
@@ -6470,7 +6470,7 @@ __metadata:
       optional: true
     typescript:
       optional: true
-  checksum: 10/e50a30e0dbba76e0197aad1357206caccecec159891e664e2b2412c5f475c8a09768622bc1538969e9bccfca0269dcce01f1277a5585b5e45b669bc84b00ae58
+  checksum: 10/50a339faec227499d590ec7e389a2caab4f02bf45c550f24c0d4264f5b0142bb3af5f4a2a489cbf1dac8e052399fe9c8627063e3a4f53f7467db51d439aebbc4
   languageName: node
   linkType: hard
 
@@ -11457,10 +11457,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-pattern@npm:^5.6.2":
-  version: 5.6.2
-  resolution: "ts-pattern@npm:5.6.2"
-  checksum: 10/7eea891a2653650793143e058a6b488c9931444996234bfb71f569528e8aa55decdc13266b710135757614c4eaa1e8cb9015c46ccfd258a5bd81e5e86c2d1dcb
+"ts-pattern@npm:^5.7.0":
+  version: 5.7.0
+  resolution: "ts-pattern@npm:5.7.0"
+  checksum: 10/9a1dda9321a79c7c36209c9434dae4e51cb79c0df2bd15ac2bcd1fc193e1467bb876733d41bf786865646e6736b1d8535ccb40ae39b7cf3e39c4247c745a5eb5
   languageName: node
   linkType: hard
 
