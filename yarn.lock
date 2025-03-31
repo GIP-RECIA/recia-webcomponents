@@ -1655,7 +1655,7 @@ __metadata:
     "@types/lodash.debounce": "npm:^4"
     "@types/lodash.throttle": "npm:^4"
     "@types/node": "npm:^22"
-    "@types/react": "npm:^18"
+    "@types/react": "npm:^19"
     "@types/react-dom": "npm:^18"
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
@@ -1669,7 +1669,7 @@ __metadata:
     jwt-decode: "npm:^4.0.0"
     lodash.debounce: "npm:^4.0.8"
     lodash.throttle: "npm:^4.1.1"
-    react: "npm:^18.3.1"
+    react: "npm:^19.1.0"
     react-dom: "npm:^18.3.1"
     regenerator-runtime: "npm:^0.14.1"
     sass: "npm:^1.86.0"
@@ -1782,7 +1782,7 @@ __metadata:
     "@r2wc/react-to-web-component": "npm:^2.0.4"
     "@types/lodash.throttle": "npm:^4"
     "@types/node": "npm:^22"
-    "@types/react": "npm:^18"
+    "@types/react": "npm:^19"
     "@types/react-dom": "npm:^18"
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
@@ -1795,7 +1795,7 @@ __metadata:
     eslint-plugin-react-refresh: "npm:^0.4.19"
     jwt-decode: "npm:^4.0.0"
     lodash.throttle: "npm:^4.1.1"
-    react: "npm:^18.3.1"
+    react: "npm:^19.1.0"
     react-dom: "npm:^18.3.1"
     regenerator-runtime: "npm:^0.14.1"
     sass: "npm:^1.86.0"
@@ -3744,13 +3744,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:16 || 17 || 18, @types/react@npm:^18":
+"@types/react@npm:*, @types/react@npm:16 || 17 || 18":
   version: 18.3.12
   resolution: "@types/react@npm:18.3.12"
   dependencies:
     "@types/prop-types": "npm:*"
     csstype: "npm:^3.0.2"
   checksum: 10/c9bbdfeacd5347d2240e0d2cb5336bc57dbc1b9ff557b6c4024b49df83419e4955553518169d3736039f1b62608e15b35762a6c03d49bd86e33add4b43b19033
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:^19":
+  version: 19.0.12
+  resolution: "@types/react@npm:19.0.12"
+  dependencies:
+    csstype: "npm:^3.0.2"
+  checksum: 10/2476295f27371ea67f0ba3ca8fae3c683fc8d086b8b387e0519e67ff5731072c6ff0372fbd5a4c6d760895b1e7dc8997ac518f07bf6b6a8d1e40aeb5d2068b9e
   languageName: node
   linkType: hard
 
@@ -10284,12 +10293,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^18.3.1":
-  version: 18.3.1
-  resolution: "react@npm:18.3.1"
-  dependencies:
-    loose-envify: "npm:^1.1.0"
-  checksum: 10/261137d3f3993eaa2368a83110466fc0e558bc2c7f7ae7ca52d94f03aac945f45146bd85e5f481044db1758a1dbb57879e2fcdd33924e2dde1bdc550ce73f7bf
+"react@npm:^19.1.0":
+  version: 19.1.0
+  resolution: "react@npm:19.1.0"
+  checksum: 10/d0180689826fd9de87e839c365f6f361c561daea397d61d724687cae88f432a307d1c0f53a0ee95ddbe3352c10dac41d7ff1ad85530fb24951b27a39e5398db4
   languageName: node
   linkType: hard
 
