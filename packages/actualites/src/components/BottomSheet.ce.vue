@@ -303,8 +303,8 @@ onBeforeUnmount(() => {
                     <li
                       v-html="t('text.creation-info.validate', {
                         name: `<strong>${capitalize(item.validatedBy)}</strong>`,
-                        date: d(item.pubDate, 'medium'),
-                        datetime: d(item.pubDate, 'datetime'),
+                        date: d(item.validatedDate, 'medium'),
+                        datetime: d(item.validatedDate, 'datetime'),
                       })"
                     />
                   </ul>

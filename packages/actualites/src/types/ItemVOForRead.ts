@@ -21,5 +21,6 @@ export interface ItemVOForRead extends ItemVO {
   pubBy: string
   lastModifiedBy: string
   validatedBy: string
+  validatedDate: string
   body: string
 }
