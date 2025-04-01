@@ -359,7 +359,7 @@ onBeforeUnmount(() => {
             </div>
           </div>
 
-          <div v-if="item && !loading" class="bottomsheet-content-body" v-html="item.body" />
+          <div v-if="item && !loading" class="bottomsheet-content-body ck-content" v-html="item.body" />
         </template>
         <div v-else class="bottomsheet-content-body bottomsheet-content-error">
           <span class="h3">
@@ -408,6 +408,7 @@ onBeforeUnmount(() => {
 @use 'sass:map';
 @use '@/assets/global.scss' as *;
 @import '@fortawesome/fontawesome-free/css/all.css';
+@import '@/assets/ckeditor.css';
 
 .mark-has-not-read-btn {
   @extend %button-secondary;
@@ -668,23 +669,66 @@ onBeforeUnmount(() => {
       font-size: 16px;
       padding: 1em;
 
-      p:not(:last-child) {
-        margin-bottom: 1em;
+      h1,
+      h2,
+      h3,
+      p,
+      blockquote,
+      .media,
+      ul,
+      ol {
+        &:not(:last-child) {
+          margin-bottom: 1em;
+        }
+      }
+
+      h1,
+      h2,
+      h3 {
+        &:not(:first-child) {
+          margin-top: 1em;
+        }
+      }
+
+      ul,
+      ol {
+        margin-left: 2em;
+
+        > li:not(:last-child) {
+          margin-bottom: 0.5em;
+        }
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+        outline: none;
+
+        &:has(i + span) {
+          display: inline-flex;
+          align-items: center;
+
+          > i {
+            line-height: 1;
+          }
+        }
+
+        &:hover,
+        &:focus-visible {
+          color: $primary;
+        }
+
+        @media (hover: none) {
+          color: $primary;
+        }
       }
 
       img {
         max-width: 100%;
       }
 
-      a {
-        color: unset;
-        text-decoration: none;
-        outline: none;
-
-        &:hover,
-        &:focus-visible {
-          color: $primary;
-        }
+      figure.media iframe {
+        max-width: 100%;
       }
     }
 
