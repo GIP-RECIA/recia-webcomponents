@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.2.0](https://github.com/GIP-RECIA/recia-webcomponents/compare/actualites/v1.1.0...actualites/v1.2.0) (2025-04-01)
+
+
+### Features
+
+* **actualites:** add copy link function ([be4b447](https://github.com/GIP-RECIA/recia-webcomponents/commit/be4b447d8dc02835b0547ec06b715f24d5bb5010))
+
+
+### Bug Fixes
+
+* **actualites:** body rendering ([1c1a6a4](https://github.com/GIP-RECIA/recia-webcomponents/commit/1c1a6a448943c51cdee36723efcae09e9c29f82d))
+* **actualites:** copy link translations ([cb66cea](https://github.com/GIP-RECIA/recia-webcomponents/commit/cb66cea7387169ab4f2d33386fdb48fde9d2200d))
+* **actualites:** use validate date instead of pub date ([6fc9589](https://github.com/GIP-RECIA/recia-webcomponents/commit/6fc95898c76bf543e2de46996af086f7230f6fa4))
+
 ## [1.1.0](https://github.com/GIP-RECIA/recia-webcomponents/compare/actualites/v1.0.1...actualites/v1.1.0) (2025-03-27)
 
 
