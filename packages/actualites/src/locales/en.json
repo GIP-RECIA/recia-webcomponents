@@ -39,6 +39,10 @@
       "all-sections": "All categories",
       "by-sources": "By sources :",
       "by-sections": "By categories :"
+    },
+    "clipboard": {
+      "copy": "Copy link",
+      "copied": "Copied to clipboard"
     }
   }
 }

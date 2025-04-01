@@ -50,6 +50,7 @@ const bottomsheet = ref<HTMLElement>()
 const loading = ref(true)
 const isError = ref(false)
 const showTooltip = ref(false)
+const isClipped = ref(false)
 
 let idTimout: number
 let startY = 0
@@ -78,6 +79,14 @@ onBeforeMount(async () => {
 onMounted(() => {
   bottomsheet.value?.focus()
 })
+
+function clipLink(link: string): void {
+  navigator.clipboard.writeText(`${window.location.origin}${link}`)
+  isClipped.value = true
+  setTimeout(() => {
+    isClipped.value = false
+  }, 3500)
+}
 
 function fullImage() {
   if (window.innerWidth < 768) {
@@ -307,6 +316,14 @@ onBeforeUnmount(() => {
                         datetime: d(item.validatedDate, 'datetime'),
                       })"
                     />
+                    <li>
+                      <button class="news-link" @click="clipLink(item.internalViewLink)">
+                        <span>
+                          {{ t(`text.clipboard.${isClipped ? 'copied' : 'copy'}`) }}
+                          <font-awesome-icon :icon="`fa-solid fa-clipboard${isClipped ? '-check' : ''}`" />
+                        </span>
+                      </button>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -839,6 +856,22 @@ onBeforeUnmount(() => {
 
     > li {
       opacity: 0.8;
+
+      > .news-link {
+        color: unset;
+        text-decoration: none;
+        outline: none;
+
+        > * {
+          display: inline-flex;
+          gap: 8px;
+        }
+
+        &:hover,
+        &:focus-visible {
+          color: $primary;
+        }
+      }
     }
   }
 }

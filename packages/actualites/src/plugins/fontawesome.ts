@@ -24,6 +24,8 @@ import {
   faArrowRight,
   faCaretDown,
   faCaretUp,
+  faClipboard,
+  faClipboardCheck,
   faXmark,
 } from '@fortawesome/free-solid-svg-icons'
 
@@ -37,6 +39,8 @@ function register() {
     faArrowRight,
     faCaretDown,
     faCaretUp,
+    faClipboard,
+    faClipboardCheck,
     faXmark,
   )
 }

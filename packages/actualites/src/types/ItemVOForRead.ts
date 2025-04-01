@@ -23,4 +23,5 @@ export interface ItemVOForRead extends ItemVO {
   validatedBy: string
   validatedDate: string
   body: string
+  internalViewLink: string
 }

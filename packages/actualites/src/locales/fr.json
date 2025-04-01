@@ -39,6 +39,10 @@
       "all-sections": "Toutes les rubriques",
       "by-sources": "Par sources :",
       "by-sections": "Par rubriques :"
+    },
+    "clipboard": {
+      "copy": "Copier le lien",
+      "copied": "Copié dans le presse papier"
     }
   }
 }
