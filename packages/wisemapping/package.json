@@ -71,7 +71,7 @@
     "regenerator-runtime": "^0.14.1",
     "sass": "^1.86.3",
     "terser": "^5.39.0",
-    "typescript": "^5.8.2",
+    "typescript": "^5.8.3",
     "vite": "^6.2.5",
     "y-presence": "^0.2.3",
     "y-websocket": "^2.1.0",

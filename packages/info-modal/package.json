@@ -52,7 +52,7 @@
     "lit-scss-loader": "^2.0.1",
     "sass": "^1.86.3",
     "terser": "^5.39.0",
-    "typescript": "^5.8.2",
+    "typescript": "^5.8.3",
     "vite": "^6.2.5",
     "vite-plugin-sass": "^0.1.0"
   }
