@@ -1,19 +1,30 @@
 {
-  "page-mediacentre": {},
+  "page-mediacentre": {
+    "help": "Help",
+    "redirect-failed": "The resource you try to reach isn't available!\nEither your school did not the required configurations, or your school doesn't use this service.\nTo know more, please contact an administrator."
+  },
   "liste-ressources-mediacentre": {
     "no-resources": "You don't have any resources.",
     "no-favorites-resources": "You don't have any favorite resources."
   },
   "menu-mediacentre": {
     "all-resources": "All resources",
-    "my-favorites": "My favorites"
+    "my-favorites": "My favorites",
+    "niveau-educatif-filter": "By educational level",
+    "type-presentation-filter": "By resource type",
+    "domaine-enseignement-filter": "By subject",
+    "uai-filter": "By school",
+    "display-etab": "Displayed school:",
+    "unknown-etab": "Unknown school"
   },
   "resource-info-modal-mediacentre": {
     "editor": "Edited by "
   },
-
+  "gestion": {
+    "menu-label": "GAR assignments"
+  },
   "error-messages": {
-    "400": " An error has occurred, please try again.",
+    "400": "An error has occurred, please try again.",
     "401": "You are not logged in, please login.",
     "403": "You are not authorized to access its resources.",
     "500": "An internal server error has occurred, please try again later.",

@@ -14,22 +14,15 @@
  * limitations under the License.
  */
 
-import type { JWT } from '@uportal/open-id-connect'
-import oidc from '@uportal/open-id-connect'
+import type { GestionAffectation } from '@/utils/GestionAffectation'
+import { EtablissementsData } from '@/utils/EtablissementsData'
 import { ref } from 'vue'
-import { CustomError } from './CustomError'
 
-const soffit = ref<JWT>()
+const etablissementsMap = ref<Map<string, string>>(new Map())
+const etablissementsData = ref<EtablissementsData>(new EtablissementsData())
+const displayedEtablissementUai = ref<string>('')
+const filtre = ref<string>('tout')
+const gestionAffectations = ref<Array<GestionAffectation>>([])
+const configMapUaiDisplayName = ref<Map<string, string>>(new Map())
 
-async function getToken(apiUrl: string): Promise<{ encoded: string, decoded: JWT }> {
-  const { encoded, decoded } = await oidc({
-    userInfoApiUrl: apiUrl,
-  })
-  if (decoded.sub.startsWith('guest')) {
-    throw new CustomError('You are not logged', 401)
-  }
-  soffit.value = decoded
-  return { encoded, decoded }
-}
-
-export { getToken, soffit }
+export { configMapUaiDisplayName, displayedEtablissementUai, etablissementsData, etablissementsMap, filtre, gestionAffectations }

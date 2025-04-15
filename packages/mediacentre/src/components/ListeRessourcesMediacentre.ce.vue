@@ -29,7 +29,7 @@ const props = defineProps<{
   nbResources: number
 }>()
 
-const emit = defineEmits(['update-favorite', 'open-modal'])
+const emit = defineEmits(['updateFavorite', 'openModal'])
 
 const { t } = useI18n()
 
@@ -69,18 +69,18 @@ function openModal(event: CustomEvent): void {
   const resourceEditor = event.detail[1]
   const resourceDescription = event.detail[2]
   const resourceReference = event.detail[3]
-  emit('open-modal', isModalOpen, resourceTitle, resourceEditor, resourceDescription, resourceReference)
+  emit('openModal', isModalOpen, resourceTitle, resourceEditor, resourceDescription, resourceReference)
 }
 
 function sendUpdateFavorite(event: CustomEvent) {
   const idResource = event.detail[0]
   const isFavorite = event.detail[1]
-  emit('update-favorite', idResource, isFavorite)
+  emit('updateFavorite', idResource, isFavorite)
 }
 </script>
 
 <template>
-  <div v-if="ressources.length > 0 && nbShownCards > 0" class="cadre-liste-ressources-mediacentre">
+  <div v-if="ressources.length > 0 && nbShownCards > 0" class="cadre-liste-ressources-mediacentre" tabindex="-1" disabled>
     <carte-ressource
       v-for="ressource in ressources"
       v-show="filtre !== 'favoris' || ressource.isFavorite !== false"
@@ -110,7 +110,7 @@ function sendUpdateFavorite(event: CustomEvent) {
 
 <style>
 .cadre-liste-ressources-mediacentre {
-  overflow-y: scroll;
+  overflow-x: hidden;
 
   height: auto;
   box-sizing: border-box;

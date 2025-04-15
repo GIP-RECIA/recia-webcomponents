@@ -45,11 +45,8 @@ function getFilterCategories(filter: string, resources: Array<Ressource>): Filtr
       values = new Set(resources.map(resource => resource.domaineEnseignement).flat())
       values = Array.from(values)
       break
-    case 'UAI_FILTER':
-      values = resources.map(resource => resource.idEtablissement).flat()
-      values = [...new Set(values)]
-      break
     default:
+      return undefined
   }
 
   return convertToFiltres(values, filter)
@@ -70,7 +67,7 @@ function convertToFiltres(values: Array<any>, filter: string): Filtres | undefin
         })
       })
       filtres = {
-        name: 'Par niveau éducatif',
+        name: 'menu-mediacentre.niveau-educatif-filter',
         filterEnum: filter,
         filters: supprimerDoublons(filters),
       }
@@ -83,7 +80,7 @@ function convertToFiltres(values: Array<any>, filter: string): Filtres | undefin
         })
       })
       filtres = {
-        name: 'Par type de ressource',
+        name: 'menu-mediacentre.type-presentation-filter',
         filterEnum: filter,
         filters: supprimerDoublons(filters),
       }
@@ -96,20 +93,7 @@ function convertToFiltres(values: Array<any>, filter: string): Filtres | undefin
         })
       })
       filtres = {
-        name: 'Par matière',
-        filterEnum: filter,
-        filters: supprimerDoublons(filters),
-      }
-      break
-    case 'UAI_FILTER':
-      values.forEach((item) => {
-        filters.push({
-          id: item.UAI,
-          nom: item.nom.toLowerCase(),
-        })
-      })
-      filtres = {
-        name: 'Par établissement',
+        name: 'menu-mediacentre.domaine-enseignement-filter',
         filterEnum: filter,
         filters: supprimerDoublons(filters),
       }

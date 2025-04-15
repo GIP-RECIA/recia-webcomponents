@@ -38,6 +38,7 @@ export default ({ mode }: ConfigEnv) => {
               'info-modal',
               'liste-ressources',
               'mediacentre-ui',
+              'mediacentre-redirect',
               'menu-mediacentre',
             ].includes(tag),
           },
@@ -53,7 +54,7 @@ export default ({ mode }: ConfigEnv) => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@import "@/assets/scss/global.scss";`,
+          additionalData: `@use "@/assets/scss/global.scss" as *;`,
         },
       },
     },
@@ -64,6 +65,9 @@ export default ({ mode }: ConfigEnv) => {
         name,
       },
       sourcemap: true,
+    },
+    server: {
+      allowedHosts: true,
     },
     define: {
       'process.env': { NODE_ENV: process.env.NODE_ENV },

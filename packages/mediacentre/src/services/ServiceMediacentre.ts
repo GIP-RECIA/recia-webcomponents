@@ -15,19 +15,30 @@
  */
 
 import type { ConfigType } from '@/types/ConfigType'
+import type { GestionAffectation } from '@/utils/GestionAffectation'
 import { instance } from '@/utils/axiosUtils'
 import { CustomError } from '@/utils/CustomError'
+import { configMapUaiDisplayName } from '@/utils/store'
 
 let config: Array<ConfigType> = []
+let userGroups: Array<string>
 
 async function flushMediacentreFavorites(putUrl: string, fname: string) {
-  await instance.put(`${putUrl}${fname}`, { mediacentreFavorites: [] })
+  try {
+    await instance.put(`${putUrl}${fname}`, { mediacentreFavorites: [] })
+  }
+  catch (e: any) {
+    throw new CustomError(e.message, e.code)
+  }
 }
 
-async function getConfig(baseApiUrl: string) {
+async function getGestionAffectations(gestionAffectationUrl: string, groupsApiUrl: string): Promise<Array<GestionAffectation> | undefined> {
   try {
-    const response = await instance.get(`api/config`)
-    config = response.data
+    if (userGroups === undefined) {
+      userGroups = await getGroups(groupsApiUrl)
+    }
+    const response = await instance.post(gestionAffectationUrl, { isMemberOf: userGroups })
+    return response.data
   }
   catch (e: any) {
     if (e.response) {
@@ -39,23 +50,89 @@ async function getConfig(baseApiUrl: string) {
   }
 }
 
-async function getResources(baseApiUrl: string, groupsApiUrl: string) {
+async function getConfig(configApiUrl: string, uais: string[]) {
+  try {
+    const response = await instance.post(configApiUrl, { uais })
+    config = response.data.configListMap.groups
+    const map: Map<string, string> = new Map()
+    for (const element of response.data.configListMap.etabsNames) {
+      map.set(element.key, element.value)
+    }
+    configMapUaiDisplayName.value = map
+  }
+  catch (e: any) {
+    if (e.response) {
+      throw new CustomError(e.response.data.message, e.response.status)
+    }
+    else if (e.code === 'ECONNABORTED') {
+      throw new CustomError(e.message, e.code)
+    }
+  }
+}
+
+async function getGroups(groupsApiUrl: string) {
   try {
     const resp = await instance.get(groupsApiUrl)
-
-    const groupsConfigValue: string = config.find((element) => {
-      if (element.key === 'groups') {
-        return element
-      }
-    })!.value
-    const regexGroups = new RegExp(groupsConfigValue)
-    const userGroups = new Array<string>()
-    resp.data.groups.forEach((element: any) => {
-      if (regexGroups.test(element.name)) {
-        userGroups.push(element.name)
-      }
+    const groupsConfigValues: string[] = config
+      .filter((element) => {
+        if (element.key === 'groups') {
+          return element
+        }
+        return null
+      })
+      .map((element) => {
+        return element.value
+      })
+    const regexesGroups: RegExp[] = groupsConfigValues.map((element) => {
+      return new RegExp(element)
     })
+    const userGroups = new Array<string>()
+    for (const element of resp.data.groups) {
+      for (const regex of regexesGroups) {
+        if (regex.test(element.name)) {
+          userGroups.push(element.name)
+        }
+      }
+    }
+    return userGroups
+  }
+  catch (e: any) {
+    if (e.response) {
+      throw new CustomError(e.response.data.message, e.response.status)
+    }
+    else if (e.code === 'ECONNABORTED') {
+      throw new CustomError(e.message, e.code)
+    }
+    else {
+      throw new Error(e.response)
+    }
+  }
+}
+
+async function getResources(baseApiUrl: string, groupsApiUrl: string) {
+  try {
+    if (userGroups === undefined) {
+      userGroups = await getGroups(groupsApiUrl)
+    }
     const response = await instance.post(baseApiUrl, { isMemberOf: userGroups })
+    return response.data
+  }
+  catch (e: any) {
+    if (e.response) {
+      throw new CustomError(e.response.data.message, e.response.status)
+    }
+    else if (e.code === 'ECONNABORTED') {
+      throw new CustomError(e.message, e.code)
+    }
+  }
+}
+
+async function getResourceById(redirectApiUrl: string, groupsApiUrl: string) {
+  try {
+    if (userGroups === undefined) {
+      userGroups = await getGroups(groupsApiUrl)
+    }
+    const response = await instance.post(redirectApiUrl, { isMemberOf: userGroups })
     return response.data
   }
   catch (e: any) {
@@ -118,4 +195,4 @@ async function putFavorites(putUserFavoriteResourcesUrl: string, idResource: str
   }
 }
 
-export { flushMediacentreFavorites, getConfig, getFavorites, getFilters, getResources, putFavorites }
+export { flushMediacentreFavorites, getConfig, getFavorites, getFilters, getGestionAffectations, getResourceById, getResources, putFavorites }

@@ -1557,6 +1557,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@gip-recia/info-modal@npm:^0.0.1":
+  version: 0.0.1
+  resolution: "@gip-recia/info-modal@npm:0.0.1"
+  checksum: 10/5ea371219d8b227332570cca5b0e34e9096183149ad5b5c78ff3bb34e31d8a86eea64819d5ba09c9446be47f48f0faa3a3785cbfb8a9fa6aadfa8f38cf2f2849
+  languageName: node
+  linkType: hard
+
 "@gip-recia/info-modal@workspace:packages/info-modal":
   version: 0.0.0-use.local
   resolution: "@gip-recia/info-modal@workspace:packages/info-modal"
@@ -1588,6 +1595,7 @@ __metadata:
     "@fortawesome/free-regular-svg-icons": "npm:^6.7.2"
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.2"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
+    "@gip-recia/info-modal": "npm:^0.0.1"
     "@intlify/unplugin-vue-i18n": "npm:^6.0.5"
     "@tsconfig/node22": "npm:^22.0.1"
     "@types/lodash.debounce": "npm:^4"
@@ -1596,6 +1604,7 @@ __metadata:
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^5.2.3"
     "@vue/tsconfig": "npm:^0.7.0"
+    "@vueform/multiselect": "npm:^2.6.11"
     "@vueuse/core": "npm:^13.1.0"
     axios: "npm:^1.8.4"
     dotenv-checker: "npm:^1.1.7"
@@ -4333,6 +4342,13 @@ __metadata:
     vue:
       optional: true
   checksum: 10/29b5dd11cc179de707dfd549d0e80e220f4a0f6f7d90b9a52769bc655e599b9166b28af1218819245fbdd30a74d80fdd484538cdda6876d9d369ae623f234834
+  languageName: node
+  linkType: hard
+
+"@vueform/multiselect@npm:^2.6.11":
+  version: 2.6.11
+  resolution: "@vueform/multiselect@npm:2.6.11"
+  checksum: 10/51cdddf1b919fb2f6074182baf258525fe0f4d5f4800d50ea9eb8d16bdf7da23762b9424cfb7c36fef53f1a299dca8e26bc80bd7cf8dcc07159fa3970ef4a6bd
   languageName: node
   linkType: hard
 

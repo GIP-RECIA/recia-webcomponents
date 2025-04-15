@@ -80,7 +80,7 @@ function toggleFavoris(): void {
   >
     <div class="background-carte-ressource-mediacentre">
       <div class="action-zone-carte-ressource-mediacentre">
-        <button class="icone-bouton-carte-ressource-mediacentre" @click.prevent="toggleFavoris">
+        <button class="icone-bouton-carte-ressource-mediacentre" title="" @click.prevent="toggleFavoris">
           <FontAwesomeIcon
             class="icone-favorite-carte-ressource-mediacentre"
             :icon="[ressource.isFavorite ? 'fas' : 'far', 'star']"
@@ -88,7 +88,7 @@ function toggleFavoris(): void {
           />
         </button>
       </div>
-      <img class="resource-image" :src="props.ressource.urlVignette" :alt="ressource.nomRessource">
+      <img v-if="props.ressource.urlVignette !== undefined && props.ressource.urlVignette.length > 0" class="resource-image" :src="props.ressource.urlVignette">
     </div>
     <div class="resource-name">
       <span>
@@ -120,11 +120,8 @@ function toggleFavoris(): void {
   text-decoration: none;
   cursor: pointer;
   border-radius: 1em;
-  border-top: 1em solid $border-color;
   background-color: $card-background-color;
-  box-shadow:
-    0px 0px 28px -8px rgba(0, 0, 0, 0.1),
-    100px 100px 100px -100px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15.9px 0 rgba(0, 0, 0, 0.1);
 
   .background-carte-ressource-mediacentre {
     position: relative;
@@ -173,12 +170,6 @@ function toggleFavoris(): void {
       overflow: hidden;
       text-overflow: ellipsis;
     }
-
-    .icone-info-carte-ressource-mediacentre {
-      width: 1.5em;
-      height: 1.5em;
-      color: $menu-title-background-color;
-    }
   }
 }
 
@@ -190,13 +181,22 @@ function toggleFavoris(): void {
   height: fit-content;
   width: fit-content;
   padding: 0;
-  color: $menu-title-background-color;
+  color: gray;
   cursor: pointer;
+  opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  }
 
+  .icone-info-carte-ressource-mediacentre {
+    width: 1.5em;
+    height: 1.5em;
+    margin: 0.5em;
+  }
   .icone-favorite-carte-ressource-mediacentre {
     width: 1.8em;
     height: 1.8em;
-
+    margin: 0.5em;
     &.fav {
       color: #ffaa46;
     }
