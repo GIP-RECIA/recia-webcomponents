@@ -130,7 +130,7 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
           class="multiselect"
           name="mediacentre-ui-schoolSelect"
           :value="multiselectCurrentKey"
-          :close-on-select="false"
+          :close-on-select="true"
           :can-deselect="false"
           :can-clear="false"
           :options="multiselectOptions"
