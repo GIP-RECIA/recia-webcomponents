@@ -93,7 +93,7 @@ function convertToFiltres(values: Array<any>, filter: string): Filtres | undefin
         })
       })
       filtres = {
-        name: 'menu-mediacentre.domaine-education-filter',
+        name: 'menu-mediacentre.domaine-enseignement-filter',
         filterEnum: filter,
         filters: supprimerDoublons(filters),
       }
