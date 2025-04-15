@@ -18,6 +18,7 @@ import type { ConfigType } from '@/types/ConfigType'
 import type { GestionAffectation } from '@/utils/GestionAffectation'
 import { instance } from '@/utils/axiosUtils'
 import { CustomError } from '@/utils/CustomError'
+import { configMapUaiDisplayName } from '@/utils/store'
 
 let config: Array<ConfigType> = []
 let userGroups: Array<string>
@@ -49,10 +50,15 @@ async function getGestionAffectations(gestionAffectationUrl: string, groupsApiUr
   }
 }
 
-async function getConfig(configApiUrl: string) {
+async function getConfig(configApiUrl: string, uais: string[]) {
   try {
-    const response = await instance.get(configApiUrl)
-    config = response.data
+    const response = await instance.post(configApiUrl, { uais })
+    config = response.data.configListMap.groups
+    const map: Map<string, string> = new Map()
+    for (const element of response.data.configListMap.etabsNames) {
+      map.set(element.key, element.value)
+    }
+    configMapUaiDisplayName.value = map
   }
   catch (e: any) {
     if (e.response) {
