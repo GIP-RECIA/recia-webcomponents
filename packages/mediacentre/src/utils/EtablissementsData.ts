@@ -16,10 +16,12 @@
 
 export class EtablissementsData {
   public constructor() {
-    this.courant = ''
+    this.courantId = ''
+    this.courantName = ''
     this.tout = new Map()
   }
 
-  courant: string
+  courantId: string
+  courantName: string
   tout: Map<string, string>
 }

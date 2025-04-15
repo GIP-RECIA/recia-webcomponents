@@ -58,7 +58,7 @@ onMounted(async (): Promise<void> => {
   }
   chargementApp.value = true
   await initToken(props.userInfoApiUrl)
-  await getConfig(props.configApiUrl)
+  await getConfig(props.configApiUrl, [])
   await redirect()
 })
 

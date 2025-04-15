@@ -26,7 +26,7 @@ import { initToken } from '@/utils/axiosUtils'
 import { CustomError } from '@/utils/CustomError'
 import { EtablissementsData } from '@/utils/EtablissementsData'
 import { soffit } from '@/utils/soffitUtils'
-import { displayedEtablissementUai, etablissementsData, filtre, gestionAffectations } from '@/utils/store'
+import { configMapUaiDisplayName, displayedEtablissementUai, etablissementsData, filtre, gestionAffectations } from '@/utils/store'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { computed, onMounted, ref, watch } from 'vue'
 import { getConfig, getFavorites, getFilters, getGestionAffectations, getResources, putFavorites } from '../services/ServiceMediacentre'
@@ -105,7 +105,10 @@ onMounted(async (): Promise<void> => {
   try {
     chargementApp.value = true
     await initToken(props.userInfoApiUrl)
-    await getConfig(props.configApiUrl)
+
+    const allEtabs: string[] | undefined = getAllEtabUai()
+
+    await getConfig(props.configApiUrl, allEtabs !== undefined ? allEtabs : [])
     await updateRessources()
     await updateGestionValue()
     await setFavoris()
@@ -133,46 +136,55 @@ function updateEtablissementsDataInStore(): void {
   if (etabUais === undefined) {
     return
   }
-  const mapEtabUaiEtabName: Map<string, string> = new Map()
+  const mapEtabUaiEtabName: Map<string, string> = configMapUaiDisplayName.value
   if (etabUais === undefined) {
     return
   }
-  for (let index = 0; index < etabUais.length; index++) {
-    const etabUai = etabUais[index]
+  // for (const element of etabUais) {
+  //   const etabUai = element
 
-    for (let indexRes = 0; indexRes < resources.value.length; indexRes++) {
-      const ressource = resources.value[indexRes]
-      if (ressource.idEtablissement === undefined || ressource.idEtablissement === null || ressource.idEtablissement.length === 0) {
-        continue
-      }
-      for (let index = 0; index < ressource.idEtablissement.length; index++) {
-        const iteratedEtablissement = ressource.idEtablissement[index]
-        if (iteratedEtablissement.UAI === etabUai) {
-          if (iteratedEtablissement.nom !== undefined) {
-            mapEtabUaiEtabName.set(etabUai, iteratedEtablissement.nom)
-          }
-          else {
-            mapEtabUaiEtabName.set(etabUai, t('menu-mediacentre.unknown-etab'))
-          }
-        }
-      }
-    }
-  }
+  //   for (const ressource of resources.value) {
+  //     if (ressource.idEtablissement === undefined || ressource.idEtablissement === null || ressource.idEtablissement.length === 0) {
+  //       continue
+  //     }
+  //     for (const iteratedEtablissement of ressource.idEtablissement) {
+  //       if (iteratedEtablissement.UAI === etabUai) {
+  //         // TODO : alimenter store avec deuxieme moitié de la config puis piocher depuis le store pour alimenter cette liste
+
+  //         if (iteratedEtablissement.nom !== undefined) {
+  //           mapEtabUaiEtabName.set(etabUai, iteratedEtablissement.nom)
+  //         }
+  //         else {
+  //           mapEtabUaiEtabName.set(etabUai, t('menu-mediacentre.unknown-etab'))
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+
   const uaicourant: string | undefined = getUaiOfEtablissementCourant()
   if (uaicourant === undefined) {
     return
   }
   const myEtabsData = new EtablissementsData()
   if (mapEtabUaiEtabName.has(uaicourant)) {
-    myEtabsData.courant = uaicourant
+    myEtabsData.courantId = uaicourant
   }
   else {
-    const key = mapEtabUaiEtabName.keys().next().value
-    myEtabsData.courant = key === undefined ? '-1' : key
+    const key: string | undefined = mapEtabUaiEtabName.keys().next().value
+    myEtabsData.courantId = key === undefined ? '-1' : key
+
+    if (key !== undefined) {
+      const nameValue: string | undefined = mapEtabUaiEtabName.get(key)
+      myEtabsData.courantName = nameValue !== undefined ? nameValue : t('menu-mediacentre.unknown-etab')
+    }
+    else {
+      myEtabsData.courantName = t('menu-mediacentre.unknown-etab')
+    }
   }
   myEtabsData.tout = mapEtabUaiEtabName
   etablissementsData.value = myEtabsData
-  displayedEtablissementUai.value = myEtabsData.courant
+  displayedEtablissementUai.value = myEtabsData.courantId
 }
 
 function getUaiOfEtablissementCourant(): string | undefined {

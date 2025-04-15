@@ -23,5 +23,6 @@ const etablissementsData = ref<EtablissementsData>(new EtablissementsData())
 const displayedEtablissementUai = ref<string>('')
 const filtre = ref<string>('tout')
 const gestionAffectations = ref<Array<GestionAffectation>>([])
+const configMapUaiDisplayName = ref<Map<string, string>>(new Map())
 
-export { displayedEtablissementUai, etablissementsData, etablissementsMap, filtre, gestionAffectations }
+export { configMapUaiDisplayName, displayedEtablissementUai, etablissementsData, etablissementsMap, filtre, gestionAffectations }
