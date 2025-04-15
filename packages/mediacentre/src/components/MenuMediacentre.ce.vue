@@ -40,7 +40,8 @@ const activeCategory = ref('tout')
 const activeCategoryName = ref(t('menu-mediacentre.all-resources'))
 const isUnfolded = ref(false)
 const multiselectOptions = ref()
-const multiselectCurrentValue = ref()
+const multiselectCurrentKey = ref()
+const multiselectCurrentDisplayedValue = ref()
 const breakpoints = useBreakpoints({
   mobile: 770,
   laptop: 1024,
@@ -75,7 +76,8 @@ watch(() => etablissementsData.value, async () => {
     valueLabelObjects.push({ value: key, label: value })
   }
   multiselectOptions.value = valueLabelObjects
-  multiselectCurrentValue.value = etablissementsData.value.courant
+  multiselectCurrentKey.value = etablissementsData.value.courantId
+  multiselectCurrentDisplayedValue.value = etablissementsData.value.courantName
 }, { immediate: true })
 
 watch(() => filtre.value, async (newFiltre) => {
@@ -122,21 +124,18 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
           {{ t('menu-mediacentre.displayed-etab') }}
         </label>
         <Multiselect
-          v-if="multiselectOptions.length > 1"
+          v-if="multiselectOptions.length > 0"
           id="mediacentre-ui-schoolSelect"
           mode="single"
           class="multiselect"
           name="mediacentre-ui-schoolSelect"
-          :value="multiselectCurrentValue"
+          :value="multiselectCurrentKey"
           :close-on-select="false"
           :can-deselect="false"
           :can-clear="false"
           :options="multiselectOptions"
           @select="etablissementSelected"
         />
-        <p v-if="multiselectOptions.length === 1" class="current-etab-label">
-          {{ multiselectCurrentValue }}
-        </p>
         <div
           class="categories-container"
           :class="[breakpoints.active() !== undefined && breakpoints.active() === ref('mobile') ? 'toggle' : '']"
