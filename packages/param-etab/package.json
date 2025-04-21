@@ -45,7 +45,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/vue-fontawesome": "^3.0.8",
-    "@intlify/unplugin-vue-i18n": "^6.0.5",
+    "@intlify/unplugin-vue-i18n": "^6.0.8",
     "@tsconfig/node22": "^22.0.1",
     "@types/node": "^22",
     "@types/regenerator-runtime": "^0",
