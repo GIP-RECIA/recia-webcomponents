@@ -26,8 +26,15 @@ defineProps<{
   lastPageIndexHumanReadable: number;
   currentPageIndexHumanReadable: number;
 }>();
+const emit = defineEmits<{
+  (event: 'goToPage', payload: number): void;
+}>()
 
-const { t } = useI18n()
+const { t } = useI18n();
+
+const goToPage = (pageIndex: CustomEvent) => {
+  emit('goToPage', pageIndex.detail[0]);
+}
 </script>
 
 <template>
@@ -49,6 +56,7 @@ const { t } = useI18n()
       <ressources-pagination
         :lastPageIndexHumanReadable="lastPageIndexHumanReadable"
         :currentPageIndexHumanReadable="currentPageIndexHumanReadable"
+        @go-to-page="goToPage"
       />
       <!-- <button v-else-if="!lectureTerminee" class="page-suivante-liste-ressources" @click="$emit('getPageSuivante')">
         {{ t('liste-ressources.charger-plus') }}

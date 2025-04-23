@@ -176,6 +176,7 @@ ${t('carte-ressource.editeur')}: ${props.ressource.editeur.nom}`
   border: none;
   border-radius: $button-border-radius;
   cursor: pointer;
+  max-width: 45%;
 }
 
 .boutons-carte-ressource > button:not(:first-child) {
