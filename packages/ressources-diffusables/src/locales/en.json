@@ -14,32 +14,6 @@
     "copier-references": "Copy references",
     "contenu-copie": "Copied"
   },
-  "legende-ressource": {
-    "id-gar": {
-      "intitule": "GAR Identifier",
-      "definition": "GAR Identifier meaning"
-    },
-    "editeur": {
-      "intitule": "Editor",
-      "definition": "Editor meaning"
-    },
-    "distributeurTech": {
-      "intitule": "Technical distributor",
-      "definition": "Technical distributor meaning"
-    },
-    "distributeurCom": {
-      "intitule": "Commercial distributor",
-      "definition": "Commercial distributor meaning"
-    },
-    "affichable": {
-      "intitule": "Displayable",
-      "definition": "Displayable meaning"
-    },
-    "diffusable": {
-      "intitule": "Sharable",
-      "definition": "Sharable meaning"
-    }
-  },
   "liste-ressources": {
     "charger-plus": "Load more",
     "chargement": "Loading…",
