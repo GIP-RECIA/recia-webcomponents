@@ -15,142 +15,149 @@
 -->
 
 <script setup lang="ts">
-import { PaginationNumber } from '@/utils/PaginationNumber';
+import { PaginationNumber } from '@/utils/PaginationNumber'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ref, watch } from 'vue'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { useI18n } from 'vue-i18n';
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
-  lastPageIndexHumanReadable: number;
-  currentPageIndexHumanReadable: number;
-}>();
+  lastPageIndexHumanReadable: number
+  currentPageIndexHumanReadable: number
+}>()
 
-const { t } = useI18n();
+const emit = defineEmits<(event: 'goToPage', payload: number) => void>()
 
-function goToPage(item: PaginationNumber){
+const { t } = useI18n()
+
+function goToPage(item: PaginationNumber) {
   if (item.isPrevious) {
-    if (props.currentPageIndexHumanReadable == 1) {
-      return;
-    } else {
-      emit('goToPage', props.currentPageIndexHumanReadable - 1);
+    if (props.currentPageIndexHumanReadable === 1) {
+      return
+    }
+    else {
+      emit('goToPage', props.currentPageIndexHumanReadable - 1)
     }
   }
 
   if (item.isNext) {
-    if (props.currentPageIndexHumanReadable == props.lastPageIndexHumanReadable) {
-      return;
-    } else {
-      emit('goToPage', props.currentPageIndexHumanReadable + 1);
+    if (props.currentPageIndexHumanReadable === props.lastPageIndexHumanReadable) {
+      return
+    }
+    else {
+      emit('goToPage', props.currentPageIndexHumanReadable + 1)
     }
   }
 
-  if (item.pageNumber == props.currentPageIndexHumanReadable) {
-    return;
+  if (item.pageNumber === props.currentPageIndexHumanReadable) {
+    return
   }
-  emit('goToPage', item.pageNumber);
+  emit('goToPage', item.pageNumber)
 }
 
-const maxNumberVisible = 6;
-const allPagesToDisplay = ref<Array<PaginationNumber>>(new Array());
-const emit = defineEmits<{
-  (event: 'goToPage', payload: number): void;
-}>();
+const allPagesToDisplay = ref<Array<PaginationNumber>>([])
+watch(props, async () => {
+  allPagesToDisplay.value = pagesSet()
+})
 
-watch(props, async (oldProps, newProps) => {
-  allPagesToDisplay.value = pagesSet();
-});
+function getPageIndexCampledHumanReadable(pageIndex: number): number {
+  pageIndex = Math.max(1, pageIndex)
+  pageIndex = Math.min(pageIndex, props.lastPageIndexHumanReadable)
+  return pageIndex
+}
 
-const getPageIndexCampledHumanReadable = (pageIndex: number): number => {
-  pageIndex = Math.max(1, pageIndex);
-  pageIndex = Math.min(pageIndex, props.lastPageIndexHumanReadable);
-  return pageIndex;
-};
-
-const pagesSet = (): Array<PaginationNumber> => {
-  const pageSet: Set<number> = new Set();
+function pagesSet(): Array<PaginationNumber> {
+  const pageSet: Set<number> = new Set()
   pageSet.add(1)
   pageSet.add(getPageIndexCampledHumanReadable(props.currentPageIndexHumanReadable - 1))
   pageSet.add(getPageIndexCampledHumanReadable(props.currentPageIndexHumanReadable))
   pageSet.add(getPageIndexCampledHumanReadable(props.currentPageIndexHumanReadable + 1))
   pageSet.add(props.lastPageIndexHumanReadable)
 
-  const pageArray: Array<PaginationNumber> = new Array();
+  const pageArray: Array<PaginationNumber> = []
   pageArray.push(PaginationNumber.getPrevious(props.currentPageIndexHumanReadable))
   for (const element of pageSet) {
-    pageArray.push(PaginationNumber.getPaginationNumber(element));
+    pageArray.push(PaginationNumber.getPaginationNumber(element))
   }
   pageArray.push(PaginationNumber.getNext(props.currentPageIndexHumanReadable))
-  return pageArray;
-};
+  return pageArray
+}
 
-const classArrayForPaginationNumber = (paginationNumber : PaginationNumber): string[] => {
-  let classArray = new Array();
-  classArray.push('pagination-button');
-  if (paginationNumber.pageNumber == props.currentPageIndexHumanReadable) {
-    classArray.push('active');
+function classArrayForPaginationNumber(paginationNumber: PaginationNumber): string[] {
+  const classArray = []
+  classArray.push('pagination-button')
+  if (paginationNumber.pageNumber === props.currentPageIndexHumanReadable) {
+    classArray.push('active')
   }
-  return classArray;
-};
+  return classArray
+}
 
-const disabledForPaginationNumber = (paginationNumber: PaginationNumber): boolean => {
+function disabledForPaginationNumber(paginationNumber: PaginationNumber): boolean {
   return (
-    (paginationNumber.isPrevious && props.currentPageIndexHumanReadable == 1) ||
-    (paginationNumber.isNext && props.currentPageIndexHumanReadable == props.lastPageIndexHumanReadable)
-  );
-};
+    (paginationNumber.isPrevious && props.currentPageIndexHumanReadable === 1)
+    || (paginationNumber.isNext && props.currentPageIndexHumanReadable === props.lastPageIndexHumanReadable)
+  )
+}
 
-const isCurrent = (paginationNumber: PaginationNumber) : boolean => {
-  return paginationNumber.pageNumber == props.currentPageIndexHumanReadable;
-};
+function isCurrent(paginationNumber: PaginationNumber): boolean {
+  return paginationNumber.pageNumber === props.currentPageIndexHumanReadable
+}
 
-const keyFromPaginationNumber = (paginationNumber: PaginationNumber): number => {
+function keyFromPaginationNumber(paginationNumber: PaginationNumber): number {
   if (paginationNumber.isFirst) {
-    return -4;
-  } else if (paginationNumber.isPrevious) {
-    return -3;
-  } else if (paginationNumber.isNext) {
-    return -2;
-  } else if (paginationNumber.isLast) {
-    return -1;
-  } else {
-    return paginationNumber.pageNumber;
+    return -4
   }
-};
+  else if (paginationNumber.isPrevious) {
+    return -3
+  }
+  else if (paginationNumber.isNext) {
+    return -2
+  }
+  else if (paginationNumber.isLast) {
+    return -1
+  }
+  else {
+    return paginationNumber.pageNumber
+  }
+}
 
-const labelFromPaginationNumber = (paginationNumber: PaginationNumber): string|undefined => {
+function labelFromPaginationNumber(paginationNumber: PaginationNumber): string | undefined {
   if (paginationNumber.isFirst) {
-    return t('aria-label.premier');
-  } else if (paginationNumber.isPrevious) {
-    return t('aria-label.precedent');
-  } else if (paginationNumber.isNext) {
-    return t('aria-label.suivant');
-  } else if (paginationNumber.isLast) {
-    return t('aria-label.dernier');
-  } else {
-    return t('aria-label.page', { index: paginationNumber.pageNumber });
+    return t('aria-label.premier')
   }
-};
+  else if (paginationNumber.isPrevious) {
+    return t('aria-label.precedent')
+  }
+  else if (paginationNumber.isNext) {
+    return t('aria-label.suivant')
+  }
+  else if (paginationNumber.isLast) {
+    return t('aria-label.dernier')
+  }
+  else {
+    return t('aria-label.page', { index: paginationNumber.pageNumber })
+  }
+}
 </script>
 
 <template>
-  <nav class="pagination" v-if="props.lastPageIndexHumanReadable > 0">
+  <nav v-if="props.lastPageIndexHumanReadable > 0" class="pagination">
     <ul>
       <li v-for="item in allPagesToDisplay" :key="keyFromPaginationNumber(item)">
         <button
-          @click="goToPage(item)"
           :class="classArrayForPaginationNumber(item)"
           :disabled="disabledForPaginationNumber(item)"
           :aria-current="isCurrent(item)"
           :aria-label="labelFromPaginationNumber(item)"
+          @click="goToPage(item)"
         >
           <span v-if="item.isEllipsisDots">
-            <font-awesome-icon :icon="['fa', 'ellipsis-h']" class="pagination-icon" />
+            <FontAwesomeIcon :icon="['fa', 'ellipsis-h']" class="pagination-icon" />
           </span>
           <span v-else-if="item.isPrevious">
-            <font-awesome-icon :icon="['fa', 'angle-left']" class="pagination-icon" />
+            <FontAwesomeIcon :icon="['fa', 'angle-left']" class="pagination-icon" />
           </span>
           <span v-else-if="item.isNext">
-            <font-awesome-icon :icon="['fa', 'angle-right']" class="pagination-icon" />
+            <FontAwesomeIcon :icon="['fa', 'angle-right']" class="pagination-icon" />
           </span>
           <span v-else>
             {{ item.pageNumber }}
@@ -174,10 +181,9 @@ const labelFromPaginationNumber = (paginationNumber: PaginationNumber): string|u
   &:hover {
     text-decoration: none;
   }
-  &:active{
+  &:active {
     text-decoration: none;
   }
-
 }
 
 button {

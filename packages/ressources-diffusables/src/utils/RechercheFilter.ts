@@ -15,15 +15,15 @@
  */
 
 export class RechercheFilter {
-  nomRessource: string;
-  nomEditeur: string;
+  nomRessource: string
+  nomEditeur: string
 
   isEmpty = (): boolean => {
-    return this.nomRessource.length == 0 && this.nomEditeur.length == 0;
-  };
+    return this.nomRessource.length === 0 && this.nomEditeur.length === 0
+  }
 
   constructor(nomRessource: string = '', nomEditeur: string = '') {
-    this.nomRessource = nomRessource;
-    this.nomEditeur = nomEditeur;
+    this.nomRessource = nomRessource
+    this.nomEditeur = nomEditeur
   }
 }
