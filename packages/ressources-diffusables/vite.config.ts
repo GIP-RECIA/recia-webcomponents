@@ -32,14 +32,14 @@ export default ({ mode }: ConfigEnv) => {
       vue({
         template: {
           compilerOptions: {
-            isCustomElement: tag => [
-              'carte-ressource',
-              'i18n-host',
-              'legende-ressource',
-              'liste-ressources',
-              'recherche-ressource',
-              'ui-ressources-gar',
-            ].includes(tag),
+            isCustomElement: (tag) =>
+              [
+                'carte-ressource',
+                'ui-ressources-gar',
+                'liste-ressources',
+                'page-ressource',
+                'recherche-ressource',
+              ].includes(tag),
           },
         },
       }),
