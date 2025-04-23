@@ -194,7 +194,6 @@ const swapRechercheTypeToggle = (rechercheInput: CustomEvent): void => {
         @reinitialiser-recherche-avancee="reinitialiserRechercheAvancee"
         ref="rechercheAvanceeRessource"
       />
-      <legende-ressource class="legende-ressource-page-ressource" />
     </aside>
     <main class="main-page-ressource">
       <liste-ressources
