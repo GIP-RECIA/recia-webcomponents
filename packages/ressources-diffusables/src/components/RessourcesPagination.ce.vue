@@ -24,13 +24,28 @@ const props = defineProps<{
   currentPageIndexHumanReadable: number;
 }>();
 
-function clickfct(item: number){
-  if (item == props.currentPageIndexHumanReadable) {
+function goToPage(item: PaginationNumber){
+  if (item.isPrevious) {
+    if (props.currentPageIndexHumanReadable == 1) {
+      return;
+    } else {
+      emit('goToPage', props.currentPageIndexHumanReadable - 1);
+    }
+  }
+
+  if (item.isNext) {
+    if (props.currentPageIndexHumanReadable == props.lastPageIndexHumanReadable) {
+      return;
+    } else {
+      emit('goToPage', props.currentPageIndexHumanReadable + 1);
+    }
+  }
+
+  if (item.pageNumber == props.currentPageIndexHumanReadable) {
     return;
   }
-  emit('goToPage', item);
+  emit('goToPage', item.pageNumber);
 }
-
 
 const maxNumberVisible = 6;
 const allPagesToDisplay = ref<Array<PaginationNumber>>(new Array());
@@ -39,61 +54,72 @@ const emit = defineEmits<{
 }>();
 
 watch(props, async (oldProps, newProps) => {
- console.log("pros changed")
- allPagesToDisplay.value = pagesSet();
+  allPagesToDisplay.value = pagesSet();
 });
 
+const getPageIndexCampledHumanReadable = (pageIndex: number): number => {
+  pageIndex = Math.max(1, pageIndex);
+  pageIndex = Math.min(pageIndex, props.lastPageIndexHumanReadable);
+  return pageIndex;
+};
 
 const pagesSet = (): Array<PaginationNumber> => {
-  let thePreArray: Array<number> = new Array();
-  let theArray: Array<PaginationNumber> = new Array();
-  if (props.lastPageIndexHumanReadable <= maxNumberVisible) {
-    for (let index = 0; index <= maxNumberVisible; index++) {
-      theArray.push(PaginationNumber.getPaginationNumber(index));
-      return theArray;
-    }
+  const pageSet: Set<number> = new Set();
+  pageSet.add(1)
+  pageSet.add(getPageIndexCampledHumanReadable(props.currentPageIndexHumanReadable - 1))
+  pageSet.add(getPageIndexCampledHumanReadable(props.currentPageIndexHumanReadable))
+  pageSet.add(getPageIndexCampledHumanReadable(props.currentPageIndexHumanReadable + 1))
+  pageSet.add(props.lastPageIndexHumanReadable)
+
+  const pageArray: Array<PaginationNumber> = new Array();
+  pageArray.push(PaginationNumber.getPrevious(props.currentPageIndexHumanReadable))
+  for (const element of pageSet) {
+    pageArray.push(PaginationNumber.getPaginationNumber(element));
   }
+  pageArray.push(PaginationNumber.getNext(props.currentPageIndexHumanReadable))
+  return pageArray;
+};
 
-
-  const nbrPagesNonExtremite = maxNumberVisible - 2;
-
-  if (props.currentPageIndexHumanReadable == 1) {
-    for (let index = 1; index <= nbrPagesNonExtremite + 1; index++) {
-      thePreArray.push(index);
-    }
-    thePreArray.push(props.lastPageIndexHumanReadable);
+const classArrayForPaginationNumber = (paginationNumber : PaginationNumber): string[] => {
+  let classArray = new Array();
+  classArray.push('pagination-button');
+  if (paginationNumber.pageNumber == props.currentPageIndexHumanReadable) {
+    classArray.push('active');
   }
+  return classArray;
+};
 
+const disabledForPaginationNumber = (paginationNumber: PaginationNumber): boolean => {
+  return (
+    (paginationNumber.isPrevious && props.currentPageIndexHumanReadable == 1) ||
+    (paginationNumber.isNext && props.currentPageIndexHumanReadable == props.lastPageIndexHumanReadable)
+  );
+};
 
-  //else proche 1
-  //else final
-  //else proche final
-
-  //construction de l'array final
-  //push fleche gauche
-
-  //theArray.push(PaginationNumber.getFirst());
-  theArray.push(PaginationNumber.getPrevious(props.currentPageIndexHumanReadable));
-  for (let index = 0; index < thePreArray.length; index++) {
-    const element = thePreArray[index];
-
-    if (index > 0) {
-      if (element - thePreArray[index - 1] > 1) theArray.push(PaginationNumber.getSeparator());
-    }
-
-    theArray.push(PaginationNumber.getPaginationNumber(element));
-
+const keyFromPaginationNumber = (paginationNumber: PaginationNumber): number => {
+  if (paginationNumber.isFirst) {
+    return -4;
+  } else if (paginationNumber.isPrevious) {
+    return -3;
+  } else if (paginationNumber.isNext) {
+    return -2;
+  } else if (paginationNumber.isLast) {
+    return -1;
+  } else {
+    return paginationNumber.pageNumber;
   }
-  theArray.push(PaginationNumber.getNext(props.currentPageIndexHumanReadable));
-  //theArray.push(PaginationNumber.getLast(props.lastPageIndexHumanReadable));
-  return theArray;
 };
 </script>
 
-
 <template>
-  <div class="pagination">
-    <button v-for="(item, index) in allPagesToDisplay" :key="index">
+  <div class="pagination" v-if="props.lastPageIndexHumanReadable > 0">
+    <button
+      v-for="item in allPagesToDisplay"
+      :key="keyFromPaginationNumber(item)"
+      @click="goToPage(item)"
+      :class="classArrayForPaginationNumber(item)"
+      :disabled="disabledForPaginationNumber(item)"
+    >
       <span v-if="item.isEllipsisDots">
         <font-awesome-icon :icon="['fa', 'ellipsis-h']" class="pagination-icon" />
       </span>
@@ -111,26 +137,42 @@ const pagesSet = (): Array<PaginationNumber> => {
 </template>
 
 
-<style>
+<style lang="scss">
+.pagination-button {
+  @extend %tag-circle;
+  border: none;
+  background-color: transparent;
+
+  font-size: 12px;
+  height: 40px;
+  width: 40px;
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+  &:active{
+    text-decoration: none;
+  }
+
+}
+
+button {
+  height: 25px;
+  width: 25px;
+  align-self: baseline;
+}
 
 .pagination {
   display: flex;
   align-items: baseline;
   height: 3em;
   justify-content: center;
+  gap: 4px;
 }
 
 .pagination-icon {
-  height: 1.2em;
-  width: 1.2em;
+  height: 15px;
+  width: 15px;
   vertical-align: text-bottom;
 }
-
-button {
-  height: 3em;
-  width: 3em;
-  align-self: baseline;
-}
-
-
 </style>
