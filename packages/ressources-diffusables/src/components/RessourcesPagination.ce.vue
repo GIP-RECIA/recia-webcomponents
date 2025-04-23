@@ -18,11 +18,14 @@
 import { PaginationNumber } from '@/utils/PaginationNumber';
 import { ref, watch } from 'vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps<{
   lastPageIndexHumanReadable: number;
   currentPageIndexHumanReadable: number;
 }>();
+
+const { t } = useI18n();
 
 function goToPage(item: PaginationNumber){
   if (item.isPrevious) {
@@ -96,6 +99,10 @@ const disabledForPaginationNumber = (paginationNumber: PaginationNumber): boolea
   );
 };
 
+const isCurrent = (paginationNumber: PaginationNumber) : boolean => {
+  return paginationNumber.pageNumber == props.currentPageIndexHumanReadable;
+};
+
 const keyFromPaginationNumber = (paginationNumber: PaginationNumber): number => {
   if (paginationNumber.isFirst) {
     return -4;
@@ -109,33 +116,50 @@ const keyFromPaginationNumber = (paginationNumber: PaginationNumber): number => 
     return paginationNumber.pageNumber;
   }
 };
+
+const labelFromPaginationNumber = (paginationNumber: PaginationNumber): string|undefined => {
+  if (paginationNumber.isFirst) {
+    return t('aria-label.premier');
+  } else if (paginationNumber.isPrevious) {
+    return t('aria-label.precedent');
+  } else if (paginationNumber.isNext) {
+    return t('aria-label.suivant');
+  } else if (paginationNumber.isLast) {
+    return t('aria-label.dernier');
+  } else {
+    return t('aria-label.page', { index: paginationNumber.pageNumber });
+  }
+};
 </script>
 
 <template>
-  <div class="pagination" v-if="props.lastPageIndexHumanReadable > 0">
-    <button
-      v-for="item in allPagesToDisplay"
-      :key="keyFromPaginationNumber(item)"
-      @click="goToPage(item)"
-      :class="classArrayForPaginationNumber(item)"
-      :disabled="disabledForPaginationNumber(item)"
-    >
-      <span v-if="item.isEllipsisDots">
-        <font-awesome-icon :icon="['fa', 'ellipsis-h']" class="pagination-icon" />
-      </span>
-      <span v-else-if="item.isPrevious">
-        <font-awesome-icon :icon="['fa', 'angle-left']" class="pagination-icon" />
-      </span>
-      <span v-else-if="item.isNext">
-        <font-awesome-icon :icon="['fa', 'angle-right']" class="pagination-icon" />
-      </span>
-      <span v-else>
-        {{ item.pageNumber }}
-      </span>
-    </button>
-  </div>
+  <nav class="pagination" v-if="props.lastPageIndexHumanReadable > 0">
+    <ul>
+      <li v-for="item in allPagesToDisplay" :key="keyFromPaginationNumber(item)">
+        <button
+          @click="goToPage(item)"
+          :class="classArrayForPaginationNumber(item)"
+          :disabled="disabledForPaginationNumber(item)"
+          :aria-current="isCurrent(item)"
+          :aria-label="labelFromPaginationNumber(item)"
+        >
+          <span v-if="item.isEllipsisDots">
+            <font-awesome-icon :icon="['fa', 'ellipsis-h']" class="pagination-icon" />
+          </span>
+          <span v-else-if="item.isPrevious">
+            <font-awesome-icon :icon="['fa', 'angle-left']" class="pagination-icon" />
+          </span>
+          <span v-else-if="item.isNext">
+            <font-awesome-icon :icon="['fa', 'angle-right']" class="pagination-icon" />
+          </span>
+          <span v-else>
+            {{ item.pageNumber }}
+          </span>
+        </button>
+      </li>
+    </ul>
+  </nav>
 </template>
-
 
 <style lang="scss">
 .pagination-button {
@@ -163,7 +187,6 @@ button {
 }
 
 .pagination {
-  display: flex;
   align-items: baseline;
   height: 3em;
   justify-content: center;
@@ -174,5 +197,16 @@ button {
   height: 15px;
   width: 15px;
   vertical-align: text-bottom;
+}
+
+nav {
+  ul {
+    list-style: none;
+    li {
+      display: inline-block;
+      margin-left: 4px;
+      margin-right: 4px;
+    }
+  }
 }
 </style>

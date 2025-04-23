@@ -27,5 +27,12 @@
     "recherche-ressource": "Search by resource name",
     "recherche-editeur": "Search by editor name",
     "elements-affiches": "items displayed"
+  },
+  "aria-label": {
+    "precedent": "Previous",
+    "suivant": "Next",
+    "premier": "First",
+    "dernier": "Last",
+    "page": "Page {index}"
   }
 }
