@@ -29,3 +29,14 @@ $padding: var(--ui-ressources-gar-padding, 1rem);
 $input-height: 2rem;
 $recherche-ressource-padding: 0.5rem;
 $button-padding: 0.6rem;
+
+$dm-sans: 'DM Sans', 'sans-serif';
+$sora: 'Sora', 'sans-serif';
+$standard-colour-white: #fff;
+$standard-colour-black: #1e1e1e;
+$primary: var(--primary, #0062bc);
+$primary-transparent: var(--primary-transparent, #0062bc0d);
+$basic-black: #1e1e1e;
+$basic-grey: #f4f4f4;
+//unused, but declared beacause an unused button requires it
+$secondary-hover: var(--secondary-hover, #e6eff8);

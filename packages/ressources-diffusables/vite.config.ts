@@ -50,6 +50,13 @@ export default ({ mode }: ConfigEnv) => {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
     },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@use "@/assets/global.scss" as *;`,
+        },
+      },
+    },
     build: {
       lib: {
         entry: './src/main.ts',
