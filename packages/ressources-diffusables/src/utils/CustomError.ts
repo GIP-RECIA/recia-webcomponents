@@ -15,10 +15,10 @@
  */
 
 export class CustomError extends Error {
-  statusCode;
+  statusCode
 
   constructor(message: string, statusCode: number) {
-    super(message);
-    this.statusCode = statusCode;
+    super(message)
+    this.statusCode = statusCode
   }
 }

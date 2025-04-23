@@ -15,46 +15,45 @@
 -->
 
 <script setup lang="ts">
-import { RechercheFilter } from '@/utils/RechercheFilter';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import debounce from 'lodash.debounce';
-import { ref } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { RechercheFilter } from '@/utils/RechercheFilter'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import debounce from 'lodash.debounce'
+import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 defineProps<{
-  nombreRessourcesTotal: number;
-  nombreRessourcesAffichees: number;
-}>();
+  nombreRessourcesTotal: number
+  nombreRessourcesAffichees: number
+}>()
 
 const emit = defineEmits<{
-  (event: 'reinitialiserRechercheAvancee', payload: RechercheFilter): void;
-  (event: 'recommencerRechercheAvanceeInput', payload: RechercheFilter): void;
-}>();
+  (event: 'reinitialiserRechercheAvancee', payload: RechercheFilter): void
+  (event: 'recommencerRechercheAvanceeInput', payload: RechercheFilter): void
+}>()
 
-const rechercheInputNomRessource = ref<string>('');
-const rechercheInputNomEditeur = ref<string>('');
+const rechercheInputNomRessource = ref<string>('')
+const rechercheInputNomEditeur = ref<string>('')
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const reinitialiserRechercheAvancee = (prop: string): void => {
-  console.log(prop);
+function reinitialiserRechercheAvancee(prop: string): void {
   switch (prop) {
     case 'nomRessource':
-      rechercheInputNomRessource.value = '';
-      break;
+      rechercheInputNomRessource.value = ''
+      break
     case 'nomEditeur':
-      rechercheInputNomEditeur.value = '';
-      break;
+      rechercheInputNomEditeur.value = ''
+      break
     default:
-      rechercheInputNomRessource.value = '';
-      rechercheInputNomEditeur.value = '';
-      break;
+      rechercheInputNomRessource.value = ''
+      rechercheInputNomEditeur.value = ''
+      break
   }
   emit(
     'reinitialiserRechercheAvancee',
     new RechercheFilter(rechercheInputNomRessource.value, rechercheInputNomEditeur.value),
-  );
-};
+  )
+}
 
 const recommencerRechercheAvancee = debounce(
   () =>
@@ -63,7 +62,7 @@ const recommencerRechercheAvancee = debounce(
       new RechercheFilter(rechercheInputNomRessource.value, rechercheInputNomEditeur.value),
     ),
   500, // Buffer de 0,5s après input.
-);
+)
 </script>
 
 <template>
@@ -72,38 +71,38 @@ const recommencerRechercheAvancee = debounce(
     <div class="input-recherche-ressource">
       <input
         id="recherche-nom-ressource"
+        v-model.trim="rechercheInputNomRessource"
         name="recherche-nom-ressource"
         class="champ-recherche-ressource"
-        v-model.trim="rechercheInputNomRessource"
-        @input="recommencerRechercheAvancee"
         type="text"
         :placeholder="t('recherche-ressource.recherche')"
-      />
+        @input="recommencerRechercheAvancee"
+      >
       <button
         class="reinitialiser-recherche-ressource"
+        :disabled="rechercheInputNomRessource.length === 0"
         @click="reinitialiserRechercheAvancee('nomRessource')"
-        :disabled="rechercheInputNomRessource.length == 0"
       >
-        <font-awesome-icon :icon="['fa', 'xmark']" />
+        <FontAwesomeIcon :icon="['fa', 'xmark']" />
       </button>
     </div>
     <label for="recherche-nom-editeur">{{ t('recherche-ressource.recherche-editeur') }}</label>
     <div class="input-recherche-ressource">
       <input
         id="recherche-nom-editeur"
+        v-model.trim="rechercheInputNomEditeur"
         name="recherche-nom-editeur"
         class="champ-recherche-ressource"
-        v-model.trim="rechercheInputNomEditeur"
-        @input="recommencerRechercheAvancee"
         type="text"
         :placeholder="t('recherche-ressource.recherche')"
-      />
+        @input="recommencerRechercheAvancee"
+      >
       <button
         class="reinitialiser-recherche-ressource"
+        :disabled="rechercheInputNomEditeur.length === 0"
         @click="reinitialiserRechercheAvancee('nomEditeur')"
-        :disabled="rechercheInputNomEditeur.length == 0"
       >
-        <font-awesome-icon :icon="['fa', 'xmark']" />
+        <FontAwesomeIcon :icon="['fa', 'xmark']" />
       </button>
     </div>
     <small class="elements-affiches-page-ressource">

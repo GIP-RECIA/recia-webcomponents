@@ -15,29 +15,24 @@
 -->
 
 <script setup lang="ts">
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import debounce from 'lodash.debounce';
-import { ref, watch } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { RechercheFilter } from '@/utils/RechercheFilter';
-import { faL } from '@fortawesome/free-solid-svg-icons';
-
-const props = defineProps<{}>();
-const { t } = useI18n();
-const rechercheAvanceeActive = ref<boolean>(false);
+import { ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 const emit = defineEmits<{
-  (event: 'swapRechercheTypeToggle', payload: boolean): void;
-}>();
+  (event: 'swapRechercheTypeToggle', payload: boolean): void
+}>()
+const { t } = useI18n()
+const rechercheAvanceeActive = ref<boolean>(false)
 
 watch(rechercheAvanceeActive, () => {
-  emit('swapRechercheTypeToggle', rechercheAvanceeActive.value);
-});
+  emit('swapRechercheTypeToggle', rechercheAvanceeActive.value)
+})
 </script>
+
 <template>
   <div class="cadre-toggle">
     <label for="checkbox">{{ t('recherche-ressource.recherche-avancee') }}</label>
-    <input class="toggle-checkbox" type="checkbox" id="checkbox" v-model="rechercheAvanceeActive" />
+    <input id="checkbox" v-model="rechercheAvanceeActive" class="toggle-checkbox" type="checkbox">
   </div>
 </template>
 

@@ -15,162 +15,159 @@
 -->
 
 <script setup lang="ts">
+import type { Ressource } from '@/types/ressourceType'
 import {
   getRessourcesDiffusables,
   getRessourcesDiffusablesWithRechercheFilter,
   setResourcesPerPage,
-  // getSize,
-  // getSizeWithRechercheFilter,
-} from '@/services/serviceRessourcesDiffusables';
-import type { Ressource } from '@/types/ressourceType';
-import { RechercheFilter } from '@/utils/RechercheFilter';
-import { initToken } from '@/utils/axiosUtils';
-import { faL } from '@fortawesome/free-solid-svg-icons';
-import { onMounted, ref } from 'vue';
+} from '@/services/serviceRessourcesDiffusables'
+import { initToken } from '@/utils/axiosUtils'
+import { RechercheFilter } from '@/utils/RechercheFilter'
+import { onMounted, ref } from 'vue'
 
 const props = defineProps<{
-  baseApiUrl: string;
-  ressourcesDiffusablesApiUri: string;
-  ressourcesDiffusablesSizeApiUri: string;
-  userInfoApiUrl: string;
-  resourcesPerPageDefault: number;
-}>();
+  baseApiUrl: string
+  ressourcesDiffusablesApiUri: string
+  ressourcesDiffusablesSizeApiUri: string
+  userInfoApiUrl: string
+  resourcesPerPageDefault: number
+}>()
 
-const ressources = ref<Array<Ressource>>([]);
-const erreur = ref<string>('');
-const nombreRessourcesTotal = ref<number>(0);
-const currentPageIndexHumanReadable = ref<number>(0);
-const lectureTerminee = ref<boolean>(false);
-const chargement = ref<boolean>(false);
-const recherche = ref<string>('');
-const rechercheFilter = ref<RechercheFilter>();
-const rechercheAvanceeActive = ref<boolean>(false);
-const refreshKey = ref<boolean>(false);
+const ressources = ref<Array<Ressource>>([])
+const erreur = ref<string>('')
+const nombreRessourcesTotal = ref<number>(0)
+const currentPageIndexHumanReadable = ref<number>(0)
+const lectureTerminee = ref<boolean>(false)
+const chargement = ref<boolean>(false)
+const recherche = ref<string>('')
+const rechercheFilter = ref<RechercheFilter>()
+const rechercheAvanceeActive = ref<boolean>(false)
+const refreshKey = ref<boolean>(false)
 
 onMounted(async (): Promise<void> => {
-  await initToken(props.userInfoApiUrl);
+  await initToken(props.userInfoApiUrl)
   // await recommencerRecherche();
-  setResourcesPerPage(props.resourcesPerPageDefault);
-  await rechercheInitiale();
-});
+  setResourcesPerPage(props.resourcesPerPageDefault)
+  await rechercheInitiale()
+})
 
-const reinitialiserRecherche = async (): Promise<void> => {
+async function reinitialiserRecherche(): Promise<void> {
   if (rechercheAvanceeActive.value) {
-    return;
+    return
   }
-  recherche.value = '';
-  getRessourcesDiffusablesFromPage(1);
-};
+  recherche.value = ''
+  getRessourcesDiffusablesFromPage(1)
+}
 
-const reinitialiserRechercheAvancee = async (rechercheInput: CustomEvent): Promise<void> => {
+async function reinitialiserRechercheAvancee(rechercheInput: CustomEvent): Promise<void> {
   if (!rechercheAvanceeActive.value) {
-    return;
+    return
   }
-  rechercheFilter.value = rechercheInput.detail[0];
-  getRessourcesDiffusablesFromPage(1);
-};
+  rechercheFilter.value = rechercheInput.detail[0]
+  getRessourcesDiffusablesFromPage(1)
+}
 
-const recommencerRechercheInput = async (rechercheInput: CustomEvent): Promise<void> => {
+async function recommencerRechercheInput(rechercheInput: CustomEvent): Promise<void> {
   if (rechercheAvanceeActive.value) {
-    return;
+    return
   }
-  recherche.value = rechercheInput.detail[0];
-  getRessourcesDiffusablesFromPage(1);
-};
+  recherche.value = rechercheInput.detail[0]
+  getRessourcesDiffusablesFromPage(1)
+}
 
-const recommencerRechercheAvanceeInput = async (rechercheInput: CustomEvent): Promise<void> => {
+async function recommencerRechercheAvanceeInput(rechercheInput: CustomEvent): Promise<void> {
   if (!rechercheAvanceeActive.value) {
-    return;
+    return
   }
-  rechercheFilter.value = rechercheInput.detail[0];
-  getRessourcesDiffusablesFromPage(1);
-};
+  rechercheFilter.value = rechercheInput.detail[0]
+  getRessourcesDiffusablesFromPage(1)
+}
 
-const rechercheInitiale = async (): Promise<void> => {
-  erreur.value = '';
-  chargement.value = true;
+async function rechercheInitiale(): Promise<void> {
+  erreur.value = ''
+  chargement.value = true
   try {
-    let response = await getRessourcesDiffusables(
+    const response = await getRessourcesDiffusables(
       props.baseApiUrl + props.ressourcesDiffusablesApiUri,
       props.userInfoApiUrl,
-      1 /*Page number, human-readable */,
+      1 /* Page number, human-readable */,
       recherche.value,
-    );
-    console.log(props.resourcesPerPageDefault);
-    if (response.status == 200) {
-      let payload = response.data.payload;
-      handlePayload(payload);
+    )
+    if (response.status === 200) {
+      const payload = response.data.payload
+      handlePayload(payload)
     }
-    console.log(response);
-  } catch (e: any) {
-    erreur.value = e.toString() + (e.response != undefined ? ' | ' + e.response.data.message : '');
   }
-  chargement.value = false;
-};
+  catch (e: any) {
+    erreur.value = e.toString() + (e.response !== undefined ? ` | ${e.response.data.message}` : '')
+  }
+  chargement.value = false
+}
 
 function handlePayload(payload: any) {
-  let pagination = payload.pagination;
+  const pagination = payload.pagination
   if (typeof pagination.totalObjectsCount === 'number') {
-    nombreRessourcesTotal.value = pagination.totalObjectsCount;
+    nombreRessourcesTotal.value = pagination.totalObjectsCount
   }
 
   if (typeof pagination.pageIndexHumanReadable === 'number') {
-    currentPageIndexHumanReadable.value = pagination.pageIndexHumanReadable;
+    currentPageIndexHumanReadable.value = pagination.pageIndexHumanReadable
   }
 
-  refreshKey.value = true;
-  refreshKey.value = false;
-  let ressourcesDiffusables = payload.ressourcesDiffusables;
-  ressources.value = ressourcesDiffusables;
+  refreshKey.value = true
+  refreshKey.value = false
+  const ressourcesDiffusables = payload.ressourcesDiffusables
+  ressources.value = ressourcesDiffusables
 }
 
-const maxPagesCountFromObjectsCount = (): number => {
+function maxPagesCountFromObjectsCount(): number {
   if (currentPageIndexHumanReadable.value === -1) {
-    return 0;
+    return 0
   }
-  return Math.ceil(nombreRessourcesTotal.value / props.resourcesPerPageDefault);
-};
+  return Math.ceil(nombreRessourcesTotal.value / props.resourcesPerPageDefault)
+}
 
-const getRessourcesDiffusablesFromPage = async (pageIndexHumanReadable: number): Promise<void> => {
+async function getRessourcesDiffusablesFromPage(pageIndexHumanReadable: number): Promise<void> {
   if (pageIndexHumanReadable <= maxPagesCountFromObjectsCount() || pageIndexHumanReadable === 1) {
-    erreur.value = '';
-    chargement.value = true;
+    erreur.value = ''
+    chargement.value = true
     try {
-      let response;
+      let response
 
-      if (rechercheAvanceeActive.value == true) {
+      if (rechercheAvanceeActive.value === true) {
         response = await getRessourcesDiffusablesWithRechercheFilter(
           props.baseApiUrl + props.ressourcesDiffusablesApiUri,
           props.userInfoApiUrl,
           pageIndexHumanReadable,
-          rechercheFilter.value != undefined ? rechercheFilter.value : new RechercheFilter(),
-        );
-      } else {
+          rechercheFilter.value !== undefined ? rechercheFilter.value : new RechercheFilter(),
+        )
+      }
+      else {
         response = await getRessourcesDiffusables(
           props.baseApiUrl + props.ressourcesDiffusablesApiUri,
           props.userInfoApiUrl,
           pageIndexHumanReadable,
           recherche.value,
-        );
+        )
       }
 
-      let payload = response.data.payload;
-      handlePayload(payload);
-    } catch (e: any) {
-      erreur.value = e.toString() + (e.response != undefined ? ' | ' + e.response.data.message : '');
+      const payload = response.data.payload
+      handlePayload(payload)
     }
-    chargement.value = false;
+    catch (e: any) {
+      erreur.value = e.toString() + (e.response !== undefined ? ` | ${e.response.data.message}` : '')
+    }
+    chargement.value = false
   }
-};
+}
 
-const goToPage = (event: CustomEvent) => {
+function goToPage(event: CustomEvent) {
   getRessourcesDiffusablesFromPage(event.detail[0])
 }
 
-
-const swapRechercheTypeToggle = (rechercheInput: CustomEvent): void => {
-  rechercheAvanceeActive.value = rechercheInput.detail[0];
-  getRessourcesDiffusablesFromPage(1);
+function swapRechercheTypeToggle(rechercheInput: CustomEvent): void {
+  rechercheAvanceeActive.value = rechercheInput.detail[0]
+  getRessourcesDiffusablesFromPage(1)
 }
 </script>
 
@@ -184,7 +181,6 @@ const swapRechercheTypeToggle = (rechercheInput: CustomEvent): void => {
         :nombre-ressources-affichees="ressources.length"
         @recommencer-recherche-input="recommencerRechercheInput"
         @reinitialiser-recherche="reinitialiserRecherche"
-        ref="rechercheRessource"
       />
       <recherche-avancee-ressource
         v-show="rechercheAvanceeActive"
@@ -192,19 +188,17 @@ const swapRechercheTypeToggle = (rechercheInput: CustomEvent): void => {
         :nombre-ressources-affichees="ressources.length"
         @recommencer-recherche-avancee-input="recommencerRechercheAvanceeInput"
         @reinitialiser-recherche-avancee="reinitialiserRechercheAvancee"
-        ref="rechercheAvanceeRessource"
       />
     </aside>
     <main class="main-page-ressource">
       <liste-ressources
         :ressources="ressources"
         :erreur="erreur"
-        :lectureTerminee="lectureTerminee"
+        :lecture-terminee="lectureTerminee"
         :chargement="chargement"
-        :lastPageIndexHumanReadable="maxPagesCountFromObjectsCount()"
-        :currentPageIndexHumanReadable="currentPageIndexHumanReadable"
+        :last-page-index-human-readable="maxPagesCountFromObjectsCount()"
+        :current-page-index-human-readable="currentPageIndexHumanReadable"
         @go-to-page="goToPage"
-        ref="listeRessource"
       />
     </main>
   </div>

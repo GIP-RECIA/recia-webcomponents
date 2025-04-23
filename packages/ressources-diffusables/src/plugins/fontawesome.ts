@@ -13,25 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { faAnglesRight } from '@fortawesome/free-solid-svg-icons';
-import { faAnglesLeft } from '@fortawesome/free-solid-svg-icons';
-import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faAngleLeft, faAngleRight, faAnglesLeft, faAnglesRight, faChevronLeft, faChevronRight, faEllipsisH, faXmark } from '@fortawesome/free-solid-svg-icons'
 
-const register = () => {
-  library.add(faXmark);
-  library.add(faEllipsisH);
-  library.add(faChevronLeft);
-  library.add(faChevronRight);
-  library.add(faAnglesRight);
-  library.add(faAnglesLeft);
-  library.add(faAngleLeft);
-  library.add(faAngleRight);
-};
+function register() {
+  library.add(faXmark)
+  library.add(faEllipsisH)
+  library.add(faChevronLeft)
+  library.add(faChevronRight)
+  library.add(faAnglesRight)
+  library.add(faAnglesLeft)
+  library.add(faAngleLeft)
+  library.add(faAngleRight)
+}
 
 export { register }

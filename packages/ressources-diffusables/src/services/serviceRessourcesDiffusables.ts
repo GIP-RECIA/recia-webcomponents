@@ -13,54 +13,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// import axios from 'axios';
-import type { RechercheFilter } from '@/utils/RechercheFilter';
-import { instance } from '@/utils/axiosUtils';
-import { ref } from 'vue';
+import type { RechercheFilter } from '@/utils/RechercheFilter'
+import { instance } from '@/utils/axiosUtils'
+import { ref } from 'vue'
 
-const resourcesPerPage = ref<number>(20);
+const resourcesPerPage = ref<number>(20)
 
 function setResourcesPerPage(nbr: number) {
-  resourcesPerPage.value = nbr;
+  resourcesPerPage.value = nbr
 }
 
 function getUrlParams(recherche: string): string {
   return recherche !== ''
     ? `&operator=OR&idRessource=${recherche}&nomRessource=${recherche}&idEditeur=${recherche}&nomEditeur=${recherche}&distributeurCom=${recherche}&nomDistributeurCom=${recherche}&distributeurTech=${recherche}&nomDistributeurTech=${recherche}`
-    : '';
+    : ''
 }
-const getUrlParamsWithRechercheFilter = (rechercheFilter: RechercheFilter): string => {
+function getUrlParamsWithRechercheFilter(rechercheFilter: RechercheFilter): string {
   if (rechercheFilter.isEmpty()) {
-    return '';
+    return ''
   }
-  let params: string = '&operator=AND';
-  if (rechercheFilter.nomRessource.length > 0) params += `&nomRessource=${rechercheFilter.nomRessource}`;
-  if (rechercheFilter.nomEditeur.length > 0) params += `&nomEditeur=${rechercheFilter.nomEditeur}`;
-  return params;
-};
+  let params: string = '&operator=AND'
+  if (rechercheFilter.nomRessource.length > 0)
+    params += `&nomRessource=${rechercheFilter.nomRessource}`
+  if (rechercheFilter.nomEditeur.length > 0)
+    params += `&nomEditeur=${rechercheFilter.nomEditeur}`
+  return params
+}
 
-const getRessourcesDiffusables = async (url: string, userInfoApiUrl: string, page: number, recherche: string) =>
-  await instance.get(`${url}?ressourcesPerPage=${resourcesPerPage.value}&page=${page}${getUrlParams(recherche)}`, {});
+async function getRessourcesDiffusables(url: string, userInfoApiUrl: string, page: number, recherche: string) {
+  return await instance.get(`${url}?ressourcesPerPage=${resourcesPerPage.value}&page=${page}${getUrlParams(recherche)}`, {})
+}
 
-const getRessourcesDiffusablesWithRechercheFilter = async (
-  url: string,
-  userInfoApiUrl: string,
-  page: number,
-  recherche: RechercheFilter,
-) =>
-  await instance.get(
+async function getRessourcesDiffusablesWithRechercheFilter(url: string, userInfoApiUrl: string, page: number, recherche: RechercheFilter) {
+  return await instance.get(
     `${url}?ressourcesPerPage=${resourcesPerPage.value}&page=${page}${getUrlParamsWithRechercheFilter(recherche)}`,
     {},
-  );
-
-// const getSize = async (url: string, userInfoApiUrl: string, recherche: string) =>
-//   await instance.get(`${url}?${getUrlParams(recherche)}`, {});
-
-// const getSizeWithRechercheFilter = async (url: string, userInfoApiUrl: string, recherche: RechercheFilter) =>
-//   await instance.get(`${url}?${getUrlParamsWithRechercheFilter(recherche)}`, {});
+  )
+}
 
 export {
   getRessourcesDiffusables,
-  getRessourcesDiffusablesWithRechercheFilter /*, getSize, getSizeWithRechercheFilter */,
+  getRessourcesDiffusablesWithRechercheFilter /* , getSize, getSizeWithRechercheFilter */,
   setResourcesPerPage,
-};
+}

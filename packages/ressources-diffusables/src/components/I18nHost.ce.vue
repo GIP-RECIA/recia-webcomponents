@@ -19,15 +19,15 @@ import i18n from '@/plugins/i18n'
 import { provide } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 
-provide(I18nInjectionKey, i18n);
-
 defineProps<{
-  baseApiUrl: string;
-  ressourcesDiffusablesApiUri: string;
-  ressourcesDiffusablesSizeApiUri: string;
-  userInfoApiUrl: string;
-  resourcesPerPageDefault: number;
-}>();
+  baseApiUrl: string
+  ressourcesDiffusablesApiUri: string
+  ressourcesDiffusablesSizeApiUri: string
+  userInfoApiUrl: string
+  resourcesPerPageDefault: number
+}>()
+
+provide(I18nInjectionKey, i18n)
 </script>
 
 <template>

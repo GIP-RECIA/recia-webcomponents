@@ -19,21 +19,19 @@ import type { Ressource } from '@/types/ressourceType'
 import { useI18n } from 'vue-i18n'
 
 defineProps<{
-  ressources: Array<Ressource>;
-  erreur: string;
-  lectureTerminee: boolean;
-  chargement: boolean | null;
-  lastPageIndexHumanReadable: number;
-  currentPageIndexHumanReadable: number;
-}>();
-const emit = defineEmits<{
-  (event: 'goToPage', payload: number): void;
+  ressources: Array<Ressource>
+  erreur: string
+  lectureTerminee: boolean
+  chargement: boolean | null
+  lastPageIndexHumanReadable: number
+  currentPageIndexHumanReadable: number
 }>()
+const emit = defineEmits<(event: 'goToPage', payload: number) => void>()
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const goToPage = (pageIndex: CustomEvent) => {
-  emit('goToPage', pageIndex.detail[0]);
+function goToPage(pageIndex: CustomEvent) {
+  emit('goToPage', pageIndex.detail[0])
 }
 </script>
 
@@ -54,13 +52,10 @@ const goToPage = (pageIndex: CustomEvent) => {
         {{ t('liste-ressources.aucune-ressource') }}
       </p>
       <ressources-pagination
-        :lastPageIndexHumanReadable="lastPageIndexHumanReadable"
-        :currentPageIndexHumanReadable="currentPageIndexHumanReadable"
+        :last-page-index-human-readable="lastPageIndexHumanReadable"
+        :current-page-index-human-readable="currentPageIndexHumanReadable"
         @go-to-page="goToPage"
       />
-      <!-- <button v-else-if="!lectureTerminee" class="page-suivante-liste-ressources" @click="$emit('getPageSuivante')">
-        {{ t('liste-ressources.charger-plus') }}
-      </button> -->
     </footer>
   </div>
 </template>

@@ -15,14 +15,14 @@
  */
 
 export class PaginationNumber {
-  pageNumber;
-  isEllipsisDots;
-  isPrevious;
-  isNext;
-  isLast;
-  isFirst;
+  pageNumber
+  isEllipsisDots
+  isPrevious
+  isNext
+  isLast
+  isFirst
 
-  static count: number = 0;
+  static count: number = 0
 
   private constructor(
     number: number,
@@ -32,35 +32,35 @@ export class PaginationNumber {
     isFirst: boolean,
     isLast: boolean,
   ) {
-    this.pageNumber = number;
-    this.isEllipsisDots = isEllipsis;
-    this.isPrevious = isPrevious;
-    this.isNext = isNext;
-    this.isLast = isLast;
-    this.isFirst = isFirst;
+    this.pageNumber = number
+    this.isEllipsisDots = isEllipsis
+    this.isPrevious = isPrevious
+    this.isNext = isNext
+    this.isLast = isLast
+    this.isFirst = isFirst
   }
 
   static getSeparator(): PaginationNumber {
-    return new PaginationNumber(-1, true, false, false, false, false);
+    return new PaginationNumber(-1, true, false, false, false, false)
   }
 
   static getPaginationNumber(number: number): PaginationNumber {
-    return new PaginationNumber(number, false, false, false, false, false);
+    return new PaginationNumber(number, false, false, false, false, false)
   }
 
   static getPrevious(currentPage: number): PaginationNumber {
-    return new PaginationNumber(currentPage - 1, false, true, false, false, false);
+    return new PaginationNumber(currentPage - 1, false, true, false, false, false)
   }
 
   static getNext(currentPage: number): PaginationNumber {
-    return new PaginationNumber(currentPage + 1, false, false, true, false, false);
+    return new PaginationNumber(currentPage + 1, false, false, true, false, false)
   }
 
   static getFirst(): PaginationNumber {
-    return new PaginationNumber(1, false, false, false, true, false);
+    return new PaginationNumber(1, false, false, false, true, false)
   }
 
   static getLast(maxPage: number): PaginationNumber {
-    return new PaginationNumber(maxPage, false, false, false, false, true);
+    return new PaginationNumber(maxPage, false, false, false, false, true)
   }
 }
