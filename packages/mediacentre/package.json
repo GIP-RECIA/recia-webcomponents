@@ -55,7 +55,7 @@
     "@vitejs/plugin-vue": "^5.2.3",
     "@vue/tsconfig": "^0.7.0",
     "@vueuse/core": "^13.1.0",
-    "axios": "^1.8.4",
+    "axios": "^1.9.0",
     "dotenv-checker": "^1.1.7",
     "eslint": "^9.25.0",
     "eslint-plugin-format": "^1.0.1",
