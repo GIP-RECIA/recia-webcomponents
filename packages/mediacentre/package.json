@@ -62,7 +62,7 @@
     "lint-staged": "^15.5.1",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
-    "npm-run-all2": "^7.0.2",
+    "npm-run-all2": "^8.0.1",
     "regenerator-runtime": "^0.14.1",
     "sass": "^1.86.3",
     "terser": "^5.39.0",
