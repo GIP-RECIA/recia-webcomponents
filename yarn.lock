@@ -1930,13 +1930,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@intlify/core-base@npm:10.0.5":
-  version: 10.0.5
-  resolution: "@intlify/core-base@npm:10.0.5"
+"@intlify/core-base@npm:10.0.7":
+  version: 10.0.7
+  resolution: "@intlify/core-base@npm:10.0.7"
   dependencies:
-    "@intlify/message-compiler": "npm:10.0.5"
-    "@intlify/shared": "npm:10.0.5"
-  checksum: 10/d0680074ca5abc26c348976047001fda76045917fabcbe041fa662c2ca66dc6d22570ebf5e198f718e8b98c3d662e29d824f891183f51ff6b888c7c68db5e4fd
+    "@intlify/message-compiler": "npm:10.0.7"
+    "@intlify/shared": "npm:10.0.7"
+  checksum: 10/559876ba306946fbfe107c041bedc6315c1c31208b54ee1a3d38777b013b27c4c916fe7b7de460d97e9ab6f3f49d75d07d25a00f1348435bccff1d37ff33a6fe
   languageName: node
   linkType: hard
 
@@ -1950,13 +1950,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@intlify/message-compiler@npm:10.0.5":
-  version: 10.0.5
-  resolution: "@intlify/message-compiler@npm:10.0.5"
+"@intlify/message-compiler@npm:10.0.7":
+  version: 10.0.7
+  resolution: "@intlify/message-compiler@npm:10.0.7"
   dependencies:
-    "@intlify/shared": "npm:10.0.5"
+    "@intlify/shared": "npm:10.0.7"
     source-map-js: "npm:^1.0.2"
-  checksum: 10/3e386b042ac6dd98533b6ea2b4af610999236a1eb7ff4d77762cd06cae1858a53735b0b7e60828c569c715a9f0ae588aaaf8496f9a4b287a44e7f0fd470857ff
+  checksum: 10/86af03ee73e49af8a31937a40d77c83fe32bf9bcd98974c6b58d0c125194556f0779bb73f9db5d8a930b8611fcc69dcc067f2b807e870a3d2f646e59b1a8a399
   languageName: node
   linkType: hard
 
@@ -1970,10 +1970,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@intlify/shared@npm:10.0.5, @intlify/shared@npm:^10.0.0":
-  version: 10.0.5
-  resolution: "@intlify/shared@npm:10.0.5"
-  checksum: 10/64552b8770ad236c11893837e95e4e2ea7c947396cfcee797bf8e26afea6d06f707178f4aa36b0b416d89800ba9cd058e6742bf2ebdd7c7ff7f9fc1ec9bc7b48
+"@intlify/shared@npm:10.0.7, @intlify/shared@npm:^10.0.0":
+  version: 10.0.7
+  resolution: "@intlify/shared@npm:10.0.7"
+  checksum: 10/b00e00bdd5ddd7b9221ca55cca6b6a727c2fd5896c7d21f21206dd5160dceb985e67fa586ad67968c38704ed2255c60db1b097b0e22aef10c2d215bfc27aeafa
   languageName: node
   linkType: hard
 
@@ -12341,15 +12341,15 @@ __metadata:
   linkType: hard
 
 "vue-i18n@npm:^10.0.0":
-  version: 10.0.5
-  resolution: "vue-i18n@npm:10.0.5"
+  version: 10.0.7
+  resolution: "vue-i18n@npm:10.0.7"
   dependencies:
-    "@intlify/core-base": "npm:10.0.5"
-    "@intlify/shared": "npm:10.0.5"
+    "@intlify/core-base": "npm:10.0.7"
+    "@intlify/shared": "npm:10.0.7"
     "@vue/devtools-api": "npm:^6.5.0"
   peerDependencies:
     vue: ^3.0.0
-  checksum: 10/557c00fbce207a1eaa836894d4a5140be7c9df546168dac1e14dec7b04f2ecc351161ac11e9cc31eb34da408f863f7371477ab3947ae89f9480ad531c24db1f2
+  checksum: 10/e9d901fce42654c8a3a727dea020ca3e295b5f6d2ede706e70d73fb8745b4b2e9fc935dc75033e1ef5efdb9b6fc6c4c7380c65c712329d33f22a489eff905031
   languageName: node
   linkType: hard
 
