@@ -1503,7 +1503,7 @@ __metadata:
     "@types/node": "npm:^22"
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
-    "@vitejs/plugin-vue": "npm:^5.2.3"
+    "@vitejs/plugin-vue": "npm:^5.2.4"
     "@vue/tsconfig": "npm:^0.7.0"
     axios: "npm:^1.9.0"
     dotenv-checker: "npm:^1.1.7"
@@ -1538,7 +1538,7 @@ __metadata:
     "@types/node": "npm:^22"
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
-    "@vitejs/plugin-vue": "npm:^5.2.3"
+    "@vitejs/plugin-vue": "npm:^5.2.4"
     "@vue/tsconfig": "npm:^0.7.0"
     axios: "npm:^1.9.0"
     dotenv-checker: "npm:^1.1.7"
@@ -1594,7 +1594,7 @@ __metadata:
     "@types/node": "npm:^22"
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
-    "@vitejs/plugin-vue": "npm:^5.2.3"
+    "@vitejs/plugin-vue": "npm:^5.2.4"
     "@vue/tsconfig": "npm:^0.7.0"
     "@vueuse/core": "npm:^13.1.0"
     axios: "npm:^1.9.0"
@@ -1629,7 +1629,7 @@ __metadata:
     "@types/node": "npm:^22"
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
-    "@vitejs/plugin-vue": "npm:^5.2.3"
+    "@vitejs/plugin-vue": "npm:^5.2.4"
     "@vue/tsconfig": "npm:^0.7.0"
     axios: "npm:^1.9.0"
     cropperjs: "npm:^1.6.2"
@@ -1743,7 +1743,7 @@ __metadata:
     "@types/node": "npm:^22"
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
-    "@vitejs/plugin-vue": "npm:^5.2.3"
+    "@vitejs/plugin-vue": "npm:^5.2.4"
     "@vue/tsconfig": "npm:^0.7.0"
     axios: "npm:^1.9.0"
     dotenv-checker: "npm:^1.1.7"
@@ -4149,13 +4149,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitejs/plugin-vue@npm:^5.2.3":
-  version: 5.2.3
-  resolution: "@vitejs/plugin-vue@npm:5.2.3"
+"@vitejs/plugin-vue@npm:^5.2.4":
+  version: 5.2.4
+  resolution: "@vitejs/plugin-vue@npm:5.2.4"
   peerDependencies:
     vite: ^5.0.0 || ^6.0.0
     vue: ^3.2.25
-  checksum: 10/69a6c6dcd9d6a6c024a8d087f6b277510fd7dbd8d6c87926ed82da33ff710cfa6bfbdb773d8879b43c5f785799924a3e735a7096d0e286d8a75a4c52da7b7e96
+  checksum: 10/da39ddb9cc053edeac8c5eae81bcee5762e100a979775b34c181802b421eca183d2b24dbf6f08e167ab0086e482e50208a47517da7004a840fec6d856a39353a
   languageName: node
   linkType: hard
 
