@@ -60,7 +60,7 @@
     "npm-run-all2": "^8.0.2",
     "regenerator-runtime": "^0.14.1",
     "sass": "^1.89.0",
-    "terser": "^5.39.0",
+    "terser": "^5.39.2",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
     "vue": "^3.5.14",
