@@ -120,6 +120,14 @@ function keyFromPaginationNumber(paginationNumber: PaginationNumber): number {
   }
 }
 
+function getClassArray(paginationNumber: PaginationNumber): Array<string> {
+  const isAdjacent: boolean = (paginationNumber.pageNumber === props.currentPageIndexHumanReadable - 1 && paginationNumber.pageNumber !== 1) || (paginationNumber.pageNumber === props.currentPageIndexHumanReadable + 1 && paginationNumber.pageNumber !== props.lastPageIndexHumanReadable)
+
+  const isArrowButton: boolean = paginationNumber.isNext || paginationNumber.isPrevious
+
+  return isAdjacent && !isArrowButton ? ['adjacent'] : []
+}
+
 function labelFromPaginationNumber(paginationNumber: PaginationNumber): string | undefined {
   if (paginationNumber.isFirst) {
     return t('aria-label.premier')
@@ -142,7 +150,7 @@ function labelFromPaginationNumber(paginationNumber: PaginationNumber): string |
 <template>
   <nav v-if="props.lastPageIndexHumanReadable > 0" class="pagination">
     <ul>
-      <li v-for="item in allPagesToDisplay" :key="keyFromPaginationNumber(item)">
+      <li v-for="item in allPagesToDisplay" :key="keyFromPaginationNumber(item)" :class="getClassArray(item)">
         <button
           :class="classArrayForPaginationNumber(item)"
           :disabled="disabledForPaginationNumber(item)"
@@ -208,10 +216,16 @@ button {
 nav {
   ul {
     list-style: none;
+    padding: 0;
     li {
       display: inline-block;
       margin-left: 4px;
       margin-right: 4px;
+      @media (max-width: 360px) {
+        &.adjacent {
+          display: none;
+        }
+      }
     }
   }
 }
