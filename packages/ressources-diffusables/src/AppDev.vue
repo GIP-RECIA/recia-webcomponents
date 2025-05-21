@@ -18,7 +18,6 @@
 const {
   VITE_BASE_API_URL,
   VITE_RESSOURCES_DIFFUSABLES_API_URI,
-  VITE_RESSOURCES_DIFFUSABLES_SIZE_API_URI,
   VITE_USER_INFO_API_URI,
   VITE_RESOURCES_PER_PAGE_DEFAULT,
 } = import.meta.env
@@ -28,7 +27,6 @@ const {
   <ui-ressources-gar
     :base-api-url="VITE_BASE_API_URL"
     :ressources-diffusables-api-uri="VITE_RESSOURCES_DIFFUSABLES_API_URI"
-    :ressources-diffusables-size-api-uri="VITE_RESSOURCES_DIFFUSABLES_SIZE_API_URI"
     :user-info-api-url="VITE_USER_INFO_API_URI"
     :resources-per-page-default="VITE_RESOURCES_PER_PAGE_DEFAULT"
   />

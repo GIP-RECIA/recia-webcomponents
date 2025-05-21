@@ -22,7 +22,6 @@ import { I18nInjectionKey } from 'vue-i18n'
 defineProps<{
   baseApiUrl: string
   ressourcesDiffusablesApiUri: string
-  ressourcesDiffusablesSizeApiUri: string
   userInfoApiUrl: string
   resourcesPerPageDefault: number
 }>()
@@ -34,7 +33,6 @@ provide(I18nInjectionKey, i18n)
   <page-ressource
     :base-api-url="baseApiUrl"
     :ressources-diffusables-api-uri="ressourcesDiffusablesApiUri"
-    :ressources-diffusables-size-api-uri="ressourcesDiffusablesSizeApiUri"
     :user-info-api-url="userInfoApiUrl"
     :resources-per-page-default="resourcesPerPageDefault"
   />

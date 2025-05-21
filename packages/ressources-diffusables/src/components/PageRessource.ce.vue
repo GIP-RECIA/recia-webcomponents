@@ -28,7 +28,6 @@ import { onMounted, ref } from 'vue'
 const props = defineProps<{
   baseApiUrl: string
   ressourcesDiffusablesApiUri: string
-  ressourcesDiffusablesSizeApiUri: string
   userInfoApiUrl: string
   resourcesPerPageDefault: number
 }>()
