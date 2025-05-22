@@ -239,16 +239,5 @@ function swapRechercheTypeToggle(rechercheInput: CustomEvent): void {
   .legende-ressource-page-ressource {
     display: block;
   }
-
-  .current {
-    background-color: $button-background-color;
-    color: $button-text-color;
-    border-radius: 5px;
-    border-color: transparent;
-  }
-
-  button:not(.current) {
-    cursor: pointer;
-  }
 }
 </style>

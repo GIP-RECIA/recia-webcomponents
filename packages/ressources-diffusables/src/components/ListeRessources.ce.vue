@@ -75,18 +75,6 @@ function goToPage(pageIndex: CustomEvent) {
   text-align: center;
 }
 
-.page-suivante-liste-ressources {
-  width: 100%;
-  padding: $button-padding;
-  font-size: x-large;
-  font-weight: bold;
-  background-color: $button-background-color;
-  color: $button-text-color;
-  border: none;
-  border-radius: $button-border-radius;
-  cursor: pointer;
-}
-
 .chargement-liste-ressources {
   font-size: x-large;
   font-weight: bold;
