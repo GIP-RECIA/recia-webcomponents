@@ -63,10 +63,6 @@ function goToPage(pageIndex: CustomEvent) {
 <style lang="scss">
 @import '@/assets/variables.scss';
 
-.cadre-liste-ressources {
-  padding: $margin;
-}
-
 .cadre-liste-ressources > div {
   margin-bottom: -$margin;
 }
