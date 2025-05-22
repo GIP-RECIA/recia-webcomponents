@@ -79,8 +79,9 @@ const recommencerRecherche = debounce(
   justify-content: center;
   padding: $padding;
   margin: $margin;
-  background-color: #fff;
+  background-color: $body-bg;
   border-radius: $card-border-radius;
+  box-shadow: $shadow-neutral;
 }
 
 .input-recherche-ressource {
@@ -97,7 +98,7 @@ const recommencerRecherche = debounce(
   font-size: small;
   font-weight: bold;
   outline: none;
-  border: thin solid lightgrey;
+  border: thin solid $stroke;
   border-right: none;
   border-radius: $button-border-radius 0 0 $button-border-radius;
 }
@@ -109,15 +110,18 @@ const recommencerRecherche = debounce(
   width: $input-height;
   height: $input-height;
   padding: $recherche-ressource-padding;
-  background-color: $button-background-color;
-  color: $button-text-color;
-  border: none;
+  background-color: transparent;
+  color: $body-color;
+  border: thin solid $stroke;
+  border-left: none;
   border-radius: 0 $button-border-radius $button-border-radius 0;
+  border-color: $stroke;
   cursor: pointer;
 }
 
 .reinitialiser-recherche-ressource:disabled {
-  background-color: lightgray;
+  background-color: transparent;
+  color: $stroke;
   cursor: not-allowed;
 }
 

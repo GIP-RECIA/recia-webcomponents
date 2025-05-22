@@ -138,12 +138,12 @@
   color: $basic-black;
 
   &:hover {
-    background-color: $secondary-hover;
+    background-color: $btn-secondary-hover;
     color: $primary;
   }
 
   &:focus-visible {
-    background-color: $secondary-hover;
+    background-color: $btn-secondary-hover;
     color: $primary;
     outline: 4px solid $primary;
   }

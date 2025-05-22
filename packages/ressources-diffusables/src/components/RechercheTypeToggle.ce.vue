@@ -46,13 +46,14 @@ watch(rechercheAvanceeActive, () => {
   align-items: top;
   padding: $padding;
   margin: $margin;
-  background-color: #fff;
+  background-color: $body-bg;
   border-radius: $card-border-radius;
+  box-shadow: $shadow-neutral;
 }
 
 .toggle-checkbox {
   width: 1.5em;
   height: 1.5em;
-  accent-color: $button-background-color;
+  accent-color: $primary;
 }
 </style>
