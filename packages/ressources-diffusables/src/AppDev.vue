@@ -50,15 +50,6 @@ body {
 
 /* Variables */
 :root {
-  /* Couleur des titres des cartes de ressources */
-  --ui-ressources-gar-ressources-title-color: #25b2f3;
-
-  /* Couleurs des boutons */
-  --ui-ressources-gar-button-background-color: #0c9ee1;
-  --ui-ressources-gar-button-background-color-success: #37b61d;
-  --ui-ressources-gar-button-text-color: #ffffff;
-  --ui-ressources-gar-button-text-color-success: #ffffff;
-
   /* Mise en forme */
   --ui-ressources-gar-button-border-radius: 24px;
   --ui-ressources-gar-card-border-radius: 16px;
