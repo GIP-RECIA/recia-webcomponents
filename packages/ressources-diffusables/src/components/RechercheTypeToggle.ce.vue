@@ -43,7 +43,7 @@ watch(rechercheAvanceeActive, () => {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
+  align-items: top;
   padding: $padding;
   margin: $margin;
   background-color: #fff;
