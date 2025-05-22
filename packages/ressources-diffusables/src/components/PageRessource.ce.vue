@@ -189,7 +189,7 @@ function swapRechercheTypeToggle(rechercheInput: CustomEvent): void {
         @reinitialiser-recherche-avancee="reinitialiserRechercheAvancee"
       />
     </aside>
-    <main class="main-page-ressource">
+    <div class="main-page-ressource">
       <liste-ressources
         :ressources="ressources"
         :erreur="erreur"
@@ -199,7 +199,7 @@ function swapRechercheTypeToggle(rechercheInput: CustomEvent): void {
         :current-page-index-human-readable="currentPageIndexHumanReadable"
         @go-to-page="goToPage"
       />
-    </main>
+    </div>
   </div>
 </template>
 

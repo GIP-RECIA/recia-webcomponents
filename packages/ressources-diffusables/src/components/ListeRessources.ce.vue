@@ -37,9 +37,9 @@ function goToPage(pageIndex: CustomEvent) {
 
 <template>
   <div class="cadre-liste-ressources">
-    <main>
+    <div>
       <carte-ressource v-for="ressource in ressources" :key="ressource.ressource.id" :ressource="ressource" />
-    </main>
+    </div>
     <footer>
       <p v-if="chargement" class="chargement-liste-ressources">
         {{ t('liste-ressources.chargement') }}
