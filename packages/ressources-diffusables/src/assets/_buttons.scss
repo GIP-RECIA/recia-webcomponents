@@ -38,7 +38,6 @@
 %tag {
   @extend %tag-and-button;
   padding: 8px 16px;
-  font-family: $dm-sans;
   font-weight: 500;
   font-size: 14px;
 
@@ -101,7 +100,6 @@
 %button {
   @extend %tag-and-button;
   padding: 12px 24px;
-  font-family: $sora;
   font-weight: 600;
   font-size: 16px;
 }
@@ -159,7 +157,6 @@
 %button-tertiary {
   @extend %button;
   padding: 8px 16px;
-  font-family: $dm-sans;
   font-weight: 600;
   font-size: 14px;
   border-radius: 17px;
