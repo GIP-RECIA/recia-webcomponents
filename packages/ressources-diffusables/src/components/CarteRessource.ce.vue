@@ -113,10 +113,10 @@ ${t('carte-ressource.editeur')}: ${props.ressource.editeur.nom}`
       </li>
     </ul>
     <div class="boutons-carte-ressource">
-      <button @click="afficherPlusInfos">
+      <button class="primary" @click="afficherPlusInfos">
         {{ plusInfos ? t('carte-ressource.moins-informations') : t('carte-ressource.plus-informations') }}
       </button>
-      <button :class="[isSuccess ? 'success' : '']" @click="copierReferences">
+      <button :class="[isSuccess ? 'success' : '']" class="secondary" @click="copierReferences">
         {{ t(isSuccess ? 'carte-ressource.contenu-copie' : 'carte-ressource.copier-references') }}
       </button>
     </div>
@@ -128,16 +128,19 @@ ${t('carte-ressource.editeur')}: ${props.ressource.editeur.nom}`
 
 .cadre-carte-ressource {
   text-align: left;
-  background-color: #fff;
+  background-color: $body-bg;
   padding: $padding;
-  margin-bottom: $margin;
+  margin: $margin;
+  margin-top: inherit;
   border-radius: $card-border-radius;
+  box-shadow: $shadow-neutral;
 }
 
 .nom-ressource-carte-ressource {
   margin-top: 0;
   margin-bottom: $margin;
-  color: $ressources-title-color;
+  color: $primary;
+  font-family: $font-title;
 }
 
 .liste-attributs-ressource-carte-ressource {
@@ -147,14 +150,17 @@ ${t('carte-ressource.editeur')}: ${props.ressource.editeur.nom}`
 }
 
 .intitule-attribut-ressource-carte-ressource {
+  color: $body-color;
   font-weight: bold;
 }
 
 .id-principal-ressource-carte-ressource {
+  color: $body-color;
   word-wrap: break-word;
 }
 
 .id-attribut-ressource-carte-ressource {
+  color: $body-color;
   opacity: 0.5;
   font-size: smaller;
   word-wrap: break-word;
@@ -169,14 +175,43 @@ ${t('carte-ressource.editeur')}: ${props.ressource.editeur.nom}`
 .boutons-carte-ressource > button {
   min-width: min(200px, 45%);
   padding: $button-padding;
+  /*  --recia-btn-primary-color: #fff;
+  --recia-btn-secondary-color: #1e1e1e;
+  --recia-btn-primary-bg: #1e1e1e; */
   font-size: small;
   font-weight: bold;
-  background-color: $button-background-color;
-  color: $button-text-color;
   border: none;
   border-radius: $button-border-radius;
   cursor: pointer;
   max-width: 45%;
+  &.primary {
+    background-color: $btn-primary-bg;
+    color: $btn-primary-color;
+    &:hover {
+      background-color: $primary;
+    }
+
+    &:focus-visible {
+      background-color: $primary;
+      outline: 4px solid #0062bc4d;
+    }
+  }
+  &.secondary {
+    background-color: $btn-secondary-bg;
+    color: $btn-secondary-color;
+    &:hover {
+      background-color: $btn-secondary-hover;
+      color: $primary;
+      &.success {
+        background-color: $system-blue;
+        color: white;
+      }
+    }
+    .success {
+      background-color: $system-blue;
+      color: white;
+    }
+  }
 }
 
 .boutons-carte-ressource > button:not(:first-child) {
@@ -189,11 +224,6 @@ ${t('carte-ressource.editeur')}: ${props.ressource.editeur.nom}`
 .boutons-carte-ressource > button:disabled {
   background-color: lightgray;
   cursor: not-allowed;
-}
-
-.boutons-carte-ressource > button.success {
-  background-color: $button-background-color-success;
-  color: $button-text-color-success;
 }
 
 @media (min-width: 768px) {

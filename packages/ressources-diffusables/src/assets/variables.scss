@@ -14,29 +14,40 @@
  * limitations under the License.
  */
 
-$ressources-title-color: var(--ui-ressources-gar-ressources-title-color, #25b2f3);
-
-$button-background-color: var(--ui-ressources-gar-button-background-color, #0c9ee1);
-$button-background-color-success: var(--ui-ressources-gar-button-background-color-success, #37b61d);
-$button-text-color: var(--ui-ressources-gar-button-text-color, #ffffff);
-$button-text-color-success: var(--ui-ressources-gar-button-text-color-success, #ffffff);
-
-$button-border-radius: var(--ui-ressources-gar-button-border-radius, 1.5rem);
+$button-border-radius: var(--ui-ressources-gar-button-border-radius, 0.5rem);
 $card-border-radius: var(--ui-ressources-gar-card-border-radius, 1rem);
-$margin: var(--ui-ressources-gar-margin, 0.6rem);
+$margin: var(--ui-ressources-gar-margin, 18px);
 $padding: var(--ui-ressources-gar-padding, 1rem);
 
 $input-height: 2rem;
 $recherche-ressource-padding: 0.5rem;
 $button-padding: 0.6rem;
 
-$dm-sans: 'DM Sans', 'sans-serif';
-$sora: 'Sora', 'sans-serif';
-$standard-colour-white: #fff;
-$standard-colour-black: #1e1e1e;
-$primary: var(--primary, #0062bc);
+$font-title: 'Sora', 'sans-serif';
+$standard-colour-white: var(--recia-white, #fff);
+$standard-colour-black: var(--recia-black, #000);
+$primary: var(--recia-primary, #0062bc);
 $primary-transparent: var(--primary-transparent, #0062bc0d);
-$basic-black: #1e1e1e;
-$basic-grey: #f4f4f4;
+$basic-black: var(--recia-basic-black, #1e1e1e);
+$basic-grey: var(--recia-basic-grey, #f4f4f4);
 //unused, but declared beacause an unused button requires it
-$secondary-hover: var(--secondary-hover, #e6eff8);
+
+// $primary-hover: var(--recia-primary, #0062bc);
+$btn-primary-pressed: var(--recia-btn-primary-pressed, #004584);
+$btn-secondary: var(--recia-btn-secondary, #f4f4f4);
+$btn-secondary-hover: var(--recia-btn-secondary-hover, #e6eff8);
+$btn-secondary-pressed: var(--recia-btn-secondary-pressed, #cce0f2);
+
+$btn-primary-color: var(--recia-btn-primary, #fff);
+$btn-secondary-color: var(--recia-btn-secondary, #1e1e1e);
+$btn-primary-bg: var(--recia-btn-primary-bg, #1e1e1e);
+$btn-secondary-bg: var(--recia-btn-secondar-bg, #f4f4f4);
+
+$body-color: var(--recia-body, #1e1e1e);
+$body-bg: var(--recia-body-bg, #ffff);
+
+$system-blue: var(--recia-system-blue, #005099);
+
+$shadow-neutral: var(--recia-shadow-neutral, 0 4px 15.9px 0) rgba(from var(--recia-black) r g b / 0.1);
+$stroke: var(--recia-stroke, #e9e9e9);
+$basic-black-lighter: var(--recia-basic-black-lighter, #737373);
