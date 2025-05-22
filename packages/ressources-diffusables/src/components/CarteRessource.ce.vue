@@ -175,9 +175,6 @@ ${t('carte-ressource.editeur')}: ${props.ressource.editeur.nom}`
 .boutons-carte-ressource > button {
   min-width: min(200px, 45%);
   padding: $button-padding;
-  /*  --recia-btn-primary-color: #fff;
-  --recia-btn-secondary-color: #1e1e1e;
-  --recia-btn-primary-bg: #1e1e1e; */
   font-size: small;
   font-weight: bold;
   border: none;
@@ -207,7 +204,7 @@ ${t('carte-ressource.editeur')}: ${props.ressource.editeur.nom}`
         color: white;
       }
     }
-    &.success {
+    &cadre-liste.success {
       background-color: $system-blue;
       color: white;
     }
