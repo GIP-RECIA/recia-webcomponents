@@ -67,7 +67,7 @@ function goToPage(pageIndex: CustomEvent) {
   padding: $margin;
 }
 
-.cadre-liste-ressources > main {
+.cadre-liste-ressources > div {
   margin-bottom: -$margin;
 }
 
