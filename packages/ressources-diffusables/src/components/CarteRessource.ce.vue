@@ -207,7 +207,7 @@ ${t('carte-ressource.editeur')}: ${props.ressource.editeur.nom}`
         color: white;
       }
     }
-    .success {
+    &.success {
       background-color: $system-blue;
       color: white;
     }
