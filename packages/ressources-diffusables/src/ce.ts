@@ -1,4 +1,3 @@
-import { defineCustomElement } from 'vue'
 /**
  * Copyright (C) 2023 GIP-RECIA, Inc.
  *
@@ -14,6 +13,8 @@ import { defineCustomElement } from 'vue'
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import { defineCustomElement } from 'vue'
 import CarteRessourceSFC from '@/components/CarteRessource.ce.vue'
 import I18nHostSFC from '@/components/I18nHost.ce.vue'
 import ListeRessourcesSFC from '@/components/ListeRessources.ce.vue'
