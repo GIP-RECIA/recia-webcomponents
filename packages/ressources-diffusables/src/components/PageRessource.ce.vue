@@ -16,7 +16,6 @@
 
 <script setup lang="ts">
 import type { Ressource } from '@/types/ressourceType'
-import { onMounted, ref } from 'vue'
 import {
   getRessourcesDiffusables,
   getRessourcesDiffusablesWithRechercheFilter,
@@ -24,6 +23,7 @@ import {
 } from '@/services/serviceRessourcesDiffusables'
 import { initToken } from '@/utils/axiosUtils'
 import { RechercheFilter } from '@/utils/RechercheFilter'
+import { onMounted, ref } from 'vue'
 
 const props = defineProps<{
   baseApiUrl: string
