@@ -7,7 +7,7 @@
 
      http://www.apache.org/licenses/LICENSE-2.0
 
- Unless required by applicable law or agreed t in writing, software
+ Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
@@ -16,6 +16,7 @@
 
 <script setup lang="ts">
 import type { Ressource } from '@/types/ressourceType'
+import { onMounted, ref } from 'vue'
 import {
   getRessourcesDiffusables,
   getRessourcesDiffusablesWithRechercheFilter,
@@ -23,7 +24,6 @@ import {
 } from '@/services/serviceRessourcesDiffusables'
 import { initToken } from '@/utils/axiosUtils'
 import { RechercheFilter } from '@/utils/RechercheFilter'
-import { onMounted, ref } from 'vue'
 
 const props = defineProps<{
   baseApiUrl: string
