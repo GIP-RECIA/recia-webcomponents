@@ -2,6 +2,53 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.1.0](https://github.com/GIP-RECIA/recia-webcomponents/compare/ui-ressources-gar/v3.0.0...ui-ressources-gar/v3.1.0) (2025-05-23)
+
+
+### Bug Fixes
+
+* **ressources-diffusables:** fix import located on top of license ([56f4dfb](https://github.com/GIP-RECIA/recia-webcomponents/commit/56f4dfb62c2000a22cc59486e17ad42746435fec))
+* **ressources-diffusables:** remove duplicate variables declaration ([0378276](https://github.com/GIP-RECIA/recia-webcomponents/commit/0378276cb016952f15903bf24343d61f49d52e5a))
+
+## [3.0.0](https://github.com/GIP-RECIA/recia-webcomponents/compare/ui-ressources-gar/v2.1.1...ui-ressources-gar/v3.0.0) (2025-05-23)
+
+
+### Features
+
+* **ressources-diffusables:** add axiosUtil to auto refresh jwt token and add it to requests ([3b3e791](https://github.com/GIP-RECIA/recia-webcomponents/commit/3b3e7914471f9481ab8ad26601c4e2186f8b2b51))
+* **ressources-diffusables:** add buttons and scss variable files ([45e2dbe](https://github.com/GIP-RECIA/recia-webcomponents/commit/45e2dbe5378b852607318d7313151f9825db1ac7))
+* **ressources-diffusables:** add portail css variables ([811f017](https://github.com/GIP-RECIA/recia-webcomponents/commit/811f0176dcd30fb615010c0cf5c7c3b0e8815182))
+* **ressources-diffusables:** add precise search by resource and editor name ([6731e94](https://github.com/GIP-RECIA/recia-webcomponents/commit/6731e9438ec81f4228c5bbc7dfa09f0cd41b9b72))
+* **ressources-diffusables:** add resources per page key and property ([78e882e](https://github.com/GIP-RECIA/recia-webcomponents/commit/78e882e5a2b2fd68ea345b6dd27a08f6b8a8ce41))
+* **ressources-diffusables:** add toggle display between global and precise search ([2ec82cd](https://github.com/GIP-RECIA/recia-webcomponents/commit/2ec82cdfc7579222e54145ddfc641f3bc497b842))
+* **ressources-diffusables:** change checkbox color to use  scss variable ([41703bf](https://github.com/GIP-RECIA/recia-webcomponents/commit/41703bf32f0bc99bc7eeef44e137a20faa3df448))
+* **ressources-diffusables:** create RessourcesPagination custom element (WIP) ([fe15420](https://github.com/GIP-RECIA/recia-webcomponents/commit/fe15420503a33e1452b6a80caaf2eb07704abfef))
+* **ressources-diffusables:** implement pagination and apply style to it ([3e70243](https://github.com/GIP-RECIA/recia-webcomponents/commit/3e7024321db8d5178b06a5a2e90d050c39e68d95))
+* **ressources-diffusables:** integrate RessourcesPagination and refactor duplicate code ([9165ee5](https://github.com/GIP-RECIA/recia-webcomponents/commit/9165ee5cc39b1b815b21c4d379e8701bd6c3eb7e))
+* **ressources-diffusables:** place pagination in nav ul li and aria current and label ([50c8184](https://github.com/GIP-RECIA/recia-webcomponents/commit/50c818425e9c80d703070ff550f170fab7d992bb))
+* **ressources-diffusables:** remove legende ressoururce CE ([6d2386e](https://github.com/GIP-RECIA/recia-webcomponents/commit/6d2386eb774edd41e97201b6aebb9a398066ce5b))
+
+
+### Bug Fixes
+
+* regenerator-runtime import ([2313f7b](https://github.com/GIP-RECIA/recia-webcomponents/commit/2313f7b1db5a10fb76aef7b35a3d67a562d6ebae))
+* remove local config ([ccefa16](https://github.com/GIP-RECIA/recia-webcomponents/commit/ccefa16d54a18eda01b3d4c8c02c7e0d6dd92c31))
+* **ressources-diffusables:** change checkbox alignment ([2878d1b](https://github.com/GIP-RECIA/recia-webcomponents/commit/2878d1b7256635b6decd6d881c13650d5ba04b5e))
+* **ressources-diffusables:** fix css rule for success effect on button ([3eb7e36](https://github.com/GIP-RECIA/recia-webcomponents/commit/3eb7e367252d12115997f5a50b7de845415499e3))
+* **ressources-diffusables:** fix pagination display on small device ([59f9866](https://github.com/GIP-RECIA/recia-webcomponents/commit/59f98665f4f9c7c4f0d8b7e6684a4c60e311bfe6))
+* **ressources-diffusables:** remove excessive padding affecting display on small mobile devices ([f7c50ae](https://github.com/GIP-RECIA/recia-webcomponents/commit/f7c50ae1646341c5708dbe36031c31e349ddaa4f))
+* **ressources-diffusables:** remove font-family from buttons.scss ([0d2fec1](https://github.com/GIP-RECIA/recia-webcomponents/commit/0d2fec1a0be83919c2499a6f287643216ede3fc0))
+* **ressources-diffusables:** remove unused property and update readme ([ebb3cf4](https://github.com/GIP-RECIA/recia-webcomponents/commit/ebb3cf46e69a45dd355ff6dd0d7bf277ccec42e4))
+* **ressources-diffusables:** replace hardcoded precise search labels by locale ([901fad1](https://github.com/GIP-RECIA/recia-webcomponents/commit/901fad16256025fbdf6a8059de6149f80961a2cf))
+* **ressources-diffusables:** replace main by div in css rule ([89d8d75](https://github.com/GIP-RECIA/recia-webcomponents/commit/89d8d758b5268153960334532839a8032d8c44fd))
+* **ressources-diffusables:** replace main with div ([771b6f8](https://github.com/GIP-RECIA/recia-webcomponents/commit/771b6f8d538e75e672aa2bf9411ad486a35858f6))
+* **ressources-diffusables:** update css variables values ([f992cc5](https://github.com/GIP-RECIA/recia-webcomponents/commit/f992cc53a26add263483a608f54bd1199d0754aa))
+* **ressources-diffusables:** use scss variables for better practices and adapt design ([98f9b14](https://github.com/GIP-RECIA/recia-webcomponents/commit/98f9b147b4855f16dab9a46593cfe4857481dc62))
+* update CHANGELOGS and package.json ([4c8c3ee](https://github.com/GIP-RECIA/recia-webcomponents/commit/4c8c3ee8ccabbc4798695dfbb6d359b0553d403d))
+* **vite:** remove unnecessary hmr override ([74b2c0d](https://github.com/GIP-RECIA/recia-webcomponents/commit/74b2c0d8a8532b4596e1349c3a58c6bde8d098ce))
+* **vite:** scss warning ([5d3b7a2](https://github.com/GIP-RECIA/recia-webcomponents/commit/5d3b7a2c9123570ad3980e654dadfd56c2b03bb3))
+* **vue-i18n:** remove vue-i18n deprecated feature ([39acfdc](https://github.com/GIP-RECIA/recia-webcomponents/commit/39acfdc03234e6b7bc6e3ebae511824691104017))
+
 ## [2.1.1](https://github.com/GIP-RECIA/recia-webcomponents/compare/ui-ressources-gar/v2.1.0...ui-ressources-gar/v2.1.1) (2024-03-18)
 
 
