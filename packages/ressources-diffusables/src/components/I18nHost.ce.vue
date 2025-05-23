@@ -15,25 +15,13 @@
 -->
 
 <script setup lang="ts">
-import i18n from '@/plugins/i18n'
 import { provide } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
-
-defineProps<{
-  baseApiUrl: string
-  ressourcesDiffusablesApiUri: string
-  userInfoApiUrl: string
-  resourcesPerPageDefault: number
-}>()
+import i18n from '@/plugins/i18n'
 
 provide(I18nInjectionKey, i18n)
 </script>
 
 <template>
-  <page-ressource
-    :base-api-url="baseApiUrl"
-    :ressources-diffusables-api-uri="ressourcesDiffusablesApiUri"
-    :user-info-api-url="userInfoApiUrl"
-    :resources-per-page-default="resourcesPerPageDefault"
-  />
+  <slot />
 </template>

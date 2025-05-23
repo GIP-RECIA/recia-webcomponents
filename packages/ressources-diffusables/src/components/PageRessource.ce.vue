@@ -16,6 +16,7 @@
 
 <script setup lang="ts">
 import type { Ressource } from '@/types/ressourceType'
+import { onMounted, ref } from 'vue'
 import {
   getRessourcesDiffusables,
   getRessourcesDiffusablesWithRechercheFilter,
@@ -23,7 +24,6 @@ import {
 } from '@/services/serviceRessourcesDiffusables'
 import { initToken } from '@/utils/axiosUtils'
 import { RechercheFilter } from '@/utils/RechercheFilter'
-import { onMounted, ref } from 'vue'
 
 const props = defineProps<{
   baseApiUrl: string
@@ -170,36 +170,38 @@ function swapRechercheTypeToggle(rechercheInput: CustomEvent): void {
 </script>
 
 <template>
-  <div class="cadre-page-ressource">
-    <aside class="aside-page-ressource">
-      <recherche-type-toggle @swap-recherche-type-toggle="swapRechercheTypeToggle" />
-      <recherche-ressource
-        v-show="!rechercheAvanceeActive"
-        :nombre-ressources-total="nombreRessourcesTotal"
-        :nombre-ressources-affichees="ressources.length"
-        @recommencer-recherche-input="recommencerRechercheInput"
-        @reinitialiser-recherche="reinitialiserRecherche"
-      />
-      <recherche-avancee-ressource
-        v-show="rechercheAvanceeActive"
-        :nombre-ressources-total="nombreRessourcesTotal"
-        :nombre-ressources-affichees="ressources.length"
-        @recommencer-recherche-avancee-input="recommencerRechercheAvanceeInput"
-        @reinitialiser-recherche-avancee="reinitialiserRechercheAvancee"
-      />
-    </aside>
-    <div class="main-page-ressource">
-      <liste-ressources
-        :ressources="ressources"
-        :erreur="erreur"
-        :lecture-terminee="lectureTerminee"
-        :chargement="chargement"
-        :last-page-index-human-readable="maxPagesCountFromObjectsCount()"
-        :current-page-index-human-readable="currentPageIndexHumanReadable"
-        @go-to-page="goToPage"
-      />
+  <i18n-host>
+    <div class="cadre-page-ressource">
+      <aside class="aside-page-ressource">
+        <recherche-type-toggle @swap-recherche-type-toggle="swapRechercheTypeToggle" />
+        <recherche-ressource
+          v-show="!rechercheAvanceeActive"
+          :nombre-ressources-total="nombreRessourcesTotal"
+          :nombre-ressources-affichees="ressources.length"
+          @recommencer-recherche-input="recommencerRechercheInput"
+          @reinitialiser-recherche="reinitialiserRecherche"
+        />
+        <recherche-avancee-ressource
+          v-show="rechercheAvanceeActive"
+          :nombre-ressources-total="nombreRessourcesTotal"
+          :nombre-ressources-affichees="ressources.length"
+          @recommencer-recherche-avancee-input="recommencerRechercheAvanceeInput"
+          @reinitialiser-recherche-avancee="reinitialiserRechercheAvancee"
+        />
+      </aside>
+      <div class="main-page-ressource">
+        <liste-ressources
+          :ressources="ressources"
+          :erreur="erreur"
+          :lecture-terminee="lectureTerminee"
+          :chargement="chargement"
+          :last-page-index-human-readable="maxPagesCountFromObjectsCount()"
+          :current-page-index-human-readable="currentPageIndexHumanReadable"
+          @go-to-page="goToPage"
+        />
+      </div>
     </div>
-  </div>
+  </i18n-host>
 </template>
 
 <style lang="scss">
