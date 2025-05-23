@@ -1,3 +1,4 @@
+import { defineCustomElement } from 'vue'
 /**
  * Copyright (C) 2023 GIP-RECIA, Inc.
  *
@@ -19,7 +20,6 @@ import ListeRessourcesSFC from '@/components/ListeRessources.ce.vue'
 import PageRessourceSFC from '@/components/PageRessource.ce.vue'
 import RechercheRessourceSFC from '@/components/RechercheRessource.ce.vue'
 import RessourcesPaginationSFC from '@/components/RessourcesPagination.ce.vue'
-import { defineCustomElement } from 'vue'
 import RechercheAvanceeRessourceSFC from './components/RechercheAvanceeRessource.ce.vue'
 import RechercheTypeToggleSFC from './components/RechercheTypeToggle.ce.vue'
 
@@ -47,9 +47,9 @@ declare module 'vue' {
 
 function register() {
   customElements.define('carte-ressource', CarteRessource)
-  customElements.define('ui-ressources-gar', I18nHost)
+  customElements.define('i18n-host', I18nHost)
   customElements.define('liste-ressources', ListeRessources)
-  customElements.define('page-ressource', PageRessource)
+  customElements.define('ui-ressources-gar', PageRessource)
   customElements.define('ressources-pagination', RessourcesPagination)
   customElements.define('recherche-ressource', RechercheRessource)
   customElements.define('recherche-avancee-ressource', RechercheAvanceeRessource)
