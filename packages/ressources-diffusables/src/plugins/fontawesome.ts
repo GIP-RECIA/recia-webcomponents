@@ -17,14 +17,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faAngleLeft, faAngleRight, faAnglesLeft, faAnglesRight, faChevronLeft, faChevronRight, faEllipsisH, faXmark } from '@fortawesome/free-solid-svg-icons'
 
 function register() {
-  library.add(faXmark)
-  library.add(faEllipsisH)
-  library.add(faChevronLeft)
-  library.add(faChevronRight)
-  library.add(faAnglesRight)
-  library.add(faAnglesLeft)
-  library.add(faAngleLeft)
-  library.add(faAngleRight)
+  library.add(faXmark, faEllipsisH, faChevronLeft, faChevronRight, faAnglesRight, faAnglesLeft, faAngleLeft, faAngleRight)
 }
 
 export { register }
