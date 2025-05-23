@@ -45,7 +45,6 @@ const refreshKey = ref<boolean>(false)
 
 onMounted(async (): Promise<void> => {
   await initToken(props.userInfoApiUrl)
-  // await recommencerRecherche();
   setResourcesPerPage(props.resourcesPerPageDefault)
   await rechercheInitiale()
 })
