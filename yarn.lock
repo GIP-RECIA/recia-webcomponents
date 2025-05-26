@@ -1505,7 +1505,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.2"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
     "@intlify/unplugin-vue-i18n": "npm:^6.0.8"
-    "@tsconfig/node22": "npm:^22.0.1"
+    "@tsconfig/node22": "npm:^22.0.2"
     "@types/lodash.debounce": "npm:^4"
     "@types/lodash.throttle": "npm:^4"
     "@types/node": "npm:^22"
@@ -1542,7 +1542,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.2"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
     "@intlify/unplugin-vue-i18n": "npm:^6.0.8"
-    "@tsconfig/node22": "npm:^22.0.1"
+    "@tsconfig/node22": "npm:^22.0.2"
     "@types/node": "npm:^22"
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
@@ -1572,7 +1572,7 @@ __metadata:
     "@antfu/eslint-config": "npm:^4.13.2"
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.2"
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.2"
-    "@tsconfig/node22": "npm:^22.0.1"
+    "@tsconfig/node22": "npm:^22.0.2"
     "@types/node": "npm:^22"
     eslint: "npm:^9.27.0"
     eslint-plugin-format: "npm:^1.0.1"
@@ -1597,7 +1597,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.2"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
     "@intlify/unplugin-vue-i18n": "npm:^6.0.8"
-    "@tsconfig/node22": "npm:^22.0.1"
+    "@tsconfig/node22": "npm:^22.0.2"
     "@types/lodash.debounce": "npm:^4"
     "@types/node": "npm:^22"
     "@types/regenerator-runtime": "npm:^0"
@@ -1633,7 +1633,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.2"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
     "@intlify/unplugin-vue-i18n": "npm:^6.0.8"
-    "@tsconfig/node22": "npm:^22.0.1"
+    "@tsconfig/node22": "npm:^22.0.2"
     "@types/node": "npm:^22"
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
@@ -1746,7 +1746,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.2"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
     "@intlify/unplugin-vue-i18n": "npm:^6.0.8"
-    "@tsconfig/node22": "npm:^22.0.1"
+    "@tsconfig/node22": "npm:^22.0.2"
     "@types/lodash.debounce": "npm:^4"
     "@types/node": "npm:^22"
     "@types/regenerator-runtime": "npm:^0"
@@ -3591,10 +3591,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tsconfig/node22@npm:^22.0.1":
-  version: 22.0.1
-  resolution: "@tsconfig/node22@npm:22.0.1"
-  checksum: 10/da42f21f1b1f8e88d584fae44bca19514ea5b8eca9a60e8b10ecbabc8db5f4067259979ceea3798c16ae443b9c564268c00215093a7230948f29f950f33dd585
+"@tsconfig/node22@npm:^22.0.2":
+  version: 22.0.2
+  resolution: "@tsconfig/node22@npm:22.0.2"
+  checksum: 10/b9fb6543856cbac8b9b79c234bbefa3415f083e0a46e6f0fbe418fe21c5d086440222e1383258d75ebac951cbe17564a6d146fafc59c889d6302decd1a7880dd
   languageName: node
   linkType: hard
 
