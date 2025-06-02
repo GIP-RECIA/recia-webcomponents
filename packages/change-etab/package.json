@@ -54,7 +54,7 @@
     "@vue/tsconfig": "^0.7.0",
     "axios": "^1.9.0",
     "dotenv-checker": "^1.1.7",
-    "eslint": "^9.27.0",
+    "eslint": "^9.28.0",
     "eslint-plugin-format": "^1.0.1",
     "lint-staged": "^16.0.0",
     "npm-run-all2": "^8.0.4",
