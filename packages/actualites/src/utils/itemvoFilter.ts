@@ -14,37 +14,14 @@
  * limitations under the License.
  */
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import {
-  faAngleLeft,
-  faAngleRight,
-  faAnglesLeft,
-  faAnglesRight,
-  faArrowLeft,
-  faArrowRight,
-  faCaretDown,
-  faCaretUp,
-  faClipboard,
-  faClipboardCheck,
-  faDownload,
-  faXmark,
-} from '@fortawesome/free-solid-svg-icons'
+import type { ItemVO } from '@/types/ItemVO'
 
-function register() {
-  library.add(
-    faAngleLeft,
-    faAngleRight,
-    faAnglesLeft,
-    faAnglesRight,
-    faArrowLeft,
-    faArrowRight,
-    faCaretDown,
-    faCaretUp,
-    faClipboard,
-    faClipboardCheck,
-    faDownload,
-    faXmark,
-  )
+export class itemvoFilter {
+  static isNews(itemVO: ItemVO | undefined) {
+    return itemVO?.type === 'News'
+  }
+
+  static isDocument(itemVO: ItemVO | undefined) {
+    return itemVO?.type === 'Attachment'
+  }
 }
-
-export { register }

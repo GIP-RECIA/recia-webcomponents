@@ -15,21 +15,23 @@
 -->
 
 <script setup lang="ts">
+import type { AxiosResponse } from 'axios'
 import type { ItemVOForRead } from '@/types/ItemVOForRead.ts'
 import type { Rubrique } from '@/types/Rubrique.ts'
-import type { AxiosResponse } from 'axios'
+import { useWindowSize } from '@vueuse/core'
+import { capitalize, onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import i18n from '@/plugins/i18n.ts'
 import { getItemById, setReading } from '@/services/NewsService.ts'
 import { isLightColor } from '@/utils/ContrasteUtils.ts'
+import { itemvoFilter } from '@/utils/itemvoFilter'
 import { isUserConnected } from '@/utils/soffitUtils.ts'
-import { useWindowSize } from '@vueuse/core'
-import { capitalize, onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 const props = defineProps<{
   itemId: string
   setReadingUrl: string
   getItemByIdUrl: string
   rubriques: Array<Rubrique>
+  pageType: string
   isRead: boolean
 }>()
 
@@ -197,6 +199,14 @@ onBeforeUnmount(() => {
     bottomsheet.value.removeEventListener('touchend', handleTouchEnd)
   }
 })
+
+function isDocument(): boolean {
+  return itemvoFilter.isDocument(item.value)
+}
+
+function isNews(): boolean {
+  return itemvoFilter.isNews(item.value)
+}
 </script>
 
 <template>
@@ -216,7 +226,9 @@ onBeforeUnmount(() => {
 
         <div class="bottomsheet-content-header-close-btn">
           <button @click="closeModal">
-            <font-awesome-icon icon="fa-solid fa-xmark" />
+            <div class="test" style="width: 20px;">
+              <font-awesome-icon icon="fa-solid fa-xmark" />
+            </div>
           </button>
         </div>
 
@@ -319,7 +331,7 @@ onBeforeUnmount(() => {
                     <li>
                       <button class="news-link" @click="clipLink(item.internalViewLink)">
                         <span>
-                          {{ t(`text.clipboard.${isClipped ? 'copied' : 'copy'}`) }}
+                          {{ t(`text.clipboard.${isClipped ? 'copied' : `copy-${pageType}`}`) }}
                           <font-awesome-icon :icon="`fa-solid fa-clipboard${isClipped ? '-check' : ''}`" />
                         </span>
                       </button>
@@ -376,7 +388,20 @@ onBeforeUnmount(() => {
             </div>
           </div>
 
-          <div v-if="item && !loading" class="bottomsheet-content-body ck-content" v-html="item.body" />
+          <!-- <template>
+
+          </template> -->
+          <div v-if="item && isNews() && !loading" class="bottomsheet-content-body ck-content toto" v-html="item.body" />
+          <div v-if="item && isDocument()" class="bottomsheet-content-body ck-content">
+            <div class="file-boxes-wrapper">
+              <div v-for=" file in item.article.files" :key="file.uri" class="file-box">
+                <span>{{ file.fileName }}</span>
+                <a :href="file.uri" :download="file.fileName" class="download-button">
+                  <font-awesome-icon icon="fa-solid fa-download" /> <span>Télécharger</span>
+                </a>
+              </div>
+            </div>
+          </div>
         </template>
         <div v-else class="bottomsheet-content-body bottomsheet-content-error">
           <span class="h3">
@@ -1199,6 +1224,38 @@ onBeforeUnmount(() => {
         }
       }
     }
+  }
+}
+
+.file-boxes-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.file-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px 5px;
+  gap: 2px;
+  border-radius: 15px;
+  box-shadow: $shadow-strong rgba(0, 0, 0, 0.1);
+  .download-button {
+    @extend %button-secondary;
+    @media (hover: none) {
+      background-color: $secondary-hover;
+      color: $primary;
+    }
+  }
+}
+
+@media only screen and (width >= map.get($grid-breakpoints, md)) {
+  .file-box {
+    gap: 15px;
+    flex-direction: row;
+    padding-right: 1.2em;
+    justify-content: end;
   }
 }
 </style>
