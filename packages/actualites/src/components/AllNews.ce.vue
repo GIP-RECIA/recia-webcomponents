@@ -17,11 +17,11 @@
 <script setup lang="ts">
 import type { ItemVO } from '@/types/ItemVO.ts'
 import type { PaginatedResult } from '@/types/PaginatedResult.ts'
+import { onBeforeMount, ref } from 'vue'
 import i18n from '@/plugins/i18n.ts'
 import { getNewsReadingInformations, getPaginatedNews } from '@/services/NewsService.ts'
 import { initToken } from '@/utils/axiosUtils.ts'
 import { isUserConnected } from '@/utils/soffitUtils.ts'
-import { onBeforeMount, ref } from 'vue'
 
 const props = defineProps<{
   getItemByIdUrl: string
@@ -152,7 +152,8 @@ function closeModal() {
         </div>
 
         <custom-toggle-switch
-          v-if="result && result.actualite.sources.length > 0 && !initialLoading"
+          v-if="(result && result.actualite.sources.length > 0 && !initialLoading)
+            || (result && result.actualite.sources.length === 0 && !initialLoading && readingState !== undefined)"
           @read-status="handleToggleChange"
         />
       </div>
