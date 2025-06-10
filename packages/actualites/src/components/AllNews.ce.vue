@@ -23,7 +23,7 @@ import { initToken } from '@/utils/axiosUtils.ts'
 import { itemvoFilter } from '@/utils/itemvoFilter'
 import { isUserConnected } from '@/utils/soffitUtils.ts'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   getItemByIdUrl: string
   userInfoApiUrl: string
   getUserNewsUrl: string
@@ -31,7 +31,9 @@ const props = defineProps<{
   setReadingUrl: string
   pageType: string
   backUrl: string
-}>()
+}>(), {
+  pageType: 'news',
+})
 
 const result = ref<PaginatedResult>()
 const readingInfos = ref<Map<string, boolean>>()
