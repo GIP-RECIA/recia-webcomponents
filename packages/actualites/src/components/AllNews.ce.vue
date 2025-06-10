@@ -15,22 +15,25 @@
 -->
 
 <script setup lang="ts">
-import type { ItemVO } from '@/types/ItemVO.ts'
 import type { PaginatedResult } from '@/types/PaginatedResult.ts'
+import { onBeforeMount, ref } from 'vue'
 import i18n from '@/plugins/i18n.ts'
 import { getNewsReadingInformations, getPaginatedNews } from '@/services/NewsService.ts'
 import { initToken } from '@/utils/axiosUtils.ts'
+import { itemvoFilter } from '@/utils/itemvoFilter'
 import { isUserConnected } from '@/utils/soffitUtils.ts'
-import { onBeforeMount, ref } from 'vue'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   getItemByIdUrl: string
   userInfoApiUrl: string
   getUserNewsUrl: string
   getNewsReadingInformationsUrl: string
   setReadingUrl: string
+  pageType: string
   backUrl: string
-}>()
+}>(), {
+  pageType: 'news',
+})
 
 const result = ref<PaginatedResult>()
 const readingInfos = ref<Map<string, boolean>>()
@@ -104,18 +107,6 @@ async function updateReadingInfos() {
   readingInfos.value = new Map(Object.entries(objectResult))
 }
 
-function showItemDependsOnReadingState(item: ItemVO) {
-  if (readingState.value !== undefined) {
-    if (readingState.value)
-      return readingInfos.value?.has(item.uuid) && readingInfos.value?.get(item.uuid) === true
-    else
-      return !readingInfos.value?.has(item.uuid) || readingInfos.value?.get(item.uuid) === false
-  }
-  else {
-    return true
-  }
-}
-
 // Modal
 
 const showModal = ref(false)
@@ -148,11 +139,12 @@ function closeModal() {
           >
             <font-awesome-icon icon="fa-solid fa-arrow-left" />
           </a>
-          <h1>{{ t('text.title.all-news') }}</h1>
+          <h1>{{ t(`text.title.all-${pageType}`) }}</h1>
         </div>
 
         <custom-toggle-switch
-          v-if="result && result.actualite.sources.length > 0 && !initialLoading"
+          v-if="(result && result.actualite.sources.length > 0 && !initialLoading)
+            || (result && result.actualite.sources.length === 0 && !initialLoading && readingState !== undefined)"
           @read-status="handleToggleChange"
         />
       </div>
@@ -170,7 +162,18 @@ function closeModal() {
       <div v-else-if="result && result.actualite.items.length > 0" class="allNews-body">
         <template v-for="(item, index) in result.actualite?.items" :key="index">
           <news-card
-            v-if="showItemDependsOnReadingState(item)"
+            v-if="itemvoFilter.isNews(item)"
+            :item="item"
+            :page-origin="true"
+            :set-reading-url="setReadingUrl"
+            :get-item-by-id-url="props.getItemByIdUrl"
+            :is-read="readingInfos?.has(item.uuid) ? readingInfos?.get(item.uuid) : false"
+            @update-reading-infos="updateReadingInfos()"
+            @click="openModal(item.uuid)"
+            @keydown.enter="openModal(item.uuid)"
+          />
+          <document-card
+            v-if="itemvoFilter.isDocument(item)"
             :item="item"
             :page-origin="true"
             :set-reading-url="setReadingUrl"
@@ -184,7 +187,7 @@ function closeModal() {
       </div>
       <div v-else class="allNews-empty">
         <h3 class="h4">
-          {{ t('text.no-news') }}
+          {{ t(`text.no-${pageType}`) }}
         </h3>
       </div>
 
@@ -204,6 +207,7 @@ function closeModal() {
       :rubriques="result.actualite.rubriques"
       :set-reading-url="setReadingUrl"
       :get-item-by-id-url="getItemByIdUrl"
+      :page-type="pageType"
       @close-modal="closeModal"
     />
   </i18n-host>
