@@ -11,6 +11,7 @@
   },
   "text": {
     "no-news": "No news",
+    "no-files": "No file",
     "loading-error": "An error has occurred.\nPlease try again later.",
     "creation-info": {
       "global": "By {name}, on ",
@@ -32,7 +33,8 @@
     "title": {
       "news": "News",
       "all-news": "All the news",
-      "filters": "Filters"
+      "filters": "Filters",
+      "all-files": "All the files"
     },
     "filter": {
       "all-sources": "All sources",
@@ -41,8 +43,14 @@
       "by-sections": "By categories :"
     },
     "clipboard": {
-      "copy": "Copy link to news",
+      "copy-news": "Copy link to news",
+      "copy-file": "Copy link to file(s)",
       "copied": "Copied to clipboard"
+    },
+    "files": {
+      "file-count": "Contains {count} files",
+      "file-count-none": "No file",
+      "file-count-one": "Contains 1 file"
     }
   }
 }
