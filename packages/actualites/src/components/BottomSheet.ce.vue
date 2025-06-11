@@ -395,7 +395,7 @@ function isNews(): boolean {
           <div v-if="item && isDocument()" class="bottomsheet-content-body ck-content">
             <div class="file-boxes-wrapper">
               <div v-for=" file in item.article.files" :key="file.uri" class="file-box">
-                <span>{{ file.fileName }}</span>
+                <span class="file-name">{{ file.fileName }}</span>
                 <a :href="file.uri" :download="file.fileName" class="download-button">
                   <font-awesome-icon icon="fa-solid fa-download" /> <span>Télécharger</span>
                 </a>
@@ -1237,10 +1237,17 @@ function isNews(): boolean {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 15px 5px;
-  gap: 2px;
-  border-radius: 15px;
-  box-shadow: $shadow-strong rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  gap: 16px;
+  border-radius: 8px;
+  box-shadow: var(--recia-shadow-neutral, #0000001a);
+  border: 1px solid var(--recia-stroke);
+  text-align: center;
+  word-break: break-word;
+  .file-name {
+    font-family: 'sora';
+    font-weight: 600;
+  }
   .download-button {
     @extend %button-secondary;
     @media (hover: none) {
@@ -1252,9 +1259,7 @@ function isNews(): boolean {
 
 @media only screen and (width >= map.get($grid-breakpoints, md)) {
   .file-box {
-    gap: 15px;
     flex-direction: row;
-    padding-right: 1.2em;
     justify-content: end;
   }
 }
