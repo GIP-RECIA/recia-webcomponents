@@ -43,8 +43,9 @@
       "by-sections": "Par rubriques :"
     },
     "clipboard": {
-      "copy-news": "Copier le lien vers l'actualité",
-      "copy-files": "Copier le lien vers le document",
+      "copy": "Copier le lien vers",
+      "copy-news": "@text.clipboard.copy l'actualité",
+      "copy-files": "@text.clipboard.copy le document",
       "copied": "Copié dans le presse papier"
     },
     "files": {

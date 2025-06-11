@@ -43,8 +43,9 @@
       "by-sections": "By categories :"
     },
     "clipboard": {
-      "copy-news": "Copy link to news",
-      "copy-file": "Copy link to file(s)",
+      "copy": "Copy link to",
+      "copy-news": "@text.clipboard.copy news",
+      "copy-file": "@text.clipboard.copy file",
       "copied": "Copied to clipboard"
     },
     "files": {
