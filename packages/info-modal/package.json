@@ -44,7 +44,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@tsconfig/node22": "^22.0.2",
-    "@types/node": "^22",
+    "@types/node": "^24",
     "eslint": "^9.28.0",
     "eslint-plugin-format": "^1.0.1",
     "lit": "^3.3.0",
