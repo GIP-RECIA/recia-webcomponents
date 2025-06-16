@@ -21,6 +21,7 @@ const {
   VITE_GET_ITEM_URI,
   VITE_GET_NEWS_READING_URI,
   VITE_SET_NEWS_READING_URI,
+  VITE_PAGE_TYPE,
 } = import.meta.env
 </script>
 
@@ -39,6 +40,7 @@ const {
     :get-item-by-id-url="VITE_GET_ITEM_URI"
     :get-news-reading-informations-url="VITE_GET_NEWS_READING_URI"
     :set-reading-url="VITE_SET_NEWS_READING_URI"
+    :page-type="VITE_PAGE_TYPE"
     back-url="#"
   />
 </template>
