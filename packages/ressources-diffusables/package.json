@@ -73,7 +73,7 @@
     "npm-run-all2": "^8.0.4",
     "regenerator-runtime": "^0.14.1",
     "sass": "^1.89.2",
-    "terser": "^5.41.0",
+    "terser": "^5.42.0",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
     "vue": "^3.5.16",
