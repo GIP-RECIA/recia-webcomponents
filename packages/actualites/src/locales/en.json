@@ -44,8 +44,8 @@
     },
     "clipboard": {
       "copy": "Copy link to",
-      "copy-news": "@text.clipboard.copy news",
-      "copy-file": "@text.clipboard.copy file",
+      "copy-news": "@:text.clipboard.copy news",
+      "copy-file": "@:text.clipboard.copy file",
       "copied": "Copied to clipboard"
     },
     "files": {
