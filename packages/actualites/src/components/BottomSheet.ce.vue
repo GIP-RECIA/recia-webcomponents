@@ -1240,8 +1240,8 @@ function isNews(): boolean {
   padding: 16px;
   gap: 16px;
   border-radius: 8px;
-  box-shadow: var(--recia-shadow-neutral, #0000001a);
-  border: 1px solid var(--recia-stroke);
+  box-shadow: $shadow-neutral rgba(0, 0, 0, 0.1);
+  border: 1px solid $stroke;
   text-align: center;
   word-break: break-word;
   .file-name {
