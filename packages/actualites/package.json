@@ -76,7 +76,7 @@
     "vite": "^6.3.5",
     "vite-plugin-css-injected-by-js": "^3.5.2",
     "vue": "^3.5.17",
-    "vue-i18n": "^11.1.5",
+    "vue-i18n": "^11.1.7",
     "vue-tsc": "^2.2.10"
   }
 }
