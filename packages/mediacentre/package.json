@@ -56,7 +56,7 @@
     "@vitejs/plugin-vue": "^5.2.4",
     "@vue/tsconfig": "^0.7.0",
     "@vueform/multiselect": "^2.6.11",
-    "@vueuse/core": "^13.3.0",
+    "@vueuse/core": "^13.4.0",
     "axios": "^1.10.0",
     "dotenv-checker": "^1.1.7",
     "eslint": "^9.29.0",
