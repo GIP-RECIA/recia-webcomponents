@@ -396,7 +396,7 @@ function isNews(): boolean {
             <div class="file-boxes-wrapper">
               <div v-for=" file in item.article.files" :key="file.uri" class="file-box">
                 <span class="file-name">{{ file.fileName }}</span>
-                <a :href="file.uri" :download="file.fileName" class="download-button">
+                <a :href="file.uri" :download="file.fileName" class="download-button" rel="noopener noreferrer" target="_blank">
                   <font-awesome-icon icon="fa-solid fa-download" /> <span>Télécharger</span>
                 </a>
               </div>
