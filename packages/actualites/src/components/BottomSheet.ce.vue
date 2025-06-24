@@ -15,21 +15,25 @@
 -->
 
 <script setup lang="ts">
-import type { ItemVOForRead } from '@/types/ItemVOForRead.ts'
-import type { Rubrique } from '@/types/Rubrique.ts'
 import type { AxiosResponse } from 'axios'
-import i18n from '@/plugins/i18n.ts'
-import { getItemById, setReading } from '@/services/NewsService.ts'
-import { isLightColor } from '@/utils/ContrasteUtils.ts'
-import { isUserConnected } from '@/utils/soffitUtils.ts'
+import type { ItemVOForRead } from '@/types/ItemVOForRead.ts'
+import type { PageType } from '@/types/PageType'
+import type { Rubrique } from '@/types/Rubrique.ts'
 import { useWindowSize } from '@vueuse/core'
 import { capitalize, onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import i18n from '@/plugins/i18n.ts'
+import { dnmaService } from '@/services/dnmaService'
+import { getItemById, setReading } from '@/services/NewsService.ts'
+import { isLightColor } from '@/utils/ContrasteUtils.ts'
+import { itemvoFilter } from '@/utils/itemvoFilter'
+import { isUserConnected } from '@/utils/soffitUtils.ts'
 
 const props = defineProps<{
   itemId: string
   setReadingUrl: string
   getItemByIdUrl: string
   rubriques: Array<Rubrique>
+  pageType: PageType
   isRead: boolean
 }>()
 
@@ -61,6 +65,9 @@ onBeforeMount(async () => {
   try {
     const response = await getItemById(props.getItemByIdUrl, props.itemId)
     item.value = response.data
+    if (item.value !== undefined) {
+      dnmaService.readItemVO(item.value)
+    }
     if (!props.isRead) {
       idTimout = setTimeout(() => {
         changeReadingState(true)
@@ -197,6 +204,14 @@ onBeforeUnmount(() => {
     bottomsheet.value.removeEventListener('touchend', handleTouchEnd)
   }
 })
+
+function isDocument(): boolean {
+  return itemvoFilter.isDocument(item.value)
+}
+
+function isNews(): boolean {
+  return itemvoFilter.isNews(item.value)
+}
 </script>
 
 <template>
@@ -216,7 +231,9 @@ onBeforeUnmount(() => {
 
         <div class="bottomsheet-content-header-close-btn">
           <button @click="closeModal">
-            <font-awesome-icon icon="fa-solid fa-xmark" />
+            <div class="test" style="width: 20px;">
+              <font-awesome-icon icon="fa-solid fa-xmark" />
+            </div>
           </button>
         </div>
 
@@ -319,7 +336,7 @@ onBeforeUnmount(() => {
                     <li>
                       <button class="news-link" @click="clipLink(item.internalViewLink)">
                         <span>
-                          {{ t(`text.clipboard.${isClipped ? 'copied' : 'copy'}`) }}
+                          {{ t(`text.clipboard.${isClipped ? 'copied' : `copy-${isNews() ? 'news' : 'files'}`}`) }}
                           <font-awesome-icon :icon="`fa-solid fa-clipboard${isClipped ? '-check' : ''}`" />
                         </span>
                       </button>
@@ -376,7 +393,20 @@ onBeforeUnmount(() => {
             </div>
           </div>
 
-          <div v-if="item && !loading" class="bottomsheet-content-body ck-content" v-html="item.body" />
+          <!-- <template>
+
+          </template> -->
+          <div v-if="item && isNews() && !loading" class="bottomsheet-content-body ck-content toto" v-html="item.body" />
+          <div v-if="item && isDocument()" class="bottomsheet-content-body ck-content">
+            <div class="file-boxes-wrapper">
+              <div v-for=" file in item.article.files" :key="file.uri" class="file-box">
+                <span class="file-name">{{ file.fileName }}</span>
+                <a :href="file.uri" :download="file.fileName" class="download-button" rel="noopener noreferrer" target="_blank">
+                  <font-awesome-icon icon="fa-solid fa-download" /> <span>Télécharger</span>
+                </a>
+              </div>
+            </div>
+          </div>
         </template>
         <div v-else class="bottomsheet-content-body bottomsheet-content-error">
           <span class="h3">
@@ -1199,6 +1229,43 @@ onBeforeUnmount(() => {
         }
       }
     }
+  }
+}
+
+.file-boxes-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.file-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  gap: 16px;
+  border-radius: 8px;
+  box-shadow: $shadow-neutral rgba(0, 0, 0, 0.1);
+  border: 1px solid $stroke;
+  text-align: center;
+  word-break: break-word;
+  .file-name {
+    font-family: 'sora';
+    font-weight: 600;
+  }
+  .download-button {
+    @extend %button-secondary;
+    @media (hover: none) {
+      background-color: $secondary-hover;
+      color: $primary;
+    }
+  }
+}
+
+@media only screen and (width >= map.get($grid-breakpoints, md)) {
+  .file-box {
+    flex-direction: row;
+    justify-content: end;
   }
 }
 </style>

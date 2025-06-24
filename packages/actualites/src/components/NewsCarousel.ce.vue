@@ -16,10 +16,11 @@
 
 <script setup lang="ts">
 import type { PaginatedResult } from '@/types/PaginatedResult.ts'
+import { computed, onMounted, ref } from 'vue'
 import i18n from '@/plugins/i18n.ts'
+import { dnmaService } from '@/services/dnmaService'
 import { getNewsReadingInformations, getPaginatedNews } from '@/services/NewsService.ts'
 import { initToken, instance } from '@/utils/axiosUtils.ts'
-import { computed, onMounted, ref } from 'vue'
 
 const props = defineProps<{
   getItemByIdUrl: string
@@ -50,7 +51,21 @@ onMounted(async () => {
   finally {
     loading.value = false
   }
+  window.addEventListener(
+    'recia-actu-modal',
+    (e) => { handleModalEvent(e) },
+  )
 })
+
+function handleModalEvent(e: any) {
+  if (e instanceof CustomEvent) {
+    if (e.detail?.uuid) {
+      if (typeof (e.detail.uuid) === 'string' && e.detail.uuid.length > 0) {
+        openModal(e.detail.uuid)
+      }
+    }
+  }
+}
 
 const currentIndex = ref(0)
 
@@ -107,7 +122,7 @@ function closeModal() {
           {{ t('text.title.news') }}
         </h2>
         <div class="carousel-header-see-all-news computer">
-          <a class="carousel-header-see-all-news-button" :href="allNewsPageUrl">
+          <a class="carousel-header-see-all-news-button" :href="allNewsPageUrl" @click="dnmaService.openAll('News')">
             {{ t('text.normal.see-all-news') }}
             <font-awesome-icon icon="fa-solid fa-arrow-right" />
           </a>

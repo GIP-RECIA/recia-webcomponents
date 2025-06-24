@@ -14,37 +14,4 @@
  * limitations under the License.
  */
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import {
-  faAngleLeft,
-  faAngleRight,
-  faAnglesLeft,
-  faAnglesRight,
-  faArrowLeft,
-  faArrowRight,
-  faCaretDown,
-  faCaretUp,
-  faClipboard,
-  faClipboardCheck,
-  faDownload,
-  faXmark,
-} from '@fortawesome/free-solid-svg-icons'
-
-function register() {
-  library.add(
-    faAngleLeft,
-    faAngleRight,
-    faAnglesLeft,
-    faAnglesRight,
-    faArrowLeft,
-    faArrowRight,
-    faCaretDown,
-    faCaretUp,
-    faClipboard,
-    faClipboardCheck,
-    faDownload,
-    faXmark,
-  )
-}
-
-export { register }
+export type PageType = 'News' | 'Documents'
