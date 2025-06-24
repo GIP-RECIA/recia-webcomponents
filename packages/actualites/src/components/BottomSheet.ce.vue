@@ -17,6 +17,7 @@
 <script setup lang="ts">
 import type { AxiosResponse } from 'axios'
 import type { ItemVOForRead } from '@/types/ItemVOForRead.ts'
+import type { PageType } from '@/types/PageType'
 import type { Rubrique } from '@/types/Rubrique.ts'
 import { useWindowSize } from '@vueuse/core'
 import { capitalize, onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from 'vue'
@@ -31,7 +32,7 @@ const props = defineProps<{
   setReadingUrl: string
   getItemByIdUrl: string
   rubriques: Array<Rubrique>
-  pageType: string
+  pageType: PageType
   isRead: boolean
 }>()
 
