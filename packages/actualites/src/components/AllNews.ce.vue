@@ -15,6 +15,7 @@
 -->
 
 <script setup lang="ts">
+import type { PageType } from '@/types/PageType'
 import type { PaginatedResult } from '@/types/PaginatedResult.ts'
 import { onBeforeMount, ref } from 'vue'
 import i18n from '@/plugins/i18n.ts'
@@ -29,10 +30,10 @@ const props = withDefaults(defineProps<{
   getUserNewsUrl: string
   getNewsReadingInformationsUrl: string
   setReadingUrl: string
-  pageType: string
+  pageType?: PageType
   backUrl: string
 }>(), {
-  pageType: 'news',
+  pageType: 'News',
 })
 
 const result = ref<PaginatedResult>()
