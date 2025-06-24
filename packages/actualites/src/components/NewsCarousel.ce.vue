@@ -18,6 +18,7 @@
 import type { PaginatedResult } from '@/types/PaginatedResult.ts'
 import { computed, onMounted, ref } from 'vue'
 import i18n from '@/plugins/i18n.ts'
+import { dnmaService } from '@/services/dnmaService'
 import { getNewsReadingInformations, getPaginatedNews } from '@/services/NewsService.ts'
 import { initToken, instance } from '@/utils/axiosUtils.ts'
 
@@ -121,7 +122,7 @@ function closeModal() {
           {{ t('text.title.news') }}
         </h2>
         <div class="carousel-header-see-all-news computer">
-          <a class="carousel-header-see-all-news-button" :href="allNewsPageUrl">
+          <a class="carousel-header-see-all-news-button" :href="allNewsPageUrl" @click="dnmaService.openAll('News')">
             {{ t('text.normal.see-all-news') }}
             <font-awesome-icon icon="fa-solid fa-arrow-right" />
           </a>
