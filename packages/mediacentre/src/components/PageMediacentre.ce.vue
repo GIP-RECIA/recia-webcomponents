@@ -17,7 +17,6 @@
 <script setup lang="ts">
 import type { Filtres } from '@/types/FiltresType'
 import type { Ressource } from '@/types/RessourceType'
-import type { InfoModal } from '@gip-recia/info-modal'
 import i18n from '@/plugins/i18n.ts'
 import { setError } from '@/services/ServiceErreurMediacentre'
 import { getFilters as filtrage } from '@/services/ServiceFiltreMediacentre'
@@ -84,7 +83,7 @@ const { t } = i18n.global
 let triggerElement: any
 document.addEventListener('openModale', (event: any) => {
   triggerElement = event.detail.originalEvent
-  const modalElement: InfoModal = document.querySelector('info-modal')
+  const modalElement: any = document.querySelector('info-modal')
   modalElement.isOpen = !modalElement.isOpen
   modalElement.titleModal = event.detail.title
   modalElement.mainElement = document.querySelector('body > main, body > div')
@@ -414,7 +413,7 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
         </p>
       </div>
       <Teleport to="body">
-        <info-modal id="modale" debug="false" style="z-index: 99;">
+        <InfoModal id="modale" debug="false" style="z-index: 99;">
           <template v-if="modalToUse === 'card'">
             <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
             <div slot="modal-body">
@@ -435,7 +434,7 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
               <p v-html="gestionHTML" />
             </div>
           </template>
-        </info-modal>
+        </InfoModal>
       </Teleport>
     </div>
   </i18n-host>
