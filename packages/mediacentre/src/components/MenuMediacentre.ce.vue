@@ -106,6 +106,17 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
     gestion.description,
   )
 }
+
+function accesRessourceGardClicked(): void {
+  const eventDNMA: CustomEvent = new CustomEvent(
+    'CLICK-MEDIACENTRE-CARD',
+    { detail:
+      {
+        fname: 'AffectationGar',
+      } },
+  )
+  document.dispatchEvent(eventDNMA)
+}
 </script>
 
 <template>
@@ -200,7 +211,7 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
         </h2>
         <template v-for="gestionAffectation in gestionAffectations" :key="gestionAffectation.id">
           <template v-if="gestionAffectation.link">
-            <p><a :href="gestionAffectation.description">{{ gestionAffectation.title }}</a></p>
+            <p><a :href="gestionAffectation.description" target="_blank" rel="noopener noreferer" @click="gestionAffectation.id === 'GAR' ? accesRessourceGardClicked : undefined">{{ gestionAffectation.title }}</a></p>
           </template>
           <template v-else>
             <button class="gestion-button" @click.prevent="openGestionModal(gestionAffectation, $event)">

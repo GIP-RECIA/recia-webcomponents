@@ -69,6 +69,19 @@ function toggleFavoris(): void {
     isShown.value = false
   emit('updateFav', props.ressource.idRessource, !!(props.ressource.isFavorite === false || undefined))
 }
+
+function cardClicked(): void {
+  const eventDNMA: CustomEvent = new CustomEvent(
+    'CLICK-MEDIACENTRE-CARD',
+    { detail:
+      {
+        fname: 'Mediacentre',
+        SERVICE: props.ressource.typePresentation.nom,
+        OUTIL: 'GAR_RESSOURCE',
+      } },
+  )
+  document.dispatchEvent(eventDNMA)
+}
 </script>
 
 <template>
@@ -77,6 +90,7 @@ function toggleFavoris(): void {
     target="_blank"
     class="cadre-carte-ressource-mediacentre"
     :title="props.ressource.nomRessource"
+    @click="cardClicked"
   >
     <div class="background-carte-ressource-mediacentre">
       <div class="action-zone-carte-ressource-mediacentre">
