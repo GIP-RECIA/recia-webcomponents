@@ -19,6 +19,7 @@ import type { PageType } from '@/types/PageType'
 import type { PaginatedResult } from '@/types/PaginatedResult.ts'
 import { onBeforeMount, ref } from 'vue'
 import i18n from '@/plugins/i18n.ts'
+import { dnmaService } from '@/services/dnmaService'
 import { getNewsReadingInformations, getPaginatedNews } from '@/services/NewsService.ts'
 import { initToken } from '@/utils/axiosUtils.ts'
 import { itemvoFilter } from '@/utils/itemvoFilter'
@@ -72,6 +73,9 @@ function handleToggleChange(e: CustomEvent) {
 }
 
 function handleFilterChange(s: CustomEvent) {
+  if (source.value !== s.detail[0]) {
+    dnmaService.openAll(props.pageType, s.detail[0])
+  }
   source.value = s.detail[0]
   rubriques.value = Array.from(s.detail[1])
   currentPage.value = undefined
