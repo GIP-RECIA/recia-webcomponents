@@ -22,6 +22,7 @@ import type { Rubrique } from '@/types/Rubrique.ts'
 import { useWindowSize } from '@vueuse/core'
 import { capitalize, onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import i18n from '@/plugins/i18n.ts'
+import { dnmaService } from '@/services/dnmaService'
 import { getItemById, setReading } from '@/services/NewsService.ts'
 import { isLightColor } from '@/utils/ContrasteUtils.ts'
 import { itemvoFilter } from '@/utils/itemvoFilter'
@@ -64,6 +65,9 @@ onBeforeMount(async () => {
   try {
     const response = await getItemById(props.getItemByIdUrl, props.itemId)
     item.value = response.data
+    if (item.value !== undefined) {
+      dnmaService.readItemVO(item.value)
+    }
     if (!props.isRead) {
       idTimout = setTimeout(() => {
         changeReadingState(true)
