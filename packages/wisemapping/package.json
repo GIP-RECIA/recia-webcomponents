@@ -60,7 +60,7 @@
     "@vitejs/plugin-react": "^4.6.0",
     "axios": "^1.10.0",
     "dotenv-checker": "^1.1.7",
-    "eslint": "^9.29.0",
+    "eslint": "^9.30.0",
     "eslint-plugin-format": "^1.0.1",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
