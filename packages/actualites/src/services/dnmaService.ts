@@ -22,10 +22,10 @@ export class dnmaService {
   static openAll(fname: PageType, source?: string) {
     let phrase: string = 'Inconnu'
     if (fname === 'News') {
-      phrase = 'Toutes les actualités'
+      phrase = 'TOUTES_ACTU'
     }
     else if (fname === 'Documents') {
-      phrase = 'Tous les documents'
+      phrase = 'TOUS_DOC'
     }
     const openEvent = new CustomEvent('DNMA-ACTUS-DOCS', { detail: { fname, NIVEAU2: phrase, NIVEAU3: source ?? 'Toutes sources confondues' } })
     document.dispatchEvent(openEvent)
@@ -35,11 +35,11 @@ export class dnmaService {
     let phrase: string = 'Inconnu'
     let fname: string = 'Inconnu'
     if (itemvoFilter.isNews(itemVOForRead)) {
-      phrase = 'Consulter une actualité'
+      phrase = 'UNE_ACTU'
       fname = 'News'
     }
     else if (itemvoFilter.isDocument(itemVOForRead)) {
-      phrase = 'Consulter un document'
+      phrase = 'UN_DOC'
       fname = 'Documents'
     }
     const readEvent = new CustomEvent('DNMA-ACTUS-DOCS', { detail: { fname, NIVEAU2: phrase, NIVEAU3: itemVOForRead.pubBy } })
