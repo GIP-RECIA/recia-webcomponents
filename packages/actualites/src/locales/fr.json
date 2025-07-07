@@ -32,9 +32,9 @@
     },
     "title": {
       "news": "Actualités",
-      "all-news": "Toutes les actualités",
+      "all-News": "Toutes les actualités",
       "filters": "Filtres",
-      "all-files": "Toutes les documents"
+      "all-Documents": "Toutes les documents"
     },
     "filter": {
       "all-sources": "Toutes les sources",
