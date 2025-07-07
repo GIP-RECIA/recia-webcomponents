@@ -27,7 +27,7 @@ export class dnmaService {
     else if (fname === 'Documents') {
       phrase = 'TOUS_DOC'
     }
-    const openEvent = new CustomEvent('DNMA-ACTUS-DOCS', { detail: { fname, NIVEAU2: phrase, NIVEAU3: source ?? 'Toutes sources confondues' } })
+    const openEvent = source !== undefined ? new CustomEvent('DNMA-ACTUS-DOCS', { detail: { fname, NIVEAU2: phrase, NIVEAU3: source ?? 'Toutes sources confondues' } }) : new CustomEvent('DNMA-ACTUS-DOCS', { detail: { fname, NIVEAU2: phrase } })
     document.dispatchEvent(openEvent)
   }
 
