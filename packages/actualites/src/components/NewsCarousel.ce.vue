@@ -155,7 +155,7 @@ function closeModal() {
           />
           <div v-if="!isAvailableNews" class="empty">
             <h3 class="h4">
-              {{ t('text.no-news') }}
+              {{ t('text.no-News') }}
             </h3>
           </div>
         </div>

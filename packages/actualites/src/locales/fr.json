@@ -10,8 +10,8 @@
     "not-read": "Non lues"
   },
   "text": {
-    "no-news": "Aucune actualité",
-    "no-files": "Aucun document",
+    "no-News": "Aucune actualité",
+    "no-Documents": "Aucun document",
     "loading-error": "Une erreur est survenue.\nMerci de réessayer plus tard.",
     "creation-info": {
       "global": "Par {name}, le ",
@@ -44,8 +44,8 @@
     },
     "clipboard": {
       "copy": "Copier le lien vers",
-      "copy-news": "@:text.clipboard.copy l'actualité",
-      "copy-files": "@:text.clipboard.copy le document",
+      "copy-News": "@:text.clipboard.copy l'actualité",
+      "copy-Documents": "@:text.clipboard.copy le document",
       "copied": "Copié dans le presse papier"
     },
     "files": {
