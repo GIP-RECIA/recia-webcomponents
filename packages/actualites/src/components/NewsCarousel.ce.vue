@@ -53,7 +53,7 @@ onMounted(async () => {
   finally {
     loading.value = false
   }
-  window.addEventListener(
+  document.addEventListener(
     'recia-actu-modal',
     (e) => { handleModalEvent(e) },
   )
