@@ -336,7 +336,7 @@ function isNews(): boolean {
                     <li>
                       <button class="news-link" @click="clipLink(item.internalViewLink)">
                         <span>
-                          {{ t(`text.clipboard.${isClipped ? 'copied' : `copy-${isNews() ? 'news' : 'files'}`}`) }}
+                          {{ t(`text.clipboard.${isClipped ? 'copied' : `copy-${isNews() ? 'News' : 'Documents'}`}`) }}
                           <font-awesome-icon :icon="`fa-solid fa-clipboard${isClipped ? '-check' : ''}`" />
                         </span>
                       </button>
