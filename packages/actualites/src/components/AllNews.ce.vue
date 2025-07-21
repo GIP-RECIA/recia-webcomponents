@@ -22,7 +22,6 @@ import i18n from '@/plugins/i18n.ts'
 import { dnmaService } from '@/services/dnmaService'
 import { getNewsReadingInformations, getPaginatedNews } from '@/services/NewsService.ts'
 import { initToken } from '@/utils/axiosUtils.ts'
-import { itemvoFilter } from '@/utils/itemvoFilter'
 import { isUserConnected } from '@/utils/soffitUtils.ts'
 
 const props = withDefaults(defineProps<{
@@ -167,23 +166,12 @@ function closeModal() {
       <div v-else-if="result && result.actualite.items.length > 0" class="allNews-body">
         <template v-for="(item, index) in result.actualite?.items" :key="index">
           <news-card
-            v-if="itemvoFilter.isNews(item)"
             :item="item"
             :page-origin="true"
             :set-reading-url="setReadingUrl"
             :get-item-by-id-url="props.getItemByIdUrl"
             :is-read="readingInfos?.has(item.uuid) ? readingInfos?.get(item.uuid) : false"
-            @update-reading-infos="updateReadingInfos()"
-            @click="openModal(item.uuid)"
-            @keydown.enter="openModal(item.uuid)"
-          />
-          <document-card
-            v-if="itemvoFilter.isDocument(item)"
-            :item="item"
-            :page-origin="true"
-            :set-reading-url="setReadingUrl"
-            :get-item-by-id-url="props.getItemByIdUrl"
-            :is-read="readingInfos?.has(item.uuid) ? readingInfos?.get(item.uuid) : false"
+            :page-type="props.pageType"
             @update-reading-infos="updateReadingInfos()"
             @click="openModal(item.uuid)"
             @keydown.enter="openModal(item.uuid)"

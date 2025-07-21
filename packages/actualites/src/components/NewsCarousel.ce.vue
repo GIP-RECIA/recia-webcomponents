@@ -15,6 +15,7 @@
 -->
 
 <script setup lang="ts">
+import type { PageType } from '@/types/PageType'
 import type { PaginatedResult } from '@/types/PaginatedResult.ts'
 import { computed, onMounted, ref } from 'vue'
 import i18n from '@/plugins/i18n.ts'
@@ -34,6 +35,7 @@ const props = defineProps<{
 const result = ref<PaginatedResult>()
 const readingInfos = ref<Map<string, boolean>>()
 const loading = ref(true)
+const pageType: PageType = 'News'
 
 const { t } = i18n.global
 
@@ -149,6 +151,7 @@ function closeModal() {
             :get-item-by-id-url="props.getItemByIdUrl"
             :set-reading-url="props.setReadingUrl"
             :is-read="readingInfos?.has(item.uuid) ? readingInfos.get(item.uuid) : false"
+            :page-type="pageType"
             @update-reading-infos="updateReadingInfos()"
             @click="openModal(item.uuid)"
             @keydown.enter="openModal(item.uuid)"
@@ -182,6 +185,7 @@ function closeModal() {
       :rubriques="result.actualite.rubriques"
       :set-reading-url="setReadingUrl"
       :get-item-by-id-url="getItemByIdUrl"
+      :page-type="pageType"
       @close-modal="closeModal"
     />
   </i18n-host>
