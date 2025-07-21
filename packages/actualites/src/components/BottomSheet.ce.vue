@@ -392,10 +392,6 @@ function isNews(): boolean {
               </div>
             </div>
           </div>
-
-          <!-- <template>
-
-          </template> -->
           <div v-if="item && isNews() && !loading" class="bottomsheet-content-body ck-content toto" v-html="item.body" />
           <div v-if="item && isDocument()" class="bottomsheet-content-body ck-content">
             <div class="file-boxes-wrapper">
