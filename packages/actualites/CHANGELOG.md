@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.3.0](https://github.com/GIP-RECIA/recia-webcomponents/compare/actualites/v1.2.0...actualites/v1.3.0) (2025-07-21)
+
+
+### Features
+
+* **actualites:** add event listener to carousel for opening modal from js events ([623fb65](https://github.com/GIP-RECIA/recia-webcomponents/commit/623fb6521194ba97c14aa6d26403f5c5f1920ebd))
+* **actualites:** add file cards and auto select correct card depending on item type ([3e8030b](https://github.com/GIP-RECIA/recia-webcomponents/commit/3e8030b31db941b3af9fb00b11bc9d60af3e860b))
+* **actualites:** merge DocumentCard with NewsCard ([e81da9c](https://github.com/GIP-RECIA/recia-webcomponents/commit/e81da9c735e5a3b4239d56e93f5fb0f83edbe3ea))
+
+
+### Bug Fixes
+
+* **actualites:** adjust shadow ([4155416](https://github.com/GIP-RECIA/recia-webcomponents/commit/4155416c2eca592882c84e04cb53b02ae80f5b9b))
+* **actualites:** apply css fixes to bottomsheet fileboxes ([21d5171](https://github.com/GIP-RECIA/recia-webcomponents/commit/21d51711bedc5d4655fadf284993074fbde921ea))
+* **actualites:** file download open in new tab ([2931045](https://github.com/GIP-RECIA/recia-webcomponents/commit/2931045903fcf835d773830d72d0efb00877fee4))
+* **actualites:** fix dnma service ([9ed26d9](https://github.com/GIP-RECIA/recia-webcomponents/commit/9ed26d9de5b6c45ede8c1410d49a38d119283bf6))
+* **actualites:** fix i18n ([a5f3f39](https://github.com/GIP-RECIA/recia-webcomponents/commit/a5f3f3915509354b8bfa8318035cd2fb2528933e))
+* **actualites:** fix i18n key interpolation ([54f6df5](https://github.com/GIP-RECIA/recia-webcomponents/commit/54f6df545d6f628860b2d3f3a0815a8e242f92fb))
+* **actualites:** fix locale key ([d4822a4](https://github.com/GIP-RECIA/recia-webcomponents/commit/d4822a4095188e1d5e4eeba177604b4d1e0dd79e))
+* **actualites:** fix locale key ([0eec70f](https://github.com/GIP-RECIA/recia-webcomponents/commit/0eec70feaabb01a6fc835fd21fb23f5662e6a1ca))
+* **actualites:** fix locales keys ([392ac42](https://github.com/GIP-RECIA/recia-webcomponents/commit/392ac425f043f163f65b3b3b2e162fb44004c2df))
+* **actualites:** hide custom toggle switch only when 'all' return no result ([8b06d9a](https://github.com/GIP-RECIA/recia-webcomponents/commit/8b06d9a3fdf7fc9cb823683b1433583ff4e9e7fa))
+* **actualites:** remove DNMA NIVEAU3 on all sources ([0bc7aaa](https://github.com/GIP-RECIA/recia-webcomponents/commit/0bc7aaa343f66cf1dbd15c607da2ea7c3797ef05))
+* **actualites:** replace DNMA phrase with keyword ([a17e53c](https://github.com/GIP-RECIA/recia-webcomponents/commit/a17e53c13e3328c7b092a7eb9b2522b73e6e5bca))
+* **actualites:** replace window.addEventList... with document.addEventList... ([b4fb75f](https://github.com/GIP-RECIA/recia-webcomponents/commit/b4fb75fe2d69c4002deda00dcf8ffb1bf9603fc4))
+* **actualites:** set default page type ([8b62dec](https://github.com/GIP-RECIA/recia-webcomponents/commit/8b62dec67b23fbe2264ffc2ac953ea815a50b0d1))
+
 ## [1.2.0](https://github.com/GIP-RECIA/recia-webcomponents/compare/actualites/v1.1.0...actualites/v1.2.0) (2025-04-01)
 
 
