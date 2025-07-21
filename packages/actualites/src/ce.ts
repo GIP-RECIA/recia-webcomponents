@@ -24,7 +24,6 @@ import NewsCardSFC from '@/components/NewsCard.ce.vue'
 import CarrouselSFC from '@/components/NewsCarousel.ce.vue'
 import NewsFilterSectionSFC from '@/components/NewsFilterSection.ce.vue'
 import PageSelectorSFC from '@/components/PageSelector.ce.vue'
-import DocumentCardSFC from './components/DocumentCard.ce.vue'
 
 const I18nHost = defineCustomElement(I18nHostSFC)
 const FontAwesomeIcon = defineCustomElement(FontAwesomeIconSFC)
@@ -33,7 +32,6 @@ const BottomSheet = defineCustomElement(BottomSheetCeSfc)
 const Carrousel = defineCustomElement(CarrouselSFC)
 const CustomToggleSwitch = defineCustomElement(CustomToggleSwitchSFC)
 const NewsCard = defineCustomElement(NewsCardSFC)
-const DocumentCard = defineCustomElement(DocumentCardSFC)
 const NewsFilterSection = defineCustomElement(NewsFilterSectionSFC)
 const PageSelector = defineCustomElement(PageSelectorSFC)
 
@@ -46,7 +44,6 @@ declare module 'vue' {
     Carrousel: typeof Carrousel
     CustomToggleSwitch: typeof CustomToggleSwitch
     NewsCard: typeof NewsCard
-    DocumentCard: typeof DocumentCard
     NewsFilterSection: typeof NewsFilterSection
     PageSelector: typeof PageSelector
   }
@@ -60,7 +57,6 @@ function register() {
   customElements.define('carrousel-ui', Carrousel)
   customElements.define('custom-toggle-switch', CustomToggleSwitch)
   customElements.define('news-card', NewsCard)
-  customElements.define('document-card', DocumentCard)
   customElements.define('news-filter-section', NewsFilterSection)
   customElements.define('page-selector', PageSelector)
 }
@@ -70,7 +66,6 @@ export {
   BottomSheet,
   Carrousel,
   CustomToggleSwitch,
-  DocumentCard,
   FontAwesomeIcon,
   I18nHost,
   NewsCard,

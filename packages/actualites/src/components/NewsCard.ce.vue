@@ -16,17 +16,32 @@
 
 <script setup lang="ts">
 import type { ItemVO } from '@/types/ItemVO.ts'
+import type { PageType } from '@/types/PageType'
 import { useI18n } from 'vue-i18n'
 
-defineProps<{
+const props = defineProps<{
   item: ItemVO
   setReadingUrl: string
   getItemByIdUrl: string
   pageOrigin: boolean
   isRead: boolean
+  pageType: PageType
+
 }>()
 
 const { t, d } = useI18n()
+
+function docSizeToUse() {
+  if (props.item.article.files.length === 0) {
+    return t('text.files.file-count-none')
+  }
+  else if (props.item.article.files.length === 1) {
+    return t('text.files.file-count-one')
+  }
+  else {
+    return t('text.files.file-count', { count: props.item.article.files.length })
+  }
+}
 </script>
 
 <template>
@@ -52,6 +67,9 @@ const { t, d } = useI18n()
       <p class="card-body-description">
         {{ item.article.description }}
       </p>
+      <span v-if="pageType === 'Documents'" class="doc-size all">
+        {{ docSizeToUse() }}
+      </span>
       <span v-if="pageOrigin" class="source all">
         {{ item.source }}
       </span>
