@@ -20,7 +20,7 @@ import type { ItemVOForRead } from '@/types/ItemVOForRead.ts'
 import type { PageType } from '@/types/PageType'
 import type { Rubrique } from '@/types/Rubrique.ts'
 import { useWindowSize } from '@vueuse/core'
-import { capitalize, onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { capitalize, computed, onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import i18n from '@/plugins/i18n.ts'
 import { dnmaService } from '@/services/dnmaService'
 import { getItemById, setReading } from '@/services/NewsService.ts'
@@ -205,13 +205,13 @@ onBeforeUnmount(() => {
   }
 })
 
-function isDocument(): boolean {
+const isDocument = computed(() => {
   return itemvoFilter.isDocument(item.value)
-}
+})
 
-function isNews(): boolean {
+const isNews = computed(() => {
   return itemvoFilter.isNews(item.value)
-}
+})
 </script>
 
 <template>
@@ -392,8 +392,8 @@ function isNews(): boolean {
               </div>
             </div>
           </div>
-          <div v-if="item && isNews() && !loading" class="bottomsheet-content-body ck-content toto" v-html="item.body" />
-          <div v-if="item && isDocument()" class="bottomsheet-content-body ck-content">
+          <div v-if="item && isNews && !loading" class="bottomsheet-content-body ck-content toto" v-html="item.body" />
+          <div v-if="item && isDocument" class="bottomsheet-content-body ck-content">
             <div class="file-boxes-wrapper">
               <div v-for=" file in item.article.files" :key="file.uri" class="file-box">
                 <span class="file-name">{{ file.fileName }}</span>
