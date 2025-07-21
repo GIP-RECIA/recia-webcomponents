@@ -17,7 +17,6 @@
 <script setup lang="ts">
 import type { ItemVO } from '@/types/ItemVO.ts'
 import type { PageType } from '@/types/PageType'
-import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
@@ -32,7 +31,7 @@ const props = defineProps<{
 
 const { t, d } = useI18n()
 
-const docSizeToUse = computed(() => {
+function docSizeToUse() {
   if (props.item.article.files.length === 0) {
     return t('text.files.file-count-none')
   }
@@ -42,7 +41,7 @@ const docSizeToUse = computed(() => {
   else {
     return t('text.files.file-count', { count: props.item.article.files.length })
   }
-})
+}
 </script>
 
 <template>
@@ -69,7 +68,7 @@ const docSizeToUse = computed(() => {
         {{ item.article.description }}
       </p>
       <span v-if="pageType === 'Documents'" class="doc-size all">
-        {{ docSizeToUse }}
+        {{ docSizeToUse() }}
       </span>
       <span v-if="pageOrigin" class="source all">
         {{ item.source }}
