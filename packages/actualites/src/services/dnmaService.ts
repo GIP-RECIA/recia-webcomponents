@@ -27,7 +27,7 @@ export class dnmaService {
     else if (fname === 'Documents') {
       phrase = 'TOUS_DOC'
     }
-    const openEvent = source !== undefined ? new CustomEvent('DNMA-ACTUS-DOCS', { detail: { fname, NIVEAU2: phrase, NIVEAU3: source ?? 'Toutes sources confondues' } }) : new CustomEvent('DNMA-ACTUS-DOCS', { detail: { fname, NIVEAU2: phrase } })
+    const openEvent = source !== undefined ? new CustomEvent('DNMA-ACTUS-DOCS', { detail: { fname, SERVICE: phrase, SOURCE: source } }) : new CustomEvent('DNMA-ACTUS-DOCS', { detail: { fname, SERVICE: phrase } })
     document.dispatchEvent(openEvent)
   }
 
@@ -42,7 +42,7 @@ export class dnmaService {
       phrase = 'UN_DOC'
       fname = 'Documents'
     }
-    const readEvent = new CustomEvent('DNMA-ACTUS-DOCS', { detail: { fname, NIVEAU2: phrase, NIVEAU3: itemVOForRead.pubBy } })
+    const readEvent = new CustomEvent('DNMA-ACTUS-DOCS', { detail: { fname, SERVICE: phrase, SOURCE: itemVOForRead.pubBy } })
     document.dispatchEvent(readEvent)
   }
 }
