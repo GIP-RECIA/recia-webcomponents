@@ -10,8 +10,8 @@
     "not-read": "Unread"
   },
   "text": {
-    "no-news": "No news",
-    "no-files": "No file",
+    "no-News": "No news",
+    "no-Documents": "No file",
     "loading-error": "An error has occurred.\nPlease try again later.",
     "creation-info": {
       "global": "By {name}, on ",
@@ -44,8 +44,8 @@
     },
     "clipboard": {
       "copy": "Copy link to",
-      "copy-news": "@:text.clipboard.copy news",
-      "copy-file": "@:text.clipboard.copy file",
+      "copy-News": "@:text.clipboard.copy news",
+      "copy-Documents": "@:text.clipboard.copy file",
       "copied": "Copied to clipboard"
     },
     "files": {
