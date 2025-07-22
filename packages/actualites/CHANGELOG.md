@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.3.1](https://github.com/GIP-RECIA/recia-webcomponents/compare/actualites/v1.3.0...actualites/v1.3.1) (2025-07-22)
+
+
+### Bug Fixes
+
+* **actualites:** fix locales ([715e32e](https://github.com/GIP-RECIA/recia-webcomponents/commit/715e32e81ae3292f602a2434a43acb34e5e382cc))
+
 ## [1.3.0](https://github.com/GIP-RECIA/recia-webcomponents/compare/actualites/v1.2.0...actualites/v1.3.0) (2025-07-21)
 
 
