@@ -5,9 +5,12 @@
     "close": "Fermer"
   },
   "switch": {
-    "all": "Toutes",
-    "read": "Lues",
-    "not-read": "Non lues"
+    "all-News": "Toutes",
+    "read-News": "Lues",
+    "not-read-News": "Non lues",
+    "all-Documents": "Tous",
+    "read-Documents": "Lus",
+    "not-read-Documents": "Non lus"
   },
   "text": {
     "no-News": "Aucune actualité",
@@ -34,7 +37,7 @@
       "news": "Actualités",
       "all-News": "Toutes les actualités",
       "filters": "Filtres",
-      "all-Documents": "Toutes les documents"
+      "all-Documents": "Tous les documents"
     },
     "filter": {
       "all-sources": "Toutes les sources",

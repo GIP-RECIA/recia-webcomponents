@@ -5,9 +5,12 @@
     "close": "Close"
   },
   "switch": {
-    "all": "All",
-    "read": "Read",
-    "not-read": "Unread"
+    "all-News": "All",
+    "read-News": "Read",
+    "not-read-News": "Unread",
+    "all-Documents": "All",
+    "read-Documents": "Read",
+    "not-read-Documents": "Unread"
   },
   "text": {
     "no-News": "No news",

@@ -149,6 +149,7 @@ function closeModal() {
         <custom-toggle-switch
           v-if="(result && result.actualite.sources.length > 0 && !initialLoading)
             || (result && result.actualite.sources.length === 0 && !initialLoading && readingState !== undefined)"
+          :page-type="props.pageType"
           @read-status="handleToggleChange"
         />
       </div>
