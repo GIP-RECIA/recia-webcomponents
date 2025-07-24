@@ -15,6 +15,7 @@
  */
 
 import { instance } from '@/utils/axiosUtils.ts'
+import { useReadingState } from '@/utils/store'
 
 async function getPaginatedNews(
   getUserNewsUrl: string,
@@ -33,7 +34,10 @@ async function getPaginatedNews(
     if (rubriques && rubriques.length > 0) {
       params.rubriques = rubriques.join(',')
     }
-    params.lecture = lecture
+
+    if (useReadingState.value) {
+      params.lecture = lecture
+    }
 
     const response = await instance.get(getUserNewsUrl, { params })
     return response.data
@@ -58,6 +62,9 @@ async function getNewsReadingInformations(getNewsReadingInformations: string) {
 }
 
 async function setReading(setReadingUrl: string, itemId: number | undefined, isRead: boolean) {
+  if (!useReadingState.value) {
+    throw new Error('Should not try to set reading when reading status is unused')
+  }
   try {
     if (itemId) {
       return (await instance.patch(`${setReadingUrl + itemId.toString()}/${isRead.toString()}`))

@@ -16,8 +16,9 @@
 
 <script setup lang="ts">
 import type { ItemVO } from '@/types/ItemVO.ts'
-import type { PageType } from '@/types/PageType'
 import { useI18n } from 'vue-i18n'
+import { itemvoFilter } from '@/utils/itemvoFilter'
+import { useReadingState } from '@/utils/store'
 
 const props = defineProps<{
   item: ItemVO
@@ -25,7 +26,6 @@ const props = defineProps<{
   getItemByIdUrl: string
   pageOrigin: boolean
   isRead: boolean
-  pageType: PageType
 
 }>()
 
@@ -56,7 +56,7 @@ function docSizeToUse() {
 
       <p v-if="pageOrigin" class="infos">
         <span>{{ d(item.pubDate, 'short') }}</span>
-        <span class="article-wrapper-lecture">
+        <span v-if="useReadingState === true" class="article-wrapper-lecture">
           {{ t(`text.normal.${isRead ? '' : 'not-'}read`) }}
         </span>
       </p>
@@ -67,12 +67,17 @@ function docSizeToUse() {
       <p class="card-body-description">
         {{ item.article.description }}
       </p>
-      <span v-if="pageType === 'Documents'" class="doc-size all">
-        {{ docSizeToUse() }}
-      </span>
-      <span v-if="pageOrigin" class="source all">
-        {{ item.source }}
-      </span>
+      <tempalte v-if="pageOrigin">
+        <span v-if="itemvoFilter.isDocument(item) === false" class="source all">
+          {{ item.source }}
+        </span>
+        <p v-else class="infos">
+          <span>{{ docSizeToUse() }}</span>
+          <span class="source all">
+            {{ item.source }}
+          </span>
+        </p>
+      </tempalte>
     </div>
   </article>
 </template>

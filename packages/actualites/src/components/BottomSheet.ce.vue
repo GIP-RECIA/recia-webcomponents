@@ -17,7 +17,6 @@
 <script setup lang="ts">
 import type { AxiosResponse } from 'axios'
 import type { ItemVOForRead } from '@/types/ItemVOForRead.ts'
-import type { PageType } from '@/types/PageType'
 import type { Rubrique } from '@/types/Rubrique.ts'
 import { useWindowSize } from '@vueuse/core'
 import { capitalize, onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from 'vue'
@@ -27,13 +26,13 @@ import { getItemById, setReading } from '@/services/NewsService.ts'
 import { isLightColor } from '@/utils/ContrasteUtils.ts'
 import { itemvoFilter } from '@/utils/itemvoFilter'
 import { isUserConnected } from '@/utils/soffitUtils.ts'
+import { fname, useReadingState } from '@/utils/store'
 
 const props = defineProps<{
   itemId: string
   setReadingUrl: string
   getItemByIdUrl: string
   rubriques: Array<Rubrique>
-  pageType: PageType
   isRead: boolean
 }>()
 
@@ -66,8 +65,9 @@ onBeforeMount(async () => {
     const response = await getItemById(props.getItemByIdUrl, props.itemId)
     item.value = response.data
     if (item.value !== undefined) {
-      dnmaService.readItemVO(item.value)
+      dnmaService.readItemVO(fname.value, item.value)
     }
+    // pas si doc
     if (!props.isRead) {
       idTimout = setTimeout(() => {
         changeReadingState(true)
@@ -139,7 +139,7 @@ function closeModal() {
 }
 
 async function changeReadingState(b: boolean) {
-  if (item.value) {
+  if (item.value && useReadingState) {
     const response: AxiosResponse = await setReading(props.setReadingUrl, item.value.article.guid, b)
     if (response.status === 200) {
       clearTimeout(idTimout)
@@ -412,7 +412,7 @@ function isNews(): boolean {
         <div v-if="(item && !loading) || isError" class="bottomsheet-content-footer">
           <div class="bottomsheet-content-footer-separator" />
           <div class="bottomsheet-content-footer-button-group">
-            <button v-if="isUserConnected && !isError" class="mark-has-not-read-btn" @click="changeReadingState(!isReadingButton)">
+            <button v-if="isUserConnected && !isError && isNews() && useReadingState" class="mark-has-not-read-btn" @click="changeReadingState(!isReadingButton)">
               {{ t(`button.mark-as${isReadingButton ? '-not' : ''}-read`) }}
             </button>
             <div v-else />

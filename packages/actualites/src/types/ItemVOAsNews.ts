@@ -14,4 +14,6 @@
  * limitations under the License.
  */
 
-export type PageType = 'News' | 'Documents'
+import type { ItemVO } from './ItemVO.ts'
+
+export interface ItemVOAsNews extends ItemVO {}

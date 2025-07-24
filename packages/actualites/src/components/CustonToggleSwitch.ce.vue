@@ -15,13 +15,10 @@
 -->
 
 <script setup lang="ts">
-import type { PageType } from '@/types/PageType'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { titleI18nKey } from '@/utils/store'
 
-const props = defineProps<{
-  pageType: PageType
-}>()
 const emit = defineEmits(['readStatus'])
 
 const states: string[] = ['all', 'read', 'not-read']
@@ -41,7 +38,7 @@ function setState(state: string) {
   <ul>
     <li v-for="state in states" :key="state">
       <button :class="{ active: currentState === state }" @click="setState(state)">
-        {{ t(`switch.${state}-${props.pageType}`) }}
+        {{ t(`switch.${state}-${titleI18nKey}`) }}
       </button>
     </li>
   </ul>

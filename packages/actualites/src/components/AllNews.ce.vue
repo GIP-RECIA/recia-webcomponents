@@ -15,14 +15,15 @@
 -->
 
 <script setup lang="ts">
-import type { PageType } from '@/types/PageType'
 import type { PaginatedResult } from '@/types/PaginatedResult.ts'
+import type { TitleI18nKey } from '@/types/TitleI18nKeyType'
 import { onBeforeMount, ref } from 'vue'
 import i18n from '@/plugins/i18n.ts'
 import { dnmaService } from '@/services/dnmaService'
 import { getNewsReadingInformations, getPaginatedNews } from '@/services/NewsService.ts'
 import { initToken } from '@/utils/axiosUtils.ts'
 import { isUserConnected } from '@/utils/soffitUtils.ts'
+import { fname, titleI18nKey, useReadingState } from '@/utils/store'
 
 const props = withDefaults(defineProps<{
   getItemByIdUrl: string
@@ -30,10 +31,13 @@ const props = withDefaults(defineProps<{
   getUserNewsUrl: string
   getNewsReadingInformationsUrl: string
   setReadingUrl: string
-  pageType?: PageType
+  localeKey?: TitleI18nKey
+  useReadingState: boolean
+  fname: string
   backUrl: string
+
 }>(), {
-  pageType: 'News',
+  localeKey: 'News',
 })
 
 const result = ref<PaginatedResult>()
@@ -63,6 +67,9 @@ onBeforeMount(async () => {
   finally {
     initialLoading.value = false
   }
+  fname.value = props.fname
+  titleI18nKey.value = props.localeKey
+  useReadingState.value = props.useReadingState
 })
 
 function handleToggleChange(e: CustomEvent) {
@@ -73,7 +80,7 @@ function handleToggleChange(e: CustomEvent) {
 
 function handleFilterChange(s: CustomEvent) {
   if (source.value !== s.detail[0]) {
-    dnmaService.openAll(props.pageType, s.detail[0])
+    dnmaService.openAll(props.fname, s.detail[0])
   }
   source.value = s.detail[0]
   rubriques.value = Array.from(s.detail[1])
@@ -143,13 +150,15 @@ function closeModal() {
           >
             <font-awesome-icon icon="fa-solid fa-arrow-left" />
           </a>
-          <h1>{{ t(`text.title.all-${pageType}`) }}</h1>
+          <h1>{{ t(`text.title.all-${props.localeKey}`) }}</h1>
         </div>
 
         <custom-toggle-switch
-          v-if="(result && result.actualite.sources.length > 0 && !initialLoading)
-            || (result && result.actualite.sources.length === 0 && !initialLoading && readingState !== undefined)"
-          :page-type="props.pageType"
+          v-if="(
+            (result && result.actualite.sources.length > 0 && !initialLoading)
+            || (result && result.actualite.sources.length === 0 && !initialLoading && readingState !== undefined)
+          )
+            && props.useReadingState === true"
           @read-status="handleToggleChange"
         />
       </div>
@@ -171,8 +180,7 @@ function closeModal() {
             :page-origin="true"
             :set-reading-url="setReadingUrl"
             :get-item-by-id-url="props.getItemByIdUrl"
-            :is-read="readingInfos?.has(item.uuid) ? readingInfos?.get(item.uuid) : false"
-            :page-type="props.pageType"
+            :is-read=" useReadingState === true ? (readingInfos?.has(item.uuid) ? readingInfos?.get(item.uuid) : false) : false"
             @update-reading-infos="updateReadingInfos()"
             @click="openModal(item.uuid)"
             @keydown.enter="openModal(item.uuid)"
@@ -181,7 +189,7 @@ function closeModal() {
       </div>
       <div v-else class="allNews-empty">
         <h3 class="h4">
-          {{ t(`text.no-${pageType}`) }}
+          {{ t(`text.no-${props.localeKey}`) }}
         </h3>
       </div>
 
@@ -201,7 +209,6 @@ function closeModal() {
       :rubriques="result.actualite.rubriques"
       :set-reading-url="setReadingUrl"
       :get-item-by-id-url="getItemByIdUrl"
-      :page-type="pageType"
       @close-modal="closeModal"
     />
   </i18n-host>
