@@ -15,34 +15,15 @@
  */
 
 import type { ItemVOForRead } from '@/types/ItemVOForRead'
-import type { PageType } from '@/types/PageType'
-import { itemvoFilter } from '@/utils/itemvoFilter'
 
 export class dnmaService {
-  static openAll(fname: PageType, source?: string) {
-    let phrase: string = 'Inconnu'
-    if (fname === 'News') {
-      phrase = 'TOUTES_ACTU'
-    }
-    else if (fname === 'Documents') {
-      phrase = 'TOUS_DOC'
-    }
-    const openEvent = source !== undefined ? new CustomEvent('DNMA-ACTUS-DOCS', { detail: { fname, SERVICE: phrase, SOURCE: source } }) : new CustomEvent('DNMA-ACTUS-DOCS', { detail: { fname, SERVICE: phrase } })
+  static openAll(fname: string, source?: string) {
+    const openEvent = source !== undefined ? new CustomEvent('DNMA-ACTUS-DOCS', { detail: { fname, SERVICE: 'MULTIPLE', SOURCE: source } }) : new CustomEvent('DNMA-ACTUS-DOCS', { detail: { fname, SERVICE: 'MULTIPLE' } })
     document.dispatchEvent(openEvent)
   }
 
-  static readItemVO(itemVOForRead: ItemVOForRead) {
-    let phrase: string = 'Inconnu'
-    let fname: string = 'Inconnu'
-    if (itemvoFilter.isNews(itemVOForRead)) {
-      phrase = 'UNE_ACTU'
-      fname = 'News'
-    }
-    else if (itemvoFilter.isDocument(itemVOForRead)) {
-      phrase = 'UN_DOC'
-      fname = 'Documents'
-    }
-    const readEvent = new CustomEvent('DNMA-ACTUS-DOCS', { detail: { fname, SERVICE: phrase, SOURCE: itemVOForRead.pubBy } })
+  static readItemVO(fname: string, itemVOForRead: ItemVOForRead) {
+    const readEvent = new CustomEvent('DNMA-ACTUS-DOCS', { detail: { fname, SERVICE: 'UNIQUE', SOURCE: itemVOForRead.pubBy } })
     document.dispatchEvent(readEvent)
   }
 }
