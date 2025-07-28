@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.4.0](https://github.com/GIP-RECIA/recia-webcomponents/compare/actualites/v1.3.1...actualites/v1.4.0) (2025-07-28)
+
+
+### Features
+
+* **actualites:** add use reading status property that affect display, fname property, update dnma ([e9b602f](https://github.com/GIP-RECIA/recia-webcomponents/commit/e9b602f9ae95bd1a060c8371550f57ee844c9f7a))
+
 ## [1.3.1](https://github.com/GIP-RECIA/recia-webcomponents/compare/actualites/v1.3.0...actualites/v1.3.1) (2025-07-22)
 
 
