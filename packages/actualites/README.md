@@ -43,14 +43,17 @@ Propriétés disponibles :
 
 ### carrousel-ui
 
-| Nom                                 |   Type   | Obligatoire | Default | Description                                                                         |
-| ----------------------------------- | :------: | :---------: | :-----: | ----------------------------------------------------------------------------------- |
-| `user-info-api-url`                 | `string` |   `true`    |         | URL dédiée à la récupération du token via le portail                                |
-| `get-user-news-url`                 | `string` |   `true`    |         | URL permettant de récupérer une liste d'item en fonction des paramètres de filtrage |
-| `get-item-by-id-url`                | `string` |   `true`    |         | URL permettant de récupérer les informations d'un item                              |
-| `get-news-reading-informations-url` | `string` |   `true`    |         | URL permettant de récupérer les informations de lecture de l'utilisateur            |
-| `set-reading-url`                   | `string` |   `true`    |         | URL permettant la gestion de la lecture d'un item en fonction de l'utilisateur      |
-| `all-news-page-url`                 | `string` |   `true`    |         | Url permettant d'accèder à la page 'toutes les actualités'                          |
+| Nom                                 |   Type    | Obligatoire | Default | Description                                                                         |
+| ----------------------------------- | :-------: | :---------: | :-----: | ----------------------------------------------------------------------------------- |
+| `user-info-api-url`                 | `string`  |   `true`    |         | URL dédiée à la récupération du token via le portail                                |
+| `get-user-news-url`                 | `string`  |   `true`    |         | URL permettant de récupérer une liste d'item en fonction des paramètres de filtrage |
+| `get-item-by-id-url`                | `string`  |   `true`    |         | URL permettant de récupérer les informations d'un item                              |
+| `get-news-reading-informations-url` | `string`  |   `true`    |         | URL permettant de récupérer les informations de lecture de l'utilisateur            |
+| `set-reading-url`                   | `string`  |   `true`    |         | URL permettant la gestion de la lecture d'un item en fonction de l'utilisateur      |
+| `all-news-page-url`                 | `string`  |   `true`    |         | Url permettant d'accèder à la page 'toutes les actualités'                          |
+| `dnma-fname`                        | `string`  |   `true`    |         | Fname du service associé à fournir pour le DNMA                                     |
+| `locale-key`                        | `string`  |   `false`   | `News`  | Clé pour savoir quelles valeurs de texte utiliser pour la plupart des éléments      |
+| `use-reading-info`                  | `boolean` |   `true`    |         | Détermine s'il faut gérer le status "lu"/"non lu"                                   |
 
 <br/>
 
@@ -67,14 +70,17 @@ Propriétés disponibles :
 
 ### all-news
 
-| Nom                                 |   Type   | Obligatoire | Default | Description                                                                         |
-| ----------------------------------- | :------: | :---------: | :-----: | ----------------------------------------------------------------------------------- |
-| `user-info-api-url`                 | `string` |   `true`    |         | URL dédiée à la récupération du token via le portail                                |
-| `get-user-news-url`                 | `string` |   `true`    |         | URL permettant de récupérer une liste d'item en fonction des paramètres de filtrage |
-| `get-item-by-id-url`                | `string` |   `true`    |         | URL permettant de récupérer les informations d'un item                              |
-| `get-news-reading-informations-url` | `string` |   `true`    |         | URL permettant de récupérer les informations de lecture de l'utilisateur            |
-| `set-reading-url`                   | `string` |   `true`    |         | URL permettant la gestion de la lecture d'un item en fonction de l'utilisateur      |
-| `back-url`                          | `string` |   `true`    |         | Url pointant vers l'acceuil                                                         |
+| Nom                                 |   Type    | Obligatoire | Default | Description                                                                         |
+| ----------------------------------- | :-------: | :---------: | :-----: | ----------------------------------------------------------------------------------- |
+| `user-info-api-url`                 | `string`  |   `true`    |         | URL dédiée à la récupération du token via le portail                                |
+| `get-user-news-url`                 | `string`  |   `true`    |         | URL permettant de récupérer une liste d'item en fonction des paramètres de filtrage |
+| `get-item-by-id-url`                | `string`  |   `true`    |         | URL permettant de récupérer les informations d'un item                              |
+| `get-news-reading-informations-url` | `string`  |   `true`    |         | URL permettant de récupérer les informations de lecture de l'utilisateur            |
+| `set-reading-url`                   | `string`  |   `true`    |         | URL permettant la gestion de la lecture d'un item en fonction de l'utilisateur      |
+| `back-url`                          | `string`  |   `true`    |         | Url pointant vers l'acceuil                                                         |
+| `fname`                             | `string`  |   `true`    |         | Fname du service associé à fournir pour le DNMA                                     |
+| `locale-key`                        | `string`  |   `false`   | `News`  | Clé pour savoir quelles valeurs de texte utiliser pour la plupart des éléments      |
+| `use-reading-info`                  | `boolean` |   `true`    |         | Détermine s'il faut gérer le status "lu"/"non lu"                                   |
 
 ```html
 <all-news
