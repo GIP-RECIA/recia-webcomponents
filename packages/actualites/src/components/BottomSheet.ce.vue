@@ -26,7 +26,7 @@ import { getItemById, setReading } from '@/services/NewsService.ts'
 import { isLightColor } from '@/utils/ContrasteUtils.ts'
 import { itemvoFilter } from '@/utils/itemvoFilter'
 import { isUserConnected } from '@/utils/soffitUtils.ts'
-import { fname, useReadingState } from '@/utils/store'
+import { dnmaFname, useReadingState } from '@/utils/store'
 
 const props = defineProps<{
   itemId: string
@@ -65,7 +65,7 @@ onBeforeMount(async () => {
     const response = await getItemById(props.getItemByIdUrl, props.itemId)
     item.value = response.data
     if (item.value !== undefined) {
-      dnmaService.readItemVO(fname.value, item.value)
+      dnmaService.readItemVO(dnmaFname.value, item.value)
     }
     // pas si doc
     if (!props.isRead) {

@@ -23,7 +23,7 @@ import { dnmaService } from '@/services/dnmaService'
 import { getNewsReadingInformations, getPaginatedNews } from '@/services/NewsService.ts'
 import { initToken } from '@/utils/axiosUtils.ts'
 import { isUserConnected } from '@/utils/soffitUtils.ts'
-import { fname, titleI18nKey, useReadingState } from '@/utils/store'
+import { dnmaFname, titleI18nKey, useReadingState } from '@/utils/store'
 
 const props = withDefaults(defineProps<{
   getItemByIdUrl: string
@@ -33,7 +33,7 @@ const props = withDefaults(defineProps<{
   setReadingUrl: string
   localeKey?: TitleI18nKey
   useReadingState: boolean
-  fname: string
+  dnmaFname: string
   backUrl: string
 
 }>(), {
@@ -67,7 +67,7 @@ onBeforeMount(async () => {
   finally {
     initialLoading.value = false
   }
-  fname.value = props.fname
+  dnmaFname.value = props.dnmaFname
   titleI18nKey.value = props.localeKey
   useReadingState.value = props.useReadingState
 })
@@ -80,7 +80,7 @@ function handleToggleChange(e: CustomEvent) {
 
 function handleFilterChange(s: CustomEvent) {
   if (source.value !== s.detail[0]) {
-    dnmaService.openAll(props.fname, s.detail[0])
+    dnmaService.openAll(props.dnmaFname, s.detail[0])
   }
   source.value = s.detail[0]
   rubriques.value = Array.from(s.detail[1])
