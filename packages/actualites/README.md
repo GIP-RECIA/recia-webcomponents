@@ -78,7 +78,7 @@ Propriétés disponibles :
 | `get-news-reading-informations-url` | `string`  |   `true`    |         | URL permettant de récupérer les informations de lecture de l'utilisateur            |
 | `set-reading-url`                   | `string`  |   `true`    |         | URL permettant la gestion de la lecture d'un item en fonction de l'utilisateur      |
 | `back-url`                          | `string`  |   `true`    |         | Url pointant vers l'acceuil                                                         |
-| `fname`                             | `string`  |   `true`    |         | Fname du service associé à fournir pour le DNMA                                     |
+| `dnma-fname`                        | `string`  |   `true`    |         | Fname du service associé à fournir pour le DNMA                                     |
 | `locale-key`                        | `string`  |   `false`   | `News`  | Clé pour savoir quelles valeurs de texte utiliser pour la plupart des éléments      |
 | `use-reading-info`                  | `boolean` |   `true`    |         | Détermine s'il faut gérer le status "lu"/"non lu"                                   |
 
