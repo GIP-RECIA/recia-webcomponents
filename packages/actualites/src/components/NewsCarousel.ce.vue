@@ -16,22 +16,27 @@
 
 <script setup lang="ts">
 import type { PaginatedResult } from '@/types/PaginatedResult.ts'
+import type { TitleI18nKey } from '@/types/TitleI18nKeyType'
 import { computed, onMounted, ref } from 'vue'
 import i18n from '@/plugins/i18n.ts'
 import { dnmaService } from '@/services/dnmaService'
 import { getNewsReadingInformations, getPaginatedNews } from '@/services/NewsService.ts'
 import { initToken, instance } from '@/utils/axiosUtils.ts'
-import { fname } from '@/utils/store'
+import { dnmaFname, titleI18nKey, useReadingState } from '@/utils/store'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   getItemByIdUrl: string
   userInfoApiUrl: string
   getUserNewsUrl: string
   setReadingUrl: string
   getNewsReadingInformationsUrl: string
   allNewsPageUrl: string
-  fname: string
-}>()
+  localeKey?: TitleI18nKey
+  useReadingState: boolean
+  dnmaFname: string
+}>(), {
+  localeKey: 'News',
+})
 
 const result = ref<PaginatedResult>()
 const readingInfos = ref<Map<string, boolean>>()
@@ -57,7 +62,9 @@ onMounted(async () => {
     'recia-actu-modal',
     (e) => { handleModalEvent(e) },
   )
-  fname.value = props.fname
+  dnmaFname.value = props.dnmaFname
+  titleI18nKey.value = props.localeKey
+  useReadingState.value = props.useReadingState
 })
 
 function handleModalEvent(e: any) {
@@ -125,7 +132,7 @@ function closeModal() {
           {{ t('text.title.news') }}
         </h2>
         <div class="carousel-header-see-all-news computer">
-          <a class="carousel-header-see-all-news-button" :href="allNewsPageUrl" @click="dnmaService.openAll(props.fname)">
+          <a class="carousel-header-see-all-news-button" :href="allNewsPageUrl" @click="dnmaService.openAll(props.dnmaFname)">
             {{ t('text.normal.see-all-news') }}
             <font-awesome-icon icon="fa-solid fa-arrow-right" />
           </a>

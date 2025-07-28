@@ -19,6 +19,6 @@ import { ref } from 'vue'
 
 const titleI18nKey = ref<TitleI18nKey>()
 const useReadingState = ref<boolean>(false)
-const fname = ref<string>('')
+const dnmaFname = ref<string>('')
 
-export { fname, titleI18nKey, useReadingState }
+export { dnmaFname, titleI18nKey, useReadingState }
