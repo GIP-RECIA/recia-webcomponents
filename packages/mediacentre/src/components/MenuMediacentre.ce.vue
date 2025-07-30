@@ -242,9 +242,7 @@ a.gestion-link {
   font-size: 14px;
   width: 100%;
   display: inline-block;
-  :hover {
-    text-decoration: none;
-  }
+  text-decoration: none;
 }
 
 .gestion-label {
