@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.0](https://github.com/GIP-RECIA/recia-webcomponents/compare/mediacentre-ui/v0.0.4...mediacentre-ui/v0.1.0) (2025-07-30)
+
+
+### Features
+
+* **mediacentre:** add dnma events listeners and dispatchers, fix small buttons propagation ([28b2d8e](https://github.com/GIP-RECIA/recia-webcomponents/commit/28b2d8ee9bcb9e3905e8af4a07db78c9f40fc5f8))
+* **mediacentre:** update menu buttons and links  style ([c5682c6](https://github.com/GIP-RECIA/recia-webcomponents/commit/c5682c6668e891f20906edb6bf0f77fca018cbf0))
+
+
+### Bug Fixes
+
+* **mediacentre:** remove underline ([daf72fa](https://github.com/GIP-RECIA/recia-webcomponents/commit/daf72fab31b34c42e0b7cb6739d48b62ad21e718))
+
 ## 0.0.4 (2025-06-16)
 
 
