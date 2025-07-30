@@ -27,6 +27,7 @@ const props = defineProps<{
   userInfoApiUrl: string
   erreur: string
   nbResources: number
+  dnmaEventName: string
 }>()
 
 const emit = defineEmits(['updateFavorite', 'openModal'])
@@ -89,6 +90,7 @@ function sendUpdateFavorite(event: CustomEvent) {
       :base-api-url="baseApiUrl"
       :user-info-api-url="userInfoApiUrl"
       :filtre="filtre"
+      :dnma-event-name="dnmaEventName"
       @update-visibility="isEmptyFavoritesList"
       @open-modal="openModal"
       @update-fav="sendUpdateFavorite"
