@@ -15,9 +15,11 @@
 -->
 
 <script setup lang="ts">
+import type { InfoModal } from '@gip-recia/info-modal'
 import type { Filtres } from '@/types/FiltresType'
 import type { Ressource } from '@/types/RessourceType'
-import type { InfoModal } from '@gip-recia/info-modal'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { computed, onMounted, ref, watch } from 'vue'
 import i18n from '@/plugins/i18n.ts'
 import { setError } from '@/services/ServiceErreurMediacentre'
 import { getFilters as filtrage } from '@/services/ServiceFiltreMediacentre'
@@ -27,8 +29,6 @@ import { CustomError } from '@/utils/CustomError'
 import { EtablissementsData } from '@/utils/EtablissementsData'
 import { soffit } from '@/utils/soffitUtils'
 import { configMapUaiDisplayName, displayedEtablissementUai, etablissementsData, filtre, gestionAffectations } from '@/utils/store'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { computed, onMounted, ref, watch } from 'vue'
 import { getConfig, getFavorites, getFilters, getGestionAffectations, getResources, putFavorites } from '../services/ServiceMediacentre'
 
 defineOptions({ name: 'PageMedia' })
@@ -47,6 +47,7 @@ const props = withDefaults(
     uai?: string
     helpLocation?: string
     redirectionRegex?: string
+    dnmaEventName?: string
   }>(),
   {
     baseApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_API_URI,
@@ -61,6 +62,7 @@ const props = withDefaults(
     uai: import.meta.env.VITE_APP_MEDIACENTRE_CLAIM_UAI,
     helpLocation: import.meta.env.VITE_APP_MEDIACENTRE_HELP_PAGE_LOCATION,
     redirectionRegex: import.meta.env.VITE_APP_MEDIACENTRE_REDIRECTION_REGEX,
+    dnmaEventName: import.meta.env.VITE_DNMA_EVENT_NAME,
   },
 )
 
@@ -392,7 +394,7 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
     </div>
     <div v-else class="cadre-page-mediacentre">
       <aside class="aside-page-mediacentre">
-        <menu-mediacentre class="menu-mediacentre" :filtres="filtres" :checked="filtre" @update-checked="updateFiltre" @open-gestion-modal="openGestionModal" />
+        <menu-mediacentre class="menu-mediacentre" :dnma-event-name="dnmaEventName" :filtres="filtres" :checked="filtre" @update-checked="updateFiltre" @open-gestion-modal="openGestionModal" />
       </aside>
       <div class="main-page-wrapper">
         <div class="main-page-mediacentre">
@@ -405,6 +407,7 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
             :user-info-api-url="userInfoApiUrl"
             :erreur="erreur"
             :nb-resources="countNbFilteredResources"
+            :dnma-event-name="dnmaEventName"
             @update-favorite="updateFavori"
             @open-modal="openModal"
           />

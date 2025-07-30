@@ -27,10 +27,10 @@ import { displayedEtablissementUai, etablissementsData, filtre, gestionAffectati
 
 defineOptions({ name: 'MenuMedia' })
 
-// eslint-disable-next-line unused-imports/no-unused-vars
 const props = defineProps<{
   checked: string
   filtres: Array<Filtres>
+  dnmaEventName: string
 }>()
 
 const emit = defineEmits(['updateChecked', 'openGestionModal'])
@@ -105,6 +105,19 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
     'openGestionModal',
     gestion.description,
   )
+}
+
+function accesRessourceGarClicked(): void {
+  if (props.dnmaEventName?.length > 0) {
+    const eventDNMA: CustomEvent = new CustomEvent(
+      props.dnmaEventName,
+      { detail:
+        {
+          fname: 'AffectationGar',
+        } },
+    )
+    document.dispatchEvent(eventDNMA)
+  }
 }
 </script>
 

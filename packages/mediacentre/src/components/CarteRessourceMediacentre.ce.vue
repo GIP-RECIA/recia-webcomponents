@@ -23,6 +23,7 @@ const props = defineProps<{
   ressource: Ressource
   baseApiUrl: string
   filtre: string
+  dnmaEventName: string
 }>()
 
 const emit = defineEmits(['updateFav', 'openModal', 'updateVisibility'])
@@ -44,6 +45,18 @@ watch(
       emit('updateVisibility', props.ressource.idRessource)
   },
 )
+
+function cardClicked(): void {
+  const eventDNMA: CustomEvent = new CustomEvent(
+    props.dnmaEventName,
+    { detail:
+      {
+        fname: 'Mediacentre',
+        SERVICE: props.ressource.typePresentation.code,
+      } },
+  )
+  document.dispatchEvent(eventDNMA)
+}
 
 function openModal(event: Event): void {
   const openModalCustomEvent = new CustomEvent('openModale', {
@@ -77,10 +90,11 @@ function toggleFavoris(): void {
     target="_blank"
     class="cadre-carte-ressource-mediacentre"
     :title="props.ressource.nomRessource"
+    @click="cardClicked"
   >
     <div class="background-carte-ressource-mediacentre">
       <div class="action-zone-carte-ressource-mediacentre">
-        <button class="icone-bouton-carte-ressource-mediacentre" title="" @click.prevent="toggleFavoris">
+        <button class="icone-bouton-carte-ressource-mediacentre" title="" @click.prevent.stop="toggleFavoris">
           <FontAwesomeIcon
             class="icone-favorite-carte-ressource-mediacentre"
             :icon="[ressource.isFavorite ? 'fas' : 'far', 'star']"
@@ -100,7 +114,7 @@ function toggleFavoris(): void {
           class="icone-bouton-carte-ressource-mediacentre"
           aria-haspopup="dialog"
           aria-controls="modal"
-          @click.prevent="openModal"
+          @click.prevent.stop="openModal"
         >
           <FontAwesomeIcon class="icone-info-carte-ressource-mediacentre" :icon="['fas', 'circle-info']" />
         </button>
