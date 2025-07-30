@@ -17,13 +17,13 @@
 <script setup lang="ts">
 import type { Filtres } from '@/types/FiltresType'
 import type { GestionAffectation } from '@/utils/GestionAffectation'
-import { displayedEtablissementUai, etablissementsData, filtre, gestionAffectations } from '@/utils/store'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import Multiselect from '@vueform/multiselect'
 import { useBreakpoints } from '@vueuse/core'
 import { capitalize, ref, watch } from 'vue'
-
 import { useI18n } from 'vue-i18n'
+
+import { displayedEtablissementUai, etablissementsData, filtre, gestionAffectations } from '@/utils/store'
 
 defineOptions({ name: 'MenuMedia' })
 
@@ -200,7 +200,7 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
         </h2>
         <template v-for="gestionAffectation in gestionAffectations" :key="gestionAffectation.id">
           <template v-if="gestionAffectation.link">
-            <p><a :href="gestionAffectation.description" target="_blank" rel="noopener noreferrer">{{ gestionAffectation.title }}</a></p>
+            <p><a class="gestion-link" :href="gestionAffectation.description" target="_blank" rel="noopener noreferrer" v-on="gestionAffectation.id === 'GAR' ? { click: accesRessourceGarClicked } : {}">{{ gestionAffectation.title }}</a></p>
           </template>
           <template v-else>
             <button class="gestion-button" @click.prevent="openGestionModal(gestionAffectation, $event)">
@@ -220,6 +220,18 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
   @extend %button-primary;
   border: none;
   font-size: 14px;
+  width: 100%;
+}
+
+a.gestion-link {
+  @extend %button-primary;
+  border: none;
+  font-size: 14px;
+  width: 100%;
+  display: inline-block;
+  :hover {
+    text-decoration: none;
+  }
 }
 
 .gestion-label {
