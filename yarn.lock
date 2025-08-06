@@ -1513,7 +1513,7 @@ __metadata:
     vite: "npm:^6.3.5"
     vite-plugin-css-injected-by-js: "npm:^3.5.2"
     vue: "npm:^3.5.18"
-    vue-i18n: "npm:^11.1.7"
+    vue-i18n: "npm:^11.1.11"
     vue-tsc: "npm:^2.2.10"
   languageName: unknown
   linkType: soft
@@ -1545,7 +1545,7 @@ __metadata:
     typescript: "npm:^5.8.3"
     vite: "npm:^6.3.5"
     vue: "npm:^3.5.18"
-    vue-i18n: "npm:^11.1.7"
+    vue-i18n: "npm:^11.1.11"
     vue-tsc: "npm:^2.2.10"
   languageName: unknown
   linkType: soft
@@ -1613,7 +1613,7 @@ __metadata:
     typescript: "npm:^5.8.3"
     vite: "npm:^6.3.5"
     vue: "npm:^3.5.18"
-    vue-i18n: "npm:^11.1.7"
+    vue-i18n: "npm:^11.1.11"
     vue-tsc: "npm:^2.2.10"
   languageName: unknown
   linkType: soft
@@ -1647,7 +1647,7 @@ __metadata:
     vite: "npm:^6.3.5"
     vite-plugin-css-injected-by-js: "npm:^3.5.2"
     vue: "npm:^3.5.18"
-    vue-i18n: "npm:^11.1.7"
+    vue-i18n: "npm:^11.1.11"
     vue-tsc: "npm:^2.2.10"
     vue3-toastify: "npm:^0.2.8"
     vuejs-clipper: "npm:^4.1.0"
@@ -1760,7 +1760,7 @@ __metadata:
     typescript: "npm:^5.8.3"
     vite: "npm:^6.3.5"
     vue: "npm:^3.5.18"
-    vue-i18n: "npm:^11.1.7"
+    vue-i18n: "npm:^11.1.11"
     vue-tsc: "npm:^2.2.10"
   languageName: unknown
   linkType: soft
@@ -1942,13 +1942,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@intlify/core-base@npm:11.1.7":
-  version: 11.1.7
-  resolution: "@intlify/core-base@npm:11.1.7"
+"@intlify/core-base@npm:11.1.11":
+  version: 11.1.11
+  resolution: "@intlify/core-base@npm:11.1.11"
   dependencies:
-    "@intlify/message-compiler": "npm:11.1.7"
-    "@intlify/shared": "npm:11.1.7"
-  checksum: 10/92e04fc609710c085d39d4057310bf5e35c4e1c8a3dbb9e00d47e27d2c1731b21717976e0518734063433222aab6c4559665a31e4eb7bc4bbc6dbb316bbaf4dd
+    "@intlify/message-compiler": "npm:11.1.11"
+    "@intlify/shared": "npm:11.1.11"
+  checksum: 10/f75db1a2094f94194765351fd797620dc329b8619902300e0b2a854e7e65e73db4ada63c0cf0d21e4ac172ebf22c9f3b06f2f6b4164af3406a7e2a120b6fe2f0
   languageName: node
   linkType: hard
 
@@ -1962,7 +1962,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@intlify/message-compiler@npm:11.1.7, @intlify/message-compiler@npm:^11.1.2":
+"@intlify/message-compiler@npm:11.1.11":
+  version: 11.1.11
+  resolution: "@intlify/message-compiler@npm:11.1.11"
+  dependencies:
+    "@intlify/shared": "npm:11.1.11"
+    source-map-js: "npm:^1.0.2"
+  checksum: 10/e7244e7f3c34ef83dae9e15366fa936b7e8bbb73389c76592ed373589400811daf1928536fba41bc2d69c63855c05360cf2a60c2460aad99dd7e0ff6a87f91bb
+  languageName: node
+  linkType: hard
+
+"@intlify/message-compiler@npm:^11.1.2":
   version: 11.1.7
   resolution: "@intlify/message-compiler@npm:11.1.7"
   dependencies:
@@ -1976,6 +1986,13 @@ __metadata:
   version: 10.0.7
   resolution: "@intlify/shared@npm:10.0.7"
   checksum: 10/b00e00bdd5ddd7b9221ca55cca6b6a727c2fd5896c7d21f21206dd5160dceb985e67fa586ad67968c38704ed2255c60db1b097b0e22aef10c2d215bfc27aeafa
+  languageName: node
+  linkType: hard
+
+"@intlify/shared@npm:11.1.11":
+  version: 11.1.11
+  resolution: "@intlify/shared@npm:11.1.11"
+  checksum: 10/d52bedcc15f1be334816850a0a66f799e9301667a3678ba1bde6a7f3cb1e43ec0ec1be7cd1e14cdca05de15af86d59030599881fdcf17465b99f9be67adf8c04
   languageName: node
   linkType: hard
 
@@ -11685,16 +11702,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-i18n@npm:^11.1.7":
-  version: 11.1.7
-  resolution: "vue-i18n@npm:11.1.7"
+"vue-i18n@npm:^11.1.11":
+  version: 11.1.11
+  resolution: "vue-i18n@npm:11.1.11"
   dependencies:
-    "@intlify/core-base": "npm:11.1.7"
-    "@intlify/shared": "npm:11.1.7"
+    "@intlify/core-base": "npm:11.1.11"
+    "@intlify/shared": "npm:11.1.11"
     "@vue/devtools-api": "npm:^6.5.0"
   peerDependencies:
     vue: ^3.0.0
-  checksum: 10/8e9f5d4630ee6d236f8dd35fe95fa09d86add39cf6a63e84d5e9550fdef528ae5550a95a211751d7971b1218f47f5192e9a7cd93dd780e4576f7c7b5ffe8b47d
+  checksum: 10/eb0f1d24b8138444f1dab7638f2a8d579f1be60113a50fafa18b48535e7c3c5642df96b5e02cdecd086bd5168f26c75c673924c79793e572d48c6c7ceae11a0a
   languageName: node
   linkType: hard
 
