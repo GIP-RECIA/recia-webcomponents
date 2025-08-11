@@ -55,7 +55,7 @@
     "axios": "^1.11.0",
     "cropperjs": "^1.6.2",
     "dotenv-checker": "^1.1.7",
-    "eslint": "^9.32.0",
+    "eslint": "^9.33.0",
     "eslint-plugin-format": "^1.0.1",
     "lint-staged": "^16.1.5",
     "npm-run-all2": "^8.0.4",
