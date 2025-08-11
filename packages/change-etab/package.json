@@ -56,7 +56,7 @@
     "dotenv-checker": "^1.1.7",
     "eslint": "^9.32.0",
     "eslint-plugin-format": "^1.0.1",
-    "lint-staged": "^16.1.2",
+    "lint-staged": "^16.1.5",
     "npm-run-all2": "^8.0.4",
     "regenerator-runtime": "^0.14.1",
     "sass": "^1.90.0",
