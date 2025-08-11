@@ -1495,7 +1495,7 @@ __metadata:
     sass: "npm:^1.90.0"
     terser: "npm:^5.43.1"
     typescript: "npm:^5.8.3"
-    vite: "npm:^7.0.6"
+    vite: "npm:^7.1.1"
     vite-plugin-css-injected-by-js: "npm:^3.5.2"
     vue: "npm:^3.5.18"
     vue-i18n: "npm:^11.1.10"
@@ -1528,7 +1528,7 @@ __metadata:
     sass: "npm:^1.90.0"
     terser: "npm:^5.43.1"
     typescript: "npm:^5.8.3"
-    vite: "npm:^7.0.6"
+    vite: "npm:^7.1.1"
     vue: "npm:^3.5.18"
     vue-i18n: "npm:^11.1.10"
     vue-tsc: "npm:^2.2.10"
@@ -1559,7 +1559,7 @@ __metadata:
     sass: "npm:^1.90.0"
     terser: "npm:^5.43.1"
     typescript: "npm:^5.8.3"
-    vite: "npm:^7.0.6"
+    vite: "npm:^7.1.1"
     vite-plugin-sass: "npm:^0.1.0"
   languageName: unknown
   linkType: soft
@@ -1596,7 +1596,7 @@ __metadata:
     sass: "npm:^1.90.0"
     terser: "npm:^5.43.1"
     typescript: "npm:^5.8.3"
-    vite: "npm:^7.0.6"
+    vite: "npm:^7.1.1"
     vue: "npm:^3.5.18"
     vue-i18n: "npm:^11.1.10"
     vue-tsc: "npm:^2.2.10"
@@ -1629,7 +1629,7 @@ __metadata:
     sass: "npm:^1.90.0"
     terser: "npm:^5.43.1"
     typescript: "npm:^5.8.3"
-    vite: "npm:^7.0.6"
+    vite: "npm:^7.1.1"
     vite-plugin-css-injected-by-js: "npm:^3.5.2"
     vue: "npm:^3.5.18"
     vue-i18n: "npm:^11.1.10"
@@ -1708,7 +1708,7 @@ __metadata:
     sass: "npm:^1.90.0"
     terser: "npm:^5.43.1"
     typescript: "npm:^5.8.3"
-    vite: "npm:^7.0.6"
+    vite: "npm:^7.1.1"
     vite-plugin-css-injected-by-js: "npm:^3.5.2"
     y-presence: "npm:^0.2.3"
     y-websocket: "npm:^3.0.0"
@@ -1743,7 +1743,7 @@ __metadata:
     sass: "npm:^1.90.0"
     terser: "npm:^5.43.1"
     typescript: "npm:^5.8.3"
-    vite: "npm:^7.0.6"
+    vite: "npm:^7.1.1"
     vue: "npm:^3.5.18"
     vue-i18n: "npm:^11.1.10"
     vue-tsc: "npm:^2.2.10"
@@ -1834,7 +1834,7 @@ __metadata:
     sass: "npm:^1.90.0"
     terser: "npm:^5.43.1"
     typescript: "npm:^5.8.3"
-    vite: "npm:^7.0.6"
+    vite: "npm:^7.1.1"
     y-presence: "npm:^0.2.3"
     y-websocket: "npm:^3.0.0"
     yjs: "npm:^13.6.27"
@@ -10272,7 +10272,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:^4.40.0":
+"rollup@npm:^4.43.0":
   version: 4.46.2
   resolution: "rollup@npm:4.46.2"
   dependencies:
@@ -11413,16 +11413,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^7.0.6":
-  version: 7.0.6
-  resolution: "vite@npm:7.0.6"
+"vite@npm:^7.1.1":
+  version: 7.1.1
+  resolution: "vite@npm:7.1.1"
   dependencies:
     esbuild: "npm:^0.25.0"
     fdir: "npm:^6.4.6"
     fsevents: "npm:~2.3.3"
     picomatch: "npm:^4.0.3"
     postcss: "npm:^8.5.6"
-    rollup: "npm:^4.40.0"
+    rollup: "npm:^4.43.0"
     tinyglobby: "npm:^0.2.14"
   peerDependencies:
     "@types/node": ^20.19.0 || >=22.12.0
@@ -11464,7 +11464,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10/729ddefd6710b0b5aa38a62a537f3dc28577edaf57958c815a1964f1e348a1c7cb17ce8f708675668d7e80d95fb62f7c433b718fe12d80dd8a756ccec519bc2a
+  checksum: 10/42d13cee247410843a1dad3507600f886f8139c9e718a94c2981f0810a6b35a9b78a71b9bae5c375559ea404b22f545ead7d530431629850b4c47c232af06fd5
   languageName: node
   linkType: hard
 
