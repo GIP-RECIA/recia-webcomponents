@@ -54,7 +54,7 @@
     "@types/regenerator-runtime": "^0",
     "@uportal/open-id-connect": "^1.40.2",
     "@vitejs/plugin-vue": "^6.0.1",
-    "@vue/tsconfig": "^0.7.0",
+    "@vue/tsconfig": "^0.8.1",
     "@vueform/multiselect": "^2.6.11",
     "@vueuse/core": "^13.7.0",
     "axios": "^1.11.0",
