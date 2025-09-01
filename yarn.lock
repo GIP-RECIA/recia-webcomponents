@@ -1583,7 +1583,7 @@ __metadata:
     "@vitejs/plugin-vue": "npm:^6.0.1"
     "@vue/tsconfig": "npm:^0.8.1"
     "@vueform/multiselect": "npm:^2.6.11"
-    "@vueuse/core": "npm:^13.7.0"
+    "@vueuse/core": "npm:^13.8.0"
     axios: "npm:^1.11.0"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^9.34.0"
@@ -4231,32 +4231,32 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vueuse/core@npm:^13.7.0":
-  version: 13.7.0
-  resolution: "@vueuse/core@npm:13.7.0"
+"@vueuse/core@npm:^13.8.0":
+  version: 13.8.0
+  resolution: "@vueuse/core@npm:13.8.0"
   dependencies:
     "@types/web-bluetooth": "npm:^0.0.21"
-    "@vueuse/metadata": "npm:13.7.0"
-    "@vueuse/shared": "npm:13.7.0"
+    "@vueuse/metadata": "npm:13.8.0"
+    "@vueuse/shared": "npm:13.8.0"
   peerDependencies:
     vue: ^3.5.0
-  checksum: 10/d053f9330a21fbf7440ac93c2dd326db6299c114a800beb75bb3c143e2ef9a8f62d4c617c35960a6ae327e6ad3ea544392412e0eac70d4125d3267d371c3fb5e
+  checksum: 10/4c33ac66d3e8d864fb2471fa8128acfc92b2c9e0dfd3f2599fa9d3441588fd82ff5ddb610ad7e95259e4628b79d57c3a0ed745f11bfc90a55f1fa80131ea4872
   languageName: node
   linkType: hard
 
-"@vueuse/metadata@npm:13.7.0":
-  version: 13.7.0
-  resolution: "@vueuse/metadata@npm:13.7.0"
-  checksum: 10/565d63596c9ee623491df04493ff5bd74ff589c56ca74f55ce222b8c3a32c8470415e9db4f6324e4848ef3d832aef881e249b060eb8d4c2de404c181e0daea6d
+"@vueuse/metadata@npm:13.8.0":
+  version: 13.8.0
+  resolution: "@vueuse/metadata@npm:13.8.0"
+  checksum: 10/45c5d3f031437c0a1281bb3c9b84d90f26ec7f22c8d2cfc4e082177f9ca91622baed817a01d70fe34a3fbdda43d1646a494ce4f75cc8b3308c5f0fd063b2c573
   languageName: node
   linkType: hard
 
-"@vueuse/shared@npm:13.7.0":
-  version: 13.7.0
-  resolution: "@vueuse/shared@npm:13.7.0"
+"@vueuse/shared@npm:13.8.0":
+  version: 13.8.0
+  resolution: "@vueuse/shared@npm:13.8.0"
   peerDependencies:
     vue: ^3.5.0
-  checksum: 10/3b3af418bffadb345b565aa08cfecd6ca1fb1cbe80d30bf7b13fb23bb00a1491dc5d5cc57338044dcb5083469ac2e972b4dad6cdff07c9268d4f2c14e1269bca
+  checksum: 10/2a75ea33a2f91bd8d23da8ce244b8baa72c735898c8b2e81d78d3a841cd2bf37924142e29664e495b35b5fcd19431c0a8a75b44ce4f3f4d3abc2ffe24c559cdc
   languageName: node
   linkType: hard
 
