@@ -4973,9 +4973,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commit-and-tag-version@npm:^12.5.2":
-  version: 12.5.2
-  resolution: "commit-and-tag-version@npm:12.5.2"
+"commit-and-tag-version@npm:^12.6.0":
+  version: 12.6.0
+  resolution: "commit-and-tag-version@npm:12.6.0"
   dependencies:
     chalk: "npm:^2.4.2"
     conventional-changelog: "npm:4.0.0"
@@ -4995,7 +4995,7 @@ __metadata:
     yargs: "npm:^17.7.2"
   bin:
     commit-and-tag-version: bin/cli.js
-  checksum: 10/7b437e0ce252948588b2fcab520e0c83ec4c9306140c7050e5b0c947cc0ee9c83dfa10183101ec1a529e41e2b00a8d554c2feeaf020dae210cde30bf3a89ea09
+  checksum: 10/49bde63d89035fe65d5a51319b26833a7c6854842abacbfcdd73002550949c33c5d2bcdb291b8b551de59df71cb0d1cbc1579f3ff572781460f593b9d2d5228d
   languageName: node
   linkType: hard
 
@@ -10115,7 +10115,7 @@ __metadata:
   dependencies:
     "@commitlint/cli": "npm:^19.8.1"
     "@commitlint/config-conventional": "npm:^19.8.1"
-    commit-and-tag-version: "npm:^12.5.2"
+    commit-and-tag-version: "npm:^12.6.0"
     husky: "npm:^9.1.7"
     lint-staged: "npm:^16.1.5"
   languageName: unknown
