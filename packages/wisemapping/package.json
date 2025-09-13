@@ -58,7 +58,7 @@
     "@types/regenerator-runtime": "^0",
     "@uportal/open-id-connect": "^1.40.2",
     "@vitejs/plugin-react": "^5.0.2",
-    "axios": "^1.11.0",
+    "axios": "^1.12.0",
     "dotenv-checker": "^1.1.7",
     "eslint": "^9.35.0",
     "eslint-plugin-format": "^1.0.1",
