@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.2.0](https://github.com/GIP-RECIA/recia-webcomponents/compare/param-etab/v1.1.2...param-etab/v1.2.0) (2025-10-02)
+
+
+### Features
+
+* **param-etab:** improve style ([d6ae23d](https://github.com/GIP-RECIA/recia-webcomponents/commit/d6ae23d6f5f3ea3fc2420c765db2a6b26cfc5086))
+* **param-etab:** increase image size ([3397f79](https://github.com/GIP-RECIA/recia-webcomponents/commit/3397f79f5e4b8f7dae0068813585f2ebe63cd9a0))
+
+
+### Bug Fixes
+
+* eslint errors ([c35346e](https://github.com/GIP-RECIA/recia-webcomponents/commit/c35346e1b8fd931efbe848c5b4fc37288860fa52))
+* **param-etab:** i18n not working ([0341a9c](https://github.com/GIP-RECIA/recia-webcomponents/commit/0341a9c94a06e02f3d42a57248923ea791c90c0e))
+* **param-etab:** sass imports ([34772e8](https://github.com/GIP-RECIA/recia-webcomponents/commit/34772e8526ed6391b172d22157ed3db941f9162a))
+
 ## [1.1.2](https://github.com/GIP-RECIA/recia-webcomponents/compare/param-etab/v1.1.1...param-etab/v1.1.2) (2024-10-24)
 
 

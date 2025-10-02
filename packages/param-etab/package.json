@@ -1,7 +1,7 @@
 {
   "name": "@gip-recia/param-etab",
   "type": "module",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "UI de paramétrage établissement en VueJS.",
   "author": "Indah Juliani <indah.juliani@recia.fr>",
   "license": "Apache-2.0",
