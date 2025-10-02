@@ -78,7 +78,7 @@ const filteredData = computed(() => filteredList())
 </template>
 
 <style lang="scss">
-@import '../assets/base.scss';
+@use '../assets/base.scss' as *;
 
 .text {
   text-align: center;

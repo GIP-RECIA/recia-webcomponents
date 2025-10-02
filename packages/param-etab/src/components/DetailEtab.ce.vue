@@ -177,7 +177,7 @@ onMounted((): void => initForm())
 </template>
 
 <style lang="scss">
-@import '../assets/base.scss';
+@use '../assets/base.scss' as *;
 
 .title-info {
   margin: 15px auto;

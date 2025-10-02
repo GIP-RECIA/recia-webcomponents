@@ -139,7 +139,7 @@ function select(payload: CustomEvent, isBoolean: boolean) {
 </template>
 
 <style lang="scss">
-@import '../assets/base.scss';
+@use '../assets/base.scss' as *;
 
 #app {
   max-width: 1280px;
