@@ -16,10 +16,10 @@
 
 <script setup lang="ts">
 import type { StructureDetail } from '../types/structureType'
-import { getDetailEtab, updateEtab } from '@/services/serviceParametab'
-import { showError, showSuccess } from '@/utils/useToast'
 import { computed, onMounted, ref, watch, watchEffect } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { getDetailEtab, updateEtab } from '@/services/serviceParametab'
+import { showError, showSuccess } from '@/utils/useToast'
 
 const props = defineProps<{
   structCurrent: string

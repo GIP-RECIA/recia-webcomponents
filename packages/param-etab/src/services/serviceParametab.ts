@@ -60,4 +60,9 @@ async function uploadLogo(url: string, formData: FormData, userInfoApiUrl: strin
   })
 }
 
-export { getDetailEtab, getParametab, updateEtab, uploadLogo }
+export {
+  getDetailEtab,
+  getParametab,
+  updateEtab,
+  uploadLogo,
+}

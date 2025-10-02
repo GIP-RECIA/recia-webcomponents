@@ -15,11 +15,11 @@
 -->
 
 <script setup lang="ts">
-import { uploadLogo } from '@/services/serviceParametab'
-import { showError, showSuccess } from '@/utils/useToast'
 import Cropper from 'cropperjs'
 import { onMounted, onUnmounted, ref, watch, watchEffect } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { uploadLogo } from '@/services/serviceParametab'
+import { showError, showSuccess } from '@/utils/useToast'
 
 const props = defineProps<{
   imageUrl: string | null
@@ -222,6 +222,7 @@ function cropImage() {
 
 <style lang="scss">
 @import 'cropperjs/dist/cropper.css';
+
 .btn-selectImg,
 .btn-cropImg {
   padding: 8px;

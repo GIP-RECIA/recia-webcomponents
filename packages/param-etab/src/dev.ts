@@ -15,12 +15,12 @@
  */
 
 import type { ToastContainerOptions } from 'vue3-toastify'
+import { createApp } from 'vue'
+import Vue3Toasity from 'vue3-toastify'
 import App from '@/AppDev.vue'
 import { register as registerCustomElements } from '@/ce'
 import { register as registerFontAwsome } from '@/plugins/fontawesome'
 import i18n from '@/plugins/i18n'
-import { createApp } from 'vue'
-import Vue3Toasity from 'vue3-toastify'
 import 'regenerator-runtime/runtime.js'
 import 'vue3-toastify/dist/index.css'
 

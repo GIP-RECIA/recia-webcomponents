@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import i18n from '@/plugins/i18n'
 import { toast } from 'vue3-toastify'
+import i18n from '@/plugins/i18n'
 
 const { t } = i18n.global
 
@@ -37,4 +37,7 @@ function showSuccess() {
   toast.success(t(`success.update-success`))
 }
 
-export { showError, showSuccess }
+export {
+  showError,
+  showSuccess,
+}

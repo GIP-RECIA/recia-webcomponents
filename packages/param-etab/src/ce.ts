@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
+import { defineCustomElement } from 'vue'
 import DetailEtabSFC from '@/components/DetailEtab.ce.vue'
 import I18nHostSFC from '@/components/I18nHost.ce.vue'
+import ImageCropperSFC from '@/components/ImageCropper.ce.vue'
 import ListEtabSFC from '@/components/ListEtab.ce.vue'
 import PageParamEtabSFC from '@/components/PageParamEtab.ce.vue'
-import { defineCustomElement } from 'vue'
-import ImageCropperSFC from './components/ImageCropper.ce.vue'
 
 const DetailEtab = defineCustomElement(DetailEtabSFC)
 const I18nHost = defineCustomElement(I18nHostSFC)
@@ -45,4 +45,11 @@ function register() {
   customElements.define('i18n-host', I18nHost)
 }
 
-export { DetailEtab, I18nHost, ImageCropper, ListEtab, PageParamEtab, register }
+export {
+  DetailEtab,
+  I18nHost,
+  ImageCropper,
+  ListEtab,
+  PageParamEtab,
+  register,
+}

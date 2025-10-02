@@ -15,9 +15,9 @@
 -->
 
 <script setup lang="ts">
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { getParametab } from '@/services/serviceParametab'
 import { showError } from '@/utils/useToast'
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 const props = defineProps<{
   paramEtabApi: string
