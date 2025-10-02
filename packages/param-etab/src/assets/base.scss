@@ -13,13 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@function HEXToRGBA($hex, $alpha) {
+  @return rgba(from $hex r g b / $alpha);
+}
+
+$black: #000;
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
   margin: 0;
-  position: relative;
   font-weight: normal;
 }
 

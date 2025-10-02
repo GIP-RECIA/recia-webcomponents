@@ -110,9 +110,9 @@ function select(payload: CustomEvent, isBoolean: boolean) {
       />
     </div>
     <div v-else class="dropdown-wrapper">
-      <div class="selected-etab" @click="isVisible = !isVisible">
+      <button class="selected-etab" @click="isVisible = !isVisible">
         <span>{{ nameEtabSelected }}</span>
-      </div>
+      </button>
       <div v-if="isVisible" class="dropdown-popover">
         <list-etab
           class-input="input-search-mobile"
@@ -140,15 +140,66 @@ function select(payload: CustomEvent, isBoolean: boolean) {
 @use '../assets/base.scss' as *;
 
 #app {
-  max-width: 1280px;
-  // max-height: 100vh;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
-}
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 
-#app > div {
-  margin: 10px;
+  > .list {
+    flex: 1 30%;
+    border-radius: 10px;
+    box-shadow: var(--recia-shadow-neutral) HEXToRGBA($black, 0.1);
+    overflow-y: hidden;
+    max-height: 70vh;
+    height: fit-content;
+  }
+
+  > .dropdown-wrapper {
+    border: 1px solid HEXToRGBA($black, 0.1);
+    border-radius: 10px;
+    box-shadow: var(--recia-shadow-neutral) HEXToRGBA($black, 0.1);
+    overflow-y: scroll;
+
+    &:has(> .selected-etab:focus-visible) {
+      outline: 1px solid;
+    }
+
+    > .selected-etab {
+      background: unset;
+      border: unset;
+      width: 100%;
+      padding: 10px 20px;
+      line-height: 1.5;
+      display: inline-flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      outline: none;
+
+      &::after {
+        content: '\f078';
+        font-family: 'FontAwesome', sans-serif;
+        color: #757575;
+        left: 0;
+        right: 0;
+      }
+    }
+
+    > .dropdown-popover {
+      position: relative;
+      left: 0;
+      right: 0;
+      max-width: 100%;
+      border-top: 1px solid HEXToRGBA($black, 0.1);
+    }
+  }
+
+  > .detail {
+    flex-grow: 2;
+    max-height: 100%;
+    height: max-content;
+    border-radius: 10px;
+    box-shadow: var(--recia-shadow-neutral) HEXToRGBA($black, 0.1);
+  }
 }
 
 a,
@@ -164,89 +215,10 @@ a,
   }
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
+@media (width >= 1024px) {
   #app {
-    display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    padding: 0 2rem;
-    height: 80vh;
-  }
-}
-
-@media (max-width: 1023px) {
-  #app {
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-
-.list {
-  flex: 1 30%;
-  background-color: white;
-  border-radius: 5px;
-  overflow-y: hidden;
-  box-shadow:
-    0 1px 2px 0 rgba(0, 0, 0, 0.12),
-    0 1px 2px 0 rgba(0, 0, 0, 0.12);
-  height: 78vh;
-}
-
-.detail {
-  flex-grow: 2;
-  background-color: white;
-  border-radius: 5px;
-  max-height: 100%;
-  height: max-content;
-  box-shadow:
-    0 1px 2px 0 rgba(0, 0, 0, 0.12),
-    0 1px 2px 0 rgba(0, 0, 0, 0.12);
-}
-
-.dropdown-wrapper {
-  flex: 1 30%;
-  border-radius: 5px;
-  margin: 10px;
-  overflow-y: scroll;
-
-  .selected-etab {
-    background: white;
-    background-position-x: right 15px;
-    background-size: 15px 15px;
-    border: 2px solid lightgray;
-    border-radius: 5px;
-    padding: 5px 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-  }
-
-  .selected-etab::after {
-    content: '\f078';
-    font-family: 'FontAwesome', sans-serif;
-    color: #757575;
-    left: 0;
-    right: 0;
-  }
-
-  .dropdown-popover {
-    position: relative;
-    border: 2px solid lightgray;
-    left: 0;
-    right: 0;
-    background-color: #fff;
-    max-width: 100%;
-    padding: 10px;
-    border-top: none;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
   }
 }
 </style>

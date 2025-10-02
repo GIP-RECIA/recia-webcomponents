@@ -129,10 +129,10 @@ onMounted((): void => initForm())
 </script>
 
 <template>
-  <span class="warn">
+  <p class="warn">
     {{ m('warn') }}
     <br>{{ m('explication') }}
-  </span>
+  </p>
   <div class="title-info">
     {{ m('info') }}
   </div>
@@ -168,107 +168,93 @@ onMounted((): void => initForm())
         <input v-model="tmp.siteWeb" class="input-field" type="text" :placeholder="m('lien-placeholder')">
         <span>{{ m('lien') }}</span>
       </label>
-      <br>
+    </div>
+    <footer>
       <button :disabled="!isButtonDisabled" class="btn-valider" @click="updateInfo">
         {{ m('valider') }}
       </button>
-    </div>
+    </footer>
   </div>
 </template>
 
 <style lang="scss">
 @use '../assets/base.scss' as *;
 
+.warn {
+  font-style: italic;
+  font-size: small;
+  padding: 10px;
+}
+
 .title-info {
-  margin: 15px auto;
+  margin-bottom: 15px;
   padding: 5px 15px;
   background-color: #eeeeee;
   font-weight: bold;
   font-size: medium;
 }
 
-.warn {
-  font-style: italic;
-  font-size: small;
-  left: 3px;
-  top: 5px;
-}
+.container {
+  padding: 20px;
 
-.infos {
-  flex-grow: 1;
-  padding-left: 10px;
-  padding-right: 10px;
-}
+  > .infos {
+    flex-grow: 1;
 
-.label {
-  display: flex;
-  flex-direction: column;
-  padding-top: 5px;
+    > .label {
+      display: flex;
+      flex-direction: column;
+      padding-top: 5px;
 
-  input {
-    order: 2;
-    outline: none;
-    top: 0.08rem;
+      > input {
+        order: 2;
+        outline: none;
+        top: 0.08rem;
+
+        &.input-field {
+          border: 0;
+          border-bottom: 2px solid #eee;
+
+          &:focus {
+            border-bottom: 2px solid var(--param-etab-input-text-focus-color, #25b2f3);
+          }
+        }
+
+        &:disabled {
+          cursor: not-allowed;
+        }
+      }
+
+      > span {
+        color: #a5a5a5;
+        display: block;
+        font-size: 0.875em;
+        margin-top: 0.625em;
+        order: 1;
+        transition: all 0.25s;
+        font-weight: 500;
+      }
+    }
   }
-}
 
-.label > span {
-  color: #a5a5a5;
-  display: block;
-  font-size: 0.875em;
-  margin-top: 0.625em;
-  order: 1;
-  transition: all 0.25s;
-  font-weight: 500;
-}
-
-.input-field {
-  border: 0;
-  border-bottom: 2px solid #eee;
-}
-
-.input-field:focus {
-  border-bottom: 2px solid var(--param-etab-input-text-focus-color, #25b2f3);
-}
-
-.input-field:disabled {
-  cursor: not-allowed;
-}
-
-.btn-valider {
-  padding: 5px;
-  width: 20%;
-  border-radius: 10px;
-  background-color: var(--param-etab-button-background-color, #25b2f3);
-  color: var(--param-etab-button-text-color, #ffffff);
-  cursor: pointer;
-  margin-bottom: 20px;
-  border: transparent;
-}
-
-.btn-valider:disabled {
-  color: #757575;
-  background-color: #d6d6d6;
-  cursor: not-allowed;
-}
-
-*:disabled {
-  color: black;
-}
-
-@media (max-height: 650px) {
-  .container {
+  > footer {
+    margin-top: 20px;
     display: flex;
-  }
-}
+    justify-content: end;
 
-@media (max-width: 1023px) {
-  .container {
-    display: block;
-  }
+    > .btn-valider {
+      padding: 5px 20px;
+      border-radius: 10px;
+      background-color: var(--param-etab-button-background-color, #25b2f3);
+      color: var(--param-etab-button-text-color, #ffffff);
+      cursor: pointer;
+      border: transparent;
 
-  .btn-valider {
-    width: 25%;
+      &:disabled {
+        color: #757575;
+        background-color: #d6d6d6;
+        cursor: not-allowed;
+      }
+    }
   }
 }
 </style>
