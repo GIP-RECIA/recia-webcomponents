@@ -15,19 +15,36 @@
  */
 
 import type { ToastContainerOptions } from 'vue3-toastify'
-import { createApp } from 'vue'
+import { createApp, defineComponent } from 'vue'
 import Vue3Toasity from 'vue3-toastify'
-import App from '@/App.vue'
 import { register as registerCustomElements } from '@/ce'
 import { register as registerFontAwsome } from '@/plugins/fontawesome'
-import i18n from '@/plugins/i18n'
 import 'regenerator-runtime/runtime.js'
 import 'vue3-toastify/dist/index.css'
 
-const app = createApp(App)
+const app = createApp(defineComponent({}))
 
 registerCustomElements()
 registerFontAwsome()
 
-app.use(i18n)
-app.use(Vue3Toasity, { limit: 0, newestOnTop: true, theme: 'colored' } as ToastContainerOptions)
+app.use(Vue3Toasity, {
+  limit: 0,
+  newestOnTop: true,
+  theme: 'colored',
+} as ToastContainerOptions)
+
+if (import.meta.env.DEV) {
+  const {
+    VITE_BASE_API_URL,
+    VITE_PARAMETAB_API_URI,
+    VITE_USER_INFO_API_URI,
+    VITE_DEFAULT_LOGO_ICON,
+  } = import.meta.env
+
+  const component = document.createElement('param-etab')
+  component.setAttribute('base-api-url', VITE_BASE_API_URL)
+  component.setAttribute('param-etab-api', VITE_PARAMETAB_API_URI)
+  component.setAttribute('user-info-api-url', VITE_USER_INFO_API_URI)
+  component.setAttribute('default-logo-icon', VITE_DEFAULT_LOGO_ICON)
+  document.body.appendChild(component)
+}
