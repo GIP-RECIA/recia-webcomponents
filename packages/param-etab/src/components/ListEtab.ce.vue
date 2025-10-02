@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import type { Ref } from 'vue'
 import { computed, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
+import i18n from '@/plugins/i18n'
 
 const props = defineProps<{
   dataJson: string
@@ -29,7 +29,7 @@ const props = defineProps<{
 
 const emit = defineEmits<(e: 'selectEtab', payload: any, isSelected: boolean) => void>()
 
-const { t } = useI18n()
+const { t } = i18n.global
 
 const m = (key: string): string => t(`list-etab.${key}`)
 

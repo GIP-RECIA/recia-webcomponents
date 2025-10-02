@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import type { StructureDetail } from '../types/structureType'
 import { computed, onMounted, ref, watch, watchEffect } from 'vue'
-import { useI18n } from 'vue-i18n'
+import i18n from '@/plugins/i18n'
 import { getDetailEtab, updateEtab } from '@/services/serviceParametab'
 import { showError, showSuccess } from '@/utils/useToast'
 
@@ -29,7 +29,7 @@ const props = defineProps<{
   defaultLogoIcon: string
 }>()
 
-const { t } = useI18n()
+const { t } = i18n.global
 
 const m = (key: string): string => t(`detail-etab.${key}`)
 
