@@ -103,7 +103,7 @@ watch(
       }
       else {
         cropper = new Cropper(img.value, {
-          aspectRatio: 270 / 120,
+          aspectRatio: 9 / 4,
           viewMode: 2,
           background: false,
           zoomable: true,
@@ -128,7 +128,7 @@ function closeModal() {
 }
 
 function cropImage() {
-  cropper.getCroppedCanvas({ fillColor: '#fff', width: 270 * 1.5, height: 120 * 1.5 }).toBlob(async (blob: any) => {
+  cropper.getCroppedCanvas({ fillColor: '#fff', width: 720, height: 320 }).toBlob(async (blob: any) => {
     const formData = new FormData()
 
     // append DTO as JSON string
