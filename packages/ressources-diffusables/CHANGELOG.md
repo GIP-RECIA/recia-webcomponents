@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.2.0](https://github.com/GIP-RECIA/recia-webcomponents/compare/ui-ressources-gar/v3.1.0...ui-ressources-gar/v3.2.0) (2025-10-03)
+
+
+### Features
+
+* **ressources-diffusables:** add ress ([1fe357b](https://github.com/GIP-RECIA/recia-webcomponents/commit/1fe357bc3ec42ba6f006f940b0157f1c7cc1165c))
+* **ressources-diffusables:** improve rendering ([da6b072](https://github.com/GIP-RECIA/recia-webcomponents/commit/da6b072044942e31cc9a8b0309c848ae3750aeea))
+* **ressources-diffusables:** use ent style ([91ac8dc](https://github.com/GIP-RECIA/recia-webcomponents/commit/91ac8dce1b28540e538a3327983c19c4ad7c8e7c))
+
+
+### Bug Fixes
+
+* **ressources-diffusables:** font awesome icons ([038c7ee](https://github.com/GIP-RECIA/recia-webcomponents/commit/038c7ee6790f1986b461ccd9ceb3f0437a322c3b))
+* **ressources-diffusables:** missing shadows ([b340312](https://github.com/GIP-RECIA/recia-webcomponents/commit/b34031297824fcb9b2d3d3828c0f74802e0961a1))
+* **ressources-diffusables:** sass errors ([9f4e30d](https://github.com/GIP-RECIA/recia-webcomponents/commit/9f4e30d55b6cdc1b8aca180bab0c95d6d5006cd7))
+* **ressources-diffusables:** vite errors ([f4612e8](https://github.com/GIP-RECIA/recia-webcomponents/commit/f4612e87934f391412982fbf3a60096b646adc00))
+
 ## [3.1.0](https://github.com/GIP-RECIA/recia-webcomponents/compare/ui-ressources-gar/v3.0.0...ui-ressources-gar/v3.1.0) (2025-05-23)
 
 
