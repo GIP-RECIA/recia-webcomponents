@@ -39,7 +39,7 @@ watch(rechercheAvanceeActive, () => {
 </template>
 
 <style lang="scss">
-@import '@/assets/variables.scss';
+@use '@/assets/global.scss' as *;
 
 .cadre-toggle {
   display: flex;

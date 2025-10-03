@@ -177,6 +177,8 @@ function labelFromPaginationNumber(paginationNumber: PaginationNumber): string |
 </template>
 
 <style lang="scss">
+@use '@/assets/global.scss' as *;
+
 .pagination-button {
   @extend %tag-circle;
   border: none;

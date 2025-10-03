@@ -61,7 +61,7 @@ function goToPage(pageIndex: CustomEvent) {
 </template>
 
 <style lang="scss">
-@import '@/assets/variables.scss';
+@use '@/assets/global.scss' as *;
 
 .cadre-liste-ressources > div {
   margin-bottom: -$margin;

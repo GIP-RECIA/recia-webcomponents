@@ -15,5 +15,5 @@
  */
 @use 'ress/dist/ress.min.css';
 
-@use 'variables' as *;
-@use 'buttons';
+@forward 'variables';
+@forward 'buttons';

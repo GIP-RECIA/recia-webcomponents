@@ -203,7 +203,7 @@ function swapRechercheTypeToggle(rechercheInput: CustomEvent): void {
 </template>
 
 <style lang="scss">
-@import '@/assets/variables.scss';
+@use '@/assets/global.scss' as *;
 
 .cadre-page-ressource {
   display: flex;

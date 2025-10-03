@@ -71,7 +71,7 @@ const recommencerRecherche = debounce(
 </template>
 
 <style lang="scss">
-@import '@/assets/variables.scss';
+@use '@/assets/global.scss' as *;
 
 .cadre-recherche-ressource {
   display: flex;

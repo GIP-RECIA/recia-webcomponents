@@ -124,7 +124,7 @@ ${t('carte-ressource.editeur')}: ${props.ressource.editeur.nom}`
 </template>
 
 <style lang="scss">
-@import '@/assets/variables.scss';
+@use '@/assets/global.scss' as *;
 
 .cadre-carte-ressource {
   text-align: left;
