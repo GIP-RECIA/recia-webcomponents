@@ -35,7 +35,6 @@ export default ({ mode }: ConfigEnv) => {
           compilerOptions: {
             isCustomElement: tag => [
               'detail-etab',
-              'i18n-host',
               'image-cropper',
               'list-etab',
               'param-etab',
