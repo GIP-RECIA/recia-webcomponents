@@ -14,16 +14,25 @@
  * limitations under the License.
  */
 
-import App from '@/App.vue'
 import { register as registerCustomElements } from '@/ce'
 import { register as registerFontAwsome } from '@/plugins/fontawesome'
-import i18n from '@/plugins/i18n'
-import { createApp } from 'vue'
 import 'regenerator-runtime/runtime.js'
-
-const app = createApp(App)
 
 registerCustomElements()
 registerFontAwsome()
 
-app.use(i18n)
+if (import.meta.env.DEV) {
+  const {
+    VITE_BASE_API_URL,
+    VITE_RESSOURCES_DIFFUSABLES_API_URI,
+    VITE_USER_INFO_API_URI,
+    VITE_RESOURCES_PER_PAGE_DEFAULT,
+  } = import.meta.env
+
+  const component = document.createElement('ui-ressources-gar')
+  component.setAttribute('base-api-url', VITE_BASE_API_URL)
+  component.setAttribute('ressources-diffusables-api-uri', VITE_RESSOURCES_DIFFUSABLES_API_URI)
+  component.setAttribute('user-info-api-url', VITE_USER_INFO_API_URI)
+  component.setAttribute('resources-per-page-default', VITE_RESOURCES_PER_PAGE_DEFAULT)
+  document.body.appendChild(component)
+}
