@@ -83,7 +83,7 @@ function pagesSet(): Array<PaginationNumber> {
 
 function classArrayForPaginationNumber(paginationNumber: PaginationNumber): string[] {
   const classArray = []
-  classArray.push('pagination-button')
+  classArray.push('tag circle')
   if (paginationNumber.pageNumber === props.currentPageIndexHumanReadable) {
     classArray.push('active')
   }
@@ -176,24 +176,7 @@ function labelFromPaginationNumber(paginationNumber: PaginationNumber): string |
 </template>
 
 <style lang="scss">
-@use '@/assets/global.scss' as *;
-
-.pagination-button {
-  @extend %tag-circle;
-  border: none;
-  background-color: transparent;
-
-  font-size: 12px;
-  height: 40px;
-  width: 40px;
-  text-decoration: none;
-  &:hover {
-    text-decoration: none;
-  }
-  &:active {
-    text-decoration: none;
-  }
-}
+@use '@/assets/main.scss' as *;
 
 button {
   height: 25px;

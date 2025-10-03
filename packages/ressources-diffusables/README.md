@@ -3,8 +3,6 @@
 - [ui-ressouces-gar](#ui-ressouces-gar)
   - [Installation](#installation)
   - [Paramètres](#paramètres)
-  - [Variables CSS](#variables-css)
-    - [Modification de style](#modification-de-style)
 
 ## Installation
 
@@ -56,16 +54,3 @@ Propriétés disponibles :
   user-info-api-url=""
 />
 ```
-
-## Variables CSS
-
-### Modification de style
-
-Plusieurs variables CSS peuvent être définis pour personnaliser le webcomponent :
-
-| Nom                                        | Description                              |
-| ------------------------------------------ | ---------------------------------------- |
-| `--ui-ressources-gar-button-border-radius` | Permet de modifier le radius des boutons |
-| `--ui-ressources-gar-card-border-radius`   | Permet de modifier le radius des cartes  |
-| `--ui-ressources-gar-margin`               | Permet de modifier le margin global      |
-| `--ui-ressources-gar-padding`              | Permet de modifier le padding global     |

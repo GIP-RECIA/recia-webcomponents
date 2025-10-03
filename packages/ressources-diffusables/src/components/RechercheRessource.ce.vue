@@ -157,15 +157,15 @@ const recommencerRechercheAvancee = debounce(
 </template>
 
 <style lang="scss">
-@use '@/assets/global.scss' as *;
+@use '@/assets/main.scss' as *;
 
 .cadre {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: $padding;
+  padding: 16px;
   background-color: $body-bg;
-  border-radius: $card-border-radius;
+  border-radius: 10px;
   box-shadow: $shadow-neutral;
   margin-bottom: 24px;
 }
@@ -175,7 +175,7 @@ const recommencerRechercheAvancee = debounce(
   flex-direction: row;
   justify-content: flex-start;
   align-items: top;
-  margin-bottom: $margin;
+  margin-bottom: 16px;
 }
 
 .toggle-checkbox {
@@ -188,31 +188,31 @@ const recommencerRechercheAvancee = debounce(
 .input-recherche-ressource {
   display: flex;
   flex-direction: row;
-  margin-bottom: $margin;
+  margin-bottom: 16px;
 }
 
 .champ-recherche-ressource {
   box-sizing: border-box;
   width: 100%;
-  padding: 0 $recherche-ressource-padding 0 $recherche-ressource-padding;
+  padding: 0 8px 0 8px;
   font-size: small;
   font-weight: bold;
   outline: none;
   border: thin solid $stroke;
   border-right: none;
-  border-radius: $button-border-radius 0 0 $button-border-radius;
+  border-radius: 8px 0 0 8px;
 }
 
 .reinitialiser-recherche-ressource {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: $recherche-ressource-padding;
+  padding: 8px;
   background-color: transparent;
   color: $body-color;
   border: thin solid $stroke;
   border-left: none;
-  border-radius: 0 $button-border-radius $button-border-radius 0;
+  border-radius: 0 8px 8px 0;
   border-color: $stroke;
   cursor: pointer;
 }

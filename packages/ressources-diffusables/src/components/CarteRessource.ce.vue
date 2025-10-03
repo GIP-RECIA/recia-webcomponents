@@ -113,10 +113,10 @@ ${t('carte-ressource.editeur')}: ${props.ressource.editeur.nom}`
       </li>
     </ul>
     <div class="boutons-carte-ressource">
-      <button class="primary" @click="afficherPlusInfos">
+      <button class="btn-primary small" @click="afficherPlusInfos">
         {{ plusInfos ? t('carte-ressource.moins-informations') : t('carte-ressource.plus-informations') }}
       </button>
-      <button :class="[isSuccess ? 'success' : '']" class="secondary" @click="copierReferences">
+      <button :class="[isSuccess ? 'success' : '']" class="btn-secondary small" @click="copierReferences">
         {{ t(isSuccess ? 'carte-ressource.contenu-copie' : 'carte-ressource.copier-references') }}
       </button>
     </div>
@@ -124,27 +124,24 @@ ${t('carte-ressource.editeur')}: ${props.ressource.editeur.nom}`
 </template>
 
 <style lang="scss">
-@use '@/assets/global.scss' as *;
+@use '@/assets/main.scss' as *;
 
 .cadre-carte-ressource {
   text-align: left;
   background-color: $body-bg;
-  padding: $padding;
-  border-radius: $card-border-radius;
+  padding: 16px;
+  border-radius: 10px;
   box-shadow: $shadow-neutral;
 }
 
 .nom-ressource-carte-ressource {
-  margin-top: 0;
-  margin-bottom: $margin;
   color: $primary;
-  font-family: $font-title;
 }
 
 .liste-attributs-ressource-carte-ressource {
   list-style-type: none;
   padding: 0;
-  margin: 0 0 $margin 0;
+  margin-bottom: 16px;
 }
 
 .intitule-attribut-ressource-carte-ressource {
@@ -166,64 +163,23 @@ ${t('carte-ressource.editeur')}: ${props.ressource.editeur.nom}`
 
 .boutons-carte-ressource {
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
+  flex-direction: column;
+  gap: 16px;
 
-.boutons-carte-ressource > button {
-  min-width: min(200px, 45%);
-  padding: $button-padding;
-  font-size: small;
-  font-weight: bold;
-  border: none;
-  border-radius: $button-border-radius;
-  cursor: pointer;
-  max-width: 45%;
-  &.primary {
-    background-color: $btn-primary-bg;
-    color: $btn-primary-color;
-    &:hover {
-      background-color: $primary;
-    }
-
-    &:focus-visible {
-      background-color: $primary;
-      outline: 4px solid #0062bc4d;
-    }
-  }
-  &.secondary {
-    background-color: $btn-secondary-bg;
-    color: $btn-secondary-color;
-    &:hover {
-      background-color: $btn-secondary-hover;
-      color: $primary;
-      &.success {
-        background-color: $system-blue;
-        color: white;
-      }
-    }
-    &cadre-liste.success {
-      background-color: $system-blue;
-      color: white;
-    }
+  > button {
+    width: 100%;
+    font-size: var(--#{$prefix}font-size-xs) !important;
   }
 }
 
-.boutons-carte-ressource > button:not(:first-child) {
-  margin-left: calc($margin/2);
-}
-.boutons-carte-ressource > button:not(:last-child) {
-  margin-right: calc($margin/2);
-}
-
-.boutons-carte-ressource > button:disabled {
-  background-color: lightgray;
-  cursor: not-allowed;
-}
-
-@media (min-width: 768px) {
+@media (width >= 576px) {
   .boutons-carte-ressource {
+    flex-direction: row;
     justify-content: flex-end;
+
+    > button {
+      width: unset;
+    }
   }
 }
 </style>
