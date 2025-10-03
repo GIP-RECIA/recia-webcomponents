@@ -130,8 +130,6 @@ ${t('carte-ressource.editeur')}: ${props.ressource.editeur.nom}`
   text-align: left;
   background-color: $body-bg;
   padding: $padding;
-  margin: $margin;
-  margin-top: inherit;
   border-radius: $card-border-radius;
   box-shadow: $shadow-neutral;
 }

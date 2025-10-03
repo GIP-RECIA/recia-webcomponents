@@ -203,34 +203,18 @@ function swapRechercheTypeToggle(rechercheInput: CustomEvent): void {
   display: flex;
   flex-direction: column;
   height: 100%;
-}
 
-.main-page-ressource {
-  height: 100%;
-}
-
-.legende-ressource-page-ressource {
-  display: none;
-}
-
-@media (min-width: 1024px) {
-  .cadre-page-ressource {
+  @media (min-width: 1024px) {
     flex-direction: row;
-  }
+    gap: 16px;
 
-  .aside-page-ressource {
-    max-height: 100%;
-    min-width: 20%;
-    overflow-y: hidden;
-    margin-right: -$margin;
-  }
+    > .aside-page-ressource {
+      flex: 0 0 30%;
+    }
 
-  .main-page-ressource {
-    min-width: 80%;
-  }
-
-  .legende-ressource-page-ressource {
-    display: block;
+    > .main-page-ressource {
+      flex: 1 0;
+    }
   }
 }
 </style>

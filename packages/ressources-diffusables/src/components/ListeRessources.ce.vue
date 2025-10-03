@@ -63,30 +63,30 @@ function goToPage(pageIndex: CustomEvent) {
 <style lang="scss">
 @use '@/assets/global.scss' as *;
 
-.cadre-liste-ressources > div {
-  margin-bottom: -$margin;
-}
-
-.cadre-liste-ressources > footer {
-  text-align: center;
-}
-
-.chargement-liste-ressources {
-  font-size: x-large;
-  font-weight: bold;
-}
-
-@media (max-width: 1024px) {
-  .cadre-liste-ressources {
-    padding-top: 0;
+.cadre-liste-ressources {
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 32px;
   }
-}
 
-@media (min-width: 1024px) {
-  .cadre-liste-ressources {
-    height: calc(100% - 2 * $margin);
-    overflow-y: scroll;
-    padding-left: 0;
+  > footer {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    > .chargement-liste-ressources {
+      font-size: x-large;
+      font-weight: bold;
+    }
+  }
+
+  @media (width >= 768px) {
+    > div {
+      gap: 16px;
+      margin-bottom: 48px;
+    }
   }
 }
 </style>

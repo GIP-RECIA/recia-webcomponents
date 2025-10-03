@@ -165,10 +165,10 @@ const recommencerRechercheAvancee = debounce(
   flex-direction: column;
   justify-content: center;
   padding: $padding;
-  margin: $margin;
   background-color: $body-bg;
   border-radius: $card-border-radius;
   box-shadow: $shadow-neutral;
+  margin-bottom: 24px;
 }
 
 .toggle {
@@ -183,6 +183,7 @@ const recommencerRechercheAvancee = debounce(
   width: 1.5em;
   height: 1.5em;
   accent-color: $primary;
+  margin-left: 8px;
 }
 
 .input-recherche-ressource {
