@@ -16,12 +16,14 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { useI18n } from 'vue-i18n'
+import i18n from '@/plugins/i18n'
 
 const emit = defineEmits<{
   (event: 'swapRechercheTypeToggle', payload: boolean): void
 }>()
-const { t } = useI18n()
+
+const { t } = i18n.global
+
 const rechercheAvanceeActive = ref<boolean>(false)
 
 watch(rechercheAvanceeActive, () => {

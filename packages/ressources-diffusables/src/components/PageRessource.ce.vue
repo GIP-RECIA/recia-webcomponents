@@ -170,38 +170,36 @@ function swapRechercheTypeToggle(rechercheInput: CustomEvent): void {
 </script>
 
 <template>
-  <i18n-host>
-    <div class="cadre-page-ressource">
-      <aside class="aside-page-ressource">
-        <recherche-type-toggle @swap-recherche-type-toggle="swapRechercheTypeToggle" />
-        <recherche-ressource
-          v-show="!rechercheAvanceeActive"
-          :nombre-ressources-total="nombreRessourcesTotal"
-          :nombre-ressources-affichees="ressources.length"
-          @recommencer-recherche-input="recommencerRechercheInput"
-          @reinitialiser-recherche="reinitialiserRecherche"
-        />
-        <recherche-avancee-ressource
-          v-show="rechercheAvanceeActive"
-          :nombre-ressources-total="nombreRessourcesTotal"
-          :nombre-ressources-affichees="ressources.length"
-          @recommencer-recherche-avancee-input="recommencerRechercheAvanceeInput"
-          @reinitialiser-recherche-avancee="reinitialiserRechercheAvancee"
-        />
-      </aside>
-      <div class="main-page-ressource">
-        <liste-ressources
-          :ressources="ressources"
-          :erreur="erreur"
-          :lecture-terminee="lectureTerminee"
-          :chargement="chargement"
-          :last-page-index-human-readable="maxPagesCountFromObjectsCount()"
-          :current-page-index-human-readable="currentPageIndexHumanReadable"
-          @go-to-page="goToPage"
-        />
-      </div>
+  <div class="cadre-page-ressource">
+    <aside class="aside-page-ressource">
+      <recherche-type-toggle @swap-recherche-type-toggle="swapRechercheTypeToggle" />
+      <recherche-ressource
+        v-show="!rechercheAvanceeActive"
+        :nombre-ressources-total="nombreRessourcesTotal"
+        :nombre-ressources-affichees="ressources.length"
+        @recommencer-recherche-input="recommencerRechercheInput"
+        @reinitialiser-recherche="reinitialiserRecherche"
+      />
+      <recherche-avancee-ressource
+        v-show="rechercheAvanceeActive"
+        :nombre-ressources-total="nombreRessourcesTotal"
+        :nombre-ressources-affichees="ressources.length"
+        @recommencer-recherche-avancee-input="recommencerRechercheAvanceeInput"
+        @reinitialiser-recherche-avancee="reinitialiserRechercheAvancee"
+      />
+    </aside>
+    <div class="main-page-ressource">
+      <liste-ressources
+        :ressources="ressources"
+        :erreur="erreur"
+        :lecture-terminee="lectureTerminee"
+        :chargement="chargement"
+        :last-page-index-human-readable="maxPagesCountFromObjectsCount()"
+        :current-page-index-human-readable="currentPageIndexHumanReadable"
+        @go-to-page="goToPage"
+      />
     </div>
-  </i18n-host>
+  </div>
 </template>
 
 <style lang="scss">

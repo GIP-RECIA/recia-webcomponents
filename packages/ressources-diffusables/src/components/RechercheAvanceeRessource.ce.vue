@@ -15,11 +15,11 @@
 -->
 
 <script setup lang="ts">
-import { RechercheFilter } from '@/utils/RechercheFilter'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import debounce from 'lodash.debounce'
 import { ref } from 'vue'
-import { useI18n } from 'vue-i18n'
+import i18n from '@/plugins/i18n'
+import { RechercheFilter } from '@/utils/RechercheFilter'
 
 defineProps<{
   nombreRessourcesTotal: number
@@ -34,7 +34,7 @@ const emit = defineEmits<{
 const rechercheInputNomRessource = ref<string>('')
 const rechercheInputNomEditeur = ref<string>('')
 
-const { t } = useI18n()
+const { t } = i18n.global
 
 function reinitialiserRechercheAvancee(prop: string): void {
   switch (prop) {

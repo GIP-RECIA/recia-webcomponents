@@ -18,7 +18,7 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import debounce from 'lodash.debounce'
 import { ref } from 'vue'
-import { useI18n } from 'vue-i18n'
+import i18n from '@/plugins/i18n'
 
 defineProps<{
   nombreRessourcesTotal: number
@@ -32,7 +32,7 @@ const emit = defineEmits<{
 
 const rechercheInput = ref<string>('')
 
-const { t } = useI18n()
+const { t } = i18n.global
 
 function reinitialiserRecherche(): void {
   rechercheInput.value = ''

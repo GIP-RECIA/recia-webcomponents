@@ -19,7 +19,7 @@ import type { DistributeursCom } from '@/types/disctibuteurComType'
 import type { Ressource } from '@/types/ressourceType'
 import debounce from 'lodash.debounce'
 import { onMounted, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
+import i18n from '@/plugins/i18n'
 
 const props = defineProps<{
   ressource: Ressource
@@ -34,7 +34,7 @@ onMounted(() => {
   )
 })
 
-const { t } = useI18n()
+const { t } = i18n.global
 
 function afficherPlusInfos(): void {
   plusInfos.value = !plusInfos.value

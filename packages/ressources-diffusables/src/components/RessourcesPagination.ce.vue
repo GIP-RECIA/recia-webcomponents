@@ -15,10 +15,10 @@
 -->
 
 <script setup lang="ts">
-import { PaginationNumber } from '@/utils/PaginationNumber'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ref, watch } from 'vue'
-import { useI18n } from 'vue-i18n'
+import i18n from '@/plugins/i18n'
+import { PaginationNumber } from '@/utils/PaginationNumber'
 
 const props = defineProps<{
   lastPageIndexHumanReadable: number
@@ -27,7 +27,7 @@ const props = defineProps<{
 
 const emit = defineEmits<(event: 'goToPage', payload: number) => void>()
 
-const { t } = useI18n()
+const { t } = i18n.global
 
 function goToPage(item: PaginationNumber) {
   if (item.isPrevious) {
