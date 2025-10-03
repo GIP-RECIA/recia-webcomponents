@@ -1704,6 +1704,7 @@ __metadata:
     lodash.debounce: "npm:^4.0.8"
     npm-run-all2: "npm:^8.0.4"
     regenerator-runtime: "npm:^0.14.1"
+    ress: "npm:^5.0.2"
     sass: "npm:^1.93.2"
     terser: "npm:^5.44.0"
     typescript: "npm:^5.9.2"
@@ -10142,6 +10143,13 @@ __metadata:
   bin:
     resolve: bin/resolve
   checksum: 10/f345cd37f56a2c0275e3fe062517c650bb673815d885e7507566df589375d165bbbf4bdb6aa95600a9bc55f4744b81f452b5a63f95b9f10a72787dba3c90890a
+  languageName: node
+  linkType: hard
+
+"ress@npm:^5.0.2":
+  version: 5.0.2
+  resolution: "ress@npm:5.0.2"
+  checksum: 10/99e16b99cc6392b4c2373b6b4643b8de3b3cd36ab77d19efb0c285d60cc7072ae52fabc403a1a890d618e26ba66277675387898a5a5e4b885d75c4d04970174d
   languageName: node
   linkType: hard
 

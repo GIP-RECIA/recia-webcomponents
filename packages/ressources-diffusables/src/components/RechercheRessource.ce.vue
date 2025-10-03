@@ -93,7 +93,6 @@ const recommencerRecherche = debounce(
 .champ-recherche-ressource {
   box-sizing: border-box;
   width: 100%;
-  height: $input-height;
   padding: 0 $recherche-ressource-padding 0 $recherche-ressource-padding;
   font-size: small;
   font-weight: bold;
@@ -108,7 +107,6 @@ const recommencerRecherche = debounce(
   justify-content: center;
   align-items: center;
   width: $input-height;
-  height: $input-height;
   padding: $recherche-ressource-padding;
   background-color: transparent;
   color: $body-color;
