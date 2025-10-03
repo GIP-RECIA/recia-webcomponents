@@ -20,16 +20,12 @@ import ListeRessourcesSFC from '@/components/ListeRessources.ce.vue'
 import PageRessourceSFC from '@/components/PageRessource.ce.vue'
 import RechercheRessourceSFC from '@/components/RechercheRessource.ce.vue'
 import RessourcesPaginationSFC from '@/components/RessourcesPagination.ce.vue'
-import RechercheAvanceeRessourceSFC from './components/RechercheAvanceeRessource.ce.vue'
-import RechercheTypeToggleSFC from './components/RechercheTypeToggle.ce.vue'
 
 const CarteRessource = defineCustomElement(CarteRessourceSFC)
 const ListeRessources = defineCustomElement(ListeRessourcesSFC)
 const PageRessource = defineCustomElement(PageRessourceSFC)
 const RessourcesPagination = defineCustomElement(RessourcesPaginationSFC)
 const RechercheRessource = defineCustomElement(RechercheRessourceSFC)
-const RechercheAvanceeRessource = defineCustomElement(RechercheAvanceeRessourceSFC)
-const RechercheTypeToggle = defineCustomElement(RechercheTypeToggleSFC)
 
 declare module 'vue' {
   export interface GlobalComponents {
@@ -38,8 +34,6 @@ declare module 'vue' {
     PageRessource: typeof PageRessource
     RessourcesPagination: typeof RessourcesPagination
     RechercheRessource: typeof RechercheRessource
-    RechercheAvanceeRessource: typeof RechercheAvanceeRessource
-    RechercheTypeToggle: typeof RechercheTypeToggle
   }
 }
 
@@ -49,17 +43,13 @@ function register() {
   customElements.define('ui-ressources-gar', PageRessource)
   customElements.define('ressources-pagination', RessourcesPagination)
   customElements.define('recherche-ressource', RechercheRessource)
-  customElements.define('recherche-avancee-ressource', RechercheAvanceeRessource)
-  customElements.define('recherche-type-toggle', RechercheTypeToggle)
 }
 
 export {
   CarteRessource,
   ListeRessources,
   PageRessource,
-  RechercheAvanceeRessource,
   RechercheRessource,
-  RechercheTypeToggle,
   register,
   RessourcesPagination,
 }

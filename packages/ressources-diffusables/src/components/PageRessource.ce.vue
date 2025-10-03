@@ -172,20 +172,14 @@ function swapRechercheTypeToggle(rechercheInput: CustomEvent): void {
 <template>
   <div class="cadre-page-ressource">
     <aside class="aside-page-ressource">
-      <recherche-type-toggle @swap-recherche-type-toggle="swapRechercheTypeToggle" />
       <recherche-ressource
-        v-show="!rechercheAvanceeActive"
         :nombre-ressources-total="nombreRessourcesTotal"
         :nombre-ressources-affichees="ressources.length"
         @recommencer-recherche-input="recommencerRechercheInput"
         @reinitialiser-recherche="reinitialiserRecherche"
-      />
-      <recherche-avancee-ressource
-        v-show="rechercheAvanceeActive"
-        :nombre-ressources-total="nombreRessourcesTotal"
-        :nombre-ressources-affichees="ressources.length"
         @recommencer-recherche-avancee-input="recommencerRechercheAvanceeInput"
         @reinitialiser-recherche-avancee="reinitialiserRechercheAvancee"
+        @swap-recherche-type-toggle="swapRechercheTypeToggle"
       />
     </aside>
     <div class="main-page-ressource">
