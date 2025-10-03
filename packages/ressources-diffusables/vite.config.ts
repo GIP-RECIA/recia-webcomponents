@@ -34,10 +34,11 @@ export default ({ mode }: ConfigEnv) => {
           compilerOptions: {
             isCustomElement: tag => [
               'carte-ressource',
-              'ui-ressources-gar',
+              'font-awesome-icon',
               'liste-ressources',
               'recherche-ressource',
               'ressources-pagination',
+              'ui-ressources-gar',
             ].includes(tag),
           },
         },

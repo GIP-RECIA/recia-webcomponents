@@ -15,7 +15,6 @@
 -->
 
 <script setup lang="ts">
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import debounce from 'lodash.debounce'
 import { ref, watch } from 'vue'
 import i18n from '@/plugins/i18n'
@@ -105,7 +104,7 @@ const recommencerRechercheAvancee = debounce(
         :disabled="rechercheInput.length === 0"
         @click="reinitialiserRecherche"
       >
-        <FontAwesomeIcon :icon="['fa', 'xmark']" />
+        <font-awesome-icon icon="fa-solid fa-xmark" />
       </button>
     </div>
 
@@ -126,7 +125,7 @@ const recommencerRechercheAvancee = debounce(
           :disabled="rechercheInputNomRessource.length === 0"
           @click="reinitialiserRechercheAvancee('nomRessource')"
         >
-          <FontAwesomeIcon :icon="['fa', 'xmark']" />
+          <font-awesome-icon icon="fa-solid fa-xmark" />
         </button>
       </div>
       <label for="recherche-nom-editeur">{{ t('recherche-ressource.recherche-editeur') }}</label>
@@ -145,7 +144,7 @@ const recommencerRechercheAvancee = debounce(
           :disabled="rechercheInputNomEditeur.length === 0"
           @click="reinitialiserRechercheAvancee('nomEditeur')"
         >
-          <FontAwesomeIcon :icon="['fa', 'xmark']" />
+          <font-awesome-icon icon="fa-solid fa-xmark" />
         </button>
       </div>
     </div>
@@ -208,7 +207,6 @@ const recommencerRechercheAvancee = debounce(
   display: flex;
   justify-content: center;
   align-items: center;
-  width: $input-height;
   padding: $recherche-ressource-padding;
   background-color: transparent;
   color: $body-color;

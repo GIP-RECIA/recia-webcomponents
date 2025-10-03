@@ -15,7 +15,6 @@
 -->
 
 <script setup lang="ts">
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ref, watch } from 'vue'
 import i18n from '@/plugins/i18n'
 import { PaginationNumber } from '@/utils/PaginationNumber'
@@ -159,13 +158,13 @@ function labelFromPaginationNumber(paginationNumber: PaginationNumber): string |
           @click="goToPage(item)"
         >
           <span v-if="item.isEllipsisDots">
-            <FontAwesomeIcon :icon="['fa', 'ellipsis-h']" class="pagination-icon" />
+            <font-awesome-icon :icon="['fa', 'ellipsis-h']" class="pagination-icon" />
           </span>
           <span v-else-if="item.isPrevious">
-            <FontAwesomeIcon :icon="['fa', 'angle-left']" class="pagination-icon" />
+            <font-awesome-icon :icon="['fa', 'angle-left']" class="pagination-icon" />
           </span>
           <span v-else-if="item.isNext">
-            <FontAwesomeIcon :icon="['fa', 'angle-right']" class="pagination-icon" />
+            <font-awesome-icon :icon="['fa', 'angle-right']" class="pagination-icon" />
           </span>
           <span v-else>
             {{ item.pageNumber }}

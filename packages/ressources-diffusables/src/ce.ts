@@ -16,12 +16,14 @@
 
 import { defineCustomElement } from 'vue'
 import CarteRessourceSFC from '@/components/CarteRessource.ce.vue'
+import FontAwesomeIconSFC from '@/components/FontAwsomeIcon.ce.vue'
 import ListeRessourcesSFC from '@/components/ListeRessources.ce.vue'
 import PageRessourceSFC from '@/components/PageRessource.ce.vue'
 import RechercheRessourceSFC from '@/components/RechercheRessource.ce.vue'
 import RessourcesPaginationSFC from '@/components/RessourcesPagination.ce.vue'
 
 const CarteRessource = defineCustomElement(CarteRessourceSFC)
+const FontAwesomeIcon = defineCustomElement(FontAwesomeIconSFC)
 const ListeRessources = defineCustomElement(ListeRessourcesSFC)
 const PageRessource = defineCustomElement(PageRessourceSFC)
 const RessourcesPagination = defineCustomElement(RessourcesPaginationSFC)
@@ -30,6 +32,7 @@ const RechercheRessource = defineCustomElement(RechercheRessourceSFC)
 declare module 'vue' {
   export interface GlobalComponents {
     CarteRessource: typeof CarteRessource
+    FontAwesomeIcon: typeof FontAwesomeIcon
     ListeRessources: typeof ListeRessources
     PageRessource: typeof PageRessource
     RessourcesPagination: typeof RessourcesPagination
@@ -39,6 +42,7 @@ declare module 'vue' {
 
 function register() {
   customElements.define('carte-ressource', CarteRessource)
+  customElements.define('font-awesome-icon', FontAwesomeIcon)
   customElements.define('liste-ressources', ListeRessources)
   customElements.define('ui-ressources-gar', PageRessource)
   customElements.define('ressources-pagination', RessourcesPagination)
@@ -47,6 +51,7 @@ function register() {
 
 export {
   CarteRessource,
+  FontAwesomeIcon,
   ListeRessources,
   PageRessource,
   RechercheRessource,
