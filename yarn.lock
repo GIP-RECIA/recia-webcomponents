@@ -1512,7 +1512,7 @@ __metadata:
     sass: "npm:^1.93.2"
     terser: "npm:^5.44.0"
     typescript: "npm:^5.9.3"
-    vite: "npm:^7.1.7"
+    vite: "npm:^7.1.9"
     vite-plugin-css-injected-by-js: "npm:^3.5.2"
     vue: "npm:^3.5.22"
     vue-i18n: "npm:^11.1.12"
@@ -1544,7 +1544,7 @@ __metadata:
     sass: "npm:^1.93.2"
     terser: "npm:^5.44.0"
     typescript: "npm:^5.9.3"
-    vite: "npm:^7.1.7"
+    vite: "npm:^7.1.9"
     vite-plugin-sass: "npm:^0.1.0"
   languageName: unknown
   linkType: soft
@@ -1581,7 +1581,7 @@ __metadata:
     sass: "npm:^1.93.2"
     terser: "npm:^5.44.0"
     typescript: "npm:^5.9.3"
-    vite: "npm:^7.1.7"
+    vite: "npm:^7.1.9"
     vue: "npm:^3.5.22"
     vue-i18n: "npm:^11.1.12"
     vue-tsc: "npm:^2.2.10"
@@ -1614,7 +1614,7 @@ __metadata:
     sass: "npm:^1.93.2"
     terser: "npm:^5.44.0"
     typescript: "npm:^5.9.3"
-    vite: "npm:^7.1.7"
+    vite: "npm:^7.1.9"
     vite-plugin-css-injected-by-js: "npm:^3.5.2"
     vue: "npm:^3.5.22"
     vue-i18n: "npm:^11.1.12"
@@ -1693,7 +1693,7 @@ __metadata:
     sass: "npm:^1.93.2"
     terser: "npm:^5.44.0"
     typescript: "npm:^5.9.3"
-    vite: "npm:^7.1.7"
+    vite: "npm:^7.1.9"
     vite-plugin-css-injected-by-js: "npm:^3.5.2"
     y-presence: "npm:^0.2.3"
     y-websocket: "npm:^3.0.0"
@@ -1729,7 +1729,7 @@ __metadata:
     sass: "npm:^1.93.2"
     terser: "npm:^5.44.0"
     typescript: "npm:^5.9.3"
-    vite: "npm:^7.1.7"
+    vite: "npm:^7.1.9"
     vue: "npm:^3.5.22"
     vue-i18n: "npm:^11.1.12"
     vue-tsc: "npm:^2.2.10"
@@ -1820,7 +1820,7 @@ __metadata:
     sass: "npm:^1.93.2"
     terser: "npm:^5.44.0"
     typescript: "npm:^5.9.3"
-    vite: "npm:^7.1.7"
+    vite: "npm:^7.1.9"
     y-presence: "npm:^0.2.3"
     y-websocket: "npm:^3.0.0"
     yjs: "npm:^13.6.27"
@@ -11363,9 +11363,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^7.1.7":
-  version: 7.1.7
-  resolution: "vite@npm:7.1.7"
+"vite@npm:^7.1.9":
+  version: 7.1.9
+  resolution: "vite@npm:7.1.9"
   dependencies:
     esbuild: "npm:^0.25.0"
     fdir: "npm:^6.5.0"
@@ -11414,7 +11414,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10/824703387717e1c90fac2e263021bf8ed5cddd5ac14f8c6ee80e54f8351be579869950438accb6daeb1e238f2108fddbadf98ec3cf8b0442f1fd8a25fb0ecab3
+  checksum: 10/361b8dfea414233927761fdb63ec38c2cc4630007efc33a7a02ef9a5c033552c41b2e95f7fcc9acf427da5a3cf194d62dc5f0853bc31e940a13528d0fb180132
   languageName: node
   linkType: hard
 
