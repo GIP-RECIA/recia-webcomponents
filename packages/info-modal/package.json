@@ -51,7 +51,7 @@
     "lit-analyzer": "^2.0.3",
     "lit-scss-loader": "^2.0.1",
     "sass": "^1.93.3",
-    "terser": "^5.44.0",
+    "terser": "^5.44.1",
     "typescript": "^5.9.3",
     "vite": "^7.1.12",
     "vite-plugin-sass": "^0.1.0"
