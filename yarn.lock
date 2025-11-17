@@ -1489,7 +1489,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.2"
     "@fortawesome/vue-fontawesome": "npm:^3.1.2"
     "@intlify/unplugin-vue-i18n": "npm:^11.0.1"
-    "@tsconfig/node22": "npm:^22.0.2"
+    "@tsconfig/node22": "npm:^22.0.4"
     "@types/lodash.debounce": "npm:^4"
     "@types/lodash.throttle": "npm:^4"
     "@types/node": "npm:^24"
@@ -1531,7 +1531,7 @@ __metadata:
     "@antfu/eslint-config": "npm:^6.2.0"
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.2"
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.2"
-    "@tsconfig/node22": "npm:^22.0.2"
+    "@tsconfig/node22": "npm:^22.0.4"
     "@types/node": "npm:^24"
     eslint: "npm:^9.39.1"
     eslint-plugin-format: "npm:^1.0.2"
@@ -1557,7 +1557,7 @@ __metadata:
     "@fortawesome/vue-fontawesome": "npm:^3.1.2"
     "@gip-recia/info-modal": "npm:^0.0.1"
     "@intlify/unplugin-vue-i18n": "npm:^11.0.1"
-    "@tsconfig/node22": "npm:^22.0.2"
+    "@tsconfig/node22": "npm:^22.0.4"
     "@types/lodash.debounce": "npm:^4"
     "@types/node": "npm:^24"
     "@types/regenerator-runtime": "npm:^0"
@@ -1594,7 +1594,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.2"
     "@fortawesome/vue-fontawesome": "npm:^3.1.2"
     "@intlify/unplugin-vue-i18n": "npm:^11.0.1"
-    "@tsconfig/node22": "npm:^22.0.2"
+    "@tsconfig/node22": "npm:^22.0.4"
     "@types/node": "npm:^24"
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
@@ -1707,7 +1707,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.2"
     "@fortawesome/vue-fontawesome": "npm:^3.1.2"
     "@intlify/unplugin-vue-i18n": "npm:^11.0.1"
-    "@tsconfig/node22": "npm:^22.0.2"
+    "@tsconfig/node22": "npm:^22.0.4"
     "@types/lodash.debounce": "npm:^4"
     "@types/node": "npm:^24"
     "@types/regenerator-runtime": "npm:^0"
@@ -3563,10 +3563,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tsconfig/node22@npm:^22.0.2":
-  version: 22.0.2
-  resolution: "@tsconfig/node22@npm:22.0.2"
-  checksum: 10/b9fb6543856cbac8b9b79c234bbefa3415f083e0a46e6f0fbe418fe21c5d086440222e1383258d75ebac951cbe17564a6d146fafc59c889d6302decd1a7880dd
+"@tsconfig/node22@npm:^22.0.4":
+  version: 22.0.4
+  resolution: "@tsconfig/node22@npm:22.0.4"
+  checksum: 10/03b6fa0fc8ad505988b23a0cada5130e26b5f927c5adcb76ab2da3ba6bd52ea7960edbd97feeb422cb646e9bb78f70a67c0cb0cb06793c2c1e4069da00bc6f21
   languageName: node
   linkType: hard
 
