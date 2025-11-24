@@ -15,5 +15,5 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.2.6"
   },
-  "packageManager": "yarn@4.11.0"
+  "packageManager": "yarn@4.12.0"
 }
