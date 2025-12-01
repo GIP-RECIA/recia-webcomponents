@@ -1400,13 +1400,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/react-fontawesome@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "@fortawesome/react-fontawesome@npm:3.1.0"
+"@fortawesome/react-fontawesome@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "@fortawesome/react-fontawesome@npm:3.1.1"
   peerDependencies:
     "@fortawesome/fontawesome-svg-core": ~6 || ~7
     react: ^18.0.0 || ^19.0.0
-  checksum: 10/3f7f1f77210f5b677ee5c2b11f2eb9afc2974a7c923745ce409ee0785a6f459f341db8666043e499d8a01870c8e4d59befdce44e8adc953d2322f1612b38522e
+  checksum: 10/23f39153719933b58010d52b1c3bc91bf1bb4b925a6c62f97c94fb08b33dba18f1203aabca287b14bf6f35b78bfb3264ff29ae9e79b35e4ae5390a15ea02d0a7
   languageName: node
   linkType: hard
 
@@ -1605,7 +1605,7 @@ __metadata:
     "@eslint-react/eslint-plugin": "npm:^1.53.1"
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.2"
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.2"
-    "@fortawesome/react-fontawesome": "npm:^3.1.0"
+    "@fortawesome/react-fontawesome": "npm:^3.1.1"
     "@gip-recia/tldraw-v1": "npm:^1.29.2-recia-1.0.0"
     "@r2wc/react-to-web-component": "npm:^2.1.0"
     "@types/lodash.debounce": "npm:^4"
@@ -1734,7 +1734,7 @@ __metadata:
     "@eslint-react/eslint-plugin": "npm:^1.53.1"
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.2"
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.2"
-    "@fortawesome/react-fontawesome": "npm:^3.1.0"
+    "@fortawesome/react-fontawesome": "npm:^3.1.1"
     "@gip-recia/wisemapping-editor": "npm:6.0.0-recia-1.0.2405231"
     "@r2wc/react-to-web-component": "npm:^2.1.0"
     "@types/lodash.throttle": "npm:^4"
