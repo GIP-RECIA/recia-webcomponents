@@ -13,7 +13,7 @@
     "@commitlint/config-conventional": "^20.0.0",
     "commit-and-tag-version": "^12.6.1",
     "husky": "^9.1.7",
-    "lint-staged": "^16.2.6"
+    "lint-staged": "^16.2.7"
   },
   "packageManager": "yarn@4.12.0"
 }
