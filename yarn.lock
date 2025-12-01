@@ -1512,7 +1512,7 @@ __metadata:
     vite: "npm:^7.2.2"
     vite-plugin-css-injected-by-js: "npm:^3.5.2"
     vue: "npm:^3.5.24"
-    vue-i18n: "npm:^11.1.12"
+    vue-i18n: "npm:^11.2.2"
     vue-tsc: "npm:^2.2.10"
   languageName: unknown
   linkType: soft
@@ -1580,7 +1580,7 @@ __metadata:
     typescript: "npm:^5.9.3"
     vite: "npm:^7.2.2"
     vue: "npm:^3.5.24"
-    vue-i18n: "npm:^11.1.12"
+    vue-i18n: "npm:^11.2.2"
     vue-tsc: "npm:^2.2.10"
   languageName: unknown
   linkType: soft
@@ -1614,7 +1614,7 @@ __metadata:
     vite: "npm:^7.2.2"
     vite-plugin-css-injected-by-js: "npm:^3.5.2"
     vue: "npm:^3.5.24"
-    vue-i18n: "npm:^11.1.12"
+    vue-i18n: "npm:^11.2.2"
     vue-tsc: "npm:^2.2.10"
     vue3-toastify: "npm:^0.2.8"
     vuejs-clipper: "npm:^4.1.0"
@@ -1728,7 +1728,7 @@ __metadata:
     typescript: "npm:^5.9.3"
     vite: "npm:^7.2.2"
     vue: "npm:^3.5.24"
-    vue-i18n: "npm:^11.1.12"
+    vue-i18n: "npm:^11.2.2"
     vue-tsc: "npm:^2.2.10"
   languageName: unknown
   linkType: soft
@@ -1910,13 +1910,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@intlify/core-base@npm:11.1.12":
-  version: 11.1.12
-  resolution: "@intlify/core-base@npm:11.1.12"
+"@intlify/core-base@npm:11.2.2":
+  version: 11.2.2
+  resolution: "@intlify/core-base@npm:11.2.2"
   dependencies:
-    "@intlify/message-compiler": "npm:11.1.12"
-    "@intlify/shared": "npm:11.1.12"
-  checksum: 10/f26c9d25d558aa4f90cdbac81b462431474247d0d7c0701517f843040b179f061a7c0b5f1be51af7a59457410b4b8e9c6287b395980e9db784ba610ff99195b5
+    "@intlify/message-compiler": "npm:11.2.2"
+    "@intlify/shared": "npm:11.2.2"
+  checksum: 10/b9652ddaccb37feaff75c31a0016cb11e5521035dba1b8d93ee5ddad31145d259380908b927ccb1a91d0acb65143e819dc52c4a60e2b59311c78e9e3ea8b3398
   languageName: node
   linkType: hard
 
@@ -1930,7 +1930,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@intlify/message-compiler@npm:11.1.12, @intlify/message-compiler@npm:^11.1.10":
+"@intlify/message-compiler@npm:11.2.2":
+  version: 11.2.2
+  resolution: "@intlify/message-compiler@npm:11.2.2"
+  dependencies:
+    "@intlify/shared": "npm:11.2.2"
+    source-map-js: "npm:^1.0.2"
+  checksum: 10/ffa1ee37f87e397ca2d59cd6b3382d057cad804501f2c8482ddbeadc2669dfd621d65aee640d1638fbe3802f8815518d962b5c5f42c3b533ee0bf8b317d42143
+  languageName: node
+  linkType: hard
+
+"@intlify/message-compiler@npm:^11.1.10":
   version: 11.1.12
   resolution: "@intlify/message-compiler@npm:11.1.12"
   dependencies:
@@ -1951,6 +1961,13 @@ __metadata:
   version: 11.1.12
   resolution: "@intlify/shared@npm:11.1.12"
   checksum: 10/121fdef6a1f020c1bd5a838ad9d406b87b3b3455f8ad00ffb59f06c2fee70d0ce0b94d9552fb130e543b33e98a1a5e268583795e2e351e55408031da59c5d515
+  languageName: node
+  linkType: hard
+
+"@intlify/shared@npm:11.2.2":
+  version: 11.2.2
+  resolution: "@intlify/shared@npm:11.2.2"
+  checksum: 10/d0b91472fc8ecd96509c25633f9cc51c2a009221a3cdd183e8e41a78a00c70ae3095fc8b5c1323dd1a8b3214172433e38946389f6c3a89f61fbaa12a6b950d7d
   languageName: node
   linkType: hard
 
@@ -11538,16 +11555,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-i18n@npm:^11.1.12":
-  version: 11.1.12
-  resolution: "vue-i18n@npm:11.1.12"
+"vue-i18n@npm:^11.2.2":
+  version: 11.2.2
+  resolution: "vue-i18n@npm:11.2.2"
   dependencies:
-    "@intlify/core-base": "npm:11.1.12"
-    "@intlify/shared": "npm:11.1.12"
+    "@intlify/core-base": "npm:11.2.2"
+    "@intlify/shared": "npm:11.2.2"
     "@vue/devtools-api": "npm:^6.5.0"
   peerDependencies:
     vue: ^3.0.0
-  checksum: 10/c77b19dc5aa01e24ddfcf53960002f4d621b5f36258926dbc4f499afb5b52a85b3580ab26d9bc8a4292dda6ba19e186b56fc5ee70459e9f3ea33f326c057026e
+  checksum: 10/e7562df7951546b1e383a807148ce21cd0630731fae8c9398edc3694f5e5b0c7907c20ebbbf129e19432eb2d9242343242c1899321cbd923f158f2492494c06a
   languageName: node
   linkType: hard
 
