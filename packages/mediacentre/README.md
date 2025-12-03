@@ -48,7 +48,6 @@ mediacentre-ui:
 | `user-rights-api-url`             | `string` |    `non`    |         | URL de l'API des droits utilisateurs.                                                                      |
 | `get-user-favorite-resources-url` | `string` |    `non`    |         | URL de l'API pour récupèrer la liste des identifiants des ressources favorites de l'utilisateur.           |
 | `put-user-favorite-resources-url` | `string` |    `non`    |         | URL de l'API pour modifier la liste des identifiants des ressources favorites de l'utilisateur.            |
-| `fname-mediacentre-ui`            | `string` |    `non`    |         | Fname de la portlet du Mediacentre-UI (utilisé pour la gestion des ressources favorites de l'utilisateur). |
 | `uai-current`                     | `string` |    `non`    |         | Clé de la soffit pour obtenir la valeur de l'UAI de l'établissement courant.                               |
 | `uai`                             | `string` |    `non`    |         | Clé de la soffit pour obtenir la valeur de la liste des UAI des établissements de l'utilisateur.           |
 | `help-location`                   | `string` |    `non`    |         | URL de la page d'aide du Médiacentre.                                                                      |
@@ -65,7 +64,6 @@ mediacentre-redirect:
 | `user-rights-api-url`             | `string` |    `non`    |         | URL de l'API des droits utilisateurs.                                                                      |
 | `get-user-favorite-resources-url` | `string` |    `non`    |         | URL de l'API pour récupèrer la liste des identifiants des ressources favorites de l'utilisateur.           |
 | `put-user-favorite-resources-url` | `string` |    `non`    |         | URL de l'API pour modifier la liste des identifiants des ressources favorites de l'utilisateur.            |
-| `fname-mediacentre-ui`            | `string` |    `non`    |         | Fname de la portlet du Mediacentre-UI (utilisé pour la gestion des ressources favorites de l'utilisateur). |
 | `uai-current`                     | `string` |    `non`    |         | Clé de la soffit pour obtenir la valeur de l'UAI de l'établissement courant.                               |
 | `uai`                             | `string` |    `non`    |         | Clé de la soffit pour obtenir la valeur de la liste des UAI des établissements de l'utilisateur.           |
 | `help-location`                   | `string` |    `non`    |         | URL de la page d'aide du Médiacentre.                                                                      |
@@ -82,7 +80,6 @@ mediacentre-redirect:
   user-rights-api-url=""
   get-user-favorite-resources-url=""
   put-user-favorite-resources-url=""
-  fname-mediacentre-ui=""
 />
 ```
 

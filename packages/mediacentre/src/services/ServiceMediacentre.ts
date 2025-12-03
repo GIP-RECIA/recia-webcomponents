@@ -23,9 +23,9 @@ import { configMapUaiDisplayName } from '@/utils/store'
 let config: Array<ConfigType> = []
 let userGroups: Array<string>
 
-async function flushMediacentreFavorites(putUrl: string, fname: string) {
+async function flushMediacentreFavorites(putUrl: string) {
   try {
-    await instance.put(`${putUrl}${fname}`, { mediacentreFavorites: [] })
+    await instance.put(putUrl, { mediacentreFavorites: [] })
   }
   catch (e: any) {
     throw new CustomError(e.message, e.code)
@@ -160,9 +160,9 @@ async function getFilters(baseApiUrl: string) {
   }
 }
 
-async function getFavorites(getUserFavoriteResourcesUrl: string, fnameMediacentreUi: string) {
+async function getFavorites(getUserFavoriteResourcesUrl: string) {
   try {
-    const response = await instance.get(`${getUserFavoriteResourcesUrl}${fnameMediacentreUi}`)
+    const response = await instance.get(getUserFavoriteResourcesUrl)
     const data = response.data
     if (Object.keys(data).length === 0) {
       return new Array<string>()
@@ -174,7 +174,7 @@ async function getFavorites(getUserFavoriteResourcesUrl: string, fnameMediacentr
   }
 }
 
-async function putFavorites(putUserFavoriteResourcesUrl: string, idResource: string, isFavorite: boolean, resourceFavoriteIds: string[], fnameMediacentreUi: string) {
+async function putFavorites(putUserFavoriteResourcesUrl: string, idResource: string, isFavorite: boolean, resourceFavoriteIds: string[]) {
   try {
     let res: Array<string> = []
     if (isFavorite) {
@@ -184,7 +184,7 @@ async function putFavorites(putUserFavoriteResourcesUrl: string, idResource: str
       res = resourceFavoriteIds.filter(id => id !== idResource)
     }
 
-    const response = await instance.put(`${putUserFavoriteResourcesUrl}${fnameMediacentreUi}`, {
+    const response = await instance.put(putUserFavoriteResourcesUrl, {
       mediacentreFavorites: res,
     })
 

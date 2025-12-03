@@ -42,7 +42,6 @@ const props = withDefaults(
     userRightsApiUrl?: string
     getUserFavoriteResourcesUrl?: string
     putUserFavoriteResourcesUrl?: string
-    fnameMediacentreUi?: string
     uaiCurrent?: string
     uai?: string
     helpLocation?: string
@@ -57,7 +56,6 @@ const props = withDefaults(
     userRightsApiUrl: import.meta.env.VITE_APP_MEDIACENTRE_UPORTAL_CONTEXT + import.meta.env.VITE_APP_MEDIACENTRE_USER_RIGHTS_API_URI,
     getUserFavoriteResourcesUrl: import.meta.env.VITE_APP_MEDIACENTRE_UPORTAL_CONTEXT + import.meta.env.VITE_APP_MEDIACENTRE_USER_GET_USER_FAVORITE_RESOURCES_API_URI,
     putUserFavoriteResourcesUrl: import.meta.env.VITE_APP_MEDIACENTRE_UPORTAL_CONTEXT + import.meta.env.VITE_APP_MEDIACENTRE_USER_PUT_USER_FAVORITE_RESOURCES_API_URI,
-    fnameMediacentreUi: import.meta.env.VITE_APP_MEDIACENTRE_FNAME,
     uaiCurrent: import.meta.env.VITE_APP_MEDIACENTRE_CLAIM_UAI_CURRENT,
     uai: import.meta.env.VITE_APP_MEDIACENTRE_CLAIM_UAI,
     helpLocation: import.meta.env.VITE_APP_MEDIACENTRE_HELP_PAGE_LOCATION,
@@ -228,7 +226,7 @@ function updateFiltre(value: CustomEvent): void {
 
 async function setFavoris(): Promise<void> {
   try {
-    const resourceFavoriteIds = await getFavorites(props.getUserFavoriteResourcesUrl, props.fnameMediacentreUi)
+    const resourceFavoriteIds = await getFavorites(props.getUserFavoriteResourcesUrl)
     const resourceFavorites = resources.value.filter(res => resourceFavoriteIds.includes(res.idRessource))
     resourceFavorites.forEach(res => (res.isFavorite = true))
   }
@@ -244,13 +242,12 @@ async function updateFavori(event: CustomEvent) {
   const resourceFavorite = resourcesForSelectedEtab.value.find(res => res.idRessource === idResource)
   resourceFavorite!.isFavorite = isFavorite
   try {
-    const resourceFavoriteIds = await getFavorites(props.getUserFavoriteResourcesUrl, props.fnameMediacentreUi)
+    const resourceFavoriteIds = await getFavorites(props.getUserFavoriteResourcesUrl)
     await putFavorites(
       props.putUserFavoriteResourcesUrl,
       idResource,
       isFavorite,
       resourceFavoriteIds,
-      props.fnameMediacentreUi,
     )
   }
   catch (e: any) {
@@ -276,7 +273,7 @@ function openGestionModal(event: CustomEvent) {
 async function getFavoris(): Promise<void> {
   chargement.value = true
   try {
-    const idResourceFavorites = await getFavorites(props.getUserFavoriteResourcesUrl, props.fnameMediacentreUi)
+    const idResourceFavorites = await getFavorites(props.getUserFavoriteResourcesUrl)
     filteredResources.value = resourcesForSelectedEtab.value.filter(res => idResourceFavorites.includes(res.idRessource))
     filteredResources.value.forEach(res => (res.isFavorite = true))
   }
