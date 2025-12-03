@@ -49,11 +49,13 @@ watch(
 function cardClicked(): void {
   const eventDNMA: CustomEvent = new CustomEvent(
     props.dnmaEventName,
-    { detail:
+    {
+      detail:
       {
         fname: 'Mediacentre',
         SERVICE: props.ressource.typePresentation.code,
-      } },
+      },
+    },
   )
   document.dispatchEvent(eventDNMA)
 }
@@ -64,8 +66,8 @@ function openModal(event: Event): void {
       title: props.ressource.nomRessource,
       originalEvent: event.composedPath()[0] as HTMLElement,
     },
-    bubbles: true, // Permet à l'événement de remonter dans le DOM
-    composed: true, // Permet à l'événement de sortir du shadow DOM
+    bubbles: true,
+    composed: true,
   })
   document.dispatchEvent(openModalCustomEvent)
   emit(
@@ -94,7 +96,11 @@ function toggleFavoris(): void {
   >
     <div class="background-carte-ressource-mediacentre">
       <div class="action-zone-carte-ressource-mediacentre">
-        <button class="icone-bouton-carte-ressource-mediacentre" title="" @click.prevent.stop="toggleFavoris">
+        <button
+          class="icone-bouton-carte-ressource-mediacentre"
+          title=""
+          @click.prevent.stop="toggleFavoris"
+        >
           <FontAwesomeIcon
             class="icone-favorite-carte-ressource-mediacentre"
             :icon="[ressource.isFavorite ? 'fas' : 'far', 'star']"
@@ -102,7 +108,11 @@ function toggleFavoris(): void {
           />
         </button>
       </div>
-      <img v-if="props.ressource.urlVignette !== undefined && props.ressource.urlVignette.length > 0" class="resource-image" :src="props.ressource.urlVignette">
+      <img
+        v-if="props.ressource.urlVignette !== undefined && props.ressource.urlVignette.length > 0"
+        class="resource-image"
+        :src="props.ressource.urlVignette"
+      >
     </div>
     <div class="resource-name">
       <span>
@@ -116,7 +126,10 @@ function toggleFavoris(): void {
           aria-controls="modal"
           @click.prevent.stop="openModal"
         >
-          <FontAwesomeIcon class="icone-info-carte-ressource-mediacentre" :icon="['fas', 'circle-info']" />
+          <FontAwesomeIcon
+            class="icone-info-carte-ressource-mediacentre"
+            :icon="['fas', 'circle-info']"
+          />
         </button>
       </div>
     </div>
@@ -156,6 +169,7 @@ function toggleFavoris(): void {
       justify-content: end;
       width: calc(100% - 1.5em);
     }
+
     .resource-image {
       width: 100%;
       height: 100%;
@@ -198,6 +212,7 @@ function toggleFavoris(): void {
   color: gray;
   cursor: pointer;
   opacity: 0.5;
+
   &:hover {
     opacity: 1;
   }
@@ -207,10 +222,12 @@ function toggleFavoris(): void {
     height: 1.5em;
     margin: 0.5em;
   }
+
   .icone-favorite-carte-ressource-mediacentre {
     width: 1.8em;
     height: 1.8em;
     margin: 0.5em;
+
     &.fav {
       color: #ffaa46;
     }

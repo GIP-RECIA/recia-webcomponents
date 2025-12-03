@@ -28,8 +28,21 @@ import { initToken } from '@/utils/axiosUtils'
 import { CustomError } from '@/utils/CustomError'
 import { EtablissementsData } from '@/utils/EtablissementsData'
 import { soffit } from '@/utils/soffitUtils'
-import { configMapUaiDisplayName, displayedEtablissementUai, etablissementsData, filtre, gestionAffectations } from '@/utils/store'
-import { getConfig, getFavorites, getFilters, getGestionAffectations, getResources, putFavorites } from '../services/ServiceMediacentre'
+import {
+  configMapUaiDisplayName,
+  displayedEtablissementUai,
+  etablissementsData,
+  filtre,
+  gestionAffectations,
+} from '@/utils/store'
+import {
+  getConfig,
+  getFavorites,
+  getFilters,
+  getGestionAffectations,
+  getResources,
+  putFavorites,
+} from '../services/ServiceMediacentre'
 
 defineOptions({ name: 'PageMedia' })
 
@@ -125,21 +138,21 @@ onMounted(async (): Promise<void> => {
 })
 
 function getAllEtabUai(): string[] | undefined {
-  if (soffit.value === undefined) {
+  if (soffit.value === undefined)
     return undefined
-  }
+
   return (soffit.value[props.uai] as string[])
 }
 
 function updateEtablissementsDataInStore(): void {
   const etabUais: string[] | undefined = getAllEtabUai()
-  if (etabUais === undefined) {
+  if (etabUais === undefined)
     return
-  }
+
   const mapEtabUaiEtabName: Map<string, string> = configMapUaiDisplayName.value
-  if (etabUais === undefined) {
+  if (etabUais === undefined)
     return
-  }
+
   // for (const element of etabUais) {
   //   const etabUai = element
 
@@ -163,9 +176,9 @@ function updateEtablissementsDataInStore(): void {
   // }
 
   const uaicourant: string | undefined = getUaiOfEtablissementCourant()
-  if (uaicourant === undefined) {
+  if (uaicourant === undefined)
     return
-  }
+
   const myEtabsData = new EtablissementsData()
   if (mapEtabUaiEtabName.has(uaicourant)) {
     myEtabsData.courantId = uaicourant
@@ -188,13 +201,12 @@ function updateEtablissementsDataInStore(): void {
 }
 
 function getUaiOfEtablissementCourant(): string | undefined {
-  if (soffit.value === undefined) {
+  if (soffit.value === undefined)
     return undefined
-  }
+
   const temp = soffit.value[props.uaiCurrent] as string[]
-  if (temp.length === 1) {
+  if (temp.length === 1)
     return temp[0]
-  }
 }
 
 async function updateRessources(): Promise<void> {
@@ -216,12 +228,10 @@ async function updateRessources(): Promise<void> {
 function updateFiltre(value: CustomEvent): void {
   filtre.value = value.detail[0]
   const idCategorie = value.detail[1]
-  if (filtre.value === 'favoris') {
+  if (filtre.value === 'favoris')
     getFavoris()
-  }
-  else {
+  else
     getResourcesByFilter(filtre.value, idCategorie)
-  }
 }
 
 async function setFavoris(): Promise<void> {
@@ -295,7 +305,9 @@ function getResourcesByFilter(filtre: string, idCategorie: string): void {
         )
         break
       case 'TYPE_PRESENTATION_FILTER':
-        filteredResources.value = resourcesForSelectedEtab.value.filter(ressource => ressource.typePresentation.code === filtre)
+        filteredResources.value = resourcesForSelectedEtab.value.filter(ressource =>
+          ressource.typePresentation.code === filtre,
+        )
         break
       case 'DOMAINE_ENSEIGNEMENT_FILTER':
         filteredResources.value = resourcesForSelectedEtab.value.filter(ressource =>
@@ -363,7 +375,11 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
   const arrayRessourcesPerEtab: Array<Ressource> = []
   for (let index = 0; index < resources.value.length; index++) {
     const element = resources.value[index]
-    if (element.idEtablissement === undefined || element.idEtablissement === null || element.idEtablissement.length === 0) {
+    if (
+      element.idEtablissement === undefined
+      || element.idEtablissement === null
+      || element.idEtablissement.length === 0
+    ) {
       arrayRessourcesPerEtab.push(element)
     }
     else {
@@ -391,7 +407,14 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
     </div>
     <div v-else class="cadre-page-mediacentre">
       <aside class="aside-page-mediacentre">
-        <menu-mediacentre class="menu-mediacentre" :dnma-event-name="dnmaEventName" :filtres="filtres" :checked="filtre" @update-checked="updateFiltre" @open-gestion-modal="openGestionModal" />
+        <menu-mediacentre
+          class="menu-mediacentre"
+          :dnma-event-name="dnmaEventName"
+          :filtres="filtres"
+          :checked="filtre"
+          @update-checked="updateFiltre"
+          @open-gestion-modal="openGestionModal"
+        />
       </aside>
       <div class="main-page-wrapper">
         <div class="main-page-mediacentre">
@@ -410,7 +433,13 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
           />
         </div>
         <p class="help">
-          <a :href="helpLocation" target="_blank" rel="noopener noreferrer">{{ t('page-mediacentre.help') }}</a>
+          <a
+            :href="helpLocation"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {{ t('page-mediacentre.help') }}
+          </a>
         </p>
       </div>
       <Teleport to="body">
@@ -465,6 +494,7 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
     }
   }
 }
+
 .cadre-page-mediacentre {
   display: flex;
   flex-direction: row;
@@ -538,8 +568,10 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
+
   p {
     width: 100%;
+
     a {
       width: auto;
       display: block;
@@ -551,6 +583,7 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
 
 p {
   text-align: start;
+
   &.help {
     height: 20px;
     font-size: 14px;

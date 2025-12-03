@@ -15,8 +15,8 @@
  */
 
 import type { GestionAffectation } from '@/utils/GestionAffectation'
-import { EtablissementsData } from '@/utils/EtablissementsData'
 import { ref } from 'vue'
+import { EtablissementsData } from '@/utils/EtablissementsData'
 
 const etablissementsMap = ref<Map<string, string>>(new Map())
 const etablissementsData = ref<EtablissementsData>(new EtablissementsData())
@@ -25,4 +25,11 @@ const filtre = ref<string>('tout')
 const gestionAffectations = ref<Array<GestionAffectation>>([])
 const configMapUaiDisplayName = ref<Map<string, string>>(new Map())
 
-export { configMapUaiDisplayName, displayedEtablissementUai, etablissementsData, etablissementsMap, filtre, gestionAffectations }
+export {
+  configMapUaiDisplayName,
+  displayedEtablissementUai,
+  etablissementsData,
+  etablissementsMap,
+  filtre,
+  gestionAffectations,
+}

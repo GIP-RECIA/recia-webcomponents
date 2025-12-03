@@ -32,21 +32,21 @@ async function flushMediacentreFavorites(putUrl: string) {
   }
 }
 
-async function getGestionAffectations(gestionAffectationUrl: string, groupsApiUrl: string): Promise<Array<GestionAffectation> | undefined> {
+async function getGestionAffectations(
+  gestionAffectationUrl: string,
+  groupsApiUrl: string,
+): Promise<Array<GestionAffectation> | undefined> {
   try {
-    if (userGroups === undefined) {
+    if (userGroups === undefined)
       userGroups = await getGroups(groupsApiUrl)
-    }
     const response = await instance.post(gestionAffectationUrl, { isMemberOf: userGroups })
     return response.data
   }
   catch (e: any) {
-    if (e.response) {
+    if (e.response)
       throw new CustomError(e.response.data.message, e.response.status)
-    }
-    else if (e.code === 'ECONNABORTED') {
+    else if (e.code === 'ECONNABORTED')
       throw new CustomError(e.message, e.code)
-    }
   }
 }
 
@@ -61,12 +61,10 @@ async function getConfig(configApiUrl: string, uais: string[]) {
     configMapUaiDisplayName.value = map
   }
   catch (e: any) {
-    if (e.response) {
+    if (e.response)
       throw new CustomError(e.response.data.message, e.response.status)
-    }
-    else if (e.code === 'ECONNABORTED') {
+    else if (e.code === 'ECONNABORTED')
       throw new CustomError(e.message, e.code)
-    }
   }
 }
 
@@ -75,73 +73,62 @@ async function getGroups(groupsApiUrl: string) {
     const resp = await instance.get(groupsApiUrl)
     const groupsConfigValues: string[] = config
       .filter((element) => {
-        if (element.key === 'groups') {
+        if (element.key === 'groups')
           return element
-        }
         return null
       })
       .map((element) => {
         return element.value
       })
-    const regexesGroups: RegExp[] = groupsConfigValues.map((element) => {
-      return new RegExp(element)
-    })
+
+    const regexesGroups: RegExp[] = groupsConfigValues.map(element => new RegExp(element))
     const userGroups = new Array<string>()
+
     for (const element of resp.data.groups) {
       for (const regex of regexesGroups) {
-        if (regex.test(element.name)) {
+        if (regex.test(element.name))
           userGroups.push(element.name)
-        }
       }
     }
     return userGroups
   }
   catch (e: any) {
-    if (e.response) {
+    if (e.response)
       throw new CustomError(e.response.data.message, e.response.status)
-    }
-    else if (e.code === 'ECONNABORTED') {
+    else if (e.code === 'ECONNABORTED')
       throw new CustomError(e.message, e.code)
-    }
-    else {
+    else
       throw new Error(e.response)
-    }
   }
 }
 
 async function getResources(baseApiUrl: string, groupsApiUrl: string) {
   try {
-    if (userGroups === undefined) {
+    if (userGroups === undefined)
       userGroups = await getGroups(groupsApiUrl)
-    }
     const response = await instance.post(baseApiUrl, { isMemberOf: userGroups })
     return response.data
   }
   catch (e: any) {
-    if (e.response) {
+    if (e.response)
       throw new CustomError(e.response.data.message, e.response.status)
-    }
-    else if (e.code === 'ECONNABORTED') {
+    else if (e.code === 'ECONNABORTED')
       throw new CustomError(e.message, e.code)
-    }
   }
 }
 
 async function getResourceById(redirectApiUrl: string, groupsApiUrl: string) {
   try {
-    if (userGroups === undefined) {
+    if (userGroups === undefined)
       userGroups = await getGroups(groupsApiUrl)
-    }
     const response = await instance.post(redirectApiUrl, { isMemberOf: userGroups })
     return response.data
   }
   catch (e: any) {
-    if (e.response) {
+    if (e.response)
       throw new CustomError(e.response.data.message, e.response.status)
-    }
-    else if (e.code === 'ECONNABORTED') {
+    else if (e.code === 'ECONNABORTED')
       throw new CustomError(e.message, e.code)
-    }
   }
 }
 
@@ -151,12 +138,10 @@ async function getFilters(baseApiUrl: string) {
     return response.data
   }
   catch (e: any) {
-    if (e.response) {
+    if (e.response)
       throw new CustomError(e.response.data.message, e.response.status)
-    }
-    else if (e.code === 'ECONNABORTED') {
+    else if (e.code === 'ECONNABORTED')
       throw new CustomError(e.message, e.code)
-    }
   }
 }
 
@@ -164,9 +149,8 @@ async function getFavorites(getUserFavoriteResourcesUrl: string) {
   try {
     const response = await instance.get(getUserFavoriteResourcesUrl)
     const data = response.data
-    if (Object.keys(data).length === 0) {
+    if (Object.keys(data).length === 0)
       return new Array<string>()
-    }
     return response.data.mediacentreFavorites
   }
   catch (e: any) {
@@ -174,11 +158,18 @@ async function getFavorites(getUserFavoriteResourcesUrl: string) {
   }
 }
 
-async function putFavorites(putUserFavoriteResourcesUrl: string, idResource: string, isFavorite: boolean, resourceFavoriteIds: string[]) {
+async function putFavorites(
+  putUserFavoriteResourcesUrl: string,
+  idResource: string,
+  isFavorite: boolean,
+  resourceFavoriteIds: string[],
+) {
   try {
     let res: Array<string> = []
     if (isFavorite) {
-      res = resourceFavoriteIds.length > 0 ? [...resourceFavoriteIds, idResource] : [idResource]
+      res = resourceFavoriteIds.length > 0
+        ? [...resourceFavoriteIds, idResource]
+        : [idResource]
     }
     else {
       res = resourceFavoriteIds.filter(id => id !== idResource)
@@ -195,4 +186,13 @@ async function putFavorites(putUserFavoriteResourcesUrl: string, idResource: str
   }
 }
 
-export { flushMediacentreFavorites, getConfig, getFavorites, getFilters, getGestionAffectations, getResourceById, getResources, putFavorites }
+export {
+  flushMediacentreFavorites,
+  getConfig,
+  getFavorites,
+  getFilters,
+  getGestionAffectations,
+  getResourceById,
+  getResources,
+  putFavorites,
+}

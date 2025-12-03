@@ -16,13 +16,12 @@
 
 <script setup lang="ts">
 import type { Ressource } from '@/types/RessourceType'
+import { onMounted, ref } from 'vue'
 import i18n from '@/plugins/i18n'
 import { setError } from '@/services/ServiceErreurMediacentre'
 import { createResourceFromJson } from '@/types/RessourceType'
-
 import { initToken } from '@/utils/axiosUtils'
 import { CustomError } from '@/utils/CustomError'
-import { onMounted, ref } from 'vue'
 import { getConfig, getResourceById } from '../services/ServiceMediacentre'
 
 const props = withDefaults(
@@ -53,9 +52,9 @@ const hasNon404Error = ref<boolean>(false)
 const errorMessage = ref<string>('')
 
 onMounted(async (): Promise<void> => {
-  if (props.resourceId.length === 0) {
+  if (props.resourceId.length === 0)
     return
-  }
+
   chargementApp.value = true
   await initToken(props.userInfoApiUrl)
   await getConfig(props.configApiUrl, [])
@@ -69,7 +68,6 @@ async function redirect(): Promise<void> {
       .then((data) => {
         res = data
       })
-
       .catch((e: any) => {
         console.error(e.statusCode)
         if (e.statusCode === 404) {
@@ -81,9 +79,9 @@ async function redirect(): Promise<void> {
         }
       })
 
-    if (res === undefined) {
+    if (res === undefined)
       return
-    }
+
     window.location.replace(res.urlAccesRessource)
   }
   catch (e: any) {
@@ -92,10 +90,16 @@ async function redirect(): Promise<void> {
   }
 }
 
-async function getResourceToRedirectTo(resourceId: string, isBase64: boolean): Promise<Ressource> {
+async function getResourceToRedirectTo(
+  resourceId: string,
+  isBase64: boolean,
+): Promise<Ressource> {
   chargement.value = true
   try {
-    const reponse = await getResourceById(`${props.baseApiUrl}/${resourceId}?base64=${isBase64}`, props.userRightsApiUrl)
+    const reponse = await getResourceById(
+      `${props.baseApiUrl}/${resourceId}?base64=${isBase64}`,
+      props.userRightsApiUrl,
+    )
     return createResourceFromJson(reponse)
   }
   catch (e: any) {
@@ -116,7 +120,7 @@ async function getResourceToRedirectTo(resourceId: string, isBase64: boolean): P
   </p>
 </template>
 
-<style>
+<style lang="scss">
 .preserve-breaks {
   white-space: pre-wrap;
   text-align: start;

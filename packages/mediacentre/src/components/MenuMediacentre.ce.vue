@@ -23,7 +23,12 @@ import { useBreakpoints } from '@vueuse/core'
 import { capitalize, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { displayedEtablissementUai, etablissementsData, filtre, gestionAffectations } from '@/utils/store'
+import {
+  displayedEtablissementUai,
+  etablissementsData,
+  filtre,
+  gestionAffectations,
+} from '@/utils/store'
 
 defineOptions({ name: 'MenuMedia' })
 
@@ -49,9 +54,8 @@ const breakpoints = useBreakpoints({
 
 function changementFiltre(idFiltre: string, idCategorie: string, categoryName: string) {
   filtre.value = idFiltre
-  if (idFiltre === 'tout' || idFiltre === 'favoris') {
+  if (idFiltre === 'tout' || idFiltre === 'favoris')
     showSubCategories(idCategorie)
-  }
   activeCategoryName.value = categoryName
   showCategoriesContainer()
   emit('updateChecked', idFiltre, idCategorie)
@@ -62,7 +66,11 @@ function showCategoriesContainer(): void {
 }
 
 function showSubCategories(idCategory: string): void {
-  if (idCategory !== 'tout' && idCategory !== 'favoris' && activeCategory.value === idCategory) {
+  if (
+    idCategory !== 'tout'
+    && idCategory !== 'favoris'
+    && activeCategory.value === idCategory
+  ) {
     activeCategory.value = ''
   }
   else {
@@ -97,8 +105,8 @@ function openGestionModal(gestion: GestionAffectation, event: Event): void {
       title: gestion.title,
       originalEvent: event.composedPath()[0] as HTMLElement,
     },
-    bubbles: true, // Permet à l'événement de remonter dans le DOM
-    composed: true, // Permet à l'événement de sortir du shadow DOM
+    bubbles: true,
+    composed: true,
   })
   document.dispatchEvent(openModalCustomEvent)
   emit(
@@ -111,10 +119,12 @@ function accesRessourceGarClicked(): void {
   if (props.dnmaEventName?.length > 0) {
     const eventDNMA: CustomEvent = new CustomEvent(
       props.dnmaEventName,
-      { detail:
+      {
+        detail:
         {
           fname: 'AffectationGar',
-        } },
+        },
+      },
     )
     document.dispatchEvent(eventDNMA)
   }
@@ -122,9 +132,17 @@ function accesRessourceGarClicked(): void {
 </script>
 
 <template>
-  <div class="cadre-menu-mediacentre" :class="[isUnfolded === true ? 'unfold' : '']">
+  <div
+    class="cadre-menu-mediacentre"
+    :class="[isUnfolded === true ? 'unfold' : '']"
+  >
     <div class="menu-title" tabindex="-1">
-      <button id="menu-titre" class="menu-toggle" :class="{ active: isUnfolded }" @click="showCategoriesContainer()">
+      <button
+        id="menu-titre"
+        class="menu-toggle"
+        :class="{ active: isUnfolded }"
+        @click="showCategoriesContainer()"
+      >
         <FontAwesomeIcon class="menu-icon" :icon="['fas', 'bars']" />
       </button>
       <div class="category-name-badge">
@@ -133,7 +151,11 @@ function accesRessourceGarClicked(): void {
     </div>
     <div class="menu-wrapper">
       <div class="menu-filters-and-etabs">
-        <label v-if="multiselectOptions.length > 0" for="mediacentre-ui-schoolselect" class="displayed-etab">
+        <label
+          v-if="multiselectOptions.length > 0"
+          for="mediacentre-ui-schoolselect"
+          class="displayed-etab"
+        >
           {{ t('menu-mediacentre.displayed-etab') }}
         </label>
         <Multiselect
@@ -187,9 +209,15 @@ function accesRessourceGarClicked(): void {
               @click="showSubCategories(category.name)"
             >
               <h3>{{ capitalize(t(category.name)) }}</h3>
-              <FontAwesomeIcon class="caret-menu-icon" :icon="['fas', 'caret-right']" />
+              <FontAwesomeIcon
+                class="caret-menu-icon"
+                :icon="['fas', 'caret-right']"
+              />
             </button>
-            <div class="container" :class="[activeCategory === category.name ? 'active' : '']">
+            <div
+              class="container"
+              :class="[activeCategory === category.name ? 'active' : '']"
+            >
               <div v-for="(subCat, idx) of category.filters" :key="idx">
                 <button
                   :class="{ active: filtre === subCat.id }"
@@ -213,10 +241,23 @@ function accesRessourceGarClicked(): void {
         </h2>
         <template v-for="gestionAffectation in gestionAffectations" :key="gestionAffectation.id">
           <template v-if="gestionAffectation.link">
-            <p><a class="gestion-link" :href="gestionAffectation.description" target="_blank" rel="noopener noreferrer" v-on="gestionAffectation.id === 'GAR' ? { click: accesRessourceGarClicked } : {}">{{ gestionAffectation.title }}</a></p>
+            <p>
+              <a
+                class="gestion-link"
+                :href="gestionAffectation.description"
+                target="_blank"
+                rel="noopener noreferrer"
+                v-on="gestionAffectation.id === 'GAR' ? { click: accesRessourceGarClicked } : {}"
+              >
+                {{ gestionAffectation.title }}
+              </a>
+            </p>
           </template>
           <template v-else>
-            <button class="gestion-button" @click.prevent="openGestionModal(gestionAffectation, $event)">
+            <button
+              class="gestion-button"
+              @click.prevent="openGestionModal(gestionAffectation, $event)"
+            >
               {{ gestionAffectation.title }}
             </button>
           </template>
@@ -265,6 +306,7 @@ a.gestion-link {
   height: fit-content;
   border-radius: 0.8em;
   overflow: hidden;
+
   & :only-child {
     box-sizing: border-box;
   }
@@ -287,13 +329,16 @@ a.gestion-link {
   border-left: 0.5em solid transparent;
   color: $font-color;
   flex-shrink: 0;
+
   &:hover {
     background-color: $category-hover-background-color;
     cursor: pointer;
   }
+
   &.active {
     border-color: $border-color;
     background-color: $category-active-background-color;
+
     &:has(~ div.container.active *.sub-category-container.active) {
       border-color: transparent;
       background-color: $background-color;
@@ -331,10 +376,12 @@ a.gestion-link {
   color: $font-color;
   border: none;
   border-left: 0.5em solid transparent;
+
   &:hover {
     background-color: $category-hover-background-color;
     cursor: pointer;
   }
+
   &.active {
     border-color: $border-color;
     background-color: $category-active-background-color;
@@ -359,13 +406,13 @@ a.gestion-link {
   visibility: visible;
   opacity: 1;
 }
+
 .categories-container {
   border-collapse: collapse;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   max-height: 100%;
-  // border-radius: 1em;
   overflow-y: scroll;
 }
 
@@ -399,11 +446,10 @@ a.gestion-link {
     padding-left: 0.6em;
   }
 
-  :not(.unfold) {
-    .menu-wrapper {
-      overflow: hidden;
-    }
+  :not(.unfold) .menu-wrapper {
+    overflow: hidden;
   }
+
   .menu-wrapper {
     padding-top: 0;
     padding-bottom: 0;
@@ -420,12 +466,8 @@ a.gestion-link {
     background-color: transparent;
     box-shadow: none;
 
-    &:not(.unfold) {
-      .menu-wrapper {
-        * {
-          visibility: hidden;
-        }
-      }
+    &:not(.unfold) .menu-wrapper * {
+      visibility: hidden;
     }
 
     .menu-title {
@@ -453,6 +495,7 @@ a.gestion-link {
       height: 2.5em;
     }
   }
+
   .menu-toggle {
     cursor: pointer;
     background: none;
@@ -482,22 +525,22 @@ a.gestion-link {
   .unfold {
     height: auto;
     background-color: transparent;
+
     .categories-container {
       visibility: visible;
-
       border-radius: 0;
       width: 100%;
       background: none;
-
       height: 90%;
+
       & .toggle {
         display: none;
       }
     }
   }
+
   .categories-container {
     visibility: hidden;
-
     height: 0;
     transition:
       visibility 0.3s ease-in-out,
@@ -508,6 +551,7 @@ a.gestion-link {
     border-radius: 0;
     cursor: pointer;
   }
+
   .sub-categories-container {
     cursor: pointer;
     flex-shrink: 0;
@@ -525,6 +569,7 @@ a.gestion-link {
     height: 100%;
     visibility: visible;
   }
+
   .multiselect {
     margin-left: 0.5em;
     margin-right: 0.5em;
@@ -551,9 +596,11 @@ a.gestion-link {
 p {
   padding-left: 5px;
   text-align: start;
+
   &.gar-description {
     font-size: 12px;
   }
+
   &.current-etab-label {
     margin: 3px;
   }

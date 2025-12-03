@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
+import { defineCustomElement } from 'vue'
 import CarteRessourceSFC from '@/components/CarteRessourceMediacentre.ce.vue'
 import I18nHostSFC from '@/components/I18nHost.ce.vue'
 import ListeRessourcesSFC from '@/components/ListeRessourcesMediacentre.ce.vue'
 import MenuMediacentreSFC from '@/components/MenuMediacentre.ce.vue'
 import PageMediacentreSFC from '@/components/PageMediacentre.ce.vue'
 import RedirectMediacentreSFC from '@/components/RedirectMediacentre.ce.vue'
-import { defineCustomElement } from 'vue'
 
 const CarteRessource = defineCustomElement(CarteRessourceSFC)
 const I18nHost = defineCustomElement(I18nHostSFC)

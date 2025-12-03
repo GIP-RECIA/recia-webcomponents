@@ -27,7 +27,18 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 function register() {
-  library.add(faXmark, faStar, farStar, faArrowUpRightFromSquare, faCircleNotch, faCircleInfo, faCaretRight, faBars)
+  library.add(
+    faArrowUpRightFromSquare,
+    faBars,
+    faCaretRight,
+    faCircleInfo,
+    faCircleNotch,
+    faStar,
+    faXmark,
+  )
+  library.add(
+    farStar,
+  )
 }
 
 export { register }
