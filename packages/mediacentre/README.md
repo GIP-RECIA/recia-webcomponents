@@ -39,36 +39,30 @@ document.body.appendChild(component)
 
 mediacentre-ui:
 
-| Nom                               |   Type   | Obligatoire | Default | Description                                                                                                |
-| --------------------------------- | :------: | :---------: | :-----: | ---------------------------------------------------------------------------------------------------------- |
-| `base-api-url`                    | `string` |    `non`    |         | URL de l'API REST MediaCentre.                                                                             |
-| `config-api-url`                  | `string` |    `non`    |         | URL de la configuration de l'API REST MediaCentre.                                                         |
-| `gestion-api-url`                 | `string` |    `non`    |         | URL des informations de gestion du GAR de de l'API REST MediaCentre.                                       |
-| `user-info-api-url`               | `string` |    `non`    |         | URL de l'API des informations utilisateurs.                                                                |
-| `user-rights-api-url`             | `string` |    `non`    |         | URL de l'API des droits utilisateurs.                                                                      |
-| `get-user-favorite-resources-url` | `string` |    `non`    |         | URL de l'API pour récupèrer la liste des identifiants des ressources favorites de l'utilisateur.           |
-| `put-user-favorite-resources-url` | `string` |    `non`    |         | URL de l'API pour modifier la liste des identifiants des ressources favorites de l'utilisateur.            |
-| `uai-current`                     | `string` |    `non`    |         | Clé de la soffit pour obtenir la valeur de l'UAI de l'établissement courant.                               |
-| `uai`                             | `string` |    `non`    |         | Clé de la soffit pour obtenir la valeur de la liste des UAI des établissements de l'utilisateur.           |
-| `help-location`                   | `string` |    `non`    |         | URL de la page d'aide du Médiacentre.                                                                      |
-| `dnma-event-name`                 | `string` |    `non`    |         | Nom de l'évènement à lever pour le DNMA.                                                                   |
+| Nom                               |   Type   | Obligatoire | Default | Description                                                                                      |
+| --------------------------------- | :------: | :---------: | :-----: | ------------------------------------------------------------------------------------------------ |
+| `base-api-url`                    | `string` |    `non`    |         | URL de l'API REST MediaCentre.                                                                   |
+| `config-api-url`                  | `string` |    `non`    |         | URL de la configuration de l'API REST MediaCentre.                                               |
+| `gestion-api-url`                 | `string` |    `non`    |         | URL des informations de gestion du GAR de de l'API REST MediaCentre.                             |
+| `user-info-api-url`               | `string` |    `non`    |         | URL de l'API des informations utilisateurs.                                                      |
+| `user-rights-api-url`             | `string` |    `non`    |         | URL de l'API des droits utilisateurs.                                                            |
+| `get-user-favorite-resources-url` | `string` |    `non`    |         | URL de l'API pour récupèrer la liste des identifiants des ressources favorites de l'utilisateur. |
+| `put-user-favorite-resources-url` | `string` |    `non`    |         | URL de l'API pour modifier la liste des identifiants des ressources favorites de l'utilisateur.  |
+| `uai-current`                     | `string` |    `non`    |         | Clé de la soffit pour obtenir la valeur de l'UAI de l'établissement courant.                     |
+| `uai`                             | `string` |    `non`    |         | Clé de la soffit pour obtenir la valeur de la liste des UAI des établissements de l'utilisateur. |
+| `help-location`                   | `string` |    `non`    |         | URL de la page d'aide du Médiacentre.                                                            |
+| `dnma-event-name`                 | `string` |    `non`    |         | Nom de l'évènement à lever pour le DNMA.                                                         |
 
 mediacentre-redirect:
 
-| Nom                               |   Type   | Obligatoire | Default | Description                                                                                                |
-| --------------------------------- | :------: | :---------: | :-----: | ---------------------------------------------------------------------------------------------------------- |
-| `base-api-url`                    | `string` |    `non`    |         | URL de l'API REST MediaCentre.                                                                             |
-| `config-api-url`                  | `string` |    `non`    |         | URL de la configuration de l'API REST MediaCentre.                                                         |
-| `gestion-api-url`                 | `string` |    `non`    |         | URL des informations de gestion du GAR de de l'API REST MediaCentre.                                       |
-| `user-info-api-url`               | `string` |    `non`    |         | URL de l'API des informations utilisateurs.                                                                |
-| `user-rights-api-url`             | `string` |    `non`    |         | URL de l'API des droits utilisateurs.                                                                      |
-| `get-user-favorite-resources-url` | `string` |    `non`    |         | URL de l'API pour récupèrer la liste des identifiants des ressources favorites de l'utilisateur.           |
-| `put-user-favorite-resources-url` | `string` |    `non`    |         | URL de l'API pour modifier la liste des identifiants des ressources favorites de l'utilisateur.            |
-| `uai-current`                     | `string` |    `non`    |         | Clé de la soffit pour obtenir la valeur de l'UAI de l'établissement courant.                               |
-| `uai`                             | `string` |    `non`    |         | Clé de la soffit pour obtenir la valeur de la liste des UAI des établissements de l'utilisateur.           |
-| `help-location`                   | `string` |    `non`    |         | URL de la page d'aide du Médiacentre.                                                                      |
-| `resource-id`                     | `string` |    `non`    |         | Nom de la ressource sur laquelle rediriger.                                                                |
-| `is-base64`                       | `string` |    `non`    |         | Est ce que resource-id est encodé en base 64.                                                              |
+| Nom                   |   Type   | Obligatoire | Default | Description                                        |
+| --------------------- | :------: | :---------: | :-----: | -------------------------------------------------- |
+| `base-api-url`        | `string` |    `non`    |         | URL de l'API REST MediaCentre.                     |
+| `config-api-url`      | `string` |    `non`    |         | URL de la configuration de l'API REST MediaCentre. |
+| `user-info-api-url`   | `string` |    `non`    |         | URL de l'API des informations utilisateurs.        |
+| `user-rights-api-url` | `string` |    `non`    |         | URL de l'API des droits utilisateurs.              |
+| `resource-id`         | `string` |    `non`    |         | Nom de la ressource sur laquelle rediriger.        |
+| `is-base64`           | `string` |    `non`    |         | Est ce que resource-id est encodé en base 64.      |
 
 <br/>
 
