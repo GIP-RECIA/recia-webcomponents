@@ -25,9 +25,9 @@ async function getToken(apiUrl: string): Promise<{ encoded: string, decoded: JWT
   const { encoded, decoded } = await oidc({
     userInfoApiUrl: apiUrl,
   })
-  if (decoded.sub.startsWith('guest')) {
+  if (decoded.sub.startsWith('guest'))
     throw new CustomError('You are not logged', 401)
-  }
+
   soffit.value = decoded
   return { encoded, decoded }
 }

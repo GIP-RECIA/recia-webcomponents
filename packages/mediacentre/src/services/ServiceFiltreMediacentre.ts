@@ -18,18 +18,23 @@ import type { Filtres } from '@/types/FiltresType'
 import type { Filtre } from '@/types/FiltreType'
 import type { Ressource } from '@/types/RessourceType'
 
-function getFilters(resources: Array<Ressource>, filterCategories: Array<string>): Array<Filtres> {
+function getFilters(
+  resources: Array<Ressource>,
+  filterCategories: Array<string>,
+): Array<Filtres> {
   const filters: Array<Filtres> = []
   for (const filtre of filterCategories) {
     const values: Filtres | undefined = getFilterCategories(filtre, resources)
-    if (values !== undefined) {
+    if (values !== undefined)
       filters.push(values)
-    }
   }
   return filters
 }
 
-function getFilterCategories(filter: string, resources: Array<Ressource>): Filtres | undefined {
+function getFilterCategories(
+  filter: string,
+  resources: Array<Ressource>,
+): Filtres | undefined {
   let values
 
   switch (filter) {
@@ -52,12 +57,15 @@ function getFilterCategories(filter: string, resources: Array<Ressource>): Filtr
   return convertToFiltres(values, filter)
 }
 
-function convertToFiltres(values: Array<any>, filter: string): Filtres | undefined {
+function convertToFiltres(
+  values: Array<any>,
+  filter: string,
+): Filtres | undefined {
   const filters: Array<Filtre> = []
   let filtres
-  if (values.length === 0) {
+  if (values.length === 0)
     return
-  }
+
   switch (filter) {
     case 'NIVEAU_EDUCATIF_FILTER':
       values.forEach((item) => {

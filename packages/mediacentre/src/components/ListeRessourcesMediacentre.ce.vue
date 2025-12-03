@@ -81,7 +81,12 @@ function sendUpdateFavorite(event: CustomEvent) {
 </script>
 
 <template>
-  <div v-if="ressources.length > 0 && nbShownCards > 0" class="cadre-liste-ressources-mediacentre" tabindex="-1" disabled>
+  <div
+    v-if="ressources.length > 0 && nbShownCards > 0"
+    class="cadre-liste-ressources-mediacentre"
+    tabindex="-1"
+    disabled
+  >
     <carte-ressource
       v-for="ressource in ressources"
       v-show="filtre !== 'favoris' || ressource.isFavorite !== false"
@@ -96,7 +101,6 @@ function sendUpdateFavorite(event: CustomEvent) {
       @update-fav="sendUpdateFavorite"
     />
   </div>
-
   <div v-else class="cadre-liste-ressources-mediacentre">
     <p v-if="isError">
       {{ erreur }}
@@ -110,10 +114,9 @@ function sendUpdateFavorite(event: CustomEvent) {
   </div>
 </template>
 
-<style>
+<style lang="scss">
 .cadre-liste-ressources-mediacentre {
   overflow-x: hidden;
-
   height: auto;
   box-sizing: border-box;
   max-height: 100%;
@@ -122,6 +125,7 @@ function sendUpdateFavorite(event: CustomEvent) {
   flex-wrap: wrap;
   gap: 2em;
   padding: 0 2em 2em 2em;
+
   p {
     text-align: justify;
     padding: 1em;
