@@ -432,7 +432,7 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
             @open-modal="openModal"
           />
         </div>
-        <p class="help">
+        <div class="help">
           <a
             :href="helpLocation"
             target="_blank"
@@ -440,7 +440,7 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
           >
             {{ t('page-mediacentre.help') }}
           </a>
-        </p>
+        </div>
       </div>
       <Teleport to="body">
         <info-modal id="modale" debug="false" style="z-index: 99;">
@@ -499,7 +499,6 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
   display: flex;
   flex-direction: row;
   gap: 10px;
-  padding: 5px;
   height: fit-content;
   width: 100%;
 
@@ -519,7 +518,7 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
   }
 }
 
-@media only screen and (max-width: 650px) {
+@media only screen and (max-width: 767px) {
   .cadre-page-mediacentre {
     flex-direction: column;
     justify-content: flex-end;
@@ -569,12 +568,10 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
   flex-direction: column;
   flex-wrap: nowrap;
 
-  p {
-    width: 100%;
+  .help {
+    text-align: center;
 
     a {
-      width: auto;
-      display: block;
       color: $blue-link;
       text-decoration: none;
     }

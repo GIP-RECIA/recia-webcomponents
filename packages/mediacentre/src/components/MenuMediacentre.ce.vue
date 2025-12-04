@@ -151,26 +151,28 @@ function accesRessourceGarClicked(): void {
     </div>
     <div class="menu-wrapper">
       <div class="menu-filters-and-etabs">
-        <label
-          v-if="multiselectOptions.length > 0"
-          for="mediacentre-ui-schoolselect"
-          class="displayed-etab"
-        >
-          {{ t('menu-mediacentre.displayed-etab') }}
-        </label>
-        <Multiselect
-          v-if="multiselectOptions.length > 0"
-          id="mediacentre-ui-schoolSelect"
-          mode="single"
-          class="multiselect"
-          name="mediacentre-ui-schoolSelect"
-          :value="multiselectCurrentKey"
-          :close-on-select="true"
-          :can-deselect="false"
-          :can-clear="false"
-          :options="multiselectOptions"
-          @select="etablissementSelected"
-        />
+        <div class="etab-filter">
+          <label
+            v-if="multiselectOptions.length > 0"
+            for="mediacentre-ui-schoolselect"
+            class="displayed-etab"
+          >
+            {{ t('menu-mediacentre.displayed-etab') }}
+          </label>
+          <Multiselect
+            v-if="multiselectOptions.length > 0"
+            id="mediacentre-ui-schoolSelect"
+            mode="single"
+            class="multiselect"
+            name="mediacentre-ui-schoolSelect"
+            :value="multiselectCurrentKey"
+            :close-on-select="true"
+            :can-deselect="false"
+            :can-clear="false"
+            :options="multiselectOptions"
+            @select="etablissementSelected"
+          />
+        </div>
         <div
           class="categories-container"
           :class="[breakpoints.active() !== undefined && breakpoints.active() === ref('mobile') ? 'toggle' : '']"
@@ -183,7 +185,7 @@ function accesRessourceGarClicked(): void {
             value="tout"
             @click="changementFiltre('tout', 'tout', t('menu-mediacentre.all-resources'))"
           >
-            <h3>{{ capitalize(t('menu-mediacentre.all-resources')) }}</h3>
+            <span>{{ capitalize(t('menu-mediacentre.all-resources')) }}</span>
           </button>
 
           <button
@@ -193,7 +195,7 @@ function accesRessourceGarClicked(): void {
             value="favoris"
             @click="changementFiltre('favoris', 'favoris', t('menu-mediacentre.my-favorites'))"
           >
-            <h3>{{ capitalize(t('menu-mediacentre.my-favorites')) }}</h3>
+            <span>{{ capitalize(t('menu-mediacentre.my-favorites')) }}</span>
           </button>
 
           <div
@@ -208,7 +210,7 @@ function accesRessourceGarClicked(): void {
               :class="[activeCategory === category.name ? 'active' : '']"
               @click="showSubCategories(category.name)"
             >
-              <h3>{{ capitalize(t(category.name)) }}</h3>
+              <span>{{ capitalize(t(category.name)) }}</span>
               <FontAwesomeIcon
                 class="caret-menu-icon"
                 :icon="['fas', 'caret-right']"
@@ -241,17 +243,15 @@ function accesRessourceGarClicked(): void {
         </h2>
         <template v-for="gestionAffectation in gestionAffectations" :key="gestionAffectation.id">
           <template v-if="gestionAffectation.link">
-            <p>
-              <a
-                class="gestion-link"
-                :href="gestionAffectation.description"
-                target="_blank"
-                rel="noopener noreferrer"
-                v-on="gestionAffectation.id === 'GAR' ? { click: accesRessourceGarClicked } : {}"
-              >
-                {{ gestionAffectation.title }}
-              </a>
-            </p>
+            <a
+              class="gestion-link"
+              :href="gestionAffectation.description"
+              target="_blank"
+              rel="noopener noreferrer"
+              v-on="gestionAffectation.id === 'GAR' ? { click: accesRessourceGarClicked } : {}"
+            >
+              {{ gestionAffectation.title }}
+            </a>
           </template>
           <template v-else>
             <button
@@ -275,6 +275,7 @@ function accesRessourceGarClicked(): void {
   border: none;
   font-size: 14px;
   width: 100%;
+  padding: 8px 16px;
 }
 
 a.gestion-link {
@@ -284,6 +285,7 @@ a.gestion-link {
   width: 100%;
   display: inline-block;
   text-decoration: none;
+  padding: 8px 16px;
 }
 
 .gestion-label {
@@ -291,8 +293,15 @@ a.gestion-link {
 }
 
 .gestion-gar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   background-color: $background-color-menu;
-  padding-bottom: 5px;
+  padding: 16px;
+
+  > h2 {
+    margin: 0;
+  }
 }
 
 .cadre-menu-mediacentre {
@@ -324,11 +333,13 @@ a.gestion-link {
   justify-content: space-between;
   background-color: $background-color-menu;
   width: 100%;
-  padding: 0 1em;
+  padding: 1em;
   border: none;
   border-left: 0.5em solid transparent;
   color: $font-color;
   flex-shrink: 0;
+  font-size: 1rem;
+  font-weight: 500;
 
   &:hover {
     background-color: $category-hover-background-color;
@@ -427,7 +438,7 @@ a.gestion-link {
 .menu-filters-and-etabs {
   text-align: start;
   background-color: $background-color-menu;
-  padding: 1px;
+  padding-top: 16px;
 }
 
 .menu-wrapper {
@@ -437,11 +448,15 @@ a.gestion-link {
 
 .displayed-etab {
   text-align: start;
-  padding-left: 0.2em;
+  padding-left: 16px;
   font-weight: bold;
 }
 
-@media (max-width: 650px) {
+.etab-filter {
+  margin-bottom: 16px;
+}
+
+@media (max-width: 767px) {
   .displayed-etab {
     padding-left: 0.6em;
   }

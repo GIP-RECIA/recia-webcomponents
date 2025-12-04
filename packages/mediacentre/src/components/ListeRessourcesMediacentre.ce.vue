@@ -116,7 +116,6 @@ function sendUpdateFavorite(event: CustomEvent) {
 
 <style lang="scss">
 .cadre-liste-ressources-mediacentre {
-  overflow-x: hidden;
   height: auto;
   box-sizing: border-box;
   max-height: 100%;
@@ -132,7 +131,7 @@ function sendUpdateFavorite(event: CustomEvent) {
   }
 }
 
-@media only screen and (max-width: 650px) {
+@media only screen and (max-width: 767px) {
   .cadre-liste-ressources-mediacentre {
     height: 100%;
     width: 100%;
