@@ -1551,6 +1551,39 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@gip-recia/mce@workspace:packages/mce":
+  version: 0.0.0-use.local
+  resolution: "@gip-recia/mce@workspace:packages/mce"
+  dependencies:
+    "@antfu/eslint-config": "npm:^6.2.0"
+    "@fortawesome/fontawesome-svg-core": "npm:^6.7.2"
+    "@fortawesome/free-solid-svg-icons": "npm:^6.7.2"
+    "@fortawesome/vue-fontawesome": "npm:^3.1.2"
+    "@intlify/unplugin-vue-i18n": "npm:^11.0.1"
+    "@tsconfig/node22": "npm:^22.0.5"
+    "@types/node": "npm:^24"
+    "@types/regenerator-runtime": "npm:^0"
+    "@uportal/open-id-connect": "npm:^1.40.2"
+    "@vitejs/plugin-vue": "npm:^6.0.2"
+    "@vue/tsconfig": "npm:^0.8.1"
+    axios: "npm:^1.13.2"
+    cropperjs: "npm:^1.6.2"
+    dotenv-checker: "npm:^1.1.7"
+    eslint: "npm:^9.39.1"
+    eslint-plugin-format: "npm:^1.0.2"
+    lint-staged: "npm:^16.2.7"
+    npm-run-all2: "npm:^8.0.4"
+    regenerator-runtime: "npm:^0.14.1"
+    sass: "npm:^1.94.0"
+    terser: "npm:^5.44.1"
+    typescript: "npm:^5.9.3"
+    vite: "npm:^7.2.6"
+    vue: "npm:^3.5.25"
+    vue-i18n: "npm:^11.2.2"
+    vue-tsc: "npm:^3.1.5"
+  languageName: unknown
+  linkType: soft
+
 "@gip-recia/mediacentre-ui@workspace:packages/mediacentre":
   version: 0.0.0-use.local
   resolution: "@gip-recia/mediacentre-ui@workspace:packages/mediacentre"

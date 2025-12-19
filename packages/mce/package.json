@@ -1,5 +1,5 @@
 {
-  "name": "@gip-recia/mce-ui",
+  "name": "@gip-recia/mce",
   "type": "module",
   "version": "0.0.0",
   "description": "",
@@ -25,12 +25,10 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/mce-ui.js",
-      "require": "./dist/mce-ui.umd.cjs"
+      "import": "./dist/mce.js"
     }
   },
-  "main": "./dist/mce-ui.umd.cjs",
-  "module": "./dist/mce-ui.js",
+  "module": "./dist/mce.js",
   "files": [
     "dist"
   ],
@@ -39,44 +37,41 @@
   },
   "scripts": {
     "dev": "dotenv-checker && vite --host",
-    "build": "run-p type-check build-only && npm run build:min",
-    "build:min": "npm exec terser -- -c -m --module dist/mce-ui.js > dist/mce-ui.min.js",
+    "build": "run-p type-check build-only",
+    "build:min": "npm exec terser -- -c -m --module -f comments=false -o dist/mce.min.js -- dist/mce.js",
     "lint": "eslint src/*",
     "preview": "vite preview",
     "test:unit": "echo No tests available",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",
-    "release": "yarn run -T commit-and-tag-version -t 'mce-ui/v'",
-    "release:patch": "yarn run -T commit-and-tag-version -t 'mce-ui/v' --release-as patch",
-    "release:minor": "yarn run -T commit-and-tag-version -t 'mce-ui/v' --release-as minor",
-    "release:major": "yarn run -T commit-and-tag-version -t 'mce-ui/v' --release-as major"
+    "release": "yarn run -T commit-and-tag-version -t 'mce/v' --path . --release-as $1 || echo 'Please specify a version type (yarn run release -- [patch, minor, major])'"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^4.2.1",
+    "@antfu/eslint-config": "^6.2.0",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
-    "@fortawesome/vue-fontawesome": "^3.0.8",
-    "@intlify/unplugin-vue-i18n": "^6.0.3",
-    "@tsconfig/node22": "^22.0.0",
-    "@types/node": "^22",
+    "@fortawesome/vue-fontawesome": "^3.1.2",
+    "@intlify/unplugin-vue-i18n": "^11.0.1",
+    "@tsconfig/node22": "^22.0.5",
+    "@types/node": "^24",
     "@types/regenerator-runtime": "^0",
     "@uportal/open-id-connect": "^1.40.2",
-    "@vitejs/plugin-vue": "^5.2.1",
-    "@vue/tsconfig": "^0.7.0",
-    "axios": "^1.7.9",
+    "@vitejs/plugin-vue": "^6.0.2",
+    "@vue/tsconfig": "^0.8.1",
+    "axios": "^1.13.2",
     "cropperjs": "^1.6.2",
     "dotenv-checker": "^1.1.7",
-    "eslint": "^9.20.1",
-    "eslint-plugin-format": "^1.0.1",
-    "lint-staged": "^15.4.3",
-    "npm-run-all2": "^7.0.2",
+    "eslint": "^9.39.1",
+    "eslint-plugin-format": "^1.0.2",
+    "lint-staged": "^16.2.7",
+    "npm-run-all2": "^8.0.4",
     "regenerator-runtime": "^0.14.1",
-    "sass": "^1.85.0",
-    "terser": "^5.39.0",
-    "typescript": "^5.7.3",
-    "vite": "^6.1.0",
-    "vue": "^3.5.13",
-    "vue-i18n": "^11.1.1",
-    "vue-tsc": "^2.2.2"
+    "sass": "^1.94.0",
+    "terser": "^5.44.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.6",
+    "vue": "^3.5.25",
+    "vue-i18n": "^11.2.2",
+    "vue-tsc": "^3.1.5"
   }
 }
