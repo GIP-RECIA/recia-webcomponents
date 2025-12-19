@@ -15,18 +15,24 @@
  */
 
 /* eslint-disable node/prefer-global/process */
+import type { ConfigEnv } from 'vite'
 import { fileURLToPath } from 'node:url'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import vue from '@vitejs/plugin-vue'
 import { defineConfig, loadEnv } from 'vite'
-import pkg from './package.json'
+import { name } from './package.json'
 
 // https://vitejs.dev/config/
-export default ({ mode }: { mode: string }) => {
+export default ({ mode }: ConfigEnv) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
 
+  const { VITE_BASE_URI, VITE_ALLOWED_HOSTS } = process.env
+
   return defineConfig({
-    base: process.env.VITE_BASE_URI,
+    base: mode === 'development' ? VITE_BASE_URI : undefined,
+    server: {
+      allowedHosts: JSON.parse(VITE_ALLOWED_HOSTS ?? '[]'),
+    },
     plugins: [
       vue({
         template: {
@@ -55,17 +61,16 @@ export default ({ mode }: { mode: string }) => {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
     },
-    server: {
-      allowedHosts: true,
-    },
     build: {
+      sourcemap: true,
       lib: {
         entry: './src/main.ts',
-        name: pkg.name,
+        formats: ['es'],
+        name,
       },
     },
     define: {
-      'process.env': process.env,
+      'process.env': { NODE_ENV: process.env.NODE_ENV },
     },
   })
 }
