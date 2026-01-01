@@ -78,6 +78,6 @@
     "vite-plugin-css-injected-by-js": "^3.5.2",
     "y-presence": "^0.2.3",
     "y-websocket": "^3.0.0",
-    "yjs": "^13.6.27"
+    "yjs": "^13.6.28"
   }
 }
