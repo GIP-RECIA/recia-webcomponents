@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.1](https://github.com/GIP-RECIA/recia-webcomponents/compare/mediacentre-ui/v0.1.0...mediacentre-ui/v0.1.1) (2026-01-05)
+
+
+### Features
+
+* **mediacentre:** remove unnecessary fname attribute ([a362c63](https://github.com/GIP-RECIA/recia-webcomponents/commit/a362c6300e4bbf9861d219892caea51b3b65a21c))
+
+
+### Bug Fixes
+
+* **mediacentre:** breakpoints and improve style ([e1d4d57](https://github.com/GIP-RECIA/recia-webcomponents/commit/e1d4d577070afec5fbd964b5849f9be94ed6b93b))
+
 ## [0.1.0](https://github.com/GIP-RECIA/recia-webcomponents/compare/mediacentre-ui/v0.0.4...mediacentre-ui/v0.1.0) (2025-07-30)
 
 
