@@ -24,16 +24,21 @@ import { name } from './package.json'
 export default ({ mode }: ConfigEnv) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
 
+  const { VITE_BASE_URI, VITE_ALLOWED_HOSTS } = process.env
+
   return defineConfig({
-    base: mode === 'development' ? process.env.VITE_BASE_URI : '/',
+    base: mode === 'development' ? VITE_BASE_URI : undefined,
+    server: {
+      allowedHosts: JSON.parse(VITE_ALLOWED_HOSTS ?? ''),
+    },
     plugins: [react()],
     build: {
+      sourcemap: true,
       lib: {
         entry: './src/main.tsx',
         formats: ['es'],
         name,
       },
-      sourcemap: true,
     },
     define: {
       'process.env': { NODE_ENV: process.env.NODE_ENV },

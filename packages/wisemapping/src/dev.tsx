@@ -15,7 +15,6 @@
  */
 
 import ReactDOM from 'react-dom/client'
-
 import App from './AppDev.tsx'
 import 'regenerator-runtime/runtime.js'
 
