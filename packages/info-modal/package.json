@@ -47,7 +47,7 @@
     "@types/node": "^24",
     "eslint": "^9.39.1",
     "eslint-plugin-format": "^1.1.0",
-    "lit": "^3.3.1",
+    "lit": "^3.3.2",
     "lit-analyzer": "^2.0.3",
     "lit-scss-loader": "^2.0.1",
     "sass": "^1.94.0",
