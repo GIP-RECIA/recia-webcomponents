@@ -69,7 +69,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "regenerator-runtime": "^0.14.1",
-    "sass": "^1.94.0",
+    "sass": "^1.97.1",
     "terser": "^5.44.1",
     "typescript": "^5.9.3",
     "vite": "^7.3.0",
