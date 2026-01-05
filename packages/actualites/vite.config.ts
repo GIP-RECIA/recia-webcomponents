@@ -32,7 +32,7 @@ export default ({ mode }: ConfigEnv) => {
   return defineConfig({
     base: mode === 'development' ? VITE_BASE_URI : undefined,
     server: {
-      allowedHosts: JSON.parse(VITE_ALLOWED_HOSTS ?? ''),
+      allowedHosts: JSON.parse(VITE_ALLOWED_HOSTS ?? '[]'),
       proxy: {
         '^(?:/[a-zA-Z0-9_-]+){2}/api': {
           target: process.env.VITE_PROXY_URL,
