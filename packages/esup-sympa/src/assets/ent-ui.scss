@@ -1,0 +1,412 @@
+/**
+ * Copyright (C) 2023 GIP-RECIA, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+@use 'sass:map';
+
+$black: #000;
+
+$prefix: recia-;
+
+$font-family-sans-serif: 'sans-serif';
+$sora: 'Sora', $font-family-sans-serif;
+$dm-sans: 'DM Sans', $font-family-sans-serif;
+
+$headings-font-family: $sora;
+
+%heading {
+  font-family: $headings-font-family;
+  color: var(--#{$prefix}body);
+  margin-bottom: var(--#{$prefix}font-size-base);
+}
+
+h1,
+.h1 {
+  @extend %heading;
+  font-size: var(--#{$prefix}font-size-h1);
+  font-weight: bold;
+}
+
+h2,
+.h2 {
+  @extend %heading;
+  font-size: var(--#{$prefix}font-size-h2);
+  font-weight: bold;
+}
+
+h3,
+.h3 {
+  @extend %heading;
+  font-size: var(--#{$prefix}font-size-h3);
+  font-weight: 600;
+}
+
+h4,
+.h4 {
+  @extend %heading;
+  font-size: var(--#{$prefix}font-size-h4);
+  font-weight: 600;
+}
+
+h5,
+.h5 {
+  @extend %heading;
+  font-size: var(--#{$prefix}font-size-h5);
+}
+
+h6,
+.h6 {
+  @extend %heading;
+  font-size: var(--#{$prefix}font-size-h6);
+}
+
+@mixin button-and-tag {
+  @include unstyled-link;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 8px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 50px;
+}
+
+@mixin button-tag {
+  @include button-and-tag;
+  padding: 8px 16px;
+  font-family: $dm-sans;
+  font-weight: 500;
+  font-size: var(--#{$prefix}font-size-sm);
+
+  &:not(.active) {
+    &:hover,
+    &:focus-visible {
+      background-color: HEXToRGBA(var(--#{$prefix}primary), 0.05);
+      color: var(--#{$prefix}primary);
+    }
+
+    &:focus-visible {
+      outline: 3px solid var(--#{$prefix}primary);
+    }
+  }
+
+  &.active {
+    background-color: var(--#{$prefix}btn-primary-bg);
+    color: var(--#{$prefix}btn-primary);
+    box-shadow: var(--#{$prefix}shadow-low-elevation) HEXToRGBA($black, 0.2);
+
+    &:hover,
+    &:focus-visible {
+      background-color: var(--#{$prefix}primary);
+    }
+
+    &:focus-visible {
+      outline: 3px solid HEXToRGBA(var(--#{$prefix}primary), 0.3);
+    }
+  }
+
+  &:disabled,
+  &.disabled {
+    opacity: 0.33;
+    pointer-events: none;
+  }
+
+  &.circle {
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    padding: 8px;
+  }
+
+  &.small {
+    padding: 4px 12px;
+
+    &.circle {
+      width: 26px;
+      height: 26px;
+      padding: 4px;
+    }
+  }
+
+  @media (hover: none) or (pointer: coarse) {
+    &:not(.active) {
+      background-color: HEXToRGBA(var(--#{$prefix}primary), 0.05);
+      color: var(--#{$prefix}primary);
+    }
+  }
+}
+
+@function HEXToRGBA($hex, $alpha) {
+  @return rgba(from $hex r g b / $alpha);
+}
+
+@mixin unstyled-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+%primary-secondary {
+  @include button-and-tag;
+  padding: 12px 24px;
+  font-family: $sora;
+  font-weight: 600;
+  font-size: var(--#{$prefix}font-size-md);
+}
+
+.btn {
+  &-primary {
+    @extend %primary-secondary;
+    background-color: var(--#{$prefix}btn-primary-bg);
+    color: var(--#{$prefix}btn-primary);
+
+    &:active {
+      background-color: var(--#{$prefix}btn-primary-pressed) !important;
+    }
+
+    &:hover,
+    &:focus-visible {
+      background-color: var(--#{$prefix}primary);
+    }
+
+    &:focus-visible {
+      outline: 4px solid HEXToRGBA(var(--#{$prefix}primary), 0.3);
+    }
+
+    &:disabled,
+    &.disabled {
+      opacity: 0.33;
+      pointer-events: none;
+    }
+
+    &.circle {
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      padding: 12px;
+    }
+
+    &.small {
+      padding: 8px 16px;
+      font-size: var(--#{$prefix}font-size-sm);
+
+      &.circle {
+        border-radius: 50%;
+        width: 34px;
+        height: 34px;
+        padding: 8px;
+      }
+    }
+  }
+
+  &-secondary {
+    @extend %primary-secondary;
+    background-color: var(--#{$prefix}btn-secondary-bg);
+    color: var(--#{$prefix}btn-secondary);
+
+    &:active {
+      background-color: var(--#{$prefix}btn-secondary-pressed) !important;
+      color: var(--#{$prefix}primary) !important;
+    }
+
+    &:hover,
+    &:focus-visible {
+      background-color: var(--#{$prefix}btn-secondary-hover);
+      color: var(--#{$prefix}primary);
+    }
+
+    &:focus-visible {
+      outline: 4px solid var(--#{$prefix}primary);
+    }
+
+    &:disabled,
+    &.disabled {
+      opacity: 0.33;
+      pointer-events: none;
+    }
+
+    &.circle {
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      padding: 12px;
+    }
+
+    &.small {
+      padding: 8px 16px;
+      font-size: var(--#{$prefix}font-size-sm);
+
+      &.circle {
+        border-radius: 50%;
+        width: 34px;
+        height: 34px;
+        padding: 8px;
+      }
+    }
+  }
+
+  &-secondary-toggle {
+    @extend .btn-secondary;
+    background-color: unset;
+    color: var(--#{$prefix}btn-secondary);
+
+    &.active {
+      background-color: var(--#{$prefix}primary);
+      color: var(--#{$prefix}body-inverted);
+      box-shadow: var(--#{$prefix}shadow-hover) HEXToRGBA(var(--#{$prefix}primary), 0.2);
+
+      &:active {
+        background-color: var(--#{$prefix}btn-primary-pressed) !important;
+        color: var(--#{$prefix}btn-primary) !important;
+      }
+
+      &:focus-visible {
+        outline: 4px solid HEXToRGBA(var(--#{$prefix}primary), 0.3);
+      }
+    }
+  }
+
+  &-tertiary {
+    @include button-and-tag;
+    padding: 8px 16px;
+    font-family: $dm-sans;
+    font-weight: 600;
+    font-size: var(--#{$prefix}font-size-sm);
+    color: var(--#{$prefix}btn-secondary);
+
+    &:hover,
+    &:focus-visible {
+      background-color: var(--#{$prefix}body-bg);
+      color: var(--#{$prefix}primary);
+      text-decoration: underline;
+    }
+
+    &:focus-visible {
+      outline: 4px solid var(--#{$prefix}primary);
+    }
+
+    &:disabled,
+    &.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    &.circle {
+      border-radius: 50%;
+      width: 34px;
+      height: 34px;
+      padding: 8px;
+    }
+  }
+}
+
+button.tag {
+  @include button-and-tag;
+  padding: 8px 16px;
+  font-family: $dm-sans;
+  font-weight: 500;
+  font-size: var(--#{$prefix}font-size-sm);
+
+  &:not(.active) {
+    &:hover,
+    &:focus-visible {
+      background-color: HEXToRGBA(var(--#{$prefix}primary), 0.05);
+      color: var(--#{$prefix}primary);
+    }
+
+    &:focus-visible {
+      outline: 3px solid var(--#{$prefix}primary);
+    }
+  }
+
+  &.active {
+    background-color: var(--#{$prefix}btn-primary-bg);
+    color: var(--#{$prefix}btn-primary);
+    box-shadow: var(--#{$prefix}shadow-low-elevation) HEXToRGBA($black, 0.2);
+
+    &:hover,
+    &:focus-visible {
+      background-color: var(--#{$prefix}primary);
+    }
+
+    &:focus-visible {
+      outline: 3px solid HEXToRGBA(var(--#{$prefix}primary), 0.3);
+    }
+  }
+
+  &:disabled,
+  &.disabled {
+    opacity: 0.33;
+    pointer-events: none;
+  }
+
+  &.circle {
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    padding: 8px;
+  }
+
+  &.small {
+    padding: 4px 12px;
+
+    &.circle {
+      width: 26px;
+      height: 26px;
+      padding: 4px;
+    }
+  }
+
+  @media (hover: none) or (pointer: coarse) {
+    &:not(.active) {
+      background-color: HEXToRGBA(var(--#{$prefix}primary), 0.05);
+      color: var(--#{$prefix}primary);
+    }
+  }
+}
+
+:not(button).tag {
+  @include button-and-tag;
+  cursor: inherit;
+  padding: 8px 16px;
+  font-family: $dm-sans;
+  font-weight: 500;
+  font-size: var(--#{$prefix}font-size-sm);
+
+  background-color: var(--#{$prefix}btn-primary-bg);
+  color: var(--#{$prefix}btn-primary);
+  box-shadow: var(--#{$prefix}shadow-low-elevation) HEXToRGBA($black, 0.2);
+
+  &.disabled {
+    opacity: 0.33;
+  }
+
+  &.circle {
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    padding: 8px;
+  }
+
+  &.small {
+    padding: 4px 12px;
+
+    &.circle {
+      width: 26px;
+      height: 26px;
+      padding: 4px;
+    }
+  }
+}

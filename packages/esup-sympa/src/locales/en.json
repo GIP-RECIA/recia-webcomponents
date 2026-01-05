@@ -1,0 +1,9 @@
+{
+  "error-messages": {
+    "400": "An error has occurred, please try again.",
+    "401": "You are not logged in, please login.",
+    "403": "You are not authorized to access its resources.",
+    "500": "An internal server error has occurred, please try again later.",
+    "503": "The server is temporarily unavailable, please try again later."
+  }
+}
