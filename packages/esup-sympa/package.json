@@ -43,6 +43,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^6.7.3",
     "@gip-recia/info-modal": "^0.0.1",
+    "@gip-recia/ui-webcomponents": "^1.9.0",
     "@intlify/unplugin-vue-i18n": "^11.0.3",
     "@tsconfig/node22": "^22.0.5",
     "@types/lodash.debounce": "^4",
