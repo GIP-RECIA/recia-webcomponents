@@ -1,4 +1,9 @@
 {
+  "permission-labels": {
+    "subscriber": "Abonné",
+    "owner": "Propriétaire",
+    "editor": "Contributeur"
+  },
   "error-messages": {
     "400": "Une erreur est survenue, merci de rééssayer.",
     "401": "Vous n'êtes pas connecté, merci de vous authentifier.",

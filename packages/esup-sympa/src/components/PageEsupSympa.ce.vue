@@ -19,5 +19,6 @@
     <div>
       <p>Page Esup Sympa</p>
     </div>
+    <filter-esup-sympa />
   </i18n-host>
 </template>

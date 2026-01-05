@@ -1551,6 +1551,7 @@ __metadata:
   dependencies:
     "@antfu/eslint-config": "npm:^6.7.3"
     "@gip-recia/info-modal": "npm:^0.0.1"
+    "@gip-recia/ui-webcomponents": "npm:^1.9.0"
     "@intlify/unplugin-vue-i18n": "npm:^11.0.3"
     "@tsconfig/node22": "npm:^22.0.5"
     "@types/lodash.debounce": "npm:^4"
@@ -1794,6 +1795,13 @@ __metadata:
     vue-tsc: "npm:^3.2.4"
   languageName: unknown
   linkType: soft
+
+"@gip-recia/ui-webcomponents@npm:^1.9.0":
+  version: 1.9.0
+  resolution: "@gip-recia/ui-webcomponents@npm:1.9.0"
+  checksum: 10/e58dd4ce6a093d0531ad4f9be74e371d7af2fccb1eb3d5c43ea258e3774601b4cfc5f01356f3dba53e828163d56da74bf1481055e5ef7408629c112c488da825
+  languageName: node
+  linkType: hard
 
 "@gip-recia/wisemapping-core-js@npm:6.0.0-recia-0.0.0":
   version: 6.0.0-recia-0.0.0
