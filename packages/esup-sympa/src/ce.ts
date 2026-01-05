@@ -15,14 +15,17 @@
  */
 
 import { defineCustomElement } from 'vue'
+import FilterEsupSympaSFC from '@/components/FilterEsupSympa.ce.vue'
 import I18nHostSFC from '@/components/I18nHost.ce.vue'
 import PageEsupSympaSFC from '@/components/PageEsupSympa.ce.vue'
 
+const FilterEsupSympa = defineCustomElement(FilterEsupSympaSFC)
 const I18nHost = defineCustomElement(I18nHostSFC)
 const PageEsupSympa = defineCustomElement(PageEsupSympaSFC)
 
 declare module 'vue' {
   export interface GlobalComponents {
+    FilterEsupSympa: typeof FilterEsupSympa
     I18nHost: typeof I18nHost
     PageEsupSympa: typeof PageEsupSympa
   }
@@ -30,8 +33,9 @@ declare module 'vue' {
 
 // https://fr.vuejs.org/guide/extras/web-components#tips-for-a-vue-custom-elements-library
 function registerElements() {
+  customElements.define('filter-esup-sympa', FilterEsupSympa)
   customElements.define('i18n-host', I18nHost)
   customElements.define('esup-sympa', PageEsupSympa)
 }
 
-export { I18nHost, PageEsupSympa, registerElements }
+export { FilterEsupSympa, I18nHost, PageEsupSympa, registerElements }
