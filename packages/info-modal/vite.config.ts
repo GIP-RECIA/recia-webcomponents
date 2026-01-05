@@ -31,7 +31,6 @@ export default ({ mode }: ConfigEnv) => {
         formats: ['es'],
         name,
       },
-      sourcemap: true,
     },
   })
 }

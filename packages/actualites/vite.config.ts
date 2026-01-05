@@ -27,8 +27,23 @@ import { name } from './package.json'
 export default ({ mode }: ConfigEnv) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
 
+  const { VITE_BASE_URI, VITE_ALLOWED_HOSTS } = process.env
+
   return defineConfig({
-    base: process.env.VITE_BASE_URI,
+    base: mode === 'development' ? VITE_BASE_URI : undefined,
+    server: {
+      allowedHosts: JSON.parse(VITE_ALLOWED_HOSTS ?? ''),
+      proxy: {
+        '^(?:/[a-zA-Z0-9_-]+){2}/api': {
+          target: process.env.VITE_PROXY_URL,
+          changeOrigin: true,
+          rewrite: (path) => {
+            const rewrite = path.replace(/^(?:\/[\w-]+){2}\/api/, '')
+            return rewrite
+          },
+        },
+      },
+    },
     plugins: [
       vue({
         template: {
@@ -56,28 +71,15 @@ export default ({ mode }: ConfigEnv) => {
       },
     },
     build: {
+      sourcemap: true,
       lib: {
         entry: './src/main.ts',
         formats: ['es'],
         name,
       },
-      sourcemap: true,
     },
     define: {
       'process.env': { NODE_ENV: process.env.NODE_ENV },
-    },
-    server: {
-      allowedHosts: true,
-      proxy: {
-        '^(?:/[a-zA-Z0-9_-]+){2}/api': {
-          target: process.env.VITE_PROXY_URL,
-          changeOrigin: true,
-          rewrite: (path) => {
-            const rewrite = path.replace(/^(?:\/[\w-]+){2}\/api/, '')
-            return rewrite
-          },
-        },
-      },
     },
   })
 }
