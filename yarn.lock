@@ -1635,7 +1635,7 @@ __metadata:
     vite-plugin-css-injected-by-js: "npm:^3.5.2"
     y-presence: "npm:^0.2.3"
     y-websocket: "npm:^3.0.0"
-    yjs: "npm:^13.6.27"
+    yjs: "npm:^13.6.29"
   languageName: unknown
   linkType: soft
 
@@ -1761,7 +1761,7 @@ __metadata:
     vite: "npm:^7.2.6"
     y-presence: "npm:^0.2.3"
     y-websocket: "npm:^3.0.0"
-    yjs: "npm:^13.6.27"
+    yjs: "npm:^13.6.29"
   languageName: unknown
   linkType: soft
 
@@ -11646,12 +11646,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yjs@npm:^13.6.27":
-  version: 13.6.27
-  resolution: "yjs@npm:13.6.27"
+"yjs@npm:^13.6.29":
+  version: 13.6.29
+  resolution: "yjs@npm:13.6.29"
   dependencies:
     lib0: "npm:^0.2.99"
-  checksum: 10/f5e65230bb6746d981946083c20364e5a6084f8ebff76a0af7cc94fc7a8359f17ea9232eff5882c114cb2cff7a91d83030e7510c951b828fb7a60a9bb67409a7
+  checksum: 10/4fcba2974913c522c9b2b767a22f9d50617ffbddeb229a8eb5dd740df03d3145a757aff7a039b1546d5c62b3fda1af2b2e9ca2dba23af3a1df2158db21f3c516
   languageName: node
   linkType: hard
 
