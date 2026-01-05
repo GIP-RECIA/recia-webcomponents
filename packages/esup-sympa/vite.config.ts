@@ -34,6 +34,7 @@ export default ({ mode }: ConfigEnv) => {
           compilerOptions: {
             isCustomElement: tag => [
               'esup-sympa',
+              'filter-esup-sympa',
               'i18n-host',
             ].includes(tag),
           },
@@ -41,6 +42,7 @@ export default ({ mode }: ConfigEnv) => {
       }),
       VueI18nPlugin({}),
     ],
+    publicDir: mode === 'development' ? undefined : false,
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
