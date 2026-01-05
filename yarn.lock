@@ -1433,7 +1433,7 @@ __metadata:
     "@tsconfig/node22": "npm:^22.0.5"
     "@types/lodash.debounce": "npm:^4"
     "@types/lodash.throttle": "npm:^4"
-    "@types/node": "npm:^24"
+    "@types/node": "npm:^25"
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^6.0.3"
@@ -1473,7 +1473,7 @@ __metadata:
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.2"
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.2"
     "@tsconfig/node22": "npm:^22.0.5"
-    "@types/node": "npm:^24"
+    "@types/node": "npm:^25"
     eslint: "npm:^9.39.1"
     eslint-plugin-format: "npm:^1.1.0"
     lit: "npm:^3.3.2"
@@ -1500,7 +1500,7 @@ __metadata:
     "@intlify/unplugin-vue-i18n": "npm:^11.0.1"
     "@tsconfig/node22": "npm:^22.0.5"
     "@types/lodash.debounce": "npm:^4"
-    "@types/node": "npm:^24"
+    "@types/node": "npm:^25"
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^6.0.3"
@@ -1536,7 +1536,7 @@ __metadata:
     "@fortawesome/vue-fontawesome": "npm:^3.1.2"
     "@intlify/unplugin-vue-i18n": "npm:^11.0.1"
     "@tsconfig/node22": "npm:^22.0.5"
-    "@types/node": "npm:^24"
+    "@types/node": "npm:^25"
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^6.0.3"
@@ -1610,7 +1610,7 @@ __metadata:
     "@r2wc/react-to-web-component": "npm:^2.1.0"
     "@types/lodash.debounce": "npm:^4"
     "@types/lodash.throttle": "npm:^4"
-    "@types/node": "npm:^24"
+    "@types/node": "npm:^25"
     "@types/react": "npm:^18"
     "@types/react-dom": "npm:^18"
     "@types/regenerator-runtime": "npm:^0"
@@ -1650,7 +1650,7 @@ __metadata:
     "@intlify/unplugin-vue-i18n": "npm:^11.0.1"
     "@tsconfig/node22": "npm:^22.0.5"
     "@types/lodash.debounce": "npm:^4"
-    "@types/node": "npm:^24"
+    "@types/node": "npm:^25"
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^6.0.3"
@@ -1738,7 +1738,7 @@ __metadata:
     "@gip-recia/wisemapping-editor": "npm:6.0.0-recia-1.0.2405231"
     "@r2wc/react-to-web-component": "npm:^2.1.0"
     "@types/lodash.throttle": "npm:^4"
-    "@types/node": "npm:^24"
+    "@types/node": "npm:^25"
     "@types/react": "npm:^18"
     "@types/react-dom": "npm:^18"
     "@types/regenerator-runtime": "npm:^0"
@@ -3644,12 +3644,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^24":
+"@types/node@npm:*":
   version: 24.10.1
   resolution: "@types/node@npm:24.10.1"
   dependencies:
     undici-types: "npm:~7.16.0"
   checksum: 10/ddac8c97be5f7401e31ea0e9316c6e864993c6cd06689b7f9874ecfb576ef8349f2d14298248a08b94a6dd029570a46a285cddc4d50e524817f1a3730b29a86e
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^25":
+  version: 25.0.3
+  resolution: "@types/node@npm:25.0.3"
+  dependencies:
+    undici-types: "npm:~7.16.0"
+  checksum: 10/5889b00f398eff4d4af28c3e5e97976f65c39a63fa3d7011f35cbf8640675fa6835e5dd47dce94d6ba48667711ddcd1f5c9bc5d93233e6a8e9ea1e502e8aa5a4
   languageName: node
   linkType: hard
 
