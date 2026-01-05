@@ -74,7 +74,7 @@
     "sass": "^1.94.0",
     "terser": "^5.44.1",
     "typescript": "^5.9.3",
-    "vite": "^7.2.6",
+    "vite": "^7.3.0",
     "vite-plugin-css-injected-by-js": "^3.5.2",
     "y-presence": "^0.2.3",
     "y-websocket": "^3.0.0",
