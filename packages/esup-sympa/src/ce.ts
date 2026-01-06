@@ -15,27 +15,35 @@
  */
 
 import { defineCustomElement } from 'vue'
+import CardEsupSympaSFC from '@/components/CardEsupSympa.ce.vue'
 import FilterEsupSympaSFC from '@/components/FilterEsupSympa.ce.vue'
 import I18nHostSFC from '@/components/I18nHost.ce.vue'
+import ListEsupSympSFC from '@/components/ListEsupSympa.ce.vue'
 import PageEsupSympaSFC from '@/components/PageEsupSympa.ce.vue'
 
+const CardEsupSympa = defineCustomElement(CardEsupSympaSFC)
 const FilterEsupSympa = defineCustomElement(FilterEsupSympaSFC)
 const I18nHost = defineCustomElement(I18nHostSFC)
+const ListEsupSympa = defineCustomElement(ListEsupSympSFC)
 const PageEsupSympa = defineCustomElement(PageEsupSympaSFC)
 
 declare module 'vue' {
   export interface GlobalComponents {
+    CardEsupSympa: typeof CardEsupSympa
     FilterEsupSympa: typeof FilterEsupSympa
     I18nHost: typeof I18nHost
+    ListEsupSympa: typeof ListEsupSympa
     PageEsupSympa: typeof PageEsupSympa
   }
 }
 
 // https://fr.vuejs.org/guide/extras/web-components#tips-for-a-vue-custom-elements-library
 function registerElements() {
+  customElements.define('card-esup-sympa', CardEsupSympa)
   customElements.define('filter-esup-sympa', FilterEsupSympa)
   customElements.define('i18n-host', I18nHost)
+  customElements.define('list-esup-sympa', ListEsupSympa)
   customElements.define('esup-sympa', PageEsupSympa)
 }
 
-export { FilterEsupSympa, I18nHost, PageEsupSympa, registerElements }
+export { CardEsupSympa, FilterEsupSympa, I18nHost, ListEsupSympa, PageEsupSympa, registerElements }

@@ -1550,6 +1550,10 @@ __metadata:
   resolution: "@gip-recia/esup-sympa@workspace:packages/esup-sympa"
   dependencies:
     "@antfu/eslint-config": "npm:^6.7.3"
+    "@fortawesome/fontawesome-free": "npm:^7.1.0"
+    "@fortawesome/fontawesome-svg-core": "npm:^7.1.0"
+    "@fortawesome/free-solid-svg-icons": "npm:^7.1.0"
+    "@fortawesome/vue-fontawesome": "npm:^3.1.2"
     "@gip-recia/info-modal": "npm:^0.0.1"
     "@gip-recia/ui-webcomponents": "npm:^1.9.0"
     "@intlify/unplugin-vue-i18n": "npm:^11.0.3"

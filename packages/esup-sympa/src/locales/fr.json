@@ -1,4 +1,10 @@
 {
+  "card-esup-sympa": {
+    "copy": "Copier"
+  },
+  "list-esup-sympa": {
+    "results": "Aucun résultat | {count} Résultat | {count} Résultats"
+  },
   "permission-labels": {
     "subscriber": "Abonné",
     "owner": "Propriétaire",

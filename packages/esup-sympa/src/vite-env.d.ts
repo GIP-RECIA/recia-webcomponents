@@ -14,19 +14,4 @@
  * limitations under the License.
  */
 
-import { createApp } from 'vue'
-import App from '@/AppDev.vue'
-import { registerElements as registerCustomElements } from '@/ce'
-import { register as registerFontAwsome } from '@/plugins/fontawesome'
-import i18n from '@/plugins/i18n'
-import 'regenerator-runtime/runtime.js'
-import '@gip-recia/info-modal'
-
-const app = createApp(App)
-
-registerCustomElements()
-registerFontAwsome()
-
-app.use(i18n)
-
-app.mount('#app')
+/// <reference types="vite/types/importMeta.d.ts" />

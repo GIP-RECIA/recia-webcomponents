@@ -14,19 +14,13 @@
  * limitations under the License.
  */
 
-import { createApp } from 'vue'
-import App from '@/AppDev.vue'
-import { registerElements as registerCustomElements } from '@/ce'
-import { register as registerFontAwsome } from '@/plugins/fontawesome'
-import i18n from '@/plugins/i18n'
-import 'regenerator-runtime/runtime.js'
-import '@gip-recia/info-modal'
+export class HttpError extends Error {
+  code: number
 
-const app = createApp(App)
-
-registerCustomElements()
-registerFontAwsome()
-
-app.use(i18n)
-
-app.mount('#app')
+  constructor(message: string, code: number) {
+    super(message)
+    this.code = code
+    this.name = 'HttpError'
+    Object.setPrototypeOf(this, HttpError.prototype)
+  }
+}
