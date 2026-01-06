@@ -14,19 +14,15 @@
  * limitations under the License.
  */
 
-import { createApp } from 'vue'
-import App from '@/AppDev.vue'
-import { registerElements as registerCustomElements } from '@/ce'
-import { register as registerFontAwsome } from '@/plugins/fontawesome'
-import i18n from '@/plugins/i18n'
-import 'regenerator-runtime/runtime.js'
-import '@gip-recia/info-modal'
+export interface SympaType {
+  owner: boolean
+  editor: boolean
+  subscriber: boolean
+  description: string
+  address: string
+}
 
-const app = createApp(App)
-
-registerCustomElements()
-registerFontAwsome()
-
-app.use(i18n)
-
-app.mount('#app')
+export interface SympaApiResponse {
+  adminPortletUrl: string
+  sympaList: SympaType[]
+}

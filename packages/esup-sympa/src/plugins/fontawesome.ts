@@ -14,19 +14,13 @@
  * limitations under the License.
  */
 
-import { createApp } from 'vue'
-import App from '@/AppDev.vue'
-import { registerElements as registerCustomElements } from '@/ce'
-import { register as registerFontAwsome } from '@/plugins/fontawesome'
-import i18n from '@/plugins/i18n'
-import 'regenerator-runtime/runtime.js'
-import '@gip-recia/info-modal'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faCopy as farCopy } from '@fortawesome/free-regular-svg-icons'
 
-const app = createApp(App)
+function register() {
+  library.add(
+    farCopy,
+  )
+}
 
-registerCustomElements()
-registerFontAwsome()
-
-app.use(i18n)
-
-app.mount('#app')
+export { register }
