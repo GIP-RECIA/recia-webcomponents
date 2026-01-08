@@ -47,10 +47,16 @@ function displayStateForSympaItem(sympaItem: SympaType): boolean {
 <style lang="scss">
   @media only screen and (width > 1024px) {
   .wrapper {
-    display: grid;
+    display: grid !important;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.5em;
   }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
 }
 
 .results-count {
