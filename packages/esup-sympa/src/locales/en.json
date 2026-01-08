@@ -1,6 +1,8 @@
 {
   "card-esup-sympa": {
-    "copy": "Copy"
+    "copy": "Copy",
+    "email": "Send email"
+
   },
   "list-esup-sympa": {
     "results": "No results | {count} Result | {count} Results"

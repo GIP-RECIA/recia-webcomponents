@@ -15,11 +15,12 @@
  */
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCopy as farCopy } from '@fortawesome/free-regular-svg-icons'
+import { faCopy as farCopy, faPaperPlane as farPaperPlane } from '@fortawesome/free-regular-svg-icons'
 
 function register() {
   library.add(
     farCopy,
+    farPaperPlane,
   )
 }
 

@@ -33,7 +33,7 @@ async function copyAddress() {
 
 <template>
   <div v-if="props.sympaItem !== undefined" class="card-wrapper">
-    <div class="grid-wrapper">
+    <div class="part-wrapper description-and-tags">
       <p class="description">
         {{ props.sympaItem.description }}
       </p>
@@ -44,21 +44,20 @@ async function copyAddress() {
       </div>
     </div>
 
-    <div class="address-wrapper grid-wrapper">
-      <button v-if="props.sympaItem.editor" class="address btn-secondary">
-        <div class="address-div">
-          {{ props.sympaItem.address }}
-        </div>
-      </button>
-      <p v-else class="address">
+    <div class="address-wrapper part-wrapper">
+      <p class="address">
         {{ props.sympaItem.address }}
       </p>
     </div>
 
-    <div class="grid-wrapper btns">
-      <button class="btn-tertiary copy" @click="copyAddress()">
+    <div class="part-wrapper btns">
+      <button class="btn-secondary copy small" @click="copyAddress()">
         <span>{{ t('card-esup-sympa.copy') }}</span>
         <FontAwesomeIcon class="fa-icon" :icon="['far', 'copy']" />
+      </button>
+      <button v-if="sympaItem?.editor" class="btn-secondary copy small" @click="copyAddress()">
+        <span>{{ t('card-esup-sympa.email') }}</span>
+        <FontAwesomeIcon class="fa-icon" :icon="['far', 'paper-plane']" />
       </button>
     </div>
   </div>
@@ -67,7 +66,7 @@ async function copyAddress() {
 <style lang="scss">
 @use '@/assets/main.scss' as *;
 
-.grid-wrapper {
+.part-wrapper {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -77,18 +76,28 @@ async function copyAddress() {
     justify-content: center;
   }
 
+  &.description-and-tags {
+    height: fit-content;
+  }
+  &.address-wrapper {
+    p {
+      font-size: 0.9em;
+    }
+    flex-grow: 1;
+  }
+
   &.btns {
-    align-items: flex-start;
+    display: flex;
+    align-items: end;
+    justify-content: end;
+    flex-direction: row;
+    flex-grow: 0;
+    height: fit-content;
+    gap: 5px;
   }
 }
 
-.grid-wrapper.btns {
-  display: flex;
-  align-items: flex-start;
-  gap: 1em;
-}
-
-.grid-wrapper.btns button {
+.part-wrapper.btns button {
   width: auto;
   max-width: 100%;
 }
@@ -105,10 +114,6 @@ p {
 @media (width < 576px) {
   p {
     font-size: 0.8em;
-  }
-
-  button.address {
-    font-size: 0.75em;
   }
 
   .address-wrapper {
@@ -147,8 +152,6 @@ p {
 }
 
 p {
-  margin: 5px;
-  margin-right: 5px;
   &.description {
     font-weight: bold;
   }
@@ -160,28 +163,18 @@ p {
     overflow-wrap: anywhere;
     word-break: normal;
   }
-
-  button.address {
-    margin-left: 5px;
-    margin-right: 5px;
-  }
 }
 
 .card-wrapper {
-  margin-bottom: 10px;
+  padding: 5px;
   background-color: white;
   border-radius: 10px;
-  height: 180px;
+  height: 160px;
   width: auto;
   box-shadow: $shadow-neutral;
   overflow: hidden;
-  transition:
-    outline 0.15s ease-out,
-    box-shadow 0.15s ease-out,
-    background-color 0.15s ease-out,
-    box-shadow 0.15s ease-out;
-  display: grid;
-  grid-template-rows: 3fr 3fr 2fr;
+  display: flex;
+  flex-direction: column;
 }
 
 .fa-icon {
@@ -191,7 +184,6 @@ p {
 }
 
 .tags-wrapper {
-  margin-left: 5px;
   padding: 1px;
   width: fit-content;
   display: flex;
