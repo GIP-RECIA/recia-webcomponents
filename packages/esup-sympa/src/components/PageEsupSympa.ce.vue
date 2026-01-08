@@ -17,6 +17,7 @@
 import type { SympaApiResponse, SympaType } from '@/types/sympaTypes'
 import { onMounted, ref } from 'vue'
 import { HttpError } from '@/classes/httpError'
+import i18n from '@/plugins/i18n.ts'
 
 const props = withDefaults(
   defineProps<{
@@ -31,6 +32,8 @@ const props = withDefaults(
 const adminPortletUrl = ref<string | undefined>(undefined)
 const sympaList = ref<Array<SympaType>>([])
 const loaded = ref<boolean>(false)
+const httpError = ref<HttpError | undefined>(undefined)
+const { t } = i18n.global
 
 onMounted(async (): Promise<void> => {
   const response: SympaApiResponse = await get(props.apiUrl, props.timeout)
@@ -59,10 +62,15 @@ async function get(
   catch (error) {
     if (error instanceof HttpError) {
       console.error(error.code)
+      httpError.value = error
     }
-    console.error(error, url)
     throw error
   }
+}
+
+function getErrorMessage(code: number) {
+  const key = `error-messages.${code}`
+  return t(key, t('error-messages-fallback'))
 }
 </script>
 
@@ -73,5 +81,8 @@ async function get(
     </div>
     <filter-esup-sympa />
     <list-esup-sympa v-if="loaded" :sympa-list="sympaList" />
+    <div v-if="httpError !== undefined">
+      <p>{{ getErrorMessage(httpError.code) }}</p>
+    </div>
   </i18n-host>
 </template>
