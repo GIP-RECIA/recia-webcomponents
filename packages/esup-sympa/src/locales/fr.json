@@ -17,5 +17,7 @@
     "403": "Vous n'êtes pas autorisé à accèder à ces ressources.",
     "500": "Une erreur interne au serveur est survenue, merci de rééssayer ulterieurement.",
     "503": "Le serveur est temporairement indisponible, merci de rééssayer ulterieurement."
-  }
+  },
+  "error-messages-fallback": "Une erreur est survenue, merci de rééssayer."
+
 }
