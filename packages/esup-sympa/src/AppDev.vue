@@ -14,8 +14,67 @@
  limitations under the License.
 -->
 
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+
+const props = withDefaults(
+  defineProps<{
+    apiUrl?: string
+    apidAdminUrl?: string
+    apidNoAdminUrl?: string
+    errorUrl?: string
+  }>(),
+  {
+    apiUrl: import.meta.env.VITE_APP_ESUP_SYMPA_API_URI,
+    apidAdminUrl: import.meta.env.VITE_DEV_ADMIN_URI,
+    apidNoAdminUrl: import.meta.env.VITE_DEV_NO_ADMIN_URI,
+    errorUrl: import.meta.env.VITE_DEV_ERROR_URI,
+  },
+)
+
+const selectedError = ref<number | undefined>(undefined)
+const selectedUrl = ref<string | undefined>('admin')
+
+const errorCodes = [400, 401, 403, 404, 500, 503]
+
+const urlTypes = ['true', 'admin', 'no-admin', 'error']
+
+const urlProvidedToComponent = computed(() => {
+  switch (selectedUrl.value) {
+    case 'admin': return props.apidAdminUrl
+    case 'no-admin': return props.apidNoAdminUrl
+    case 'error': return selectedError.value !== undefined ? props.errorUrl + selectedError.value : props.apiUrl
+    default: return props.apiUrl
+  }
+},
+)
+</script>
+
 <template>
-  <esup-sympa />
+  <div class="dev-tools">
+    <span>Url to use: </span>
+    <label v-for="url in urlTypes" :key="url" class="radio">
+      <input
+        v-model="selectedUrl"
+        type="radio"
+        :value="url"
+      >
+      {{ url }}
+    </label>
+    <br>
+    <p>Url used: {{ urlProvidedToComponent }}</p>
+    <br>
+    <span>Error code to use: </span>
+    <label v-for="code in errorCodes" :key="code" class="radio">
+      <input
+        v-model="selectedError"
+        type="radio"
+        :value="code"
+      >
+      {{ code }}
+    </label>
+  </div>
+  <esup-sympa v-if="urlProvidedToComponent !== undefined" :key="urlProvidedToComponent" :api-url="urlProvidedToComponent" />
 </template>
 
 <style lang="scss">
@@ -35,5 +94,14 @@ body {
   width: 100%;
   padding-left: 20px;
   padding-right: 20px;
+}
+
+.dev-tools {
+  border: red solid 2px;
+  margin-left: -20px;
+  margin-right: -20px;
+  .radio {
+    margin-left: 10px;
+  }
 }
 </style>
