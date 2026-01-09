@@ -79,10 +79,17 @@ function getErrorMessage(code: number) {
     <div>
       <p>Page Esup Sympa</p>
     </div>
-    <filter-esup-sympa v-if="loaded && sympaList.length > 0" />
+    <filter-esup-sympa v-if="loaded && sympaList.length > 0" class="filters" />
     <list-esup-sympa v-if="loaded" :sympa-list="sympaList" />
     <div v-if="httpError !== undefined">
       <p>{{ getErrorMessage(httpError.code) }}</p>
     </div>
   </i18n-host>
 </template>
+
+<style lang="scss">
+filter-esup-sympa {
+  display: block;
+  margin-bottom: 20px;
+}
+</style>
