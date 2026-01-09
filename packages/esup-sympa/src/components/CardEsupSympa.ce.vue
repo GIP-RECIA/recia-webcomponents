@@ -38,7 +38,7 @@ async function copyAddress() {
         {{ props.sympaItem.description }}
       </p>
       <div class="tags-wrapper">
-        <span v-for="key in Object.values(PermissionKey).filter(x => props.sympaItem![x] === true)" :key="key" class="permission-tag">
+        <span v-for="key in Object.values(PermissionKey).filter(x => props.sympaItem![x] === true)" :key="key" class="tag small permission-tag">
           {{ t(`permission-labels.${key}`) }}
         </span>
       </div>
@@ -135,20 +135,7 @@ p {
 }
 
 .permission-tag {
-  font-family: $dm-sans;
-  font-weight: normal;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-
-  width: fit-content;
-  height: auto;
-  background-color: var(--recia-primary);
-  border-radius: 20px;
-  text-wrap: nowrap;
-  text-align: center;
-  padding: 4px 12px;
-  color: white;
+  background-color: var(--recia-primary) !important;
 }
 
 p {
