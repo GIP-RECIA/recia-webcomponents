@@ -15,30 +15,30 @@
 -->
 
 <script setup lang="ts">
-import type { SympaType } from '@/types/sympaTypes'
+import type { SympaList } from '@/types/sympaTypes'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useI18n } from 'vue-i18n'
 import { PermissionKey } from '@/types/permissionKeyEnum'
 
 const props
   = defineProps<{
-    sympaItem?: SympaType
+    sympaList?: SympaList
   }>()
 const { t } = useI18n()
 
 async function copyAddress() {
-  await navigator.clipboard.writeText(props.sympaItem!.address)
+  await navigator.clipboard.writeText(props.sympaList!.address)
 }
 </script>
 
 <template>
-  <div v-if="props.sympaItem !== undefined" class="card-wrapper">
+  <div v-if="props.sympaList !== undefined" class="card-wrapper">
     <div class="part-wrapper description-and-tags">
       <p class="description">
-        {{ props.sympaItem.description }}
+        {{ props.sympaList.description }}
       </p>
       <div class="tags-wrapper">
-        <span v-for="key in Object.values(PermissionKey).filter(x => props.sympaItem![x] === true)" :key="key" class="tag small permission-tag">
+        <span v-for="key in Object.values(PermissionKey).filter(x => props.sympaList![x] === true)" :key="key" class="tag small permission-tag">
           {{ t(`permission-labels.${key}`) }}
         </span>
       </div>
@@ -46,7 +46,7 @@ async function copyAddress() {
 
     <div class="address-wrapper part-wrapper">
       <p class="address">
-        {{ props.sympaItem.address }}
+        {{ props.sympaList.address }}
       </p>
     </div>
 
@@ -55,7 +55,7 @@ async function copyAddress() {
         <span>{{ t('card-esup-sympa.copy') }}</span>
         <FontAwesomeIcon class="fa-icon" :icon="['far', 'copy']" />
       </button>
-      <button v-if="sympaItem?.editor" class="btn-secondary copy small" @click="copyAddress()">
+      <button v-if="sympaList?.editor" class="btn-secondary copy small" @click="copyAddress()">
         <span>{{ t('card-esup-sympa.email') }}</span>
         <FontAwesomeIcon class="fa-icon" :icon="['far', 'paper-plane']" />
       </button>
