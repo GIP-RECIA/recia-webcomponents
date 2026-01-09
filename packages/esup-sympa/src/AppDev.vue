@@ -25,7 +25,7 @@ const props = withDefaults(
     errorUrl?: string
   }>(),
   {
-    apiUrl: import.meta.env.VITE_APP_ESUP_SYMPA_API_URI,
+    apiUrl: import.meta.env.VITE_APP_SYMPA_API_URI,
     apidAdminUrl: import.meta.env.VITE_DEV_ADMIN_URI,
     apidNoAdminUrl: import.meta.env.VITE_DEV_NO_ADMIN_URI,
     errorUrl: import.meta.env.VITE_DEV_ERROR_URI,
@@ -74,7 +74,7 @@ const urlProvidedToComponent = computed(() => {
       {{ code }}
     </label>
   </div>
-  <esup-sympa v-if="urlProvidedToComponent !== undefined" :key="urlProvidedToComponent" :api-url="urlProvidedToComponent" />
+  <page-sympa v-if="urlProvidedToComponent !== undefined" :key="urlProvidedToComponent" :api-url="urlProvidedToComponent" />
 </template>
 
 <style lang="scss">

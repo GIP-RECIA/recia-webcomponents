@@ -33,11 +33,11 @@ export default ({ mode }: ConfigEnv) => {
         template: {
           compilerOptions: {
             isCustomElement: tag => [
-              'card-esup-sympa',
-              'esup-sympa',
-              'filter-esup-sympa',
+              'card-sympa',
+              'page-sympa',
+              'filter-sympa',
               'i18n-host',
-              'list-esup-sympa',
+              'list-sympa',
             ].includes(tag),
           },
         },

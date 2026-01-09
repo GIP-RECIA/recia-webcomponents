@@ -1545,46 +1545,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gip-recia/esup-sympa@workspace:packages/esup-sympa":
-  version: 0.0.0-use.local
-  resolution: "@gip-recia/esup-sympa@workspace:packages/esup-sympa"
-  dependencies:
-    "@antfu/eslint-config": "npm:^6.7.3"
-    "@fortawesome/fontawesome-free": "npm:^7.1.0"
-    "@fortawesome/fontawesome-svg-core": "npm:^7.1.0"
-    "@fortawesome/free-solid-svg-icons": "npm:^7.1.0"
-    "@fortawesome/vue-fontawesome": "npm:^3.1.2"
-    "@gip-recia/info-modal": "npm:^0.0.1"
-    "@gip-recia/ui-webcomponents": "npm:^1.9.0"
-    "@intlify/unplugin-vue-i18n": "npm:^11.0.3"
-    "@tsconfig/node22": "npm:^22.0.5"
-    "@types/lodash.debounce": "npm:^4"
-    "@types/node": "npm:^25"
-    "@types/regenerator-runtime": "npm:^0"
-    "@uportal/open-id-connect": "npm:^1.40.2"
-    "@vitejs/plugin-vue": "npm:^6.0.3"
-    "@vue/tsconfig": "npm:^0.8.1"
-    "@vueform/multiselect": "npm:^2.6.11"
-    "@vueuse/core": "npm:^14.1.0"
-    axios: "npm:^1.13.2"
-    dotenv-checker: "npm:^1.1.7"
-    eslint: "npm:^9.39.2"
-    eslint-plugin-format: "npm:^1.1.0"
-    lint-staged: "npm:^16.2.7"
-    lodash.debounce: "npm:^4.0.8"
-    lodash.throttle: "npm:^4.1.1"
-    npm-run-all2: "npm:^8.0.4"
-    regenerator-runtime: "npm:^0.14.1"
-    sass: "npm:^1.97.1"
-    terser: "npm:^5.44.1"
-    typescript: "npm:^5.9.3"
-    vite: "npm:^7.3.0"
-    vue: "npm:^3.5.26"
-    vue-i18n: "npm:^11.2.8"
-    vue-tsc: "npm:^3.2.1"
-  languageName: unknown
-  linkType: soft
-
 "@gip-recia/info-modal@npm:^0.0.1":
   version: 0.0.1
   resolution: "@gip-recia/info-modal@npm:0.0.1"
@@ -1686,6 +1646,46 @@ __metadata:
     vue-tsc: "npm:^3.2.4"
     vue3-toastify: "npm:^0.2.8"
     vuejs-clipper: "npm:^4.1.0"
+  languageName: unknown
+  linkType: soft
+
+"@gip-recia/sympa@workspace:packages/esup-sympa":
+  version: 0.0.0-use.local
+  resolution: "@gip-recia/sympa@workspace:packages/esup-sympa"
+  dependencies:
+    "@antfu/eslint-config": "npm:^6.7.3"
+    "@fortawesome/fontawesome-free": "npm:^7.1.0"
+    "@fortawesome/fontawesome-svg-core": "npm:^7.1.0"
+    "@fortawesome/free-solid-svg-icons": "npm:^7.1.0"
+    "@fortawesome/vue-fontawesome": "npm:^3.1.2"
+    "@gip-recia/info-modal": "npm:^0.0.1"
+    "@gip-recia/ui-webcomponents": "npm:^1.9.0"
+    "@intlify/unplugin-vue-i18n": "npm:^11.0.3"
+    "@tsconfig/node22": "npm:^22.0.5"
+    "@types/lodash.debounce": "npm:^4"
+    "@types/node": "npm:^25"
+    "@types/regenerator-runtime": "npm:^0"
+    "@uportal/open-id-connect": "npm:^1.40.2"
+    "@vitejs/plugin-vue": "npm:^6.0.3"
+    "@vue/tsconfig": "npm:^0.8.1"
+    "@vueform/multiselect": "npm:^2.6.11"
+    "@vueuse/core": "npm:^14.1.0"
+    axios: "npm:^1.13.2"
+    dotenv-checker: "npm:^1.1.7"
+    eslint: "npm:^9.39.2"
+    eslint-plugin-format: "npm:^1.1.0"
+    lint-staged: "npm:^16.2.7"
+    lodash.debounce: "npm:^4.0.8"
+    lodash.throttle: "npm:^4.1.1"
+    npm-run-all2: "npm:^8.0.4"
+    regenerator-runtime: "npm:^0.14.1"
+    sass: "npm:^1.97.1"
+    terser: "npm:^5.44.1"
+    typescript: "npm:^5.9.3"
+    vite: "npm:^7.3.0"
+    vue: "npm:^3.5.26"
+    vue-i18n: "npm:^11.2.8"
+    vue-tsc: "npm:^3.2.1"
   languageName: unknown
   linkType: soft
 

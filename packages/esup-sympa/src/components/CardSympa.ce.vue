@@ -52,11 +52,11 @@ async function copyAddress() {
 
     <div class="part-wrapper btns">
       <button class="btn-secondary copy small" @click="copyAddress()">
-        <span>{{ t('card-esup-sympa.copy') }}</span>
+        <span>{{ t('card-sympa.copy') }}</span>
         <FontAwesomeIcon class="fa-icon" :icon="['far', 'copy']" />
       </button>
       <button v-if="sympaList?.editor" class="btn-secondary copy small" @click="copyAddress()">
-        <span>{{ t('card-esup-sympa.email') }}</span>
+        <span>{{ t('card-sympa.email') }}</span>
         <FontAwesomeIcon class="fa-icon" :icon="['far', 'paper-plane']" />
       </button>
     </div>

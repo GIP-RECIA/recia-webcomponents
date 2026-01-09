@@ -1,9 +1,9 @@
 {
-  "card-esup-sympa": {
+  "card-sympa": {
     "copy": "Copier",
     "email": "Envoyer un courriel"
   },
-  "list-esup-sympa": {
+  "list-sympa": {
     "results": "Aucun résultat | {count} Résultat | {count} Résultats"
   },
   "permission-labels": {

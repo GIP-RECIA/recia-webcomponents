@@ -1,11 +1,11 @@
 {
-  "name": "@gip-recia/esup-sympa",
+  "name": "@gip-recia/sympa",
   "type": "module",
   "version": "0.0.0",
   "description": "UI des listes de diffusion en Vue.js.",
   "contributors": [],
   "license": "Apache-2.0",
-  "homepage": "https://github.com/GIP-RECIA/recia-webcomponents/tree/main/packages/esup-sympa/#readme",
+  "homepage": "https://github.com/GIP-RECIA/recia-webcomponents/tree/main/packages/sympa/#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GIP-RECIA/recia-webcomponents.git"
@@ -19,10 +19,10 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/esup-sympa.js"
+      "import": "./dist/sympa.js"
     }
   },
-  "module": "./dist/esup-sympa.js",
+  "module": "./dist/sympa.js",
   "files": [
     "dist"
   ],
@@ -32,13 +32,13 @@
   "scripts": {
     "dev": "dotenv-checker && vite --host",
     "build": "run-p type-check build-only && yarn run build:min",
-    "build:min": "npm exec terser -- -c -m --module -f comments=false -o dist/esup-sympa.min.js -- dist/esup-sympa.js",
+    "build:min": "npm exec terser -- -c -m --module -f comments=false -o dist/sympa.min.js -- dist/sympa.js",
     "lint": "eslint src/*",
     "preview": "vite preview",
     "test:unit": "echo No tests available",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",
-    "release": "yarn run -T commit-and-tag-version -t 'esup-sympa/v' --path . --release-as $1 || echo 'Please specify a version type (yarn run release -- [patch, minor, major])'"
+    "release": "yarn run -T commit-and-tag-version -t 'sympa/v' --path . --release-as $1 || echo 'Please specify a version type (yarn run release -- [patch, minor, major])'"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^6.7.3",

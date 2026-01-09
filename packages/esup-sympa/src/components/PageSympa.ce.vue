@@ -25,7 +25,7 @@ const props = withDefaults(
     timeout?: number
   }>(),
   {
-    apiUrl: import.meta.env.VITE_APP_ESUP_SYMPA_API_URI,
+    apiUrl: import.meta.env.VITE_APP_SYMPA_API_URI,
     timeout: import.meta.env.VITE_APP_TIMEOUT,
   },
 )
@@ -77,10 +77,10 @@ function getErrorMessage(code: number) {
 <template>
   <i18n-host>
     <div>
-      <p>Page Esup Sympa</p>
+      <p>Page Sympa</p>
     </div>
-    <filter-esup-sympa v-if="loaded && sympaLists.length > 0" class="filters" />
-    <list-esup-sympa v-if="loaded" :sympa-lists="sympaLists" />
+    <filter-sympa v-if="loaded && sympaLists.length > 0" class="filters" />
+    <list-sympa v-if="loaded" :sympa-lists="sympaLists" />
     <div v-if="httpError !== undefined">
       <p>{{ getErrorMessage(httpError.code) }}</p>
     </div>
@@ -88,7 +88,7 @@ function getErrorMessage(code: number) {
 </template>
 
 <style lang="scss">
-filter-esup-sympa {
+filter-sympa {
   display: block;
   margin-bottom: 20px;
 }

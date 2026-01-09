@@ -15,35 +15,35 @@
  */
 
 import { defineCustomElement } from 'vue'
-import CardEsupSympaSFC from '@/components/CardEsupSympa.ce.vue'
-import FilterEsupSympaSFC from '@/components/FilterEsupSympa.ce.vue'
+import CardSympaSFC from '@/components/CardSympa.ce.vue'
+import FilterSympaSFC from '@/components/FilterSympa.ce.vue'
 import I18nHostSFC from '@/components/I18nHost.ce.vue'
-import ListEsupSympSFC from '@/components/ListEsupSympa.ce.vue'
-import PageEsupSympaSFC from '@/components/PageEsupSympa.ce.vue'
+import ListSympSFC from '@/components/ListSympa.ce.vue'
+import PageSympaSFC from '@/components/PageSympa.ce.vue'
 
-const CardEsupSympa = defineCustomElement(CardEsupSympaSFC)
-const FilterEsupSympa = defineCustomElement(FilterEsupSympaSFC)
+const CardSympa = defineCustomElement(CardSympaSFC)
+const FilterSympa = defineCustomElement(FilterSympaSFC)
 const I18nHost = defineCustomElement(I18nHostSFC)
-const ListEsupSympa = defineCustomElement(ListEsupSympSFC)
-const PageEsupSympa = defineCustomElement(PageEsupSympaSFC)
+const ListSympa = defineCustomElement(ListSympSFC)
+const PageSympa = defineCustomElement(PageSympaSFC)
 
 declare module 'vue' {
   export interface GlobalComponents {
-    CardEsupSympa: typeof CardEsupSympa
-    FilterEsupSympa: typeof FilterEsupSympa
+    CardSympa: typeof CardSympa
+    FilterSympa: typeof FilterSympa
     I18nHost: typeof I18nHost
-    ListEsupSympa: typeof ListEsupSympa
-    PageEsupSympa: typeof PageEsupSympa
+    ListSympa: typeof ListSympa
+    PageSympa: typeof PageSympa
   }
 }
 
 // https://fr.vuejs.org/guide/extras/web-components#tips-for-a-vue-custom-elements-library
 function registerElements() {
-  customElements.define('card-esup-sympa', CardEsupSympa)
-  customElements.define('filter-esup-sympa', FilterEsupSympa)
+  customElements.define('card-sympa', CardSympa)
+  customElements.define('filter-sympa', FilterSympa)
   customElements.define('i18n-host', I18nHost)
-  customElements.define('list-esup-sympa', ListEsupSympa)
-  customElements.define('esup-sympa', PageEsupSympa)
+  customElements.define('list-sympa', ListSympa)
+  customElements.define('page-sympa', PageSympa)
 }
 
-export { CardEsupSympa, FilterEsupSympa, I18nHost, ListEsupSympa, PageEsupSympa, registerElements }
+export { CardSympa, FilterSympa, I18nHost, ListSympa, PageSympa, registerElements }

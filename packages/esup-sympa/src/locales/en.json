@@ -1,10 +1,10 @@
 {
-  "card-esup-sympa": {
+  "card-sympa": {
     "copy": "Copy",
     "email": "Send email"
 
   },
-  "list-esup-sympa": {
+  "list-sympa": {
     "results": "No results | {count} Result | {count} Results"
   },
   "permission-labels": {
