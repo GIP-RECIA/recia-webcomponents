@@ -14,7 +14,7 @@
  limitations under the License.
 -->
 <script setup lang="ts">
-import type { SympaApiResponse, SympaType } from '@/types/sympaTypes'
+import type { SympaApiResponse, SympaList } from '@/types/sympaTypes'
 import { onMounted, ref } from 'vue'
 import { HttpError } from '@/classes/httpError'
 import i18n from '@/plugins/i18n.ts'
@@ -30,7 +30,7 @@ const props = withDefaults(
   },
 )
 const adminPortletUrl = ref<string | undefined>(undefined)
-const sympaList = ref<Array<SympaType>>([])
+const sympaLists = ref<Array<SympaList>>([])
 const loaded = ref<boolean>(false)
 const httpError = ref<HttpError | undefined>(undefined)
 const { t } = i18n.global
@@ -38,7 +38,7 @@ const { t } = i18n.global
 onMounted(async (): Promise<void> => {
   const response: SympaApiResponse = await get(props.apiUrl, props.timeout)
   adminPortletUrl.value = response.adminPortletUrl !== undefined && response.adminPortletUrl.length > 0 ? response.adminPortletUrl : undefined
-  sympaList.value = response.sympaList
+  sympaLists.value = response.sympaLists
   loaded.value = true
 })
 
@@ -79,8 +79,8 @@ function getErrorMessage(code: number) {
     <div>
       <p>Page Esup Sympa</p>
     </div>
-    <filter-esup-sympa v-if="loaded && sympaList.length > 0" class="filters" />
-    <list-esup-sympa v-if="loaded" :sympa-list="sympaList" />
+    <filter-esup-sympa v-if="loaded && sympaLists.length > 0" class="filters" />
+    <list-esup-sympa v-if="loaded" :sympa-lists="sympaLists" />
     <div v-if="httpError !== undefined">
       <p>{{ getErrorMessage(httpError.code) }}</p>
     </div>

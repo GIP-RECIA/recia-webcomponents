@@ -15,32 +15,32 @@
 -->
 
 <script setup lang="ts">
-import type { SympaType } from '@/types/sympaTypes'
+import type { SympaList } from '@/types/sympaTypes'
 import { useI18n } from 'vue-i18n'
 import { PermissionKey } from '@/types/permissionKeyEnum'
 import { checked } from '@/utils/store'
 
 const props = defineProps<{
-  sympaList: Array<SympaType>
+  sympaLists: Array<SympaList>
 }>()
 const { t } = useI18n()
 
-function displayStateForSympaItem(sympaItem: SympaType): boolean {
+function displayStateForSympaList(sympaList: SympaList): boolean {
   if (checked.value.length === 0)
     return true
 
   return Object.values(PermissionKey).some(
-    key => sympaItem[key] && checked.value.includes(key),
+    key => sympaList[key] && checked.value.includes(key),
   )
 }
 </script>
 
 <template>
   <p class="results-count">
-    {{ t('list-esup-sympa.results', { count: sympaList.length }, { plural: sympaList.length }) }}
+    {{ t('list-esup-sympa.results', { count: sympaLists.length }, { plural: sympaLists.length }) }}
   </p>
   <div class="wrapper">
-    <card-esup-sympa v-for="sympaItem in props.sympaList.filter(x => displayStateForSympaItem(x))" :key="sympaItem.address" :sympa-item="sympaItem" />
+    <card-esup-sympa v-for="sympaList in props.sympaLists.filter(x => displayStateForSympaList(x))" :key="sympaList.address" :sympa-list="sympaList" />
   </div>
 </template>
 

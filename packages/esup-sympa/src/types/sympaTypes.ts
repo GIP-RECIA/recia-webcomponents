@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export interface SympaType {
+export interface SympaList {
   owner: boolean
   editor: boolean
   subscriber: boolean
@@ -24,5 +24,5 @@ export interface SympaType {
 
 export interface SympaApiResponse {
   adminPortletUrl: string
-  sympaList: SympaType[]
+  sympaLists: SympaList[]
 }
