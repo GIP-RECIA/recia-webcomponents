@@ -1,1 +1,1 @@
-# esup-sympa
+# sympa
