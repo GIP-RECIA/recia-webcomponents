@@ -1649,9 +1649,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gip-recia/sympa@workspace:packages/esup-sympa":
+"@gip-recia/sympa@workspace:packages/sympa":
   version: 0.0.0-use.local
-  resolution: "@gip-recia/sympa@workspace:packages/esup-sympa"
+  resolution: "@gip-recia/sympa@workspace:packages/sympa"
   dependencies:
     "@antfu/eslint-config": "npm:^6.7.3"
     "@fortawesome/fontawesome-free": "npm:^7.1.0"
