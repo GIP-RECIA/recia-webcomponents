@@ -37,10 +37,10 @@ function displayStateForSympaList(sympaList: SympaList): boolean {
 
 <template>
   <p class="results-count">
-    {{ t('list-esup-sympa.results', { count: sympaLists.length }, { plural: sympaLists.length }) }}
+    {{ t('list-sympa.results', { count: sympaLists.length }, { plural: sympaLists.length }) }}
   </p>
   <div class="wrapper">
-    <card-esup-sympa v-for="sympaList in props.sympaLists.filter(x => displayStateForSympaList(x))" :key="sympaList.address" :sympa-list="sympaList" />
+    <card-sympa v-for="sympaList in props.sympaLists.filter(x => displayStateForSympaList(x))" :key="sympaList.address" :sympa-list="sympaList" />
   </div>
 </template>
 
