@@ -1502,13 +1502,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/vue-fontawesome@npm:^3.1.2":
-  version: 3.1.2
-  resolution: "@fortawesome/vue-fontawesome@npm:3.1.2"
+"@fortawesome/vue-fontawesome@npm:^3.1.3":
+  version: 3.1.3
+  resolution: "@fortawesome/vue-fontawesome@npm:3.1.3"
   peerDependencies:
     "@fortawesome/fontawesome-svg-core": ~1 || ~6 || ~7
     vue: ">= 3.0.0 < 4"
-  checksum: 10/0d2d22bf272fc3ccaba98532c2bbbc034e9adfb894502e4f37c05707e4e711940b0b7f6920e1edf1f5abdc8522c1a077eb21bafecadb86e0fac3a9dba70a6d1d
+  checksum: 10/30b7f896621839dda38cd3464a7f59a64d5afc926c0c7ad0b7d6665e85807c631c87eaca4af76e2aeba299030e50ac39b7fb865eb4455a0acbdfc2b968229f19
   languageName: node
   linkType: hard
 
@@ -1520,7 +1520,7 @@ __metadata:
     "@fortawesome/fontawesome-free": "npm:^7.1.0"
     "@fortawesome/fontawesome-svg-core": "npm:^7.1.0"
     "@fortawesome/free-solid-svg-icons": "npm:^7.1.0"
-    "@fortawesome/vue-fontawesome": "npm:^3.1.2"
+    "@fortawesome/vue-fontawesome": "npm:^3.1.3"
     "@intlify/unplugin-vue-i18n": "npm:^11.0.3"
     "@tsconfig/node22": "npm:^22.0.5"
     "@types/lodash.debounce": "npm:^4"
@@ -1587,7 +1587,7 @@ __metadata:
     "@fortawesome/fontawesome-svg-core": "npm:^7.1.0"
     "@fortawesome/free-regular-svg-icons": "npm:^7.1.0"
     "@fortawesome/free-solid-svg-icons": "npm:^7.1.0"
-    "@fortawesome/vue-fontawesome": "npm:^3.1.2"
+    "@fortawesome/vue-fontawesome": "npm:^3.1.3"
     "@gip-recia/info-modal": "npm:^0.0.1"
     "@intlify/unplugin-vue-i18n": "npm:^11.0.3"
     "@tsconfig/node22": "npm:^22.0.5"
@@ -1625,7 +1625,7 @@ __metadata:
     "@antfu/eslint-config": "npm:^7.2.0"
     "@fortawesome/fontawesome-svg-core": "npm:^7.1.0"
     "@fortawesome/free-solid-svg-icons": "npm:^7.1.0"
-    "@fortawesome/vue-fontawesome": "npm:^3.1.2"
+    "@fortawesome/vue-fontawesome": "npm:^3.1.3"
     "@intlify/unplugin-vue-i18n": "npm:^11.0.3"
     "@tsconfig/node22": "npm:^22.0.5"
     "@types/node": "npm:^25"
@@ -1737,7 +1737,7 @@ __metadata:
     "@antfu/eslint-config": "npm:^7.2.0"
     "@fortawesome/fontawesome-svg-core": "npm:^7.1.0"
     "@fortawesome/free-solid-svg-icons": "npm:^7.1.0"
-    "@fortawesome/vue-fontawesome": "npm:^3.1.2"
+    "@fortawesome/vue-fontawesome": "npm:^3.1.3"
     "@intlify/unplugin-vue-i18n": "npm:^11.0.3"
     "@tsconfig/node22": "npm:^22.0.5"
     "@types/lodash.debounce": "npm:^4"
