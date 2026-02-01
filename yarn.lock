@@ -537,24 +537,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dprint/formatter@npm:^0.3.0":
-  version: 0.3.0
-  resolution: "@dprint/formatter@npm:0.3.0"
-  checksum: 10/4f0aa1ef8404943a19a89e30dd1939bff74a9a694b3ee4370dd45f1e08eb9d88c62692ec97b9f139343a71205e943c57f226360cae260b069297600cda294e16
+"@dprint/formatter@npm:^0.5.1":
+  version: 0.5.1
+  resolution: "@dprint/formatter@npm:0.5.1"
+  checksum: 10/02900ce66d0226abd57035fa70fc1c6c5f8dd31ede3fd7acf2eb5860a99acec7994488557a8ce9c93269c8e40e07e0405ca7c475bb8fe8f038caf0483d55edba
   languageName: node
   linkType: hard
 
-"@dprint/markdown@npm:^0.17.8":
-  version: 0.17.8
-  resolution: "@dprint/markdown@npm:0.17.8"
-  checksum: 10/df2b1962c5d0063c0809d7a7eee435f4fd95295da38706b56d67f145ee7d030a3dae761512f488025344fd88af2b596e910d1f6ba8ca7f79670f69bf7c6e592b
+"@dprint/markdown@npm:^0.20.0":
+  version: 0.20.0
+  resolution: "@dprint/markdown@npm:0.20.0"
+  checksum: 10/ae7b0b3ef5f600a1a63706d6c45529b99448ba493694671ec29c90c46bb103048eedc25c9d83e9ce74fbb989e8a7fdfb6019af05e0c9b466993688fd65801bd5
   languageName: node
   linkType: hard
 
-"@dprint/toml@npm:^0.6.4":
-  version: 0.6.4
-  resolution: "@dprint/toml@npm:0.6.4"
-  checksum: 10/cb134fe9530ac50c915b5b5346d54318c61192b99ba1ecb26f78962db234b400f4d1430273dd0818a21e28db755e52b8e4c50339e934006497e7b33f16706c59
+"@dprint/toml@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "@dprint/toml@npm:0.7.0"
+  checksum: 10/cab4952c86707f0531c960ed5b1780544b5864fbfeeed7913b1d0fc552e3f4a89dcfc8baed3d27cfb81383a46ab21a875437d5cb27fb73af51ee4a8579aea922
   languageName: node
   linkType: hard
 
@@ -1505,7 +1505,7 @@ __metadata:
     axios: "npm:^1.13.2"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^9.39.2"
-    eslint-plugin-format: "npm:^1.1.0"
+    eslint-plugin-format: "npm:^1.3.1"
     lint-staged: "npm:^16.2.7"
     lodash.debounce: "npm:^4.0.8"
     lodash.throttle: "npm:^4.1.1"
@@ -1539,7 +1539,7 @@ __metadata:
     "@tsconfig/node22": "npm:^22.0.5"
     "@types/node": "npm:^25"
     eslint: "npm:^9.39.2"
-    eslint-plugin-format: "npm:^1.1.0"
+    eslint-plugin-format: "npm:^1.3.1"
     lit: "npm:^3.3.2"
     lit-analyzer: "npm:^2.0.3"
     lit-scss-loader: "npm:^2.0.1"
@@ -1574,7 +1574,7 @@ __metadata:
     axios: "npm:^1.13.2"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^9.39.2"
-    eslint-plugin-format: "npm:^1.1.0"
+    eslint-plugin-format: "npm:^1.3.1"
     lint-staged: "npm:^16.2.7"
     lodash.debounce: "npm:^4.0.8"
     lodash.throttle: "npm:^4.1.1"
@@ -1609,7 +1609,7 @@ __metadata:
     cropperjs: "npm:^1.6.2"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^9.39.2"
-    eslint-plugin-format: "npm:^1.1.0"
+    eslint-plugin-format: "npm:^1.3.1"
     lint-staged: "npm:^16.2.7"
     npm-run-all2: "npm:^8.0.4"
     regenerator-runtime: "npm:^0.14.1"
@@ -1682,7 +1682,7 @@ __metadata:
     axios: "npm:^1.13.2"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^9.39.2"
-    eslint-plugin-format: "npm:^1.1.0"
+    eslint-plugin-format: "npm:^1.3.1"
     eslint-plugin-react-hooks: "npm:^7.0.1"
     eslint-plugin-react-refresh: "npm:^0.4.24"
     jwt-decode: "npm:^4.0.0"
@@ -1721,7 +1721,7 @@ __metadata:
     axios: "npm:^1.13.2"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^9.39.2"
-    eslint-plugin-format: "npm:^1.1.0"
+    eslint-plugin-format: "npm:^1.3.1"
     lint-staged: "npm:^16.2.7"
     lodash.debounce: "npm:^4.0.8"
     npm-run-all2: "npm:^8.0.4"
@@ -1809,7 +1809,7 @@ __metadata:
     axios: "npm:^1.13.2"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^9.39.2"
-    eslint-plugin-format: "npm:^1.1.0"
+    eslint-plugin-format: "npm:^1.3.1"
     eslint-plugin-react-hooks: "npm:^7.0.1"
     eslint-plugin-react-refresh: "npm:^0.4.24"
     jwt-decode: "npm:^4.0.0"
@@ -6021,20 +6021,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-format@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "eslint-plugin-format@npm:1.1.0"
+"eslint-plugin-format@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "eslint-plugin-format@npm:1.3.1"
   dependencies:
-    "@dprint/formatter": "npm:^0.3.0"
-    "@dprint/markdown": "npm:^0.17.8"
-    "@dprint/toml": "npm:^0.6.4"
+    "@dprint/formatter": "npm:^0.5.1"
+    "@dprint/markdown": "npm:^0.20.0"
+    "@dprint/toml": "npm:^0.7.0"
     eslint-formatting-reporter: "npm:^0.0.0"
     eslint-parser-plain: "npm:^0.1.1"
+    ohash: "npm:^2.0.11"
     prettier: "npm:^3.7.4"
     synckit: "npm:^0.11.11"
   peerDependencies:
     eslint: ^8.40.0 || ^9.0.0
-  checksum: 10/01cee61b6758e84f0fcfe9d6f86623d168a11f40c4cc7eb9f99c0da6c81242e7e48be73bac07dc0424a909ec6fc42044f021a0352bc990bdb6f3d962a0c1ad70
+  checksum: 10/1bcf1851ccbcc440510e465e61d8fdfc98cda456e44fd9982993eb8daaabe7089fe56aa6f125cc9a25f46cb0edcfc0e31c757944790c38a18f0dd5ede3a32542
   languageName: node
   linkType: hard
 
@@ -9020,6 +9021,13 @@ __metadata:
   version: 2.0.0
   resolution: "object-deep-merge@npm:2.0.0"
   checksum: 10/d2f9aa0b2160118f3e261fe51634a958b9f19993f64479911df3d3b4daa0212cb01bf2a7cf2c3ab1a1830cc167151a408ecf8c3e47efa44343b516777d6ef11c
+  languageName: node
+  linkType: hard
+
+"ohash@npm:^2.0.11":
+  version: 2.0.11
+  resolution: "ohash@npm:2.0.11"
+  checksum: 10/6b0423f42cc95c3d643f390a88364aac824178b7788dccb4e8c64e2124463d0069e60d4d90bad88ed9823808368d051e088aa27058ca4722b1397a201ffbfa4b
   languageName: node
   linkType: hard
 
