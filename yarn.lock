@@ -1530,7 +1530,7 @@ __metadata:
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^6.0.3"
     "@vue/tsconfig": "npm:^0.8.1"
-    axios: "npm:^1.13.2"
+    axios: "npm:^1.13.4"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^9.39.2"
     eslint-plugin-format: "npm:^1.1.0"
@@ -1599,7 +1599,7 @@ __metadata:
     "@vue/tsconfig": "npm:^0.8.1"
     "@vueform/multiselect": "npm:^2.6.11"
     "@vueuse/core": "npm:^14.1.0"
-    axios: "npm:^1.13.2"
+    axios: "npm:^1.13.4"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^9.39.2"
     eslint-plugin-format: "npm:^1.1.0"
@@ -1633,7 +1633,7 @@ __metadata:
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^6.0.3"
     "@vue/tsconfig": "npm:^0.8.1"
-    axios: "npm:^1.13.2"
+    axios: "npm:^1.13.4"
     cropperjs: "npm:^1.6.2"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^9.39.2"
@@ -1707,7 +1707,7 @@ __metadata:
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-react": "npm:^5.1.1"
-    axios: "npm:^1.13.2"
+    axios: "npm:^1.13.4"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^9.39.2"
     eslint-plugin-format: "npm:^1.1.0"
@@ -1746,7 +1746,7 @@ __metadata:
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^6.0.3"
     "@vue/tsconfig": "npm:^0.8.1"
-    axios: "npm:^1.13.2"
+    axios: "npm:^1.13.4"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^9.39.2"
     eslint-plugin-format: "npm:^1.1.0"
@@ -1834,7 +1834,7 @@ __metadata:
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-react": "npm:^5.1.1"
-    axios: "npm:^1.13.2"
+    axios: "npm:^1.13.4"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^9.39.2"
     eslint-plugin-format: "npm:^1.1.0"
@@ -4466,14 +4466,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.13.2":
-  version: 1.13.2
-  resolution: "axios@npm:1.13.2"
+"axios@npm:^1.13.4":
+  version: 1.13.4
+  resolution: "axios@npm:1.13.4"
   dependencies:
     follow-redirects: "npm:^1.15.6"
     form-data: "npm:^4.0.4"
     proxy-from-env: "npm:^1.1.0"
-  checksum: 10/ae4e06dcd18289f2fd18179256d550d27f9a53ecb2f9c59f2ccc4efd1d7151839ba8c3e0fb533dac793e4a59a576ca8689a19244dce5c396680837674a47a867
+  checksum: 10/54b7ef71c64837f9d52475832337f520cf6fa85c94612e03a3a2aad7082804a2544741267122696662147e90e6d2746601346984cf531ae715ecdb56d586a04c
   languageName: node
   linkType: hard
 
