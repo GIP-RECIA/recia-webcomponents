@@ -50,7 +50,7 @@
     "lit": "^3.3.2",
     "lit-analyzer": "^2.0.3",
     "lit-scss-loader": "^2.0.1",
-    "sass": "^1.97.1",
+    "sass": "^1.97.3",
     "terser": "^5.44.1",
     "typescript": "^5.9.3",
     "vite": "^7.3.0",
