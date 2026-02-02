@@ -363,13 +363,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/config-conventional@npm:^20.3.0":
-  version: 20.3.0
-  resolution: "@commitlint/config-conventional@npm:20.3.0"
+"@commitlint/config-conventional@npm:^20.4.0":
+  version: 20.4.0
+  resolution: "@commitlint/config-conventional@npm:20.4.0"
   dependencies:
-    "@commitlint/types": "npm:^20.2.0"
-    conventional-changelog-conventionalcommits: "npm:^7.0.2"
-  checksum: 10/410fe56bbe553a591e6a30dad018c992e9a2d5c1851666cd323d26dc3b1a96f15b6350c71cd3c3095653408109cdcaae8cd76eaf69868896cef9e0ea532e0464
+    "@commitlint/types": "npm:^20.4.0"
+    conventional-changelog-conventionalcommits: "npm:^9.1.0"
+  checksum: 10/5e32209f78f29275cccc1b149ecb087252d66815b0cc2ed3232f9dd50e4f5ec2eea5d107c6a45d66e91ddbd85fe64b8a098117e63da57890c66af6fe5162fe2a
   languageName: node
   linkType: hard
 
@@ -522,7 +522,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/types@npm:^20.2.0, @commitlint/types@npm:^20.4.0":
+"@commitlint/types@npm:^20.4.0":
   version: 20.4.0
   resolution: "@commitlint/types@npm:20.4.0"
   dependencies:
@@ -5039,12 +5039,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"conventional-changelog-conventionalcommits@npm:^7.0.2":
-  version: 7.0.2
-  resolution: "conventional-changelog-conventionalcommits@npm:7.0.2"
+"conventional-changelog-conventionalcommits@npm:^9.1.0":
+  version: 9.1.0
+  resolution: "conventional-changelog-conventionalcommits@npm:9.1.0"
   dependencies:
     compare-func: "npm:^2.0.0"
-  checksum: 10/3cc6586ac57cc54c0595b28ae22e8b674c970034bad35e467f71aba395278a6ef43351cfbf782a5fc33eb13ed4ad843a145b89ad1444f5fa571e3bf9c1d5519b
+  checksum: 10/932522a9eb2f19f8b6efc05f1de0b8d4775842e2156c2c58358d25069bfc43ca1a6198fb07666d7abc83695a10591787c23b7ff2e1e2d73ac484cfb2f57f5f7f
   languageName: node
   linkType: hard
 
@@ -9835,7 +9835,7 @@ __metadata:
   resolution: "recia-webcomponents@workspace:."
   dependencies:
     "@commitlint/cli": "npm:^20.4.0"
-    "@commitlint/config-conventional": "npm:^20.3.0"
+    "@commitlint/config-conventional": "npm:^20.4.0"
     commit-and-tag-version: "npm:^12.6.1"
     husky: "npm:^9.1.7"
     lint-staged: "npm:^16.2.7"
