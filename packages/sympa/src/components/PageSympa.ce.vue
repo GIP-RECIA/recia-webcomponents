@@ -29,7 +29,7 @@ const props = withDefaults(
     timeout: import.meta.env.VITE_APP_TIMEOUT,
   },
 )
-const adminPortletUrl = ref<string | undefined>(undefined)
+const adminServiceUrl = ref<string | undefined>(undefined)
 const sympaLists = ref<Array<SympaList>>([])
 const loaded = ref<boolean>(false)
 const httpError = ref<HttpError | undefined>(undefined)
@@ -37,7 +37,7 @@ const { t } = i18n.global
 
 onMounted(async (): Promise<void> => {
   const response: SympaApiResponse = await get(props.apiUrl, props.timeout)
-  adminPortletUrl.value = response.adminPortletUrl !== undefined && response.adminPortletUrl.length > 0 ? response.adminPortletUrl : undefined
+  adminServiceUrl.value = response.adminServiceUrl !== undefined && response.adminServiceUrl !== null && response.adminServiceUrl.length > 0 ? response.adminServiceUrl : undefined
   sympaLists.value = response.sympaLists
   loaded.value = true
 })
@@ -48,7 +48,7 @@ async function get(
 ): Promise<SympaApiResponse> {
   try {
     const response = await fetch(url, {
-      method: 'GET',
+      method: 'POST',
       credentials: 'include',
       signal: AbortSignal.timeout(timeout),
       redirect: 'follow',
