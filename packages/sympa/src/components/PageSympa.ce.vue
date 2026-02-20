@@ -40,6 +40,15 @@ onMounted(async (): Promise<void> => {
   adminServiceUrl.value = response.adminServiceUrl !== undefined && response.adminServiceUrl !== null && response.adminServiceUrl.length > 0 ? response.adminServiceUrl : undefined
   sympaLists.value = response.sympaLists
   loaded.value = true
+
+  if (adminServiceUrl.value !== undefined) {
+    document.dispatchEvent(
+      new CustomEvent('set-is-admin', {
+        bubbles: true,
+        detail: { adminUrl: adminServiceUrl.value },
+      }),
+    )
+  }
 })
 
 async function get(

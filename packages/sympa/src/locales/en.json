@@ -1,4 +1,5 @@
 {
+  "admin-redirect": "list administration",
   "card-sympa": {
     "copy": "Copy",
     "email": "Send email"
