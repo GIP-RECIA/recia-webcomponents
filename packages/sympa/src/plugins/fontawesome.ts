@@ -16,9 +16,11 @@
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCopy as farCopy, faPaperPlane as farPaperPlane } from '@fortawesome/free-regular-svg-icons'
+import { faArrowRight as fasArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 function register() {
   library.add(
+    fasArrowRight,
     farCopy,
     farPaperPlane,
   )
