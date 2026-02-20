@@ -18,11 +18,11 @@ export interface SympaList {
   owner: boolean
   editor: boolean
   subscriber: boolean
-  description: string
+  subject: string
   address: string
 }
 
 export interface SympaApiResponse {
-  adminPortletUrl: string
+  adminServiceUrl: string
   sympaLists: SympaList[]
 }

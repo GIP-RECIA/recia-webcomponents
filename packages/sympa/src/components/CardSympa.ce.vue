@@ -35,7 +35,7 @@ async function copyAddress() {
   <div v-if="props.sympaList !== undefined" class="card-wrapper">
     <div class="part-wrapper description-and-tags">
       <p class="description">
-        {{ props.sympaList.description }}
+        {{ props.sympaList.subject }}
       </p>
       <div class="tags-wrapper">
         <span v-for="key in Object.values(PermissionKey).filter(x => props.sympaList![x] === true)" :key="key" class="tag small permission-tag">
