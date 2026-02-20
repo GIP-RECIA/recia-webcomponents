@@ -15,11 +15,42 @@
 -->
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { onMounted, ref } from 'vue'
+import i18n from '@/plugins/i18n.ts'
 
-const adminUrl = ref<string>('adminUrl')
+const adminUrl = ref<string>('')
+const { t } = i18n.global
+
+onMounted(() => {
+  document.addEventListener('set-is-admin', (e) => {
+    const event = e as CustomEvent<{ adminUrl: string }>
+    adminUrl.value = event.detail.adminUrl
+  })
+})
 </script>
 
 <template>
-  <p>{{ adminUrl }}</p>
+  <i18n-host>
+    <p>
+      <a v-if="adminUrl.length > 0" :href="adminUrl">
+        {{ t('admin-redirect') }}
+        <FontAwesomeIcon class="fa-icon" :icon="['fas', 'arrow-right']" />
+      </a>
+    </p>
+  </i18n-host>
 </template>
+
+<style lang="scss">
+a {
+  text-decoration: none;
+  color: var(--recia-primary, #0062bc);
+  display: inline;
+}
+
+.fa-icon {
+  height: 1em;
+  width: 1em;
+  vertical-align: middle;
+}
+</style>
