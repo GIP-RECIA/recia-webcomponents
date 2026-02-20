@@ -74,6 +74,7 @@ const urlProvidedToComponent = computed(() => {
       {{ code }}
     </label>
   </div>
+  <sympa-admin-redirect />
   <page-sympa v-if="urlProvidedToComponent !== undefined" :key="urlProvidedToComponent" :api-url="urlProvidedToComponent" />
 </template>
 

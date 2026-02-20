@@ -20,12 +20,14 @@ import FilterSympaSFC from '@/components/FilterSympa.ce.vue'
 import I18nHostSFC from '@/components/I18nHost.ce.vue'
 import ListSympSFC from '@/components/ListSympa.ce.vue'
 import PageSympaSFC from '@/components/PageSympa.ce.vue'
+import SympaAdminRedirectSFC from '@/components/SympaAdminRedirect.ce.vue'
 
 const CardSympa = defineCustomElement(CardSympaSFC)
 const FilterSympa = defineCustomElement(FilterSympaSFC)
 const I18nHost = defineCustomElement(I18nHostSFC)
 const ListSympa = defineCustomElement(ListSympSFC)
 const PageSympa = defineCustomElement(PageSympaSFC)
+const SympaAdminRedirect = defineCustomElement(SympaAdminRedirectSFC)
 
 declare module 'vue' {
   export interface GlobalComponents {
@@ -34,6 +36,7 @@ declare module 'vue' {
     I18nHost: typeof I18nHost
     ListSympa: typeof ListSympa
     PageSympa: typeof PageSympa
+    SympaAdminRedirect: typeof SympaAdminRedirect
   }
 }
 
@@ -44,6 +47,7 @@ function registerElements() {
   customElements.define('i18n-host', I18nHost)
   customElements.define('list-sympa', ListSympa)
   customElements.define('page-sympa', PageSympa)
+  customElements.define('sympa-admin-redirect', SympaAdminRedirect)
 }
 
-export { CardSympa, FilterSympa, I18nHost, ListSympa, PageSympa, registerElements }
+export { CardSympa, FilterSympa, I18nHost, ListSympa, PageSympa, registerElements, SympaAdminRedirect }
