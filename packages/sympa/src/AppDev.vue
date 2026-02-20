@@ -33,7 +33,7 @@ const props = withDefaults(
 )
 
 const selectedError = ref<number | undefined>(undefined)
-const selectedUrl = ref<string | undefined>('admin')
+const selectedUrl = ref<string | undefined>('true')
 
 const errorCodes = [400, 401, 403, 404, 500, 503]
 
