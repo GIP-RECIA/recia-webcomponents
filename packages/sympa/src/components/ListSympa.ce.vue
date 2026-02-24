@@ -18,7 +18,7 @@
 import type { SympaList } from '@/types/sympaTypes'
 import { useI18n } from 'vue-i18n'
 import { PermissionKey } from '@/types/permissionKeyEnum'
-import { checked } from '@/utils/store'
+import { sympaFilter } from '@/utils/store'
 
 const props = defineProps<{
   sympaLists: Array<SympaList>
@@ -26,11 +26,11 @@ const props = defineProps<{
 const { t } = useI18n()
 
 function displayStateForSympaList(sympaList: SympaList): boolean {
-  if (checked.value.length === 0)
+  if (sympaFilter.value.length === 0)
     return true
 
   return Object.values(PermissionKey).some(
-    key => sympaList[key] && checked.value.includes(key),
+    key => sympaList[key] && sympaFilter.value.includes(key),
   )
 }
 </script>
