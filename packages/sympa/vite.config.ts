@@ -33,11 +33,17 @@ export default ({ mode }: ConfigEnv) => {
         template: {
           compilerOptions: {
             isCustomElement: tag => [
+              'button-dropdown-admin-card-sympa-update',
+              'card-admin-sympa-create',
+              'card-admin-sympa-update',
               'card-sympa',
               'page-sympa',
+              'page-admin-sympa',
+              'filter-admin-sympa',
               'filter-sympa',
               'i18n-host',
               'list-sympa',
+              'list-admin-sympa',
               'sympa-admin-redirect',
             ].includes(tag),
           },
