@@ -1,17 +1,104 @@
 {
   "admin-redirect": "list administration",
   "card-sympa": {
-    "copy": "Copy",
-    "email": "Send email"
-
+    "copy": "Copy ",
+    "create": "Create ",
+    "options": "Options ",
+    "close": "Close ",
+    "modify": "Update ",
+    "archives": "Archives ",
+    "admin-access": "Administration ",
+    "email": "Send an email "
   },
   "list-sympa": {
     "results": "No results | {count} Result | {count} Results"
   },
+  "list-admin-sympa": {
+    "tabs": {
+      "create": "Create",
+      "update": "Update"
+    }
+  },
+  "modal": {
+    "create-description": "Creating <span class=\"subject\">{subject}</span> list having <span class=\"address\">{address}</span> as address.",
+    "update-description": "Updating <span class=\"subject\">{subject}</span> list having <span class=\"address\">{address}</span> as address.",
+    "close-description": "Do you really want to close the <span class=\"subject\">{subject}</span> list having <span class=\"address\">{address}</span> as address.",
+    "update-warning": "Current configuration will be overrided with the selected groups:",
+    "load-more-groups": "Other groups allowed to write",
+    "description": {
+      "waiting": "Please wait. This operation can take up to 30 seconds."
+    },
+    "response": {
+      "create": {
+        "default": "List successfully created.",
+        "failure": {
+          "0": {
+            "list-already-exists": "The required list already exists.",
+            "ok": "List successfully created."
+          },
+          "1": {
+            "error-creating-list": "List creation failed due to an unknown reason. Please contact your administrator.",
+            "no-owners": "ESCO-SympaRemote could not affect a owner group to the list, because the filter from ESCO-SympaRemote config did not return any group.",
+            "no-subscribers": "ESCO-SympaRemote could not affect a subscriber group to the list, because the filter from the known models database did not return any existing group.",
+            "missing-parameter": "Some parameters are missing",
+            "operation-not-supported": "The required operation is unknown (the only operation known for now is CREATE).",
+            "unknown-list-type": "The type of list whose creation was requested is unknown (it is not present in the database containing the models).",
+            "list-creation-failed": "List creation failed due to an unknown reason.",
+            "bad-configuration": "There is a problem in ESCO-SympaRemote configuration. Potential causes are :  <ul><li> a missing parameter</li><li>an invalid parameter</li><li>LDAP or MySQL access are incorrect</li><li>dome data in the model database is incorrect.</li>",
+            "unauthorized-policy": "The provided write policy (nice write scenario) is not among the policies allowed in the configuration file."
+          }
+        }
+      },
+      "update": {
+        "default": "List successfully updated.",
+        "failure": {
+          "0": {
+            "ok": "List successfully updated."
+          },
+          "1": {
+            "error-updating-list": "List update failed due to an unknown reason. Please contact your administrator.",
+            "no-owners": "ESCO-SympaRemote could not affect a owner group to the list, because the filter from ESCO-SympaRemote config did not return any group.",
+            "no-subscribers": "ESCO-SympaRemote could not affect a subscriber group to the list, because the filter from the known models database did not return any existing group.",
+            "missing-parameter": "Some parameters are missing",
+            "operation-not-supported": "The required operation is unknown (the only operation known for now is CREATE).",
+            "unknown-list-type": "The type of list whose update was requested is unknown (it is not present in the database containing the models).",
+            "list-creation-failed": "List creation failed due to an unknown reason.",
+            "bad-configuration": "There is a problem in ESCO-SympaRemote configuration. Potential causes are :  <ul><li> a missing parameter</li><li>an invalid parameter</li><li>LDAP or MySQL access are incorrect</li><li>dome data in the model database is incorrect.</li>",
+            "unauthorized-policy": "The provided write policy (nice write scenario) is not among the policies allowed in the configuration file."
+          }
+        }
+      },
+      "close": {
+        "default": "List successfully closed.",
+        "failure": {
+          "0": {
+            "ok": "List successfully closed."
+          },
+          "1": {
+            "error-closing-list": "An error happened when closing the list."
+          }
+        }
+      }
+    },
+    "submit": {
+      "create": "Create list",
+      "update": "Update list",
+      "close": "Close list"
+    },
+    "title": {
+      "create": "List creation",
+      "update": "List update",
+      "close": "List closing"
+    }
+  },
   "permission-labels": {
-    "subscriber": "Subscriber",
-    "owner": "Owner",
-    "editor": "Editor"
+    "subscriber": "Abonné",
+    "owner": "Propriétaire",
+    "editor": "Contributeur"
+  },
+  "deprecated-labels": {
+    "deprecated": "Deprecated models",
+    "supported": "Supported models"
   },
   "error-messages": {
     "400": "An error has occurred, please try again.",

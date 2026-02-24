@@ -16,8 +16,10 @@
 
 import { ref } from 'vue'
 
-const checked = ref<Array<string>>([])
+const sympaFilter = ref<Array<string>>([])
+const adminSympaFilter = ref<Array<string>>([])
 
 export {
-  checked,
+  adminSympaFilter,
+  sympaFilter,
 }

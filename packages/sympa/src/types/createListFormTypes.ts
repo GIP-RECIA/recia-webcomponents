@@ -14,32 +14,26 @@
  * limitations under the License.
  */
 
-export interface SympaList {
-  owner: boolean
-  editor: boolean
-  subscriber: boolean
-  subject: string
-  address: string
+export interface EditorAlias {
+  name: string
+  checked: boolean
+  editable: boolean
+  idRequest: string
 }
 
-export interface SympaApiResponse {
-  adminServiceUrl: string
-  sympaLists: SympaList[]
+export interface CreateOrUpdateListFormDataResponsePayload {
+  editorsAliases: EditorAlias[]
+  type: string
+  typeParam: string
+  typeParamName: string
+  subscribersGroup: string
 }
 
-export interface CreatableList {
-  address: string
-  subject: string
-  modelId: string
-  modelParam: string
-}
-
-export interface UpdatableList extends CreatableList {
-  adminUrl: string
-  archivesUrl: string
-}
-
-export interface AdminSympaApiListsResponse {
-  createData: CreatableList[]
-  updateData: UpdatableList[]
+export interface GroupTreeNode {
+  text: string
+  getChildren: GroupTreeNode[]
+  id: string
+  children: boolean
+  iconIndex: number
+  parent?: GroupTreeNode
 }

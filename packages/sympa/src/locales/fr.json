@@ -1,16 +1,106 @@
 {
   "admin-redirect": "administration des listes",
   "card-sympa": {
-    "copy": "Copier",
-    "email": "Envoyer un courriel"
+    "copy": "Copier ",
+    "create": "Créer ",
+    "options": "Options ",
+    "close": "Fermer ",
+    "modify": "Modifier ",
+    "archives": "Archives ",
+    "admin-access": "Administration ",
+    "email": "Envoyer un courriel ",
+    "deprecated-warning": "Modèle de liste obsolète !"
+
   },
   "list-sympa": {
     "results": "Aucun résultat | {count} Résultat | {count} Résultats"
+  },
+  "list-admin-sympa": {
+    "tabs": {
+      "create": "Création",
+      "update": "Modification"
+    }
+  },
+  "modal": {
+    "create-description": "Création de la liste <span class=\"subject\">{subject}</span> ayant pour adresse <span class=\"address\">{address}</span>.",
+    "update-description": "Modification de la liste <span class=\"subject\">{subject}</span> ayant pour adresse <span class=\"address\">{address}</span>.",
+    "close-description": "Voulez vous vraiment fermer la liste <span class=\"subject\">{subject}</span> ayant pour adresse <span class=\"address\">{address}</span>.",
+    "update-warning": "La configuration actuelle sera écrasée par les groupes selectionnés si dessous :",
+    "load-more-groups": "Autres groupes autorisés à écrire",
+    "description": {
+      "waiting": "Veuillez patienter. Cette opération peut durer environ 30 secondes."
+    },
+    "response": {
+      "create": {
+        "default": "Liste créée avec succès.",
+        "failure": {
+          "0": {
+            "list-already-exists": "La liste dont on a demandé la création existe déjà.",
+            "ok": "La liste demandée a été créée sans erreur."
+          },
+          "1": {
+            "error-creating-list": "La création de la liste a échoué pour une raison inconnue.  Veuillez contacter votre administrateur.",
+            "no-owners": "ESCO-SympaRemote n'a pas pu affecter de groupe de propriétaire à la liste, car le filtre fourni dans la configuration de ESCO-SympaRemote n'a retourné aucun groupe.",
+            "no-subscribers": "ESCO-SympaRemote n'a pas pu affecter de groupe d'abonné à la liste, car le filtre fourni dans la base de données des modèles connus par ESCO-SympaRemote n'a pas permis de trouver un groupe existant.",
+            "missing-parameter": "Des paramètres d'entrée n'ont pas été fournis",
+            "operation-not-supported": "L'opération demandée en paramètre est inconnue (la seule opération connue pour l'instant est CREATE).",
+            "unknown-list-type": "Le type de liste dont la modification a été demandée n'est pas connu (il n'est pas présent dans la base de données contenant les modèles).",
+            "list-creation-failed": "La création de la liste a échouée pour une raison inconnue.",
+            "bad-configuration": "Il y a un problème dans la configuration de ESCO-SympaRemote.  Les causes possibles sont :  <ul><li> un paramètre manquant</li><li>un paramètre incorrect</li><li>l'accès LDAP ou MySQL est mal paramétré</li><li>certaines données dans la base des modèles ne sont pas correctes</li>",
+            "unauthorized-policy": "La politique d'écriture (scenario d'écriture sympa) fournie ne fait pas partie des politiques autorisées dans le fichier de configuration"
+          }
+        }
+      },
+      "update": {
+        "default": "Liste modifiée avec succès.",
+        "failure": {
+          "0": {
+            "ok": "La liste a été modifiée avec succès."
+          },
+          "1": {
+            "error-updating-list": "Une erreur s'est produite lors de la modification de la liste.",
+            "no-owners": "ESCO-SympaRemote n'a pas pu affecter de groupe de propriétaire à la liste, car le filtre fourni dans la configuration de ESCO-SympaRemote n'a retourné aucun groupe.",
+            "no-subscribers": "ESCO-SympaRemote n'a pas pu affecter de groupe d'abonné à la liste, car le filtre fourni dans la base de données des modèles connus par ESCO-SympaRemote (table MODEL-SUBSCRIBERS) n'a pas permis de trouver un groupe existant.",
+            "missing-parameter": "Des paramètres d'entrée n'ont pas été fournis",
+            "operation-not-supported": "L'opération demandée en paramètre est inconnue (la seule opération connue pour l'instant est CREATE).",
+            "unknown-list-type": "Le type de liste dont la création a été demandée n'est pas connu (il n'est pas présent dans la base de données contenant les modèles).",
+            "list-creation-failed": "La création de la liste a échouée pour une raison inconnue.",
+            "bad-configuration": "Il y a un problème dans la configuration de ESCO-SympaRemote.  Les causes possibles sont :  <ul><li> un paramètre manquant</li><li>un paramètre incorrect</li><li>l'accès LDAP ou MySQL est mal paramétré</li><li>certaines données dans la base des modèles ne sont pas correctes</li>",
+            "unauthorized-policy": "La politique d'écriture (scenario d'écriture sympa) fournie ne fait pas partie des politiques autorisées dans le fichier de configuration"
+          }
+        }
+      },
+      "close": {
+        "default": "Liste fermée avec succès.",
+        "failure": {
+          "0": {
+            "ok": "La liste a été fermée avec succès."
+          },
+          "1": {
+            "error-updating-list": "Une erreur s'est produite lors de la fermeture de la liste."
+          }
+        }
+      }
+    },
+    "submit": {
+      "create": "Créer la liste",
+      "update": "Modifier la liste",
+      "close": "Fermer la liste"
+    },
+    "title": {
+      "create": "Création de liste",
+      "update": "Modification de liste",
+      "close": "Fermeture de liste"
+    }
   },
   "permission-labels": {
     "subscriber": "Abonné",
     "owner": "Propriétaire",
     "editor": "Contributeur"
+  },
+  "deprecated-labels": {
+    "deprecated": "Modèles dépréciés",
+    "supported": "Modèles supportés"
   },
   "error-messages": {
     "400": "Une erreur est survenue, merci de rééssayer.",
