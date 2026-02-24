@@ -14,32 +14,7 @@
  * limitations under the License.
  */
 
-export interface SympaList {
-  owner: boolean
-  editor: boolean
-  subscriber: boolean
-  subject: string
-  address: string
-}
-
-export interface SympaApiResponse {
-  adminServiceUrl: string
-  sympaLists: SympaList[]
-}
-
-export interface CreatableList {
-  address: string
-  subject: string
-  modelId: string
-  modelParam: string
-}
-
-export interface UpdatableList extends CreatableList {
-  adminUrl: string
-  archivesUrl: string
-}
-
-export interface AdminSympaApiListsResponse {
-  createData: CreatableList[]
-  updateData: UpdatableList[]
+export enum DeprecatedKey {
+  DEPRECATED = 'deprecated',
+  SUPPORTED = 'supported',
 }

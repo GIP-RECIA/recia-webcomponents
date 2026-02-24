@@ -15,5 +15,36 @@
  */
 @use 'ress/dist/ress.min.css';
 
+@use 'variables' as *;
 @forward 'variables';
 @forward 'ent-ui';
+
+form {
+  button.btn-secondary {
+    display: block;
+  }
+  .btn-create {
+    margin-left: auto;
+  }
+}
+input {
+  accent-color: $primary;
+}
+#modale {
+  p {
+    text-justify: none;
+    margin-bottom: 1em;
+  }
+
+  ul {
+    margin-left: 2em;
+  }
+}
+
+.subject {
+  font-weight: bold;
+}
+
+.address {
+  font-weight: bold;
+}

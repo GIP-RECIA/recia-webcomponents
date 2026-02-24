@@ -20,13 +20,15 @@ import { computed, ref } from 'vue'
 const props = withDefaults(
   defineProps<{
     apiUrl?: string
-    apidAdminUrl?: string
+    apiAdminListsUrl?: string
+    apiDevAdminUrl?: string
     apidNoAdminUrl?: string
     errorUrl?: string
   }>(),
   {
     apiUrl: import.meta.env.VITE_APP_SYMPA_API_URI,
-    apidAdminUrl: import.meta.env.VITE_DEV_ADMIN_URI,
+    apiAdminListsUrl: import.meta.env.VITE_APP_ADMIN_SYMPA_API_URI_LISTS,
+    apiDevAdminUrl: import.meta.env.VITE_DEV_ADMIN_URI,
     apidNoAdminUrl: import.meta.env.VITE_DEV_NO_ADMIN_URI,
     errorUrl: import.meta.env.VITE_DEV_ERROR_URI,
   },
@@ -37,13 +39,15 @@ const selectedUrl = ref<string | undefined>('true')
 
 const errorCodes = [400, 401, 403, 404, 500, 503]
 
-const urlTypes = ['true', 'admin', 'no-admin', 'error']
+const urlTypes = ['true', 'true-admin', 'admin', 'no-admin', 'error']
 
 const urlProvidedToComponent = computed(() => {
   switch (selectedUrl.value) {
-    case 'admin': return props.apidAdminUrl
+    case 'admin': return props.apiDevAdminUrl
     case 'no-admin': return props.apidNoAdminUrl
     case 'error': return selectedError.value !== undefined ? props.errorUrl + selectedError.value : props.apiUrl
+    case 'true' : return props.apiUrl
+    case 'true-admin' : return props.apiAdminListsUrl
     default: return props.apiUrl
   }
 },
@@ -74,8 +78,9 @@ const urlProvidedToComponent = computed(() => {
       {{ code }}
     </label>
   </div>
-  <sympa-admin-redirect />
-  <page-sympa v-if="urlProvidedToComponent !== undefined" :key="urlProvidedToComponent" :api-url="urlProvidedToComponent" />
+  <sympa-admin-redirect v-if="!selectedUrl?.includes('admin')" />
+  <page-sympa v-if="urlProvidedToComponent !== undefined && !selectedUrl?.includes('admin')" :key="urlProvidedToComponent" :api-url="urlProvidedToComponent" />
+  <page-admin-sympa v-if="selectedUrl?.includes('admin')" :api-url="urlProvidedToComponent" />
 </template>
 
 <style lang="scss">

@@ -17,8 +17,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { PermissionKey } from '@/types/permissionKeyEnum'
-import { sympaFilter } from '@/utils/store'
+import { DeprecatedKey } from '@/types/deprecatedKeyEnum'
+import { adminSympaFilter } from '@/utils/store'
 import '@gip-recia/ui-webcomponents/dist/r-filters.js'
 
 const { t } = useI18n()
@@ -27,22 +27,23 @@ const data = ref<Array<any>>([])
 onMounted(async (): Promise<void> => {
   data.value = [
     {
-      id: 'permissions',
-      name: 'Par permission:',
+      id: 'deprecated',
+      name: 'Modèles dépréciés:',
       type: 'checkbox',
       items: [
         {
           key: 'all',
-          value: 'Toutes les permissions',
+          value: 'Toutes les listes',
         },
-        ...Object.values(PermissionKey).map(x => ({ key: x, value: t(`permission-labels.${x}`) })),
+        ...Object.values(DeprecatedKey).map(x => ({ key: x, value: t(`deprecated-labels.${x}`) })),
+
       ],
     },
   ]
 })
 
 async function updateChecked(event: CustomEvent) {
-  sympaFilter.value = event.detail.activeFilters[0].checked
+  adminSympaFilter.value = event.detail.activeFilters[0].checked
 }
 </script>
 

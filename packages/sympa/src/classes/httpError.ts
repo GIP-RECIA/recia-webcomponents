@@ -16,11 +16,13 @@
 
 export class HttpError extends Error {
   code: number
+  body: { messageKey?: string }
 
-  constructor(message: string, code: number) {
+  constructor(message: string, code: number, body?: { messageKey?: string }) {
     super(message)
     this.code = code
     this.name = 'HttpError'
+    this.body = body ?? { messageKey: '' }
     Object.setPrototypeOf(this, HttpError.prototype)
   }
 }
