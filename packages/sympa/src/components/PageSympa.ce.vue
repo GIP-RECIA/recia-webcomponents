@@ -85,9 +85,6 @@ function getErrorMessage(code: number) {
 
 <template>
   <i18n-host>
-    <div>
-      <p>Page Sympa</p>
-    </div>
     <filter-sympa v-if="loaded && sympaLists.length > 0" class="filters" />
     <list-sympa v-if="loaded" :sympa-lists="sympaLists" />
     <div v-if="httpError !== undefined">
