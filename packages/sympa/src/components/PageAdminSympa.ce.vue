@@ -246,10 +246,7 @@ async function fetchAdditionalGroups() {
 
 <template>
   <i18n-host>
-    <p>Page Admin Sympa</p>
-
     <list-admin-sympa :creatable-lists="creatableLists" :updatable-lists="updatableLists" @create-list="createList" @update-list="updateList" @close-list="closeList" />
-
     <Teleport to="body">
       <info-modal id="modale" debug="false" style="z-index: 99;">
         <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->

@@ -28,12 +28,12 @@ onMounted(async (): Promise<void> => {
   data.value = [
     {
       id: 'deprecated',
-      name: 'Modèles dépréciés:',
+      name: t('filter.admin-sympa.name'),
       type: 'checkbox',
       items: [
         {
           key: 'all',
-          value: 'Toutes les listes',
+          value: t('filter.admin-sympa.all-value'),
         },
         ...Object.values(DeprecatedKey).map(x => ({ key: x, value: t(`deprecated-labels.${x}`) })),
 
