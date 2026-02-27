@@ -8,7 +8,8 @@
     "modify": "Update ",
     "archives": "Archives ",
     "admin-access": "Administration ",
-    "email": "Send an email "
+    "email": "Send an email ",
+    "deprecated-warning": "Deprecated list model!"
   },
   "list-sympa": {
     "results": "No results | {count} Result | {count} Results"
@@ -17,6 +18,16 @@
     "tabs": {
       "create": "Create",
       "update": "Update"
+    }
+  },
+  "filter": {
+    "sympa": {
+      "name": "By permission:",
+      "all-value": "All permissions"
+    },
+    "admin-sympa": {
+      "name": "Deprecated models",
+      "all-value": "All lists"
     }
   },
   "modal": {
