@@ -21,6 +21,16 @@
       "update": "Modification"
     }
   },
+  "filter": {
+    "sympa": {
+      "name": "Par permission :",
+      "all-value": "Toutes les permissions"
+    },
+    "admin-sympa": {
+      "name": "Modèles dépréciés :",
+      "all-value": "Toutes les listes"
+    }
+  },
   "modal": {
     "create-description": "Création de la liste <span class=\"subject\">{subject}</span> ayant pour adresse <span class=\"address\">{address}</span>.",
     "update-description": "Modification de la liste <span class=\"subject\">{subject}</span> ayant pour adresse <span class=\"address\">{address}</span>.",

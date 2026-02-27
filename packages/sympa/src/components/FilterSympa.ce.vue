@@ -28,12 +28,12 @@ onMounted(async (): Promise<void> => {
   data.value = [
     {
       id: 'permissions',
-      name: 'Par permission:',
+      name: t('filter.sympa.name'),
       type: 'checkbox',
       items: [
         {
           key: 'all',
-          value: 'Toutes les permissions',
+          value: t('filter.sympa.all-value'),
         },
         ...Object.values(PermissionKey).map(x => ({ key: x, value: t(`permission-labels.${x}`) })),
       ],
