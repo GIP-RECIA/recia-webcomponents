@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^7.2.0",
-    "@fortawesome/fontawesome-svg-core": "^7.1.0",
+    "@fortawesome/fontawesome-svg-core": "^7.2.0",
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
     "@fortawesome/react-fontawesome": "^3.1.1",
     "@gip-recia/tldraw-v1": "^1.29.2-recia-1.0.0",
