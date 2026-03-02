@@ -51,7 +51,7 @@
     "@types/regenerator-runtime": "^0",
     "@uportal/open-id-connect": "^1.40.2",
     "@vitejs/plugin-vue": "^6.0.4",
-    "@vue/tsconfig": "^0.8.1",
+    "@vue/tsconfig": "^0.9.0",
     "axios": "^1.13.6",
     "cropperjs": "^1.6.2",
     "dotenv-checker": "^1.1.7",
