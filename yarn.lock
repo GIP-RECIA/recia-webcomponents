@@ -1539,7 +1539,7 @@ __metadata:
     terser: "npm:^5.46.0"
     typescript: "npm:^5.9.3"
     vite: "npm:^7.3.1"
-    vite-plugin-css-injected-by-js: "npm:^3.5.2"
+    vite-plugin-css-injected-by-js: "npm:^4.0.1"
     vue: "npm:^3.5.29"
     vue-i18n: "npm:^11.2.8"
     vue-tsc: "npm:^3.2.5"
@@ -1641,7 +1641,7 @@ __metadata:
     terser: "npm:^5.46.0"
     typescript: "npm:^5.9.3"
     vite: "npm:^7.3.1"
-    vite-plugin-css-injected-by-js: "npm:^3.5.2"
+    vite-plugin-css-injected-by-js: "npm:^4.0.1"
     vue: "npm:^3.5.29"
     vue-i18n: "npm:^11.2.8"
     vue-tsc: "npm:^3.2.5"
@@ -1719,7 +1719,7 @@ __metadata:
     terser: "npm:^5.46.0"
     typescript: "npm:^5.9.3"
     vite: "npm:^7.3.1"
-    vite-plugin-css-injected-by-js: "npm:^3.5.2"
+    vite-plugin-css-injected-by-js: "npm:^4.0.1"
     y-presence: "npm:^0.2.3"
     y-websocket: "npm:^3.0.0"
     yjs: "npm:^13.6.29"
@@ -11358,12 +11358,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-css-injected-by-js@npm:^3.5.2":
-  version: 3.5.2
-  resolution: "vite-plugin-css-injected-by-js@npm:3.5.2"
+"vite-plugin-css-injected-by-js@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "vite-plugin-css-injected-by-js@npm:4.0.1"
   peerDependencies:
     vite: ">2.0.0-0"
-  checksum: 10/be1ca1c71c31042dbca49d78ed58c88d3ffbbcf84024120f72d1daeebd489ad0ec4a0f1179adfeb196052d52b09226bff7d0979e0ef0be3e87e47b15eb728270
+  checksum: 10/971469d75f7753a73a787015b78a2e004ebab63d1f30758b6225497e11126cff9b36804852976b531c4c61d35c75085d06d23b81a1788081bb3865f2ffdd2d5a
   languageName: node
   linkType: hard
 
