@@ -64,7 +64,13 @@ async function copyAddress() {
 </template>
 
 <style lang="scss">
-@use '@/assets/main.scss' as *;
+@use 'ress/dist/ress.min.css';
+@use '@gip-recia/ui/core/variables' as *;
+@use '@gip-recia/ui/core/typo' as *;
+@use '@gip-recia/ui/functions' as *;
+@use '@gip-recia/ui/mixins' as *;
+@use '@gip-recia/ui/global';
+@use '@gip-recia/ui/components';
 
 .part-wrapper {
   display: flex;
@@ -158,7 +164,7 @@ p {
   border-radius: 10px;
   height: 160px;
   width: auto;
-  box-shadow: $shadow-neutral;
+  box-shadow: var(--#{$prefix}shadow-neutral) HEXToRGBA($black, 0.1);
   overflow: hidden;
   display: flex;
   flex-direction: column;

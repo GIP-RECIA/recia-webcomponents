@@ -349,8 +349,6 @@ async function fetchAdditionalGroups() {
 </template>
 
 <style lang="scss">
-@use '@/assets/main.scss' as *;
-
 .block {
   display: block;
 }
@@ -359,9 +357,5 @@ async function fetchAdditionalGroups() {
   height: 1.25em;
   width: 1.25em;
   vertical-align: bottom;
-}
-
-:root {
-  --primary: #{$primary};
 }
 </style>

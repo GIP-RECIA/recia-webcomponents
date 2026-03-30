@@ -1626,6 +1626,7 @@ __metadata:
     "@fortawesome/vue-fontawesome": "npm:^3.1.3"
     "@gip-recia/info-modal": "workspace:^"
     "@gip-recia/js-tree": "npm:^0.0.18"
+    "@gip-recia/ui": "npm:^1.0.4"
     "@gip-recia/ui-webcomponents": "npm:^1.13.0"
     "@intlify/unplugin-vue-i18n": "npm:^11.0.7"
     "@tsconfig/node22": "npm:^22.0.5"
@@ -1771,6 +1772,19 @@ __metadata:
   version: 1.13.0
   resolution: "@gip-recia/ui-webcomponents@npm:1.13.0"
   checksum: 10/af2cd18b81fcb0f094a8f06cca89bd398a2fff89ef9877bf407c4e8b413b002a4d58be7064112864a1921b748a68ab77ed38e323abed53330b0455f59a8d1cc1
+  languageName: node
+  linkType: hard
+
+"@gip-recia/ui@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "@gip-recia/ui@npm:1.0.4"
+  peerDependencies:
+    "@antfu/eslint-config": ^7.6.1
+    eslint: ^10.0.2
+    eslint-plugin-format: ^2.0.1
+    ress: ^5.0.2
+    sass: ^1.97.3
+  checksum: 10/fa9100ab70461fde4017781f1d23275061950d929a6b078e6f97c6863f9d1b618b15f6a2a9eae286d9b71a956144dded199ce2f9ad02c06642a780aaa9bab5e0
   languageName: node
   linkType: hard
 

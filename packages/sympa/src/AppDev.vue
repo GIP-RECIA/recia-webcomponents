@@ -84,6 +84,10 @@ const urlProvidedToComponent = computed(() => {
 </template>
 
 <style lang="scss">
+@use 'ress/dist/ress.min.css';
+@use '@gip-recia/ui/core/variables' as *;
+@use '@gip-recia/ui/core/root' as *;
+
 html,
 body {
   padding: 0;
