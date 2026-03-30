@@ -42,7 +42,7 @@ function createList(): void {
 
     <div class="address-wrapper part-wrapper">
       <p class="address">
-        {{ props.sympaList.address }}         {{ props.sympaList.address }}
+        {{ props.sympaList.address }}
       </p>
     </div>
 
