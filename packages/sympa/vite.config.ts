@@ -60,7 +60,7 @@ export default ({ mode }: ConfigEnv) => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@use '@/assets/main.scss' as *;`,
+          additionalData: `@use '@gip-recia/ui' as *;`,
         },
       },
     },

@@ -170,7 +170,15 @@ function displayState(sympaList: UpdatableList): boolean {
 </template>
 
 <style lang="scss">
-  @media only screen and (width > 1024px) {
+@use 'ress/dist/ress.min.css';
+@use '@gip-recia/ui/core/variables' as *;
+@use '@gip-recia/ui/core/typo' as *;
+@use '@gip-recia/ui/functions' as *;
+@use '@gip-recia/ui/mixins' as *;
+@use '@gip-recia/ui/global';
+@use '@gip-recia/ui/components/buttons';
+
+@media only screen and (width > 1024px) {
   .wrapper {
     display: grid !important;
     grid-template-columns: repeat(2, minmax(0, 1fr));
