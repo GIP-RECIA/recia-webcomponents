@@ -40,29 +40,32 @@
     "type-check": "vue-tsc --noEmit",
     "release": "yarn run -T commit-and-tag-version -t 'sympa/v' --path . --release-as $1 || echo 'Please specify a version type (yarn run release -- [patch, minor, major])'"
   },
+  "dependencies": {
+    "@gip-recia/js-tree": "^0.0.18"
+  },
   "devDependencies": {
-    "@antfu/eslint-config": "^7.2.0",
-    "@fortawesome/fontawesome-free": "^7.1.0",
-    "@fortawesome/fontawesome-svg-core": "^7.1.0",
-    "@fortawesome/free-solid-svg-icons": "^7.1.0",
+    "@antfu/eslint-config": "^7.6.1",
+    "@fortawesome/fontawesome-free": "^7.2.0",
+    "@fortawesome/fontawesome-svg-core": "^7.2.0",
+    "@fortawesome/free-solid-svg-icons": "^7.2.0",
     "@fortawesome/vue-fontawesome": "^3.1.3",
     "@gip-recia/info-modal": "workspace:^",
     "@gip-recia/ui-webcomponents": "^1.9.0",
-    "@intlify/unplugin-vue-i18n": "^11.0.3",
+    "@intlify/unplugin-vue-i18n": "^11.0.7",
     "@tsconfig/node22": "^22.0.5",
     "@types/lodash.debounce": "^4",
     "@types/node": "^25",
     "@types/regenerator-runtime": "^0",
     "@uportal/open-id-connect": "^1.40.2",
-    "@vitejs/plugin-vue": "^6.0.3",
-    "@vue/tsconfig": "^0.8.1",
+    "@vitejs/plugin-vue": "^6.0.4",
+    "@vue/tsconfig": "^0.9.0",
     "@vueform/multiselect": "^2.6.11",
-    "@vueuse/core": "^14.2.0",
-    "axios": "^1.13.5",
+    "@vueuse/core": "^14.2.1",
+    "axios": "^1.13.6",
     "dotenv-checker": "^1.1.7",
-    "eslint": "^9.39.2",
-    "eslint-plugin-format": "^1.3.1",
-    "lint-staged": "^16.2.7",
+    "eslint": "^10.0.2",
+    "eslint-plugin-format": "^2.0.1",
+    "lint-staged": "^16.3.1",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "npm-run-all2": "^8.0.4",
@@ -71,11 +74,8 @@
     "terser": "^5.46.0",
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
-    "vue": "^3.5.27",
+    "vue": "^3.5.29",
     "vue-i18n": "^11.2.8",
-    "vue-tsc": "^3.2.4"
-  },
-  "dependencies": {
-    "@gip-recia/js-tree": "^0.0.18"
+    "vue-tsc": "^3.2.5"
   }
 }
