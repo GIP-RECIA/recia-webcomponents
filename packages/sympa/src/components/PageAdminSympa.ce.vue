@@ -252,7 +252,7 @@ async function fetchAdditionalGroups() {
         <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
         <div slot="modal-body">
           <template v-if="statusType === 'form'">
-            <p v-html="t(`modal.${modalType}-description`, { subject: listSubject, address: listAddress })" />
+            <p style="text-align: start;" v-html="t(`modal.${modalType}-description`, { subject: listSubject, address: listAddress })" />
             <template v-if="modalType === 'create' || modalType === 'update'">
               <p v-if="modalType === 'update'">
                 {{ t('modal.update-warning') }}
@@ -357,5 +357,9 @@ async function fetchAdditionalGroups() {
   height: 1.25em;
   width: 1.25em;
   vertical-align: bottom;
+}
+
+.description {
+  text-align: start;
 }
 </style>
