@@ -271,7 +271,7 @@ async function fetchAdditionalGroups() {
                     id="self"
                     v-model="checkedBoxes.self" type="checkbox"
                   >
-                  <label for="self">Self register</label>
+                  <label for="self">{{ listAddress }} {{ t('modal.self-register-explanation') }}</label>
                 </div>
 
                 <button
