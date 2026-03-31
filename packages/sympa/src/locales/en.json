@@ -36,6 +36,7 @@
     "close-description": "Do you really want to close the <span class=\"subject\">{subject}</span> list having <span class=\"address\">{address}</span> as address.",
     "update-warning": "Current configuration will be overrided with the selected groups:",
     "load-more-groups": "Other groups allowed to write",
+    "self-register-explanation": "(current list)",
     "description": {
       "waiting": "Please wait. This operation can take up to 30 seconds."
     },

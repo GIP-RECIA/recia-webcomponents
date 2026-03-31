@@ -37,6 +37,7 @@
     "close-description": "Voulez vous vraiment fermer la liste <span class=\"subject\">{subject}</span> ayant pour adresse <span class=\"address\">{address}</span>.",
     "update-warning": "La configuration actuelle sera écrasée par les groupes selectionnés si dessous :",
     "load-more-groups": "Autres groupes autorisés à écrire",
+    "self-register-explanation": "(liste en cours)",
     "description": {
       "waiting": "Veuillez patienter. Cette opération peut durer environ 30 secondes."
     },
