@@ -324,7 +324,7 @@ async function fetchAdditionalGroups() {
           <!-- if waiting end -->
           <template v-if="statusType === 'response'">
             <p v-if="messageKey !== null && messageKey.length > 0">
-              {{ t(messageKey) }}
+              {{ t(`modal.response.${messageKey}`) }}
             </p>
             <p v-else v-html="t(`modal.response.${modalType}.default`)" />
           </template>
