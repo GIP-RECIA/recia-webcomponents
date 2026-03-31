@@ -25,7 +25,7 @@ const props = withDefaults(
     timeout?: number
   }>(),
   {
-    apiUrl: import.meta.env.VITE_APP_SYMPA_API_URI,
+    apiUrl: import.meta.env.VITE_APP_SYMPA_API_BASE_URL + import.meta.env.VITE_APP_SYMPA_API_URI,
     timeout: import.meta.env.VITE_APP_TIMEOUT,
   },
 )

@@ -74,6 +74,13 @@ export default ({ mode }: ConfigEnv) => {
     },
     server: {
       allowedHosts: true,
+      proxy: {
+        '/debug-uri': {
+          target: 'http://localhost:3000',
+          changeOrigin: true,
+          rewrite: path => path.replace(/^\/debug-uri/, ''),
+        },
+      },
     },
     define: {
       'process.env': { NODE_ENV: process.env.NODE_ENV },
