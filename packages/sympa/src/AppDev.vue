@@ -79,8 +79,8 @@ const urlProvidedToComponent = computed(() => {
     </label>
   </div>
   <sympa-admin-redirect v-if="!selectedUrl?.includes('admin')" />
-  <page-sympa v-if="urlProvidedToComponent !== undefined && !selectedUrl?.includes('admin')" :key="urlProvidedToComponent" :api-url="urlProvidedToComponent" />
-  <page-admin-sympa v-if="selectedUrl?.includes('admin')" :api-url="urlProvidedToComponent" />
+  <page-sympa v-if="urlProvidedToComponent !== undefined && !selectedUrl?.includes('admin')" :key="urlProvidedToComponent" />
+  <page-admin-sympa v-if="selectedUrl?.includes('admin')" />
 </template>
 
 <style lang="scss">
