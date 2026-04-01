@@ -536,17 +536,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/types@npm:^20.4.0":
-  version: 20.4.0
-  resolution: "@commitlint/types@npm:20.4.0"
-  dependencies:
-    conventional-commits-parser: "npm:^6.2.1"
-    picocolors: "npm:^1.1.1"
-  checksum: 10/aff0e6d33eb3191fad3c20d7d46e282ae3dacca52a24f372ac880f0231c859a26726d25565246ea34b67aa9ac1db55f12ef3d635bd6fe9e68cb34fa0a7c5fe47
-  languageName: node
-  linkType: hard
-
-"@commitlint/types@npm:^20.5.0":
+"@commitlint/types@npm:^20.4.0, @commitlint/types@npm:^20.5.0":
   version: 20.5.0
   resolution: "@commitlint/types@npm:20.5.0"
   dependencies:
@@ -5369,18 +5359,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"conventional-commits-parser@npm:^6.2.1":
-  version: 6.2.1
-  resolution: "conventional-commits-parser@npm:6.2.1"
-  dependencies:
-    meow: "npm:^13.0.0"
-  bin:
-    conventional-commits-parser: dist/cli/index.js
-  checksum: 10/342764ac7c8114e3030d9d86968eafa3023ed887bc66412f89891fb55f09179d151a02342142a4039ca3375a7e39553d29789e022afd08edddbd995a1d5d9c24
-  languageName: node
-  linkType: hard
-
-"conventional-commits-parser@npm:^6.3.0":
+"conventional-commits-parser@npm:^6.2.1, conventional-commits-parser@npm:^6.3.0":
   version: 6.4.0
   resolution: "conventional-commits-parser@npm:6.4.0"
   dependencies:
