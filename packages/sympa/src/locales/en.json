@@ -95,7 +95,8 @@
     "submit": {
       "create": "Create list",
       "update": "Update list",
-      "close": "Close list"
+      "close": "Close list",
+      "cancel": "Cancel"
     },
     "title": {
       "create": "List creation",
@@ -119,5 +120,8 @@
     "500": "An internal server error has occurred, please try again later.",
     "503": "The server is temporarily unavailable, please try again later."
   },
-  "error-messages-fallback": "An error has occurred, please try again."
+  "error-messages-fallback": "An error has occurred, please try again.",
+  "error-messages-sumbit": "An error has occurred while processing your request.",
+  "error-messages-list-data": "Could not retrieve informations related to this list model.",
+  "error-messages-additional-groups": "An error has occurred when fetching additional groups."
 }
