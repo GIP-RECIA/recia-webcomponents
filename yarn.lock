@@ -1511,7 +1511,7 @@ __metadata:
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^6.0.5"
-    "@vue/tsconfig": "npm:^0.9.0"
+    "@vue/tsconfig": "npm:^0.9.1"
     axios: "npm:^1.14.0"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^10.0.2"
@@ -1578,7 +1578,7 @@ __metadata:
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^6.0.5"
-    "@vue/tsconfig": "npm:^0.9.0"
+    "@vue/tsconfig": "npm:^0.9.1"
     "@vueform/multiselect": "npm:^2.6.11"
     "@vueuse/core": "npm:^14.2.1"
     axios: "npm:^1.14.0"
@@ -1614,7 +1614,7 @@ __metadata:
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^6.0.5"
-    "@vue/tsconfig": "npm:^0.9.0"
+    "@vue/tsconfig": "npm:^0.9.1"
     axios: "npm:^1.14.0"
     cropperjs: "npm:^1.6.2"
     dotenv-checker: "npm:^1.1.7"
@@ -1727,7 +1727,7 @@ __metadata:
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^6.0.5"
-    "@vue/tsconfig": "npm:^0.9.0"
+    "@vue/tsconfig": "npm:^0.9.1"
     axios: "npm:^1.14.0"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^10.0.2"
@@ -4371,18 +4371,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/tsconfig@npm:^0.9.0":
-  version: 0.9.0
-  resolution: "@vue/tsconfig@npm:0.9.0"
+"@vue/tsconfig@npm:^0.9.1":
+  version: 0.9.1
+  resolution: "@vue/tsconfig@npm:0.9.1"
   peerDependencies:
-    typescript: 5.x
+    typescript: ">= 5.8"
     vue: ^3.4.0
   peerDependenciesMeta:
     typescript:
       optional: true
     vue:
       optional: true
-  checksum: 10/a9233b3c823ec89abb0b958af539b6a57543fb81fbc6b9fa402bd02fd1401f81a051dd39fcbf6fa9116805ce62c39b9a4161a9f746852c29b9ee98ed40ba589f
+  checksum: 10/2bdf94fbd9df262b0bafa9dcae4bb37d3f042fd858784edd87a52143940f3954e2065829ed151c9ca83bd7f3926cd84b778acd98349561782a951b4d0d0989ca
   languageName: node
   linkType: hard
 
