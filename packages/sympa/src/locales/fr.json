@@ -96,7 +96,8 @@
     "submit": {
       "create": "Créer la liste",
       "update": "Modifier la liste",
-      "close": "Fermer la liste"
+      "close": "Fermer la liste",
+      "cancel": "Annuler"
     },
     "title": {
       "create": "Création de liste",
@@ -120,6 +121,8 @@
     "500": "Une erreur interne au serveur est survenue, merci de rééssayer ulterieurement.",
     "503": "Le serveur est temporairement indisponible, merci de rééssayer ulterieurement."
   },
-  "error-messages-fallback": "Une erreur est survenue, merci de rééssayer."
-
+  "error-messages-fallback": "Une erreur est survenue, merci de rééssayer.",
+  "error-messages-sumbit": "Une erreur est survenue lors du traitement de votre requête.",
+  "error-messages-list-data": "Impossible de récupérer les informations du modele de liste.",
+  "error-messages-additional-groups": "Une erreur est survenue lors de la récupération des groupes additionels."
 }
