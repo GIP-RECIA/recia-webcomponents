@@ -1497,7 +1497,7 @@ __metadata:
     vite: "npm:^7.3.1"
     vite-plugin-css-injected-by-js: "npm:^4.0.1"
     vue: "npm:^3.5.31"
-    vue-i18n: "npm:^11.2.8"
+    vue-i18n: "npm:^11.3.0"
     vue-tsc: "npm:^3.2.6"
   languageName: unknown
   linkType: soft
@@ -1565,7 +1565,7 @@ __metadata:
     typescript: "npm:^5.9.3"
     vite: "npm:^7.3.1"
     vue: "npm:^3.5.31"
-    vue-i18n: "npm:^11.2.8"
+    vue-i18n: "npm:^11.3.0"
     vue-tsc: "npm:^3.2.6"
   languageName: unknown
   linkType: soft
@@ -1599,7 +1599,7 @@ __metadata:
     vite: "npm:^7.3.1"
     vite-plugin-css-injected-by-js: "npm:^4.0.1"
     vue: "npm:^3.5.31"
-    vue-i18n: "npm:^11.2.8"
+    vue-i18n: "npm:^11.3.0"
     vue-tsc: "npm:^3.2.6"
     vue3-toastify: "npm:^0.2.9"
     vuejs-clipper: "npm:^4.1.0"
@@ -1712,7 +1712,7 @@ __metadata:
     typescript: "npm:^5.9.3"
     vite: "npm:^7.3.1"
     vue: "npm:^3.5.31"
-    vue-i18n: "npm:^11.2.8"
+    vue-i18n: "npm:^11.3.0"
     vue-tsc: "npm:^3.2.6"
   languageName: unknown
   linkType: soft
@@ -1893,13 +1893,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@intlify/core-base@npm:11.2.8":
-  version: 11.2.8
-  resolution: "@intlify/core-base@npm:11.2.8"
+"@intlify/core-base@npm:11.3.0":
+  version: 11.3.0
+  resolution: "@intlify/core-base@npm:11.3.0"
   dependencies:
-    "@intlify/message-compiler": "npm:11.2.8"
-    "@intlify/shared": "npm:11.2.8"
-  checksum: 10/e162c4affebb07cfa6fad805fd070b596d0ba0fb1f167f147481fd60f228a2d0fc439a3f5ff5a956fea8de02980f5bdbe445939f40ad373c8843292145e129ed
+    "@intlify/devtools-types": "npm:11.3.0"
+    "@intlify/message-compiler": "npm:11.3.0"
+    "@intlify/shared": "npm:11.3.0"
+  checksum: 10/d47d7c6118dc897dbe946e4574e40e4a3d002ce17407d8f34c69d953ca0a935fc62935dc9e9d320ca602820df8be274d0ed5cdf81efdf80bd66b1a1a4e2171d1
+  languageName: node
+  linkType: hard
+
+"@intlify/devtools-types@npm:11.3.0":
+  version: 11.3.0
+  resolution: "@intlify/devtools-types@npm:11.3.0"
+  dependencies:
+    "@intlify/core-base": "npm:11.3.0"
+    "@intlify/shared": "npm:11.3.0"
+  checksum: 10/a8c62b8dccab2f33036b09b402b16e03dabb9544889540076693d1a45c23c506405f0ab20866398fb6449e09bd739cd06a6b75facf79b9ab3841ecb97fa1e33b
   languageName: node
   linkType: hard
 
@@ -1913,7 +1924,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@intlify/message-compiler@npm:11.2.8, @intlify/message-compiler@npm:^11.1.12":
+"@intlify/message-compiler@npm:11.3.0":
+  version: 11.3.0
+  resolution: "@intlify/message-compiler@npm:11.3.0"
+  dependencies:
+    "@intlify/shared": "npm:11.3.0"
+    source-map-js: "npm:^1.0.2"
+  checksum: 10/006544ec0f1abd7419d9e023eb8eb78159fd8e2f31d4fb6ccdaf0acaa8cdf056f985f2826fae3baa1535faf99f063103c4b0a306657b813c38be042810bfc115
+  languageName: node
+  linkType: hard
+
+"@intlify/message-compiler@npm:^11.1.12":
   version: 11.2.8
   resolution: "@intlify/message-compiler@npm:11.2.8"
   dependencies:
@@ -1934,6 +1955,13 @@ __metadata:
   version: 11.2.8
   resolution: "@intlify/shared@npm:11.2.8"
   checksum: 10/1629f152210b6695cac26cd803fd29c4b8abdc001afc6a5fd4df2f26fe5befdf37f2f87bd8385aa773fe50eb7f31f76288892848beb98dba17ed74ec9ccd81fa
+  languageName: node
+  linkType: hard
+
+"@intlify/shared@npm:11.3.0":
+  version: 11.3.0
+  resolution: "@intlify/shared@npm:11.3.0"
+  checksum: 10/f4bbc953f7a3c37c08a101679728366ec003624db7ce5341ea6bda121ad0ba8218ec66dfc96d0184da02aa43c4bba353c6046aaec2077d8db24adcfca48271b3
   languageName: node
   linkType: hard
 
@@ -11512,16 +11540,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-i18n@npm:^11.2.8":
-  version: 11.2.8
-  resolution: "vue-i18n@npm:11.2.8"
+"vue-i18n@npm:^11.3.0":
+  version: 11.3.0
+  resolution: "vue-i18n@npm:11.3.0"
   dependencies:
-    "@intlify/core-base": "npm:11.2.8"
-    "@intlify/shared": "npm:11.2.8"
+    "@intlify/core-base": "npm:11.3.0"
+    "@intlify/devtools-types": "npm:11.3.0"
+    "@intlify/shared": "npm:11.3.0"
     "@vue/devtools-api": "npm:^6.5.0"
   peerDependencies:
     vue: ^3.0.0
-  checksum: 10/ff9371de491c93bc75c69cf02ba9cad54e0b6e3efe6fb34f9ee1031aec6c505a41fc4fc6db8b02a03d125153ebcaa34c7e7e419a4b55c61434a646ca082a5ee3
+  checksum: 10/7b123028d1acf80bd77dde8f39ffa91553da97f2f6dbf4b657bfd9ed76b9c7238475d0953f5717a6eefb286a8a9757cbfce800ac8fe0ab31ba48b856135151c4
   languageName: node
   linkType: hard
 
