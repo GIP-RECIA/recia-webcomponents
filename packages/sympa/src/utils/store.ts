@@ -18,8 +18,19 @@ import { ref } from 'vue'
 
 const sympaFilter = ref<Array<string>>([])
 const adminSympaFilter = ref<Array<string>>([])
+const supportedErrorCodes: number[] = [
+  400,
+  401,
+  403,
+  500,
+  503,
+]
+
+const httpErrorCode = ref<number | undefined>(undefined)
 
 export {
   adminSympaFilter,
+  httpErrorCode,
+  supportedErrorCodes,
   sympaFilter,
 }

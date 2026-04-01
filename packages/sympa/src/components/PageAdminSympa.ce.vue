@@ -22,6 +22,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { computed, onMounted, ref } from 'vue'
 import i18n from '@/plugins/i18n'
 import { getAdditionalGroups, getAllCreatableAndUpdatableLists, getFormDataForModel, postCloseList, postCreateOrUpdateList } from '@/services/fetchServices'
+import { httpErrorCode, supportedErrorCodes } from '@/utils/store'
 import '@gip-recia/js-tree'
 
 const props = withDefaults(
@@ -55,6 +56,11 @@ const creatableLists = ref<CreatableList[]>([])
 const updatableLists = ref<UpdatableList[]>([])
 const formData = ref<CreateOrUpdateListFormDataResponsePayload | undefined>(undefined)
 const groupTreeNodeRoots = ref<Array<GroupTreeNode>>([])
+const groupTreeNodesFetched = ref<boolean>(false)
+const errorDuringFetchAdditionalGroups = ref<boolean>(false)
+const errorDuringFetchFromDataFormModel = ref<boolean>(false)
+const errorDuringFetchLists = ref<boolean>(false)
+const errorDuringSubmit = ref<boolean>(false)
 
 // --- variable form creation / update ---
 
@@ -90,6 +96,11 @@ function openModal(title: string) {
   )
 }
 
+function closeModal() {
+  const modalElement: InfoModal = document.querySelector('info-modal')
+  modalElement.isOpen = false
+}
+
 onMounted(async (): Promise<void> => {
   document.addEventListener('openModale', (event: any) => {
     triggerElement = event.detail.originalEvent
@@ -103,13 +114,21 @@ onMounted(async (): Promise<void> => {
     if (triggerElement) {
       triggerElement.focus()
       event.preventDefault()
+      const modalElement: InfoModal = document.querySelector('info-modal')
+
+      modalElement.isOpen = false
     }
   })
 
-  const response: AdminSympaApiListsResponse = await getAllCreatableAndUpdatableLists(props.apiUrlLists, props.timeout)
-  creatableLists.value = response.createData
-  updatableLists.value = response.updateData
-  loaded.value = true
+  try {
+    const response: AdminSympaApiListsResponse = await getAllCreatableAndUpdatableLists(props.apiUrlLists, props.timeout)
+    creatableLists.value = response.createData
+    updatableLists.value = response.updateData
+    loaded.value = true
+  }
+  catch {
+    errorDuringFetchLists.value = true
+  }
 })
 
 function handleOnSelection(datas: GroupTreeNode[]) {
@@ -150,6 +169,10 @@ function getSuffixesAndSelf(groupTreeNode: GroupTreeNode): Array<string> {
 }
 
 async function handleSubmit() {
+  if (errorDuringFetchFromDataFormModel.value) {
+    closeModal()
+    return
+  }
   statusType.value = 'waiting'
 
   if (modalType.value === 'create' || modalType.value === 'update') {
@@ -170,61 +193,73 @@ async function handleSubmit() {
       : null
 
     const typeParam: string | null = formData.value?.typeParam !== null || formData.value?.typeParamName !== null ? `${formData.value?.typeParamName}$${formData.value?.typeParam}` : null
-    messageKey.value = await postCreateOrUpdateList(urlForSubmit.value, props.timeoutLong, modelId.value!, type, editorsAliases, editorGroups, typeParam)
+    try {
+      messageKey.value = await postCreateOrUpdateList(urlForSubmit.value, props.timeoutLong, modelId.value!, type, editorsAliases, editorGroups, typeParam)
+    }
+    catch {
+      // n'arrive que s'il n'y a pas de message key dans l'erreur reçue
+      errorDuringSubmit.value = true
+    }
   }
   else if (modalType.value === 'close') {
-    messageKey.value = await postCloseList(urlForSubmit.value, props.timeoutLong, listAddress.value)
+    try {
+      messageKey.value = await postCloseList(urlForSubmit.value, props.timeoutLong, listAddress.value)
+    }
+    catch {
+      errorDuringSubmit.value = true
+    }
   }
   statusType.value = 'response'
 }
 
-async function createList(event: CustomEvent) {
-  modalType.value = 'create'
+function resetModale() {
+  loadingAdditionalGroups.value = false
+  groupTreeNodesFetched.value = false
+  errorDuringFetchAdditionalGroups.value = false
+  errorDuringFetchFromDataFormModel.value = false
+  errorDuringSubmit.value = false
+  messageKey.value = ''
+}
+
+function initiateCreateListFromCard(event: CustomEvent) {
+  initiateCreateOrUpdateListFromCard(event, 'create')
+}
+
+function initiateUpdateListFromCard(event: CustomEvent) {
+  initiateCreateOrUpdateListFromCard(event, 'update')
+}
+
+async function initiateCreateOrUpdateListFromCard(event: CustomEvent, type: 'create' | 'close' | 'update') {
+  resetModale()
+
+  modalType.value = type
   statusType.value = 'form'
 
   // fetch data for form
-  formData.value = await getFormDataForModel(props.apiUrlFormData, props.timeout, event.detail[0], event.detail[1])
+  try {
+    formData.value = await getFormDataForModel(props.apiUrlFormData, props.timeout, event.detail[0], event.detail[1])
+    modelId.value = event.detail[0]
+    modelParam.value = event.detail[1] ?? null
+    listSubject.value = event.detail[2] ?? null
+    listAddress.value = event.detail[3] ?? null
 
-  modelId.value = event.detail[0]
-  modelParam.value = event.detail[1] ?? null
-  listSubject.value = event.detail[2] ?? null
-  listAddress.value = event.detail[3] ?? null
+    checkedBoxes.value = {}
+    formData.value.editorsAliases.forEach((alias) => {
+      checkedBoxes.value[alias.idRequest] = alias.checked
+    })
 
-  checkedBoxes.value = {}
-  formData.value.editorsAliases.forEach((alias) => {
-    checkedBoxes.value[alias.idRequest] = alias.checked
-  })
+    selectedNodes.value = []
+  }
+  catch {
+    errorDuringFetchFromDataFormModel.value = true
+  }
 
-  selectedNodes.value = []
-  loadingAdditionalGroups.value = false
-
-  openModal(t('modal.title.create'))
+  openModal(t(`modal.title.${type}`))
 }
 
-async function updateList(event: CustomEvent) {
-  modalType.value = 'update'
-  statusType.value = 'form'
+async function initiateCloseListFromCard(event: CustomEvent) {
+  resetModale()
 
-  // fetch data for form
-  formData.value = await getFormDataForModel(props.apiUrlFormData, props.timeout, event.detail[0], event.detail[1])
-
-  modelId.value = event.detail[0]
-  modelParam.value = event.detail[1] ?? null
-  listSubject.value = event.detail[2] ?? null
-  listAddress.value = event.detail[3] ?? null
-
-  checkedBoxes.value = {}
-  formData.value.editorsAliases.forEach((alias) => {
-    checkedBoxes.value[alias.idRequest] = alias.checked
-  })
-
-  selectedNodes.value = []
-  loadingAdditionalGroups.value = false
-
-  openModal(t('modal.title.update'))
-}
-
-async function closeList(event: CustomEvent) {
   modalType.value = 'close'
   statusType.value = 'form'
 
@@ -232,65 +267,90 @@ async function closeList(event: CustomEvent) {
   listAddress.value = event.detail[1] ?? null
 
   selectedNodes.value = []
-  loadingAdditionalGroups.value = false
 
   openModal(t('modal.title.close'))
 }
 
 async function fetchAdditionalGroups() {
   loadingAdditionalGroups.value = true
-  groupTreeNodeRoots.value = await getAdditionalGroups(props.apiUrlTreeData, props.timeout)
+  try {
+    groupTreeNodeRoots.value = await getAdditionalGroups(props.apiUrlTreeData, props.timeout)
+  }
+  catch {
+    errorDuringFetchAdditionalGroups.value = true
+  }
+  groupTreeNodesFetched.value = true
   loadingAdditionalGroups.value = false
 }
+
+const modalButtonI18nKey = computed(() => {
+  if (errorDuringFetchFromDataFormModel.value) {
+    return `modal.submit.cancel`
+  }
+
+  return `modal.submit.${modalType.value}`
+})
 </script>
 
 <template>
   <i18n-host>
-    <list-admin-sympa :creatable-lists="creatableLists" :updatable-lists="updatableLists" @create-list="createList" @update-list="updateList" @close-list="closeList" />
+    <template v-if="httpErrorCode !== undefined">
+      <p v-if="supportedErrorCodes.includes(httpErrorCode)">
+        {{ t(`error-messages.${httpErrorCode}`) }}
+      </p>
+      <p v-else>
+        {{ t('error-messages-fallback') }}
+      </p>
+    </template>
+
+    <list-admin-sympa v-else :creatable-lists="creatableLists" :updatable-lists="updatableLists" @create-list="initiateCreateListFromCard" @update-list="initiateUpdateListFromCard" @close-list="initiateCloseListFromCard" />
     <Teleport to="body">
       <info-modal id="modale" debug="false" style="z-index: 99;">
         <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
         <div slot="modal-body">
-          <template v-if="statusType === 'form'">
-            <p style="text-align: start;" v-html="t(`modal.${modalType}-description`, { subject: listSubject, address: listAddress })" />
-            <template v-if="modalType === 'create' || modalType === 'update'">
-              <p v-if="modalType === 'update'">
-                {{ t('modal.update-warning') }}
-              </p>
+          <!-- no in error template -->
+          <template v-if="errorDuringFetchFromDataFormModel === false">
+            <template v-if="statusType === 'form'">
+              <p style="text-align: start;" v-html="t(`modal.${modalType}-description`, { subject: listSubject, address: listAddress })" />
+              <template v-if="modalType === 'create' || modalType === 'update'">
+                <p v-if="modalType === 'update'">
+                  {{ t('modal.update-warning') }}
+                </p>
 
-              <form>
-                <div v-for="alias in formData?.editorsAliases" :key="alias.idRequest">
-                  <input
-                    :id="alias.idRequest" v-model="checkedBoxes[alias.idRequest]" type="checkbox" :checked="alias.checked" :disabled="!alias.editable"
+                <form>
+                  <div v-for="alias in formData?.editorsAliases" :key="alias.idRequest">
+                    <input
+                      :id="alias.idRequest" v-model="checkedBoxes[alias.idRequest]" type="checkbox" :checked="alias.checked" :disabled="!alias.editable"
+                    >
+                    <label :for="alias.idRequest">{{ alias.name }}</label>
+                  </div>
+
+                  <div>
+                    <input
+                      id="self"
+                      v-model="checkedBoxes.self" type="checkbox"
+                    >
+                    <label for="self">{{ listAddress }} {{ t('modal.self-register-explanation') }}</label>
+                  </div>
+
+                  <button
+                    v-if="groupTreeNodesFetched === false"
+                    class="btn-secondary small"
+                    :disabled="loadingAdditionalGroups"
+                    @click="(event) => {
+                      event.stopPropagation()
+                      event.preventDefault()
+                      fetchAdditionalGroups()
+                    }"
                   >
-                  <label :for="alias.idRequest">{{ alias.name }}</label>
-                </div>
+                    {{ t("modal.load-more-groups") }}
+                    <FontAwesomeIcon class="fa-icon" :icon="['fas', 'plus']" />
+                  </button>
+                  <!-- eslint-disable vue/attribute-hyphenation -->
+                  <esup-js-tree
+                    v-if="groupTreeNodeRoots.length > 0"
 
-                <div>
-                  <input
-                    id="self"
-                    v-model="checkedBoxes.self" type="checkbox"
-                  >
-                  <label for="self">{{ listAddress }} {{ t('modal.self-register-explanation') }}</label>
-                </div>
-
-                <button
-                  class="btn-secondary small"
-                  :disabled="loadingAdditionalGroups"
-                  @click="(event) => {
-                    event.stopPropagation()
-                    event.preventDefault()
-                    fetchAdditionalGroups()
-                  }"
-                >
-                  {{ t("modal.load-more-groups") }}
-                  <FontAwesomeIcon class="fa-icon" :icon="['fas', 'plus']" />
-                </button>
-                <!-- eslint-disable vue/attribute-hyphenation -->
-                <esup-js-tree
-                  v-if="groupTreeNodeRoots.length > 0"
-
-                  style="
+                    style="
               accent-color: 'var(--recia-primary)';
   --icon-0-font-family: 'Font Awesome 6 Free';
   --icon-0-font-weight: 900;
@@ -307,30 +367,44 @@ async function fetchAdditionalGroups() {
   --icon-unfold-content: '\f0d7';
   "
 
-                  .onSelection="handleOnSelection"
+                    .onSelection="handleOnSelection"
 
-                  :datas="groupTreeNodeRoots"
-                  :config="{ showCheckbox: true, isMultipleSelection: true }"
-                />
+                    :datas="groupTreeNodeRoots"
+                    :config="{ showCheckbox: true, isMultipleSelection: true }"
+                  />
+
+                  <!-- error during additional group fetch -->
+                  <p v-if="errorDuringFetchAdditionalGroups" style="margin-top: 5px; text-align: start;">
+                    {{ t('error-messages-additional-groups') }}
+                  </p>
+
                 <!-- eslint-enable vue/attribute-hyphenation -->
-              </form>
-            </template>
+                </form>
+              </template>
             <!-- if create or update end -->
+            </template>
+            <!-- if form end -->
+            <template v-if="statusType === 'waiting'">
+              <p>{{ t('modal.description.waiting') }}</p>
+            </template>
+            <!-- if waiting end -->
+            <template v-if="statusType === 'response'">
+              <p v-if="messageKey !== undefined && messageKey !== null && messageKey.length > 0">
+                {{ t(`modal.response.${messageKey}`) }}
+              </p>
+              <p v-else-if="errorDuringSubmit === false" v-html="t(`modal.response.${modalType}.default`)" />
+              <p v-else>
+                {{ t('error-messages-sumbit') }}
+              </p>
+            </template>
           </template>
-          <!-- if form end -->
-          <template v-if="statusType === 'waiting'">
-            <p>{{ t('modal.description.waiting') }}</p>
-          </template>
-          <!-- if waiting end -->
-          <template v-if="statusType === 'response'">
-            <p v-if="messageKey !== null && messageKey.length > 0">
-              {{ t(`modal.response.${messageKey}`) }}
-            </p>
-            <p v-else v-html="t(`modal.response.${modalType}.default`)" />
-          </template>
+          <p v-else>
+            {{ t('error-messages-list-data') }}
+          </p>
         </div>
+
         <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
-        <div v-if="statusType === 'form'" slot="modal-footer">
+        <div v-if="statusType === 'form' && httpErrorCode === undefined" slot="modal-footer">
           <button
             class="btn-secondary btn-create"
 
@@ -340,7 +414,7 @@ async function fetchAdditionalGroups() {
               handleSubmit()
             }"
           >
-            {{ t(`modal.submit.${modalType}`) }}
+            {{ t(modalButtonI18nKey) }}
           </button>
         </div>
       </info-modal>

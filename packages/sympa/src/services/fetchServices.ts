@@ -17,6 +17,7 @@
 import type { CreateOrUpdateListFormDataResponsePayload, GroupTreeNode } from '@/types/createListFormTypes'
 import type { AdminSympaApiListsResponse } from '@/types/sympaTypes'
 import { HttpError } from '@/classes/httpError'
+import { httpErrorCode } from '@/utils/store'
 
 async function getAdditionalGroups(
   url: string,
@@ -94,6 +95,7 @@ async function getAllCreatableAndUpdatableLists(
   catch (error) {
     if (error instanceof HttpError) {
       console.error(error.code)
+      httpErrorCode.value = error.code
     }
     throw error
   }
@@ -129,21 +131,23 @@ async function postCreateOrUpdateList(
         responseBody,
       )
     }
-    // messageKey.value = responseBody.messageKey ?? null
-    return responseBody.messageKey ?? ''
+    else {
+      // si ok, présence de message key facultative
+      return responseBody.messageKey ?? ''
+    }
   }
   catch (error) {
     if (error instanceof HttpError) {
       console.error(`HTTP Error ${error.code}: ${error.message}`)
       if (error.body) {
         console.error('Body:', error.body)
-        return error.body.messageKey ?? ''
-        // messageKey.value = error.body.messageKey ?? null
+        // si l'erreur contient une messageKey on la return
+        if (error.body.messageKey !== undefined && error.body.messageKey !== null && error.body.messageKey.length > 0) {
+          return error.body.messageKey
+        }
       }
     }
-    else {
-      console.error('Fetch failed:', error)
-    }
+    console.error('Fetch failed:', error)
     throw error
   }
 }
@@ -166,7 +170,7 @@ async function postCloseList(
       redirect: 'follow',
     })
 
-    const responseBody: { messageKey: string } = await response.json()
+    const responseBody: { messageKey?: string } = await response.json()
 
     if (!response.ok) {
       console.error('Response body:', responseBody)
@@ -176,20 +180,23 @@ async function postCloseList(
         responseBody,
       )
     }
-    messageKey.value = responseBody.messageKey ?? null
-    return responseBody.messageKey
+    else {
+      // si ok, présence de message key facultative
+      return responseBody.messageKey ?? ''
+    }
   }
   catch (error) {
     if (error instanceof HttpError) {
       console.error(`HTTP Error ${error.code}: ${error.message}`)
       if (error.body) {
         console.error('Body:', error.body)
-        return error.body.messageKey
+        // si l'erreur contient une messageKey on la return
+        if (error.body.messageKey !== undefined && error.body.messageKey !== null && error.body.messageKey.length > 0) {
+          return error.body.messageKey
+        }
       }
     }
-    else {
-      console.error('Fetch failed:', error)
-    }
+    console.error('Fetch failed:', error)
     throw error
   }
 }
