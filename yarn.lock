@@ -1612,7 +1612,7 @@ __metadata:
     vue: "npm:^3.5.29"
     vue-i18n: "npm:^11.2.8"
     vue-tsc: "npm:^3.2.5"
-    vue3-toastify: "npm:^0.2.8"
+    vue3-toastify: "npm:^0.2.9"
     vuejs-clipper: "npm:^4.1.0"
   languageName: unknown
   linkType: soft
@@ -11486,15 +11486,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue3-toastify@npm:^0.2.8":
-  version: 0.2.8
-  resolution: "vue3-toastify@npm:0.2.8"
+"vue3-toastify@npm:^0.2.9":
+  version: 0.2.9
+  resolution: "vue3-toastify@npm:0.2.9"
   peerDependencies:
     vue: ">=3.2.0"
   peerDependenciesMeta:
     vue:
       optional: true
-  checksum: 10/18c9fb1fc7f3ec7bc490182a39ab0595305524944c62f96c091de3590fe6bbc424d7fabc9b325d9f9ca0534bffac9178ca16527fb3814361401248708e301eb5
+  checksum: 10/4dae4dea73d172d177848482914c2c89bc6e300cc4596a59c4157e6d2ee9b0d127251e91a9dbcfaa4e3c3431667bf0c86fc55ff8bd8f296246407dd61bedde1d
   languageName: node
   linkType: hard
 
