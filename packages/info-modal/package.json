@@ -45,7 +45,7 @@
     "@fortawesome/free-solid-svg-icons": "^7.2.0",
     "@tsconfig/node24": "^24.0.4",
     "@types/node": "^25",
-    "eslint": "^10.0.2",
+    "eslint": "^10.1.0",
     "eslint-plugin-format": "^2.0.1",
     "lit": "^3.3.2",
     "lit-analyzer": "^2.0.3",
