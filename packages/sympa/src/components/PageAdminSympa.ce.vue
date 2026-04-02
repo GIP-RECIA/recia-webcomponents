@@ -203,6 +203,9 @@ async function handleSubmit() {
       // n'arrive que s'il n'y a pas de message key dans l'erreur reçue
       errorDuringSubmit.value = true
     }
+    finally {
+      await initOrResetLists()
+    }
   }
   else if (modalType.value === 'close') {
     try {
@@ -210,6 +213,9 @@ async function handleSubmit() {
     }
     catch {
       errorDuringSubmit.value = true
+    }
+    finally {
+      await initOrResetLists()
     }
   }
   statusType.value = 'response'
