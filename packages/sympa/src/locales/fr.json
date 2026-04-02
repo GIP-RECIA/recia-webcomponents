@@ -124,5 +124,6 @@
   "error-messages-fallback": "Une erreur est survenue, merci de rééssayer.",
   "error-messages-sumbit": "Une erreur est survenue lors du traitement de votre requête.",
   "error-messages-list-data": "Impossible de récupérer les informations du modele de liste.",
-  "error-messages-additional-groups": "Une erreur est survenue lors de la récupération des groupes additionels."
+  "error-messages-additional-groups": "Une erreur est survenue lors de la récupération des groupes additionels.",
+  "email-warning": "Pour que l'envoie de courriel par liste de diffusion fonctionne, veuillez utiliser votre addresse académique."
 }
