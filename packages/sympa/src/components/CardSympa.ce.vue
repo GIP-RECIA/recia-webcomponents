@@ -38,7 +38,7 @@ async function copyAddress() {
         {{ props.sympaList.subject }}
       </p>
       <div class="tags-wrapper">
-        <span v-for="key in Object.values(PermissionKey).filter(x => props.sympaList![x] === true)" :key="key" class="tag small permission-tag">
+        <span v-for="key in Object.values(PermissionKey).filter(x => props.sympaList![x] === true)" :key="key" class="tag-primary small">
           {{ t(`permission-labels.${key}`) }}
         </span>
       </div>
@@ -138,10 +138,6 @@ p {
       text-overflow: ellipsis;
     }
   }
-}
-
-.permission-tag {
-  background-color: var(--recia-primary) !important;
 }
 
 p {
