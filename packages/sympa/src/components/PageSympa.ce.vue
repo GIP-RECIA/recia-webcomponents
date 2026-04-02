@@ -15,12 +15,14 @@
 -->
 <script setup lang="ts">
 import type { SympaApiResponse, SympaList } from '@/types/sympaTypes'
-import { onMounted, ref } from 'vue'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { computed, onMounted, ref } from 'vue'
 import { HttpError } from '@/classes/httpError'
 import i18n from '@/plugins/i18n.ts'
 
 const props = withDefaults(
   defineProps<{
+    academicMailPlatformUrl: string
     apiUrl?: string
     timeoutDefault?: number
   }>(),
@@ -81,11 +83,19 @@ function getErrorMessage(code: number) {
   const key = `error-messages.${code}`
   return t(key, t('error-messages-fallback'))
 }
+
+const displayWarning = computed(() => {
+  return sympaLists.value.filter(x => x.editor).length > 0
+})
 </script>
 
 <template>
   <i18n-host>
     <filter-sympa v-if="loaded && sympaLists.length > 0" class="filters" />
+    <div v-if="displayWarning" class="warning-wrapper">
+      <FontAwesomeIcon class="fa-icon" :icon="['fas', 'exclamation-triangle']" />
+      <p>{{ t('email-warning') }}</p>
+    </div>
     <list-sympa v-if="loaded" :sympa-lists="sympaLists" />
     <div v-if="httpError !== undefined">
       <p>{{ getErrorMessage(httpError.code) }}</p>
@@ -97,5 +107,18 @@ function getErrorMessage(code: number) {
 filter-sympa {
   display: block;
   margin-bottom: 20px;
+}
+
+.warning-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.fa-icon {
+  height: 1.25em;
+  width: 1.25em;
+  vertical-align: bottom;
+  color: var(--#{$prefix}system-red);
 }
 </style>
