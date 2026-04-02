@@ -33,8 +33,8 @@ const props = withDefaults(
     apiUrlCreateList?: string
     apiUrlUpdateList?: string
     apiUrlCloseList?: string
-    timeout?: number
-    timeoutLong?: number
+    timeoutDefault?: number
+    timeoutSympa?: number
   }>(),
   {
     apiUrlLists: import.meta.env.VITE_APP_SYMPA_API_BASE_URL + import.meta.env.VITE_APP_ADMIN_SYMPA_API_URI_LISTS,
@@ -43,8 +43,8 @@ const props = withDefaults(
     apiUrlCreateList: import.meta.env.VITE_APP_SYMPA_API_BASE_URL + import.meta.env.VITE_APP_ADMIN_SYMPA_API_URI_CREATE_LIST,
     apiUrlUpdateList: import.meta.env.VITE_APP_SYMPA_API_BASE_URL + import.meta.env.VITE_APP_ADMIN_SYMPA_API_URI_UPDATE_LIST,
     apiUrlCloseList: import.meta.env.VITE_APP_SYMPA_API_BASE_URL + import.meta.env.VITE_APP_ADMIN_SYMPA_API_URI_CLOSE_LIST,
-    timeout: import.meta.env.VITE_APP_TIMEOUT,
-    timeoutLong: import.meta.env.VITE_APP_TIMEOUT_LONG,
+    timeoutDefault: import.meta.env.VITE_APP_TIMEOUT_DEFAULT,
+    timeoutSympa: import.meta.env.VITE_APP_TIMEOUT_SYMPA,
   },
 )
 const loaded = ref<boolean>(false)
@@ -124,7 +124,7 @@ onMounted(async (): Promise<void> => {
 
 async function initOrResetLists() {
   try {
-    const response: AdminSympaApiListsResponse = await getAllCreatableAndUpdatableLists(props.apiUrlLists, props.timeout)
+    const response: AdminSympaApiListsResponse = await getAllCreatableAndUpdatableLists(props.apiUrlLists, props.timeoutDefault)
     creatableLists.value = response.createData
     updatableLists.value = response.updateData
     loaded.value = true
@@ -197,7 +197,7 @@ async function handleSubmit() {
 
     const typeParam: string | null = formData.value?.typeParam !== null || formData.value?.typeParamName !== null ? `${formData.value?.typeParamName}$${formData.value?.typeParam}` : null
     try {
-      messageKey.value = await postCreateOrUpdateList(urlForSubmit.value, props.timeoutLong, modelId.value!, type, editorsAliases, editorGroups, typeParam)
+      messageKey.value = await postCreateOrUpdateList(urlForSubmit.value, props.timeoutSympa, modelId.value!, type, editorsAliases, editorGroups, typeParam)
     }
     catch {
       // n'arrive que s'il n'y a pas de message key dans l'erreur reçue
@@ -209,7 +209,7 @@ async function handleSubmit() {
   }
   else if (modalType.value === 'close') {
     try {
-      messageKey.value = await postCloseList(urlForSubmit.value, props.timeoutLong, listAddress.value)
+      messageKey.value = await postCloseList(urlForSubmit.value, props.timeoutSympa, listAddress.value)
     }
     catch {
       errorDuringSubmit.value = true
@@ -246,7 +246,7 @@ async function initiateCreateOrUpdateListFromCard(event: CustomEvent, type: 'cre
 
   // fetch data for form
   try {
-    formData.value = await getFormDataForModel(props.apiUrlFormData, props.timeout, event.detail[0], event.detail[1])
+    formData.value = await getFormDataForModel(props.apiUrlFormData, props.timeoutDefault, event.detail[0], event.detail[1])
     modelId.value = event.detail[0]
     modelParam.value = event.detail[1] ?? null
     listSubject.value = event.detail[2] ?? null
@@ -283,7 +283,7 @@ async function initiateCloseListFromCard(event: CustomEvent) {
 async function fetchAdditionalGroups() {
   loadingAdditionalGroups.value = true
   try {
-    groupTreeNodeRoots.value = await getAdditionalGroups(props.apiUrlTreeData, props.timeout)
+    groupTreeNodeRoots.value = await getAdditionalGroups(props.apiUrlTreeData, props.timeoutDefault)
   }
   catch {
     errorDuringFetchAdditionalGroups.value = true
