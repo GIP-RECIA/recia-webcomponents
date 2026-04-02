@@ -22,11 +22,11 @@ import i18n from '@/plugins/i18n.ts'
 const props = withDefaults(
   defineProps<{
     apiUrl?: string
-    timeout?: number
+    timeoutDefault?: number
   }>(),
   {
     apiUrl: import.meta.env.VITE_APP_SYMPA_API_BASE_URL + import.meta.env.VITE_APP_SYMPA_API_URI,
-    timeout: import.meta.env.VITE_APP_TIMEOUT,
+    timeoutDefault: import.meta.env.VITE_APP_TIMEOUT_DEFAULT,
   },
 )
 const adminServiceUrl = ref<string | undefined>(undefined)
@@ -36,7 +36,7 @@ const httpError = ref<HttpError | undefined>(undefined)
 const { t } = i18n.global
 
 onMounted(async (): Promise<void> => {
-  const response: SympaApiResponse = await get(props.apiUrl, props.timeout)
+  const response: SympaApiResponse = await get(props.apiUrl, props.timeoutDefault)
   adminServiceUrl.value = response.adminServiceUrl !== undefined && response.adminServiceUrl !== null && response.adminServiceUrl.length > 0 ? response.adminServiceUrl : undefined
   sympaLists.value = response.sympaLists
   loaded.value = true
