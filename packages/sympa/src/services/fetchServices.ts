@@ -111,45 +111,7 @@ async function postCreateOrUpdateList(
   typeParam: string | null,
 
 ): Promise<string> {
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ modelId, type, editorsAliases, editorGroups, typeParam }),
-      credentials: 'include',
-      signal: AbortSignal.timeout(timeout),
-      redirect: 'follow',
-    })
-
-    const responseBody: { messageKey?: string } = await response.json()
-
-    if (!response.ok) {
-      console.error('Response body:', responseBody)
-      throw new HttpError(
-        response.statusText || 'Error',
-        response.status,
-        responseBody,
-      )
-    }
-    else {
-      // si ok, présence de message key facultative
-      return responseBody.messageKey ?? ''
-    }
-  }
-  catch (error) {
-    if (error instanceof HttpError) {
-      console.error(`HTTP Error ${error.code}: ${error.message}`)
-      if (error.body) {
-        console.error('Body:', error.body)
-        // si l'erreur contient une messageKey on la return
-        if (error.body.messageKey !== undefined && error.body.messageKey !== null && error.body.messageKey.length > 0) {
-          return error.body.messageKey
-        }
-      }
-    }
-    console.error('Fetch failed:', error)
-    throw error
-  }
+  return await postActionList(url, timeout, JSON.stringify({ modelId, type, editorsAliases, editorGroups, typeParam }))
 }
 
 async function postCloseList(
@@ -158,13 +120,21 @@ async function postCloseList(
   listName: string,
 
 ): Promise<string> {
+  return await postActionList(url, timeout, JSON.stringify({ listName }))
+}
+
+async function postActionList(
+  url: string,
+  timeout: number,
+  body: string,
+): Promise<string> {
   try {
     const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ listName }),
+      body,
       credentials: 'include',
       signal: AbortSignal.timeout(timeout),
       redirect: 'follow',
