@@ -119,7 +119,10 @@ onMounted(async (): Promise<void> => {
       modalElement.isOpen = false
     }
   })
+  initOrResetLists()
+})
 
+async function initOrResetLists() {
   try {
     const response: AdminSympaApiListsResponse = await getAllCreatableAndUpdatableLists(props.apiUrlLists, props.timeout)
     creatableLists.value = response.createData
@@ -129,7 +132,7 @@ onMounted(async (): Promise<void> => {
   catch {
     errorDuringFetchLists.value = true
   }
-})
+}
 
 function handleOnSelection(datas: GroupTreeNode[]) {
   selectedNodes.value = datas
