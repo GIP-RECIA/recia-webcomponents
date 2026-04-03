@@ -19,7 +19,7 @@ import type { InfoModal } from '@gip-recia/info-modal'
 import type { CreateOrUpdateListFormDataResponsePayload, GroupTreeNode } from '@/types/createListFormTypes'
 import type { AdminSympaApiListsResponse, CreatableList, UpdatableList } from '@/types/sympaTypes'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import i18n from '@/plugins/i18n'
 import { getAdditionalGroups, getAllCreatableAndUpdatableLists, getFormDataForModel, postCloseList, postCreateOrUpdateList } from '@/services/fetchServices'
 import { httpErrorCode, supportedErrorCodes } from '@/utils/store'
@@ -74,6 +74,7 @@ const statusType = ref<'form' | 'waiting' | 'response'>('form')
 const listAddress = ref<string>('')
 const listSubject = ref<string>('')
 const messageKey = ref<string | null>(null)
+const displayTree = ref<boolean>(false)
 
 const urlForSubmit = computed((): string => {
   switch (modalType.value) {
@@ -120,6 +121,7 @@ onMounted(async (): Promise<void> => {
     }
   })
   initOrResetLists()
+  fetchAdditionalGroups()
 })
 
 async function initOrResetLists() {
@@ -137,6 +139,12 @@ async function initOrResetLists() {
 function handleOnSelection(datas: GroupTreeNode[]) {
   selectedNodes.value = datas
 }
+
+watch(displayTree, (newDisplayTree) => {
+  if (newDisplayTree === false) {
+    selectedNodes.value = []
+  }
+})
 
 function getAllGroupsFromSelectedNodes(): Array<string> {
   const allGroups: Set<string> = new Set()
@@ -222,6 +230,8 @@ async function handleSubmit() {
 }
 
 function resetModale() {
+  selectedNodes.value = []
+  displayTree.value = false
   loadingAdditionalGroups.value = false
   groupTreeNodesFetched.value = false
   errorDuringFetchAdditionalGroups.value = false
@@ -343,21 +353,22 @@ const modalButtonI18nKey = computed(() => {
                   </div>
 
                   <button
-                    v-if="groupTreeNodesFetched === false"
-                    class="btn-secondary small"
+
+                    class="btn-tertiary small"
                     :disabled="loadingAdditionalGroups"
                     @click="(event) => {
                       event.stopPropagation()
                       event.preventDefault()
-                      fetchAdditionalGroups()
+                      displayTree = !displayTree
                     }"
                   >
                     {{ t("modal.load-more-groups") }}
-                    <FontAwesomeIcon class="fa-icon" :icon="['fas', 'plus']" />
+                    <FontAwesomeIcon v-if="displayTree" class="fa-icon" :icon="['fas', 'minus']" />
+                    <FontAwesomeIcon v-else class="fa-icon" :icon="['fas', 'plus']" />
                   </button>
                   <!-- eslint-disable vue/attribute-hyphenation -->
                   <esup-js-tree
-                    v-if="groupTreeNodeRoots.length > 0"
+                    v-if="groupTreeNodeRoots.length > 0 && displayTree"
 
                     style="
               accent-color: 'var(--recia-primary)';

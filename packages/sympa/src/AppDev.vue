@@ -79,7 +79,11 @@ const urlProvidedToComponent = computed(() => {
     </label>
   </div>
   <sympa-admin-redirect v-if="!selectedUrl?.includes('admin')" />
-  <page-sympa v-if="urlProvidedToComponent !== undefined && !selectedUrl?.includes('admin')" :key="urlProvidedToComponent" />
+  <page-sympa
+    v-if="urlProvidedToComponent !== undefined && !selectedUrl?.includes('admin')"
+    :key="urlProvidedToComponent"
+    academic-mail-platform-url="placeholder mail service uri from AppDev.vue"
+  />
   <page-admin-sympa v-if="selectedUrl?.includes('admin')" />
 </template>
 
