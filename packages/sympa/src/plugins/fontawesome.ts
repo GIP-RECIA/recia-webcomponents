@@ -16,7 +16,7 @@
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCopy as farCopy, faPaperPlane as farPaperPlane } from '@fortawesome/free-regular-svg-icons'
-import { faArchive, faExclamationTriangle, faRedoAlt, faArrowRight as fasArrowRight, faEllipsisH as fasEllipsisH, faPlus as fasPlus, faWrench as fasWrench, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faArchive, faExclamationTriangle, faMinus, faRedoAlt, faArrowRight as fasArrowRight, faEllipsisH as fasEllipsisH, faPlus as fasPlus, faWrench as fasWrench, faTimes } from '@fortawesome/free-solid-svg-icons'
 
 function register() {
   library.add(
@@ -29,6 +29,7 @@ function register() {
     fasPlus,
     faRedoAlt,
     faTimes,
+    faMinus,
     faExclamationTriangle,
   )
 }
