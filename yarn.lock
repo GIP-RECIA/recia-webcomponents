@@ -1619,7 +1619,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@gip-recia/sympa@workspace:packages/sympa"
   dependencies:
-    "@antfu/eslint-config": "npm:^7.6.1"
+    "@antfu/eslint-config": "npm:^8.0.0"
     "@fortawesome/fontawesome-free": "npm:^7.2.0"
     "@fortawesome/fontawesome-svg-core": "npm:^7.2.0"
     "@fortawesome/free-solid-svg-icons": "npm:^7.2.0"
@@ -1628,32 +1628,32 @@ __metadata:
     "@gip-recia/js-tree": "npm:^0.0.18"
     "@gip-recia/ui": "npm:^1.0.4"
     "@gip-recia/ui-webcomponents": "npm:^1.13.0"
-    "@intlify/unplugin-vue-i18n": "npm:^11.0.7"
-    "@tsconfig/node22": "npm:^22.0.5"
+    "@intlify/unplugin-vue-i18n": "npm:^11.1.1"
+    "@tsconfig/node24": "npm:^24.0.4"
     "@types/lodash.debounce": "npm:^4"
-    "@types/node": "npm:^25"
+    "@types/node": "npm:^24"
     "@types/regenerator-runtime": "npm:^0"
     "@uportal/open-id-connect": "npm:^1.40.2"
-    "@vitejs/plugin-vue": "npm:^6.0.4"
-    "@vue/tsconfig": "npm:^0.9.0"
+    "@vitejs/plugin-vue": "npm:^6.0.5"
+    "@vue/tsconfig": "npm:^0.9.1"
     "@vueform/multiselect": "npm:^2.6.11"
     "@vueuse/core": "npm:^14.2.1"
-    axios: "npm:^1.13.6"
+    axios: "npm:^1.14.0"
     dotenv-checker: "npm:^1.1.7"
-    eslint: "npm:^10.0.2"
+    eslint: "npm:^10.1.0"
     eslint-plugin-format: "npm:^2.0.1"
-    lint-staged: "npm:^16.3.1"
+    lint-staged: "npm:^16.4.0"
     lodash.debounce: "npm:^4.0.8"
     lodash.throttle: "npm:^4.1.1"
     npm-run-all2: "npm:^8.0.4"
     regenerator-runtime: "npm:^0.14.1"
-    sass: "npm:^1.97.3"
-    terser: "npm:^5.46.0"
+    sass: "npm:^1.98.0"
+    terser: "npm:^5.46.1"
     typescript: "npm:^5.9.3"
-    vite: "npm:^7.3.1"
-    vue: "npm:^3.5.29"
-    vue-i18n: "npm:^11.2.8"
-    vue-tsc: "npm:^3.2.5"
+    vite: "npm:^7.3.2"
+    vue: "npm:^3.5.31"
+    vue-i18n: "npm:^11.3.0"
+    vue-tsc: "npm:^3.2.6"
   languageName: unknown
   linkType: soft
 
@@ -2143,17 +2143,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit-labs/ssr-dom-shim@npm:^1.0.0, @lit-labs/ssr-dom-shim@npm:^1.1.0":
+"@lit-labs/ssr-dom-shim@npm:^1.0.0, @lit-labs/ssr-dom-shim@npm:^1.1.0, @lit-labs/ssr-dom-shim@npm:^1.2.0":
   version: 1.5.1
   resolution: "@lit-labs/ssr-dom-shim@npm:1.5.1"
   checksum: 10/8b90e101cbaef3aa9d3a16cd90010c2c7c13cc0b3effa8ce166e2c7a57e52e759fb7bb4f800ce5b5dfb1d7cbd8430a0b430bcc8bcb8b54d1417dbf2eb046dd6a
-  languageName: node
-  linkType: hard
-
-"@lit-labs/ssr-dom-shim@npm:^1.2.0":
-  version: 1.2.1
-  resolution: "@lit-labs/ssr-dom-shim@npm:1.2.1"
-  checksum: 10/48e28c1f132eb1d5b385454dd23db2837bf913d108a0908e73816ceb594b1b09db34e05ccb86a18fb9c02fc100d62bbab350b6ec88e2c175f2c21c5f0220bfdd
   languageName: node
   linkType: hard
 
@@ -3825,13 +3818,6 @@ __metadata:
   version: 1.9.2
   resolution: "@tldraw/vec@npm:1.9.2"
   checksum: 10/6b3b331c3e0acbca225cd715573ce658449c47bb442724a163ee923c9aebce0247114d72db5849b836da354cb3f969cdfc98fdb9df5adf47c8e98eeb4e5b2e9b
-  languageName: node
-  linkType: hard
-
-"@tsconfig/node22@npm:^22.0.5":
-  version: 22.0.5
-  resolution: "@tsconfig/node22@npm:22.0.5"
-  checksum: 10/2e21177946aa0bcd705e8303cd0844eb66d2abc1ceb9ca7bd7762443676e599bb11e7f7b257c027d8dec9d1c62cda114d1a3df5e38699c6b4943e6acadac261d
   languageName: node
   linkType: hard
 
