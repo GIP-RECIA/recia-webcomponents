@@ -149,34 +149,39 @@ watch(displayTree, (newDisplayTree) => {
 function getAllGroupsFromSelectedNodes(): Array<string> {
   const allGroups: Set<string> = new Set()
 
-  selectedNodes.value.forEach((node) => {
-    const fullPrefix: string | undefined = node.parent ? getPrefix(node.parent) : undefined
-    const suffixes: Array<string> = getSuffixesAndSelf(node)
+  const childNodeSet: Set<GroupTreeNode> = new Set()
 
-    suffixes.forEach((suffixe) => {
-      allGroups.add(fullPrefix ? `${fullPrefix}:${suffixe}` : suffixe)
-    })
+  selectedNodes.value.forEach((node) => {
+    getChildNodes(node).forEach(childNode => childNodeSet.add(childNode))
+  })
+
+  childNodeSet.forEach((childNode) => {
+    allGroups.add(getSelfAndPrefix(childNode))
   })
 
   return Array.from(allGroups)
 }
 
-function getPrefix(groupTreeNode: GroupTreeNode): string {
-  return groupTreeNode.parent ? `${getPrefix(groupTreeNode.parent)}:${groupTreeNode.text}` : groupTreeNode.text
-}
-
-function getSuffixesAndSelf(groupTreeNode: GroupTreeNode): Array<string> {
-  const suffixes: Array<string> = []
-
+function getChildNodes(groupTreeNode: GroupTreeNode): Array<GroupTreeNode> {
   if (!groupTreeNode.children) {
-    suffixes.push(groupTreeNode.text)
-    return suffixes
+    return Array.of(groupTreeNode)
   }
 
+  let children: Array<GroupTreeNode> = []
+
   groupTreeNode.getChildren.forEach((child) => {
-    suffixes.push(`${groupTreeNode.text}:${getSuffixesAndSelf(child)}`)
+    // populated parent that is undefined by default
+    child.parent = groupTreeNode
+    children = children.concat(getChildNodes(child))
   })
-  return suffixes
+  return children
+}
+
+function getSelfAndPrefix(groupTreeNode: GroupTreeNode): string {
+  if (groupTreeNode.parent !== undefined && groupTreeNode.parent !== null) {
+    return `${getSelfAndPrefix(groupTreeNode.parent)}:${groupTreeNode.text}`
+  }
+  return groupTreeNode.text
 }
 
 async function handleSubmit() {
