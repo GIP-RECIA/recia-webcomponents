@@ -124,6 +124,11 @@
   "error-messages-sumbit": "An error has occurred while processing your request.",
   "error-messages-list-data": "Could not retrieve informations related to this list model.",
   "error-messages-additional-groups": "An error has occurred when fetching additional groups.",
-  "email-warning": "Please use your academic email address to send emails using diffusions lists."
+  "email-warning": "Please use your academic email address to send emails using diffusions lists.",
+  "aria": {
+    "aria-label": {
+      "close-modal": "Close modal"
+    }
+  }
 
 }

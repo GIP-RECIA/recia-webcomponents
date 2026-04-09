@@ -140,7 +140,15 @@ async function postActionList(
       redirect: 'follow',
     })
 
-    const responseBody: { messageKey?: string } = await response.json()
+    const text = await response.text()
+
+    if (!text) {
+      return ''
+    }
+
+    const responseBody: { messageKey?: string } = JSON.parse(text)
+
+    await response.json()
 
     if (!response.ok) {
       console.error('Response body:', responseBody)

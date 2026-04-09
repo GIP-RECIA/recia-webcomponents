@@ -43,6 +43,7 @@ export default ({ mode }: ConfigEnv) => {
               'filter-sympa',
               'i18n-host',
               'list-sympa',
+              'modal-sympa',
               'list-admin-sympa',
               'sympa-admin-redirect',
             ].includes(tag),
