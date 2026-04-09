@@ -381,17 +381,17 @@ const modalButtonI18nKey = computed(() => {
 
                     style="
               accent-color: 'var(--recia-primary)';
-  --icon-0-font-family: 'Font Awesome 6 Free';
+  --icon-0-font-family: 'FontAwesome';
   --icon-0-font-weight: 900;
 
-  --icon-1-font-family: 'Font Awesome 6 Free';
+  --icon-1-font-family: 'FontAwesome';
   --icon-1-font-weight: 900;
   --icon-1-content:  '\f0c0';
 
-  --icon-fold-font-family: 'Font Awesome 6 Free';
+  --icon-fold-font-family: 'FontAwesome';
   --icon-fold-font-weight: 900;
   --icon-fold-content: '\f0da';
-  --icon-unfold-font-family: 'Font Awesome 6 Free';
+  --icon-unfold-font-family: 'FontAwesome';
   --icon-unfold-font-weight: 900;
   --icon-unfold-content: '\f0d7';
   "
