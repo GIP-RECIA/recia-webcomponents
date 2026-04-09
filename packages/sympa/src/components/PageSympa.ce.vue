@@ -22,7 +22,6 @@ import i18n from '@/plugins/i18n.ts'
 
 const props = withDefaults(
   defineProps<{
-    academicMailPlatformUrl: string
     apiUrl?: string
     timeoutDefault?: number
   }>(),
