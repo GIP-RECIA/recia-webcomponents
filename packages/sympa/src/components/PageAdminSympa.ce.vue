@@ -361,6 +361,9 @@ const modalButtonI18nKey = computed(() => {
 
                     class="btn-tertiary small"
                     :disabled="loadingAdditionalGroups"
+                    aria-controls="additiona-groups-tree"
+
+                    :aria-expanded="displayTree"
                     @click="(event) => {
                       event.stopPropagation()
                       event.preventDefault()
@@ -374,6 +377,7 @@ const modalButtonI18nKey = computed(() => {
                   <!-- eslint-disable vue/attribute-hyphenation -->
                   <esup-js-tree
                     v-if="groupTreeNodeRoots.length > 0 && displayTree"
+                    id="additiona-groups-tree"
 
                     style="
               accent-color: 'var(--recia-primary)';
