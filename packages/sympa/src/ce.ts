@@ -24,6 +24,7 @@ import FilterSympaSFC from '@/components/FilterSympa.ce.vue'
 import I18nHostSFC from '@/components/I18nHost.ce.vue'
 import ListAdminSympaSFC from '@/components/ListAdminSympa.ce.vue'
 import ListSympSFC from '@/components/ListSympa.ce.vue'
+import ModalSympaSFC from '@/components/ModalSympa.ce.vue'
 import PageAdminSympaSFC from '@/components/PageAdminSympa.ce.vue'
 import PageSympaSFC from '@/components/PageSympa.ce.vue'
 import SympaAdminRedirectSFC from '@/components/SympaAdminRedirect.ce.vue'
@@ -37,6 +38,7 @@ const FilterSympa = defineCustomElement(FilterSympaSFC)
 const I18nHost = defineCustomElement(I18nHostSFC)
 const ListAdminSympa = defineCustomElement(ListAdminSympaSFC)
 const ListSympa = defineCustomElement(ListSympSFC)
+const ModalSympa = defineCustomElement(ModalSympaSFC)
 const PageSympa = defineCustomElement(PageSympaSFC)
 const SympaAdminRedirect = defineCustomElement(SympaAdminRedirectSFC)
 const PageAdminSympa = defineCustomElement(PageAdminSympaSFC)
@@ -52,6 +54,7 @@ declare module 'vue' {
     I18nHost: typeof I18nHost
     ListAdminSympa: typeof ListAdminSympa
     ListSympa: typeof ListSympa
+    ModalSympa: typeof ModalSympa
     PageSympa: typeof PageSympa
     SympaAdminRedirect: typeof SympaAdminRedirect
     PageAdminSympa: typeof PageAdminSympa
@@ -69,9 +72,10 @@ function registerElements() {
   customElements.define('i18n-host', I18nHost)
   customElements.define('list-admin-sympa', ListAdminSympa)
   customElements.define('list-sympa', ListSympa)
+  customElements.define('modal-sympa', ModalSympa)
   customElements.define('page-sympa', PageSympa)
   customElements.define('page-admin-sympa', PageAdminSympa)
   customElements.define('sympa-admin-redirect', SympaAdminRedirect)
 }
 
-export { ButtonDropdownAdminCardSympaUpdate, CardAdminSympaCreate, CardAdminSympaUpdate, CardSympa, FilterSympa, I18nHost, ListAdminSympa, ListSympa, PageAdminSympa, PageSympa, registerElements, SympaAdminRedirect }
+export { ButtonDropdownAdminCardSympaUpdate, CardAdminSympaCreate, CardAdminSympaUpdate, CardSympa, FilterSympa, I18nHost, ListAdminSympa, ListSympa, ModalSympa, PageAdminSympa, PageSympa, registerElements, SympaAdminRedirect }
