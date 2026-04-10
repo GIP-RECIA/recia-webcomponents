@@ -213,7 +213,7 @@ p {
   color: var(--recia-system-red, #ad1919);
 }
 
-@media (min-width: 600px) and (max-width: 1024px) {
+@media (min-width: 767px) and (max-width: 1024px) {
   .mobile-only {
     display: none;
   }
@@ -225,7 +225,7 @@ p {
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1170px) {
+@media (min-width: 1024px) and (max-width: 1400px) {
   .mobile-only {
     display: inherit;
   }
@@ -237,7 +237,7 @@ p {
   }
 }
 
-@media (min-width: 1170px) {
+@media (min-width: 1400px) {
   .mobile-only {
     display: none;
   }
