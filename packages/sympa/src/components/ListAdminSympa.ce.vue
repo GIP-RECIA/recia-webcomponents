@@ -199,11 +199,6 @@ function displayState(sympaList: UpdatableList): boolean {
   gap: 1.5em;
 }
 
-.results-count {
-  font-size: var(--recia-font-size-md);
-  font-weight: 700;
-}
-
 [role='tabpanel'].is-hidden {
   display: none;
 }
