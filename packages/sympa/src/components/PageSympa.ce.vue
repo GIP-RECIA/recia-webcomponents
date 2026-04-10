@@ -115,6 +115,7 @@ filter-sympa {
 }
 
 .fa-icon {
+  flex-shrink: 0;
   height: 1.25em;
   width: 1.25em;
   vertical-align: bottom;
