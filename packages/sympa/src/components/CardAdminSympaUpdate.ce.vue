@@ -103,9 +103,6 @@ function closeList(): void {
     height: fit-content;
   }
   &.address-wrapper {
-    p {
-      font-size: 0.9em;
-    }
     flex-grow: 1;
   }
 
@@ -135,10 +132,6 @@ p {
 }
 
 @media (width < 576px) {
-  p {
-    font-size: 0.8em;
-  }
-
   .address-wrapper {
     .address-div,
     p.address {
@@ -197,9 +190,6 @@ p {
   padding: 1px;
   width: fit-content;
   display: flex;
-  span {
-    font-size: 0.65em;
-  }
   gap: 4px;
 }
 
