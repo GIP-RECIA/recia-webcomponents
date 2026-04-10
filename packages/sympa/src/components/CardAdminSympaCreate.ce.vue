@@ -74,12 +74,13 @@ function createList(): void {
   }
 
   &.description-and-tags {
-    flex: 0 0 auto;
+    h2 {
+      word-wrap: anywhere;
+    }
   }
   &.address-wrapper {
     justify-content: start;
     min-height: 0;
-    flex: 1 1 auto;
     overflow-y: auto;
     .address {
       min-height: 0;
@@ -88,7 +89,6 @@ function createList(): void {
   }
 
   &.btns {
-    flex: 0 0 auto;
     display: flex;
     align-items: end;
     justify-content: end;
@@ -102,15 +102,6 @@ function createList(): void {
   max-width: 100%;
 }
 
-p {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-
-  overflow: hidden;
-}
-
 @media (width < 576px) {
   .address-wrapper {
     .address-div,
@@ -118,11 +109,6 @@ p {
       white-space: normal;
       overflow-wrap: anywhere;
       word-break: normal;
-
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
     }
   }
 }
@@ -138,10 +124,9 @@ p {
 }
 
 .card-wrapper {
-  padding: 15px;
+  padding: 16px;
   background-color: white;
   border-radius: 10px;
-  height: 160px;
   width: auto;
   box-shadow: var(--#{$prefix}shadow-neutral) HEXToRGBA($black, 0.1);
   overflow: hidden;

@@ -45,7 +45,19 @@ function displayStateForSympaList(sympaList: SympaList): boolean {
 </template>
 
 <style lang="scss">
-  @media only screen and (width > 1024px) {
+@use 'sass:map';
+@use 'ress/dist/ress.min.css';
+@use '@gip-recia/ui/core/variables' as *;
+@use '@gip-recia/ui/functions' as *;
+@use '@gip-recia/ui/mixins' as *;
+
+.wrapper {
+  display: grid !important;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 32px;
+}
+
+@media only screen and (min-width: 1024px) {
   .wrapper {
     display: grid !important;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -53,10 +65,10 @@ function displayStateForSympaList(sympaList: SympaList): boolean {
   }
 }
 
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5em;
+@media (width >= map.get($grid-breakpoints, md)) {
+  .wrapper {
+    gap: 46px;
+  }
 }
 
 .results-count {

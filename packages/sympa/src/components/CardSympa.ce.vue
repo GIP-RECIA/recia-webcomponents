@@ -79,22 +79,19 @@ async function copyAddress() {
   min-height: 0;
 
   &.description {
-    // height: fit-content;
-    flex: 0 0 auto;
+    h2 {
+      word-wrap: anywhere;
+    }
   }
   &.address-and-tags-wrapper {
     justify-content: start;
     min-height: 0;
-    flex: 1 1 auto;
-    overflow-y: auto;
     .address {
-      min-height: 0;
-      flex-shrink: 0;
+      word-wrap: anywhere;
     }
   }
 
   &.btns {
-    flex: 0 0 auto;
     display: flex;
     align-items: end;
     justify-content: end;
@@ -108,15 +105,6 @@ async function copyAddress() {
   max-width: 100%;
 }
 
-p {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-
-  overflow: hidden;
-}
-
 @media (width < 576px) {
   .address-and-tags-wrapper {
     .address-div,
@@ -124,11 +112,6 @@ p {
       white-space: normal;
       overflow-wrap: anywhere;
       word-break: normal;
-
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
     }
   }
 }
@@ -140,10 +123,9 @@ p {
 }
 
 .card-wrapper {
-  padding: 5px;
+  padding: 16px;
   background-color: white;
   border-radius: 10px;
-  height: 160px;
   width: auto;
   box-shadow: var(--#{$prefix}shadow-neutral) HEXToRGBA($black, 0.1);
   display: flex;

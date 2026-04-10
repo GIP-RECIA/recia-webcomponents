@@ -43,14 +43,19 @@ function closeList(): void {
       <h2 class="description">
         {{ props.sympaList.subject }}
       </h2>
-      <p v-if="props.sympaList.modelId === null" class="deprecated">
-        <FontAwesomeIcon class="fa-icon" :icon="['fas', 'exclamation-triangle']" />
-        {{ t('card-sympa.deprecated-warning') }}
-      </p>
     </div>
 
     <div class="address-wrapper part-wrapper">
       <p class="address">
+        <span
+          v-if="props.sympaList.modelId === null"
+          :title="t('card-sympa.deprecated-warning')"
+        >
+          <FontAwesomeIcon
+            class="fa-icon deprecated"
+            :icon="['fas', 'exclamation-triangle']"
+          />
+        </span>
         {{ props.sympaList.address }}
       </p>
     </div>
@@ -100,6 +105,9 @@ function closeList(): void {
   }
 
   &.description-and-tags {
+    h2 {
+      word-wrap: anywhere;
+    }
     flex: 0 0 auto;
   }
   &.address-wrapper {
@@ -128,15 +136,6 @@ function closeList(): void {
   max-width: 100%;
 }
 
-p {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-
-  overflow: hidden;
-}
-
 @media (width < 576px) {
   .address-wrapper {
     .address-div,
@@ -144,11 +143,6 @@ p {
       white-space: normal;
       overflow-wrap: anywhere;
       word-break: normal;
-
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
     }
   }
 }
@@ -164,10 +158,9 @@ p {
 }
 
 .card-wrapper {
-  padding: 15px;
+  padding: 16px;
   background-color: white;
   border-radius: 10px;
-  height: 160px;
   width: auto;
   box-shadow: var(--#{$prefix}shadow-neutral) HEXToRGBA($black, 0.1);
   overflow-y: visible;
