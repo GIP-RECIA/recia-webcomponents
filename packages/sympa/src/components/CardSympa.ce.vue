@@ -33,18 +33,18 @@ async function copyAddress() {
 
 <template>
   <div v-if="props.sympaList !== undefined" class="card-wrapper">
-    <div class="part-wrapper description-and-tags">
+    <div class="part-wrapper description">
       <h2 class="description">
         {{ props.sympaList.subject }}
       </h2>
+    </div>
+
+    <div class="address-and-tags-wrapper part-wrapper">
       <div class="tags-wrapper">
-        <span v-for="key in Object.values(PermissionKey).filter(x => props.sympaList![x] === true)" :key="key" class="tag-primary small">
+        <span v-for="key in Object.values(PermissionKey).filter(x => props.sympaList![x] === true)" :key="key" class="tag-primary">
           {{ t(`permission-labels.${key}`) }}
         </span>
       </div>
-    </div>
-
-    <div class="address-wrapper part-wrapper">
       <p class="address">
         {{ props.sympaList.address }}
       </p>
@@ -75,27 +75,30 @@ async function copyAddress() {
 .part-wrapper {
   display: flex;
   flex-direction: column;
-  height: 100%;
   box-sizing: border-box;
-  &.address-wrapper,
-  &.btns {
-    justify-content: center;
+  min-height: 0;
+
+  &.description {
+    // height: fit-content;
+    flex: 0 0 auto;
+  }
+  &.address-and-tags-wrapper {
+    justify-content: start;
+    min-height: 0;
+    flex: 1 1 auto;
+    overflow-y: auto;
+    .address {
+      min-height: 0;
+      flex-shrink: 0;
+    }
   }
 
-  &.description-and-tags {
-    height: fit-content;
-  }
-  &.address-wrapper {
-    flex-grow: 1;
-  }
-
   &.btns {
+    flex: 0 0 auto;
     display: flex;
     align-items: end;
     justify-content: end;
     flex-direction: row;
-    flex-grow: 0;
-    height: fit-content;
     gap: 5px;
   }
 }
@@ -115,7 +118,7 @@ p {
 }
 
 @media (width < 576px) {
-  .address-wrapper {
+  .address-and-tags-wrapper {
     .address-div,
     p.address {
       white-space: normal;
@@ -126,9 +129,6 @@ p {
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
       line-clamp: 2;
-
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
   }
 }
@@ -139,14 +139,6 @@ p {
   }
 }
 
-.address-wrapper {
-  .address {
-    white-space: normal;
-    overflow-wrap: anywhere;
-    word-break: normal;
-  }
-}
-
 .card-wrapper {
   padding: 5px;
   background-color: white;
@@ -154,9 +146,9 @@ p {
   height: 160px;
   width: auto;
   box-shadow: var(--#{$prefix}shadow-neutral) HEXToRGBA($black, 0.1);
-  overflow: hidden;
   display: flex;
   flex-direction: column;
+  min-height: 0;
 }
 
 .fa-icon {
@@ -167,7 +159,10 @@ p {
 
 .tags-wrapper {
   padding: 1px;
-  width: fit-content;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
   display: flex;
   gap: 4px;
 }

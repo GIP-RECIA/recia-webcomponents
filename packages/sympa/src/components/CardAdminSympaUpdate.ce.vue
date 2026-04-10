@@ -92,27 +92,33 @@ function closeList(): void {
 .part-wrapper {
   display: flex;
   flex-direction: column;
-  height: 100%;
   box-sizing: border-box;
-  &.address-wrapper,
-  &.btns {
+  min-height: 0;
+
+  &.address-wrapper {
     justify-content: center;
   }
 
   &.description-and-tags {
-    height: fit-content;
+    flex: 0 0 auto;
   }
   &.address-wrapper {
-    flex-grow: 1;
+    justify-content: start;
+    min-height: 0;
+    flex: 1 1 auto;
+    overflow-y: auto;
+    .address {
+      min-height: 0;
+      flex-shrink: 0;
+    }
   }
 
   &.btns {
+    flex: 0 0 auto;
     display: flex;
     align-items: end;
     justify-content: end;
     flex-direction: row;
-    flex-grow: 0;
-    height: fit-content;
     gap: 5px;
   }
 }
@@ -143,9 +149,6 @@ p {
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
       line-clamp: 2;
-
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
   }
 }
@@ -157,14 +160,6 @@ p {
 p {
   &.description {
     font-weight: bold;
-  }
-}
-
-.address-wrapper {
-  .address {
-    white-space: normal;
-    overflow-wrap: anywhere;
-    word-break: normal;
   }
 }
 
