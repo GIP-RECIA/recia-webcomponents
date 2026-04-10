@@ -35,9 +35,9 @@ function createList(): void {
 <template>
   <div v-if="props.sympaList !== undefined" class="card-wrapper">
     <div class="part-wrapper description-and-tags">
-      <p class="description">
+      <h2 class="description">
         {{ props.sympaList.subject }}
-      </p>
+      </h2>
     </div>
 
     <div class="address-wrapper part-wrapper">

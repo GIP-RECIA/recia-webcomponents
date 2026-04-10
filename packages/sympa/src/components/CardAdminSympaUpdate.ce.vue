@@ -40,9 +40,9 @@ function closeList(): void {
 <template>
   <div v-if="props.sympaList !== undefined" class="card-wrapper">
     <div class="part-wrapper description-and-tags">
-      <p class="description">
+      <h2 class="description">
         {{ props.sympaList.subject }}
-      </p>
+      </h2>
       <p v-if="props.sympaList.modelId === null" class="deprecated">
         <FontAwesomeIcon class="fa-icon" :icon="['fas', 'exclamation-triangle']" />
         {{ t('card-sympa.deprecated-warning') }}
