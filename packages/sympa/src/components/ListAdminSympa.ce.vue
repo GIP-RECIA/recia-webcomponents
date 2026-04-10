@@ -161,7 +161,9 @@ function displayState(sympaList: UpdatableList): boolean {
     </div>
 
     <div id="tabpanel-2" role="tabpanel" tabindex="0" aria-labelledby="tab-2" :class="isHidden('tab-2')">
-      <filter-admin-sympa />
+      <div id="filter">
+        <filter-admin-sympa />
+      </div>
       <div class="wrapper">
         <card-admin-sympa-update v-for="list in props.updatableLists.filter(x => displayState(x))" :key="list.address" :sympa-list="list" @update-list="updateList" @close-list="closeList" />
       </div>
@@ -170,6 +172,7 @@ function displayState(sympaList: UpdatableList): boolean {
 </template>
 
 <style lang="scss">
+@use 'sass:map';
 @use 'ress/dist/ress.min.css';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/core/typo' as *;
@@ -178,25 +181,32 @@ function displayState(sympaList: UpdatableList): boolean {
 @use '@gip-recia/ui/global';
 @use '@gip-recia/ui/components/buttons';
 
-@media only screen and (width > 1024px) {
+.wrapper {
+  display: grid !important;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 32px;
+}
+
+@media only screen and (min-width: 1024px) {
   .wrapper {
     display: grid !important;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.5em;
   }
 }
 
+#filter,
 .automatic {
-  margin-bottom: 10px;
-  button:not(:first-child) {
-    padding-left: 20px;
-  }
+  margin-bottom: 32px;
 }
 
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5em;
+@media (width >= map.get($grid-breakpoints, md)) {
+  .wrapper {
+    gap: 46px;
+  }
+  #filter,
+  .automatic {
+    margin-bottom: 46px;
+  }
 }
 
 [role='tabpanel'].is-hidden {
