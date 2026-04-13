@@ -143,6 +143,13 @@ async function postActionList(
     const text = await response.text()
 
     if (!text) {
+      if (!response.ok) {
+        console.error('Response text:', text)
+        throw new HttpError(
+          response.statusText || 'Error',
+          response.status,
+        )
+      }
       return ''
     }
 
