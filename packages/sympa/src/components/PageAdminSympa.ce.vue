@@ -130,11 +130,12 @@ async function initiateCloseListFromCard(event: CustomEvent) {
   modalType.value = 'close'
 
   if (event.detail.length < 2 || event.detail[0] === undefined || event.detail[0] === null || event.detail[1] === undefined || event.detail[1] === null) {
-    listSubject.value = event.detail[0] ?? null
-    listAddress.value = event.detail[1] ?? null
-
-    openModal()
+    return
   }
+  listSubject.value = event.detail[0] ?? null
+  listAddress.value = event.detail[1] ?? null
+
+  openModal()
 }
 </script>
 
@@ -170,6 +171,7 @@ async function initiateCloseListFromCard(event: CustomEvent) {
       :model-param="modelParam"
       :timeout-default="props.timeoutDefault"
       :timeout-sympa="props.timeoutSympa"
+      @refresh="initOrResetLists"
       @close="() => {
         showModal = false
       }"
