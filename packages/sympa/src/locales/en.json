@@ -31,7 +31,7 @@
     }
   },
   "modal": {
-    "authorized-groups": "Groups authorized to write to this list",
+    "authorized-groups": "Groups authorized to write to this list:",
     "create-description": "Creating <span class=\"subject\">{subject}</span> list having <span class=\"address\">{address}</span> as address.",
     "update-description": "Updating <span class=\"subject\">{subject}</span> list having <span class=\"address\">{address}</span> as address.",
     "close-description": "Do you really want to close the <span class=\"subject\">{subject}</span> list having <span class=\"address\">{address}</span> as address.",

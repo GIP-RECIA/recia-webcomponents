@@ -32,7 +32,7 @@
     }
   },
   "modal": {
-    "authorized-groups": "Groupes autorisés à écrire à cette liste",
+    "authorized-groups": "Groupes autorisés à écrire à cette liste :",
     "create-description": "Création de la liste <span class=\"subject\">{subject}</span> ayant pour adresse <span class=\"address\">{address}</span>.",
     "update-description": "Modification de la liste <span class=\"subject\">{subject}</span> ayant pour adresse <span class=\"address\">{address}</span>.",
     "close-description": "Voulez vous vraiment fermer la liste <span class=\"subject\">{subject}</span> ayant pour adresse <span class=\"address\">{address}</span>.",

@@ -323,6 +323,7 @@ const modalButtonI18nKey = computed(() => {
 </template>
 
 <style lang="scss">
+@use 'sass:map';
 @use 'ress/dist/ress.min.css';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/core/typo' as *;
@@ -346,7 +347,7 @@ const modalButtonI18nKey = computed(() => {
 
 .modal-content {
   background-color: white;
-  padding: 2rem;
+  padding: 16px;
   border-radius: 8px;
   max-width: 900px;
   width: 90%;
@@ -355,6 +356,12 @@ const modalButtonI18nKey = computed(() => {
 
   display: flex;
   flex-direction: column;
+}
+
+@media (width >= map.get($grid-breakpoints, md)) {
+  .modal-content {
+    padding: 32px;
+  }
 }
 
 .modal-main {
@@ -401,12 +408,9 @@ ul {
   margin-bottom: 8px;
   list-style: none;
 }
-h2 {
-  margin-bottom: 0px;
-}
 
 .description {
   text-align: start;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
 }
 </style>
