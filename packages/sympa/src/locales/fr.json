@@ -32,11 +32,12 @@
     }
   },
   "modal": {
+    "authorized-groups": "Groupes autorisés à écrire à cette liste",
     "create-description": "Création de la liste <span class=\"subject\">{subject}</span> ayant pour adresse <span class=\"address\">{address}</span>.",
     "update-description": "Modification de la liste <span class=\"subject\">{subject}</span> ayant pour adresse <span class=\"address\">{address}</span>.",
     "close-description": "Voulez vous vraiment fermer la liste <span class=\"subject\">{subject}</span> ayant pour adresse <span class=\"address\">{address}</span>.",
     "update-warning": "La configuration actuelle sera écrasée par les groupes selectionnés si dessous :",
-    "load-more-groups": "Autres groupes autorisés à écrire",
+    "load-more-groups": "Autres groupes",
     "self-register-explanation": "(liste en cours)",
     "description": {
       "waiting": "Veuillez patienter. Cette opération peut durer environ 30 secondes."

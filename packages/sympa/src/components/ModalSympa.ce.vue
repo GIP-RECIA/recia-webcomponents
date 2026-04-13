@@ -198,7 +198,7 @@ const modalButtonI18nKey = computed(() => {
     <div v-if="formData" class="modal-content">
       <div class="modal-header">
         <h1>{{ t(`modal.title.${props.modalType}`) }}</h1>
-        <button class="btn-tertiary close" :aria-label="t('aria.aria-label.close-modal')" @click="close">
+        <button class="btn-tertiary circle close" :aria-label="t('aria.aria-label.close-modal')" @click="close">
           <FontAwesomeIcon class="fa-icon" :icon="['fas', 'times']" aria-hidden="true" />
         </button>
       </div>
@@ -206,27 +206,30 @@ const modalButtonI18nKey = computed(() => {
         <!-- no in error template -->
         <template v-if="errorDuringFetchFromDataFormModel === false">
           <template v-if="statusType === 'form'">
-            <p style="text-align: start;" v-html="t(`modal.${modalType}-description`, { subject: props.listSubject, address: props.listAddress })" />
+            <p class="description" v-html="t(`modal.${modalType}-description`, { subject: props.listSubject, address: props.listAddress })" />
             <template v-if="modalType === 'create' || modalType === 'update'">
               <p v-if="modalType === 'update'">
                 {{ t('modal.update-warning') }}
               </p>
 
               <form>
-                <div v-for="alias in formData?.editorsAliases" :key="alias.idRequest">
-                  <input
-                    :id="alias.idRequest" v-model="checkedBoxes[alias.idRequest]" type="checkbox" :checked="alias.checked" :disabled="!alias.editable"
-                  >
-                  <label :for="alias.idRequest">{{ alias.name }}</label>
-                </div>
+                <h2>{{ t('modal.authorized-groups') }}</h2>
+                <ul>
+                  <li v-for="alias in formData?.editorsAliases" :key="alias.idRequest">
+                    <input
+                      :id="alias.idRequest" v-model="checkedBoxes[alias.idRequest]" type="checkbox" :checked="alias.checked" :disabled="!alias.editable"
+                    >
+                    <label :for="alias.idRequest">{{ alias.name }}</label>
+                  </li>
 
-                <div>
-                  <input
-                    id="self"
-                    v-model="checkedBoxes.self" type="checkbox"
-                  >
-                  <label for="self">{{ listAddress }} {{ t('modal.self-register-explanation') }}</label>
-                </div>
+                  <li>
+                    <input
+                      id="self"
+                      v-model="checkedBoxes.self" type="checkbox"
+                    >
+                    <label for="self">{{ listAddress }} {{ t('modal.self-register-explanation') }}</label>
+                  </li>
+                </ul>
 
                 <button
 
@@ -357,7 +360,7 @@ const modalButtonI18nKey = computed(() => {
 .modal-main {
   flex: 1 1 auto;
   overflow-y: auto;
-  margin: 8px;
+  padding: 8px;
 }
 
 .modal-header {
@@ -365,7 +368,6 @@ const modalButtonI18nKey = computed(() => {
   flex-direction: row;
   justify-content: space-between;
   flex: 0 0 auto;
-  height: 25px;
 }
 
 .modal-footer {
@@ -393,5 +395,18 @@ input[type='checkbox'] {
 
 .btn-tertiary.close {
   color: black;
+}
+
+ul {
+  margin-bottom: 8px;
+  list-style: none;
+}
+h2 {
+  margin-bottom: 0px;
+}
+
+.description {
+  text-align: start;
+  margin-bottom: 8px;
 }
 </style>
