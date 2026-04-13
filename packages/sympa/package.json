@@ -40,15 +40,13 @@
     "type-check": "vue-tsc --noEmit",
     "release": "yarn run -T commit-and-tag-version -t 'sympa/v' --path . --release-as $1 || echo 'Please specify a version type (yarn run release -- [patch, minor, major])'"
   },
-  "dependencies": {
-    "@gip-recia/js-tree": "^0.0.18"
-  },
   "devDependencies": {
     "@antfu/eslint-config": "^8.0.0",
     "@fortawesome/fontawesome-free": "^7.2.0",
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
     "@fortawesome/free-solid-svg-icons": "^7.2.0",
     "@fortawesome/vue-fontawesome": "^3.1.3",
+    "@gip-recia/js-tree": "^0.0.18",
     "@gip-recia/ui": "^1.0.4",
     "@gip-recia/ui-webcomponents": "^1.13.0",
     "@intlify/unplugin-vue-i18n": "^11.1.1",
