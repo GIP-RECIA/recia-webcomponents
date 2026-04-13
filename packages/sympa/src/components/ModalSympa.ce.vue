@@ -30,14 +30,14 @@ const props = defineProps<{
   groupTreeNodeRoots: Array<GroupTreeNode>
   listAddress: string
   listSubject: string
-  modalType: string
+  modalType: 'create' | 'close' | 'update'
   modelId: string | undefined
   modelParam: string
   timeoutDefault: number
   timeoutSympa: number
 }>()
 
-const emit = defineEmits(['close', 'submit'])
+const emit = defineEmits(['close', 'submit', 'refresh'])
 const errorDuringSubmit = ref<boolean>(false)
 const selectedNodes = ref<GroupTreeNode[]>([])
 const messageKey = ref<string | null>(null)
@@ -50,17 +50,19 @@ const checkedBoxes = ref<Record<string, boolean>>({})
 const statusType = ref<string>('form')
 
 onMounted(async (): Promise<void> => {
-  try {
-    formData.value = await getFormDataForModel(props.apiUrlFormData, props.timeoutDefault, props.modelId!, props.modelParam)
+  if (props.modalType === 'create' || props.modalType === 'update') {
+    try {
+      formData.value = await getFormDataForModel(props.apiUrlFormData, props.timeoutDefault, props.modelId!, props.modelParam)
 
-    formData.value.editorsAliases.forEach((alias) => {
-      checkedBoxes.value[alias.idRequest] = alias.checked
-    })
+      formData.value.editorsAliases.forEach((alias) => {
+        checkedBoxes.value[alias.idRequest] = alias.checked
+      })
 
-    selectedNodes.value = []
-  }
-  catch {
-    errorDuringFetchFromDataFormModel.value = true
+      selectedNodes.value = []
+    }
+    catch {
+      errorDuringFetchFromDataFormModel.value = true
+    }
   }
 })
 
@@ -89,7 +91,7 @@ watch(displayTree, (newDisplayTree) => {
 })
 
 async function initOrResetLists() {
-  // TODO send event to parent to ask refresh
+  emit('refresh')
 }
 
 function getAllGroupsFromSelectedNodes(): Array<string> {
@@ -191,11 +193,24 @@ const modalButtonI18nKey = computed(() => {
 
   return `modal.submit.${props.modalType}`
 })
+
+const canDisplay = computed((): boolean => {
+  switch (props.modalType) {
+    case 'create':
+      return formData.value !== undefined && formData.value !== null
+
+    case 'update':
+      return formData.value !== undefined && formData.value !== null
+
+    default:
+      return true
+  }
+})
 </script>
 
 <template>
   <div class="modal-overlay" @click.self="close">
-    <div v-if="formData" class="modal-content">
+    <div v-if="canDisplay" class="modal-content">
       <div class="modal-header">
         <h1>{{ t(`modal.title.${props.modalType}`) }}</h1>
         <button class="btn-tertiary circle close" :aria-label="t('aria.aria-label.close-modal')" @click="close">
