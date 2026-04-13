@@ -307,7 +307,7 @@ const canDisplay = computed((): boolean => {
           <!-- if waiting end -->
           <template v-if="statusType === 'response'">
             <p v-if="messageKey !== undefined && messageKey !== null && messageKey.length > 0">
-              {{ t(`modal.response.${messageKey}`) }}
+              {{ t(messageKey) }}
             </p>
             <p v-else-if="errorDuringSubmit === false" v-html="t(`modal.response.${modalType}.default`)" />
             <p v-else>
