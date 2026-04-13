@@ -17,6 +17,7 @@
 <script setup lang="ts">
 import type { SympaList } from '@/types/sympaTypes'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { PermissionKey } from '@/types/permissionKeyEnum'
 
@@ -29,6 +30,11 @@ const { t } = useI18n()
 async function copyAddress() {
   await navigator.clipboard.writeText(props.sympaList!.address)
 }
+
+const mailTo = computed((): string => {
+  return `mailto:${props.sympaList?.address}`
+},
+)
 </script>
 
 <template>
@@ -55,10 +61,10 @@ async function copyAddress() {
         <span>{{ t('card-sympa.copy') }}</span>
         <FontAwesomeIcon class="fa-icon" :icon="['far', 'copy']" />
       </button>
-      <button v-if="sympaList?.editor" class="btn-secondary copy small" @click="copyAddress()">
+      <a v-if="sympaList?.editor" :href="mailTo" class="btn-secondary copy small" @click="copyAddress()">
         <span>{{ t('card-sympa.email') }}</span>
         <FontAwesomeIcon class="fa-icon" :icon="['far', 'paper-plane']" />
-      </button>
+      </a>
     </div>
   </div>
 </template>
