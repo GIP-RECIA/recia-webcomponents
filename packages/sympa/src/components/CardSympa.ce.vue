@@ -147,6 +147,7 @@ p {
   display: flex;
   flex-wrap: wrap;
   display: flex;
+  gap: 8px;
   margin-bottom: 8px;
 }
 

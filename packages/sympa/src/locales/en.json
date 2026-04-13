@@ -31,11 +31,12 @@
     }
   },
   "modal": {
+    "authorized-groups": "Groups authorized to write to this list",
     "create-description": "Creating <span class=\"subject\">{subject}</span> list having <span class=\"address\">{address}</span> as address.",
     "update-description": "Updating <span class=\"subject\">{subject}</span> list having <span class=\"address\">{address}</span> as address.",
     "close-description": "Do you really want to close the <span class=\"subject\">{subject}</span> list having <span class=\"address\">{address}</span> as address.",
     "update-warning": "Current configuration will be overrided with the selected groups:",
-    "load-more-groups": "Other groups allowed to write",
+    "load-more-groups": "Other groups",
     "self-register-explanation": "(current list)",
     "description": {
       "waiting": "Please wait. This operation can take up to 30 seconds."
