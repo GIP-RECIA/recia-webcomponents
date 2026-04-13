@@ -85,6 +85,7 @@ function createList(): void {
     .address {
       min-height: 0;
       flex-shrink: 0;
+      word-break: break-all;
     }
   }
 
@@ -93,6 +94,7 @@ function createList(): void {
     align-items: end;
     justify-content: end;
     flex-direction: row;
+    flex-grow: 1;
     gap: 5px;
   }
 }
@@ -108,7 +110,6 @@ function createList(): void {
     p.address {
       white-space: normal;
       overflow-wrap: anywhere;
-      word-break: normal;
     }
   }
 }
@@ -127,6 +128,7 @@ p {
   padding: 16px;
   background-color: white;
   border-radius: 10px;
+  height: 100%;
   width: auto;
   box-shadow: var(--#{$prefix}shadow-neutral) HEXToRGBA($black, 0.1);
   overflow: hidden;
@@ -145,5 +147,8 @@ p {
   width: fit-content;
   display: flex;
   gap: 4px;
+}
+.address {
+  margin-bottom: 8px;
 }
 </style>

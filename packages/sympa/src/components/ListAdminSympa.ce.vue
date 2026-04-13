@@ -183,8 +183,9 @@ function displayState(sympaList: UpdatableList): boolean {
 
 .wrapper {
   display: grid !important;
+  grid-auto-rows: 1fr;
   grid-template-columns: repeat(1, minmax(0, 1fr));
-  gap: 32px;
+  gap: 24px;
 }
 
 @media only screen and (min-width: 1024px) {
@@ -201,7 +202,7 @@ function displayState(sympaList: UpdatableList): boolean {
 
 @media (width >= map.get($grid-breakpoints, md)) {
   .wrapper {
-    gap: 46px;
+    gap: 16px;
   }
   #filter,
   .automatic {

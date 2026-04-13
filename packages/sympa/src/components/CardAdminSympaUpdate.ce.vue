@@ -114,10 +114,10 @@ function closeList(): void {
     justify-content: start;
     min-height: 0;
     flex: 1 1 auto;
-    overflow-y: auto;
     .address {
       min-height: 0;
       flex-shrink: 0;
+      word-break: break-all;
     }
   }
 
@@ -142,7 +142,6 @@ function closeList(): void {
     p.address {
       white-space: normal;
       overflow-wrap: anywhere;
-      word-break: normal;
     }
   }
 }
@@ -161,6 +160,7 @@ p {
   padding: 16px;
   background-color: white;
   border-radius: 10px;
+  height: 100%;
   width: auto;
   box-shadow: var(--#{$prefix}shadow-neutral) HEXToRGBA($black, 0.1);
   overflow-y: visible;
@@ -225,5 +225,8 @@ p {
       display: inherit;
     }
   }
+}
+.address {
+  margin-bottom: 8px;
 }
 </style>

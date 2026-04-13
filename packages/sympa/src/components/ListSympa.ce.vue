@@ -53,8 +53,9 @@ function displayStateForSympaList(sympaList: SympaList): boolean {
 
 .wrapper {
   display: grid !important;
+  grid-auto-rows: 1fr;
   grid-template-columns: repeat(1, minmax(0, 1fr));
-  gap: 32px;
+  gap: 24px;
 }
 
 @media only screen and (min-width: 1024px) {
@@ -67,12 +68,13 @@ function displayStateForSympaList(sympaList: SympaList): boolean {
 
 @media (width >= map.get($grid-breakpoints, md)) {
   .wrapper {
-    gap: 46px;
+    gap: 16px;
   }
 }
 
 .results-count {
   font-size: var(--recia-font-size-md);
   font-weight: 700;
+  margin-bottom: 16px;
 }
 </style>
