@@ -198,7 +198,7 @@ const modalButtonI18nKey = computed(() => {
     <div v-if="formData" class="modal-content">
       <div class="modal-header">
         <h1>{{ t(`modal.title.${props.modalType}`) }}</h1>
-        <button :aria-label="t('aria.aria-label.close-modal')" @click="close">
+        <button class="btn-tertiary close" :aria-label="t('aria.aria-label.close-modal')" @click="close">
           <FontAwesomeIcon class="fa-icon" :icon="['fas', 'times']" aria-hidden="true" />
         </button>
       </div>
@@ -304,7 +304,7 @@ const modalButtonI18nKey = computed(() => {
       <div class="modal-footer">
         <button
           v-if="statusType === 'form'"
-          class="btn-secondary btn-create"
+          class="btn-primary btn-create"
 
           @click="(event) => {
             event.stopPropagation()
@@ -357,6 +357,7 @@ const modalButtonI18nKey = computed(() => {
 .modal-main {
   flex: 1 1 auto;
   overflow-y: auto;
+  margin: 8px;
 }
 
 .modal-header {
@@ -387,5 +388,10 @@ const modalButtonI18nKey = computed(() => {
 
 input[type='checkbox'] {
   accent-color: var(--recia-primary) !important;
+  margin-right: 4px;
+}
+
+.btn-tertiary.close {
+  color: black;
 }
 </style>

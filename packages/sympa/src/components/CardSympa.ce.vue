@@ -96,6 +96,7 @@ async function copyAddress() {
     align-items: end;
     justify-content: end;
     flex-direction: row;
+    flex-grow: 1;
     gap: 5px;
   }
 }
@@ -131,6 +132,7 @@ p {
   display: flex;
   flex-direction: column;
   min-height: 0;
+  height: 100%;
 }
 
 .fa-icon {
@@ -144,8 +146,11 @@ p {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
   display: flex;
-  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.address {
+  margin-bottom: 8px;
 }
 </style>
