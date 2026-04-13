@@ -141,46 +141,26 @@ async function postActionList(
     })
 
     const text = await response.text()
-
-    if (!text) {
-      if (!response.ok) {
-        console.error('Response text:', text)
-        throw new HttpError(
-          response.statusText || 'Error',
-          response.status,
-        )
+    let responseBody: { messageKey?: string }
+    if (text) {
+      responseBody = JSON.parse(text)
+      if (responseBody.messageKey) {
+        return responseBody.messageKey
       }
-      return ''
     }
 
-    const responseBody: { messageKey?: string } = JSON.parse(text)
-
-    await response.json()
-
+    // soi une erreur, soi une réussite, mais sans message key dans tout les cas
     if (!response.ok) {
-      console.error('Response body:', responseBody)
       throw new HttpError(
         response.statusText || 'Error',
         response.status,
-        responseBody,
       )
     }
     else {
-      // si ok, présence de message key facultative
-      return responseBody.messageKey ?? ''
+      return ''
     }
   }
   catch (error) {
-    if (error instanceof HttpError) {
-      console.error(`HTTP Error ${error.code}: ${error.message}`)
-      if (error.body) {
-        console.error('Body:', error.body)
-        // si l'erreur contient une messageKey on la return
-        if (error.body.messageKey !== undefined && error.body.messageKey !== null && error.body.messageKey.length > 0) {
-          return error.body.messageKey
-        }
-      }
-    }
     console.error('Fetch failed:', error)
     throw error
   }
