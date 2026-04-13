@@ -1509,7 +1509,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gip-recia/info-modal@workspace:^, @gip-recia/info-modal@workspace:packages/info-modal":
+"@gip-recia/info-modal@workspace:packages/info-modal":
   version: 0.0.0-use.local
   resolution: "@gip-recia/info-modal@workspace:packages/info-modal"
   dependencies:
@@ -1624,7 +1624,6 @@ __metadata:
     "@fortawesome/fontawesome-svg-core": "npm:^7.2.0"
     "@fortawesome/free-solid-svg-icons": "npm:^7.2.0"
     "@fortawesome/vue-fontawesome": "npm:^3.1.3"
-    "@gip-recia/info-modal": "workspace:^"
     "@gip-recia/js-tree": "npm:^0.0.18"
     "@gip-recia/ui": "npm:^1.0.4"
     "@gip-recia/ui-webcomponents": "npm:^1.13.0"
@@ -1638,13 +1637,10 @@ __metadata:
     "@vue/tsconfig": "npm:^0.9.1"
     "@vueform/multiselect": "npm:^2.6.11"
     "@vueuse/core": "npm:^14.2.1"
-    axios: "npm:^1.14.0"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^10.1.0"
     eslint-plugin-format: "npm:^2.0.1"
     lint-staged: "npm:^16.4.0"
-    lodash.debounce: "npm:^4.0.8"
-    lodash.throttle: "npm:^4.1.1"
     npm-run-all2: "npm:^8.0.4"
     regenerator-runtime: "npm:^0.14.1"
     sass: "npm:^1.98.0"
