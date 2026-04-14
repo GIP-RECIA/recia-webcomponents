@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import type { CreateOrUpdateListFormDataResponsePayload, GroupTreeNode } from '@/types/createListFormTypes'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, ref, useTemplateRef, watch } from 'vue'
 import i18n from '@/plugins/i18n'
 import { getFormDataForModel, postCloseList, postCreateOrUpdateList } from '@/services/fetchServices'
 
@@ -47,9 +47,23 @@ const formData = ref<CreateOrUpdateListFormDataResponsePayload | undefined>(unde
 
 const checkedBoxes = ref<Record<string, boolean>>({})
 
-const statusType = ref<string>('form')
+const statusType = ref<'waiting' | 'form' | 'response'>('form')
+
+const titleRef = useTemplateRef('title')
+
+const waitingTextRef = useTemplateRef('waiting-text')
+const responseTextRef = useTemplateRef('response-text')
+
+function handleEsc(event: KeyboardEvent) {
+  if (event.key === 'Escape') {
+    close()
+  }
+}
 
 onMounted(async (): Promise<void> => {
+  window.addEventListener('keydown', handleEsc)
+  document.documentElement.style.overflowY = 'hidden'
+
   if (props.modalType === 'create' || props.modalType === 'update') {
     try {
       formData.value = await getFormDataForModel(props.apiUrlFormData, props.timeoutDefault, props.modelId!, props.modelParam)
@@ -63,11 +77,36 @@ onMounted(async (): Promise<void> => {
     catch {
       errorDuringFetchFromDataFormModel.value = true
     }
+    finally {
+      setFocusOnTitle()
+    }
   }
 })
 
-function close() {
-  emit('close')
+const closeIsDisabled = computed<boolean>(() => {
+  return statusType.value === 'waiting'
+})
+
+function close(): void {
+  if (!closeIsDisabled.value) {
+    document.documentElement.style.overflowY = ''
+    emit('close')
+  }
+}
+
+async function setFocusOnTitle(): Promise<void> {
+  await nextTick()
+  titleRef.value?.focus()
+}
+
+async function setFocusOnWaitingText(): Promise<void> {
+  await nextTick()
+  waitingTextRef.value?.focus()
+}
+
+async function setFocusOnResponseText(): Promise<void> {
+  await nextTick()
+  responseTextRef.value?.focus()
 }
 
 const { t } = i18n.global
@@ -143,6 +182,8 @@ async function handleSubmit() {
   }
   statusType.value = 'waiting'
 
+  setFocusOnWaitingText()
+
   if (props.modalType === 'create' || props.modalType === 'update') {
     const type: string = formData.value!.type
     const editorsAliases: string | null = Object.keys(checkedBoxes.value).length > 0
@@ -184,6 +225,7 @@ async function handleSubmit() {
     }
   }
   statusType.value = 'response'
+  setFocusOnResponseText()
 }
 
 const modalButtonI18nKey = computed(() => {
@@ -197,10 +239,10 @@ const modalButtonI18nKey = computed(() => {
 const canDisplay = computed((): boolean => {
   switch (props.modalType) {
     case 'create':
-      return formData.value !== undefined && formData.value !== null
+      return (formData.value !== undefined && formData.value !== null) || errorDuringFetchFromDataFormModel.value === true
 
     case 'update':
-      return formData.value !== undefined && formData.value !== null
+      return (formData.value !== undefined && formData.value !== null) || errorDuringFetchFromDataFormModel.value === true
 
     default:
       return true
@@ -209,10 +251,15 @@ const canDisplay = computed((): boolean => {
 </script>
 
 <template>
-  <div class="modal-overlay" @click.self="close">
-    <div v-if="canDisplay" class="modal-content">
+  <div class="modal-overlay" :aria-disabled="closeIsDisabled" :disabled="closeIsDisabled" @click.self="close">
+    <div
+      v-if="canDisplay" class="modal-content" role="dialog"
+      aria-modal="true"
+    >
       <div class="modal-header">
-        <h1>{{ t(`modal.title.${props.modalType}`) }}</h1>
+        <h1 ref="title" tabindex="-1">
+          {{ t(`modal.title.${props.modalType}`) }}
+        </h1>
         <button class="btn-tertiary circle close" :aria-label="t('aria.aria-label.close-modal')" @click="close">
           <FontAwesomeIcon class="fa-icon" :icon="['fas', 'times']" aria-hidden="true" />
         </button>
@@ -302,11 +349,13 @@ const canDisplay = computed((): boolean => {
           </template>
           <!-- if form end -->
           <template v-if="statusType === 'waiting'">
-            <p>{{ t('modal.description.waiting') }}</p>
+            <p ref="waiting-text" tabindex="-1">
+              {{ t('modal.description.waiting') }}
+            </p>
           </template>
           <!-- if waiting end -->
           <template v-if="statusType === 'response'">
-            <p v-if="messageKey !== undefined && messageKey !== null && messageKey.length > 0">
+            <p v-if="messageKey !== undefined && messageKey !== null && messageKey.length > 0" ref="response-text" tabindex="-1">
               {{ t(messageKey) }}
             </p>
             <p v-else-if="errorDuringSubmit === false" v-html="t(`modal.response.${modalType}.default`)" />
@@ -320,6 +369,14 @@ const canDisplay = computed((): boolean => {
         </p>
       </div>
       <div class="modal-footer">
+        <button
+          :aria-disabled="closeIsDisabled" :disabled="closeIsDisabled"
+          class="btn-secondary btn-create"
+
+          @click="close"
+        >
+          {{ t('modal.close-button') }}
+        </button>
         <button
           v-if="statusType === 'form'"
           class="btn-primary btn-create"
@@ -394,9 +451,12 @@ const canDisplay = computed((): boolean => {
 
 .modal-footer {
   flex: 0 0 auto;
-  height: 60px;
   margin-left: auto;
   width: fit-content;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
   button {
     margin-top: 1rem;
     cursor: pointer;
