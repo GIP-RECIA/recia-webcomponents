@@ -31,6 +31,7 @@
     }
   },
   "modal": {
+    "close-button": "Close",
     "authorized-groups": "Groups authorized to write to this list:",
     "create-description": "Creating <span class=\"subject\">{subject}</span> list having <span class=\"address\">{address}</span> as address.",
     "update-description": "Updating <span class=\"subject\">{subject}</span> list having <span class=\"address\">{address}</span> as address.",
@@ -104,6 +105,7 @@
       "update": "List update",
       "close": "List closing"
     }
+
   },
   "permission-labels": {
     "subscriber": "Abonné",
