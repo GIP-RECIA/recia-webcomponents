@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.0.1](https://github.com/GIP-RECIA/recia-webcomponents/compare/sympa/v1.0.0...sympa/v1.0.1) (2026-04-15)
+
+
+### Bug Fixes
+
+* **sympa:** fix typo in locale ([5030644](https://github.com/GIP-RECIA/recia-webcomponents/commit/5030644e4edcab3b78ffed2d0bd3180e6ed2bdf6))
+
 ## 1.0.0 (2026-04-15)
 
 
