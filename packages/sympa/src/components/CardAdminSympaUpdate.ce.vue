@@ -125,6 +125,7 @@ function closeList(): void {
 </template>
 
 <style lang="scss">
+@use 'sass:map';
 @use 'ress/dist/ress.min.css';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/core/typo' as *;
@@ -175,7 +176,7 @@ function closeList(): void {
   max-width: 100%;
 }
 
-@media (width < 576px) {
+@media (width < map.get($grid-breakpoints, sm)) {
   .address-wrapper {
     .address-div,
     p.address {
