@@ -32,7 +32,11 @@ onMounted(() => {
 
 <template>
   <i18n-host>
-    <a v-if="adminUrl.length > 0" :href="adminUrl" class="btn-tertiary">
+    <a
+      v-if="adminUrl.length > 0"
+      :href="adminUrl"
+      class="btn-tertiary"
+    >
       {{ t('admin-redirect') }}
       <FontAwesomeIcon class="fa-icon" :icon="['fas', 'arrow-right']" />
     </a>

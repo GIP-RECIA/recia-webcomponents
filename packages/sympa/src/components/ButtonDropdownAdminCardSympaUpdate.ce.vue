@@ -99,29 +99,56 @@ function closeList(): void {
       :class="isExpanded ? '' : 'hidden'"
     >
       <li>
-        <button v-if="props.sympaList.modelId !== null" class=" mobile-only btn-dropdown" @click="updateList()">
+        <button
+          v-if="props.sympaList.modelId !== null"
+          class=" mobile-only btn-dropdown"
+          @click="updateList()"
+        >
           <span>{{ t('card-sympa.modify') }}</span>
-          <FontAwesomeIcon class="fa-icon" :icon="['fas', 'redo-alt']" />
+          <FontAwesomeIcon
+            class="fa-icon"
+            :icon="['fas', 'redo-alt']"
+          />
         </button>
       </li>
       <li>
-        <button class=" mobile-only btn-dropdown" @click="closeList()">
+        <button
+          class=" mobile-only btn-dropdown"
+          @click="closeList()"
+        >
           <span>{{ t('card-sympa.close') }}</span>
-          <FontAwesomeIcon class="fa-icon" :icon="['fas', 'times']" />
+          <FontAwesomeIcon
+            class="fa-icon"
+            :icon="['fas', 'times']"
+          />
         </button>
       </li>
 
       <li>
-        <a :href="props.sympaList.archivesUrl" target="_blank" class="  mobile-only btn-dropdown">
+        <a
+          :href="props.sympaList.archivesUrl"
+          target="_blank"
+          class="mobile-only btn-dropdown"
+        >
           <span>{{ t('card-sympa.archives') }}</span>
-          <FontAwesomeIcon class="fa-icon" :icon="['fas', 'archive']" />
+          <FontAwesomeIcon
+            class="fa-icon"
+            :icon="['fas', 'archive']"
+          />
         </a>
       </li>
 
       <li>
-        <a :href="props.sympaList.adminUrl" target="_blank" class=" mobile-only btn-dropdown">
+        <a
+          :href="props.sympaList.adminUrl"
+          target="_blank"
+          class=" mobile-only btn-dropdown"
+        >
           <span>{{ t('card-sympa.admin-access') }}</span>
-          <FontAwesomeIcon class="fa-icon" :icon="['fas', 'wrench']" />
+          <FontAwesomeIcon
+            class="fa-icon"
+            :icon="['fas', 'wrench']"
+          />
         </a>
       </li>
     </ul>

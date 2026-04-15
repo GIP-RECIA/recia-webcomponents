@@ -257,18 +257,32 @@ const canDisplay = computed((): boolean => {
       aria-modal="true"
     >
       <div class="modal-header">
-        <h1 ref="title" tabindex="-1">
+        <h1
+          ref="title"
+          tabindex="-1"
+        >
           {{ t(`modal.title.${props.modalType}`) }}
         </h1>
-        <button class="btn-tertiary circle close" :aria-label="t('aria.aria-label.close-modal')" @click="close">
-          <FontAwesomeIcon class="fa-icon" :icon="['fas', 'times']" aria-hidden="true" />
+        <button
+          class="btn-tertiary circle close"
+          :aria-label="t('aria.aria-label.close-modal')"
+          @click="close"
+        >
+          <FontAwesomeIcon
+            class="fa-icon"
+            :icon="['fas', 'times']"
+            aria-hidden="true"
+          />
         </button>
       </div>
       <div class="modal-main">
         <!-- no in error template -->
         <template v-if="errorDuringFetchFromDataFormModel === false">
           <template v-if="statusType === 'form'">
-            <p class="description" v-html="t(`modal.${modalType}-description`, { subject: props.listSubject, address: props.listAddress })" />
+            <p
+              class="description"
+              v-html="t(`modal.${modalType}-description`, { subject: props.listSubject, address: props.listAddress })"
+            />
             <template v-if="modalType === 'create' || modalType === 'update'">
               <p v-if="modalType === 'update'">
                 {{ t('modal.update-warning') }}
@@ -277,9 +291,16 @@ const canDisplay = computed((): boolean => {
               <form>
                 <h2>{{ t('modal.authorized-groups') }}</h2>
                 <ul>
-                  <li v-for="alias in formData?.editorsAliases" :key="alias.idRequest">
+                  <li
+                    v-for="alias in formData?.editorsAliases"
+                    :key="alias.idRequest"
+                  >
                     <input
-                      :id="alias.idRequest" v-model="checkedBoxes[alias.idRequest]" type="checkbox" :checked="alias.checked" :disabled="!alias.editable"
+                      :id="alias.idRequest"
+                      v-model="checkedBoxes[alias.idRequest]"
+                      type="checkbox"
+                      :checked="alias.checked"
+                      :disabled="!alias.editable"
                     >
                     <label :for="alias.idRequest">{{ alias.name }}</label>
                   </li>
@@ -306,8 +327,16 @@ const canDisplay = computed((): boolean => {
                   }"
                 >
                   {{ t("modal.load-more-groups") }}
-                  <FontAwesomeIcon v-if="displayTree" class="fa-icon" :icon="['fas', 'minus']" />
-                  <FontAwesomeIcon v-else class="fa-icon" :icon="['fas', 'plus']" />
+                  <FontAwesomeIcon
+                    v-if="displayTree"
+                    class="fa-icon"
+                    :icon="['fas', 'minus']"
+                  />
+                  <FontAwesomeIcon
+                    v-else
+                    class="fa-icon"
+                    :icon="['fas', 'plus']"
+                  />
                 </button>
                 <!-- eslint-disable vue/attribute-hyphenation -->
                 <esup-js-tree
@@ -338,7 +367,10 @@ const canDisplay = computed((): boolean => {
                 />
 
                 <!-- error during additional group fetch -->
-                <p v-if="errorDuringFetchAdditionalGroups" style="margin-top: 5px; text-align: start;">
+                <p
+                  v-if="errorDuringFetchAdditionalGroups"
+                  style="margin-top: 5px; text-align: start;"
+                >
                   {{ t('error-messages-additional-groups') }}
                 </p>
 
@@ -349,16 +381,26 @@ const canDisplay = computed((): boolean => {
           </template>
           <!-- if form end -->
           <template v-if="statusType === 'waiting'">
-            <p ref="waiting-text" tabindex="-1">
+            <p
+              ref="waiting-text"
+              tabindex="-1"
+            >
               {{ t('modal.description.waiting') }}
             </p>
           </template>
           <!-- if waiting end -->
           <template v-if="statusType === 'response'">
-            <p v-if="messageKey !== undefined && messageKey !== null && messageKey.length > 0" ref="response-text" tabindex="-1">
+            <p
+              v-if="messageKey !== undefined && messageKey !== null && messageKey.length > 0"
+              ref="response-text"
+              tabindex="-1"
+            >
               {{ t(messageKey) }}
             </p>
-            <p v-else-if="errorDuringSubmit === false" v-html="t(`modal.response.${modalType}.default`)" />
+            <p
+              v-else-if="errorDuringSubmit === false"
+              v-html="t(`modal.response.${modalType}.default`)"
+            />
             <p v-else>
               {{ t('error-messages-sumbit') }}
             </p>
@@ -370,9 +412,9 @@ const canDisplay = computed((): boolean => {
       </div>
       <div class="modal-footer">
         <button
-          :aria-disabled="closeIsDisabled" :disabled="closeIsDisabled"
+          :aria-disabled="closeIsDisabled"
+          :disabled="closeIsDisabled"
           class="btn-secondary btn-create"
-
           @click="close"
         >
           {{ t('modal.close-button') }}
@@ -380,7 +422,6 @@ const canDisplay = computed((): boolean => {
         <button
           v-if="statusType === 'form'"
           class="btn-primary btn-create"
-
           @click="(event) => {
             event.stopPropagation()
             event.preventDefault()

@@ -33,7 +33,10 @@ function createList(): void {
 </script>
 
 <template>
-  <div v-if="props.sympaList !== undefined" class="card-wrapper">
+  <div
+    v-if="props.sympaList !== undefined"
+    class="card-wrapper"
+  >
     <div class="part-wrapper description-and-tags">
       <h2 class="description">
         {{ props.sympaList.subject }}
@@ -47,9 +50,15 @@ function createList(): void {
     </div>
 
     <div class="part-wrapper btns">
-      <button class="btn-secondary copy small" @click="createList()">
+      <button
+        class="btn-secondary copy small"
+        @click="createList()"
+      >
         <span>{{ t('card-sympa.create') }}</span>
-        <FontAwesomeIcon class="fa-icon" :icon="['fas', 'plus']" />
+        <FontAwesomeIcon
+          class="fa-icon"
+          :icon="['fas', 'plus']"
+        />
       </button>
     </div>
   </div>
