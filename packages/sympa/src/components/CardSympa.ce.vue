@@ -136,7 +136,7 @@ const mailTo = computed<string>(() => {
   max-width: 100%;
 }
 
-@media (width >= map.get($grid-breakpoints, sm)) {
+@media (width < map.get($grid-breakpoints, sm)) {
   .address-and-tags-wrapper {
     .address-div,
     p.address {

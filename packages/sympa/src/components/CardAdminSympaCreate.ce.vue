@@ -115,7 +115,7 @@ function createList(): void {
   max-width: 100%;
 }
 
-@media (width >= map.get($grid-breakpoints, sm)) {
+@media (width < map.get($grid-breakpoints, sm)) {
   .address-wrapper {
     .address-div,
     p.address {
