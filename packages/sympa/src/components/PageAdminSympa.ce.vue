@@ -150,7 +150,13 @@ async function initiateCloseListFromCard(event: CustomEvent) {
       </p>
     </template>
 
-    <list-admin-sympa v-else :creatable-lists="creatableLists" :updatable-lists="updatableLists" @create-list="initiateCreateListFromCard" @update-list="initiateUpdateListFromCard" @close-list="initiateCloseListFromCard" />
+    <list-admin-sympa
+      v-else :creatable-lists="creatableLists"
+      :updatable-lists="updatableLists"
+      @create-list="initiateCreateListFromCard"
+      @update-list="initiateUpdateListFromCard"
+      @close-list="initiateCloseListFromCard"
+    />
     <modal-sympa
 
       v-if="showModal"

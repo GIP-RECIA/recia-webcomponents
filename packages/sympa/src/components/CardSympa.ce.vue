@@ -38,7 +38,10 @@ const mailTo = computed((): string => {
 </script>
 
 <template>
-  <div v-if="props.sympaList !== undefined" class="card-wrapper">
+  <div
+    v-if="props.sympaList !== undefined"
+    class="card-wrapper"
+  >
     <div class="part-wrapper description">
       <h2 class="description">
         {{ props.sympaList.subject }}
@@ -47,7 +50,11 @@ const mailTo = computed((): string => {
 
     <div class="address-and-tags-wrapper part-wrapper">
       <div class="tags-wrapper">
-        <span v-for="key in Object.values(PermissionKey).filter(x => props.sympaList![x] === true)" :key="key" class="tag-primary">
+        <span
+          v-for="key in Object.values(PermissionKey).filter(x => props.sympaList![x] === true)"
+          :key="key"
+          class="tag-primary"
+        >
           {{ t(`permission-labels.${key}`) }}
         </span>
       </div>
@@ -57,13 +64,27 @@ const mailTo = computed((): string => {
     </div>
 
     <div class="part-wrapper btns">
-      <button class="btn-secondary copy small" @click="copyAddress()">
+      <button
+        class="btn-secondary copy small"
+        @click="copyAddress()"
+      >
         <span>{{ t('card-sympa.copy') }}</span>
-        <FontAwesomeIcon class="fa-icon" :icon="['far', 'copy']" />
+        <FontAwesomeIcon
+          class="fa-icon"
+          :icon="['far', 'copy']"
+        />
       </button>
-      <a v-if="sympaList?.editor" :href="mailTo" class="btn-secondary copy small" @click="copyAddress()">
+      <a
+        v-if="sympaList?.editor"
+        :href="mailTo"
+        class="btn-secondary copy small"
+        @click="copyAddress()"
+      >
         <span>{{ t('card-sympa.email') }}</span>
-        <FontAwesomeIcon class="fa-icon" :icon="['far', 'paper-plane']" />
+        <FontAwesomeIcon
+          class="fa-icon"
+          :icon="['far', 'paper-plane']"
+        />
       </a>
     </div>
   </div>

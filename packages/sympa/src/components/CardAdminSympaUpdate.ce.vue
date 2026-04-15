@@ -38,7 +38,10 @@ function closeList(): void {
 </script>
 
 <template>
-  <div v-if="props.sympaList !== undefined" class="card-wrapper">
+  <div
+    v-if="props.sympaList !== undefined"
+    class="card-wrapper"
+  >
     <div class="part-wrapper description-and-tags">
       <h2 class="description">
         {{ props.sympaList.subject }}
@@ -60,27 +63,59 @@ function closeList(): void {
       </p>
     </div>
     <div class="part-wrapper btns">
-      <button v-if="props.sympaList.modelId !== null" class="btn-secondary small" @click="updateList()">
+      <button
+        v-if="props.sympaList.modelId !== null"
+        class="btn-secondary small"
+        @click="updateList()"
+      >
         <span>{{ t('card-sympa.modify') }}</span>
-        <FontAwesomeIcon class="fa-icon" :icon="['fas', 'redo-alt']" />
+        <FontAwesomeIcon
+          class="fa-icon"
+          :icon="['fas', 'redo-alt']"
+        />
       </button>
 
-      <button class="btn-secondary small" @click="closeList()">
+      <button
+        class="btn-secondary small"
+        @click="closeList()"
+      >
         <span>{{ t('card-sympa.close') }}</span>
-        <FontAwesomeIcon class="fa-icon" :icon="['fas', 'times']" />
+        <FontAwesomeIcon
+          class="fa-icon"
+          :icon="['fas', 'times']"
+        />
       </button>
 
-      <a :href="props.sympaList.archivesUrl" target="_blank" class="btn-secondary small">
+      <a
+        :href="props.sympaList.archivesUrl"
+        target="_blank"
+        class="btn-secondary small"
+      >
         <span>{{ t('card-sympa.archives') }}</span>
-        <FontAwesomeIcon class="fa-icon" :icon="['fas', 'archive']" />
+        <FontAwesomeIcon
+          class="fa-icon"
+          :icon="['fas', 'archive']"
+        />
       </a>
 
-      <a :href="props.sympaList.adminUrl" target="_blank" class="btn-secondary small">
+      <a
+        :href="props.sympaList.adminUrl"
+        target="_blank"
+        class="btn-secondary small"
+      >
         <span>{{ t('card-sympa.admin-access') }}</span>
-        <FontAwesomeIcon class="fa-icon" :icon="['fas', 'wrench']" />
+        <FontAwesomeIcon
+          class="fa-icon"
+          :icon="['fas', 'wrench']"
+        />
       </a>
 
-      <button-dropdown-admin-card-sympa-update class="mobile-only" :sympa-list="sympaList" @update-list="updateList" @close-list="closeList" />
+      <button-dropdown-admin-card-sympa-update
+        class="mobile-only"
+        :sympa-list="sympaList"
+        @update-list="updateList"
+        @close-list="closeList"
+      />
     </div>
   </div>
 </template>

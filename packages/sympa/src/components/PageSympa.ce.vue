@@ -90,12 +90,24 @@ const displayWarning = computed(() => {
 
 <template>
   <i18n-host>
-    <filter-sympa v-if="loaded && sympaLists.length > 0" class="filters" />
-    <div v-if="displayWarning" class="warning-wrapper">
-      <FontAwesomeIcon class="fa-icon" :icon="['fas', 'exclamation-triangle']" />
+    <filter-sympa
+      v-if="loaded && sympaLists.length > 0"
+      class="filters"
+    />
+    <div
+      v-if="displayWarning"
+      class="warning-wrapper"
+    >
+      <FontAwesomeIcon
+        class="fa-icon"
+        :icon="['fas', 'exclamation-triangle']"
+      />
       <p>{{ t('email-warning') }}</p>
     </div>
-    <list-sympa v-if="loaded" :sympa-lists="sympaLists" />
+    <list-sympa
+      v-if="loaded"
+      :sympa-lists="sympaLists"
+    />
     <div v-if="httpError !== undefined">
       <p>{{ getErrorMessage(httpError.code) }}</p>
     </div>
