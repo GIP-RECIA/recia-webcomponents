@@ -78,12 +78,12 @@ async function get(
   }
 }
 
-function getErrorMessage(code: number) {
+function getErrorMessage(code: number): string {
   const key = `error-messages.${code}`
   return t(key, t('error-messages-fallback'))
 }
 
-const displayWarning = computed(() => {
+const displayWarning = computed<boolean>(() => {
   return sympaLists.value.filter(x => x.editor).length > 0
 })
 </script>

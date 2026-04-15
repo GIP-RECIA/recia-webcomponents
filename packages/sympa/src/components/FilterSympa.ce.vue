@@ -41,7 +41,7 @@ onMounted(async (): Promise<void> => {
   ]
 })
 
-async function updateChecked(event: CustomEvent) {
+async function updateChecked(event: CustomEvent): Promise<void> {
   sympaFilter.value = event.detail.activeFilters[0].checked
 }
 </script>
