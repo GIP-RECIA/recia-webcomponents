@@ -52,6 +52,7 @@ function createList(): void {
     <div class="part-wrapper btns">
       <button
         class="btn-secondary copy small"
+        :aria-label="`${t('card-sympa.create')} ${props.sympaList.address}`"
         @click="createList()"
       >
         <span>{{ t('card-sympa.create') }}</span>

@@ -66,6 +66,7 @@ function closeList(): void {
       <button
         v-if="props.sympaList.modelId !== null"
         class="btn-secondary small"
+        :aria-label="`${t('card-sympa.modify')} ${props.sympaList.address}`"
         @click="updateList()"
       >
         <span>{{ t('card-sympa.modify') }}</span>
@@ -77,6 +78,7 @@ function closeList(): void {
 
       <button
         class="btn-secondary small"
+        :aria-label="`${t('card-sympa.close')} ${props.sympaList.address}`"
         @click="closeList()"
       >
         <span>{{ t('card-sympa.close') }}</span>
@@ -90,6 +92,7 @@ function closeList(): void {
         :href="props.sympaList.archivesUrl"
         target="_blank"
         class="btn-secondary small"
+        :aria-label="`${t('card-sympa.archives')} ${props.sympaList.address}`"
       >
         <span>{{ t('card-sympa.archives') }}</span>
         <FontAwesomeIcon
@@ -102,6 +105,7 @@ function closeList(): void {
         :href="props.sympaList.adminUrl"
         target="_blank"
         class="btn-secondary small"
+        :aria-label="`${t('card-sympa.admin-access')} ${props.sympaList.address}`"
       >
         <span>{{ t('card-sympa.admin-access') }}</span>
         <FontAwesomeIcon
