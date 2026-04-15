@@ -34,15 +34,15 @@ const buttons = ref<(HTMLButtonElement | null)[]>([])
 
 const { t } = useI18n()
 
-function createList(event: CustomEvent) {
+function createList(event: CustomEvent): void {
   emit('createList', ...event.detail)
 }
 
-function updateList(event: CustomEvent) {
+function updateList(event: CustomEvent): void {
   emit('updateList', ...event.detail)
 }
 
-function closeList(event: CustomEvent) {
+function closeList(event: CustomEvent): void {
   emit('closeList', ...event.detail)
 }
 
@@ -54,7 +54,7 @@ onMounted(async (): Promise<void> => {
 
 })
 
-const selectedTabId = computed(() => {
+const selectedTabId = computed<string>(() => {
   return `tab-${selectedTab.value}`
 })
 
@@ -94,24 +94,24 @@ function onKeydown(event: KeyboardEvent) {
   }
 }
 
-function setSelected(index: number) {
+function setSelected(index: number): void {
   selectedTab.value = index
   buttons.value[selectedTab.value - 1]?.focus()
 }
 
-function tabIndex(id: string) {
+function tabIndex(id: string): 0 | -1 {
   return selectedTabId.value === id ? 0 : -1
 }
 
-function ariaSelected(id: string) {
+function ariaSelected(id: string): boolean {
   return selectedTabId.value === id
 }
 
-function isHidden(id: string) {
+function isHidden(id: string): '' | 'is-hidden' {
   return selectedTabId.value === id ? '' : 'is-hidden'
 }
 
-function setButtonRef(el: Element | ComponentPublicInstance | null, index: number) {
+function setButtonRef(el: Element | ComponentPublicInstance | null, index: number): void {
   if (el instanceof HTMLButtonElement) {
     buttons.value[index] = el
   }

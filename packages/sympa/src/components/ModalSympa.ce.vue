@@ -54,7 +54,7 @@ const titleRef = useTemplateRef('title')
 const waitingTextRef = useTemplateRef('waiting-text')
 const responseTextRef = useTemplateRef('response-text')
 
-function handleEsc(event: KeyboardEvent) {
+function handleEsc(event: KeyboardEvent): void {
   if (event.key === 'Escape') {
     close()
   }
@@ -111,7 +111,7 @@ async function setFocusOnResponseText(): Promise<void> {
 
 const { t } = i18n.global
 
-const urlForSubmit = computed((): string => {
+const urlForSubmit = computed<string>(() => {
   switch (props.modalType) {
     case 'create':
       return props.apiUrlCreateList
@@ -129,7 +129,7 @@ watch(displayTree, (newDisplayTree) => {
   }
 })
 
-async function initOrResetLists() {
+function initOrResetLists(): void {
   emit('refresh')
 }
 
@@ -171,11 +171,11 @@ function getSelfAndPrefix(groupTreeNode: GroupTreeNode): string {
   return groupTreeNode.text
 }
 
-function handleOnSelection(datas: GroupTreeNode[]) {
+function handleOnSelection(datas: GroupTreeNode[]): void {
   selectedNodes.value = datas
 }
 
-async function handleSubmit() {
+async function handleSubmit(): Promise<void> {
   if (errorDuringFetchFromDataFormModel.value) {
     close()
     return
@@ -210,7 +210,7 @@ async function handleSubmit() {
       errorDuringSubmit.value = true
     }
     finally {
-      await initOrResetLists()
+      initOrResetLists()
     }
   }
   else if (props.modalType === 'close') {
@@ -221,14 +221,14 @@ async function handleSubmit() {
       errorDuringSubmit.value = true
     }
     finally {
-      await initOrResetLists()
+      initOrResetLists()
     }
   }
   statusType.value = 'response'
   setFocusOnResponseText()
 }
 
-const modalButtonI18nKey = computed(() => {
+const modalButtonI18nKey = computed<string>(() => {
   if (errorDuringFetchFromDataFormModel.value) {
     return `modal.submit.cancel`
   }
@@ -236,7 +236,7 @@ const modalButtonI18nKey = computed(() => {
   return `modal.submit.${props.modalType}`
 })
 
-const canDisplay = computed((): boolean => {
+const canDisplay = computed<boolean>(() => {
   switch (props.modalType) {
     case 'create':
       return (formData.value !== undefined && formData.value !== null) || errorDuringFetchFromDataFormModel.value === true

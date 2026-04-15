@@ -63,7 +63,7 @@ const errorDuringFetchAdditionalGroups = ref<boolean>(false)
 
 const showModal = ref<boolean>(false)
 
-function openModal() {
+function openModal(): void {
   showModal.value = true
 }
 
@@ -75,7 +75,7 @@ onMounted(async (): Promise<void> => {
 const loadingAdditionalGroups = ref<boolean>(false)
 const groupTreeNodeRoots = ref<Array<GroupTreeNode>>([])
 
-async function fetchAdditionalGroups() {
+async function fetchAdditionalGroups(): Promise<void> {
   loadingAdditionalGroups.value = true
   try {
     groupTreeNodeRoots.value = await getAdditionalGroups(props.apiUrlTreeData, props.timeoutDefault)
@@ -87,7 +87,7 @@ async function fetchAdditionalGroups() {
   loadingAdditionalGroups.value = false
 }
 
-async function initOrResetLists() {
+async function initOrResetLists(): Promise<void> {
   try {
     const response: AdminSympaApiListsResponse = await getAllCreatableAndUpdatableLists(props.apiUrlLists, props.timeoutDefault)
     creatableLists.value = response.createData
@@ -104,15 +104,15 @@ const modalType = ref<string>('')
 const listSubject = ref<string>('')
 const listAddress = ref<string>('')
 
-function initiateCreateListFromCard(event: CustomEvent) {
+function initiateCreateListFromCard(event: CustomEvent): void {
   initiateCreateOrUpdateListFromCard(event, 'create')
 }
 
-function initiateUpdateListFromCard(event: CustomEvent) {
+function initiateUpdateListFromCard(event: CustomEvent): void {
   initiateCreateOrUpdateListFromCard(event, 'update')
 }
 
-async function initiateCreateOrUpdateListFromCard(event: CustomEvent, type: 'create' | 'close' | 'update') {
+async function initiateCreateOrUpdateListFromCard(event: CustomEvent, type: 'create' | 'close' | 'update'): Promise<void> {
   // resetModale()
 
   modalType.value = type
@@ -126,7 +126,7 @@ async function initiateCreateOrUpdateListFromCard(event: CustomEvent, type: 'cre
   openModal()
 }
 
-async function initiateCloseListFromCard(event: CustomEvent) {
+async function initiateCloseListFromCard(event: CustomEvent): Promise<void> {
   modalType.value = 'close'
 
   if (event.detail.length < 2 || event.detail[0] === undefined || event.detail[0] === null || event.detail[1] === undefined || event.detail[1] === null) {

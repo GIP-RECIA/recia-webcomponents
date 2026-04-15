@@ -27,11 +27,11 @@ const props
   }>()
 const { t } = useI18n()
 
-async function copyAddress() {
+async function copyAddress(): Promise<void> {
   await navigator.clipboard.writeText(props.sympaList!.address)
 }
 
-const mailTo = computed((): string => {
+const mailTo = computed<string>(() => {
   return `mailto:${props.sympaList?.address}`
 },
 )
