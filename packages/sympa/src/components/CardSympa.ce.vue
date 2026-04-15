@@ -66,6 +66,7 @@ const mailTo = computed<string>(() => {
     <div class="part-wrapper btns">
       <button
         class="btn-secondary copy small"
+        :aria-label="`${t('card-sympa.copy')} ${props.sympaList.address}`"
         @click="copyAddress()"
       >
         <span>{{ t('card-sympa.copy') }}</span>
@@ -78,6 +79,7 @@ const mailTo = computed<string>(() => {
         v-if="sympaList?.editor"
         :href="mailTo"
         class="btn-secondary copy small"
+        :aria-label="`${t('card-sympa.email')} ${props.sympaList.address}`"
         @click="copyAddress()"
       >
         <span>{{ t('card-sympa.email') }}</span>
