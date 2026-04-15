@@ -188,7 +188,7 @@ function displayState(sympaList: UpdatableList): boolean {
   gap: 24px;
 }
 
-@media only screen and (min-width: 1024px) {
+@media only screen and (width >= map.get($grid-breakpoints, xl)) {
   .wrapper {
     display: grid !important;
     grid-template-columns: repeat(2, minmax(0, 1fr));

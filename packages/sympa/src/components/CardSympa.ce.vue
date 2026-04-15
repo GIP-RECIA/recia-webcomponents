@@ -70,6 +70,7 @@ const mailTo = computed((): string => {
 </template>
 
 <style lang="scss">
+@use 'sass:map';
 @use 'ress/dist/ress.min.css';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/core/typo' as *;
@@ -112,7 +113,7 @@ const mailTo = computed((): string => {
   max-width: 100%;
 }
 
-@media (width < 576px) {
+@media (width >= map.get($grid-breakpoints, sm)) {
   .address-and-tags-wrapper {
     .address-div,
     p.address {
