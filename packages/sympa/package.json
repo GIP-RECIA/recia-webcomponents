@@ -3,7 +3,13 @@
   "type": "module",
   "version": "0.0.0",
   "description": "UI des listes de diffusion en Vue.js.",
-  "contributors": [],
+  "contributors": [
+    {
+      "name": "Ewann Roux",
+      "email": "ewann.roux@recia.fr",
+      "url": "https://github.com/EwannRoux"
+    }
+  ],
   "license": "Apache-2.0",
   "homepage": "https://github.com/GIP-RECIA/recia-webcomponents/tree/main/packages/sympa/#readme",
   "repository": {
