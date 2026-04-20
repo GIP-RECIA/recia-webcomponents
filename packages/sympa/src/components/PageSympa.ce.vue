@@ -19,6 +19,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { computed, onMounted, ref } from 'vue'
 import { HttpError } from '@/classes/httpError'
 import i18n from '@/plugins/i18n.ts'
+import { getLists } from '@/services/fetchServices'
 
 const props = withDefaults(
   defineProps<{
@@ -37,9 +38,18 @@ const httpError = ref<HttpError | undefined>(undefined)
 const { t } = i18n.global
 
 onMounted(async (): Promise<void> => {
-  const response: SympaApiResponse = await get(props.apiUrl, props.timeoutDefault)
-  adminServiceUrl.value = response.adminServiceUrl !== undefined && response.adminServiceUrl !== null && response.adminServiceUrl.length > 0 ? response.adminServiceUrl : undefined
-  sympaLists.value = response.sympaLists
+  try {
+    const response: SympaApiResponse = await getLists(props.apiUrl, props.timeoutDefault)
+    adminServiceUrl.value = response.adminServiceUrl !== undefined && response.adminServiceUrl !== null && response.adminServiceUrl.length > 0 ? response.adminServiceUrl : undefined
+    sympaLists.value = response.sympaLists
+  }
+  catch (error) {
+    if (error instanceof HttpError) {
+      console.error(error.code)
+      httpError.value = error
+    }
+  }
+
   loaded.value = true
 
   if (adminServiceUrl.value !== undefined) {
@@ -51,32 +61,6 @@ onMounted(async (): Promise<void> => {
     )
   }
 })
-
-async function get(
-  url: string,
-  timeout: number,
-): Promise<SympaApiResponse> {
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      credentials: 'include',
-      signal: AbortSignal.timeout(timeout),
-      redirect: 'follow',
-    })
-
-    if (!response.ok) {
-      throw new HttpError(response.statusText, response.status)
-    }
-    return await response.json()
-  }
-  catch (error) {
-    if (error instanceof HttpError) {
-      console.error(error.code)
-      httpError.value = error
-    }
-    throw error
-  }
-}
 
 function getErrorMessage(code: number): string {
   const key = `error-messages.${code}`
