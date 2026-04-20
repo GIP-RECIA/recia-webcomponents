@@ -213,4 +213,10 @@ function displayState(sympaList: UpdatableList): boolean {
 [role='tabpanel'].is-hidden {
   display: none;
 }
+
+[role='tabpanel']:focus-visible {
+  outline: 2px dotted var(--#{$prefix}system-blue);
+  outline-offset: 8px;
+  border-radius: 10px;
+}
 </style>
