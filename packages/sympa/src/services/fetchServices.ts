@@ -43,10 +43,9 @@ async function getLists(
 ): Promise<SympaApiResponse> {
   try {
     const response = await fetch(url, {
-      method: 'POST',
+      method: 'GET',
       credentials: 'include',
       signal: AbortSignal.timeout(timeout),
-      headers: getHeaders(),
       redirect: 'follow',
     })
 
