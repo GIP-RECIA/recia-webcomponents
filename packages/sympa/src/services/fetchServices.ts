@@ -33,7 +33,7 @@ function getHeaders(): HeadersInit {
 function getCsrfCookie(): string | undefined {
   return document.cookie
     .split('; ')
-    .find(row => row.startsWith('XSRF-TOKEN='))
+    .find(row => row.startsWith('SYMPA-XSRF-TOKEN='))
     ?.split('=')[1]
 }
 
