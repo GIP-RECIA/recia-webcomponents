@@ -15,9 +15,53 @@
  */
 
 import type { CreateOrUpdateListFormDataResponsePayload, GroupTreeNode } from '@/types/createListFormTypes'
-import type { AdminSympaApiListsResponse } from '@/types/sympaTypes'
+import type { AdminSympaApiListsResponse, SympaApiResponse } from '@/types/sympaTypes'
 import { HttpError } from '@/classes/httpError'
 import { httpErrorCode } from '@/utils/store'
+
+function getHeaders(): HeadersInit {
+  const csrfToken = getCsrfCookie()
+  const headers: HeadersInit = {
+    'Content-Type': 'application/json',
+  }
+  if (csrfToken) {
+    headers['X-XSRF-TOKEN'] = csrfToken
+  }
+  return headers
+}
+
+function getCsrfCookie(): string | undefined {
+  return document.cookie
+    .split('; ')
+    .find(row => row.startsWith('XSRF-TOKEN='))
+    ?.split('=')[1]
+}
+
+async function getLists(
+  url: string,
+  timeout: number,
+): Promise<SympaApiResponse> {
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      credentials: 'include',
+      signal: AbortSignal.timeout(timeout),
+      headers: getHeaders(),
+      redirect: 'follow',
+    })
+
+    if (!response.ok) {
+      throw new HttpError(response.statusText, response.status)
+    }
+    return await response.json()
+  }
+  catch (error) {
+    if (error instanceof HttpError) {
+      console.error(error.code)
+    }
+    throw error
+  }
+}
 
 async function getAdditionalGroups(
   url: string,
@@ -53,9 +97,7 @@ async function getFormDataForModel(
   try {
     const response = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: getHeaders(),
       body: JSON.stringify({ modelId, modelParam }),
       credentials: 'include',
       signal: AbortSignal.timeout(timeout),
@@ -131,9 +173,7 @@ async function postActionList(
   try {
     const response = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: getHeaders(),
       body,
       credentials: 'include',
       signal: AbortSignal.timeout(timeout),
@@ -170,6 +210,7 @@ export {
   getAdditionalGroups,
   getAllCreatableAndUpdatableLists,
   getFormDataForModel,
+  getLists,
   postCloseList,
   postCreateOrUpdateList,
 }
