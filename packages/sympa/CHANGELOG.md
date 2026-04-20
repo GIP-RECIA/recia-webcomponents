@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.0.3](https://github.com/GIP-RECIA/recia-webcomponents/compare/sympa/v1.0.2...sympa/v1.0.3) (2026-04-20)
+
+
+### Features
+
+* **sympa:** update headers for POST fetchs to include X-XSFR-TOKEN ([4c0a842](https://github.com/GIP-RECIA/recia-webcomponents/commit/4c0a84202a9027b141fdb99ac426c2b034efae82))
+
+
+### Bug Fixes
+
+* **sympa:** fix outline when tabpanel of admin sympa is focus visible ([1a16e68](https://github.com/GIP-RECIA/recia-webcomponents/commit/1a16e689cd66d3d5aa128953e6c0aa192164ed06))
+
 ## [1.0.2](https://github.com/GIP-RECIA/recia-webcomponents/compare/sympa/v1.0.1...sympa/v1.0.2) (2026-04-15)
 
 ## [1.0.1](https://github.com/GIP-RECIA/recia-webcomponents/compare/sympa/v1.0.0...sympa/v1.0.1) (2026-04-15)

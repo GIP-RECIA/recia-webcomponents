@@ -1,7 +1,7 @@
 {
   "name": "@gip-recia/sympa",
   "type": "module",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "UI des listes de diffusion en Vue.js.",
   "contributors": [
     {
