@@ -68,7 +68,7 @@ function openModal(): void {
 }
 
 onMounted(async (): Promise<void> => {
-  initOrResetLists()
+  await initOrResetLists()
   fetchAdditionalGroups()
 })
 
