@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.0.4](https://github.com/GIP-RECIA/recia-webcomponents/compare/sympa/v1.0.3...sympa/v1.0.4) (2026-04-21)
+
+
+### Bug Fixes
+
+* **sympa:** await in onMounted to prevent redirection conflicts ([af03fc0](https://github.com/GIP-RECIA/recia-webcomponents/commit/af03fc039ef5546bc94d0784f3d082e1ae5168b4))
+
 ## [1.0.3](https://github.com/GIP-RECIA/recia-webcomponents/compare/sympa/v1.0.2...sympa/v1.0.3) (2026-04-20)
 
 
