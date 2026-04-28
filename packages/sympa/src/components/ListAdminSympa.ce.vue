@@ -177,7 +177,7 @@ function displayState(sympaList: UpdatableList): boolean {
       </div>
       <div class="wrapper">
         <template v-if="props.loaded">
-          <template v-if="props.creatableLists.length > 0">
+          <template v-if="props.updatableLists.length > 0">
             <card-admin-sympa-update v-for="list in props.updatableLists.filter(x => displayState(x))" :key="list.address" :sympa-list="list" @update-list="updateList" @close-list="closeList" />
           </template>
           <template v-else>
