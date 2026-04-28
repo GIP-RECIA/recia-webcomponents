@@ -153,6 +153,7 @@ async function initiateCloseListFromCard(event: CustomEvent): Promise<void> {
     <list-admin-sympa
       v-else :creatable-lists="creatableLists"
       :updatable-lists="updatableLists"
+      :loaded="loaded"
       @create-list="initiateCreateListFromCard"
       @update-list="initiateUpdateListFromCard"
       @close-list="initiateCloseListFromCard"

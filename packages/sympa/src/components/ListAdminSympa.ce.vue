@@ -25,6 +25,7 @@ import { adminSympaFilter } from '@/utils/store'
 const props = defineProps<{
   creatableLists: Array<CreatableList>
   updatableLists: Array<UpdatableList>
+  loaded: boolean
 }>()
 const emit = defineEmits(['createList', 'updateList', 'closeList'])
 
@@ -143,20 +144,30 @@ function displayState(sympaList: UpdatableList): boolean {
         :aria-selected="ariaSelected('tab-1')" aria-controls="tabpanel-1"
         :tabindex="tabIndex('tab-1')" class="tag" :class="{ active: selectedTabId === 'tab-1' }" @keydown="onKeydown" @click="setSelected(1)"
       >
-        <span class="focus">{{ t('list-admin-sympa.tabs.create') }}</span>
+        <span class="focus">{{ t('list-admin-sympa.create.tabs') }}</span>
       </button>
       <button
         id="tab-2" :ref="el => setButtonRef(el, 1)" type="button" role="tab"
         :aria-selected="ariaSelected('tab-2')" aria-controls="tabpanel-2"
         :tabindex="tabIndex('tab-2')" class="tag" :class="{ active: selectedTabId === 'tab-2' }" @keydown="onKeydown" @click="setSelected(2)"
       >
-        <span class="focus">{{ t('list-admin-sympa.tabs.update') }}</span>
+        <span class="focus">{{ t('list-admin-sympa.update.tabs') }}</span>
       </button>
     </div>
 
     <div id="tabpanel-1" role="tabpanel" tabindex="0" aria-labelledby="tab-1" :class="isHidden('tab-1')">
       <div class="wrapper">
-        <card-admin-sympa-create v-for="list in props.creatableLists" :key="list.address" :sympa-list="list" @create-list="createList" />
+        <template v-if="props.loaded">
+          <template v-if="props.creatableLists.length > 0">
+            <card-admin-sympa-create v-for="list in props.creatableLists" :key="list.address" :sympa-list="list" @create-list="createList" />
+          </template>
+          <template v-else>
+            <p>{{ t('list-admin-sympa.create.empty') }}</p>
+          </template>
+        </template>
+        <template v-else>
+          <div v-for="index in 10" :key="index" class="skeleton" />
+        </template>
       </div>
     </div>
 
@@ -165,7 +176,17 @@ function displayState(sympaList: UpdatableList): boolean {
         <filter-admin-sympa />
       </div>
       <div class="wrapper">
-        <card-admin-sympa-update v-for="list in props.updatableLists.filter(x => displayState(x))" :key="list.address" :sympa-list="list" @update-list="updateList" @close-list="closeList" />
+        <template v-if="props.loaded">
+          <template v-if="props.creatableLists.length > 0">
+            <card-admin-sympa-update v-for="list in props.updatableLists.filter(x => displayState(x))" :key="list.address" :sympa-list="list" @update-list="updateList" @close-list="closeList" />
+          </template>
+          <template v-else>
+            <p>{{ t('list-admin-sympa.update.empty') }}</p>
+          </template>
+        </template>
+        <template v-else>
+          <div v-for="index in 10" :key="index" class="skeleton" />
+        </template>
       </div>
     </div>
   </div>
@@ -218,5 +239,25 @@ function displayState(sympaList: UpdatableList): boolean {
   outline: 2px dotted var(--#{$prefix}system-blue);
   outline-offset: 8px;
   border-radius: 10px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.skeleton {
+  height: 160px;
+  background: linear-gradient(90deg, #e9e9e9 30%, #f6f6f6 50%, #e9e9e9 70%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+
+  border-radius: 10px;
+  box-shadow: var(--#{$prefix}shadow-neutral) HEXToRGBA($black, 0.1);
 }
 </style>

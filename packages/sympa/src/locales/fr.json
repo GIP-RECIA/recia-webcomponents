@@ -16,9 +16,13 @@
     "results": "Aucun résultat | {count} Résultat | {count} Résultats"
   },
   "list-admin-sympa": {
-    "tabs": {
-      "create": "Création",
-      "update": "Modification"
+    "create": {
+      "tabs": "Création",
+      "empty": "Toutes les listes possibles existent"
+    },
+    "update": {
+      "tabs": "Modification",
+      "empty": "Aucune liste existante trouvée"
     }
   },
   "filter": {
