@@ -29,7 +29,7 @@ onMounted(async (): Promise<void> => {
     {
       id: 'deprecated',
       name: t('filter.admin-sympa.name'),
-      type: 'checkbox',
+      type: 'radio',
       items: [
         {
           key: 'all',
