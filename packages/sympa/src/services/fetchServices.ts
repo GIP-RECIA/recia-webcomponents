@@ -17,7 +17,7 @@
 import type { CreateOrUpdateListFormDataResponsePayload, GroupTreeNode } from '@/types/createListFormTypes'
 import type { AdminSympaApiListsResponse, SympaApiResponse } from '@/types/sympaTypes'
 import { HttpError } from '@/classes/httpError'
-import { httpErrorCode } from '@/utils/store'
+import { fetchNonHttpError, httpErrorCode } from '@/utils/store'
 
 function getHeaders(): HeadersInit {
   const csrfToken = getCsrfCookie()
@@ -137,6 +137,9 @@ async function getAllCreatableAndUpdatableLists(
     if (error instanceof HttpError) {
       console.error(error.code)
       httpErrorCode.value = error.code
+    }
+    else {
+      fetchNonHttpError.value = true
     }
     throw error
   }

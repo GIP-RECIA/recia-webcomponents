@@ -20,7 +20,7 @@ import type { AdminSympaApiListsResponse, CreatableList, UpdatableList } from '@
 import { onMounted, ref } from 'vue'
 import i18n from '@/plugins/i18n'
 import { getAdditionalGroups, getAllCreatableAndUpdatableLists } from '@/services/fetchServices'
-import { httpErrorCode, supportedErrorCodes } from '@/utils/store'
+import { fetchNonHttpError, httpErrorCode, supportedErrorCodes } from '@/utils/store'
 import '@gip-recia/js-tree'
 
 const props = withDefaults(
@@ -145,10 +145,14 @@ async function initiateCloseListFromCard(event: CustomEvent): Promise<void> {
       <p v-if="supportedErrorCodes.includes(httpErrorCode)">
         {{ t(`error-messages.${httpErrorCode}`) }}
       </p>
+
       <p v-else>
         {{ t('error-messages-fallback') }}
       </p>
     </template>
+    <p v-else-if="fetchNonHttpError === true">
+      {{ t('error-messages-fallback') }}
+    </p>
 
     <list-admin-sympa
       v-else :creatable-lists="creatableLists"
