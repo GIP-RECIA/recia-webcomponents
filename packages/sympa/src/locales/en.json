@@ -15,9 +15,13 @@
     "results": "No results | {count} Result | {count} Results"
   },
   "list-admin-sympa": {
-    "tabs": {
-      "create": "Create",
-      "update": "Update"
+    "create": {
+      "tabs": "Create",
+      "empty": "All possible list already exist"
+    },
+    "update": {
+      "tabs": "Update",
+      "empty": "There is currently no active list"
     }
   },
   "filter": {
