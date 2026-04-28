@@ -35,6 +35,7 @@ const adminServiceUrl = ref<string | undefined>(undefined)
 const sympaLists = ref<Array<SympaList>>([])
 const loaded = ref<boolean>(false)
 const httpError = ref<HttpError | undefined>(undefined)
+const fetchNonHttpError = ref<boolean>(false)
 const { t } = i18n.global
 
 onMounted(async (): Promise<void> => {
@@ -42,15 +43,17 @@ onMounted(async (): Promise<void> => {
     const response: SympaApiResponse = await getLists(props.apiUrl, props.timeoutDefault)
     adminServiceUrl.value = response.adminServiceUrl !== undefined && response.adminServiceUrl !== null && response.adminServiceUrl.length > 0 ? response.adminServiceUrl : undefined
     sympaLists.value = response.sympaLists
+    loaded.value = true
   }
   catch (error) {
     if (error instanceof HttpError) {
       console.error(error.code)
       httpError.value = error
     }
+    else {
+      fetchNonHttpError.value = true
+    }
   }
-
-  loaded.value = true
 
   if (adminServiceUrl.value !== undefined) {
     document.dispatchEvent(
@@ -89,11 +92,15 @@ const displayWarning = computed<boolean>(() => {
       <p>{{ t('email-warning') }}</p>
     </div>
     <list-sympa
+      v-if="httpError === undefined && fetchNonHttpError === false"
       :loaded="loaded"
       :sympa-lists="sympaLists"
     />
     <div v-if="httpError !== undefined">
       <p>{{ getErrorMessage(httpError.code) }}</p>
+    </div>
+    <div v-if="fetchNonHttpError === true">
+      <p>{{ t('error-messages-fallback') }}</p>
     </div>
   </i18n-host>
 </template>

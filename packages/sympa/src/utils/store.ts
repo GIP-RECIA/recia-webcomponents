@@ -27,9 +27,11 @@ const supportedErrorCodes: number[] = [
 ]
 
 const httpErrorCode = ref<number | undefined>(undefined)
+const fetchNonHttpError = ref<boolean>(false)
 
 export {
   adminSympaFilter,
+  fetchNonHttpError,
   httpErrorCode,
   supportedErrorCodes,
   sympaFilter,
