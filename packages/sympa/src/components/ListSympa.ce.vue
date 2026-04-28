@@ -22,6 +22,7 @@ import { sympaFilter } from '@/utils/store'
 
 const props = defineProps<{
   sympaLists: Array<SympaList>
+  loaded: boolean
 }>()
 const { t } = useI18n()
 
@@ -36,15 +37,20 @@ function displayStateForSympaList(sympaList: SympaList): boolean {
 </script>
 
 <template>
-  <p class="results-count">
+  <p v-if="props.loaded" class="results-count">
     {{ t('list-sympa.results', { count: sympaLists.filter(x => displayStateForSympaList(x)).length }, { plural: sympaLists.filter(x => displayStateForSympaList(x)).length }) }}
   </p>
   <div class="wrapper">
-    <card-sympa
-      v-for="sympaList in props.sympaLists.filter(x => displayStateForSympaList(x))"
-      :key="sympaList.address"
-      :sympa-list="sympaList"
-    />
+    <template v-if="props.loaded">
+      <card-sympa
+        v-for="sympaList in props.sympaLists.filter(x => displayStateForSympaList(x))"
+        :key="sympaList.address"
+        :sympa-list="sympaList"
+      />
+    </template>
+    <template v-else>
+      <div v-for="index in 10" :key="index" class="skeleton" />
+    </template>
   </div>
 </template>
 
@@ -80,5 +86,25 @@ function displayStateForSympaList(sympaList: SympaList): boolean {
   font-size: var(--recia-font-size-md);
   font-weight: 700;
   margin-bottom: 16px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.skeleton {
+  height: 160px;
+  background: linear-gradient(90deg, #e9e9e9 30%, #f6f6f6 50%, #e9e9e9 70%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+
+  border-radius: 10px;
+  box-shadow: var(--#{$prefix}shadow-neutral) HEXToRGBA($black, 0.1);
 }
 </style>

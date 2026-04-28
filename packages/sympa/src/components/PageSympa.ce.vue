@@ -89,7 +89,7 @@ const displayWarning = computed<boolean>(() => {
       <p>{{ t('email-warning') }}</p>
     </div>
     <list-sympa
-      v-if="loaded"
+      :loaded="loaded"
       :sympa-lists="sympaLists"
     />
     <div v-if="httpError !== undefined">
