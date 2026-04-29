@@ -22,7 +22,8 @@
     },
     "update": {
       "tabs": "Modification",
-      "empty": "Aucune liste existante trouvée"
+      "empty": "Aucune liste existante trouvée",
+      "empty-filter": "Aucune liste ne correspond au filtre actif"
     }
   },
   "filter": {

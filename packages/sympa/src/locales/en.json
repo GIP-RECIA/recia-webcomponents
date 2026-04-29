@@ -21,7 +21,8 @@
     },
     "update": {
       "tabs": "Update",
-      "empty": "There is currently no active list"
+      "empty": "There is currently no active list",
+      "empty-filter": "No list match the active filter"
     }
   },
   "filter": {
