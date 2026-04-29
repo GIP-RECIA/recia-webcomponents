@@ -134,6 +134,10 @@ function displayState(sympaList: UpdatableList): boolean {
   }
   return false
 }
+
+const filteredList = computed(() => {
+  return props.updatableLists.filter(x => displayState(x))
+})
 </script>
 
 <template>
@@ -177,11 +181,20 @@ function displayState(sympaList: UpdatableList): boolean {
       </div>
       <div class="wrapper">
         <template v-if="props.loaded">
-          <template v-if="props.updatableLists.length > 0">
-            <card-admin-sympa-update v-for="list in props.updatableLists.filter(x => displayState(x))" :key="list.address" :sympa-list="list" @update-list="updateList" @close-list="closeList" />
+          <template v-if="props.updatableLists.length === 0">
+            <p>{{ t('list-admin-sympa.update.empty') }}</p>
+          </template>
+          <template v-else-if="filteredList.length > 0">
+            <card-admin-sympa-update
+              v-for="list in filteredList"
+              :key="list.address"
+              :sympa-list="list"
+              @update-list="updateList"
+              @close-list="closeList"
+            />
           </template>
           <template v-else>
-            <p>{{ t('list-admin-sympa.update.empty') }}</p>
+            <p>{{ t('list-admin-sympa.update.empty-filter') }}</p>
           </template>
         </template>
         <template v-else>
