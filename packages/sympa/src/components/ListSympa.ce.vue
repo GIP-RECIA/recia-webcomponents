@@ -16,6 +16,7 @@
 
 <script setup lang="ts">
 import type { SympaList } from '@/types/sympaTypes'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { PermissionKey } from '@/types/permissionKeyEnum'
 import { sympaFilter } from '@/utils/store'
@@ -34,6 +35,14 @@ function displayStateForSympaList(sympaList: SympaList): boolean {
     key => sympaList[key] && sympaFilter.value.includes(key),
   )
 }
+
+const filteredList = computed<SympaList[]>(() => {
+  return props.sympaLists.filter(x => displayStateForSympaList(x))
+})
+
+const filteredListLength = computed<number>(() => {
+  return filteredList.value.length
+})
 </script>
 
 <template>
@@ -41,14 +50,14 @@ function displayStateForSympaList(sympaList: SympaList): boolean {
     v-if="props.loaded"
     class="results-count"
   >
-    {{ t('list-sympa.results', { count: sympaLists.filter(x => displayStateForSympaList(x)).length }, { plural: sympaLists.filter(x => displayStateForSympaList(x)).length }) }}
+    {{ t('list-sympa.results', { count: filteredListLength }, { plural: filteredListLength }) }}
   </p>
   <div class="wrapper">
     <template
       v-if="props.loaded"
     >
       <card-sympa
-        v-for="sympaList in props.sympaLists.filter(x => displayStateForSympaList(x))"
+        v-for="sympaList in filteredList"
         :key="sympaList.address"
         :sympa-list="sympaList"
       />
