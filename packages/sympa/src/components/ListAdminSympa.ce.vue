@@ -159,32 +159,64 @@ const filteredList = computed(() => {
       </button>
     </div>
 
-    <div id="tabpanel-1" role="tabpanel" tabindex="0" aria-labelledby="tab-1" :class="isHidden('tab-1')">
+    <div
+      id="tabpanel-1" role="tabpanel"
+      tabindex="0"
+      aria-labelledby="tab-1"
+      :class="isHidden('tab-1')"
+    >
       <div class="wrapper">
-        <template v-if="props.loaded">
-          <template v-if="props.creatableLists.length > 0">
-            <card-admin-sympa-create v-for="list in props.creatableLists" :key="list.address" :sympa-list="list" @create-list="createList" />
+        <template
+          v-if="props.loaded"
+        >
+          <template
+            v-if="props.creatableLists.length > 0"
+          >
+            <card-admin-sympa-create
+              v-for="list in props.creatableLists"
+              :key="list.address"
+              :sympa-list="list"
+              @create-list="createList"
+            />
           </template>
-          <template v-else>
+          <template
+            v-else
+          >
             <p>{{ t('list-admin-sympa.create.empty') }}</p>
           </template>
         </template>
-        <template v-else>
-          <div v-for="index in 10" :key="index" class="skeleton" />
+        <template
+          v-else
+        >
+          <div
+            v-for="index in 10" :key="index" class="skeleton"
+          />
         </template>
       </div>
     </div>
 
-    <div id="tabpanel-2" role="tabpanel" tabindex="0" aria-labelledby="tab-2" :class="isHidden('tab-2')">
+    <div
+      id="tabpanel-2"
+      role="tabpanel"
+      tabindex="0"
+      aria-labelledby="tab-2"
+      :class="isHidden('tab-2')"
+    >
       <div id="filter">
         <filter-admin-sympa />
       </div>
       <div class="wrapper">
-        <template v-if="props.loaded">
-          <template v-if="props.updatableLists.length === 0">
+        <template
+          v-if="props.loaded"
+        >
+          <template
+            v-if="props.updatableLists.length === 0"
+          >
             <p>{{ t('list-admin-sympa.update.empty') }}</p>
           </template>
-          <template v-else-if="filteredList.length > 0">
+          <template
+            v-else-if="filteredList.length > 0"
+          >
             <card-admin-sympa-update
               v-for="list in filteredList"
               :key="list.address"
@@ -193,12 +225,20 @@ const filteredList = computed(() => {
               @close-list="closeList"
             />
           </template>
-          <template v-else>
+          <template
+            v-else
+          >
             <p>{{ t('list-admin-sympa.update.empty-filter') }}</p>
           </template>
         </template>
-        <template v-else>
-          <div v-for="index in 10" :key="index" class="skeleton" />
+        <template
+          v-else
+        >
+          <div
+            v-for="index in 10"
+            :key="index"
+            class="skeleton"
+          />
         </template>
       </div>
     </div>

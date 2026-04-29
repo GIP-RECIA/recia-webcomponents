@@ -37,19 +37,30 @@ function displayStateForSympaList(sympaList: SympaList): boolean {
 </script>
 
 <template>
-  <p v-if="props.loaded" class="results-count">
+  <p
+    v-if="props.loaded"
+    class="results-count"
+  >
     {{ t('list-sympa.results', { count: sympaLists.filter(x => displayStateForSympaList(x)).length }, { plural: sympaLists.filter(x => displayStateForSympaList(x)).length }) }}
   </p>
   <div class="wrapper">
-    <template v-if="props.loaded">
+    <template
+      v-if="props.loaded"
+    >
       <card-sympa
         v-for="sympaList in props.sympaLists.filter(x => displayStateForSympaList(x))"
         :key="sympaList.address"
         :sympa-list="sympaList"
       />
     </template>
-    <template v-else>
-      <div v-for="index in 10" :key="index" class="skeleton" />
+    <template
+      v-else
+    >
+      <div
+        v-for="index in 10"
+        :key="index"
+        class="skeleton"
+      />
     </template>
   </div>
 </template>
