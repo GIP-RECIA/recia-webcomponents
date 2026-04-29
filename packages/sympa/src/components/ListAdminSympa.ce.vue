@@ -135,7 +135,7 @@ function displayState(sympaList: UpdatableList): boolean {
   return false
 }
 
-const filteredList = computed(() => {
+const filteredList = computed<UpdatableList[]>(() => {
   return props.updatableLists.filter(x => displayState(x))
 })
 </script>
