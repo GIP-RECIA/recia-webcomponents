@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.0.5](https://github.com/GIP-RECIA/recia-webcomponents/compare/sympa/v1.0.4...sympa/v1.0.5) (2026-04-29)
+
+
+### Features
+
+* **sympa:** display skeleton when loading (non admin) ([e719c34](https://github.com/GIP-RECIA/recia-webcomponents/commit/e719c34f9527d86a75f3de021af895fef822afb1))
+* **sympa:** display skeleton when loading and message when no result (admin) ([3d1db18](https://github.com/GIP-RECIA/recia-webcomponents/commit/3d1db1888d321e83fd55333a8078f501fc21a2ee))
+
+
+### Bug Fixes
+
+* **sympa:** add message when update filter has no match ([531405a](https://github.com/GIP-RECIA/recia-webcomponents/commit/531405a40164a504c082b37677aba4879f45b329))
+* **sympa:** change admin list filter type from checkbox to radio ([9e4c5f3](https://github.com/GIP-RECIA/recia-webcomponents/commit/9e4c5f3c13862779013e90ffb99f84f57ac01e63))
+* **sympa:** fix cors error handling ([b8f9f3e](https://github.com/GIP-RECIA/recia-webcomponents/commit/b8f9f3e113b6acc8a5f27f41c5bf5cae6a5e4618))
+* **sympa:** fix wrong condition evaluation in admin sympa for display of update cards ([b73cbda](https://github.com/GIP-RECIA/recia-webcomponents/commit/b73cbda3f930d2c4ccfe34cbc2a3f8bda77a0a61))
+
 ## [1.0.4](https://github.com/GIP-RECIA/recia-webcomponents/compare/sympa/v1.0.3...sympa/v1.0.4) (2026-04-21)
 
 
