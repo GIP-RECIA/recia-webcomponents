@@ -1503,7 +1503,7 @@ __metadata:
     "@vue/tsconfig": "npm:^0.9.1"
     axios: "npm:^1.16.0"
     dotenv-checker: "npm:^1.1.7"
-    eslint: "npm:^10.2.1"
+    eslint: "npm:^10.3.0"
     eslint-plugin-format: "npm:^2.0.1"
     lint-staged: "npm:^16.4.0"
     lodash.debounce: "npm:^4.0.8"
@@ -1537,7 +1537,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": "npm:^7.2.0"
     "@tsconfig/node24": "npm:^24.0.4"
     "@types/node": "npm:^24"
-    eslint: "npm:^10.2.1"
+    eslint: "npm:^10.3.0"
     eslint-plugin-format: "npm:^2.0.1"
     lit: "npm:^3.3.2"
     lit-analyzer: "npm:^2.0.3"
@@ -1581,7 +1581,7 @@ __metadata:
     "@vueuse/core": "npm:^14.3.0"
     axios: "npm:^1.16.0"
     dotenv-checker: "npm:^1.1.7"
-    eslint: "npm:^10.2.1"
+    eslint: "npm:^10.3.0"
     eslint-plugin-format: "npm:^2.0.1"
     lint-staged: "npm:^16.4.0"
     lodash.debounce: "npm:^4.0.8"
@@ -1616,7 +1616,7 @@ __metadata:
     axios: "npm:^1.16.0"
     cropperjs: "npm:^1.6.2"
     dotenv-checker: "npm:^1.1.7"
-    eslint: "npm:^10.2.1"
+    eslint: "npm:^10.3.0"
     eslint-plugin-format: "npm:^2.0.1"
     lint-staged: "npm:^16.4.0"
     npm-run-all2: "npm:^8.0.4"
@@ -1657,7 +1657,7 @@ __metadata:
     "@vueform/multiselect": "npm:^2.6.11"
     "@vueuse/core": "npm:^14.3.0"
     dotenv-checker: "npm:^1.1.7"
-    eslint: "npm:^10.2.1"
+    eslint: "npm:^10.3.0"
     eslint-plugin-format: "npm:^2.0.1"
     lint-staged: "npm:^16.4.0"
     npm-run-all2: "npm:^8.0.4"
@@ -1727,7 +1727,7 @@ __metadata:
     "@vitejs/plugin-react": "npm:^6.0.1"
     axios: "npm:^1.16.0"
     dotenv-checker: "npm:^1.1.7"
-    eslint: "npm:^10.2.1"
+    eslint: "npm:^10.3.0"
     eslint-plugin-format: "npm:^2.0.1"
     eslint-plugin-react-hooks: "npm:^7.1.1"
     eslint-plugin-react-refresh: "npm:^0.5.2"
@@ -1766,7 +1766,7 @@ __metadata:
     "@vue/tsconfig": "npm:^0.9.1"
     axios: "npm:^1.16.0"
     dotenv-checker: "npm:^1.1.7"
-    eslint: "npm:^10.2.1"
+    eslint: "npm:^10.3.0"
     eslint-plugin-format: "npm:^2.0.1"
     lint-staged: "npm:^16.4.0"
     lodash.debounce: "npm:^4.0.8"
@@ -1874,7 +1874,7 @@ __metadata:
     "@vitejs/plugin-react": "npm:^6.0.1"
     axios: "npm:^1.16.0"
     dotenv-checker: "npm:^1.1.7"
-    eslint: "npm:^10.2.1"
+    eslint: "npm:^10.3.0"
     eslint-plugin-format: "npm:^2.0.1"
     eslint-plugin-react-hooks: "npm:^7.1.1"
     eslint-plugin-react-refresh: "npm:^0.5.2"
@@ -6624,9 +6624,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^10.2.1":
-  version: 10.2.1
-  resolution: "eslint@npm:10.2.1"
+"eslint@npm:^10.3.0":
+  version: 10.3.0
+  resolution: "eslint@npm:10.3.0"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.8.0"
     "@eslint-community/regexpp": "npm:^4.12.2"
@@ -6665,7 +6665,7 @@ __metadata:
       optional: true
   bin:
     eslint: bin/eslint.js
-  checksum: 10/954658c846696dc501a2b8e5fb268713e231dd81375dc25d76cd2fb4a1c73094ea73c64197634ece6fca8a54536e89eb44548a11be672544522e7a50eb8aae95
+  checksum: 10/7d8131e5ef65754f61afd807d875377403f1c89b5f5529f23506776c2df504ba0d53d378b8aeec1996c66c6d428ea3e2ea5c04b226474ce89b6e28443fd3b7b6
   languageName: node
   linkType: hard
 
