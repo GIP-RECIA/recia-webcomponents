@@ -1496,7 +1496,7 @@ __metadata:
     "@fortawesome/fontawesome-svg-core": "npm:^7.2.0"
     "@fortawesome/free-solid-svg-icons": "npm:^7.2.0"
     "@fortawesome/vue-fontawesome": "npm:^3.2.0"
-    "@intlify/unplugin-vue-i18n": "npm:^11.1.1"
+    "@intlify/unplugin-vue-i18n": "npm:^11.1.2"
     "@tsconfig/node24": "npm:^24.0.4"
     "@types/lodash.debounce": "npm:^4"
     "@types/lodash.throttle": "npm:^4"
@@ -1573,7 +1573,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": "npm:^7.2.0"
     "@fortawesome/vue-fontawesome": "npm:^3.2.0"
     "@gip-recia/info-modal": "npm:^0.0.1"
-    "@intlify/unplugin-vue-i18n": "npm:^11.1.1"
+    "@intlify/unplugin-vue-i18n": "npm:^11.1.2"
     "@tsconfig/node24": "npm:^24.0.4"
     "@types/lodash.debounce": "npm:^4"
     "@types/node": "npm:^24"
@@ -1610,7 +1610,7 @@ __metadata:
     "@fortawesome/fontawesome-svg-core": "npm:^7.2.0"
     "@fortawesome/free-solid-svg-icons": "npm:^7.2.0"
     "@fortawesome/vue-fontawesome": "npm:^3.2.0"
-    "@intlify/unplugin-vue-i18n": "npm:^11.1.1"
+    "@intlify/unplugin-vue-i18n": "npm:^11.1.2"
     "@tsconfig/node24": "npm:^24.0.4"
     "@types/node": "npm:^24"
     "@types/regenerator-runtime": "npm:^0"
@@ -1650,7 +1650,7 @@ __metadata:
     "@gip-recia/js-tree": "npm:^0.0.18"
     "@gip-recia/ui": "npm:^1.0.4"
     "@gip-recia/ui-webcomponents": "npm:^1.13.2"
-    "@intlify/unplugin-vue-i18n": "npm:^11.1.1"
+    "@intlify/unplugin-vue-i18n": "npm:^11.1.2"
     "@tsconfig/node24": "npm:^24.0.4"
     "@types/lodash.debounce": "npm:^4"
     "@types/node": "npm:^24"
@@ -1760,7 +1760,7 @@ __metadata:
     "@fortawesome/fontawesome-svg-core": "npm:^7.2.0"
     "@fortawesome/free-solid-svg-icons": "npm:^7.2.0"
     "@fortawesome/vue-fontawesome": "npm:^3.2.0"
-    "@intlify/unplugin-vue-i18n": "npm:^11.1.1"
+    "@intlify/unplugin-vue-i18n": "npm:^11.1.2"
     "@tsconfig/node24": "npm:^24.0.4"
     "@types/lodash.debounce": "npm:^4"
     "@types/node": "npm:^24"
@@ -1951,9 +1951,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@intlify/bundle-utils@npm:11.1.1":
-  version: 11.1.1
-  resolution: "@intlify/bundle-utils@npm:11.1.1"
+"@intlify/bundle-utils@npm:11.1.2":
+  version: 11.1.2
+  resolution: "@intlify/bundle-utils@npm:11.1.2"
   dependencies:
     "@intlify/message-compiler": "npm:^11.1.12"
     "@intlify/shared": "npm:^11.1.12"
@@ -1969,7 +1969,7 @@ __metadata:
       optional: true
     vue-i18n:
       optional: true
-  checksum: 10/37576da46c2bfa70e59fb3f38b63033f34cc2aa4e57dc3ba468dff01ca19d02f213d6da0880e9ed2aa4165681d8df28bbae9ad4cb4d6143c3db6cc7a6bf49298
+  checksum: 10/3439ad080864eeb0c653e944f42770cd5c8ac548f948b3389410f1e752fe564fdf160a4e89a6f579f264ce18c75fb4196090ce30ac7a4b60c5664fdc77f0fabf
   languageName: node
   linkType: hard
 
@@ -2038,12 +2038,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@intlify/unplugin-vue-i18n@npm:^11.1.1":
-  version: 11.1.1
-  resolution: "@intlify/unplugin-vue-i18n@npm:11.1.1"
+"@intlify/unplugin-vue-i18n@npm:^11.1.2":
+  version: 11.1.2
+  resolution: "@intlify/unplugin-vue-i18n@npm:11.1.2"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.4.0"
-    "@intlify/bundle-utils": "npm:11.1.1"
+    "@intlify/bundle-utils": "npm:11.1.2"
     "@intlify/shared": "npm:^11.1.12"
     "@intlify/vue-i18n-extensions": "npm:^8.0.0"
     "@rollup/pluginutils": "npm:^5.1.0"
@@ -2057,14 +2057,17 @@ __metadata:
     vue: "npm:^3.5.21"
   peerDependencies:
     petite-vue-i18n: "*"
+    vite: ^6.0.0 || ^7.0.0 || ^8.0.0
     vue: ^3.2.25
     vue-i18n: "*"
   peerDependenciesMeta:
     petite-vue-i18n:
       optional: true
+    vite:
+      optional: true
     vue-i18n:
       optional: true
-  checksum: 10/b427141ced0a4b124785191aed90f24b65ccbe536ad90095df3e672cf87b49cb349e0127b776b5df27eebcaf06f7dc0f6bba9e1fa6046ea7bb352823394e3e3b
+  checksum: 10/af9d0f443788fa535483d7e4a70c515ca699cddba0818f1d12968adfffb1611e483bec69d62fd36e444e9a87a1209018c68c37f3d0b782360cc67b990ca75852
   languageName: node
   linkType: hard
 
