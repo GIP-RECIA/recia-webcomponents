@@ -15,8 +15,11 @@
 -->
 
 <script setup lang="ts">
-import { getContentOnglet } from '@/services/serviceMce'
 import { computed, ref, watchEffect } from 'vue'
+import { getContentOnglet } from '@/services/serviceMce'
+import ClassesGroupesEleve from './ClassesGroupesEleve.ce.vue'
+import ClassesGroupesProf from './ClassesGroupesProf.ce.vue'
+import RelationUser from './RelationUser.ce.vue'
 
 defineOptions({ name: 'OngletContent' })
 
@@ -41,7 +44,6 @@ watchEffect((): void => {
 async function fetchDetailOnglet(name: string) {
   if (name !== '') {
     try {
-      console.log('mceApi: ', props.mceApi)
       const response = await getContentOnglet(props.mceApi + name, props.userInfoApiUrl)
       details.value = response.data
 
@@ -61,224 +63,212 @@ async function fetchDetailOnglet(name: string) {
   }
 }
 
-const ongletActive = computed<boolean>(() => {
-  if (sectionEleve.value.etabs.length && sectionEleve.value !== undefined) {
+const isProfSectionActive = computed<boolean>(() => {
+  if (sectionEleve.value?.etabs?.length && sectionEleve.value !== undefined) {
     return false
   }
-
   return true
 })
 </script>
 
 <template>
-  <div class="content">
-    <!-- Mes fonctions prof uniquement section -->
-    <div v-if="fonctions.length" class="sectionFonction">
-      <dl data-title="Mes fonctions">
-        <!-- Table header for "My fonctions" -->
-        <dt class="dl-header">
-          Établissement
-        </dt>
-        <dt class="dl-header">
-          Fonction
-        </dt>
-        <dt class="dl-header">
-          Discipline
-        </dt>
-        <dt class="dl-header">
-          Activé
-        </dt>
+  <div class="content-wrapper">
+    <section v-if="fonctions.length" class="profile-card">
+      <header class="card-header">
+        <h2>Mes fonctions</h2>
+      </header>
 
-        <!-- Data rows -->
-        <template v-for="(it, index) in fonctions" :key="index">
-          <dd>{{ it.siren }}</dd>
-          <dd>{{ it.fonction }}</dd>
-          <dd>{{ it.discipline }}</dd>
-          <dd>
-            <input
-              :id="it.discipline"
-              type="checkbox"
-              name=""
-              :value="it.discipline"
-              :checked="it.active"
-            >
-          </dd>
-        </template>
-      </dl>
-    </div>
+      <div class="card-body-grid">
+        <div v-for="(it, index) in fonctions" :key="index" class="fonction-row-item">
+          <!-- Établissement (Siren) -->
+          <div class="info-item">
+            <span class="info-label">Établissement (SIREN)</span>
+            <span class="info-value name-bold">{{ it.siren }}</span>
+          </div>
 
-    <!-- Mes classes et groupes pédago prof section -->
-    <div v-if="ongletActive" class="sectionCG">
-      <dl data-title="Mes classes et groupes pédagoqiues">
-        <!-- Table header for "My classes and groups" -->
-        <dt class="dl-header">
-          Établissement
-        </dt>
-        <dt class="dl-header">
-          Enseignement
-        </dt>
-        <dt class="dl-header">
-          Classes
-        </dt>
-        <dt class="dl-header">
-          Groups
-        </dt>
+          <!-- Fonction -->
+          <div class="info-item">
+            <span class="info-label">Fonction</span>
+            <span class="info-value">{{ it.fonction }}</span>
+          </div>
 
-        <!-- Data rows -->
-        <template v-for="(classgroup, index) in sectionProf.etabs" :key="index">
-          <!-- First item row -->
-          <dd>{{ index }}</dd>
+          <!-- Discipline -->
+          <div class="info-item">
+            <span class="info-label">Discipline</span>
+            <span class="info-value">{{ it.discipline || '—' }}</span>
+          </div>
 
-          <template v-for="item in classgroup" :key="item">
-            <dd>{{ item.matiere }}</dd>
-            <dd v-for="classe in item.cg.classes" :key="classe">
-              {{ classe || '-' }}
-            </dd>
-            <dd v-for="groupe in item.cg.groupes" :key="groupe">
-              {{ groupe || '-' }}
-            </dd>
-          </template>
-        </template>
-      </dl>
-    </div>
-
-    <!-- Mes classes et groupes pédago elève section -->
-    <div v-else class="sectionCG_Eleve">
-      <dl data-title="Mes classes et groupes pédagoqiues">
-        <!-- Table header for "My classes and groups" -->
-        <dt class="dl-header">
-          Établissement
-        </dt>
-        <dt class="dl-header">
-          Classes
-        </dt>
-        <dt class="dl-header">
-          Groups
-        </dt>
-
-        <!-- Data rows -->
-        <template v-for="(classgroup, index) in sectionEleve.etabs" :key="index">
-          <!-- First item row -->
-          <dd>{{ classgroup.nameEtab }}</dd>
-          <dd>{{ classgroup.classes[0] }}</dd>
-          <dd>{{ classgroup.groupes[0] }}</dd>
-        </template>
-      </dl>
-
-      <dl>
-        <dt>Enseignement suivis</dt>
-        <template v-for="(ens, index) in sectionEleve.enseignementSuivis" :key="index">
-          <dd>{{ ens }}</dd>
-        </template>
-      </dl>
-    </div>
-
-    <!-- Mes responsable section -->
-    <div v-if="props.listMenu === 'PARENT_ELEVE'" class="section_eleve">
-      <span>Personne en relation avec moi</span>
-      <dl>
-        <dt class="dl-header">
-          Nom
-        </dt>
-        <dt class="dl-header">
-          Relation
-        </dt>
-        <dt />
-
-        <template v-for="(val, index) in details" :key="index">
-          <dd>{{ val.displayNameRelation }}</dd>
-          <dd>{{ val.typeRelation }}</dd>
-          <dd>{{ val.autoriteParental }}</dd>
-        </template>
-      </dl>
-    </div>
+          <!-- Statut Activé (Checkbox harmonisée) -->
+          <div class="info-item checkbox-container">
+            <span class="info-label">Activé</span>
+            <div class="checkbox-wrapper">
+              <input
+                :id="`chk-${index}-${it.discipline}`"
+                type="checkbox"
+                disabled
+                :checked="it.active"
+                class="custom-disabled-checkbox"
+              >
+              <label :for="`chk-${index}-${it.discipline}`" class="visually-hidden">
+                Fonction active pour {{ it.discipline }}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <template v-if="props.listMenu !== 'PARENT_ELEVE'">
+      <!-- Vue Enseignant -->
+      <ClassesGroupesProf
+        v-if="isProfSectionActive && (sectionProf.length || Object.keys(sectionProf).length)"
+        :section-prof="sectionProf"
+        label-titre="Mes classes et groupes pédagogiques"
+        label-class="Classe"
+        label-group="Groupe"
+      />
+      <ClassesGroupesEleve
+        v-else-if="sectionEleve?.etabs?.length"
+        :etabs="sectionEleve.etabs"
+        :section-eleve="sectionEleve"
+        label-titre="Mes classes et groupes"
+        label-titre-cours="Enseignements suivis"
+        label-class="Classe"
+        label-group="Groupe"
+      />
+    </template>
+    <RelationUser
+      v-if="props.listMenu === 'PARENT_ELEVE' && details.length"
+      :details="details"
+      :mce-api="props.mceApi"
+      :user-info-api-url="props.userInfoApiUrl"
+      titre="parent"
+      onglet="PARENT_ELEVE"
+    />
   </div>
 </template>
 
-<style lang="css">
-/* General layout for the sections */
-.content {
+<style lang="scss" scoped>
+@use 'sass:map';
+@use '@gip-recia/ui/core/variables' as *;
+@use '@gip-recia/ui/functions' as *;
+@use '@gip-recia/ui/mixins' as *;
+
+.content-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  background-color: white;
-  border-radius: 5px;
-  box-shadow:
-    0 1px 2px #0000001f,
-    0 1px 2px #0000001f;
+  gap: 1.75rem;
+  width: 100%;
 }
 
-.sectionFonction dl,
-.sectionCG dl,
-.sectionCG_Eleve dl,
-.section_eleve dl {
+.profile-card {
+  width: 100%;
+  background-color: var(--#{$prefix}body-bg, #ffffff);
+  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -5px var(--#{$prefix}shadow-neutral, rgba(0, 0, 0, 0.1));
+}
+
+.card-header {
+  padding: 1.5rem 1.25rem 0;
+  background-color: var(--#{$prefix}body-bg, #ffffff);
+
+  h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--#{$prefix}body-color, #212529);
+    text-transform: none;
+    letter-spacing: normal;
+  }
+}
+
+.card-body-grid {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  @media (width >= map.get($grid-breakpoints, md)) {
+    padding: 1.5rem 2rem 2rem;
+  }
+}
+
+.fonction-row-item {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 3 columns for "My fonctions" */
-  gap: 5px;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 0.25rem;
+  border-top: 1px dashed var(--#{$prefix}border-color, #dee2e6);
+  padding-top: 1.25rem;
+
+  &:first-of-type {
+    border-top: none;
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  @media (width >= map.get($grid-breakpoints, sm)) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (width >= map.get($grid-breakpoints, md)) {
+    grid-template-columns: 1.5fr 1.5fr 1fr 60px;
+    column-gap: 2rem;
+    align-items: center;
+  }
 }
 
-.sectionCG dl {
-  grid-template-columns: repeat(4, 1fr); /* 4 columns for "My classes and groups" */
+.info-item {
+  display: flex;
+  flex-direction: column;
+
+  &.checkbox-container {
+    @media (width >= map.get($grid-breakpoints, md)) {
+      align-items: center;
+    }
+  }
 }
 
-.sectionCG_Eleve dl {
-  grid-template-columns: repeat(3, 1fr); /* 4 columns for "My classes and groups" */
+.info-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+  color: var(--#{$prefix}secondary-color, #6c757d);
 }
 
-.section_eleve dl {
-  grid-template-columns: repeat(3, 1fr); /* 3 columns for "My classes and groups" */
+.info-value {
+  font-size: 0.95rem;
+  color: var(--#{$prefix}body-color, #212529);
+
+  &.name-bold {
+    font-weight: 700;
+  }
 }
 
-/* Styling for headers */
-.sectionFonction dl::before,
-.sectionCG dl::before,
-.sectionCG_Eleve dl::before,
-.section_eleve dl::before {
-  /* content: attr(data-title); */
-  font-weight: bold;
-  font-size: 1.5em;
-  display: block;
-  margin-bottom: 10px;
+.checkbox-wrapper {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
 }
 
-/* Ensuring dt acts like table headers */
-dt {
-  font-weight: bold;
-  grid-column: span 1;
+.custom-disabled-checkbox {
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: var(--#{$prefix}primary, #0056b3);
+  cursor: not-allowed;
+  border-radius: 4px;
 }
 
-/* dd (content cells) align with dt */
-dd {
-  margin: 0;
-  padding: 5px;
-  grid-column: span 1;
-}
-
-/* Optional: Adding a border and padding to emulate a table look */
-dl,
-dt,
-dd {
-  border-bottom: 1px solid #ccc;
-}
-
-dt,
-dd {
-  padding: 5px;
-  text-align: left;
-}
-
-/* Styling for headers within the table */
-.dl-header {
-  font-weight: bold;
-  background-color: #25b2f3;
-  color: white;
-  padding: 8px;
-  border-bottom: 2px solid #000;
-  grid-column: span 1;
-}
-
-/* Optional: Head row styling */
-dl.dl-header {
-  display: contents; /* Ensure header row spans full width */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 </style>

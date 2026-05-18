@@ -15,8 +15,8 @@
 -->
 
 <script setup lang="ts">
+import { computed, onMounted, ref } from 'vue'
 import { getMCE, getServicesEnt } from '@/services/serviceMce'
-import { onMounted, ref } from 'vue'
 import './info-modal/info-modal.js'
 
 defineOptions({ name: 'PageMce' })
@@ -28,10 +28,32 @@ const props = defineProps<{
   avatarDefault: string
 }>()
 
-const mce = ref<any>([])
+const showChangeEmail = ref(false)
+
+const mce = ref<any>({
+  id: null,
+  uid: '',
+  userName: '',
+  userMail: '',
+  avatar: '',
+  bod: '',
+  etab: '',
+  etat: '',
+  identifiant: null,
+
+  listMenu: [],
+  fonctionClassesGroupe: {},
+  parentEleve: [],
+  relationEleve: [],
+  apprentis: null,
+
+  userPublic: [],
+  mdp: null,
+  mailEditable: null,
+})
+
 const ongletCurrent = ref<string>('')
 const listOnglets = ref<Array<string>>([])
-const isModalOpen = ref(false)
 const personDetail = ref<any>()
 const avatar = ref<string>('')
 
@@ -44,195 +66,310 @@ interface Service {
 const jsonSubcategories = ref<any[]>([])
 const servicesList = ref<Service[]>([])
 const portletsSet = ref<Set<string>>(new Set())
-const portlets = ref<Array<string>>()
+const portlets = ref<string[]>([])
 
-async function getAllPortlets(uri: string, token: string) {
-  const services = await getServicesEnt(uri, token)
-  jsonSubcategories.value = services.data.registry.categories[0].subcategories
-
-  const localPortletsSet = new Set<string>() // Temporary set to avoid reactive overhead
-
-  const localServicesList: Service[] = [] // Temporary array to collect services
-
-  for (const subcategory of jsonSubcategories.value) {
-    for (const portlet of subcategory.portlets) {
-      localServicesList.push({
-        id: portlet.id,
-        title: portlet.title,
-        fname: portlet.fname,
-      })
-
-      localPortletsSet.add(portlet.title)
-    }
+const nom = computed<string>(() => {
+  const value = mce.value.userName?.trim() ?? ''
+  if (!value) {
+    return ''
   }
 
-  // Update reactive refs with local values
-  servicesList.value = localServicesList
-  portletsSet.value = localPortletsSet
+  // eslint-disable-next-line e18e/prefer-static-regex
+  const parts = value.split(/\s+/)
+  return parts.length > 1 ? parts.slice(0, -1).join(' ') : value
+})
 
-  // Convert portletsSet to an array
-  portlets.value = Array.from(localPortletsSet)
+const prenom = computed<string>(() => {
+  const value = mce.value.userName?.trim() ?? ''
+  if (!value) {
+    return ''
+  }
+
+  // eslint-disable-next-line e18e/prefer-static-regex
+  const parts = value.split(/\s+/)
+  return parts.length > 1 ? parts.at(-1) : ''
+})
+
+async function getAllPortlets(uri: string, token: string) {
+  try {
+    const services = await getServicesEnt(uri, token)
+
+    jsonSubcategories.value
+      = services.data.registry.categories[0].subcategories
+
+    const localPortletsSet = new Set<string>()
+    const localServicesList: Service[] = []
+
+    for (const subcategory of jsonSubcategories.value) {
+      for (const portlet of subcategory.portlets) {
+        localServicesList.push({
+          id: portlet.id,
+          title: portlet.title,
+          fname: portlet.fname,
+        })
+
+        localPortletsSet.add(portlet.title)
+      }
+    }
+
+    servicesList.value = localServicesList
+    portletsSet.value = localPortletsSet
+    portlets.value = Array.from(localPortletsSet)
+  }
+  catch (error: any) {
+    console.error(error)
+  }
 }
 
 onMounted(async () => {
+  console.warn('[onMounted] START')
+  console.warn('[onMounted] props =>', props)
+
   try {
-    const res = await getMCE(props.mceApi, props.userInfoApiUrl)
+    const res = await getMCE(
+      props.mceApi,
+      props.userInfoApiUrl,
+    )
+
+    console.warn('[onMounted] getMCE response =>', res)
+
     mce.value = res.data
+
+    console.warn('[onMounted] mce =>', mce.value)
+
     ongletCurrent.value = mce.value.listMenu[0]
-    listOnglets.value = mce.value.listMenu
+
+    console.warn(
+      '[onMounted] ongletCurrent =>',
+      ongletCurrent.value,
+    )
+
+    listOnglets.value = [
+      'GENERALE',
+      'SERVICE',
+      ...(mce.value.fonctionClassesGroupe?.listFonctions?.length > 0
+        ? ['FONCTION_LIST']
+        : []),
+      ...(mce.value.mdp === false ? [] : ['CHANGE_PASSWORD']),
+    ]
+
+    console.warn(
+      '[onMounted] listOnglets =>',
+      listOnglets.value,
+    )
 
     if (mce.value.avatar == null) {
+      console.warn(
+        '[onMounted] avatar null => default avatar used',
+      )
+
       avatar.value = props.avatarDefault
     }
     else {
+      console.warn(
+        '[onMounted] avatar found =>',
+        mce.value.avatar,
+      )
+
       avatar.value = mce.value.avatar
     }
 
-    await getAllPortlets(props.portailApiUrl, props.userInfoApiUrl)
+    console.warn(
+      '[onMounted] final avatar =>',
+      avatar.value,
+    )
+
+    await getAllPortlets(
+      props.portailApiUrl,
+      props.userInfoApiUrl,
+    )
+
+    console.warn('[onMounted] END SUCCESS')
   }
   catch (error: any) {
-    console.error('error : ', error.res.data)
+    console.error('[onMounted] ERROR =>', error)
+    console.error(
+      '[onMounted] ERROR RESPONSE =>',
+      error?.response?.data,
+    )
   }
 })
 
 function select(payload: CustomEvent) {
+  console.warn('[select] payload =>', payload)
+
   const getOnglet = payload.detail[0]
 
+  console.warn('[select] getOnglet =>', getOnglet)
+  console.warn(
+    '[select] current onglet =>',
+    ongletCurrent.value,
+  )
+
   if (getOnglet !== ongletCurrent.value) {
+    console.warn('[select] updating onglet')
+
     ongletCurrent.value = getOnglet
   }
 }
 
-function openModal(event: CustomEvent) {
-  isModalOpen.value = true
-  personDetail.value = event.detail[1]
+function handleOpenChangeEmail() {
+  showChangeEmail.value = true
+}
+
+function handleCloseChangeEmail() {
+  showChangeEmail.value = false
+}
+
+function handleEmailUpdated(email: string) {
+  mce.value.userMail = email
+  showChangeEmail.value = false
 }
 </script>
 
 <template>
   <i18n-host>
     <div class="parent">
-      <div class="user-details">
-        <user-info
+      <aside class="user-details">
+        <user-base-info
+          v-if="mce.uid"
           :avatar="avatar"
-          :userName="mce.userName"
-          :etab="mce.etab"
-          :userMail="mce.userMail"
-          :bod="mce.bod"
-          :identifiant="mce.identifiant"
-          :mdp="mce.mdp"
-          :user-public="mce.userPublic"
           :user-id="mce.uid"
+          :user-name="mce.userName"
+          :user-mail="mce.userMail"
         />
-      </div>
-      <div class="sectionTwo">
+
+        <list-onglet
+          v-if="listOnglets.length > 1"
+          :list="listOnglets"
+          :onglet-current="ongletCurrent"
+          :user-info-api-url="userInfoApiUrl"
+          class-btn="btn btn-secondary-toggle"
+          @select-onglet="select($event)"
+        />
+      </aside>
+      <main class="sectionTwo">
         <div class="content">
-          <list-onglet
-            v-if="listOnglets.length > 1"
-            :list="listOnglets"
-            :onglet-current="ongletCurrent"
-            :user-info-api-url="userInfoApiUrl"
-            class-btn="onglet-name"
-            @select-onglet="select($event)"
-          />
           <section-onglet
+            v-if="mce?.listMenu?.length"
             :mce-api="mceApi"
-            :listMenu="ongletCurrent"
+            :list-menu="ongletCurrent"
             :user-info-api-url="userInfoApiUrl"
-            :fonction-classes-groupe="mce.fonctionClassesGroupe"
-            :parent-eleve="mce.parentEleve"
-            :relation-eleve="mce.relationEleve"
-            :apprentis="mce.apprentis"
-            :services="portlets"
-            :etab-current="mce.etab"
-            @open-modal="openModal"
+            :fonction-classes-groupe="mce.fonctionClassesGroupe ?? {}"
+            :parent-eleve="mce.parentEleve ?? {}"
+            :relation-eleve="mce.relationEleve ?? {}"
+            :apprentis="mce.apprentis ?? {}"
+            :services="portlets ?? []"
+            :etab-current="mce.etab ?? ''"
+            :user-name="mce.userName ?? ''"
+            :user-mail="mce.userMail ?? ''"
+            :user-id="mce.uid ?? ''"
+            :uid="mce.uid ?? ''"
+            :bod="mce.bod ?? ''"
+            :nom="nom"
+            :prenom="prenom"
+            :date-naissance="mce.dateNaissance ?? ''"
+            :can-modify-email="mce.mailEditable ?? false"
+            :show-change-email="showChangeEmail"
+            :mdp="mce.mdp"
+            @open-change-email="handleOpenChangeEmail"
+            @close-change-email="handleCloseChangeEmail"
+            @email-updated="handleEmailUpdated"
           />
         </div>
+
         <Teleport to="body">
           <info-modal id="modale" debug="false">
-            <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
-            <div slot="modal-body">
-              <div style="display: flex; flex-direction: column; gap: 3em">
-                <div style="display: flex; flex-direction: column; gap: 0.5em">
-                  <modal-content :person-detail="personDetail" />
+            <template #modal-body>
+              <div>
+                <div style="display: flex; flex-direction: column; gap: 3em">
+                  <div style="display: flex; flex-direction: column; gap: 0.5em">
+                    <modal-content
+                      v-if="personDetail"
+                      :person-detail="personDetail"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
+            </template>
           </info-modal>
         </Teleport>
-      </div>
+      </main>
     </div>
   </i18n-host>
 </template>
 
-<style lang="scss">
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-size: 13px;
-}
-
-body {
-  font-family: Arial, sans-serif;
-}
+<style lang="scss" scoped>
+@use 'sass:map';
+@use '@gip-recia/ui/core/variables' as *;
+@use '@gip-recia/ui/functions' as *;
+@use '@gip-recia/ui/mixins' as *;
 
 .parent {
   display: flex;
-  position: absolute;
-  left: 120px;
-  width: 85%;
+  flex-direction: column;
   gap: 20px;
-  overflow-y: scroll;
+  width: 100%;
+  padding: 1rem;
+  min-width: 0;
+  overflow-x: hidden;
+  box-sizing: border-box;
 
-  .user-details {
-    top: 0px;
-    width: 340px;
-    height: 600px;
-    background-color: white;
-    padding: 20px;
-    border-radius: 28px;
-    box-shadow:
-      rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
-      rgb(209, 213, 219) 0px 0px 0px 1px inset;
-    flex-grow: 0.3;
+  @media (width >= map.get($grid-breakpoints, md)) {
+    flex-direction: row;
+    padding: 1.5rem 2rem;
+    align-items: flex-start;
   }
 
-  .sectionTwo {
-    left: 370px;
-    top: 0px;
-    width: 600px;
-    min-height: 600px;
-    //max-height: 100vh;
+  .user-details {
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 20px;
     background-color: white;
+    padding: 20px;
     border-radius: 28px;
-    box-shadow:
-      rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
-      rgb(209, 213, 219) 0px 0px 0px 1px inset;
-    flex-grow: 2;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    min-width: 0;
+
+    @media (width >= map.get($grid-breakpoints, md)) {
+      width: 320px;
+      max-width: 30%;
+      position: sticky;
+      top: 1.5rem;
+    }
+  }
+
+  .sectionTwo {
+    width: 100%;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: white;
+    padding: 24px;
+    border-radius: 28px;
+    box-sizing: border-box;
+    flex: 1;
+    min-width: 0;
   }
 }
 
-@media (max-width: 815px) {
+@media (max-width: 340px) {
   .parent {
-    display: flex;
-    flex-flow: wrap;
-    position: sticky;
-    width: 100%;
+    padding: 0.5rem;
+    gap: 12px;
 
     .user-details {
-      height: auto;
-      width: 100%;
-      background-color: transparent;
-      box-shadow: none;
+      padding: 12px;
+      border-radius: 16px;
     }
 
     .sectionTwo {
-      background-color: transparent;
-      box-shadow: none;
+      padding: 12px;
+      border-radius: 16px;
+      min-height: auto;
     }
   }
 }
@@ -240,10 +377,22 @@ body {
 .content {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 
   label {
     display: flex;
     flex-direction: column;
   }
+}
+
+:deep(*) {
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: normal;
+  hyphens: none !important;
 }
 </style>

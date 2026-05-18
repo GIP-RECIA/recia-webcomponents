@@ -15,13 +15,11 @@
 -->
 
 <script setup lang="ts">
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 defineOptions({ name: 'ListeOnglet' })
 
-const props = defineProps<{
+defineProps<{
   list: Array<string>
   ongletCurrent: string
   classBtn: string
@@ -36,189 +34,93 @@ const m = (key: string): string => t(`list-onglet.${key}`)
 function selected(onglet: string) {
   emit('selectOnglet', onglet)
 }
-
-const currentIndex = ref(0)
-const windowWidth = ref<number>(window.innerWidth)
-
-const isMobile = computed(() => {
-  return windowWidth.value <= 768
-})
-
-function handleResize() {
-  windowWidth.value = window.innerWidth
-}
-
-onMounted(() => {
-  window.addEventListener('resize', handleResize)
-})
-
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', handleResize)
-})
-
-function nextSlide() {
-  if (currentIndex.value < props.list.length - 1) {
-    currentIndex.value++
-  }
-}
-
-function prevSlide() {
-  if (currentIndex.value > 0) {
-    currentIndex.value--
-  }
-}
 </script>
 
 <template>
-  <!-- <div class="list-menu">
-    <div v-for="item in list" :key="item">
-      <button :class="[classBtn, item == ongletCurrent ? 'active' : '']" @click="selected(item)">{{ m(item) }}</button>
+  <nav class="list-menu" aria-label="Menu de navigation">
+    <div v-for="item in list" :key="item" class="onglet-item">
+      <button
+        :class="[classBtn, item === ongletCurrent ? 'active' : '']"
+        :aria-current="item === ongletCurrent ? 'page' : undefined"
+        @click="selected(item)"
+      >
+        {{ m(item) }}
+      </button>
     </div>
-    </div> -->
-
-  <div class="list-menu">
-    <!-- Desktop View -->
-    <template v-if="!isMobile">
-      <div v-for="item in list" :key="item">
-        <button :class="[classBtn, item === ongletCurrent ? 'active' : '']" @click="selected(item)">
-          {{ m(item) }}
-        </button>
-      </div>
-    </template>
-
-    <!-- Mobile View (Carousel) -->
-    <div v-else class="carousel">
-      <div class="carousel-controls">
-        <button class="prev" :disabled="currentIndex === 0" @click="prevSlide">
-          <FontAwesomeIcon :icon="['fas', 'circle-chevron-left']" class="btn-slide" />
-        </button>
-        <div class="carousel-container">
-          <div
-            class="carousel-track"
-            :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
-          >
-            <div
-              v-for="item in list"
-              :key="item"
-              class="carousel-content"
-            >
-              <button
-                :class="[classBtn, item === ongletCurrent ? 'active' : '']"
-                @click="selected(item)"
-              >
-                {{ m(item) }}
-              </button>
-            </div>
-          </div>
-        </div>
-        <button class="next" :disabled="currentIndex === list.length - 1" @click="nextSlide">
-          <FontAwesomeIcon :icon="['fas', 'circle-chevron-right']" class="btn-slide" />
-        </button>
-      </div>
-    </div>
-  </div>
+  </nav>
 </template>
 
-<style lang="css">
-/*
+<style lang="scss" scoped>
+@use 'sass:map';
+@use '@gip-recia/ui/core/variables' as *;
+@use '@gip-recia/ui/functions' as *;
+@use '@gip-recia/ui/mixins' as *;
+
 .list-menu {
-  display: flex;
-  flex-direction: row;
-  gap: 40px;
-  justify-content: center;
-  padding: 20px 0;
-}
-.onglet-name {
-  border: none;
   width: 100%;
-  background-color: transparent;
-  border-radius: 28px;
-  padding: 14px;
-}
-
-ul {
-  list-style: none;
-}
-.active {
-  background-color: rgba(38, 68, 138, 0.18);
-  color: #26448a;
-  font-weight: bolder;
-}
-
-@media (max-width: 768px) {
-  .list-menu {
-    display: block;
-  }
-}*/
-
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.btn-slide {
-  width: 18px;
-  height: 18px;
-}
-.list-menu {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 20px 0;
+  gap: 0.5rem;
+  align-items: center;
 }
 
-.carousel {
-  overflow: hidden;
+.onglet-item {
   width: 100%;
+  max-width: 280px;
 }
 
-.carousel-container {
-  overflow: hidden;
-}
-
-.carousel-track {
-  display: flex;
-  transition: transform 0.3s ease-in-out;
-}
-
-.carousel-content {
-  min-width: 100%;
-  display: flex;
+.btn-secondary-toggle {
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-}
-
-button {
-  border: none;
-  background-color: transparent;
-  border-radius: 28px;
-  padding: 12px;
-}
-
-button.active {
-  background-color: rgba(38, 68, 138, 0.18);
-  color: #26448a;
-  font-weight: bolder;
-}
-
-.carousel-controls {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-
-.carousel-controls button {
-  border: none;
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
   cursor: pointer;
+  user-select: none;
+  border-radius: var(--#{$prefix}border-radius, 8px);
+
+  color: var(--#{$prefix}secondary-color, #6c757d);
+  background-color: transparent;
+  border: 1px solid transparent;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+  &.active {
+    font-weight: 700;
+    color: var(--#{$prefix}primary, #0056b3);
+    background-color: var(--#{$prefix}primary-bg-subtle, #e7f1ff);
+    border-color: var(--#{$prefix}primary-border-subtle, #b6d4fe);
+  }
+  &:hover:not(.active) {
+    color: var(--#{$prefix}body-color, #212529);
+    background-color: var(--#{$prefix}tertiary-bg, #f8f9fa);
+    border-color: var(--#{$prefix}border-color, #dee2e6);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--#{$prefix}primary-focus, rgba(0, 86, 179, 0.15));
+  }
 }
 
-@media (min-width: 769px) {
-  .carousel {
-    display: none;
-  }
+@media (width >= map.get($grid-breakpoints, md)) {
   .list-menu {
-    display: flex;
-    flex-direction: row;
-    gap: 40px;
+    align-items: flex-start;
+  }
+
+  .onglet-item {
+    max-width: 100%;
+  }
+
+  .btn-secondary-toggle {
+    justify-content: flex-start;
+    text-align: left;
+    padding: 0.85rem 1.5rem;
   }
 }
 </style>

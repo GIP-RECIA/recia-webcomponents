@@ -21,15 +21,18 @@ import { useI18n } from 'vue-i18n'
 defineOptions({ name: 'ServicesEnt' })
 
 const props = defineProps<{
-  details: Array<string>
-  etab: string
+  onglet?: string
+  details?: string[]
+  etab?: string
 }>()
 
 const { t } = useI18n()
 const m = (key: string): string => t(`services-ent.${key}`)
 
 const services = computed(() => {
-  return [...(props.details || [])].sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }))
+  return [...(props.details || [])].sort((a, b) =>
+    a.localeCompare(b, 'fr', { sensitivity: 'base' }),
+  )
 })
 </script>
 
