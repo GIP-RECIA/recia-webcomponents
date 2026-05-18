@@ -15,5 +15,8 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0"
   },
-  "packageManager": "yarn@4.13.0"
+  "packageManager": "yarn@4.13.0",
+  "dependencies": {
+    "@gip-recia/ui": "^1.0.4"
+  }
 }

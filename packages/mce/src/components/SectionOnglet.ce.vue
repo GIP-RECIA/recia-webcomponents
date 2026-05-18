@@ -15,70 +15,191 @@
 -->
 
 <script setup lang="ts">
+import type { PersonneFonction } from '@/types/fonctionType'
+import { useI18n } from 'vue-i18n'
+import ChangeEmail from '@/components/ChangeEmail.ce.vue'
+import FonctionsList from '@/components/FonctionsList.ce.vue'
+import ChangePassword from './ChangePassword.ce.vue'
+import InformationPersonnelleCe from './InformationPersonnelle.ce.vue'
+
+interface FonctionClassesGroupe {
+  listFonctions: PersonneFonction[]
+}
+
+interface PersonneRelation {
+  [key: string]: unknown
+}
+
 defineOptions({ name: 'SectionOnglet' })
 
 defineProps<{
   mceApi: string
   listMenu: string
   userInfoApiUrl: string
-  fonctionClassesGroupe: any
-  parentEleve: any
-  relationEleve: any
-  apprentis: any
+  fonctionClassesGroupe: FonctionClassesGroupe
+  parentEleve: PersonneRelation
+  relationEleve: PersonneRelation
+  apprentis: PersonneRelation
   services: Array<string>
   etabCurrent: string
+  userName: string
+  userMail?: string
+  identifiant?: string
+  uid?: string
+  bod: string
+  userId: string
+  civilite?: string
+  nom?: string
+  prenom?: string
+  dateNaissance?: string
+  canModifyEmail?: boolean
+  showChangeEmail?: boolean
+  mdp?: boolean
 }>()
 
-const emit = defineEmits(['open-modal'])
+// Déclaration propre des événements pour Vue 3
+defineEmits<{
+  (e: 'closeChangeEmail'): void
+  (e: 'openChangeEmail'): void
+  (e: 'emailUpdated', email: string): void
+}>()
 
-function openModal(event: CustomEvent): void {
-  const isModalOpen = true
-  const personDetail = event.detail[0]
-  emit('open-modal', isModalOpen, personDetail)
-}
+const { t } = useI18n()
+const tInfo = (key: string): string => t(`info-general.${key}`)
 </script>
 
 <template>
-  <div v-if="listMenu === 'GENERALE'">
-    <info-general
-      :details="fonctionClassesGroupe"
-    />
-  </div>
+  <div class="section-content-wrapper">
+    <div v-if="showChangeEmail" class="full-width-pane">
+      <ChangeEmail
+        :user-info-api-url="userInfoApiUrl"
+        :mce-api="mceApi"
+        :user-id="userId"
+        :current-email="userMail"
+        @close="$emit('closeChangeEmail')"
+        @updated="(email) => $emit('emailUpdated', email)"
+      />
+    </div>
 
-  <div v-else-if="listMenu === 'PARENT_ELEVE'">
-    <relation-user
-      :details="parentEleve"
-      titre="student"
-      :onglet="listMenu"
-    />
-  </div>
+    <template v-else>
+      <!-- ONGLET GÉNÉRALE -->
+      <div v-if="listMenu === 'GENERALE'" key="generale" class="tab-pane animate-fade">
+        <InformationPersonnelleCe
+          :uid="uid"
+          :nom="nom"
+          :prenom="prenom"
+          :date-naissance="bod"
+          :user-mail="userMail"
+          :user-id="userId"
+          :user-info-api-url="userInfoApiUrl"
+          :mce-api="mceApi"
+          :can-modify-email="canModifyEmail"
+          @open-change-email="$emit('openChangeEmail')"
+        />
 
-  <div v-else-if="listMenu === 'RELATION_ELEVE'">
-    <relation-user
-      :mce-api="mceApi"
-      :user-info-api-url="userInfoApiUrl"
-      :details="relationEleve"
-      titre="parent"
-      :onglet="listMenu"
-      @open-modal="openModal"
-    />
-  </div>
+        <info-general
+          :details="fonctionClassesGroupe"
+          :user-id="userId"
+          :list-menu="listMenu"
+          :mce-api="mceApi"
+          :parent-eleve="parentEleve"
+          :user-info-api-url="userInfoApiUrl"
+          :can-modify-email="canModifyEmail"
+        />
+      </div>
 
-  <div v-else-if="listMenu === 'APPRENTIS'">
-    <relation-user
-      :mce-api="mceApi"
-      :user-info-api-url="userInfoApiUrl"
-      :details="apprentis"
-      titre="master"
-      :onglet="listMenu"
-    />
-  </div>
+      <!-- ONGLET PARENT ÉLÈVE -->
+      <div v-else-if="listMenu === 'PARENT_ELEVE'" key="parent" class="tab-pane animate-fade">
+        <relation-user
+          :details="parentEleve"
+          titre="student"
+          :onglet="listMenu"
+          :mce-api="mceApi"
+          :user-info-api-url="userInfoApiUrl"
+        />
+      </div>
 
-  <div v-else-if="listMenu === 'SERVICE'">
-    <services-ent
-      :details="services"
-      :etab="etabCurrent"
-      :onglet="listMenu"
-    />
+      <!-- ONGLET APPRENTIS -->
+      <div v-else-if="listMenu === 'APPRENTIS'" key="apprentis" class="tab-pane animate-fade">
+        <relation-user
+          :mce-api="mceApi"
+          :user-info-api-url="userInfoApiUrl"
+          :details="apprentis"
+          titre="master"
+          :onglet="listMenu"
+        />
+      </div>
+
+      <!-- ONGLET SERVICES ENT -->
+      <div v-else-if="listMenu === 'SERVICE'" key="service" class="tab-pane animate-fade">
+        <services-ent
+          :details="services"
+          :etab="etabCurrent"
+          :onglet="listMenu"
+        />
+      </div>
+
+      <!-- ONGLET CHANGEMENT MOT DE PASSE -->
+      <div v-else-if="listMenu === 'CHANGE_PASSWORD'" key="password" class="tab-pane animate-fade">
+        <ChangePassword
+          :user-info-api-url="userInfoApiUrl"
+          :user-id="userId"
+          :mce-api="mceApi"
+        />
+      </div>
+
+      <!-- ONGLET LISTE DES FONCTIONS / ROLES -->
+      <div v-else-if="listMenu === 'FONCTION_LIST'" key="fonctions" class="tab-pane animate-fade">
+        <FonctionsList
+          :fonctions="fonctionClassesGroupe.listFonctions ?? []"
+          :user-info-api-url="userInfoApiUrl ?? ''"
+          :label-titre="tInfo('title-fonction')"
+        />
+      </div>
+    </template>
   </div>
 </template>
+
+<style scoped lang="scss">
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section-content-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.full-width-pane {
+  width: 100%;
+  min-width: 0;
+  animation: fadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tab-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  min-width: 0;
+}
+
+.animate-fade {
+  animation: fadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (max-width: 340px) {
+  .tab-pane {
+    gap: 12px;
+  }
+}
+</style>

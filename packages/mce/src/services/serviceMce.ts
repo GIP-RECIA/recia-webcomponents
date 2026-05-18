@@ -64,4 +64,71 @@ async function getDetailEnfant(url: string, userInfoApiUrl: string) {
   })
 }
 
-export { getContentOnglet, getDetailEnfant, getMCE, getServicesEnt }
+async function postPassword(
+  url: string,
+  oldPass: string,
+  newPass: string,
+  confirmPass: string,
+  userInfoApiUrl: string,
+) {
+  const token = await getToken(userInfoApiUrl)
+
+  return await axios.post(
+    `${url}`,
+    {
+      oldPass,
+      newPass,
+      confirmPass,
+    },
+    {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'content-type': 'application/json',
+      },
+    },
+  )
+}
+
+async function updateEmail(
+  url: string,
+  email: string,
+  confirmEmail: string,
+  userInfoApiUrl: string,
+) {
+  const token = await getToken(userInfoApiUrl)
+
+  return await axios.put(
+    url,
+    {
+      email,
+      confirmEmail,
+    },
+    {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'content-type': 'application/json',
+      },
+    },
+  )
+}
+
+async function updateFonctionDateFin(
+  url: string,
+  active: boolean,
+  userInfoApiUrl: string,
+) {
+  const token = await getToken(userInfoApiUrl)
+
+  return await axios.put(
+    url,
+    active, // IMPORTANT: boolean brut
+    {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'content-type': 'application/json',
+      },
+    },
+  )
+}
+
+export { getContentOnglet, getDetailEnfant, getMCE, getServicesEnt, postPassword, updateEmail, updateFonctionDateFin }

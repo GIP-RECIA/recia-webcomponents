@@ -16,9 +16,9 @@
 
 <script setup lang="ts">
 import type { Relation } from '@/types/relationType'
-import { getDetailEnfant } from '@/services/serviceMce'
 import { ref, watchEffect } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { getDetailEnfant } from '@/services/serviceMce'
 
 defineOptions({ name: 'RelationUser' })
 
@@ -30,10 +30,10 @@ const props = defineProps<{
   onglet: string
 }>()
 
+const emit = defineEmits(['openModal'])
 const { t } = useI18n()
 const m = (key: string): string => t(`relation-user.${key}`)
 
-const emit = defineEmits(['openModal'])
 const relations = ref<Array<Relation>>([])
 const personne = ref<any>()
 
@@ -52,77 +52,176 @@ async function openModal(event: Event, uid: string): Promise<void> {
       title: personne.value?.userName,
       originalEvent: event.composedPath()[0] as HTMLElement,
     },
-    bubbles: true, // Permet à l'événement de remonter dans le DOM
-    composed: true, // Permet à l'événement de sortir du shadow DOM
-
+    bubbles: true,
+    composed: true,
   })
   document.dispatchEvent(openModalCustomEvent)
-  emit(
-    'openModal',
-    personne.value,
-  )
+  emit('openModal', personne.value)
 }
 </script>
 
 <template>
-  <div class="section_eleve">
-    <div class="heading-titre">
-      <span class="titre">{{ m('title-relation-'+titre) }}</span>
+  <section class="page-container">
+    <div class="profile-card">
+      <header class="card-header">
+        <h2>{{ m(`title-relation-${titre}`) }}</h2>
+      </header>
+
+      <div class="card-body-grid">
+        <template v-for="(val, index) in relations" :key="index">
+          <div
+            class="relation-row-item"
+            role="button"
+            tabindex="0"
+            @click.prevent="(e) => openModal(e, val.uidRelation)"
+            @keydown.enter.prevent="(e) => openModal(e, val.uidRelation)"
+          >
+            <div class="info-item entry-container">
+              <span class="info-label">{{ val.typeRelation || 'Relation' }}</span>
+              <span class="info-value name-bold">{{ val.displayNameRelation }}</span>
+            </div>
+
+            <div v-if="val.autoriteParental" class="tag-container">
+              <span class="ap-tag">
+                {{ m('parental-authority') }}
+              </span>
+            </div>
+          </div>
+        </template>
+      </div>
     </div>
-    <div class="relations">
-      <template v-for="(val, index) in relations" :key="index">
-        <div class="relation" @click.prevent="(e) => openModal(e, val.uidRelation)">
-          <!-- <span class="type">{{ val.typeRelation === "20" && "Pere" ? "Père" : val.typeRelation }}</span> -->
-          <b class="name-person">{{ val.displayNameRelation }}</b>
-          <span>{{ val.autoriteParental === true ? m('parental-authority') : "" }}</span>
-        </div>
-      </template>
-    </div>
-  </div>
+  </section>
 </template>
 
-<style lang="scss">
-.relations {
+<style lang="scss" scoped>
+@use 'sass:map';
+@use '@gip-recia/ui/core/variables' as *;
+@use '@gip-recia/ui/functions' as *;
+@use '@gip-recia/ui/mixins' as *;
+
+.page-container {
+  padding: 0.75rem;
+  display: flex;
+}
+
+.profile-card {
+  width: 100%;
+  background-color: var(--#{$prefix}body-bg, #ffffff);
+  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -5px var(--#{$prefix}shadow-neutral, rgba(0, 0, 0, 0.1));
+}
+
+.card-header {
+  padding: 1.5rem 1.25rem 0;
+  background-color: var(--#{$prefix}body-bg, #ffffff);
+
+  h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--#{$prefix}body-color, #212529);
+  }
+}
+
+.card-body-grid {
+  padding: 1.25rem;
   display: grid;
-  padding: 0px 15px;
-  grid-template-columns: 1fr 1fr 1fr;
-  column-gap: 20px;
-  row-gap: 15px;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  background-color: var(--#{$prefix}body-bg, #ffffff);
 
-  .relation {
-    display: flex;
-    flex-direction: column;
-    padding: 15px 15px;
-    background-color: #eee;
-    border-radius: 12px;
-    gap: 3px;
-
-    .type {
-      font-weight: bold;
-      font-size: 15px;
-    }
+  @media (width >= map.get($grid-breakpoints, md)) {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 3rem;
+    padding: 1.5rem 2rem 2rem;
   }
 }
 
-@media (max-width: 815px) {
-  .relations {
-    display: grid;
-    gap: 1em;
-    grid-template-columns: 1fr;
+.info-item {
+  display: flex;
+  flex-direction: column;
+}
 
-    .relation {
-      background-color: white;
-    }
+.info-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+  color: var(--#{$prefix}secondary-color, #6c757d);
+}
+
+.info-value {
+  font-size: 0.95rem;
+  color: var(--#{$prefix}body-color, #212529);
+
+  &.name-bold {
+    font-weight: 700;
   }
 }
 
-.heading-titre {
-  padding: 10px 15px;
+.relation-row-item {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 0.25rem;
+  border-top: 1px dashed var(--#{$prefix}border-color, #dee2e6);
+  padding-top: 1.25rem;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
+  border-radius: var(--#{$prefix}border-radius, 8px);
 
-  .titre {
-    color: rgba(0, 0, 0, 0.4);
-    font-size: 18px;
-    font-weight: bold;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+
+  &:first-of-type {
+    border-top: none;
+    margin-top: 0;
+    padding-top: 0;
   }
+
+  @media (width >= map.get($grid-breakpoints, sm)) {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 1.5rem;
+  }
+
+  &:hover {
+    background-color: var(--#{$prefix}tertiary-bg, #f8f9fa);
+  }
+
+  &:focus-visible {
+    outline: none;
+    background-color: var(--#{$prefix}tertiary-bg, #f8f9fa);
+    box-shadow: 0 0 0 2px var(--#{$prefix}primary-focus, rgba(0, 86, 179, 0.15));
+  }
+}
+
+.entry-container {
+  flex: 1;
+}
+
+.tag-container {
+  display: flex;
+  align-items: center;
+}
+
+.ap-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--#{$prefix}border-radius, 6px);
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  background-color: var(--#{$prefix}success-bg-subtle, #d1e7dd);
+  color: var(--#{$prefix}success, #0f5132);
+  border: 1px solid var(--#{$prefix}success-border-subtle, #badbcc);
 }
 </style>
