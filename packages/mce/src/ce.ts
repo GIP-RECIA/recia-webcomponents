@@ -14,7 +14,10 @@
  * limitations under the License.
  */
 
+import { defineCustomElement } from 'vue'
 import AvatarUserCe from '@/components/AvatarUser.ce.vue'
+import ChangeEmailCe from '@/components/ChangeEmail.ce.vue'
+import ChangePasswordCe from '@/components/ChangePassword.ce.vue'
 import I18nHostCe from '@/components/I18nHost.ce.vue'
 import InfoGeneralCe from '@/components/InfoGeneral.ce.vue'
 import ListOngletCe from '@/components/ListOnglet.ce.vue'
@@ -24,10 +27,11 @@ import PageMceCe from '@/components/PageMce.ce.vue'
 import RelationUserCe from '@/components/RelationUser.ce.vue'
 import SectionOngletCe from '@/components/SectionOnglet.ce.vue'
 import ServicesEntCe from '@/components/ServicesEnt.ce.vue'
-import UserInfoCe from '@/components/UserInfo.ce.vue'
-import { defineCustomElement } from 'vue'
+import UserBaseInfoCe from './components/UserBaseInfo.ce.vue'
 
 const AvatarUser = defineCustomElement(AvatarUserCe)
+const ChangeEmail = defineCustomElement(ChangeEmailCe)
+const ChangePassword = defineCustomElement(ChangePasswordCe)
 const I18nHost = defineCustomElement(I18nHostCe)
 const InfoGeneral = defineCustomElement(InfoGeneralCe)
 const ListOnglet = defineCustomElement(ListOngletCe)
@@ -37,11 +41,13 @@ const PageMce = defineCustomElement(PageMceCe)
 const RelationUser = defineCustomElement(RelationUserCe)
 const SectionOnglet = defineCustomElement(SectionOngletCe)
 const ServicesEnt = defineCustomElement(ServicesEntCe)
-const UserInfo = defineCustomElement(UserInfoCe)
+const UserBaseInfo = defineCustomElement(UserBaseInfoCe)
 
 declare module 'vue' {
   export interface GlobalComponents {
     AvatarUser: typeof AvatarUser
+    ChangeEmail: typeof ChangeEmail
+    ChangePassword: typeof ChangePassword
     I18nHost: typeof I18nHost
     InfoGeneral: typeof InfoGeneral
     ListOnglet: typeof ListOnglet
@@ -51,12 +57,14 @@ declare module 'vue' {
     RelationUser: typeof RelationUser
     SectionOnglet: typeof SectionOnglet
     ServicesEnt: typeof ServicesEnt
-    UserInfo: typeof UserInfo
+    UserBaseInfo: typeof UserBaseInfo
   }
 }
 
 function register() {
   customElements.define('avatar-user', AvatarUser)
+  customElements.define('change-email', ChangeEmail)
+  customElements.define('change-password', ChangePassword)
   customElements.define('i18n-host', I18nHost)
   customElements.define('info-general', InfoGeneral)
   customElements.define('list-onglet', ListOnglet)
@@ -66,11 +74,13 @@ function register() {
   customElements.define('relation-user', RelationUser)
   customElements.define('section-onglet', SectionOnglet)
   customElements.define('services-ent', ServicesEnt)
-  customElements.define('user-info', UserInfo)
+  customElements.define('user-base-info', UserBaseInfo)
 }
 
 export {
   AvatarUser,
+  ChangeEmail,
+  ChangePassword,
   I18nHost,
   InfoGeneral,
   ListOnglet,
@@ -81,5 +91,5 @@ export {
   RelationUser,
   SectionOnglet,
   ServicesEnt,
-  UserInfo,
+  UserBaseInfo,
 }

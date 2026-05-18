@@ -4,7 +4,9 @@
     "SERVICE": "Mes services ENT",
     "PARENT_ELEVE": "Mes responsables",
     "APPRENTIS": "Mes apprentis",
-    "RELATION_ELEVE": "Mes relations élèves"
+    "RELATION_ELEVE": "Mes relations élèves",
+    "CHANGE_PASSWORD": "Changer mon mot de passe",
+    "FONCTION_LIST": "Liste des fonctions"
   },
 
   "user-info": {
