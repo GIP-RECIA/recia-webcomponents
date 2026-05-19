@@ -277,7 +277,6 @@ function handleEmailUpdated(email: string) {
             @email-updated="handleEmailUpdated"
           />
         </div>
-
         <Teleport to="body">
           <info-modal id="modale" debug="false">
             <template #modal-body>
