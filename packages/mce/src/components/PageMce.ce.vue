@@ -277,22 +277,20 @@ function handleEmailUpdated(email: string) {
             @email-updated="handleEmailUpdated"
           />
         </div>
-        <Teleport to="body">
-          <info-modal id="modale" debug="false">
-            <template #modal-body>
-              <div>
-                <div style="display: flex; flex-direction: column; gap: 3em">
-                  <div style="display: flex; flex-direction: column; gap: 0.5em">
-                    <modal-content
-                      v-if="personDetail"
-                      :person-detail="personDetail"
-                    />
-                  </div>
-                </div>
+
+        <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
+        <info-modal id="modale" debug="false">
+          <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
+          <div slot="modal-body">
+            <div style="display: flex; flex-direction: column; gap: 3em">
+              <div style="display: flex; flex-direction: column; gap: 0.5em">
+                <template v-if="personDetail">
+                  <modal-content :person-detail="personDetail" />
+                </template>
               </div>
-            </template>
-          </info-modal>
-        </Teleport>
+            </div>
+          </div>
+        </info-modal>
       </main>
     </div>
   </i18n-host>
