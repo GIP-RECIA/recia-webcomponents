@@ -39,24 +39,42 @@ const personne = ref<any>()
 
 watchEffect((): void => {
   void (() => {
-    relations.value = props.details
+    console.warn(`[DEBUG RelationUser - ${props.titre}] Reçu dans 'details' :`, props.details)
+
+    // Sécurité au cas où l'API renvoie un objet unique au lieu d'un tableau d'objets
+    if (props.details && !Array.isArray(props.details)) {
+      console.error(`[DEBUG RelationUser - ${props.titre}] ERREUR : 'details' n'est pas un tableau ! Conversion automatique en tableau [details].`)
+      relations.value = [props.details as unknown as Relation]
+    }
+    else {
+      relations.value = props.details ?? []
+    }
+
+    console.warn(`[DEBUG RelationUser - ${props.titre}] 'relations' final utilisé pour le v-for :`, relations.value)
   })()
 })
 
 async function openModal(event: Event, uid: string): Promise<void> {
-  const response = await getDetailEnfant(props.mceApi + uid, props.userInfoApiUrl)
-  personne.value = response.data
+  console.warn(`[DEBUG RelationUser - ${props.titre}] Clic détecté pour l'UID :`, uid)
+  try {
+    const response = await getDetailEnfant(props.mceApi + uid, props.userInfoApiUrl)
+    console.warn(`[DEBUG RelationUser - ${props.titre}] Réponse getDetailEnfant :`, response.data)
+    personne.value = response.data
 
-  const openModalCustomEvent = new CustomEvent('openModale', {
-    detail: {
-      title: personne.value?.userName,
-      originalEvent: event.composedPath()[0] as HTMLElement,
-    },
-    bubbles: true,
-    composed: true,
-  })
-  document.dispatchEvent(openModalCustomEvent)
-  emit('openModal', personne.value)
+    const openModalCustomEvent = new CustomEvent('openModale', {
+      detail: {
+        title: personne.value?.userName,
+        originalEvent: event.composedPath()[0] as HTMLElement,
+      },
+      bubbles: true,
+      composed: true,
+    })
+    document.dispatchEvent(openModalCustomEvent)
+    emit('openModal', personne.value)
+  }
+  catch (error) {
+    console.error(`[DEBUG RelationUser - ${props.titre}] Erreur lors de getDetailEnfant :`, error)
+  }
 }
 </script>
 
