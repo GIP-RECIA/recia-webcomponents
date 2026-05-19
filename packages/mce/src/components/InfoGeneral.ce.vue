@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import type { Etabs, General, SectionEleve, SectionProf } from '@/types/generalType'
-import { computed } from 'vue'
+import { computed, watchEffect } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ClassesGroupesEleve from './ClassesGroupesEleve.ce.vue'
 import ClassesGroupesProf from './ClassesGroupesProf.ce.vue'
@@ -28,12 +28,10 @@ const props = defineProps<{
   userInfoApiUrl?: string
   listMenu: string
   mceApi: string
-  parentEleve: PersonneRelation
+  parentEleve: any
+  apprentis: any
+  relationEleve?: any
 }>()
-
-interface PersonneRelation {
-  [key: string]: unknown
-}
 
 const sectionEleve = computed<SectionEleve | undefined>(
   () => props.details?.sectionClassesGroupes?.sectionEleve,
@@ -48,36 +46,78 @@ const etabs = computed<Array<Etabs>>(
 const { t } = useI18n()
 const tInfo = (key: string): string => t(`info-general.${key}`)
 
-// parentEleve affiché si au moins une valeur non vide
-const hasParentEleve = computed<boolean>(() =>
-  Object.values(props.parentEleve ?? {}).some(v => v !== null && v !== undefined && v !== ''),
-)
+// Condition pour savoir si on a des relations parents / enfants à afficher
+const hasParentEleve = computed<boolean>(() => {
+  // On regarde dans parentEleve OU dans relationEleve (qui contient tes données réelles)
+  const dataParent = props.parentEleve ?? []
+  const dataRelation = props.relationEleve ?? []
 
-// sectionProf affiché si etabs contient au moins une entrée avec des enseignements
+  const hasDataParent = Array.isArray(dataParent) ? dataParent.length > 0 : Object.keys(dataParent).length > 0
+  const hasDataRelation = Array.isArray(dataRelation) ? dataRelation.length > 0 : Object.keys(dataRelation).length > 0
+
+  return hasDataParent || hasDataRelation
+})
+
+// Permet de fusionner ou de prioriser la source de données qui contient l'élève
+const computedParentDetails = computed(() => {
+  if (Array.isArray(props.relationEleve) && props.relationEleve.length > 0) {
+    return props.relationEleve
+  }
+  return props.parentEleve ?? []
+})
+
 const hasSectionProf = computed<boolean>(() => {
   const etabsProf = sectionProf.value?.etabs
   return !!etabsProf && Object.keys(etabsProf).length > 0
 })
 
-// sectionEleve affiché si au moins un établissement ou un enseignement suivi
 const hasSectionEleve = computed<boolean>(() => {
   const hasEtabs = etabs.value.length > 0
   const hasEnseignements = (sectionEleve.value?.enseignementSuivis?.length ?? 0) > 0
   return hasEtabs || hasEnseignements
 })
+
+const hasApprentis = computed<boolean>(() => {
+  if (!props.apprentis)
+    return false
+  if (Array.isArray(props.apprentis))
+    return props.apprentis.length > 0
+  return Object.keys(props.apprentis).length > 0
+})
+
+// [DEBUG]
+watchEffect(() => {
+  console.warn('[DEBUG InfoGeneral] ========= DATA VERIFICATION =========')
+  console.warn('[DEBUG] relationEleve reçu :', props.relationEleve)
+  console.warn('[DEBUG] parentEleve reçu :', props.parentEleve)
+  console.warn('[DEBUG]hasParentEleve final calculé :', hasParentEleve.value)
+  console.warn('[DEBUG] Données finales envoyées au composant :', computedParentDetails.value)
+})
 </script>
 
 <template>
   <div class="sectionPersonnelles">
+    <!-- VERSION 1 : Parent / Responsable d'élève (Alimenté par relationEleve ou parentEleve) -->
     <relation-user
       v-if="hasParentEleve"
-      :details="parentEleve"
+      :details="computedParentDetails"
       titre="student"
       :onglet="listMenu"
       :mce-api="mceApi"
       :user-info-api-url="userInfoApiUrl"
     />
 
+    <!-- VERSION 2 : Maître d'apprentissage / Apprentis -->
+    <relation-user
+      v-if="hasApprentis"
+      :details="apprentis"
+      titre="master"
+      :onglet="listMenu"
+      :mce-api="mceApi"
+      :user-info-api-url="userInfoApiUrl"
+    />
+
+    <!-- Reste des sections (Prof / Élève) -->
     <ClassesGroupesProf
       v-if="hasSectionProf"
       :section-prof="sectionProf"
