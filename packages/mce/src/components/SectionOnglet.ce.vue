@@ -97,36 +97,17 @@ const tInfo = (key: string): string => t(`info-general.${key}`)
           @open-change-email="$emit('openChangeEmail')"
         />
 
+        <!-- Dans l'ONGLET GÉNÉRALE de SectionOnglet.ce.vue -->
         <info-general
           :details="fonctionClassesGroupe"
           :user-id="userId"
           :list-menu="listMenu"
           :mce-api="mceApi"
           :parent-eleve="parentEleve"
+          :relation-eleve="relationEleve"
+          :apprentis="apprentis"
           :user-info-api-url="userInfoApiUrl"
           :can-modify-email="canModifyEmail"
-        />
-      </div>
-
-      <!-- ONGLET PARENT ÉLÈVE -->
-      <div v-else-if="listMenu === 'PARENT_ELEVE'" key="parent" class="tab-pane animate-fade">
-        <relation-user
-          :details="parentEleve"
-          titre="student"
-          :onglet="listMenu"
-          :mce-api="mceApi"
-          :user-info-api-url="userInfoApiUrl"
-        />
-      </div>
-
-      <!-- ONGLET APPRENTIS -->
-      <div v-else-if="listMenu === 'APPRENTIS'" key="apprentis" class="tab-pane animate-fade">
-        <relation-user
-          :mce-api="mceApi"
-          :user-info-api-url="userInfoApiUrl"
-          :details="apprentis"
-          titre="master"
-          :onglet="listMenu"
         />
       </div>
 
