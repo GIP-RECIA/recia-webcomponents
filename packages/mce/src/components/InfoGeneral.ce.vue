@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import type { Etabs, General, SectionEleve, SectionProf } from '@/types/generalType'
-import { computed, watchEffect } from 'vue'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ClassesGroupesEleve from './ClassesGroupesEleve.ce.vue'
 import ClassesGroupesProf from './ClassesGroupesProf.ce.vue'
@@ -84,15 +84,6 @@ const hasApprentis = computed<boolean>(() => {
     return props.apprentis.length > 0
   return Object.keys(props.apprentis).length > 0
 })
-
-// [DEBUG]
-watchEffect(() => {
-  console.warn('[DEBUG InfoGeneral] ========= DATA VERIFICATION =========')
-  console.warn('[DEBUG] relationEleve reçu :', props.relationEleve)
-  console.warn('[DEBUG] parentEleve reçu :', props.parentEleve)
-  console.warn('[DEBUG]hasParentEleve final calculé :', hasParentEleve.value)
-  console.warn('[DEBUG] Données finales envoyées au composant :', computedParentDetails.value)
-})
 </script>
 
 <template>
@@ -117,7 +108,6 @@ watchEffect(() => {
       :user-info-api-url="userInfoApiUrl"
     />
 
-    <!-- Reste des sections (Prof / Élève) -->
     <ClassesGroupesProf
       v-if="hasSectionProf"
       :section-prof="sectionProf"

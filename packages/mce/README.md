@@ -37,3 +37,28 @@ npm run build
 ```sh
 npm run lint
 ```
+
+# Architecture des composants Vue — Projet MCE
+
+## Vue d'ensemble
+
+```
+PageMce.ce.vue  (point d'entrée)
+├── I18nHost.vue
+├── UserBaseInfo.vue
+│   └── AvatarUser.ce.vue
+├── ListeOnglet.vue.ce ( menu de navigation )
+└── SectionOnglet.ce.vue ( routeur d'onglet )
+    │  
+    ├──                   InformationPersonnelle.ce.vue
+    │                         └── ChangeEmail.ce.vue
+    │                     InfoGeneral.vue
+    │                         ├── ClassesGroupesEleve.ce.vue
+    │                         ├── ClassesGroupesProf.ce.vue
+    │                         └── RelationUser.ce.vue
+    │                                └── RelationUserDetail.ce.vue
+    │                     
+    ├──                   ServicesEnt.vue
+    ├──                   ChangePassword.ce.vue
+    └──                   FonctionsList.ce.vue
+```
