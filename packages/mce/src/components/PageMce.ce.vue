@@ -17,7 +17,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { getMCE, getServicesEnt } from '@/services/serviceMce'
-import './info-modal/info-modal.js'
 
 defineOptions({ name: 'PageMce' })
 
@@ -54,7 +53,6 @@ const mce = ref<any>({
 
 const ongletCurrent = ref<string>('')
 const listOnglets = ref<Array<string>>([])
-const personDetail = ref<any>()
 const avatar = ref<string>('')
 
 interface Service {
@@ -70,10 +68,8 @@ const portlets = ref<string[]>([])
 
 const nom = computed<string>(() => {
   const value = mce.value.userName?.trim() ?? ''
-  if (!value) {
+  if (!value)
     return ''
-  }
-
   // eslint-disable-next-line e18e/prefer-static-regex
   const parts = value.split(/\s+/)
   return parts.length > 1 ? parts.slice(0, -1).join(' ') : value
@@ -81,10 +77,8 @@ const nom = computed<string>(() => {
 
 const prenom = computed<string>(() => {
   const value = mce.value.userName?.trim() ?? ''
-  if (!value) {
+  if (!value)
     return ''
-  }
-
   // eslint-disable-next-line e18e/prefer-static-regex
   const parts = value.split(/\s+/)
   return parts.length > 1 ? parts.at(-1) : ''
@@ -94,8 +88,7 @@ async function getAllPortlets(uri: string, token: string) {
   try {
     const services = await getServicesEnt(uri, token)
 
-    jsonSubcategories.value
-      = services.data.registry.categories[0].subcategories
+    jsonSubcategories.value = services.data.registry.categories[0].subcategories
 
     const localPortletsSet = new Set<string>()
     const localServicesList: Service[] = []
@@ -107,7 +100,6 @@ async function getAllPortlets(uri: string, token: string) {
           title: portlet.title,
           fname: portlet.fname,
         })
-
         localPortletsSet.add(portlet.title)
       }
     }
@@ -122,27 +114,11 @@ async function getAllPortlets(uri: string, token: string) {
 }
 
 onMounted(async () => {
-  console.warn('[onMounted] START')
-  console.warn('[onMounted] props =>', props)
-
   try {
-    const res = await getMCE(
-      props.mceApi,
-      props.userInfoApiUrl,
-    )
-
-    console.warn('[onMounted] getMCE response =>', res)
-
+    const res = await getMCE(props.mceApi, props.userInfoApiUrl)
     mce.value = res.data
 
-    console.warn('[onMounted] mce =>', mce.value)
-
     ongletCurrent.value = mce.value.listMenu[0]
-
-    console.warn(
-      '[onMounted] ongletCurrent =>',
-      ongletCurrent.value,
-    )
 
     listOnglets.value = [
       'GENERALE',
@@ -153,62 +129,18 @@ onMounted(async () => {
       ...(mce.value.mdp === false ? [] : ['CHANGE_PASSWORD']),
     ]
 
-    console.warn(
-      '[onMounted] listOnglets =>',
-      listOnglets.value,
-    )
+    avatar.value = mce.value.avatar ?? props.avatarDefault
 
-    if (mce.value.avatar == null) {
-      console.warn(
-        '[onMounted] avatar null => default avatar used',
-      )
-
-      avatar.value = props.avatarDefault
-    }
-    else {
-      console.warn(
-        '[onMounted] avatar found =>',
-        mce.value.avatar,
-      )
-
-      avatar.value = mce.value.avatar
-    }
-
-    console.warn(
-      '[onMounted] final avatar =>',
-      avatar.value,
-    )
-
-    await getAllPortlets(
-      props.portailApiUrl,
-      props.userInfoApiUrl,
-    )
-
-    console.warn('[onMounted] END SUCCESS')
+    await getAllPortlets(props.portailApiUrl, props.userInfoApiUrl)
   }
   catch (error: any) {
     console.error('[onMounted] ERROR =>', error)
-    console.error(
-      '[onMounted] ERROR RESPONSE =>',
-      error?.response?.data,
-    )
   }
 })
 
 function select(payload: CustomEvent) {
-  console.warn('[select] payload =>', payload)
-
   const getOnglet = payload.detail[0]
-
-  console.warn('[select] getOnglet =>', getOnglet)
-  console.warn(
-    '[select] current onglet =>',
-    ongletCurrent.value,
-  )
-
   if (getOnglet !== ongletCurrent.value) {
-    console.warn('[select] updating onglet')
-
     ongletCurrent.value = getOnglet
   }
 }
@@ -248,6 +180,7 @@ function handleEmailUpdated(email: string) {
           @select-onglet="select($event)"
         />
       </aside>
+
       <main class="sectionTwo">
         <div class="content">
           <section-onglet
@@ -277,20 +210,6 @@ function handleEmailUpdated(email: string) {
             @email-updated="handleEmailUpdated"
           />
         </div>
-
-        <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
-        <info-modal id="modale" debug="false">
-          <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
-          <div slot="modal-body">
-            <div style="display: flex; flex-direction: column; gap: 3em">
-              <div style="display: flex; flex-direction: column; gap: 0.5em">
-                <template v-if="personDetail">
-                  <modal-content :person-detail="personDetail" />
-                </template>
-              </div>
-            </div>
-          </div>
-        </info-modal>
       </main>
     </div>
   </i18n-host>
@@ -388,7 +307,6 @@ function handleEmailUpdated(email: string) {
   box-sizing: border-box;
   overflow-wrap: break-word;
   word-wrap: break-word;
-
   word-break: normal;
   hyphens: none !important;
 }

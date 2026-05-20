@@ -16,9 +16,10 @@
 
 <script setup lang="ts">
 import type { Relation } from '@/types/relationType'
-import { ref, watchEffect } from 'vue'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { getDetailEnfant } from '@/services/serviceMce'
+import RelationUserDetail from './RelationUserDetail.ce.vue'
 
 defineOptions({ name: 'RelationUser' })
 
@@ -30,51 +31,47 @@ const props = defineProps<{
   onglet: string
 }>()
 
-const emit = defineEmits(['openModal'])
 const { t } = useI18n()
 const m = (key: string): string => t(`relation-user.${key}`)
 
-const relations = ref<Array<Relation>>([])
-const personne = ref<any>()
-
-watchEffect((): void => {
-  void (() => {
-    console.warn(`[DEBUG RelationUser - ${props.titre}] Reçu dans 'details' :`, props.details)
-
-    // Sécurité au cas où l'API renvoie un objet unique au lieu d'un tableau d'objets
-    if (props.details && !Array.isArray(props.details)) {
-      console.error(`[DEBUG RelationUser - ${props.titre}] ERREUR : 'details' n'est pas un tableau ! Conversion automatique en tableau [details].`)
-      relations.value = [props.details as unknown as Relation]
-    }
-    else {
-      relations.value = props.details ?? []
-    }
-
-    console.warn(`[DEBUG RelationUser - ${props.titre}] 'relations' final utilisé pour le v-for :`, relations.value)
-  })()
+const relations = computed<Array<Relation>>(() => {
+  if (props.details && !Array.isArray(props.details)) {
+    return [props.details as unknown as Relation]
+  }
+  return props.details ?? []
 })
 
-async function openModal(event: Event, uid: string): Promise<void> {
-  console.warn(`[DEBUG RelationUser - ${props.titre}] Clic détecté pour l'UID :`, uid)
+const selectedUid = ref<string | null>(null)
+const personne = ref<any>(null)
+const isLoading = ref(false)
+const hasError = ref(false)
+
+async function selectRelation(uid: string): Promise<void> {
+  if (selectedUid.value === uid) {
+    closeDetail()
+    return
+  }
+
+  isLoading.value = true
+  hasError.value = false
+
   try {
     const response = await getDetailEnfant(props.mceApi + uid, props.userInfoApiUrl)
-    console.warn(`[DEBUG RelationUser - ${props.titre}] Réponse getDetailEnfant :`, response.data)
     personne.value = response.data
-
-    const openModalCustomEvent = new CustomEvent('openModale', {
-      detail: {
-        title: personne.value?.userName,
-        originalEvent: event.composedPath()[0] as HTMLElement,
-      },
-      bubbles: true,
-      composed: true,
-    })
-    document.dispatchEvent(openModalCustomEvent)
-    emit('openModal', personne.value)
+    selectedUid.value = uid
   }
   catch (error) {
-    console.error(`[DEBUG RelationUser - ${props.titre}] Erreur lors de getDetailEnfant :`, error)
+    console.error('[RelationUser] Erreur getDetailEnfant :', error)
+    hasError.value = true
   }
+  finally {
+    isLoading.value = false
+  }
+}
+
+function closeDetail(): void {
+  selectedUid.value = null
+  personne.value = null
 }
 </script>
 
@@ -89,10 +86,11 @@ async function openModal(event: Event, uid: string): Promise<void> {
         <template v-for="(val, index) in relations" :key="index">
           <div
             class="relation-row-item"
+            :class="{ active: selectedUid === val.uidRelation }"
             role="button"
             tabindex="0"
-            @click.prevent="(e) => openModal(e, val.uidRelation)"
-            @keydown.enter.prevent="(e) => openModal(e, val.uidRelation)"
+            @click.prevent="selectRelation(val.uidRelation)"
+            @keydown.enter.prevent="selectRelation(val.uidRelation)"
           >
             <div class="info-item entry-container">
               <span class="info-label">{{ val.typeRelation || 'Relation' }}</span>
@@ -100,12 +98,19 @@ async function openModal(event: Event, uid: string): Promise<void> {
             </div>
 
             <div v-if="val.autoriteParental" class="tag-container">
-              <span class="ap-tag">
-                {{ m('parental-authority') }}
-              </span>
+              <span class="ap-tag">{{ m('parental-authority') }}</span>
             </div>
+
+            <span class="chevron" :class="{ open: selectedUid === val.uidRelation }">›</span>
           </div>
         </template>
+        <RelationUserDetail
+          v-if="selectedUid || isLoading"
+          :personne="personne"
+          :is-loading="isLoading"
+          :has-error="hasError"
+          @close="closeDetail"
+        />
       </div>
     </div>
   </section>
@@ -120,15 +125,23 @@ async function openModal(event: Event, uid: string): Promise<void> {
 .page-container {
   padding: 0.75rem;
   display: flex;
+  width: 100%;
+  box-sizing: border-box;
+
+  @media (width <= 320px) {
+    padding: 0.25rem;
+  }
 }
 
 .profile-card {
   width: 100%;
+  max-width: 100%;
   background-color: var(--#{$prefix}body-bg, #ffffff);
   border: 1px solid var(--#{$prefix}border-color, #dee2e6);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 25px -5px var(--#{$prefix}shadow-neutral, rgba(0, 0, 0, 0.1));
+  box-sizing: border-box;
 }
 
 .card-header {
@@ -140,6 +153,13 @@ async function openModal(event: Event, uid: string): Promise<void> {
     font-size: 1.25rem;
     color: var(--#{$prefix}body-color, #212529);
   }
+
+  @media (width <= 320px) {
+    padding: 1rem 0.75rem 0;
+    h2 {
+      font-size: 1.1rem;
+    }
+  }
 }
 
 .card-body-grid {
@@ -148,17 +168,26 @@ async function openModal(event: Event, uid: string): Promise<void> {
   grid-template-columns: 1fr;
   gap: 1.25rem;
   background-color: var(--#{$prefix}body-bg, #ffffff);
+  box-sizing: border-box;
+  min-width: 0;
 
   @media (width >= map.get($grid-breakpoints, md)) {
     grid-template-columns: repeat(2, 1fr);
     column-gap: 3rem;
     padding: 1.5rem 2rem 2rem;
   }
+
+  @media (width <= 320px) {
+    padding: 0.75rem 0.5rem;
+    gap: 1rem;
+  }
 }
 
 .info-item {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  width: 100%;
 }
 
 .info-label {
@@ -167,11 +196,18 @@ async function openModal(event: Event, uid: string): Promise<void> {
   text-transform: uppercase;
   margin-bottom: 0.25rem;
   color: var(--#{$prefix}secondary-color, #6c757d);
+  word-break: normal !important;
+  white-space: normal !important;
 }
 
 .info-value {
   font-size: 0.95rem;
   color: var(--#{$prefix}body-color, #212529);
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  white-space: normal !important;
+  display: block;
+  width: 100%;
 
   &.name-bold {
     font-weight: 700;
@@ -181,19 +217,17 @@ async function openModal(event: Event, uid: string): Promise<void> {
 .relation-row-item {
   grid-column: 1 / -1;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
   gap: 1rem;
   margin-top: 0.25rem;
   border-top: 1px dashed var(--#{$prefix}border-color, #dee2e6);
-  padding-top: 1.25rem;
+  padding: 1rem 0.5rem 0;
   cursor: pointer;
-  transition:
-    background-color 0.2s,
-    border-color 0.2s;
   border-radius: var(--#{$prefix}border-radius, 8px);
-
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  transition: background-color 0.2s;
+  box-sizing: border-box;
+  min-width: 0;
 
   &:first-of-type {
     border-top: none;
@@ -201,30 +235,39 @@ async function openModal(event: Event, uid: string): Promise<void> {
     padding-top: 0;
   }
 
-  @media (width >= map.get($grid-breakpoints, sm)) {
-    flex-direction: row;
-    align-items: flex-end;
-    gap: 1.5rem;
-  }
-
-  &:hover {
+  &:hover,
+  &.active {
     background-color: var(--#{$prefix}tertiary-bg, #f8f9fa);
   }
 
   &:focus-visible {
     outline: none;
-    background-color: var(--#{$prefix}tertiary-bg, #f8f9fa);
     box-shadow: 0 0 0 2px var(--#{$prefix}primary-focus, rgba(0, 86, 179, 0.15));
   }
 }
 
 .entry-container {
-  flex: 1;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .tag-container {
   display: flex;
   align-items: center;
+  min-width: 0;
+}
+
+.chevron {
+  font-size: 1.25rem;
+  color: var(--#{$prefix}secondary-color, #6c757d);
+  transform: rotate(0deg);
+  transition: transform 0.2s;
+  line-height: 1;
+  flex-shrink: 0;
+
+  &.open {
+    transform: rotate(90deg);
+  }
 }
 
 .ap-tag {
@@ -236,10 +279,47 @@ async function openModal(event: Event, uid: string): Promise<void> {
   font-size: 0.7rem;
   font-weight: 800;
   text-transform: uppercase;
-  white-space: nowrap;
-
   background-color: var(--#{$prefix}success-bg-subtle, #d1e7dd);
   color: var(--#{$prefix}success, #0f5132);
   border: 1px solid var(--#{$prefix}success-border-subtle, #badbcc);
+}
+
+@media (width <= 400px) {
+  .relation-row-item {
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 0.5rem;
+    padding: 0.75rem 0.4rem;
+    position: relative;
+    padding-right: 2rem;
+  }
+
+  .entry-container {
+    width: 100%;
+    flex: 1 1 100%;
+  }
+
+  .tag-container {
+    width: 100%;
+  }
+
+  .ap-tag {
+    white-space: normal;
+    text-align: left;
+    width: fit-content;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .chevron {
+    position: absolute;
+    right: 8px;
+    top: 1rem;
+    transform: rotate(0deg);
+
+    &.open {
+      transform: rotate(90deg);
+    }
+  }
 }
 </style>
