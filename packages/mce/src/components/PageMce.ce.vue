@@ -153,9 +153,16 @@ function handleCloseChangeEmail() {
   showChangeEmail.value = false
 }
 
-function handleEmailUpdated(email: string) {
-  mce.value.userMail = email
-  showChangeEmail.value = false
+function handleEmailUpdated(event: any) {
+  const value = event?.detail ?? event
+
+  const email
+    = Array.isArray(value) ? value[0] : value
+
+  mce.value = {
+    ...mce.value,
+    userMail: email,
+  }
 }
 </script>
 
@@ -207,7 +214,7 @@ function handleEmailUpdated(email: string) {
             :mdp="mce.mdp"
             @open-change-email="handleOpenChangeEmail"
             @close-change-email="handleCloseChangeEmail"
-            @email-updated="handleEmailUpdated"
+            @email-updated="(e: { detail: string; }) => handleEmailUpdated(e.detail)"
           />
         </div>
       </main>

@@ -37,79 +37,113 @@ const services = computed(() => {
 </script>
 
 <template>
-  <div class="heading-titre">
-    <span class="titre">{{ m('title-services') }}</span>
-  </div>
-  <div class="etabs">
-    <div class="etab">
-      <span class="etab-name">{{ etab }}</span>
-      <div class="services">
-        <template v-for="(service, index) in services" :key="index">
-          <span class="service"> {{ service }}</span>
-        </template>
+  <div class="section-services">
+    <div class="heading-titre">
+      <h2 class="titre">
+        {{ m('title-services') }}
+      </h2>
+    </div>
+
+    <div class="grid-services">
+      <div class="card-etab">
+        <div class="card-header">
+          <span class="card-label">{{ etab }}</span>
+        </div>
+
+        <div class="card-content">
+          <div class="services-list">
+            <span v-for="(service, index) in services" :key="index" class="service-tag">
+              {{ service }}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<style lang="scss">
-.heading-titre {
-  padding: 10px 15px;
+<style scoped lang="scss">
+@use 'sass:map';
+@use '@gip-recia/ui/core/variables' as *;
+@use '@gip-recia/ui/mixins' as *;
 
-  .titre {
-    color: rgba(0, 0, 0, 0.4);
-    font-size: 18px;
-    font-weight: bold;
+.section-services {
+  padding: 0.75rem;
+
+  .heading-titre {
+    margin-bottom: 1rem;
+
+    .titre {
+      margin: 0;
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      color: var(--#{$prefix}secondary-color, #6c757d);
+    }
   }
 }
 
-.etabs {
-  padding: 0px 15px 20px 15px;
+.grid-services {
+  display: grid;
+  gap: 1rem;
+}
 
-  .etab {
-    display: flex;
-    flex-direction: column;
-    padding: 15px 15px;
-    background-color: #eee;
-    border-radius: 12px;
-    gap: 4px;
+.card-etab {
+  background-color: var(--#{$prefix}body-bg, #ffffff);
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
+  box-shadow: 0 4px 12px var(--#{$prefix}shadow-neutral, rgba(0, 0, 0, 0.05));
 
-    .etab-name {
-      font-weight: bold;
-      font-size: 15px;
+  .card-header {
+    border-bottom: 1px solid var(--#{$prefix}border-color, #dee2e6);
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+
+    .card-label {
+      font-weight: 800;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--#{$prefix}secondary-color, #6c757d);
     }
+  }
 
-    .services {
-      padding: 5px 0px;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-      column-gap: 15px;
-      row-gap: 10px;
+  .card-content {
+    background-color: var(--#{$prefix}tertiary-bg, #f8f9fa);
+    border-radius: 8px;
+    padding: 0.75rem;
+    border: 1px solid var(--#{$prefix}border-color, #dee2e6);
 
-      .service {
-        background-color: white;
-        padding: 5px;
-        border-radius: 14px;
+    .services-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+
+      .service-tag {
+        background-color: var(--#{$prefix}body-bg, #ffffff);
+        padding: 0.5rem 0.8rem;
+        border-radius: var(--#{$prefix}border-radius, 6px);
         text-align: center;
-        align-content: center;
+        font-size: 0.75rem;
+        font-weight: 600;
+        border: 1px solid var(--#{$prefix}border-color, #dee2e6);
+
+        flex: 1 1 auto;
+        min-width: 140px;
       }
     }
   }
 }
 
-@media (max-width: 815px) {
-  .etabs {
-    .etab {
-      background-color: white;
-
-      .services {
-        grid-template-columns: auto auto;
-        gap: 1em;
-
-        .service {
-          background-color: #eee;
-        }
-      }
+@media (max-width: 320px) {
+  .section-services {
+    padding: 0.5rem;
+  }
+  .card-etab {
+    padding: 0.75rem;
+    .card-content {
+      padding: 0.5rem;
     }
   }
 }

@@ -164,8 +164,6 @@ async function handleSubmit() {
   border-radius: 16px;
   box-shadow: 0 10px 25px -5px var(--#{$prefix}shadow-neutral, rgba(0, 0, 0, 0.1));
   overflow: hidden;
-  width: 100%;
-  box-sizing: border-box;
 }
 
 .panel-header {
@@ -192,7 +190,6 @@ async function handleSubmit() {
 .form-group {
   display: flex;
   flex-direction: column;
-  min-width: 0;
 }
 
 .info-label {

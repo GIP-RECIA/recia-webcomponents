@@ -95,7 +95,6 @@ defineProps<{
   flex-direction: column;
   gap: 1.5rem;
   padding: 0.75rem;
-  margin: 0 auto;
 
   @media (width >= map.get($grid-breakpoints, lg)) {
     flex-direction: row;
@@ -108,7 +107,6 @@ defineProps<{
 }
 
 .profile-card {
-  background-color: var(--#{$prefix}body-bg, #ffffff);
   border: 1px solid var(--#{$prefix}border-color, #dee2e6);
   border-radius: 16px;
   overflow: hidden;
@@ -117,28 +115,16 @@ defineProps<{
 
 .card-header {
   padding: 1.5rem 1.25rem 0;
-  background-color: var(--#{$prefix}body-bg, #ffffff);
 
   h2 {
     margin: 0;
     font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--#{$prefix}body-color, #212529);
     text-transform: none;
-    letter-spacing: normal;
   }
 }
 
 .card-body-grid {
   padding: 1.25rem;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.25rem;
-  background-color: var(--#{$prefix}body-bg, #ffffff);
-
-  @media (width >= map.get($grid-breakpoints, md)) {
-    padding: 1.5rem 2rem 2rem;
-  }
 }
 
 .info-item {
@@ -202,7 +188,6 @@ defineProps<{
   grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
 
   @media (width >= map.get($grid-breakpoints, sm)) {
     flex-direction: row;
@@ -212,7 +197,6 @@ defineProps<{
 }
 
 .label-container {
-  min-width: 120px;
   @media (width >= map.get($grid-breakpoints, sm)) {
     padding-top: 0.35rem;
   }
@@ -232,7 +216,6 @@ defineProps<{
   padding: 0.4rem 1rem;
   border-radius: var(--#{$prefix}border-radius, 8px);
   font-size: 0.8rem;
-  font-weight: 700;
   color: var(--#{$prefix}body-color, #212529);
   border: 1px solid var(--#{$prefix}border-color, #dee2e6);
   background-color: transparent;
