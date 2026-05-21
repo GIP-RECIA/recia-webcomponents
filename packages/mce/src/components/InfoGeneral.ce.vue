@@ -25,6 +25,7 @@ defineOptions({ name: 'InfoGeneral' })
 
 const props = defineProps<{
   details: General
+  listFonctions: any[]
   userInfoApiUrl?: string
   listMenu: string
   mceApi: string
@@ -111,6 +112,7 @@ const hasApprentis = computed<boolean>(() => {
     <ClassesGroupesProf
       v-if="hasSectionProf"
       :section-prof="sectionProf"
+      :list-fonctions="listFonctions"
       :label-titre="tInfo('title-classe-groupe')"
       :label-class="tInfo('class')"
       :label-group="tInfo('group')"
