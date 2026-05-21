@@ -127,10 +127,6 @@ function closeDetail(): void {
   display: flex;
   width: 100%;
   box-sizing: border-box;
-
-  @media (width <= 320px) {
-    padding: 0.25rem;
-  }
 }
 
 .profile-card {
@@ -290,9 +286,8 @@ function closeDetail(): void {
     align-items: stretch;
 
     gap: 0.5rem;
-    padding: 0.75rem 0.4rem;
     position: relative;
-    padding-right: 2rem;
+    padding: 0.75rem 2rem 0.75rem 0.4rem;
   }
 
   .entry-container {
