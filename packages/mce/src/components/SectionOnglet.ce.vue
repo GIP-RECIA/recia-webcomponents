@@ -101,6 +101,7 @@ const tInfo = (key: string): string => t(`info-general.${key}`)
         <!-- Dans l'ONGLET GÉNÉRALE de SectionOnglet.ce.vue -->
         <info-general
           :details="fonctionClassesGroupe"
+          :list-fonctions="fonctionClassesGroupe.listFonctions ?? []"
           :user-id="userId"
           :list-menu="listMenu"
           :mce-api="mceApi"

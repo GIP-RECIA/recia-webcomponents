@@ -16,49 +16,80 @@
 
 <script setup lang="ts">
 import type { SectionProf } from '@/types/generalType'
+import { computed, ref } from 'vue'
 
 defineOptions({ name: 'ClassesGroupesProf' })
 
-defineProps<{
+const props = defineProps<{
   sectionProf: SectionProf | undefined
+  listFonctions: any[]
   labelTitre: string
   labelClass: string
   labelGroup: string
 }>()
+
+const sections = computed(() => {
+  return props.sectionProf ? Object.entries(props.sectionProf) : []
+})
+const isOpen = ref(true)
+
+function getMatiere(etabId: string) {
+  if (!props.listFonctions)
+    return 'Discipline inconnue'
+  const found = props.listFonctions.find(f => f.struct?.id === etabId)
+  return found ? found.discipline : 'Discipline non renseignée'
+}
 </script>
 
 <template>
   <section class="page-container">
     <div class="profile-card">
-      <header class="card-header">
+      <header
+        class="card-header clickable-header"
+        @click="isOpen = !isOpen"
+      >
         <h2>{{ labelTitre }}</h2>
+
+        <span class="collapse-icon">
+          {{ isOpen ? '-' : '+' }}
+        </span>
       </header>
 
-      <div class="card-body-grid">
-        <template v-for="(classgroup, index) in sectionProf" :key="index">
-          <div v-for="(etabItems, indexEtab) in classgroup" :key="indexEtab" class="etab-row-item">
-            <!-- Bloc Établissement (Sert de grand label de ligne) -->
-            <div class="info-item etab-header-container">
+      <div v-if="!sectionProf" class="card-body-grid">
+        <span class="info-value">Aucune donnée chargée.</span>
+      </div>
+
+      <div v-else-if="isOpen" class="card-body-grid">
+        <template v-for="([, classgroup], index) in sections" :key="index">
+          <div
+            v-for="(etabItems, indexEtab) in (classgroup as any)"
+            :key="indexEtab"
+            class="etab-block"
+          >
+            <div class="etab-info-side">
               <span class="info-label">Établissement</span>
-              <span class="info-value etab-name-bold">{{ indexEtab }}</span>
+              <div class="info-value name-bold">
+                {{ indexEtab }}
+              </div>
             </div>
 
-            <!-- Grille interne fluide pour afficher les matières et leurs badges associés -->
-            <div class="teaching-contents-group">
-              <div v-for="(item, indexItem) in etabItems" :key="indexItem" class="teaching-entry">
-                <div class="info-item matiere-block">
+            <div class="teachings-list">
+              <div
+                v-for="(item, indexItem) in (etabItems as any[])"
+                :key="indexItem"
+                class="teaching-entry"
+              >
+                <div class="info-item">
                   <span class="info-label">Discipline / Matière</span>
-                  <span class="info-value name-bold">{{ item.matiere }}</span>
+                  <span class="info-value name-bold">{{ getMatiere(item.cg?.nameEtab) }}</span>
                 </div>
 
-                <div class="badges-inline-container">
-                  <!-- Classes affectées -->
-                  <span v-for="(classes, i) in item.cg?.classes" :key="i" class="pill-tag">
-                    {{ labelClass }} : {{ classes }}
+                <div class="badges-row">
+                  <span v-for="(c, i) in item.cg?.classes" :key="`c${i}`" class="pill-tag pill-class">
+                    {{ c }}
                   </span>
-                  <!-- Groupes affectés -->
-                  <span v-for="(groupes, i) in item.cg?.groupes" :key="i" class="pill-tag">
-                    {{ labelGroup }} : {{ groupes }}
+                  <span v-for="(g, i) in item.cg?.groupes" :key="`g${i}`" class="pill-tag pill-group">
+                    {{ g }}
                   </span>
                 </div>
               </div>
@@ -73,149 +104,171 @@ defineProps<{
 <style lang="scss" scoped>
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
-@use '@gip-recia/ui/functions' as *;
-@use '@gip-recia/ui/mixins' as *;
 
 .page-container {
-  padding: 0.75rem;
-  display: flex;
+  padding: 0 1rem;
+
+  @media (max-width: 576px) {
+    padding: 0 0.5rem;
+  }
 }
 
 .profile-card {
-  width: 100%;
-  background-color: var(--#{$prefix}body-bg, #ffffff);
+  background: var(--#{$prefix}body-bg, #ffffff);
   border: 1px solid var(--#{$prefix}border-color, #dee2e6);
-  border-radius: 16px;
-  overflow: hidden;
+  border-radius: 12px;
   box-shadow: 0 10px 25px -5px var(--#{$prefix}shadow-neutral, rgba(0, 0, 0, 0.1));
+  overflow: hidden;
 }
 
 .card-header {
-  padding: 1.5rem 1.25rem 0;
-  background-color: var(--#{$prefix}body-bg, #ffffff);
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--#{$prefix}border-color, #dee2e6);
 
   h2 {
     margin: 0;
-    font-size: 1.25rem;
-    font-weight: 700;
+    font-size: 1.1rem;
     color: var(--#{$prefix}body-color, #212529);
-    text-transform: none;
-    letter-spacing: normal;
   }
 }
 
 .card-body-grid {
-  padding: 1.25rem;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.25rem;
-  background-color: var(--#{$prefix}body-bg, #ffffff);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
 
-  @media (width >= map.get($grid-breakpoints, md)) {
-    grid-template-columns: repeat(1, 1fr);
-    padding: 1.5rem 2rem 2rem;
+  @media (max-width: 576px) {
+    padding: 1rem;
+  }
+}
+
+.etab-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--#{$prefix}border-color, #eee);
+  gap: 2rem;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  @media (max-width: 768px) {
+    gap: 1rem;
+  }
+  @media (max-width: 576px) {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem 0;
+  }
+}
+
+.etab-info-side {
+  flex: 0 0 35%;
+  @media (max-width: 768px) {
+    flex: 0 0 30%;
+  }
+  @media (max-width: 576px) {
+    flex: none;
+    width: 100%;
+  }
+}
+
+.teachings-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  @media (max-width: 576px) {
+    width: 100%;
+  }
+}
+
+.teaching-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--#{$prefix}tertiary-bg, #f8f9fa);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--#{$prefix}border-color, #eee);
+  gap: 0.75rem;
+  @media (max-width: 576px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
 }
 
 .info-item {
-  display: flex;
-  flex-direction: column;
+  @media (max-width: 576px) {
+    width: 100%;
+  }
 }
 
 .info-label {
-  font-size: 0.75rem;
+  display: block;
+  font-size: 0.65rem;
   font-weight: 800;
   text-transform: uppercase;
-  margin-bottom: 0.25rem;
   color: var(--#{$prefix}secondary-color, #6c757d);
+  margin-bottom: 4px;
 }
 
 .info-value {
   font-size: 0.95rem;
   color: var(--#{$prefix}body-color, #212529);
 
-  &.etab-name-bold,
   &.name-bold {
-    font-weight: 700;
+    font-weight: 600;
+  }
+  @media (max-width: 576px) {
+    font-size: 0.875rem;
   }
 }
 
-.etab-row-item {
-  grid-column: 1 / -1;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  margin-top: 0.25rem;
-  border-top: 1px dashed var(--#{$prefix}border-color, #dee2e6);
-  padding-top: 1.25rem;
-
-  &:first-of-type {
-    border-top: none;
-    margin-top: 0;
-    padding-top: 0;
-  }
-
-  @media (width >= map.get($grid-breakpoints, md)) {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 3rem;
-  }
-}
-
-.etab-header-container {
-  min-width: 200px;
-}
-
-.teaching-contents-group {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  width: 100%;
-}
-
-.teaching-entry {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-
-  @media (width >= map.get($grid-breakpoints, sm)) {
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 1.5rem;
-  }
-}
-
-.matiere-block {
-  flex: 1;
-}
-
-.badges-inline-container {
+.badges-row {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  justify-content: flex-end;
+  @media (max-width: 576px) {
+    justify-content: flex-start;
+    width: 100%;
+  }
 }
 
 .pill-tag {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.4rem 1rem;
-  border-radius: var(--#{$prefix}border-radius, 8px);
-  font-size: 0.8rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
   font-weight: 700;
-  color: var(--#{$prefix}body-color, #212529);
-  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
-  background-color: transparent;
-  transition:
-    background-color 0.2s,
-    border-color 0.2s;
-  white-space: nowrap;
+
+  &.pill-class {
+    background: var(--#{$prefix}primary-bg-subtle, #e7f1ff);
+    color: var(--#{$prefix}primary-text-emphasis, #084298);
+  }
+
+  &.pill-group {
+    background: var(--#{$prefix}success-bg-subtle, #d1e7dd);
+    color: var(--#{$prefix}success-text-emphasis, #0a3622);
+  }
+}
+.clickable-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
 
   &:hover {
-    background-color: var(--#{$prefix}tertiary-bg, #f8f9fa);
-    border-color: var(--#{$prefix}secondary-color, #6c757d);
+    background: rgba(0, 0, 0, 0.03);
   }
+}
+
+.collapse-icon {
+  font-size: 1.2rem;
+  font-weight: 700;
 }
 </style>
