@@ -95,6 +95,7 @@ const tInfo = (key: string): string => t(`info-general.${key}`)
           :mce-api="mceApi"
           :can-modify-email="canModifyEmail"
           @open-change-email="$emit('openChangeEmail')"
+          @email-updated="(email) => $emit('emailUpdated', email)"
         />
 
         <!-- Dans l'ONGLET GÉNÉRALE de SectionOnglet.ce.vue -->
