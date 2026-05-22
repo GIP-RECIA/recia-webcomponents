@@ -90,7 +90,8 @@
     "discipline": "Discipline / Subject",
     "no-data": "No data loaded.",
     "discipline-unknown": "Unknown discipline",
-    "discipline-not-set": "Discipline not set"
+    "discipline-not-set": "Discipline not set",
+    "autres-fonctions": "Other functions"
   },
   "fonctions-list": {
     "card-label": "Functions"
