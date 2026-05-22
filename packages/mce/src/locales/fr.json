@@ -93,7 +93,8 @@
     "discipline": "Discipline / Matière",
     "no-data": "Aucune donnée chargée.",
     "discipline-unknown": "Discipline inconnue",
-    "discipline-not-set": "Discipline non renseignée"
+    "discipline-not-set": "Discipline non renseignée",
+    "autres-fonctions": "Autres fonctions"
   },
   "fonctions-list": {
     "card-label": "Fonctions"
