@@ -15,7 +15,8 @@
 -->
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { inject, ref, watch } from 'vue'
+import { I18nInjectionKey } from 'vue-i18n'
 import ChangeEmail from '@/components/ChangeEmail.ce.vue'
 
 const props = defineProps<{
@@ -33,6 +34,11 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'emailUpdated', email: string): void
 }>()
+
+const i18n = inject(I18nInjectionKey)
+function tUser(key: string): string {
+  return i18n ? (i18n.global.t as (k: string) => string)(`user-info.${key}`) : key
+}
 
 const currentEmail = ref(props.userMail || '')
 const isEmailOpen = ref(false)
@@ -60,34 +66,34 @@ function handleEmailUpdated(email: string) {
   <section class="page-container">
     <div class="profile-card">
       <header class="card-header">
-        <h2>Informations personnelles</h2>
+        <h2>{{ tUser('informations-personnelles') }}</h2>
       </header>
 
       <div class="card-body-grid">
         <div class="info-item">
-          <span class="info-label">UID</span>
+          <span class="info-label">{{ tUser('uid') }}</span>
           <span class="info-value">{{ props.uid || '—' }}</span>
         </div>
 
         <div class="info-item">
-          <span class="info-label">Nom</span>
+          <span class="info-label">{{ tUser('nom') }}</span>
           <span class="info-value">{{ props.nom || '—' }}</span>
         </div>
 
         <div class="info-item">
-          <span class="info-label">Prénom</span>
+          <span class="info-label">{{ tUser('prenom') }}</span>
           <span class="info-value">{{ props.prenom || '—' }}</span>
         </div>
 
         <div class="info-item">
-          <span class="info-label">Date de naissance</span>
+          <span class="info-label">{{ tUser('bod') }}</span>
           <span class="info-value">{{ props.dateNaissance || '—' }}</span>
         </div>
 
         <!-- Section Email -->
         <div class="email-row">
           <div class="info-item email-container">
-            <span class="info-label">Email</span>
+            <span class="info-label">{{ tUser('email') }}</span>
             <span class="info-value email-bold">{{ currentEmail || '—' }}</span>
           </div>
 
@@ -96,7 +102,7 @@ function handleEmailUpdated(email: string) {
             class="btn-outline-modify"
             @click="toggleEmail"
           >
-            {{ isEmailOpen ? 'Annuler' : 'Modifier' }}
+            {{ isEmailOpen ? tUser('annuler') : tUser('modifier') }}
           </button>
         </div>
 

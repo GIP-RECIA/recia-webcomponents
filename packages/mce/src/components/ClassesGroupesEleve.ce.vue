@@ -16,44 +16,47 @@
 
 <script setup lang="ts">
 import type { Etabs, SectionEleve } from '@/types/generalType'
+import { inject } from 'vue'
+import { I18nInjectionKey } from 'vue-i18n'
 
 defineOptions({ name: 'ClassesGroupesEleve' })
 
 defineProps<{
   etabs: Array<Etabs>
   sectionEleve: SectionEleve | undefined
-  labelTitre: string
-  labelTitreCours: string
-  labelClass: string
-  labelGroup: string
 }>()
+
+const i18n = inject(I18nInjectionKey)
+function tEleve(key: string): string {
+  return i18n ? (i18n.global.t as (k: string) => string)(`classes-groupes-eleve.${key}`) : key
+}
+function tGeneral(key: string): string {
+  return i18n ? (i18n.global.t as (k: string) => string)(`info-general.${key}`) : key
+}
 </script>
 
 <template>
   <div class="sections-wrapper">
-    <!-- BLOC CLASSES ET GROUPES -->
     <section class="profile-card">
       <header class="card-header">
-        <h2>{{ labelTitre }}</h2>
+        <h2>{{ tGeneral('title-classe-groupe') }}</h2>
       </header>
 
       <div class="card-body-grid">
         <div v-for="(classgroup, index) in etabs" :key="index" class="etab-row-item">
-          <!-- Nom de l'établissement qui sert de libellé principal de la ligne -->
           <div class="info-item etab-header-container">
-            <span class="info-label">Établissement</span>
+            <span class="info-label">{{ tEleve('etablissement') }}</span>
             <span class="info-value etab-name-bold">{{ classgroup.nameEtab }}</span>
           </div>
 
-          <!-- Grille interne pour aligner Classe et Groupe comme les infos perso -->
           <div class="classes-data-group">
             <div class="info-item">
-              <span class="info-label">{{ labelClass }}</span>
+              <span class="info-label">{{ tGeneral('class') }}</span>
               <span class="info-value">{{ classgroup.classes[0] || '—' }}</span>
             </div>
 
             <div class="info-item">
-              <span class="info-label">{{ labelGroup }}</span>
+              <span class="info-label">{{ tGeneral('group') }}</span>
               <span class="info-value">{{ classgroup.groupes[0] || '—' }}</span>
             </div>
           </div>
@@ -61,16 +64,15 @@ defineProps<{
       </div>
     </section>
 
-    <!-- BLOC ENSEIGNEMENTS -->
     <section class="profile-card">
       <header class="card-header">
-        <h2>{{ labelTitreCours }}</h2>
+        <h2>{{ tGeneral('title-courses') }}</h2>
       </header>
 
       <div class="card-body-grid">
         <div class="enseignements-row">
           <div class="info-item label-container">
-            <span class="info-label">Matières suivies</span>
+            <span class="info-label">{{ tEleve('matieres-suivies') }}</span>
           </div>
           <div class="enseignements-list">
             <span v-for="(ens, index) in sectionEleve?.enseignementSuivis" :key="index" class="pill-tag">

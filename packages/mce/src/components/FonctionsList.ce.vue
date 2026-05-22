@@ -16,6 +16,8 @@
 
 <script setup lang="ts">
 import type { PersonneFonction } from '@/types/fonctionType'
+import { inject } from 'vue'
+import { I18nInjectionKey } from 'vue-i18n'
 import { updateFonctionDateFin } from '@/services/serviceMce.ts'
 
 defineOptions({ name: 'FonctionsList' })
@@ -23,11 +25,18 @@ defineOptions({ name: 'FonctionsList' })
 const props = defineProps<{
   fonctions: Array<PersonneFonction>
   userInfoApiUrl: string
-  labelTitre: string
+  mceApi: string
 }>()
 
+const i18n = inject(I18nInjectionKey)
+function tFonctions(key: string): string {
+  return i18n ? (i18n.global.t as (k: string) => string)(`fonctions-list.${key}`) : key
+}
+function tGeneral(key: string): string {
+  return i18n ? (i18n.global.t as (k: string) => string)(`info-general.${key}`) : key
+}
+
 async function onToggle(it: PersonneFonction): Promise<void> {
-  const previous = it.active
   const id = it.idFonction
 
   if (!id) {
@@ -35,12 +44,14 @@ async function onToggle(it: PersonneFonction): Promise<void> {
     return
   }
 
+  const newValue = it.active
+  const previous = !newValue
+
   try {
-    await updateFonctionDateFin(
-      `/ismail/api/personne/fonction/${id}/dateFin`,
-      it.active,
-      props.userInfoApiUrl,
-    )
+    // eslint-disable-next-line e18e/prefer-static-regex
+    const baseUrl = props.mceApi.replace(/\/mce\/?$/, '')
+    const fullUrl = `${baseUrl}/fonction/${id}/dateFin`
+    await updateFonctionDateFin(fullUrl, newValue, props.userInfoApiUrl)
   }
   catch (e) {
     console.error(e)
@@ -51,18 +62,16 @@ async function onToggle(it: PersonneFonction): Promise<void> {
 
 <template>
   <div v-if="fonctions?.length" class="section-fonction">
-    <!-- Titre de la section (ex: FICTIF CLG 18) -->
     <div class="heading-titre">
       <h2 class="titre">
-        {{ labelTitre }}
+        {{ tGeneral('title-fonction') }}
       </h2>
     </div>
 
     <div class="grid-fonctions">
       <div v-for="(it, index) in fonctions" :key="index" class="card-fonction">
         <div class="card-header">
-          <span class="card-label">Fonctions</span>
-          <!-- Toggle switch stylisé pour l'activation -->
+          <span class="card-label">{{ tFonctions('card-label') }}</span>
           <input
             v-model="it.active"
             type="checkbox"

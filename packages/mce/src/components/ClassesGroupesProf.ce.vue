@@ -16,17 +16,23 @@
 
 <script setup lang="ts">
 import type { SectionProf } from '@/types/generalType'
-import { computed, ref } from 'vue'
+import { computed, inject, ref } from 'vue'
+import { I18nInjectionKey } from 'vue-i18n'
 
 defineOptions({ name: 'ClassesGroupesProf' })
 
 const props = defineProps<{
   sectionProf: SectionProf | undefined
   listFonctions: any[]
-  labelTitre: string
-  labelClass: string
-  labelGroup: string
 }>()
+
+const i18n = inject(I18nInjectionKey)
+function tProf(key: string): string {
+  return i18n ? (i18n.global.t as (k: string) => string)(`classes-groupes-prof.${key}`) : key
+}
+function tGeneral(key: string): string {
+  return i18n ? (i18n.global.t as (k: string) => string)(`info-general.${key}`) : key
+}
 
 const sections = computed(() => {
   return props.sectionProf ? Object.entries(props.sectionProf) : []
@@ -35,9 +41,9 @@ const isOpen = ref(true)
 
 function getMatiere(etabId: string) {
   if (!props.listFonctions)
-    return 'Discipline inconnue'
+    return tProf('discipline-unknown')
   const found = props.listFonctions.find(f => f.struct?.id === etabId)
-  return found ? found.discipline : 'Discipline non renseignée'
+  return found ? found.discipline : tProf('discipline-not-set')
 }
 </script>
 
@@ -48,7 +54,7 @@ function getMatiere(etabId: string) {
         class="card-header clickable-header"
         @click="isOpen = !isOpen"
       >
-        <h2>{{ labelTitre }}</h2>
+        <h2>{{ tGeneral('title-classe-groupe') }}</h2>
 
         <span class="collapse-icon">
           {{ isOpen ? '-' : '+' }}
@@ -56,7 +62,7 @@ function getMatiere(etabId: string) {
       </header>
 
       <div v-if="!sectionProf" class="card-body-grid">
-        <span class="info-value">Aucune donnée chargée.</span>
+        <span class="info-value">{{ tProf('no-data') }}</span>
       </div>
 
       <div v-else-if="isOpen" class="card-body-grid">
@@ -67,7 +73,7 @@ function getMatiere(etabId: string) {
             class="etab-block"
           >
             <div class="etab-info-side">
-              <span class="info-label">Établissement</span>
+              <span class="info-label">{{ tProf('etablissement') }}</span>
               <div class="info-value name-bold">
                 {{ indexEtab }}
               </div>
@@ -80,7 +86,7 @@ function getMatiere(etabId: string) {
                 class="teaching-entry"
               >
                 <div class="info-item">
-                  <span class="info-label">Discipline / Matière</span>
+                  <span class="info-label">{{ tProf('discipline') }}</span>
                   <span class="info-value name-bold">{{ getMatiere(item.cg?.nameEtab) }}</span>
                 </div>
 
