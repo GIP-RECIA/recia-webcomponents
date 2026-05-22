@@ -15,7 +15,13 @@
     "bod": "Date de naissance",
     "structure": "Structure rattachement",
     "password": "Mot de passe",
-    "access": "Mon identifiant"
+    "access": "Mon identifiant",
+    "informations-personnelles": "Informations personnelles",
+    "nom": "Nom",
+    "prenom": "Prénom",
+    "modifier": "Modifier",
+    "annuler": "Annuler",
+    "uid": "UID"
   },
 
   "info-general": {
@@ -34,12 +40,89 @@
     "title-relation-parent": "Les élèves de ma relation",
     "title-relation-student": "Personne en relation avec moi",
     "title-relation-master": "Mes apprentis",
-    "parental-authority": "Autorité parentale"
+    "parental-authority": "Autorité parentale",
+    "relation-default": "Relation"
   },
 
   "avatar-user": {
     "title-header": "Modifier avatar",
     "select-image": "Sélectionner image",
     "apply": "Appliquer"
+  },
+
+  "change-email": {
+    "title": "Modifier l'adresse email",
+    "current-email": "Email actuel",
+    "new-email": "Nouvel email",
+    "confirm-email": "Confirmation du nouvel email",
+    "placeholder": "exemple{'@'}domaine.fr",
+    "cancel": "Annuler",
+    "submit": "Valider",
+    "loading": "...",
+    "success": "Email mis à jour avec succès !",
+    "error-required": "Tous les champs sont obligatoires.",
+    "error-format": "Le format de l'email est invalide.",
+    "error-mismatch": "Les emails ne correspondent pas.",
+    "error-default": "Erreur lors de la modification."
+  },
+
+  "change-password": {
+    "title": "Changer mon mot de passe",
+    "current-password": "Mot de passe actuel",
+    "new-password": "Nouveau mot de passe",
+    "confirm-password": "Confirmer le nouveau mot de passe",
+    "placeholder-current": "Entrez votre mot de passe actuel",
+    "placeholder-new": "Au moins 8 caractères",
+    "placeholder-confirm": "Répétez votre mot de passe",
+    "submit": "Changer le mot de passe",
+    "loading": "Chargement...",
+    "error-required": "Tous les champs sont obligatoires.",
+    "error-mismatch": "Les nouveaux mots de passe ne correspondent pas.",
+    "error-length": "Le nouveau mot de passe doit contenir au moins 8 caractères.",
+    "success": "Mot de passe changé avec succès.",
+    "error-default": "Erreur lors du changement du mot de passe."
+  },
+
+  "classes-groupes-eleve": {
+    "etablissement": "Établissement",
+    "matieres-suivies": "Matières suivies"
+  },
+
+  "classes-groupes-prof": {
+    "etablissement": "Établissement",
+    "discipline": "Discipline / Matière",
+    "no-data": "Aucune donnée chargée.",
+    "discipline-unknown": "Discipline inconnue",
+    "discipline-not-set": "Discipline non renseignée"
+  },
+  "fonctions-list": {
+    "card-label": "Fonctions"
+  },
+
+  "relation-user-detail": {
+    "loading": "Chargement…",
+    "error": "Impossible de charger les informations.",
+    "external-account": "Compte Externe (EduConnect)",
+    "close": "Fermer",
+    "email": "Adresse e-mail",
+    "etab": "Établissement rattaché",
+    "bod": "Date de naissance",
+    "uid": "Identifiant unique (UID)",
+    "classes-groupes": "Classes et groupes pédagogiques",
+    "classes": "Classes",
+    "groupes": "Groupes",
+    "enseignements": "Enseignements suivis",
+    "personnes-relation": "Personnes en relation",
+    "lien": "Lien",
+    "autorite-parentale": "Autorité parentale"
+  },
+  "onglet-content": {
+    "mes-fonctions": "Mes fonctions",
+    "etab-siren": "Établissement (SIREN)",
+    "fonction": "Fonction",
+    "discipline": "Discipline",
+    "active": "Activé",
+    "active-label": "Fonction active pour"
   }
+
 }

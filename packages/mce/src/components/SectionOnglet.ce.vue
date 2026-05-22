@@ -16,7 +16,6 @@
 
 <script setup lang="ts">
 import type { PersonneFonction } from '@/types/fonctionType'
-import { useI18n } from 'vue-i18n'
 import ChangeEmail from '@/components/ChangeEmail.ce.vue'
 import FonctionsList from '@/components/FonctionsList.ce.vue'
 import ChangePassword from './ChangePassword.ce.vue'
@@ -57,15 +56,11 @@ defineProps<{
   mdp?: boolean
 }>()
 
-// Déclaration propre des événements pour Vue 3
 defineEmits<{
   (e: 'closeChangeEmail'): void
   (e: 'openChangeEmail'): void
   (e: 'emailUpdated', email: string): void
 }>()
-
-const { t } = useI18n()
-const tInfo = (key: string): string => t(`info-general.${key}`)
 </script>
 
 <template>
@@ -136,7 +131,7 @@ const tInfo = (key: string): string => t(`info-general.${key}`)
         <FonctionsList
           :fonctions="fonctionClassesGroupe.listFonctions ?? []"
           :user-info-api-url="userInfoApiUrl ?? ''"
-          :label-titre="tInfo('title-fonction')"
+          :mce-api="mceApi"
         />
       </div>
     </template>

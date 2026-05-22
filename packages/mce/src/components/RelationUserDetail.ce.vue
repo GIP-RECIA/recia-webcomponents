@@ -15,7 +15,8 @@
 -->
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, inject } from 'vue'
+import { I18nInjectionKey } from 'vue-i18n'
 
 defineOptions({ name: 'RelationUserDetail' })
 
@@ -29,7 +30,11 @@ defineEmits<{
   (e: 'close'): void
 }>()
 
-// Formatage de la date de naissance (bod)
+const i18n = inject(I18nInjectionKey)
+function t(key: string): string {
+  return i18n ? (i18n.global.t as (k: string) => string)(`relation-user-detail.${key}`) : key
+}
+
 const formatDate = computed(() => {
   if (!props.personne?.bod)
     return ''
@@ -37,7 +42,6 @@ const formatDate = computed(() => {
   return parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : props.personne.bod
 })
 
-// Génération des initiales pour l'avatar de secours
 const initials = computed(() => {
   const name = props.personne?.userName?.trim() ?? ''
   if (!name)
@@ -49,12 +53,10 @@ const initials = computed(() => {
     : name.charAt(0).toUpperCase()
 })
 
-// Raccourci vers la section élève de l'API
 const sectionEleve = computed(() => {
   return props.personne?.fonctionClassesGroupe?.sectionClassesGroupes?.sectionEleve ?? null
 })
 
-// Extraction dynamique des classes depuis la liste des établissements
 const classesList = computed(() => {
   if (!sectionEleve.value?.etabs || !Array.isArray(sectionEleve.value.etabs))
     return []
@@ -68,16 +70,14 @@ const classesList = computed(() => {
       classes.push(etab.classe)
     }
   })
-  return [...new Set(classes)] // Supprime les doublons éventuels
+  return [...new Set(classes)]
 })
 
-// Extraction dynamique des groupes depuis la liste des établissements
 const groupesList = computed(() => {
   if (!sectionEleve.value?.etabs || !Array.isArray(sectionEleve.value.etabs))
     return []
 
   const groupes: string[] = []
-
   sectionEleve.value.etabs.forEach((etab: any) => {
     if (etab.listGroupes && Array.isArray(etab.listGroupes)) {
       groupes.push(...etab.listGroupes)
@@ -89,11 +89,9 @@ const groupesList = computed(() => {
       groupes.push(etab.groupe)
     }
   })
-
   return [...new Set(groupes)]
 })
 
-// Récupération directe du tableau d'enseignements suivis
 const enseignementsList = computed(() => {
   return sectionEleve.value?.enseignementSuivis ?? []
 })
@@ -102,11 +100,11 @@ const enseignementsList = computed(() => {
 <template>
   <div class="detail-panel">
     <div v-if="isLoading" class="detail-loading alert-message info">
-      Chargement…
+      {{ t('loading') }}
     </div>
 
     <div v-else-if="hasError" class="detail-error alert-message error">
-      Impossible de charger les informations.
+      {{ t('error') }}
     </div>
 
     <template v-else-if="personne">
@@ -130,39 +128,40 @@ const enseignementsList = computed(() => {
               {{ personne.etat }}
             </span>
             <span v-if="personne.mdp === false" class="status-badge external">
-              Compte Externe (EduConnect)
+              {{ t('external-account') }}
             </span>
           </div>
         </div>
-        <button class="btn-close" aria-label="Fermer" @click="$emit('close')">
+
+        <button class="btn-close" :aria-label="t('close')" @click="$emit('close')">
           ✕
         </button>
       </div>
 
       <div class="detail-grid">
         <div v-if="personne.userMail" class="info-item full-width">
-          <span class="info-label">Adresse e-mail</span>
+          <span class="info-label">{{ t('email') }}</span>
           <div class="info-value-container">
             <span class="info-value">{{ personne.userMail }}</span>
           </div>
         </div>
 
         <div v-if="personne.etab" class="info-item full-width">
-          <span class="info-label">Établissement rattaché</span>
+          <span class="info-label">{{ t('etab') }}</span>
           <div class="info-value-container">
             <span class="info-value">{{ personne.etab }}</span>
           </div>
         </div>
 
         <div v-if="formatDate" class="info-item">
-          <span class="info-label">Date de naissance</span>
+          <span class="info-label">{{ t('bod') }}</span>
           <div class="info-value-container">
             <span class="info-value">{{ formatDate }}</span>
           </div>
         </div>
 
         <div v-if="personne.uid" class="info-item">
-          <span class="info-label">Identifiant unique (UID)</span>
+          <span class="info-label">{{ t('uid') }}</span>
           <div class="info-value-container">
             <span class="info-value">{{ personne.uid }}</span>
           </div>
@@ -171,12 +170,12 @@ const enseignementsList = computed(() => {
 
       <div v-if="classesList.length || groupesList.length" class="sub-section">
         <h3 class="section-title">
-          Classes et groupes pédagogiques
+          {{ t('classes-groupes') }}
         </h3>
 
         <div class="detail-grid">
           <div v-if="classesList.length" class="info-item">
-            <span class="info-label">Classes</span>
+            <span class="info-label">{{ t('classes') }}</span>
             <div class="info-value-container tags-container">
               <span v-for="(classe, i) in classesList" :key="i" class="data-tag classe">
                 {{ classe }}
@@ -185,7 +184,7 @@ const enseignementsList = computed(() => {
           </div>
 
           <div v-if="groupesList.length" class="info-item">
-            <span class="info-label">Groupes</span>
+            <span class="info-label">{{ t('groupes') }}</span>
             <div class="info-value-container tags-container">
               <span v-for="(groupe, i) in groupesList" :key="i" class="data-tag groupe">
                 {{ groupe }}
@@ -197,7 +196,7 @@ const enseignementsList = computed(() => {
 
       <div v-if="enseignementsList.length" class="sub-section">
         <h3 class="section-title">
-          Enseignements suivis
+          {{ t('enseignements') }}
         </h3>
         <div class="info-value-container matrix-container">
           <div class="disciplines-grid">
@@ -210,7 +209,7 @@ const enseignementsList = computed(() => {
 
       <div v-if="personne.parentEleve?.length" class="sub-section">
         <h3 class="section-title">
-          Personnes en relation
+          {{ t('personnes-relation') }}
         </h3>
         <div class="relations-list">
           <div
@@ -221,11 +220,11 @@ const enseignementsList = computed(() => {
             <div class="relation-info">
               <span class="relation-name">{{ parent.displayNameRelation }}</span>
               <small v-if="parent.lienParente" class="relation-type">
-                Lien : {{ parent.lienParente }}
+                {{ t('lien') }} : {{ parent.lienParente }}
               </small>
             </div>
             <span v-if="parent.autoriteParental" class="status-badge valide">
-              Autorité parentale
+              {{ t('autorite-parentale') }}
             </span>
           </div>
         </div>
@@ -633,7 +632,6 @@ const enseignementsList = computed(() => {
   }
 }
 
-/* Forçage de la sécurité globale des boîtes */
 :deep(*) {
   box-sizing: border-box !important;
 }

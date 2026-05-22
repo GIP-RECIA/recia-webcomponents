@@ -15,7 +15,8 @@
 -->
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { inject, ref } from 'vue'
+import { I18nInjectionKey } from 'vue-i18n'
 import { postPassword } from '@/services/serviceMce.ts'
 
 defineOptions({ name: 'ChangePassword' })
@@ -25,6 +26,11 @@ const props = defineProps<{
   userId: string
   mceApi: string
 }>()
+
+const i18n = inject(I18nInjectionKey)
+function tPwd(key: string): string {
+  return i18n ? (i18n.global.t as (k: string) => string)(`change-password.${key}`) : key
+}
 
 const currentPassword = ref('')
 const newPassword = ref('')
@@ -36,19 +42,19 @@ const isLoading = ref(false)
 
 async function handleChangePassword() {
   if (!currentPassword.value || !newPassword.value || !confirmPassword.value) {
-    message.value = 'Tous les champs sont obligatoires'
+    message.value = tPwd('error-required')
     messageType.value = 'error'
     return
   }
 
   if (newPassword.value !== confirmPassword.value) {
-    message.value = 'Les nouveaux mots de passe ne correspondent pas'
+    message.value = tPwd('error-mismatch')
     messageType.value = 'error'
     return
   }
 
   if (newPassword.value.length < 8) {
-    message.value = 'Le nouveau mot de passe doit contenir au moins 8 caractères'
+    message.value = tPwd('error-length')
     messageType.value = 'error'
     return
   }
@@ -69,7 +75,7 @@ async function handleChangePassword() {
       props.userInfoApiUrl,
     )
 
-    message.value = 'Mot de passe changé avec succès'
+    message.value = tPwd('success')
     messageType.value = 'success'
 
     currentPassword.value = ''
@@ -78,7 +84,7 @@ async function handleChangePassword() {
   }
   catch (error: unknown) {
     const apiMessage = (error as { response?: { data?: { message?: string } } })?.response?.data?.message
-    message.value = apiMessage ?? 'Erreur lors du changement du mot de passe'
+    message.value = apiMessage ?? tPwd('error-default')
     messageType.value = 'error'
   }
   finally {
@@ -91,42 +97,42 @@ async function handleChangePassword() {
   <section class="page-container">
     <div class="profile-card">
       <header class="card-header">
-        <h2>Changer mon mot de passe</h2>
+        <h2>{{ tPwd('title') }}</h2>
       </header>
 
       <div class="card-body-grid">
         <form class="password-form" @submit.prevent="handleChangePassword">
           <div class="form-group">
-            <label class="info-label" for="current-password">Mot de passe actuel</label>
+            <label class="info-label" for="current-password">{{ tPwd('current-password') }}</label>
             <input
               id="current-password"
               v-model="currentPassword"
               type="password"
-              placeholder="Entrez votre mot de passe actuel"
+              :placeholder="tPwd('placeholder-current')"
               required
               class="custom-input"
             >
           </div>
 
           <div class="form-group">
-            <label class="info-label" for="new-password">Nouveau mot de passe</label>
+            <label class="info-label" for="new-password">{{ tPwd('new-password') }}</label>
             <input
               id="new-password"
               v-model="newPassword"
               type="password"
-              placeholder="Au moins 8 caractères"
+              :placeholder="tPwd('placeholder-new')"
               required
               class="custom-input"
             >
           </div>
 
           <div class="form-group">
-            <label class="info-label" for="confirm-password">Confirmer le nouveau mot de passe</label>
+            <label class="info-label" for="confirm-password">{{ tPwd('confirm-password') }}</label>
             <input
               id="confirm-password"
               v-model="confirmPassword"
               type="password"
-              placeholder="Répétez votre mot de passe"
+              :placeholder="tPwd('placeholder-confirm')"
               required
               class="custom-input"
             >
@@ -136,10 +142,9 @@ async function handleChangePassword() {
             {{ message }}
           </div>
 
-          <!-- Ligne d'action avec le bouton bordure 2px -->
           <div class="action-row">
             <button type="submit" :disabled="isLoading" class="btn-outline-modify">
-              {{ isLoading ? 'Chargement...' : 'Changer le mot de passe' }}
+              {{ isLoading ? tPwd('loading') : tPwd('submit') }}
             </button>
           </div>
         </form>
