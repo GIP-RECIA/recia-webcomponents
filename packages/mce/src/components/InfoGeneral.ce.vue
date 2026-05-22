@@ -57,9 +57,8 @@ const hasParentEleve = computed<boolean>(() => {
 
 // Permet de fusionner ou de prioriser la source de données qui contient l'élève
 const computedParentDetails = computed(() => {
-  if (Array.isArray(props.relationEleve) && props.relationEleve.length > 0) {
+  if (Array.isArray(props.relationEleve) && props.relationEleve.length > 0)
     return props.relationEleve
-  }
   return props.parentEleve ?? []
 })
 
@@ -107,6 +106,7 @@ const hasApprentis = computed<boolean>(() => {
       v-if="hasSectionProf"
       :section-prof="sectionProf"
       :list-fonctions="listFonctions"
+      :section-eleve="sectionEleve"
     />
 
     <ClassesGroupesEleve
