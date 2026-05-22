@@ -15,7 +15,8 @@
 -->
 
 <script setup lang="ts">
-import { computed, ref, watchEffect } from 'vue'
+import { computed, inject, ref, watchEffect } from 'vue'
+import { I18nInjectionKey } from 'vue-i18n'
 import { getContentOnglet } from '@/services/serviceMce'
 import ClassesGroupesEleve from './ClassesGroupesEleve.ce.vue'
 import ClassesGroupesProf from './ClassesGroupesProf.ce.vue'
@@ -29,9 +30,13 @@ const props = defineProps<{
   userInfoApiUrl: string
 }>()
 
+const i18n = inject(I18nInjectionKey)
+function t(key: string): string {
+  return i18n ? (i18n.global.t as (k: string) => string)(`onglet-content.${key}`) : key
+}
+
 const details = ref<any>([])
 const fonctions = ref<any>([])
-
 const sectionProf = ref<any>([])
 const sectionEleve = ref<any>([])
 
@@ -52,7 +57,6 @@ async function fetchDetailOnglet(name: string) {
         && details.value.listFonctions !== undefined
       ) {
         fonctions.value = details.value.listFonctions
-
         sectionProf.value = details.value.sectionClassesGroupes.sectionProf
         sectionEleve.value = details.value.sectionClassesGroupes.sectionEleve
       }
@@ -75,32 +79,28 @@ const isProfSectionActive = computed<boolean>(() => {
   <div class="content-wrapper">
     <section v-if="fonctions.length" class="profile-card">
       <header class="card-header">
-        <h2>Mes fonctions</h2>
+        <h2>{{ t('mes-fonctions') }}</h2>
       </header>
 
       <div class="card-body-grid">
         <div v-for="(it, index) in fonctions" :key="index" class="fonction-row-item">
-          <!-- Établissement (Siren) -->
           <div class="info-item">
-            <span class="info-label">Établissement (SIREN)</span>
+            <span class="info-label">{{ t('etab-siren') }}</span>
             <span class="info-value name-bold">{{ it.siren }}</span>
           </div>
 
-          <!-- Fonction -->
           <div class="info-item">
-            <span class="info-label">Fonction</span>
+            <span class="info-label">{{ t('fonction') }}</span>
             <span class="info-value">{{ it.fonction }}</span>
           </div>
 
-          <!-- Discipline -->
           <div class="info-item">
-            <span class="info-label">Discipline</span>
+            <span class="info-label">{{ t('discipline') }}</span>
             <span class="info-value">{{ it.discipline || '—' }}</span>
           </div>
 
-          <!-- Statut Activé (Checkbox harmonisée) -->
           <div class="info-item checkbox-container">
-            <span class="info-label">Activé</span>
+            <span class="info-label">{{ t('active') }}</span>
             <div class="checkbox-wrapper">
               <input
                 :id="`chk-${index}-${it.discipline}`"
@@ -110,32 +110,28 @@ const isProfSectionActive = computed<boolean>(() => {
                 class="custom-disabled-checkbox"
               >
               <label :for="`chk-${index}-${it.discipline}`" class="visually-hidden">
-                Fonction active pour {{ it.discipline }}
+                {{ t('active-label') }} {{ it.discipline }}
               </label>
             </div>
           </div>
         </div>
       </div>
     </section>
+
     <template v-if="props.listMenu !== 'PARENT_ELEVE'">
       <!-- Vue Enseignant -->
       <ClassesGroupesProf
         v-if="isProfSectionActive && (sectionProf.length || Object.keys(sectionProf).length)"
         :section-prof="sectionProf"
-        label-titre="Mes classes et groupes pédagogiques"
-        label-class="Classe"
-        label-group="Groupe"
+        :list-fonctions="fonctions"
       />
       <ClassesGroupesEleve
         v-else-if="sectionEleve?.etabs?.length"
         :etabs="sectionEleve.etabs"
         :section-eleve="sectionEleve"
-        label-titre="Mes classes et groupes"
-        label-titre-cours="Enseignements suivis"
-        label-class="Classe"
-        label-group="Groupe"
       />
     </template>
+
     <RelationUser
       v-if="props.listMenu === 'PARENT_ELEVE' && details.length"
       :details="details"

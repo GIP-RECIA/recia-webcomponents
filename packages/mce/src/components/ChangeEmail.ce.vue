@@ -15,7 +15,8 @@
 -->
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { inject, ref } from 'vue'
+import { I18nInjectionKey } from 'vue-i18n'
 import { updateEmail } from '@/services/serviceMce.ts'
 
 defineOptions({ name: 'ChangeEmail' })
@@ -32,6 +33,11 @@ const emit = defineEmits<{
   (e: 'updated', email: string): void
 }>()
 
+const i18n = inject(I18nInjectionKey)
+function tEmail(key: string): string {
+  return i18n ? (i18n.global.t as (k: string) => string)(`change-email.${key}`) : key
+}
+
 const newEmail = ref('')
 const confirmEmail = ref('')
 const message = ref('')
@@ -46,19 +52,19 @@ function handleClose() {
 
 async function handleSubmit() {
   if (!newEmail.value || !confirmEmail.value) {
-    message.value = 'Tous les champs sont obligatoires.'
+    message.value = tEmail('error-required')
     messageType.value = 'error'
     return
   }
 
   if (!EMAIL_REGEX.test(newEmail.value)) {
-    message.value = 'Le format de l\'email est invalide.'
+    message.value = tEmail('error-format')
     messageType.value = 'error'
     return
   }
 
   if (newEmail.value !== confirmEmail.value) {
-    message.value = 'Les emails ne correspondent pas.'
+    message.value = tEmail('error-mismatch')
     messageType.value = 'error'
     return
   }
@@ -73,7 +79,7 @@ async function handleSubmit() {
 
     await updateEmail(fullUrl, newEmail.value, confirmEmail.value, props.userInfoApiUrl)
 
-    message.value = 'Email mis à jour avec succès !'
+    message.value = tEmail('success')
     messageType.value = 'success'
 
     setTimeout(() => {
@@ -86,7 +92,7 @@ async function handleSubmit() {
         ? error.message
         : (error as { response?: { data?: { message?: string } } })?.response?.data?.message
 
-    message.value = apiMessage ?? 'Erreur lors de la modification.'
+    message.value = apiMessage ?? tEmail('error-default')
     messageType.value = 'error'
   }
   finally {
@@ -98,30 +104,30 @@ async function handleSubmit() {
 <template>
   <div class="change-email-panel">
     <header class="panel-header">
-      <h3>Modifier l'adresse email</h3>
+      <h3>{{ tEmail('title') }}</h3>
     </header>
 
     <div class="panel-body">
       <div class="form-group">
-        <label class="info-label">Email actuel</label>
+        <label class="info-label">{{ tEmail('current-email') }}</label>
         <div class="static-value">
           {{ props.currentEmail || '-' }}
         </div>
       </div>
 
       <div class="form-group">
-        <label class="info-label" for="newEmail">Nouvel email</label>
+        <label class="info-label" for="newEmail">{{ tEmail('new-email') }}</label>
         <input
           id="newEmail"
           v-model="newEmail"
           type="email"
-          placeholder="exemple@domaine.fr"
+          :placeholder="tEmail('placeholder')"
           class="custom-input"
         >
       </div>
 
       <div class="form-group">
-        <label class="info-label" for="confirmEmail">Confirmation du nouvel email</label>
+        <label class="info-label" for="confirmEmail">{{ tEmail('confirm-email') }}</label>
         <input
           id="confirmEmail"
           v-model="confirmEmail"
@@ -136,7 +142,7 @@ async function handleSubmit() {
 
       <div class="panel-actions">
         <button class="btn-secondary" @click="handleClose">
-          Annuler
+          {{ tEmail('cancel') }}
         </button>
 
         <button
@@ -144,8 +150,8 @@ async function handleSubmit() {
           :disabled="isLoading"
           @click="handleSubmit"
         >
-          <span v-if="isLoading">...</span>
-          <span v-else>Valider</span>
+          <span v-if="isLoading">{{ tEmail('loading') }}</span>
+          <span v-else>{{ tEmail('submit') }}</span>
         </button>
       </div>
     </div>
