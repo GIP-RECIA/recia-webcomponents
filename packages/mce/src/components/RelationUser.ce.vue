@@ -93,7 +93,7 @@ function closeDetail(): void {
             @keydown.enter.prevent="selectRelation(val.uidRelation)"
           >
             <div class="info-item entry-container">
-              <span class="info-label">{{ val.typeRelation || 'Relation' }}</span>
+              <span class="info-label">{{ val.typeRelation || m('relation-default') }}</span>
               <span class="info-value name-bold">{{ val.displayNameRelation }}</span>
             </div>
 

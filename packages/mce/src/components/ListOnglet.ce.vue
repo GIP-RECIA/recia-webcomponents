@@ -15,7 +15,8 @@
 -->
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
+import { inject } from 'vue'
+import { I18nInjectionKey } from 'vue-i18n'
 
 defineOptions({ name: 'ListeOnglet' })
 
@@ -28,8 +29,10 @@ defineProps<{
 
 const emit = defineEmits<(e: 'selectOnglet', payload: any) => void>()
 
-const { t } = useI18n()
-const m = (key: string): string => t(`list-onglet.${key}`)
+const i18n = inject(I18nInjectionKey)
+function m(key: string): string {
+  return i18n ? (i18n.global.t as (k: string) => string)(`list-onglet.${key}`) : key
+}
 
 function selected(onglet: string) {
   emit('selectOnglet', onglet)

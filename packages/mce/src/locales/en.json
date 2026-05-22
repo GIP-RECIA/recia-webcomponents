@@ -15,7 +15,13 @@
     "bod": "Date of birth",
     "structure": "Attached structure",
     "password": "Password",
-    "access": "My login"
+    "access": "My login",
+    "informations-personnelles": "Personal information",
+    "nom": "Last name",
+    "prenom": "First name",
+    "modifier": "Edit",
+    "annuler": "Cancel",
+    "uid": "UID"
   },
 
   "info-general": {
@@ -34,12 +40,84 @@
     "title-relation-parent": "The students in my relationship",
     "title-relation-student": "Person connected with me",
     "title-relation-master": "My apprentices",
-    "parental-authority": "Parental authority"
+    "parental-authority": "Parental authority",
+    "relation-default": "Relation"
   },
 
   "avatar-user": {
     "title-header": "Change avatar",
     "select-image": "Select image",
     "apply": "Apply"
+  },
+
+  "change-email": {
+    "title": "Change email address",
+    "current-email": "Current email",
+    "new-email": "New email",
+    "confirm-email": "Confirm new email",
+    "placeholder": "example{'@'}domain.com",
+    "cancel": "Cancel",
+    "submit": "Confirm",
+    "loading": "...",
+    "success": "Email updated successfully!",
+    "error-required": "All fields are required.",
+    "error-format": "Invalid email format.",
+    "error-mismatch": "Emails do not match.",
+    "error-default": "Error while updating."
+  },
+  "change-password": {
+    "title": "Change my password",
+    "current-password": "Current password",
+    "new-password": "New password",
+    "confirm-password": "Confirm new password",
+    "placeholder-current": "Enter your current password",
+    "placeholder-new": "At least 8 characters",
+    "placeholder-confirm": "Repeat your password",
+    "submit": "Change password",
+    "loading": "Loading...",
+    "error-required": "All fields are required.",
+    "error-mismatch": "New passwords do not match.",
+    "error-length": "The new password must contain at least 8 characters.",
+    "success": "Password changed successfully.",
+    "error-default": "Error while changing the password."
+  },
+  "classes-groupes-eleve": {
+    "etablissement": "School",
+    "matieres-suivies": "Subjects taken"
+  },
+  "classes-groupes-prof": {
+    "etablissement": "School",
+    "discipline": "Discipline / Subject",
+    "no-data": "No data loaded.",
+    "discipline-unknown": "Unknown discipline",
+    "discipline-not-set": "Discipline not set"
+  },
+  "fonctions-list": {
+    "card-label": "Functions"
+  },
+  "relation-user-detail": {
+    "loading": "Loading…",
+    "error": "Unable to load information.",
+    "external-account": "External Account (EduConnect)",
+    "close": "Close",
+    "email": "Email address",
+    "etab": "Attached school",
+    "bod": "Date of birth",
+    "uid": "Unique identifier (UID)",
+    "classes-groupes": "Classes and educational groups",
+    "classes": "Classes",
+    "groupes": "Groups",
+    "enseignements": "Courses taken",
+    "personnes-relation": "Related persons",
+    "lien": "Link",
+    "autorite-parentale": "Parental authority"
+  },
+  "onglet-content": {
+    "mes-fonctions": "My functions",
+    "etab-siren": "School (SIREN)",
+    "fonction": "Function",
+    "discipline": "Discipline",
+    "active": "Active",
+    "active-label": "Function active for"
   }
 }

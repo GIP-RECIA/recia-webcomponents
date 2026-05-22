@@ -17,7 +17,6 @@
 <script setup lang="ts">
 import type { Etabs, General, SectionEleve, SectionProf } from '@/types/generalType'
 import { computed } from 'vue'
-import { useI18n } from 'vue-i18n'
 import ClassesGroupesEleve from './ClassesGroupesEleve.ce.vue'
 import ClassesGroupesProf from './ClassesGroupesProf.ce.vue'
 
@@ -43,9 +42,6 @@ const sectionProf = computed<SectionProf | undefined>(
 const etabs = computed<Array<Etabs>>(
   () => sectionEleve.value?.etabs ?? [],
 )
-
-const { t } = useI18n()
-const tInfo = (key: string): string => t(`info-general.${key}`)
 
 // Condition pour savoir si on a des relations parents / enfants à afficher
 const hasParentEleve = computed<boolean>(() => {
@@ -89,7 +85,6 @@ const hasApprentis = computed<boolean>(() => {
 
 <template>
   <div class="sectionPersonnelles">
-    <!-- VERSION 1 : Parent / Responsable d'élève (Alimenté par relationEleve ou parentEleve) -->
     <relation-user
       v-if="hasParentEleve"
       :details="computedParentDetails"
@@ -99,7 +94,6 @@ const hasApprentis = computed<boolean>(() => {
       :user-info-api-url="userInfoApiUrl"
     />
 
-    <!-- VERSION 2 : Maître d'apprentissage / Apprentis -->
     <relation-user
       v-if="hasApprentis"
       :details="apprentis"
@@ -113,19 +107,12 @@ const hasApprentis = computed<boolean>(() => {
       v-if="hasSectionProf"
       :section-prof="sectionProf"
       :list-fonctions="listFonctions"
-      :label-titre="tInfo('title-classe-groupe')"
-      :label-class="tInfo('class')"
-      :label-group="tInfo('group')"
     />
 
     <ClassesGroupesEleve
       v-else-if="hasSectionEleve"
       :etabs="etabs"
       :section-eleve="sectionEleve"
-      :label-titre="tInfo('title-classe-groupe')"
-      :label-titre-cours="tInfo('title-courses')"
-      :label-class="tInfo('class')"
-      :label-group="tInfo('group')"
     />
   </div>
 </template>
