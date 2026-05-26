@@ -15,6 +15,7 @@
     "explication": "Le nom personnalisé de l'établissement doit permettre de l'identifier clairement parmi d'autre dans les listes de choix."
   },
   "image-cropper": {
+    "editer": "Éditer",
     "selectionner-image": "Sélectionner une image",
     "appliquer": "Appliquer",
     "fermer": "Fermer"

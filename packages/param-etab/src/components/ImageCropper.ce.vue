@@ -135,7 +135,7 @@ function cropImage() {
     // formData.append('details', props.detailEtab);
 
     // add name for the image
-    formData.append('name', `image-name-${new Date().getTime()}`)
+    formData.append('name', `image-name-${Date.now()}`)
 
     // append image file
     formData.append('file', blob, `logo.${blob.type.split('/')[1]}`)
@@ -183,7 +183,7 @@ function cropImage() {
         :style="{ display: 'none' }"
         @change="fileChanged"
       >
-      <button class="edit-logo" @click="open = true" />
+      <button :aria-label="m('editer')" :title="m('editer')" class="edit-logo" @click="open = true" />
     </div>
     <div class="avatar-preview">
       <img class="imagePreview" :src="imageEtab" alt="" width="270" height="120">
@@ -196,7 +196,7 @@ function cropImage() {
     <input id="idEtab" type="hidden" name="idEtab" :value="idEtab">
     <div>
       <div class="close">
-        <button type="button" class="close" @click="closeModal" />
+        <button type="button" :aria-label="m('fermer')" class="close" @click="closeModal" />
       </div>
       <div class="images">
         <div v-show="imageSrc" class="cropImg">

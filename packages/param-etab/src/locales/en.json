@@ -15,6 +15,7 @@
     "explication": "The institution’s custom name must clearly identify the institution from the list of choices."
   },
   "image-cropper": {
+    "editer": "Edit",
     "selectionner-image": "Select image",
     "appliquer": "Apply",
     "fermer": "Close"
