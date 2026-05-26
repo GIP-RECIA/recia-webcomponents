@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.2.1](https://github.com/GIP-RECIA/recia-webcomponents/compare/param-etab/v1.2.0...param-etab/v1.2.1) (2026-05-26)
+
+
+### Bug Fixes
+
+* **param-etab:** french translation ([4147dda](https://github.com/GIP-RECIA/recia-webcomponents/commit/4147dda96dacd4abc2b2ce237f5841401c374882))
+* **param-etab:** improve edit button accessibility ([238a08e](https://github.com/GIP-RECIA/recia-webcomponents/commit/238a08ed2fd8e39893a2e7551aa6c5efe38e7404))
+* **param-etab:** unused vite resource ([2b501d9](https://github.com/GIP-RECIA/recia-webcomponents/commit/2b501d9c115eff2e210e46c497737312b24b4bf9))
+
 ## [1.2.0](https://github.com/GIP-RECIA/recia-webcomponents/compare/param-etab/v1.1.2...param-etab/v1.2.0) (2025-10-02)
 
 
