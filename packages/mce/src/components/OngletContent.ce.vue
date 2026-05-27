@@ -124,6 +124,7 @@ const isProfSectionActive = computed<boolean>(() => {
         v-if="isProfSectionActive && (sectionProf.length || Object.keys(sectionProf).length)"
         :section-prof="sectionProf"
         :list-fonctions="fonctions"
+        :section-eleve="sectionEleve"
       />
       <ClassesGroupesEleve
         v-else-if="sectionEleve?.etabs?.length"
