@@ -122,7 +122,6 @@ onMounted(async () => {
 
     listOnglets.value = [
       'GENERALE',
-      'SERVICE',
       ...(mce.value.fonctionClassesGroupe?.listFonctions?.length > 0
         ? ['FONCTION_LIST']
         : []),
