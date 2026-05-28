@@ -2,6 +2,7 @@
   "name": "@gip-recia/mce",
   "type": "module",
   "version": "0.0.0",
+  "private": true,
   "description": "",
   "contributors": [
     {
@@ -44,6 +45,9 @@
     "test:unit": "echo No tests available",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",
+    "each": "yarn workspaces foreach -pt --from @gip-recia/mce",
+    "test": "vitest",
+    "test:run": "vitest run",
     "release": "yarn run -T commit-and-tag-version -t 'mce/v' --path . --release-as $1 || echo 'Please specify a version type (yarn run release -- [patch, minor, major])'"
   },
   "devDependencies": {
@@ -58,12 +62,14 @@
     "@types/regenerator-runtime": "^0",
     "@uportal/open-id-connect": "^1.40.2",
     "@vitejs/plugin-vue": "^6.0.5",
+    "@vue/test-utils": "^2.4.10",
     "@vue/tsconfig": "^0.9.1",
     "axios": "^1.14.0",
     "cropperjs": "^1.6.2",
     "dotenv-checker": "^1.1.7",
     "eslint": "^10.1.0",
     "eslint-plugin-format": "^2.0.1",
+    "jsdom": "^29.1.1",
     "lint-staged": "^16.4.0",
     "npm-run-all2": "^8.0.4",
     "regenerator-runtime": "^0.14.1",
@@ -71,6 +77,7 @@
     "terser": "^5.46.1",
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
+    "vitest": "^4.1.7",
     "vue": "^3.5.31",
     "vue-i18n": "^11.3.0",
     "vue-tsc": "^3.2.6"
