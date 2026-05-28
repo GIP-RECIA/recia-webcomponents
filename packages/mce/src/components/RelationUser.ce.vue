@@ -1,12 +1,9 @@
 <!--
  Copyright (C) 2023 GIP-RECIA, Inc.
-
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
-
      http://www.apache.org/licenses/LICENSE-2.0
-
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,28 +20,27 @@ import RelationUserDetail from './RelationUserDetail.ce.vue'
 
 defineOptions({ name: 'RelationUser' })
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   mceApi: string
   userInfoApiUrl: string
-  details: Array<Relation>
+  details?: Relation[]
   titre: string
   onglet: string
-}>()
+}>(), {
+  details: () => [],
+})
 
 const { t } = useI18n()
 const m = (key: string): string => t(`relation-user.${key}`)
 
-const relations = computed<Array<Relation>>(() => {
-  if (props.details && !Array.isArray(props.details)) {
-    return [props.details as unknown as Relation]
-  }
-  return props.details ?? []
-})
+// Utilisation sécurisée
+const relations = computed(() => props.details ?? [])
 
 const selectedUid = ref<string | null>(null)
 const personne = ref<any>(null)
 const isLoading = ref(false)
 const hasError = ref(false)
+const showDetail = ref(false)
 
 async function selectRelation(uid: string): Promise<void> {
   if (selectedUid.value === uid) {
@@ -54,9 +50,13 @@ async function selectRelation(uid: string): Promise<void> {
 
   isLoading.value = true
   hasError.value = false
+  showDetail.value = true
 
   try {
-    const response = await getDetailEnfant(props.mceApi + uid, props.userInfoApiUrl)
+    const response = await getDetailEnfant(
+      props.mceApi + uid,
+      props.userInfoApiUrl,
+    )
     personne.value = response.data
     selectedUid.value = uid
   }
@@ -72,6 +72,9 @@ async function selectRelation(uid: string): Promise<void> {
 function closeDetail(): void {
   selectedUid.value = null
   personne.value = null
+  hasError.value = false
+  isLoading.value = false
+  showDetail.value = false
 }
 </script>
 
@@ -81,7 +84,6 @@ function closeDetail(): void {
       <header class="card-header">
         <h2>{{ m(`title-relation-${titre}`) }}</h2>
       </header>
-
       <div class="card-body-grid">
         <template v-for="(val, index) in relations" :key="index">
           <div
@@ -96,16 +98,15 @@ function closeDetail(): void {
               <span class="info-label">{{ val.typeRelation || m('relation-default') }}</span>
               <span class="info-value name-bold">{{ val.displayNameRelation }}</span>
             </div>
-
             <div v-if="val.autoriteParental" class="tag-container">
               <span class="ap-tag">{{ m('parental-authority') }}</span>
             </div>
-
             <span class="chevron" :class="{ open: selectedUid === val.uidRelation }">›</span>
           </div>
         </template>
+
         <RelationUserDetail
-          v-if="selectedUid || isLoading"
+          v-if="showDetail"
           :personne="personne"
           :is-loading="isLoading"
           :has-error="hasError"
