@@ -33,6 +33,15 @@ app.use(Vue3Toasity, {
   theme: 'colored',
 } as ToastContainerOptions)
 
+declare global {
+  interface DocumentEventMap {
+    'click-portlet-card': CustomEvent<{
+      fname: string
+      SERVICE: string
+    }>
+  }
+}
+
 if (import.meta.env.DEV) {
   const {
     VITE_BASE_API_URL,
@@ -47,4 +56,15 @@ if (import.meta.env.DEV) {
   component.setAttribute('user-info-api-url', VITE_USER_INFO_API_URI)
   component.setAttribute('default-logo-icon', VITE_DEFAULT_LOGO_ICON)
   document.body.appendChild(component)
+
+  document.addEventListener('click-portlet-card', (e) => {
+    if (!e.detail) {
+      // eslint-disable-next-line no-console
+      console.log(e.type)
+      return
+    }
+
+    // eslint-disable-next-line no-console
+    console.log(e.type, e.detail)
+  })
 }

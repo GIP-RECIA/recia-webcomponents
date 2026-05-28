@@ -18,6 +18,7 @@
 import type { Ref } from 'vue'
 import { computed, ref } from 'vue'
 import i18n from '@/plugins/i18n'
+import { dnmaService } from '@/services/dnmaService'
 
 const props = defineProps<{
   dataJson: string
@@ -53,6 +54,7 @@ function filteredList(): any[] {
 
 function selected(id: string) {
   emit('selectEtab', id, false)
+  dnmaService.consult()
 }
 
 const filteredData = computed(() => filteredList())

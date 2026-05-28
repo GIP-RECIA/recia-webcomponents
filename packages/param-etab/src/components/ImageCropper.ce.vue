@@ -18,6 +18,7 @@
 import Cropper from 'cropperjs'
 import { onMounted, onUnmounted, ref, watch, watchEffect } from 'vue'
 import i18n from '@/plugins/i18n'
+import { dnmaService } from '@/services/dnmaService'
 import { uploadLogo } from '@/services/serviceParametab'
 import { showError, showSuccess } from '@/utils/useToast'
 
@@ -163,6 +164,7 @@ function cropImage() {
         document.dispatchEvent(myEvent)
       }
       showSuccess()
+      dnmaService.modify()
     }
     catch (error: any) {
       closeModal()

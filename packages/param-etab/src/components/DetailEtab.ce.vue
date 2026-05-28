@@ -18,6 +18,7 @@
 import type { StructureDetail } from '../types/structureType'
 import { computed, onMounted, ref, watch, watchEffect } from 'vue'
 import i18n from '@/plugins/i18n'
+import { dnmaService } from '@/services/dnmaService'
 import { getDetailEtab, updateEtab } from '@/services/serviceParametab'
 import { showError, showSuccess } from '@/utils/useToast'
 
@@ -100,6 +101,7 @@ async function updateInfo() {
       document.dispatchEvent(myEvent)
     }
     showSuccess()
+    dnmaService.modify()
   }
   catch (error: any) {
     console.error('error: ', error)
