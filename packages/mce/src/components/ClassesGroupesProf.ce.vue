@@ -197,11 +197,9 @@ function getMatiere(item: any) {
 @use '@gip-recia/ui/core/variables' as *;
 
 .page-container {
-  padding: 0 1rem;
-
-  @media (max-width: 576px) {
-    padding: 0 0.5rem;
-  }
+  //@media (max-width: 576px) {
+  //  padding: 0 0.5rem;
+  //}
 }
 
 .profile-card {
