@@ -1,5 +1,6 @@
 {
   "name": "@gip-recia/mce",
+  "private": true,
   "type": "module",
   "version": "0.0.0",
   "description": "",
@@ -44,6 +45,9 @@
     "test:unit": "echo No tests available",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",
+    "each": "yarn workspaces foreach -pt --from @gip-recia/mce",
+    "test": "vitest",
+    "test:run": "vitest run",
     "release": "yarn run -T commit-and-tag-version -t 'mce/v' --path . --release-as $1 || echo 'Please specify a version type (yarn run release -- [patch, minor, major])'"
   },
   "devDependencies": {
@@ -72,6 +76,8 @@
     "vite": "^7.3.1",
     "vue": "^3.5.31",
     "vue-i18n": "^11.3.0",
-    "vue-tsc": "^3.2.6"
+    "vue-tsc": "^3.2.6",
+    "@vue/test-utils": "^2.4.10",
+    "vitest": "^4.1.7"
   }
 }

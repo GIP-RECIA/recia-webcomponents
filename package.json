@@ -11,9 +11,12 @@
   "devDependencies": {
     "@commitlint/cli": "^20.5.0",
     "@commitlint/config-conventional": "^20.5.0",
+    "@vitejs/plugin-vue": "^6.0.7",
     "commit-and-tag-version": "^12.7.1",
     "husky": "^9.1.7",
-    "lint-staged": "^16.4.0"
+    "jsdom": "^29.1.1",
+    "lint-staged": "^16.4.0",
+    "vitest": "^4.1.7"
   },
   "packageManager": "yarn@4.13.0",
   "dependencies": {

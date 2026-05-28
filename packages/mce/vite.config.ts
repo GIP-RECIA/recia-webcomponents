@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 /* eslint-disable node/prefer-global/process */
+
 import type { ConfigEnv, PluginOption } from 'vite'
 import { fileURLToPath } from 'node:url'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import vue from '@vitejs/plugin-vue'
-import { defineConfig, loadEnv } from 'vite'
+import { loadEnv } from 'vite'
+import { defineConfig } from 'vitest/config'
 import { name } from './package.json'
 
 export default ({ mode }: ConfigEnv) => {
@@ -27,39 +28,66 @@ export default ({ mode }: ConfigEnv) => {
 
   return defineConfig({
     base: mode === 'development' ? env.VITE_BASE_URI : undefined,
+
     server: {
       allowedHosts: env.VITE_ALLOWED_HOSTS ? JSON.parse(env.VITE_ALLOWED_HOSTS) : [],
     },
+
+    // ==================== CONFIGURATION VITEST ====================
+    test: {
+      environment: 'jsdom',
+      globals: true,
+      root: fileURLToPath(new URL('.', import.meta.url)),
+
+      include: ['src/**/*.{test,spec}.{ts,tsx,js,jsx}'],
+      exclude: [
+        '**/node_modules/**',
+        '**/dist/**',
+        '**/build/**',
+      ],
+
+      // Configuration correcte pour Vitest v4
+      server: {
+        deps: {
+          inline: ['@vue/test-utils', 'vue-i18n'],
+        },
+      },
+    },
+
+    // ==================== PLUGINS ====================
     plugins: [
       vue({
         template: {
           compilerOptions: {
-            isCustomElement: tag => [
-              'avatar-user',
-              'i18n-host',
-              'info-general',
-              'list-onglet',
-              'mce-ui',
-              'modal-content',
-              'onglet-content',
-              'relation-user',
-              'section-onglet',
-              'services-ent',
-              'user-base-info',
-              'info-modal',
-            ].includes(tag),
+            isCustomElement: (tag: string) =>
+              [
+                'avatar-user',
+                'i18n-host',
+                'info-general',
+                'list-onglet',
+                'mce-ui',
+                'modal-content',
+                'onglet-content',
+                'relation-user',
+                'section-onglet',
+                'services-ent',
+                'user-base-info',
+                'info-modal',
+              ].includes(tag),
           },
         },
       }),
       VueI18nPlugin({}) as unknown as PluginOption,
     ] as PluginOption[],
 
+    // ==================== RESOLVE ====================
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
     },
 
+    // ==================== BUILD ====================
     build: {
       sourcemap: true,
       lib: {
