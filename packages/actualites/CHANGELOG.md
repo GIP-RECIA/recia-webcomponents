@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.4.1](https://github.com/GIP-RECIA/recia-webcomponents/compare/actualites/v1.4.0...actualites/v1.4.1) (2026-05-28)
+
+
+### Bug Fixes
+
+* **actualites:** improve accessibility (RGAA) ([c75992a](https://github.com/GIP-RECIA/recia-webcomponents/commit/c75992a710833a73875212b2bcba9e2cecd290ac))
+
 ## [1.4.0](https://github.com/GIP-RECIA/recia-webcomponents/compare/actualites/v1.3.1...actualites/v1.4.0) (2025-07-28)
 
 
