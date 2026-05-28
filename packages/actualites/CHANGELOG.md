@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.4.2](https://github.com/GIP-RECIA/recia-webcomponents/compare/actualites/v1.4.1...actualites/v1.4.2) (2026-05-28)
+
 ## [1.4.1](https://github.com/GIP-RECIA/recia-webcomponents/compare/actualites/v1.4.0...actualites/v1.4.1) (2026-05-28)
 
 
