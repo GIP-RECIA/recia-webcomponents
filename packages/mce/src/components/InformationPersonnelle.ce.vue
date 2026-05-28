@@ -129,7 +129,6 @@ function handleEmailUpdated(email: string) {
 @use '@gip-recia/ui/mixins' as *;
 
 .page-container {
-  padding: 0.75rem;
   display: flex;
 }
 
