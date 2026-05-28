@@ -21,11 +21,11 @@ import FonctionsList from '@/components/FonctionsList.ce.vue'
 import ChangePassword from './ChangePassword.ce.vue'
 import InformationPersonnelleCe from './InformationPersonnelle.ce.vue'
 
-interface FonctionClassesGroupe {
+export interface FonctionClassesGroupe {
   listFonctions: PersonneFonction[]
 }
 
-interface PersonneRelation {
+export interface PersonneRelation {
   [key: string]: unknown
 }
 
@@ -93,7 +93,6 @@ defineEmits<{
           @email-updated="(email) => $emit('emailUpdated', email)"
         />
 
-        <!-- Dans l'ONGLET GÉNÉRALE de SectionOnglet.ce.vue -->
         <info-general
           :details="fonctionClassesGroupe"
           :list-fonctions="fonctionClassesGroupe.listFonctions ?? []"

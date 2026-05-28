@@ -25,7 +25,6 @@ import OngletContentCe from '@/components/OngletContent.ce.vue'
 import PageMceCe from '@/components/PageMce.ce.vue'
 import RelationUserCe from '@/components/RelationUser.ce.vue'
 import SectionOngletCe from '@/components/SectionOnglet.ce.vue'
-import ServicesEntCe from '@/components/ServicesEnt.ce.vue'
 import UserBaseInfoCe from './components/UserBaseInfo.ce.vue'
 
 const AvatarUser = defineCustomElement(AvatarUserCe)
@@ -38,7 +37,6 @@ const OngletContent = defineCustomElement(OngletContentCe)
 const PageMce = defineCustomElement(PageMceCe)
 const RelationUser = defineCustomElement(RelationUserCe)
 const SectionOnglet = defineCustomElement(SectionOngletCe)
-const ServicesEnt = defineCustomElement(ServicesEntCe)
 const UserBaseInfo = defineCustomElement(UserBaseInfoCe)
 
 declare module 'vue' {
@@ -53,7 +51,6 @@ declare module 'vue' {
     PageMce: typeof PageMce
     RelationUser: typeof RelationUser
     SectionOnglet: typeof SectionOnglet
-    ServicesEnt: typeof ServicesEnt
     UserBaseInfo: typeof UserBaseInfo
   }
 }
@@ -69,7 +66,6 @@ function register() {
   customElements.define('mce-ui', PageMce)
   customElements.define('relation-user', RelationUser)
   customElements.define('section-onglet', SectionOnglet)
-  customElements.define('services-ent', ServicesEnt)
   customElements.define('user-base-info', UserBaseInfo)
 }
 
@@ -85,6 +81,5 @@ export {
   register,
   RelationUser,
   SectionOnglet,
-  ServicesEnt,
   UserBaseInfo,
 }
