@@ -2,7 +2,14 @@
   "button": {
     "mark-as-not-read": "Marquer comme non lu",
     "mark-as-read": "Marquer comme lu",
-    "close": "Fermer"
+    "close": "Fermer",
+    "prev": "Défiler d'une actualité vers la gauche",
+    "next": "Défiler d'une actualité vers la droite",
+    "firstPage": "Première page",
+    "lastPage": "Dernière page",
+    "previousPage": "Page précédente",
+    "nextPage": "Page suivante",
+    "page": "Page {page}"
   },
   "switch": {
     "all-News": "Toutes",
@@ -13,6 +20,7 @@
     "not-read-Documents": "Non lus"
   },
   "text": {
+    "pagination": "Pagination",
     "no-News": "Aucune actualité",
     "no-Documents": "Aucun document",
     "loading-error": "Une erreur est survenue.\nMerci de réessayer plus tard.",

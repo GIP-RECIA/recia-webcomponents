@@ -182,8 +182,7 @@ function closeModal() {
             :get-item-by-id-url="props.getItemByIdUrl"
             :is-read=" useReadingState === true ? (readingInfos?.has(item.uuid) ? readingInfos?.get(item.uuid) : false) : false"
             @update-reading-infos="updateReadingInfos()"
-            @click="openModal(item.uuid)"
-            @keydown.enter="openModal(item.uuid)"
+            @open-modal="openModal(item.uuid)"
           />
         </template>
       </div>

@@ -16,6 +16,7 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
+import i18n from '@/plugins/i18n'
 
 const props = withDefaults(
   defineProps<{
@@ -30,6 +31,8 @@ const props = withDefaults(
 )
 
 const emit = defineEmits(['updateModelValue'])
+
+const { t } = i18n.global
 
 const currentPage = ref(props.currentPagee ? props.currentPagee : 1)
 
@@ -59,33 +62,35 @@ const visiblePages = computed(() => {
 </script>
 
 <template>
-  <ul>
-    <li>
-      <button :disabled="currentPage === 1" @click="goToPage(1)">
-        <font-awesome-icon :icon="['fas', 'angles-left']" />
-      </button>
-    </li>
-    <li>
-      <button :disabled="currentPage === 1" @click="goToPage(currentPage - 1)">
-        <font-awesome-icon :icon="['fas', 'angle-left']" />
-      </button>
-    </li>
-    <li v-for="page in visiblePages" :key="page">
-      <button :class="{ active: page === currentPage }" @click="goToPage(page)">
-        {{ page }}
-      </button>
-    </li>
-    <li>
-      <button :disabled="currentPage === totalPages" @click="goToPage(currentPage + 1)">
-        <font-awesome-icon :icon="['fas', 'angle-right']" />
-      </button>
-    </li>
-    <li>
-      <button :disabled="currentPage === totalPages" @click="goToPage(totalPages)">
-        <font-awesome-icon :icon="['fas', 'angles-right']" />
-      </button>
-    </li>
-  </ul>
+  <nav role="navigation" :aria-label="t('text.pagination')">
+    <ul>
+      <li>
+        <button :aria-label="t('button.firstPage')" :disabled="currentPage === 1" @click="goToPage(1)">
+          <font-awesome-icon :icon="['fas', 'angles-left']" />
+        </button>
+      </li>
+      <li>
+        <button :aria-label="t('button.previousPage')" :disabled="currentPage === 1" @click="goToPage(currentPage - 1)">
+          <font-awesome-icon :icon="['fas', 'angle-left']" />
+        </button>
+      </li>
+      <li v-for="page in visiblePages" :key="page">
+        <button :aria-label="t('button.page', { page })" :aria-current="page === currentPage" :class="{ active: page === currentPage }" @click="goToPage(page)">
+          {{ page }}
+        </button>
+      </li>
+      <li>
+        <button :aria-label="t('button.nextPage')" :disabled="currentPage === totalPages" @click="goToPage(currentPage + 1)">
+          <font-awesome-icon :icon="['fas', 'angle-right']" />
+        </button>
+      </li>
+      <li>
+        <button :aria-label="t('button.lastPage')" :disabled="currentPage === totalPages" @click="goToPage(totalPages)">
+          <font-awesome-icon :icon="['fas', 'angles-right']" />
+        </button>
+      </li>
+    </ul>
+  </nav>
 </template>
 
 <style lang="scss">
@@ -100,6 +105,11 @@ ul {
 
   > li > button {
     @extend %tag-circle;
+
+    &[aria-current='true'] {
+      cursor: default;
+      pointer-events: none;
+    }
   }
 }
 </style>

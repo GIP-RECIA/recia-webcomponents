@@ -84,7 +84,9 @@ onBeforeMount(async () => {
 })
 
 onMounted(() => {
-  bottomsheet.value?.focus()
+  setTimeout(() => {
+    bottomsheet.value?.focus()
+  }, 300)
 })
 
 function clipLink(link: string): void {
@@ -220,6 +222,8 @@ function isNews(): boolean {
       <div
         ref="bottomsheet"
         tabindex="-1"
+        role="dialog"
+        aria-modal="true"
         class="bottomsheet-container"
         :class="{ 'slide-down': !isSelfBottomSheetOpen, 'slide-up': isSelfBottomSheetOpen }"
         @click.stop
@@ -230,7 +234,7 @@ function isNews(): boolean {
         </div>
 
         <div class="bottomsheet-content-header-close-btn">
-          <button @click="closeModal">
+          <button :aria-label="t('button.close')" @click="closeModal">
             <div class="test" style="width: 20px;">
               <font-awesome-icon icon="fa-solid fa-xmark" />
             </div>

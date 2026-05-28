@@ -145,7 +145,7 @@ function closeModal() {
 
       <div v-else class="carousel-content-container">
         <div v-show="isAvailableNews" class="arrow left">
-          <button :disabled="currentIndex === 0" @click="prev">
+          <button :aria-label="t('button.prev')" :disabled="currentIndex === 0" @click="prev">
             <font-awesome-icon icon="fa-solid fa-arrow-left" />
           </button>
         </div>
@@ -160,8 +160,7 @@ function closeModal() {
             :set-reading-url="props.setReadingUrl"
             :is-read="readingInfos?.has(item.uuid) ? readingInfos.get(item.uuid) : false"
             @update-reading-infos="updateReadingInfos()"
-            @click="openModal(item.uuid)"
-            @keydown.enter="openModal(item.uuid)"
+            @open-modal="openModal(item.uuid)"
           />
           <div v-if="!isAvailableNews" class="empty">
             <h3 class="h4">
@@ -171,7 +170,7 @@ function closeModal() {
         </div>
 
         <div v-show="isAvailableNews" class="arrow right">
-          <button :disabled="currentIndex >= (result?.actualite?.items?.length ?? 0) - 3" @click="next">
+          <button :aria-label="t('button.next')" :disabled="currentIndex >= (result?.actualite?.items?.length ?? 0) - 3" @click="next">
             <font-awesome-icon icon="fa-solid fa-arrow-right" />
           </button>
         </div>

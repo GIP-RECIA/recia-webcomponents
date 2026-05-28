@@ -29,6 +29,8 @@ const props = defineProps<{
 
 }>()
 
+defineEmits(['openModal'])
+
 const { t, d } = useI18n()
 
 function docSizeToUse() {
@@ -45,7 +47,7 @@ function docSizeToUse() {
 </script>
 
 <template>
-  <article tabindex="0" :class="{ active: !isRead, pageOrigin }">
+  <article :class="{ active: !isRead, pageOrigin }">
     <div v-if="item.article.enclosure !== null" class="card-img">
       <img class="image" :src="item.article.enclosure" alt="">
     </div>
@@ -62,7 +64,9 @@ function docSizeToUse() {
       </p>
 
       <h3 class="h4">
-        {{ item.article.title }}
+        <button @click="$emit('openModal')">
+          {{ item.article.title }}
+        </button>
       </h3>
       <p class="card-body-description">
         {{ item.article.description }}
@@ -86,6 +90,7 @@ function docSizeToUse() {
 @use '@/assets/global.scss' as *;
 
 article {
+  position: relative;
   background-color: $white;
   border-radius: 10px;
   display: flex;
@@ -93,7 +98,6 @@ article {
   width: auto;
   flex-direction: row;
   box-shadow: $shadow-neutral rgba(0, 0, 0, 0.1);
-  cursor: pointer;
   overflow: hidden;
   transition:
     outline 0.15s ease-out,
@@ -103,12 +107,21 @@ article {
 
   h3 {
     transition: color 0.15s ease-out;
-  }
 
-  &:focus-visible {
-    outline: 2px solid $primary;
-    h3 {
-      color: $primary;
+    > button {
+      text-align: start;
+      color: inherit;
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+      }
+
+      &:focus-visible {
+        outline: none;
+      }
     }
   }
 
@@ -205,10 +218,35 @@ article {
   &.pageOrigin {
     height: 170px;
 
-    &.active {
-      h3 {
-        color: $primary;
-      }
+    h3 {
+      color: $basic-black;
+    }
+  }
+
+  &:has(h3 > button:hover),
+  &:focus-visible,
+  &:has(:focus-visible) {
+    outline: 2px solid $primary;
+    box-shadow: $shadow-hover $primary-20;
+
+    .image {
+      transform: scale(1.3);
+    }
+
+    &:not(.active) {
+      outline: 2px solid $lighter-black;
+      box-shadow: unset;
+    }
+
+    h3 {
+      color: $primary;
+    }
+  }
+
+  @media (hover: none) or (pointer: coarse) {
+    &.pageOrigin.active h3,
+    &.active h3 {
+      color: $primary;
     }
   }
 }
@@ -221,37 +259,6 @@ article {
 
     &.pageOrigin {
       height: 150px;
-
-      &.active {
-        h3 {
-          color: $basic-black;
-        }
-
-        &:hover,
-        &:focus-visible {
-          h3 {
-            color: $primary;
-          }
-        }
-      }
-    }
-
-    &:hover,
-    &:focus-visible {
-      outline: 2px solid $primary;
-      box-shadow: $shadow-hover $primary-20;
-      .image {
-        transform: scale(1.3);
-      }
-
-      &:not(.active) {
-        outline: 2px solid $lighter-black;
-        box-shadow: unset;
-      }
-
-      h3 {
-        color: $primary;
-      }
     }
   }
 }

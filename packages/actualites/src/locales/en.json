@@ -2,7 +2,14 @@
   "button": {
     "mark-as-not-read": "Mark as unread",
     "mark-as-read": "Mark as read",
-    "close": "Close"
+    "close": "Close",
+    "prev": "Scroll left to view the next news item",
+    "next": "Scroll right to view the next news item",
+    "firstPage": "First page",
+    "lastPage": "Last page",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "page": "Page {page}"
   },
   "switch": {
     "all-News": "All",
@@ -13,6 +20,7 @@
     "not-read-Documents": "Unread"
   },
   "text": {
+    "pagination": "Pagination",
     "no-News": "No news",
     "no-Documents": "No file",
     "loading-error": "An error has occurred.\nPlease try again later.",
