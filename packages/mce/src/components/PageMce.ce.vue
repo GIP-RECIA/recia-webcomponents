@@ -222,98 +222,34 @@ function handleEmailUpdated(event: any) {
 </template>
 
 <style lang="scss" scoped>
-@use 'sass:map';
-@use '@gip-recia/ui/core/variables' as *;
-@use '@gip-recia/ui/functions' as *;
-@use '@gip-recia/ui/mixins' as *;
-
 .parent {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 100%;
-  padding: 1rem;
-  min-width: 0;
-  overflow-x: hidden;
-  box-sizing: border-box;
 
-  @media (width >= map.get($grid-breakpoints, md)) {
+  @media (width >= 768px) {
     flex-direction: row;
     padding: 1.5rem 2rem;
     align-items: flex-start;
   }
 
   .user-details {
-    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 20px;
     background-color: white;
     padding: 20px;
     border-radius: 28px;
-    box-sizing: border-box;
-    flex-shrink: 0;
-    min-width: 0;
-
-    @media (width >= map.get($grid-breakpoints, md)) {
-      width: 320px;
-      max-width: 30%;
-      position: sticky;
-      top: 1.5rem;
-    }
   }
 
   .sectionTwo {
     width: 100%;
-    min-height: 600px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    background-color: white;
-    padding: 24px;
-    border-radius: 28px;
-    box-sizing: border-box;
-    flex: 1;
-    min-width: 0;
   }
 }
 
 @media (max-width: 340px) {
   .parent {
     padding: 0.5rem;
-    gap: 12px;
-
-    .user-details {
-      padding: 12px;
-      border-radius: 16px;
-    }
-
-    .sectionTwo {
-      padding: 12px;
-      border-radius: 16px;
-      min-height: auto;
-    }
   }
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  min-width: 0;
-  box-sizing: border-box;
-
-  label {
-    display: flex;
-    flex-direction: column;
-  }
-}
-
-:deep(*) {
-  box-sizing: border-box;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  word-break: normal;
-  hyphens: none !important;
 }
 </style>
