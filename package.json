@@ -9,7 +9,7 @@
     "postinstall": "husky"
   },
   "devDependencies": {
-    "@commitlint/cli": "^20.5.0",
+    "@commitlint/cli": "^21.0.2",
     "@commitlint/config-conventional": "^21.0.2",
     "commit-and-tag-version": "^12.6.1",
     "husky": "^9.1.7",
