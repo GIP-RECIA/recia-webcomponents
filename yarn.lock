@@ -1645,7 +1645,7 @@ __metadata:
     "@fortawesome/vue-fontawesome": "npm:^3.2.0"
     "@gip-recia/js-tree": "npm:^0.0.18"
     "@gip-recia/ui": "npm:^1.0.4"
-    "@gip-recia/ui-webcomponents": "npm:^1.13.2"
+    "@gip-recia/ui-webcomponents": "npm:^1.13.4"
     "@intlify/unplugin-vue-i18n": "npm:^11.1.2"
     "@tsconfig/node24": "npm:^24.0.4"
     "@types/lodash.debounce": "npm:^4"
@@ -1783,10 +1783,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gip-recia/ui-webcomponents@npm:^1.13.2":
-  version: 1.13.2
-  resolution: "@gip-recia/ui-webcomponents@npm:1.13.2"
-  checksum: 10/533bd4ce586294fbc089ce839b0da201859bbc9305e0be1c2ad045066c5c9d303f1a48c123f8a438d794859ed4332316a027d334d424c04178db9de70d79cfed
+"@gip-recia/ui-webcomponents@npm:^1.13.4":
+  version: 1.13.4
+  resolution: "@gip-recia/ui-webcomponents@npm:1.13.4"
+  checksum: 10/6fe67d71687bd337985a66c4833c3991b8c2c6f0fb5fa4135ec23c51544f3dd818e82b8d7fad86ddbef83f2b50354ef4a3511b684940a9ed607634035a2121ab
   languageName: node
   linkType: hard
 
