@@ -39,5 +39,3 @@ make license-generate
 - [@gip-recia/mediacentre-ui](packages/mediacentre/)
 - [@gip-recia/param-etab](packages/param-etab/)
 - [@gip-recia/ui-ressources-gar](packages/ressources-diffusables/)
-- [@gip-recia/tldraw-webcomponent](packages/tldraw/)
-- [@gip-recia/wisemapping-webcomponent](packages/wisemapping/)
