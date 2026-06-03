@@ -18,6 +18,7 @@ dist-ssr
 coverage
 .env
 *.local
+workspace
 
 ### Tests ###
 playwright-report
