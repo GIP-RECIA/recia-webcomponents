@@ -140,7 +140,10 @@ function closeModal() {
 
 <template>
   <i18n-host>
-    <div id="allNews" class="allNews">
+    <div
+      id="allNews"
+      class="allNews"
+    >
       <div class="allNews-header">
         <div class="allNews-header-title">
           <a
@@ -170,11 +173,24 @@ function closeModal() {
         @update-model-value="handleFilterChange"
       />
 
-      <div v-if="initialLoading" class="allNews-body">
-        <div v-for="index in 10" :key="index" class="skeleton-card" />
+      <div
+        v-if="initialLoading"
+        class="allNews-body"
+      >
+        <div
+          v-for="index in 10"
+          :key="index"
+          class="skeleton-card"
+        />
       </div>
-      <div v-else-if="result && result.actualite.items.length > 0" class="allNews-body">
-        <template v-for="(item, index) in result.actualite?.items" :key="index">
+      <div
+        v-else-if="result && result.actualite.items.length > 0"
+        class="allNews-body"
+      >
+        <template
+          v-for="(item, index) in result.actualite?.items"
+          :key="index"
+        >
           <news-card
             :item="item"
             :page-origin="true"
@@ -186,7 +202,10 @@ function closeModal() {
           />
         </template>
       </div>
-      <div v-else class="allNews-empty">
+      <div
+        v-else
+        class="allNews-empty"
+      >
         <h3 class="h4">
           {{ t(`text.no-${props.localeKey}`) }}
         </h3>

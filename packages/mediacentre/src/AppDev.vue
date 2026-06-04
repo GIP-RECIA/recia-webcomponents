@@ -32,19 +32,42 @@ function swap(): void {
     </button>
 
     <br>
-    <label v-show="isRedirect === false" for="redirectArgument">
+    <label
+      v-show="isRedirect === false"
+      for="redirectArgument"
+    >
 
-      Redirect value: <input id="redirectArgument" v-model="redirectArgument" name="redirectArgument" type="text">
+      Redirect value: <input
+        id="redirectArgument"
+        v-model="redirectArgument"
+        name="redirectArgument"
+        type="text"
+      >
 
     </label>
 
-    <label v-show="isRedirect === false" for="isBase64"><br>
+    <label
+      v-show="isRedirect === false"
+      for="isBase64"
+    ><br>
 
-      Is base 64: <input id="isBase64" :checked="isBase64" name="isBase64" type="checkbox"></label>
+      Is base 64: <input
+        id="isBase64"
+        :checked="isBase64"
+        name="isBase64"
+        type="checkbox"
+      ></label>
   </div>
 
-  <mediacentre-redirect v-if="isRedirect" id="mediacentre-redirect" :resource-id="redirectArgument" />
-  <mediacentre-ui v-else id="mediacentre-ui" />
+  <mediacentre-redirect
+    v-if="isRedirect"
+    id="mediacentre-redirect"
+    :resource-id="redirectArgument"
+  />
+  <mediacentre-ui
+    v-else
+    id="mediacentre-ui"
+  />
 </template>
 
 <style lang="scss">

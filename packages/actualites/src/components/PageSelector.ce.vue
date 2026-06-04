@@ -62,30 +62,57 @@ const visiblePages = computed(() => {
 </script>
 
 <template>
-  <nav role="navigation" :aria-label="t('text.pagination')">
+  <nav
+    role="navigation"
+    :aria-label="t('text.pagination')"
+  >
     <ul>
       <li>
-        <button :aria-label="t('button.firstPage')" :disabled="currentPage === 1" @click="goToPage(1)">
+        <button
+          :aria-label="t('button.firstPage')"
+          :disabled="currentPage === 1"
+          @click="goToPage(1)"
+        >
           <font-awesome-icon :icon="['fas', 'angles-left']" />
         </button>
       </li>
       <li>
-        <button :aria-label="t('button.previousPage')" :disabled="currentPage === 1" @click="goToPage(currentPage - 1)">
+        <button
+          :aria-label="t('button.previousPage')"
+          :disabled="currentPage === 1"
+          @click="goToPage(currentPage - 1)"
+        >
           <font-awesome-icon :icon="['fas', 'angle-left']" />
         </button>
       </li>
-      <li v-for="page in visiblePages" :key="page">
-        <button :aria-label="t('button.page', { page })" :aria-current="page === currentPage" :class="{ active: page === currentPage }" @click="goToPage(page)">
+      <li
+        v-for="page in visiblePages"
+        :key="page"
+      >
+        <button
+          :aria-label="t('button.page', { page })"
+          :aria-current="page === currentPage"
+          :class="{ active: page === currentPage }"
+          @click="goToPage(page)"
+        >
           {{ page }}
         </button>
       </li>
       <li>
-        <button :aria-label="t('button.nextPage')" :disabled="currentPage === totalPages" @click="goToPage(currentPage + 1)">
+        <button
+          :aria-label="t('button.nextPage')"
+          :disabled="currentPage === totalPages"
+          @click="goToPage(currentPage + 1)"
+        >
           <font-awesome-icon :icon="['fas', 'angle-right']" />
         </button>
       </li>
       <li>
-        <button :aria-label="t('button.lastPage')" :disabled="currentPage === totalPages" @click="goToPage(totalPages)">
+        <button
+          :aria-label="t('button.lastPage')"
+          :disabled="currentPage === totalPages"
+          @click="goToPage(totalPages)"
+        >
           <font-awesome-icon :icon="['fas', 'angles-right']" />
         </button>
       </li>

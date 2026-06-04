@@ -112,7 +112,10 @@ async function getResourceToRedirectTo(
 </script>
 
 <template>
-  <p v-if="wantedToRedirectButNoResourceFound" class="preserve-breaks">
+  <p
+    v-if="wantedToRedirectButNoResourceFound"
+    class="preserve-breaks"
+  >
     {{ t("page-mediacentre.redirect-failed") }}
   </p>
   <p v-else-if="hasNon404Error">

@@ -147,9 +147,16 @@ function labelFromPaginationNumber(paginationNumber: PaginationNumber): string |
 </script>
 
 <template>
-  <nav v-if="props.lastPageIndexHumanReadable > 0" class="pagination">
+  <nav
+    v-if="props.lastPageIndexHumanReadable > 0"
+    class="pagination"
+  >
     <ul>
-      <li v-for="item in allPagesToDisplay" :key="keyFromPaginationNumber(item)" :class="getClassArray(item)">
+      <li
+        v-for="item in allPagesToDisplay"
+        :key="keyFromPaginationNumber(item)"
+        :class="getClassArray(item)"
+      >
         <button
           :class="classArrayForPaginationNumber(item)"
           :disabled="disabledForPaginationNumber(item)"
@@ -158,13 +165,22 @@ function labelFromPaginationNumber(paginationNumber: PaginationNumber): string |
           @click="goToPage(item)"
         >
           <span v-if="item.isEllipsisDots">
-            <font-awesome-icon :icon="['fa', 'ellipsis-h']" class="pagination-icon" />
+            <font-awesome-icon
+              :icon="['fa', 'ellipsis-h']"
+              class="pagination-icon"
+            />
           </span>
           <span v-else-if="item.isPrevious">
-            <font-awesome-icon :icon="['fa', 'angle-left']" class="pagination-icon" />
+            <font-awesome-icon
+              :icon="['fa', 'angle-left']"
+              class="pagination-icon"
+            />
           </span>
           <span v-else-if="item.isNext">
-            <font-awesome-icon :icon="['fa', 'angle-right']" class="pagination-icon" />
+            <font-awesome-icon
+              :icon="['fa', 'angle-right']"
+              class="pagination-icon"
+            />
           </span>
           <span v-else>
             {{ item.pageNumber }}

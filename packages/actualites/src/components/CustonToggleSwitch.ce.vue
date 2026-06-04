@@ -36,8 +36,14 @@ function setState(state: string) {
 
 <template>
   <ul>
-    <li v-for="state in states" :key="state">
-      <button :class="{ active: currentState === state }" @click="setState(state)">
+    <li
+      v-for="state in states"
+      :key="state"
+    >
+      <button
+        :class="{ active: currentState === state }"
+        @click="setState(state)"
+      >
         {{ t(`switch.${state}-${titleI18nKey}`) }}
       </button>
     </li>

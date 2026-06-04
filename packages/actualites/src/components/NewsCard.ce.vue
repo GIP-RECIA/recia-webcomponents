@@ -48,17 +48,33 @@ function docSizeToUse() {
 
 <template>
   <article :class="{ active: !isRead, pageOrigin }">
-    <div v-if="item.article.enclosure !== null" class="card-img">
-      <img class="image" :src="item.article.enclosure" alt="">
+    <div
+      v-if="item.article.enclosure !== null"
+      class="card-img"
+    >
+      <img
+        class="image"
+        :src="item.article.enclosure"
+        alt=""
+      >
     </div>
     <div class="article-wrapper">
-      <span v-if="!pageOrigin" class="source">
+      <span
+        v-if="!pageOrigin"
+        class="source"
+      >
         {{ item.source }}
       </span>
 
-      <p v-if="pageOrigin" class="infos">
+      <p
+        v-if="pageOrigin"
+        class="infos"
+      >
         <span>{{ d(item.pubDate, 'short') }}</span>
-        <span v-if="useReadingState === true" class="article-wrapper-lecture">
+        <span
+          v-if="useReadingState === true"
+          class="article-wrapper-lecture"
+        >
           {{ t(`text.normal.${isRead ? '' : 'not-'}read`) }}
         </span>
       </p>
@@ -72,10 +88,16 @@ function docSizeToUse() {
         {{ item.article.description }}
       </p>
       <tempalte v-if="pageOrigin">
-        <span v-if="itemvoFilter.isDocument(item) === false" class="source all">
+        <span
+          v-if="itemvoFilter.isDocument(item) === false"
+          class="source all"
+        >
           {{ item.source }}
         </span>
-        <p v-else class="infos">
+        <p
+          v-else
+          class="infos"
+        >
           <span>{{ docSizeToUse() }}</span>
           <span class="source all">
             {{ item.source }}

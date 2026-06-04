@@ -62,19 +62,37 @@ const filteredData = computed(() => filteredList())
 
 <template>
   <div class="search-bar">
-    <input v-model="input" :class="classInput" type="text" :placeholder="m('recherche')">
+    <input
+      v-model="input"
+      :class="classInput"
+      type="text"
+      :placeholder="m('recherche')"
+    >
   </div>
-  <div ref="el" :class="classDiv">
+  <div
+    ref="el"
+    :class="classDiv"
+  >
     <ul class="content">
-      <li v-for="etab in filteredData" :id="etab.idSiren" :key="etab">
-        <button :class="[classLi, etab.idSiren === dataCurrent ? 'active' : '']" @click="selected(etab)">
+      <li
+        v-for="etab in filteredData"
+        :id="etab.idSiren"
+        :key="etab"
+      >
+        <button
+          :class="[classLi, etab.idSiren === dataCurrent ? 'active' : '']"
+          @click="selected(etab)"
+        >
           {{ etab.etabName }}
         </button>
       </li>
     </ul>
   </div>
 
-  <div v-if="input && filteredData.length === 0" class="item error">
+  <div
+    v-if="input && filteredData.length === 0"
+    class="item error"
+  >
     <p>{{ m('aucun-res') }}</p>
   </div>
 </template>

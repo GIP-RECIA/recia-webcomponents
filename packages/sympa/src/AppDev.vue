@@ -57,7 +57,11 @@ const urlProvidedToComponent = computed(() => {
 <template>
   <div class="dev-tools">
     <span>Url to use: </span>
-    <label v-for="url in urlTypes" :key="url" class="radio">
+    <label
+      v-for="url in urlTypes"
+      :key="url"
+      class="radio"
+    >
       <input
         v-model="selectedUrl"
         type="radio"
@@ -69,7 +73,11 @@ const urlProvidedToComponent = computed(() => {
     <p>Url used: {{ urlProvidedToComponent }}</p>
     <br>
     <span>Error code to use: </span>
-    <label v-for="code in errorCodes" :key="code" class="radio">
+    <label
+      v-for="code in errorCodes"
+      :key="code"
+      class="radio"
+    >
       <input
         v-model="selectedError"
         type="radio"

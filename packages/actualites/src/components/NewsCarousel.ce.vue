@@ -132,20 +132,41 @@ function closeModal() {
           {{ t('text.title.news') }}
         </h2>
         <div class="carousel-header-see-all-news computer">
-          <a class="carousel-header-see-all-news-button" :href="allNewsPageUrl" @click="dnmaService.openAll(props.dnmaFname)">
+          <a
+            class="carousel-header-see-all-news-button"
+            :href="allNewsPageUrl"
+            @click="dnmaService.openAll(props.dnmaFname)"
+          >
             {{ t('text.normal.see-all-news') }}
             <font-awesome-icon icon="fa-solid fa-arrow-right" />
           </a>
         </div>
       </div>
 
-      <div v-if="loading" class="carousel-content">
-        <div v-for="index in 3" :key="index" class="skeleton-card" />
+      <div
+        v-if="loading"
+        class="carousel-content"
+      >
+        <div
+          v-for="index in 3"
+          :key="index"
+          class="skeleton-card"
+        />
       </div>
 
-      <div v-else class="carousel-content-container">
-        <div v-show="isAvailableNews" class="arrow left">
-          <button :aria-label="t('button.prev')" :disabled="currentIndex === 0" @click="prev">
+      <div
+        v-else
+        class="carousel-content-container"
+      >
+        <div
+          v-show="isAvailableNews"
+          class="arrow left"
+        >
+          <button
+            :aria-label="t('button.prev')"
+            :disabled="currentIndex === 0"
+            @click="prev"
+          >
             <font-awesome-icon icon="fa-solid fa-arrow-left" />
           </button>
         </div>
@@ -162,22 +183,35 @@ function closeModal() {
             @update-reading-infos="updateReadingInfos()"
             @open-modal="openModal(item.uuid)"
           />
-          <div v-if="!isAvailableNews" class="empty">
+          <div
+            v-if="!isAvailableNews"
+            class="empty"
+          >
             <h3 class="h4">
               {{ t('text.no-News') }}
             </h3>
           </div>
         </div>
 
-        <div v-show="isAvailableNews" class="arrow right">
-          <button :aria-label="t('button.next')" :disabled="currentIndex >= (result?.actualite?.items?.length ?? 0) - 3" @click="next">
+        <div
+          v-show="isAvailableNews"
+          class="arrow right"
+        >
+          <button
+            :aria-label="t('button.next')"
+            :disabled="currentIndex >= (result?.actualite?.items?.length ?? 0) - 3"
+            @click="next"
+          >
             <font-awesome-icon icon="fa-solid fa-arrow-right" />
           </button>
         </div>
       </div>
 
       <div class="carousel-header-see-all-news mobile">
-        <a class="carousel-header-see-all-news-button" :href="allNewsPageUrl">
+        <a
+          class="carousel-header-see-all-news-button"
+          :href="allNewsPageUrl"
+        >
           {{ t('text.normal.see-all-news') }}
           <font-awesome-icon icon="fa-solid fa-arrow-right" />
         </a>

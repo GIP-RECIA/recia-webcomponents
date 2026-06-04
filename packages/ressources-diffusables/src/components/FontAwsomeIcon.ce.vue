@@ -32,7 +32,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <FontAwesomeIcon v-if="iconsReady" v-bind="props" />
+  <FontAwesomeIcon
+    v-if="iconsReady"
+    v-bind="props"
+  />
 </template>
 
 <style lang="scss">

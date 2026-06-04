@@ -136,14 +136,20 @@ function accesRessourceGarClicked(): void {
     class="cadre-menu-mediacentre"
     :class="[isUnfolded === true ? 'unfold' : '']"
   >
-    <div class="menu-title" tabindex="-1">
+    <div
+      class="menu-title"
+      tabindex="-1"
+    >
       <button
         id="menu-titre"
         class="menu-toggle"
         :class="{ active: isUnfolded }"
         @click="showCategoriesContainer()"
       >
-        <FontAwesomeIcon class="menu-icon" :icon="['fas', 'bars']" />
+        <FontAwesomeIcon
+          class="menu-icon"
+          :icon="['fas', 'bars']"
+        />
       </button>
       <div class="category-name-badge">
         {{ capitalize(activeCategoryName) }}
@@ -220,7 +226,10 @@ function accesRessourceGarClicked(): void {
               class="container"
               :class="[activeCategory === category.name ? 'active' : '']"
             >
-              <div v-for="(subCat, idx) of category.filters" :key="idx">
+              <div
+                v-for="(subCat, idx) of category.filters"
+                :key="idx"
+              >
                 <button
                   :class="{ active: filtre === subCat.id }"
                   class="sub-category-container"
@@ -237,11 +246,17 @@ function accesRessourceGarClicked(): void {
           </div>
         </div>
       </div>
-      <div v-if="gestionAffectations.length > 0" class="gestion-gar">
+      <div
+        v-if="gestionAffectations.length > 0"
+        class="gestion-gar"
+      >
         <h2 class="gestion-label">
           {{ t("gestion.menu-label") }}
         </h2>
-        <template v-for="gestionAffectation in gestionAffectations" :key="gestionAffectation.id">
+        <template
+          v-for="gestionAffectation in gestionAffectations"
+          :key="gestionAffectation.id"
+        >
           <template v-if="gestionAffectation.link">
             <a
               class="gestion-link"

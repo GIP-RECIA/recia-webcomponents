@@ -152,7 +152,12 @@ onMounted((): void => initForm())
 
     <div class="infos">
       <label class="label">
-        <input class="input-field" type="text" :value="details.name" disabled>
+        <input
+          class="input-field"
+          type="text"
+          :value="details.name"
+          disabled
+        >
         <span>{{ m('nom-institutionnel') }}</span>
       </label>
       <label class="label">
@@ -167,12 +172,21 @@ onMounted((): void => initForm())
         <span>{{ m('nom-personnalise-titre') }}</span>
       </label>
       <label class="label">
-        <input v-model="tmp.siteWeb" class="input-field" type="text" :placeholder="m('lien-placeholder')">
+        <input
+          v-model="tmp.siteWeb"
+          class="input-field"
+          type="text"
+          :placeholder="m('lien-placeholder')"
+        >
         <span>{{ m('lien') }}</span>
       </label>
     </div>
     <footer>
-      <button :disabled="!isButtonDisabled" class="btn-valider" @click="updateInfo">
+      <button
+        :disabled="!isButtonDisabled"
+        class="btn-valider"
+        @click="updateInfo"
+      >
         {{ m('valider') }}
       </button>
     </footer>

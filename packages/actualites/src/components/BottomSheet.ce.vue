@@ -218,7 +218,10 @@ function isNews(): boolean {
 
 <template>
   <i18n-host>
-    <div class="bottomsheet-overlay" @click="closeModal">
+    <div
+      class="bottomsheet-overlay"
+      @click="closeModal"
+    >
       <div
         ref="bottomsheet"
         tabindex="-1"
@@ -234,8 +237,14 @@ function isNews(): boolean {
         </div>
 
         <div class="bottomsheet-content-header-close-btn">
-          <button :aria-label="t('button.close')" @click="closeModal">
-            <div class="test" style="width: 20px;">
+          <button
+            :aria-label="t('button.close')"
+            @click="closeModal"
+          >
+            <div
+              class="test"
+              style="width: 20px;"
+            >
               <font-awesome-icon icon="fa-solid fa-xmark" />
             </div>
           </button>
@@ -250,7 +259,10 @@ function isNews(): boolean {
                 alt=""
               >
             </div>
-            <div v-show="item?.article.enclosure !== null || loading" class="bottomsheet-content-header-image-group">
+            <div
+              v-show="item?.article.enclosure !== null || loading"
+              class="bottomsheet-content-header-image-group"
+            >
               <div
                 tabindex="-1"
                 class="bottomsheet-content-header-image-container"
@@ -265,13 +277,25 @@ function isNews(): boolean {
                   class="bottomsheet-content-header-image-container-img"
                   :class="{ enlarge: isDesktopFullImage, shrink: isDesktopFullImage === false }"
                 >
-                <div v-if="loading" class="bottomsheet-content-header-image-container-img">
-                  <div v-for="index in 1" :key="index" class="skeleton-card" :style="{ borderRadius: '10px' }" />
+                <div
+                  v-if="loading"
+                  class="bottomsheet-content-header-image-container-img"
+                >
+                  <div
+                    v-for="index in 1"
+                    :key="index"
+                    class="skeleton-card"
+                    :style="{ borderRadius: '10px' }"
+                  />
                 </div>
-                <button v-show="!loading" class="bottomsheet-content-header-image-group-expand-container">
+                <button
+                  v-show="!loading"
+                  class="bottomsheet-content-header-image-group-expand-container"
+                >
                   <img
                     class="bottomsheet-content-header-image-group-expand-container-icon"
-                    src="/src/assets/svg/expand_content.svg" alt="icon-expand-content"
+                    src="/src/assets/svg/expand_content.svg"
+                    alt="icon-expand-content"
                   >
                 </button>
 
@@ -286,7 +310,10 @@ function isNews(): boolean {
             </div>
 
             <div class="bottomsheet-content-header-informations">
-              <div v-if="item && !loading" class="bottomsheet-content-header-informations-item-autor">
+              <div
+                v-if="item && !loading"
+                class="bottomsheet-content-header-informations-item-autor"
+              >
                 <div>
                   {{
                     t('text.creation-info.global', { name: item.createdBy }) + d(item.createdDate, 'long')
@@ -309,13 +336,19 @@ function isNews(): boolean {
                       </div>
                     </div>
                   </button>
-                  <div v-if="showTooltip" class="tooltip-container">
+                  <div
+                    v-if="showTooltip"
+                    class="tooltip-container"
+                  >
                     <div class="tooltip">
                       {{ t('text.creation-info.more-info') }}
                       <div class="arrow-down" />
                     </div>
                   </div>
-                  <ul v-show="showMoreInfosModal" class="modal">
+                  <ul
+                    v-show="showMoreInfosModal"
+                    class="modal"
+                  >
                     <li
                       v-html="t('text.creation-info.create', {
                         name: `<strong>${capitalize(item.createdBy)}</strong>`,
@@ -338,7 +371,10 @@ function isNews(): boolean {
                       })"
                     />
                     <li>
-                      <button class="news-link" @click="clipLink(item.internalViewLink)">
+                      <button
+                        class="news-link"
+                        @click="clipLink(item.internalViewLink)"
+                      >
                         <span>
                           {{ t(`text.clipboard.${isClipped ? 'copied' : `copy-${isNews() ? 'News' : 'Documents'}`}`) }}
                           <font-awesome-icon :icon="`fa-solid fa-clipboard${isClipped ? '-check' : ''}`" />
@@ -349,7 +385,10 @@ function isNews(): boolean {
                 </div>
               </div>
 
-              <div v-if="loading" class="bottomsheet-content-header-informations-item-autor">
+              <div
+                v-if="loading"
+                class="bottomsheet-content-header-informations-item-autor"
+              >
                 <div
                   v-for="index in 1"
                   :key="index"
@@ -369,7 +408,10 @@ function isNews(): boolean {
                   :style="{ borderRadius: '10px', height: '30px', width: '80%', marginTop: '12px', marginBottom: '8px' }"
                 />
               </div>
-              <div v-if="item && !loading" class="bottomsheet-content-header-informations-sections">
+              <div
+                v-if="item && !loading"
+                class="bottomsheet-content-header-informations-sections"
+              >
                 <span
                   v-for="section in props.rubriques.filter((rubrique) => item?.rubriques?.map((rubrique) => rubrique.toString()).includes(rubrique.uuid))"
                   :key="section.uuid"
@@ -386,7 +428,10 @@ function isNews(): boolean {
                   {{ t('text.creation-info.publish-by', { organization: item.pubBy }) }}
                 </span>
               </div>
-              <div v-if="loading" class="bottomsheet-content-header-informations-sections">
+              <div
+                v-if="loading"
+                class="bottomsheet-content-header-informations-sections"
+              >
                 <div
                   v-for="index in 2"
                   :key="index"
@@ -396,31 +441,61 @@ function isNews(): boolean {
               </div>
             </div>
           </div>
-          <div v-if="item && isNews() && !loading" class="bottomsheet-content-body ck-content toto" v-html="item.body" />
-          <div v-if="item && isDocument()" class="bottomsheet-content-body ck-content">
+          <div
+            v-if="item && isNews() && !loading"
+            class="bottomsheet-content-body ck-content toto"
+            v-html="item.body"
+          />
+          <div
+            v-if="item && isDocument()"
+            class="bottomsheet-content-body ck-content"
+          >
             <div class="file-boxes-wrapper">
-              <div v-for=" file in item.article.files" :key="file.uri" class="file-box">
+              <div
+                v-for=" file in item.article.files"
+                :key="file.uri"
+                class="file-box"
+              >
                 <span class="file-name">{{ file.fileName }}</span>
-                <a :href="file.uri" :download="file.fileName" class="download-button" rel="noopener noreferrer" target="_blank">
+                <a
+                  :href="file.uri"
+                  :download="file.fileName"
+                  class="download-button"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
                   <font-awesome-icon icon="fa-solid fa-download" /> <span>Télécharger</span>
                 </a>
               </div>
             </div>
           </div>
         </template>
-        <div v-else class="bottomsheet-content-body bottomsheet-content-error">
+        <div
+          v-else
+          class="bottomsheet-content-body bottomsheet-content-error"
+        >
           <span class="h3">
             {{ t('text.loading-error') }}
           </span>
         </div>
-        <div v-if="(item && !loading) || isError" class="bottomsheet-content-footer">
+        <div
+          v-if="(item && !loading) || isError"
+          class="bottomsheet-content-footer"
+        >
           <div class="bottomsheet-content-footer-separator" />
           <div class="bottomsheet-content-footer-button-group">
-            <button v-if="isUserConnected && !isError && isNews() && useReadingState" class="mark-has-not-read-btn" @click="changeReadingState(!isReadingButton)">
+            <button
+              v-if="isUserConnected && !isError && isNews() && useReadingState"
+              class="mark-has-not-read-btn"
+              @click="changeReadingState(!isReadingButton)"
+            >
               {{ t(`button.mark-as${isReadingButton ? '-not' : ''}-read`) }}
             </button>
             <div v-else />
-            <button class="close-btn" @click="closeModal">
+            <button
+              class="close-btn"
+              @click="closeModal"
+            >
               {{ t('button.close') }}
             </button>
           </div>
@@ -428,10 +503,14 @@ function isNews(): boolean {
       </div>
 
       <div
-        v-if="isMobileFullImage && item && !isError" class="bottomsheet-content-header-image-group-full-image-overlay"
+        v-if="isMobileFullImage && item && !isError"
+        class="bottomsheet-content-header-image-group-full-image-overlay"
         @click.stop
       >
-        <div class="bottomsheet-content-header-image-group-full-image-container" @click="fullImage">
+        <div
+          class="bottomsheet-content-header-image-group-full-image-container"
+          @click="fullImage"
+        >
           <img
             class="bottomsheet-content-header-image-group-full-image"
             :src="item.article.enclosure"

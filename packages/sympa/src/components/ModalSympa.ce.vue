@@ -251,9 +251,16 @@ const canDisplay = computed<boolean>(() => {
 </script>
 
 <template>
-  <div class="modal-overlay" :aria-disabled="closeIsDisabled" :disabled="closeIsDisabled" @click.self="close">
+  <div
+    class="modal-overlay"
+    :aria-disabled="closeIsDisabled"
+    :disabled="closeIsDisabled"
+    @click.self="close"
+  >
     <div
-      v-if="canDisplay" class="modal-content" role="dialog"
+      v-if="canDisplay"
+      class="modal-content"
+      role="dialog"
       aria-modal="true"
     >
       <div class="modal-header">
@@ -308,7 +315,8 @@ const canDisplay = computed<boolean>(() => {
                   <li>
                     <input
                       id="self"
-                      v-model="checkedBoxes.self" type="checkbox"
+                      v-model="checkedBoxes.self"
+                      type="checkbox"
                     >
                     <label for="self">{{ listAddress }} {{ t('modal.self-register-explanation') }}</label>
                   </li>

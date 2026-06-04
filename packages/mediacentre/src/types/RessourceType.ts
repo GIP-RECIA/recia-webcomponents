@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { TypePresentation } from '@/types/TypePresentationType'
-import type { TypologieDocument } from '@/types/TypologieDocumentType'
 import type { DomaineEnseignement } from './DomaineEnseignementType'
 import type { IdEtablissement } from './IdEtablissementType'
 import type { NiveauEducatif } from './NiveauEducatifType'
 import type { TypePedagogique } from './TypePedagogiqueType'
+import type { TypePresentation } from './TypePresentationType'
+import type { TypologieDocument } from './TypologieDocumentType'
 
 export interface Ressource {
   distributeurTech: string

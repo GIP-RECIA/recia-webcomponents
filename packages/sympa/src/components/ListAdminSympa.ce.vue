@@ -142,25 +142,45 @@ const filteredList = computed<UpdatableList[]>(() => {
 
 <template>
   <div class="tabs">
-    <div role="tablist" class="automatic">
+    <div
+      role="tablist"
+      class="automatic"
+    >
       <button
-        id="tab-1" :ref="el => setButtonRef(el, 0)" type="button" role="tab"
-        :aria-selected="ariaSelected('tab-1')" aria-controls="tabpanel-1"
-        :tabindex="tabIndex('tab-1')" class="tag" :class="{ active: selectedTabId === 'tab-1' }" @keydown="onKeydown" @click="setSelected(1)"
+        id="tab-1"
+        :ref="el => setButtonRef(el, 0)"
+        type="button"
+        role="tab"
+        :aria-selected="ariaSelected('tab-1')"
+        aria-controls="tabpanel-1"
+        :tabindex="tabIndex('tab-1')"
+        class="tag"
+        :class="{ active: selectedTabId === 'tab-1' }"
+        @keydown="onKeydown"
+        @click="setSelected(1)"
       >
         <span class="focus">{{ t('list-admin-sympa.create.tabs') }}</span>
       </button>
       <button
-        id="tab-2" :ref="el => setButtonRef(el, 1)" type="button" role="tab"
-        :aria-selected="ariaSelected('tab-2')" aria-controls="tabpanel-2"
-        :tabindex="tabIndex('tab-2')" class="tag" :class="{ active: selectedTabId === 'tab-2' }" @keydown="onKeydown" @click="setSelected(2)"
+        id="tab-2"
+        :ref="el => setButtonRef(el, 1)"
+        type="button"
+        role="tab"
+        :aria-selected="ariaSelected('tab-2')"
+        aria-controls="tabpanel-2"
+        :tabindex="tabIndex('tab-2')"
+        class="tag"
+        :class="{ active: selectedTabId === 'tab-2' }"
+        @keydown="onKeydown"
+        @click="setSelected(2)"
       >
         <span class="focus">{{ t('list-admin-sympa.update.tabs') }}</span>
       </button>
     </div>
 
     <div
-      id="tabpanel-1" role="tabpanel"
+      id="tabpanel-1"
+      role="tabpanel"
       tabindex="0"
       aria-labelledby="tab-1"
       :class="isHidden('tab-1')"
@@ -189,7 +209,9 @@ const filteredList = computed<UpdatableList[]>(() => {
           v-else
         >
           <div
-            v-for="index in 10" :key="index" class="skeleton"
+            v-for="index in 10"
+            :key="index"
+            class="skeleton"
           />
         </template>
       </div>
