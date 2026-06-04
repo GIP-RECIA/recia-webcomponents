@@ -61,60 +61,70 @@ async function onToggle(it: PersonneFonction): Promise<void> {
 </script>
 
 <template>
-  <div v-if="fonctions?.length" class="section-fonction">
-    <div class="heading-titre">
-      <h2 class="titre">
-        {{ tGeneral('title-fonction') }}
-      </h2>
-    </div>
+  <section v-if="fonctions?.length" class="profile-card">
+    <header class="card-header">
+      <h3>{{ tGeneral('title-fonction') }}</h3>
+    </header>
 
-    <div class="grid-fonctions">
-      <div v-for="(it, index) in fonctions" :key="index" class="card-fonction">
-        <div class="card-header">
-          <span class="card-label">{{ tFonctions('card-label') }}</span>
-          <input
-            v-model="it.active"
-            type="checkbox"
-            class="toggle-input"
-            @change="onToggle(it)"
-          >
-        </div>
+    <div class="card-body">
+      <div class="grid-fonctions">
+        <div v-for="(it, index) in fonctions" :key="index" class="card-fonction">
+          <div class="fonction-header">
+            <span class="info-label">{{ tFonctions('card-label') }}</span>
+            <input
+              v-model="it.active"
+              type="checkbox"
+              class="toggle-input"
+              @change="onToggle(it)"
+            >
+          </div>
 
-        <div class="card-content">
-          <div class="info-group">
-            <span class="struct-name">{{ it.struct.name }} <small>({{ it.struct.type }})</small></span>
-            <div class="badge-container">
-              <span class="fonction-tag">{{ it.fonction || '-' }}</span>
-              <span v-if="it.discipline" class="discipline-tag">{{ it.discipline }}</span>
+          <div class="fonction-body">
+            <div class="info-group">
+              <span class="info-value info-value--bold">
+                {{ it.struct.name }} <small class="struct-type">({{ it.struct.type }})</small>
+              </span>
+              <div class="badge-container">
+                <span class="fonction-tag">{{ it.fonction || '-' }}</span>
+                <span v-if="it.discipline" class="discipline-tag">{{ it.discipline }}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <style scoped lang="scss">
+@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
+@use '@gip-recia/ui/components/buttons';
 
-.section-fonction {
-  padding: 0.75rem;
+.profile-card {
+  border: 1px solid var(--#{$prefix}stroke);
+  border-radius: 10px;
+  box-shadow: var(--#{$prefix}shadow-neutral) rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background-color: var(--#{$prefix}body-bg);
+}
 
-  .heading-titre {
-    margin-bottom: 1rem;
+.card-header {
+  padding: 1.5rem 1.25rem;
+  border-bottom: 1px solid var(--#{$prefix}stroke);
 
-    .titre {
-      margin: 0;
-      font-weight: 800;
-      text-transform: uppercase;
-      font-size: 0.85rem;
-      letter-spacing: 0.05em;
-      color: var(--#{$prefix}secondary-color, #6c757d);
-    }
+  h3 {
+    margin: 0;
+    font-size: var(--#{$prefix}font-size-h3);
+    color: var(--#{$prefix}basic-black);
   }
+}
+
+.card-body {
+  padding: 1.25rem;
 }
 
 .grid-fonctions {
@@ -128,55 +138,57 @@ async function onToggle(it: PersonneFonction): Promise<void> {
 }
 
 .card-fonction {
-  background-color: var(--#{$prefix}body-bg, #ffffff);
-  border-radius: 12px;
-  padding: 1rem;
-  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
-  box-shadow: 0 4px 12px var(--#{$prefix}shadow-neutral, rgba(0, 0, 0, 0.05));
+  border-radius: 8px;
+  border: 1px solid var(--#{$prefix}stroke);
+  box-shadow: var(--#{$prefix}shadow-low-elevation) rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  overflow: hidden;
+}
 
-  .card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--#{$prefix}border-color, #dee2e6);
-    padding-bottom: 0.5rem;
+.fonction-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--#{$prefix}stroke);
+  background-color: var(--#{$prefix}hover);
+}
 
-    .card-label {
-      font-weight: 800;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      color: var(--#{$prefix}secondary-color, #6c757d);
-    }
+.fonction-body {
+  padding: 0.75rem 1rem;
+  background-color: var(--#{$prefix}basic-grey);
+  flex: 1;
+}
+
+.info-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.info-label {
+  display: block;
+  font-size: var(--#{$prefix}font-size-xxs);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--#{$prefix}basic-black-lighter);
+  margin-bottom: 4px;
+}
+
+.info-value {
+  font-size: var(--#{$prefix}font-size-sm);
+  color: var(--#{$prefix}basic-black);
+
+  &--bold {
+    font-weight: 600;
   }
+}
 
-  .card-content {
-    background-color: var(--#{$prefix}tertiary-bg, #f8f9fa);
-    border-radius: 8px;
-    padding: 0.75rem;
-    border: 1px solid var(--#{$prefix}border-color, #dee2e6);
-
-    .info-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-
-      .struct-name {
-        font-weight: 700;
-        text-transform: uppercase;
-        font-size: 0.8rem;
-        color: var(--#{$prefix}body-color, #212529);
-
-        small {
-          font-weight: 400;
-          text-transform: none;
-          color: var(--#{$prefix}secondary-color, #6c757d);
-        }
-      }
-    }
-  }
+.struct-type {
+  font-weight: 400;
+  font-size: var(--#{$prefix}font-size-xs);
+  color: var(--#{$prefix}basic-black-lighter);
 }
 
 .toggle-input {
@@ -184,29 +196,30 @@ async function onToggle(it: PersonneFonction): Promise<void> {
   -webkit-appearance: none;
   width: 40px;
   height: 22px;
-  background-color: var(--#{$prefix}secondary-bg, #ced4da);
+  background-color: var(--#{$prefix}stroke);
   border-radius: 20px;
   position: relative;
   cursor: pointer;
   transition: background-color 0.2s;
   outline: none;
-  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
+  border: 1px solid var(--#{$prefix}stroke);
+  flex-shrink: 0;
 
   &::before {
     content: '';
     position: absolute;
     width: 16px;
     height: 16px;
-    border-radius: 50px;
+    border-radius: 50%;
     top: 2px;
     left: 2px;
-    background-color: #ffffff;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    background-color: $white;
+    box-shadow: var(--#{$prefix}shadow-low-elevation) rgba(0, 0, 0, 0.2);
     transition: transform 0.2s;
   }
 
   &:checked {
-    background-color: var(--#{$prefix}primary, #0056b3);
+    background-color: var(--#{$prefix}primary);
     border-color: transparent;
 
     &::before {
@@ -215,7 +228,7 @@ async function onToggle(it: PersonneFonction): Promise<void> {
   }
 
   &:focus {
-    box-shadow: 0 0 0 3px var(--#{$prefix}primary-focus, rgba(0, 86, 179, 0.25));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--#{$prefix}primary) 25%, transparent);
   }
 }
 
@@ -227,34 +240,20 @@ async function onToggle(it: PersonneFonction): Promise<void> {
 }
 
 .fonction-tag {
-  font-size: 0.75rem;
+  font-size: var(--#{$prefix}font-size-xs);
   font-weight: 700;
-  color: var(--#{$prefix}body-color, #212529);
+  color: var(--#{$prefix}basic-black);
 }
 
 .discipline-tag {
-  background-color: var(--#{$prefix}primary-bg, #e7f1ff);
-  color: var(--#{$prefix}primary, #0056b3);
-  border: 1px solid var(--#{$prefix}primary-border-subtle, #b6d4fe);
+  background-color: color-mix(in srgb, var(--#{$prefix}primary) 10%, transparent);
+  color: var(--#{$prefix}primary);
+  border: 1px solid color-mix(in srgb, var(--#{$prefix}primary) 30%, transparent);
   padding: 0.2rem 0.6rem;
-  border-radius: var(--#{$prefix}border-radius, 6px);
-  font-size: 0.7rem;
+  border-radius: 6px;
+  font-size: var(--#{$prefix}font-size-xxs);
   font-weight: 700;
   text-transform: uppercase;
   display: inline-block;
-}
-
-@media (width <= 320px) {
-  .section-fonction {
-    padding: 0.5rem;
-  }
-  .card-fonction {
-    padding: 0.75rem;
-    border-radius: 8px;
-
-    .card-content {
-      padding: 0.5rem;
-    }
-  }
 }
 </style>

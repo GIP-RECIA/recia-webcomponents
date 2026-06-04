@@ -39,14 +39,14 @@ function tGeneral(key: string): string {
   <div class="sections-wrapper">
     <section class="profile-card">
       <header class="card-header">
-        <h2>{{ tGeneral('title-classe-groupe') }}</h2>
+        <h3>{{ tGeneral('title-classe-groupe') }}</h3>
       </header>
 
-      <div class="card-body-grid">
+      <div class="card-body">
         <div v-for="(classgroup, index) in etabs" :key="index" class="etab-row-item">
           <div class="info-item etab-header-container">
             <span class="info-label">{{ tEleve('etablissement') }}</span>
-            <span class="info-value etab-name-bold">{{ classgroup.nameEtab }}</span>
+            <span class="info-value info-value--bold">{{ classgroup.nameEtab }}</span>
           </div>
 
           <div class="classes-data-group">
@@ -66,10 +66,10 @@ function tGeneral(key: string): string {
 
     <section class="profile-card">
       <header class="card-header">
-        <h2>{{ tGeneral('title-courses') }}</h2>
+        <h3>{{ tGeneral('title-courses') }}</h3>
       </header>
 
-      <div class="card-body-grid">
+      <div class="card-body">
         <div class="enseignements-row">
           <div class="info-item label-container">
             <span class="info-label">{{ tEleve('matieres-suivies') }}</span>
@@ -87,16 +87,17 @@ function tGeneral(key: string): string {
 </template>
 
 <style lang="scss" scoped>
+@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
+@use '@gip-recia/ui/components/buttons';
 
 .sections-wrapper {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  padding: 0.75rem;
 
   @media (width >= map.get($grid-breakpoints, lg)) {
     flex-direction: row;
@@ -109,23 +110,25 @@ function tGeneral(key: string): string {
 }
 
 .profile-card {
-  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
-  border-radius: 16px;
+  border: 1px solid var(--#{$prefix}stroke);
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 10px 25px -5px var(--#{$prefix}shadow-neutral, rgba(0, 0, 0, 0.1));
+  box-shadow: var(--#{$prefix}shadow-neutral) rgba(0, 0, 0, 0.1);
+  background-color: var(--#{$prefix}body-bg);
 }
 
 .card-header {
-  padding: 1.5rem 1.25rem 0;
+  padding: 1.5rem 1.25rem;
+  border-bottom: 1px solid var(--#{$prefix}stroke);
 
-  h2 {
+  h3 {
     margin: 0;
-    font-size: 1.25rem;
-    text-transform: none;
+    font-size: var(--#{$prefix}font-size-h3);
+    color: var(--#{$prefix}basic-black);
   }
 }
 
-.card-body-grid {
+.card-body {
   padding: 1.25rem;
 }
 
@@ -135,35 +138,37 @@ function tGeneral(key: string): string {
 }
 
 .info-label {
-  font-size: 0.75rem;
+  display: block;
+  font-size: var(--#{$prefix}font-size-xxs);
   font-weight: 800;
   text-transform: uppercase;
-  margin-bottom: 0.25rem;
-  color: var(--#{$prefix}secondary-color, #6c757d);
+  color: var(--#{$prefix}basic-black-lighter);
+  margin-bottom: 4px;
 }
 
 .info-value {
-  font-size: 0.95rem;
-  color: var(--#{$prefix}body-color, #212529);
+  font-size: var(--#{$prefix}font-size-sm);
+  color: var(--#{$prefix}basic-black);
 
-  &.etab-name-bold {
-    font-weight: 700;
+  &--bold {
+    font-weight: 600;
   }
 }
 
 .etab-row-item {
-  grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-top: 0.25rem;
-  border-top: 1px dashed var(--#{$prefix}border-color, #dee2e6);
-  padding-top: 1.25rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px dashed var(--#{$prefix}stroke);
 
   &:first-of-type {
-    border-top: none;
-    margin-top: 0;
     padding-top: 0;
+  }
+
+  &:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
   }
 
   @media (width >= map.get($grid-breakpoints, sm)) {
@@ -187,7 +192,6 @@ function tGeneral(key: string): string {
 }
 
 .enseignements-row {
-  grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
 
@@ -216,18 +220,18 @@ function tGeneral(key: string): string {
   align-items: center;
   justify-content: center;
   padding: 0.4rem 1rem;
-  border-radius: var(--#{$prefix}border-radius, 8px);
-  font-size: 0.8rem;
-  color: var(--#{$prefix}body-color, #212529);
-  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
+  border-radius: 8px;
+  font-size: var(--#{$prefix}font-size-sm);
+  color: var(--#{$prefix}basic-black-lighter);
+  border: 1px solid var(--#{$prefix}stroke);
   background-color: transparent;
   transition:
     background-color 0.2s,
     border-color 0.2s;
 
   &:hover {
-    background-color: var(--#{$prefix}tertiary-bg, #f8f9fa);
-    border-color: var(--#{$prefix}secondary-color, #6c757d);
+    background-color: var(--#{$prefix}hover);
+    border-color: var(--#{$prefix}basic-black-lighter);
   }
 }
 </style>

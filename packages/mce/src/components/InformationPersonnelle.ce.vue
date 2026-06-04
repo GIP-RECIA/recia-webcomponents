@@ -2,7 +2,7 @@
  Copyright (C) 2023 GIP-RECIA, Inc.
 
  Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file in compliance with the License.
+ you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
      http://www.apache.org/licenses/LICENSE-2.0
@@ -63,106 +63,116 @@ function handleEmailUpdated(email: string) {
 </script>
 
 <template>
-  <section class="page-container">
-    <div class="profile-card">
-      <header class="card-header">
-        <h2>{{ tUser('informations-personnelles') }}</h2>
-      </header>
+  <section class="profile-card">
+    <header class="card-header">
+      <h3>{{ tUser('informations-personnelles') }}</h3>
+    </header>
 
-      <div class="card-body-grid">
-        <div class="info-item">
-          <span class="info-label">{{ tUser('uid') }}</span>
-          <span class="info-value">{{ props.uid || '—' }}</span>
-        </div>
-
-        <div class="info-item">
-          <span class="info-label">{{ tUser('nom') }}</span>
-          <span class="info-value">{{ props.nom || '—' }}</span>
-        </div>
-
-        <div class="info-item">
-          <span class="info-label">{{ tUser('prenom') }}</span>
-          <span class="info-value">{{ props.prenom || '—' }}</span>
-        </div>
-
-        <div class="info-item">
-          <span class="info-label">{{ tUser('bod') }}</span>
-          <span class="info-value">{{ props.dateNaissance || '—' }}</span>
-        </div>
-
-        <!-- Section Email -->
-        <div class="email-row">
-          <div class="info-item email-container">
-            <span class="info-label">{{ tUser('email') }}</span>
-            <span class="info-value email-bold">{{ currentEmail || '—' }}</span>
-          </div>
-
-          <button
-            v-if="props.canModifyEmail !== true"
-            class="btn-outline-modify"
-            @click="toggleEmail"
-          >
-            {{ isEmailOpen ? tUser('annuler') : tUser('modifier') }}
-          </button>
-        </div>
-
-        <!-- Panel de modification -->
-        <div v-if="isEmailOpen" class="edit-section-panel">
-          <ChangeEmail
-            :user-info-api-url="props.userInfoApiUrl"
-            :mce-api="props.mceApi"
-            :user-id="props.userId"
-            :current-email="currentEmail"
-            @updated="handleEmailUpdated"
-            @close="isEmailOpen = false"
-          />
-        </div>
+    <dl class="card-body-grid">
+      <div class="info-item">
+        <dt class="info-label">
+          {{ tUser('uid') }}
+        </dt>
+        <dd class="info-value">
+          {{ props.uid || '—' }}
+        </dd>
       </div>
+
+      <div class="info-item">
+        <dt class="info-label">
+          {{ tUser('nom') }}
+        </dt>
+        <dd class="info-value">
+          {{ props.nom || '—' }}
+        </dd>
+      </div>
+
+      <div class="info-item">
+        <dt class="info-label">
+          {{ tUser('prenom') }}
+        </dt>
+        <dd class="info-value">
+          {{ props.prenom || '—' }}
+        </dd>
+      </div>
+
+      <div class="info-item">
+        <dt class="info-label">
+          {{ tUser('bod') }}
+        </dt>
+        <dd class="info-value">
+          {{ props.dateNaissance || '—' }}
+        </dd>
+      </div>
+
+      <div class="email-row">
+        <div class="info-item email-container">
+          <dt class="info-label">
+            {{ tUser('email') }}
+          </dt>
+          <dd class="info-value info-value--bold">
+            {{ currentEmail || '—' }}
+          </dd>
+        </div>
+
+        <button
+          v-if="!props.canModifyEmail"
+          class="btn-primary small"
+          @click="toggleEmail"
+        >
+          {{ isEmailOpen ? tUser('annuler') : tUser('modifier') }}
+        </button>
+      </div>
+    </dl>
+
+    <div v-if="isEmailOpen" class="edit-section-panel">
+      <ChangeEmail
+        :user-info-api-url="props.userInfoApiUrl"
+        :mce-api="props.mceApi"
+        :user-id="props.userId"
+        :current-email="currentEmail"
+        @updated="handleEmailUpdated"
+        @close="isEmailOpen = false"
+      />
     </div>
   </section>
 </template>
 
 <style lang="scss" scoped>
+@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
-
-.page-container {
-  display: flex;
-}
+@use '@gip-recia/ui/components/buttons';
 
 .profile-card {
-  width: 100%;
-  background-color: var(--#{$prefix}body-bg, #ffffff);
-  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
-  border-radius: 16px;
+  border: 1px solid var(--#{$prefix}stroke);
+  border-radius: 10px;
+  box-shadow: var(--#{$prefix}shadow-neutral) rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  box-shadow: 0 10px 25px -5px var(--#{$prefix}shadow-neutral, rgba(0, 0, 0, 0.1));
+  background-color: var(--#{$prefix}body-bg);
 }
 
 .card-header {
-  padding: 1.5rem 1.25rem 0;
-  background-color: var(--#{$prefix}body-bg, #ffffff);
+  padding: 1.5rem 1.25rem;
+  border-bottom: 1px solid var(--#{$prefix}stroke);
 
-  h2 {
+  h3 {
     margin: 0;
-    font-size: 1.25rem;
-    color: var(--#{$prefix}body-color, #212529);
+    font-size: var(--#{$prefix}font-size-h3);
+    color: var(--#{$prefix}basic-black);
   }
 }
 
 .card-body-grid {
   padding: 1.25rem;
   display: grid;
-  grid-template-columns: 1fr;
   gap: 1.25rem;
-  background-color: var(--#{$prefix}body-bg, #ffffff);
+  margin: 0;
 
   @media (width >= map.get($grid-breakpoints, md)) {
     grid-template-columns: repeat(2, 1fr);
-    column-gap: 3rem;
-    padding: 1.5rem 2rem 2rem;
   }
 }
 
@@ -172,34 +182,21 @@ function handleEmailUpdated(email: string) {
 }
 
 .info-label {
-  font-size: 0.75rem;
+  display: block;
+  font-size: var(--#{$prefix}font-size-xxs);
   font-weight: 800;
   text-transform: uppercase;
-  margin-bottom: 0.25rem;
-  color: var(--#{$prefix}secondary-color, #6c757d);
+  color: var(--#{$prefix}basic-black-lighter);
+  margin-bottom: 4px;
 }
 
 .info-value {
-  font-size: 0.95rem;
-  color: var(--#{$prefix}body-color, #212529);
+  margin: 0;
+  font-size: var(--#{$prefix}font-size-sm);
+  color: var(--#{$prefix}basic-black);
 
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  word-break: break-all;
-
-  &.email-bold {
+  &--bold {
     font-weight: 600;
-    font-size: 0.95rem;
-  }
-}
-
-@media (max-width: 340px) {
-  .info-value {
-    font-size: 0.88rem;
-
-    &.email-bold {
-      font-size: 0.88rem;
-    }
   }
 }
 
@@ -208,9 +205,8 @@ function handleEmailUpdated(email: string) {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-top: 0.5rem;
-  border-top: 1px dashed var(--#{$prefix}border-color, #dee2e6);
   padding-top: 1.25rem;
+  border-top: 1px dashed var(--#{$prefix}stroke);
 
   @media (width >= map.get($grid-breakpoints, sm)) {
     flex-direction: row;
@@ -223,37 +219,7 @@ function handleEmailUpdated(email: string) {
   flex: 1;
 }
 
-.btn-outline-modify {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--#{$prefix}border-radius, 8px);
-  font-size: 0.85rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition:
-    background-color 0.2s,
-    border-color 0.2s;
-  width: 100%;
-
-  background-color: transparent;
-  color: var(--#{$prefix}body-color, #212529);
-  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
-
-  @media (width >= map.get($grid-breakpoints, sm)) {
-    width: auto;
-  }
-
-  &:hover {
-    background-color: var(--#{$prefix}tertiary-bg, #f8f9fa);
-    border-color: var(--#{$prefix}secondary-color, #6c757d);
-  }
-}
-
 .edit-section-panel {
-  grid-column: 1 / -1;
-  margin-top: 0.5rem;
+  padding: 0 1.25rem 1.25rem;
 }
 </style>
