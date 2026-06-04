@@ -22,7 +22,6 @@ import { createI18n, I18nInjectionKey } from 'vue-i18n'
 import { updateEmail } from '@/services/serviceMce.ts'
 import ChangeEmail from './ChangeEmail.ce.vue'
 
-// 1. Mocks globaux
 vi.mock('@/services/serviceMce.ts', () => ({
   updateEmail: vi.fn(),
 }))
@@ -85,7 +84,8 @@ describe('changeEmail', () => {
   // RENDU INITIAL
   // --------------------------------------------------
   describe('rendu initial', () => {
-    it('affiche le titre traduit', () => {
+    // Le template utilise <h3> dans .card-header
+    it('affiche le titre dans un h3', () => {
       expect(wrapper.find('h3').text()).toBe('Modifier l\'adresse email')
     })
 
@@ -110,8 +110,16 @@ describe('changeEmail', () => {
     })
 
     it('les boutons ont les bons textes initiaux', () => {
-      expect(wrapper.find('.btn-secondary').text()).toBe('Annuler')
-      expect(wrapper.find('.btn-primary').text()).toBe('Valider')
+      // Le template contient .btn-secondary et .btn-primary côte à côte dans .action-row
+      const buttons = wrapper.findAll('button')
+      const cancelBtn = buttons.find(b => b.text() === 'Annuler')
+      const submitBtn = buttons.find(b => b.text() === 'Valider')
+      expect(cancelBtn).toBeDefined()
+      expect(submitBtn).toBeDefined()
+    })
+
+    it('aucun message d\'alerte au départ', () => {
+      expect(wrapper.find('.alert-message').exists()).toBe(false)
     })
   })
 
@@ -119,7 +127,7 @@ describe('changeEmail', () => {
   // ACTIONS DU PANNEAU
   // --------------------------------------------------
   describe('actions du panneau', () => {
-    it('émet l\'événement "close" lors du clic sur le bouton Annuler', async () => {
+    it('émet l\'événement "close" lors du clic sur le bouton Annuler (.btn-secondary)', async () => {
       await wrapper.find('.btn-secondary').trigger('click')
       expect(wrapper.emitted('close')).toBeTruthy()
     })
@@ -129,11 +137,10 @@ describe('changeEmail', () => {
   // VALIDATIONS
   // --------------------------------------------------
   describe('validations', () => {
-    it('erreur si l\'un des champs ou les deux sont vides', async () => {
+    it('erreur si les deux champs sont vides', async () => {
       await wrapper.find('.btn-primary').trigger('click')
       await nextTick()
-      const alert = wrapper.find('.alert-message')
-      expect(alert.text()).toBe('Tous les champs sont obligatoires.')
+      expect(wrapper.find('.alert-message').text()).toBe('Tous les champs sont obligatoires.')
     })
 
     it('erreur si le format du nouvel email est invalide', async () => {
@@ -141,8 +148,7 @@ describe('changeEmail', () => {
       await wrapper.find('#confirmEmail').setValue('mauvais-format')
       await wrapper.find('.btn-primary').trigger('click')
       await nextTick()
-      const alert = wrapper.find('.alert-message')
-      expect(alert.text()).toBe('Le format de l\'email est invalide.')
+      expect(wrapper.find('.alert-message').text()).toBe('Le format de l\'email est invalide.')
     })
 
     it('erreur si les deux emails ne correspondent pas', async () => {
@@ -150,8 +156,13 @@ describe('changeEmail', () => {
       await wrapper.find('#confirmEmail').setValue('autre@test.fr')
       await wrapper.find('.btn-primary').trigger('click')
       await nextTick()
-      const alert = wrapper.find('.alert-message')
-      expect(alert.text()).toBe('Les emails ne correspondent pas.')
+      expect(wrapper.find('.alert-message').text()).toBe('Les emails ne correspondent pas.')
+    })
+
+    it('le message d\'erreur a la classe CSS "error"', async () => {
+      await wrapper.find('.btn-primary').trigger('click')
+      await nextTick()
+      expect(wrapper.find('.alert-message').classes()).toContain('error')
     })
   })
 
@@ -201,7 +212,7 @@ describe('changeEmail', () => {
       expect(wrapper.emitted('updated')?.[0]).toEqual(['nouveau@test.fr'])
     })
 
-    it('appelle updateEmail avec les bons arguments et nettoie l\'URL', async () => {
+    it('appelle updateEmail avec les bons arguments', async () => {
       vi.mocked(updateEmail).mockResolvedValueOnce(mockAxiosResponse)
 
       await wrapper.find('#newEmail').setValue('nouveau@test.fr')
@@ -247,7 +258,7 @@ describe('changeEmail', () => {
   // ERREURS DE L'API
   // --------------------------------------------------
   describe('erreurs de l\'API', () => {
-    it('affiche le message d\'une erreur de type Native Error (instanceof Error)', async () => {
+    it('affiche le message d\'une erreur de type Error (instanceof Error)', async () => {
       vi.mocked(updateEmail).mockRejectedValueOnce(new Error('Erreur de connexion réseau'))
 
       await wrapper.find('#newEmail').setValue('nouveau@test.fr')
@@ -270,8 +281,7 @@ describe('changeEmail', () => {
       await wrapper.find('.btn-primary').trigger('click')
       await nextTick()
 
-      const alert = wrapper.find('.alert-message')
-      expect(alert.text()).toBe('Cette adresse email est déjà utilisée.')
+      expect(wrapper.find('.alert-message').text()).toBe('Cette adresse email est déjà utilisée.')
     })
 
     it('affiche le message de traduction par défaut si la structure de l\'erreur est inconnue', async () => {
@@ -282,8 +292,7 @@ describe('changeEmail', () => {
       await wrapper.find('.btn-primary').trigger('click')
       await nextTick()
 
-      const alert = wrapper.find('.alert-message')
-      expect(alert.text()).toBe('Erreur lors de la modification.')
+      expect(wrapper.find('.alert-message').text()).toBe('Erreur lors de la modification.')
     })
   })
 })

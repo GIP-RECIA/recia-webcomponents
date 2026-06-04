@@ -37,6 +37,6 @@ const {
 <style lang="scss">
 html,
 body {
-  background-color: #eee !important;
+  //background-color: #eee !important;
 }
 </style>

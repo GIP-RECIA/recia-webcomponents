@@ -53,7 +53,6 @@ PageMce.ce.vue  (point d'entrée)
 ├── UserBaseInfo.vue
 │   └── AvatarUser.ce.vue
 ├── ListeOnglet.vue.ce ( menu de navigation )
-└── SectionOnglet.ce.vue ( routeur d'onglet )
     │  
     ├──                   InformationPersonnelle.ce.vue
     │                         └── ChangeEmail.ce.vue
