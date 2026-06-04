@@ -38,7 +38,10 @@ onMounted(() => {
       class="btn-tertiary"
     >
       {{ t('admin-redirect') }}
-      <FontAwesomeIcon class="fa-icon" :icon="['fas', 'arrow-right']" />
+      <FontAwesomeIcon
+        class="fa-icon"
+        :icon="['fas', 'arrow-right']"
+      />
     </a>
   </i18n-host>
 </template>

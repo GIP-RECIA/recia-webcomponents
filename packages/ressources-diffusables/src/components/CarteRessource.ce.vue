@@ -73,12 +73,18 @@ ${t('carte-ressource.editeur')}: ${props.ressource.editeur.nom}`
           {{ ressource.ressource.id }}
         </span>
       </li>
-      <li v-if="ressource.editeur.nom !== '' || plusInfos" class="attribut-ressource-carte-ressource">
+      <li
+        v-if="ressource.editeur.nom !== '' || plusInfos"
+        class="attribut-ressource-carte-ressource"
+      >
         <span class="intitule-attribut-ressource-carte-ressource"> {{ t('carte-ressource.editeur') }} : </span>
         <span class="nom-attribut-ressource-carte-ressource">
           {{ ressource.editeur.nom }}
         </span>
-        <span v-if="plusInfos" class="id-attribut-ressource-carte-ressource">&nbsp;{{ ressource.editeur.id }} </span>
+        <span
+          v-if="plusInfos"
+          class="id-attribut-ressource-carte-ressource"
+        >&nbsp;{{ ressource.editeur.id }} </span>
       </li>
       <li
         v-for="distributeurCom in distributeursComComputed"
@@ -89,23 +95,38 @@ ${t('carte-ressource.editeur')}: ${props.ressource.editeur.nom}`
         <span class="nom-attribut-ressource-carte-ressource">
           {{ distributeurCom.nom }}
         </span>
-        <span v-if="plusInfos" class="id-attribut-ressource-carte-ressource">&nbsp;{{ distributeurCom.id }} </span>
+        <span
+          v-if="plusInfos"
+          class="id-attribut-ressource-carte-ressource"
+        >&nbsp;{{ distributeurCom.id }} </span>
       </li>
-      <li v-if="plusInfos" class="attribut-ressource-carte-ressource">
+      <li
+        v-if="plusInfos"
+        class="attribut-ressource-carte-ressource"
+      >
         <span class="intitule-attribut-ressource-carte-ressource"> {{ t('carte-ressource.distributeurTech') }} : </span>
         <span class="nom-attribut-ressource-carte-ressource">
           {{ ressource.distributeurTech.nom }}
         </span>
-        <span v-if="plusInfos" class="id-attribut-ressource-carte-ressource">&nbsp;{{ ressource.distributeurTech.id }}
+        <span
+          v-if="plusInfos"
+          class="id-attribut-ressource-carte-ressource"
+        >&nbsp;{{ ressource.distributeurTech.id }}
         </span>
       </li>
-      <li v-if="plusInfos" class="attribut-ressource-carte-ressource">
+      <li
+        v-if="plusInfos"
+        class="attribut-ressource-carte-ressource"
+      >
         <span class="intitule-attribut-ressource-carte-ressource"> {{ t('carte-ressource.affichable') }} : </span>
         <span class="nom-attribut-ressource-carte-ressource">
           {{ ressource.affichable ? t('carte-ressource.oui') : t('carte-ressource.non') }}
         </span>
       </li>
-      <li v-if="plusInfos" class="attribut-ressource-carte-ressource">
+      <li
+        v-if="plusInfos"
+        class="attribut-ressource-carte-ressource"
+      >
         <span class="intitule-attribut-ressource-carte-ressource"> {{ t('carte-ressource.diffusable') }} : </span>
         <span class="nom-attribut-ressource-carte-ressource">
           {{ ressource.diffusable ? t('carte-ressource.oui') : t('carte-ressource.non') }}
@@ -113,10 +134,17 @@ ${t('carte-ressource.editeur')}: ${props.ressource.editeur.nom}`
       </li>
     </ul>
     <div class="boutons-carte-ressource">
-      <button class="btn-primary small" @click="afficherPlusInfos">
+      <button
+        class="btn-primary small"
+        @click="afficherPlusInfos"
+      >
         {{ plusInfos ? t('carte-ressource.moins-informations') : t('carte-ressource.plus-informations') }}
       </button>
-      <button :class="[isSuccess ? 'success' : '']" class="btn-secondary small" @click="copierReferences">
+      <button
+        :class="[isSuccess ? 'success' : '']"
+        class="btn-secondary small"
+        @click="copierReferences"
+      >
         {{ t(isSuccess ? 'carte-ressource.contenu-copie' : 'carte-ressource.copier-references') }}
       </button>
     </div>

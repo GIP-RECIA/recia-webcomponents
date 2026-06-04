@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 import type { RechercheFilter } from '@/utils/RechercheFilter'
-import { instance } from '@/utils/axiosUtils'
 import { ref } from 'vue'
+import { instance } from '@/utils/axiosUtils'
 
 const resourcesPerPage = ref<number>(20)
 

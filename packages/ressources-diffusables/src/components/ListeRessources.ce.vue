@@ -38,10 +38,17 @@ function goToPage(pageIndex: CustomEvent) {
 <template>
   <div class="cadre-liste-ressources">
     <div>
-      <carte-ressource v-for="ressource in ressources" :key="ressource.ressource.id" :ressource="ressource" />
+      <carte-ressource
+        v-for="ressource in ressources"
+        :key="ressource.ressource.id"
+        :ressource="ressource"
+      />
     </div>
     <footer>
-      <p v-if="chargement" class="chargement-liste-ressources">
+      <p
+        v-if="chargement"
+        class="chargement-liste-ressources"
+      >
         {{ t('liste-ressources.chargement') }}
       </p>
       <p v-else-if="erreur !== ''">

@@ -89,9 +89,17 @@ const recommencerRechercheAvancee = debounce(
   <div class="cadre">
     <div class="toggle">
       <label for="checkbox">{{ t('recherche-ressource.recherche-avancee') }}</label>
-      <input id="checkbox" v-model="rechercheAvanceeActive" class="toggle-checkbox" type="checkbox">
+      <input
+        id="checkbox"
+        v-model="rechercheAvanceeActive"
+        class="toggle-checkbox"
+        type="checkbox"
+      >
     </div>
-    <div v-show="!rechercheAvanceeActive" class="input-recherche-ressource">
+    <div
+      v-show="!rechercheAvanceeActive"
+      class="input-recherche-ressource"
+    >
       <input
         v-model.trim="rechercheInput"
         class="champ-recherche-ressource"

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
+import axios from 'axios'
 import { CustomError } from '@/utils/CustomError.ts'
 import { getToken } from '@/utils/soffitUtils.ts'
-import axios from 'axios'
 
 const instance = axios.create({
   timeout: import.meta.env.VITE_AXIOS_TIMEOUT,

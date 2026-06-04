@@ -176,7 +176,10 @@ function cropImage() {
 </script>
 
 <template>
-  <div class="avatar-upload" v-bind="$attrs">
+  <div
+    class="avatar-upload"
+    v-bind="$attrs"
+  >
     <div class="avatar-edit">
       <input
         ref="imageInput"
@@ -185,36 +188,83 @@ function cropImage() {
         :style="{ display: 'none' }"
         @change="fileChanged"
       >
-      <button :aria-label="m('editer')" :title="m('editer')" class="edit-logo" @click="open = true" />
+      <button
+        :aria-label="m('editer')"
+        :title="m('editer')"
+        class="edit-logo"
+        @click="open = true"
+      />
     </div>
     <div class="avatar-preview">
-      <img class="imagePreview" :src="imageEtab" alt="" width="270" height="120">
+      <img
+        class="imagePreview"
+        :src="imageEtab"
+        alt=""
+        width="270"
+        height="120"
+      >
     </div>
   </div>
 
   <!-- Modal -->
 
-  <div v-if="open" class="modal">
-    <input id="idEtab" type="hidden" name="idEtab" :value="idEtab">
+  <div
+    v-if="open"
+    class="modal"
+  >
+    <input
+      id="idEtab"
+      type="hidden"
+      name="idEtab"
+      :value="idEtab"
+    >
     <div>
       <div class="close">
-        <button type="button" :aria-label="m('fermer')" class="close" @click="closeModal" />
+        <button
+          type="button"
+          :aria-label="m('fermer')"
+          class="close"
+          @click="closeModal"
+        />
       </div>
       <div class="images">
-        <div v-show="imageSrc" class="cropImg">
-          <img ref="img" :src="imageSrc" alt="" width="280">
+        <div
+          v-show="imageSrc"
+          class="cropImg"
+        >
+          <img
+            ref="img"
+            :src="imageSrc"
+            alt=""
+            width="280"
+          >
         </div>
         <div class="previewImg">
-          <div id="previewImg" ref="prevImg">
-            <img :src="imageEtab" alt="" width="270" height="120">
+          <div
+            id="previewImg"
+            ref="prevImg"
+          >
+            <img
+              :src="imageEtab"
+              alt=""
+              width="270"
+              height="120"
+            >
           </div>
         </div>
       </div>
       <div class="buttons">
-        <button class="btn-selectImg" @click="imageInput.click()">
+        <button
+          class="btn-selectImg"
+          @click="imageInput.click()"
+        >
           {{ m('selectionner-image') }}
         </button>
-        <button v-show="imageSrc" class="btn-cropImg" @click="cropImage">
+        <button
+          v-show="imageSrc"
+          class="btn-cropImg"
+          @click="cropImage"
+        >
           {{ m('appliquer') }}
         </button>
       </div>

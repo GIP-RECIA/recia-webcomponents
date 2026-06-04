@@ -99,7 +99,10 @@ function select(payload: CustomEvent, isBoolean: boolean) {
 
 <template>
   <div id="app">
-    <div v-if="!isMobile" class="list">
+    <div
+      v-if="!isMobile"
+      class="list"
+    >
       <list-etab
         class-input="input-search"
         class-li="item etab"
@@ -109,11 +112,20 @@ function select(payload: CustomEvent, isBoolean: boolean) {
         @select-etab="select($event, false)"
       />
     </div>
-    <div v-else class="dropdown-wrapper">
-      <button class="selected-etab" @click="isVisible = !isVisible">
+    <div
+      v-else
+      class="dropdown-wrapper"
+    >
+      <button
+        class="selected-etab"
+        @click="isVisible = !isVisible"
+      >
         <span>{{ nameEtabSelected }}</span>
       </button>
-      <div v-if="isVisible" class="dropdown-popover">
+      <div
+        v-if="isVisible"
+        class="dropdown-popover"
+      >
         <list-etab
           class-input="input-search-mobile"
           class-li="opt-list"

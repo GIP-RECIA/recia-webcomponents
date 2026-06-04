@@ -17,6 +17,7 @@
 import type { JWT } from '@uportal/open-id-connect'
 import oidc from '@uportal/open-id-connect'
 
+// eslint-disable-next-line import/no-mutable-exports
 let isUserConnected: boolean = false
 
 async function getToken(apiUrl: string): Promise<{ encoded: string, decoded: JWT }> {

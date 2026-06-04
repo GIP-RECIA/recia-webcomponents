@@ -81,7 +81,10 @@ function closeList(): void {
 </script>
 
 <template>
-  <div ref="self" class="dropdown">
+  <div
+    ref="self"
+    class="dropdown"
+  >
     <button
       ref="button"
       :aria-expanded="isExpanded"
@@ -91,7 +94,10 @@ function closeList(): void {
       @click="() => { isExpanded = !isExpanded }"
     >
       <span>{{ t('card-sympa.options') }}</span>
-      <FontAwesomeIcon class="fa-icon" :icon="['fas', 'ellipsis-h']" />
+      <FontAwesomeIcon
+        class="fa-icon"
+        :icon="['fas', 'ellipsis-h']"
+      />
     </button>
     <ul
       id="dropdown-content"

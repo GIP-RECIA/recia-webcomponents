@@ -400,12 +400,21 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
 
 <template>
   <i18n-host>
-    <div v-if="chargementApp" class="spinner-container">
+    <div
+      v-if="chargementApp"
+      class="spinner-container"
+    >
       <div class="spinner-element">
-        <FontAwesomeIcon icon="fa-solid fa-circle-notch" class="fa-spinner" />
+        <FontAwesomeIcon
+          icon="fa-solid fa-circle-notch"
+          class="fa-spinner"
+        />
       </div>
     </div>
-    <div v-else class="cadre-page-mediacentre">
+    <div
+      v-else
+      class="cadre-page-mediacentre"
+    >
       <aside class="aside-page-mediacentre">
         <menu-mediacentre
           class="menu-mediacentre"
@@ -443,7 +452,11 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
         </div>
       </div>
       <Teleport to="body">
-        <info-modal id="modale" debug="false" style="z-index: 99;">
+        <info-modal
+          id="modale"
+          debug="false"
+          style="z-index: 99;"
+        >
           <template v-if="modalToUse === 'card'">
             <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
             <div slot="modal-body">
@@ -452,7 +465,10 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
                   <span>Ref : {{ resourceReference }}</span>
                   <span>{{ t('resource-info-modal-mediacentre.editor') }} {{ resourceEditor }}</span>
                 </div>
-                <div v-if="resourceDescription" class="description-modal">
+                <div
+                  v-if="resourceDescription"
+                  class="description-modal"
+                >
                   {{ resourceDescription }}
                 </div>
               </div>

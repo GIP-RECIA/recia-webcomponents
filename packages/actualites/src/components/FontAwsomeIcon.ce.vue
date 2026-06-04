@@ -16,9 +16,9 @@
 
 <script setup lang="ts">
 import type { FontAwesomeIconProps } from '@fortawesome/vue-fontawesome'
-import { register } from '@/plugins/fontawesome'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { onMounted, ref } from 'vue'
+import { register } from '@/plugins/fontawesome'
 
 const props = defineProps<FontAwesomeIconProps>()
 
@@ -32,7 +32,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <FontAwesomeIcon v-if="iconsReady" v-bind="props" />
+  <FontAwesomeIcon
+    v-if="iconsReady"
+    v-bind="props"
+  />
 </template>
 
 <style lang="scss">

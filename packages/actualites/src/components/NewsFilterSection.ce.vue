@@ -14,11 +14,12 @@
  limitations under the License.
 -->
 
+<!-- eslint-disable -->
 <script setup lang="ts">
+import type { Actualite } from '@/types/Actualite.ts'
 import type { Rubrique } from '@/types/Rubrique.ts'
-import { computed, ref, onUnmounted, onMounted } from 'vue'
-import type { Actualite } from "@/types/Actualite.ts";
-import { useI18n } from 'vue-i18n';
+import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
   actualites: Actualite
@@ -28,8 +29,8 @@ const props = defineProps<{
 const emit = defineEmits(['updateModelValue'])
 const { t } = useI18n()
 
-let currentSource = ref<string | undefined>(undefined)
-let currentSection = ref<Set<number>>(new Set<number>())
+const currentSource = ref<string | undefined>(undefined)
+const currentSection = ref<Set<number>>(new Set<number>())
 const isMenuFilterOpen = ref(false)
 const filterCounter = ref(0)
 const disableButton = ref(false)
@@ -40,7 +41,7 @@ const allSections: Rubrique = {
   color: '',
   mediaUrl: null,
   highlight: false,
-  hiddenIfEmpty: false
+  hiddenIfEmpty: false,
 }
 
 const sources = computed<Array<string | undefined>>(() => props.actualites ? [undefined, ...props.actualites.sources] : [])
@@ -53,20 +54,21 @@ const rubriques = computed<Array<Rubrique>>(() => {
   })
   props.actualites.items.forEach((item) => {
     item.rubriques.forEach((rubrique) => {
-      if (rubriqueMap.has(rubrique.toString())) set.add(<Rubrique>rubriqueMap.get(rubrique.toString()))
+      if (rubriqueMap.has(rubrique.toString()))
+        set.add(rubriqueMap.get(rubrique.toString()))
     })
   })
   return [allSections, ...props.actualites.rubriques.sort((a, b) => a.name.localeCompare(b.name))]
 })
 
 onMounted(() => {
-  handleResize();
-  window.addEventListener('resize', handleResize);
-});
+  handleResize()
+  window.addEventListener('resize', handleResize)
+})
 
 onUnmounted(() => {
-  window.removeEventListener('resize', handleResize);
-});
+  window.removeEventListener('resize', handleResize)
+})
 
 function handleResize() {
   isMenuFilterOpen.value = window.innerWidth > 1024
@@ -78,8 +80,8 @@ function setSource(source: string) {
   if (currentSource.value === undefined) {
     currentSource.value = undefined
     filterCounter.value = 0
-
-  } else {
+  }
+  else {
     filterCounter.value = 1
   }
 
@@ -90,10 +92,11 @@ function setSource(source: string) {
 function setSection(section: Rubrique) {
   if (section.uuid === '0') {
     currentSection.value.clear()
-  } else {
+  }
+  else {
     currentSection.value.has(section.uuid)
-    ? currentSection.value.delete(section.uuid)
-    : currentSection.value.add(section.uuid)
+      ? currentSection.value.delete(section.uuid)
+      : currentSection.value.add(section.uuid)
   }
   filterCounter.value = 1 + currentSection.value.size
   emit('updateModelValue', currentSource.value, currentSection.value)
@@ -105,75 +108,92 @@ function openMenuFilter() {
 </script>
 
 <template>
-    <div class="filter-section-container">
-      <div v-if="disableButton" class="filter-title">
-        {{ t('text.title.filters') }}
-      </div>
-      <button v-if="!disableButton" class="filter-section-container-header" @click="openMenuFilter">
-        <div class="filter-section-container-header-left">
-          <div class="filter-title">
-            {{ t('text.title.filters') }}
-          </div>
-          <div v-if="filterCounter > 0" class="filter-counter">{{ filterCounter }}</div>
-        </div>
-
-        <div class="caret-button">
-          <font-awesome-icon :icon="`fa-solid fa-caret-${ isMenuFilterOpen ? 'up' : 'down'}`" />
-        </div>
-      </button>
-
-      <div class="grid-container">
-        <template v-if="isMenuFilterOpen">
-          <div class="filter-section-title">
-            {{ t('text.filter.by-sources') }}
-          </div>
-
-          <div class="filter-section">
-            <ul class="filter-section-span-container">
-              <li v-for="source in sources" :key="source">
-                <button
-                  class="filter-section-span"
-                  :class="{
-                    active: source === currentSource,
-                    mobile: !disableButton
-                   }"
-                  @click="setSource(source!)"
-                >
-                  {{ source ?? t('text.filter.all-sources') }}
-                </button>
-              </li>
-            </ul>
-          </div>
-        </template>
-
-        <template v-if="currentSource && isMenuFilterOpen">
-          <div class="separator"></div>
-
-          <div class="filter-section-title">
-            {{ t('text.filter.by-sections') }}
-          </div>
-          <div class="filter-section">
-            <ul class="filter-section-span-container">
-              <li v-for="(section, index) in (loading ? [allSections] : rubriques)" :key="index">
-                <button
-                  class="filter-section-span"
-                  :class="{
-                    active: currentSection.size === 0
-                      ? section.name === t('text.filter.all-sections')
-                      : currentSection.has(section.uuid),
-                    mobile: !disableButton
-                   }"
-                  @click="setSection(section)"
-                >
-                  {{ section.name }}
-                </button>
-              </li>
-            </ul>
-          </div>
-        </template>
-
-      </div>
+  <div class="filter-section-container">
+    <div
+      v-if="disableButton"
+      class="filter-title"
+    >
+      {{ t('text.title.filters') }}
     </div>
+    <button
+      v-if="!disableButton"
+      class="filter-section-container-header"
+      @click="openMenuFilter"
+    >
+      <div class="filter-section-container-header-left">
+        <div class="filter-title">
+          {{ t('text.title.filters') }}
+        </div>
+        <div
+          v-if="filterCounter > 0"
+          class="filter-counter"
+        >
+          {{ filterCounter }}
+        </div>
+      </div>
+
+      <div class="caret-button">
+        <font-awesome-icon :icon="`fa-solid fa-caret-${isMenuFilterOpen ? 'up' : 'down'}`" />
+      </div>
+    </button>
+
+    <div class="grid-container">
+      <template v-if="isMenuFilterOpen">
+        <div class="filter-section-title">
+          {{ t('text.filter.by-sources') }}
+        </div>
+
+        <div class="filter-section">
+          <ul class="filter-section-span-container">
+            <li
+              v-for="source in sources"
+              :key="source"
+            >
+              <button
+                class="filter-section-span"
+                :class="{
+                  active: source === currentSource,
+                  mobile: !disableButton,
+                }"
+                @click="setSource(source!)"
+              >
+                {{ source ?? t('text.filter.all-sources') }}
+              </button>
+            </li>
+          </ul>
+        </div>
+      </template>
+
+      <template v-if="currentSource && isMenuFilterOpen">
+        <div class="separator" />
+
+        <div class="filter-section-title">
+          {{ t('text.filter.by-sections') }}
+        </div>
+        <div class="filter-section">
+          <ul class="filter-section-span-container">
+            <li
+              v-for="(section, index) in (loading ? [allSections] : rubriques)"
+              :key="index"
+            >
+              <button
+                class="filter-section-span"
+                :class="{
+                  active: currentSection.size === 0
+                    ? section.name === t('text.filter.all-sections')
+                    : currentSection.has(section.uuid),
+                  mobile: !disableButton,
+                }"
+                @click="setSection(section)"
+              >
+                {{ section.name }}
+              </button>
+            </li>
+          </ul>
+        </div>
+      </template>
+    </div>
+  </div>
 </template>
 
 <style lang="scss">

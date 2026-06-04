@@ -101,7 +101,10 @@ function sendUpdateFavorite(event: CustomEvent) {
       @update-fav="sendUpdateFavorite"
     />
   </div>
-  <div v-else class="cadre-liste-ressources-mediacentre">
+  <div
+    v-else
+    class="cadre-liste-ressources-mediacentre"
+  >
     <p v-if="isError">
       {{ erreur }}
     </p>
