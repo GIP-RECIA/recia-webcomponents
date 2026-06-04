@@ -47,7 +47,11 @@
   "avatar-user": {
     "title-header": "Change avatar",
     "select-image": "Select image",
-    "apply": "Apply"
+    "apply": "Apply",
+    "loading": "Loading...",
+    "success": "Avatar updated successfully",
+    "error-default": "An error occurred while updating the avatar",
+    "select-image-hint": "Select an image"
   },
 
   "change-email": {

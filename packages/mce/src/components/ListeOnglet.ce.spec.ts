@@ -40,12 +40,15 @@ describe('listeOnglet', () => {
   let wrapper: VueWrapper
 
   beforeEach(() => {
-    const i18n = createI18n({ legacy: false, locale: 'fr', messages })
+    const i18n = createI18n({ locale: 'fr', messages })
     wrapper = mount(ListeOnglet, {
       props: defaultProps,
       global: {
         plugins: [i18n],
-        provide: { [I18nInjectionKey as symbol]: i18n },
+        // Le composant injecte I18nInjectionKey et appelle i18n.global.t
+        provide: {
+          [I18nInjectionKey as symbol]: { global: i18n.global },
+        },
       },
     })
   })
@@ -61,11 +64,27 @@ describe('listeOnglet', () => {
       expect(buttons[1].text()).toBe('Mes services ENT')
     })
 
-    it('applique la classe active à l\'onglet courant', () => {
+    it('applique la classe "active" à l\'onglet courant', () => {
       const activeBtn = wrapper.find('button.active')
       expect(activeBtn.exists()).toBe(true)
       expect(activeBtn.text()).toBe('Mes informations générales')
+    })
+
+    it('applique aria-current="page" à l\'onglet actif', () => {
+      const activeBtn = wrapper.find('button.active')
       expect(activeBtn.attributes('aria-current')).toBe('page')
+    })
+
+    it('n\'applique pas aria-current aux onglets inactifs', () => {
+      const buttons = wrapper.findAll('button')
+      const inactiveBtn = buttons[1]
+      expect(inactiveBtn.attributes('aria-current')).toBeUndefined()
+    })
+
+    it('applique la classBtn fournie en prop à chaque bouton', () => {
+      wrapper.findAll('button').forEach((btn) => {
+        expect(btn.classes()).toContain('btn-secondary-toggle')
+      })
     })
   })
 
@@ -73,11 +92,15 @@ describe('listeOnglet', () => {
   // INTERACTIONS ET ÉVÉNEMENTS
   // --------------------------------------------------
   describe('interactions', () => {
-    it('émet l\'événement "selectOnglet" lors d\'un clic', async () => {
+    it('émet l\'événement "selectOnglet" avec la valeur correcte lors d\'un clic', async () => {
       await wrapper.findAll('button')[1].trigger('click')
-
       expect(wrapper.emitted('selectOnglet')).toBeTruthy()
       expect(wrapper.emitted('selectOnglet')?.[0]).toEqual(['SERVICE'])
+    })
+
+    it('émet "selectOnglet" aussi pour l\'onglet déjà actif', async () => {
+      await wrapper.findAll('button')[0].trigger('click')
+      expect(wrapper.emitted('selectOnglet')?.[0]).toEqual(['GENERALE'])
     })
   })
 
@@ -87,12 +110,11 @@ describe('listeOnglet', () => {
   describe('branche alternative sans i18n', () => {
     it('renvoie la clé brute si le plugin i18n est absent', () => {
       const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
-
       const wrapperNoI18n = mount(ListeOnglet, {
         props: defaultProps,
         global: { provide: {} },
       })
-
+      // m(item) sans i18n → retourne la clé brute 'GENERALE'
       expect(wrapperNoI18n.find('button').text()).toBe('GENERALE')
       warnSpy.mockRestore()
     })

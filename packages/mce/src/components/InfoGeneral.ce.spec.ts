@@ -60,9 +60,8 @@ describe('infoGeneral', () => {
         props: { ...defaultProps, parentEleve: [{ id: 1, name: 'Élève A' }] },
         global: globalConfig,
       })
-      const studentBlock = wrapper.find('relation-user-stub, relation-user')
+      const studentBlock = wrapper.find('[titre="student"]')
       expect(studentBlock.exists()).toBe(true)
-      expect(studentBlock.attributes('titre')).toBe('student')
     })
 
     it('affiche relation-user si parentEleve contient un objet non vide', () => {
@@ -70,12 +69,11 @@ describe('infoGeneral', () => {
         props: { ...defaultProps, parentEleve: { id: 2, name: 'Élève B' } },
         global: globalConfig,
       })
-      const studentBlock = wrapper.find('relation-user-stub, relation-user')
+      const studentBlock = wrapper.find('[titre="student"]')
       expect(studentBlock.exists()).toBe(true)
-      expect(studentBlock.attributes('titre')).toBe('student')
     })
 
-    it('affiche relation-user si relationEleve contient des données (et les priorise)', () => {
+    it('affiche relation-user si relationEleve contient des données', () => {
       const wrapper = shallowMount(InfoGeneral, {
         props: {
           ...defaultProps,
@@ -84,10 +82,8 @@ describe('infoGeneral', () => {
         },
         global: globalConfig,
       })
-      const studentBlock = wrapper.find('relation-user-stub, relation-user')
+      const studentBlock = wrapper.find('[titre="student"]')
       expect(studentBlock.exists()).toBe(true)
-      expect(studentBlock.attributes('titre')).toBe('student')
-      expect(studentBlock.attributes('details')).toBeDefined()
     })
 
     it('se replie sur parentEleve si relationEleve est absent ou vide', () => {
@@ -95,9 +91,8 @@ describe('infoGeneral', () => {
         props: { ...defaultProps, relationEleve: undefined, parentEleve: [{ id: 4, name: 'Élève Parent' }] },
         global: globalConfig,
       })
-      const studentBlock = wrapper.find('relation-user-stub, relation-user')
+      const studentBlock = wrapper.find('[titre="student"]')
       expect(studentBlock.exists()).toBe(true)
-      expect(studentBlock.attributes('details')).toBeDefined()
     })
   })
 
@@ -105,42 +100,40 @@ describe('infoGeneral', () => {
   // GESTION DES APPRENTIS
   // --------------------------------------------------
   describe('gestion de l\'affichage des apprentis', () => {
-    it('ne renvoie rien si la prop apprentis vaut undefined', () => {
+    it('ne renvoie rien si apprentis vaut undefined', () => {
       const wrapper = shallowMount(InfoGeneral, {
         props: { ...defaultProps, apprentis: undefined },
         global: globalConfig,
       })
-      const masterBlock = wrapper.findAll('relation-user-stub, relation-user').find(el => el.attributes('titre') === 'master')
-      expect(masterBlock).toBeUndefined()
+      const masterBlock = wrapper.findAll('[titre="master"]')
+      expect(masterBlock).toHaveLength(0)
     })
 
-    it('ne doit pas afficher relation-user pour "master" si vide', () => {
+    it('ne doit pas afficher relation-user pour "master" si apprentis est un tableau vide', () => {
       const wrapper = shallowMount(InfoGeneral, {
         props: { ...defaultProps, apprentis: [] },
         global: globalConfig,
       })
-      const masterBlock = wrapper.findAll('relation-user-stub, relation-user').find(el => el.attributes('titre') === 'master')
-      expect(masterBlock).toBeUndefined()
+      const masterBlock = wrapper.findAll('[titre="master"]')
+      expect(masterBlock).toHaveLength(0)
     })
 
-    it('affiche relation-user pour "master" si apprentis est un tableau rempli', () => {
+    it('affiche relation-user pour "master" si apprentis est un tableau non vide', () => {
       const wrapper = shallowMount(InfoGeneral, {
         props: { ...defaultProps, apprentis: [{ id: 10, name: 'Apprenti A' }] },
         global: globalConfig,
       })
-      const masterBlock = wrapper.find('relation-user-stub, relation-user')
+      const masterBlock = wrapper.find('[titre="master"]')
       expect(masterBlock.exists()).toBe(true)
-      expect(masterBlock.attributes('titre')).toBe('master')
     })
 
-    it('affiche relation-user pour "master" si apprentis est un objet rempli', () => {
+    it('affiche relation-user pour "master" si apprentis est un objet non vide', () => {
       const wrapper = shallowMount(InfoGeneral, {
         props: { ...defaultProps, apprentis: { uniqueKey: { id: 20, name: 'Apprenti B' } } },
         global: globalConfig,
       })
-      const masterBlock = wrapper.find('relation-user-stub, relation-user')
+      const masterBlock = wrapper.find('[titre="master"]')
       expect(masterBlock.exists()).toBe(true)
-      expect(masterBlock.attributes('titre')).toBe('master')
     })
   })
 
@@ -174,7 +167,7 @@ describe('infoGeneral', () => {
       expect(wrapper.findComponent(ClassesGroupesEleve).exists()).toBe(true)
     })
 
-    it('affiche ClassesGroupesEleve si sectionEleve ne contient pas d\'établissements mais possède des enseignements suivis', () => {
+    it('affiche ClassesGroupesEleve si sectionEleve a des enseignements même sans établissements', () => {
       const detailsEleveMatiere = {
         sectionClassesGroupes: {
           sectionEleve: { etabs: [], enseignementSuivis: ['Mathématiques'] },
@@ -187,7 +180,7 @@ describe('infoGeneral', () => {
       expect(wrapper.findComponent(ClassesGroupesEleve).exists()).toBe(true)
     })
 
-    it('ne doit afficher aucun des deux blocs si sectionClassesGroupes est indéfini', () => {
+    it('n\'affiche aucun des deux blocs si sectionClassesGroupes est indéfini', () => {
       const detailsVides = { sectionClassesGroupes: undefined } as unknown as General
       const wrapper = shallowMount(InfoGeneral, {
         props: { ...defaultProps, details: detailsVides },

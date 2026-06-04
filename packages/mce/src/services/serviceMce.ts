@@ -131,4 +131,33 @@ async function updateFonctionDateFin(
   )
 }
 
-export { getContentOnglet, getDetailEnfant, getMCE, getServicesEnt, postPassword, updateEmail, updateFonctionDateFin }
+/**
+ * Met à jour l'avatar de l'utilisateur
+ * @param uid Identifiant de l'utilisateur
+ * @param file Le fichier image (File ou Blob)
+ * @param baseUrl URL de base de l'API
+ * @param userInfoApiUrl URL de configuration OIDC
+ */
+async function updateAvatar(
+  uid: string,
+  file: File | Blob,
+  baseUrl: string,
+  userInfoApiUrl: string,
+) {
+  const token = await getToken(userInfoApiUrl)
+
+  const formData = new FormData()
+  formData.append('file', file)
+
+  return axios.post(
+    `${baseUrl}/${uid}/avatar`,
+    formData,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  )
+}
+
+export { getContentOnglet, getDetailEnfant, getMCE, getServicesEnt, postPassword, updateAvatar, updateEmail, updateFonctionDateFin }

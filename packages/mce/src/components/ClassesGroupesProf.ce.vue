@@ -41,7 +41,6 @@ const sections = computed(() => {
   return props.sectionProf?.etabs ? Object.entries(props.sectionProf.etabs) : []
 })
 
-// Matières déjà affichées dans les blocs sectionProf
 const disciplinesDansSections = computed(() => {
   const matieres = new Set<string>()
   sections.value.forEach(([_, etabs]) => {
@@ -55,19 +54,14 @@ const disciplinesDansSections = computed(() => {
 
 const fonctionsRestantes = computed(() => {
   return props.listFonctions.filter((f) => {
-    // ignore les disciplines déjà affichées
     if (disciplinesDansSections.value.has(f.discipline))
       return false
-
     const classes = getFonctionClasses(f)
     const groupes = getFonctionGroupes(f)
-
-    // afficher uniquement si il y a au moins une classe ou un groupe
     return classes.length > 0 || groupes.length > 0
   })
 })
 
-// Index sectionEleve.etabs par nameEtab pour retrouver les groupes/classes d'un élève via le nom de l'étab
 const eleveEtabsByName = computed(() => {
   const map = new Map<string, { classes: string[], groupes: string[] }>()
   props.sectionEleve?.etabs?.forEach((etab: any) => {
@@ -79,13 +73,11 @@ const eleveEtabsByName = computed(() => {
   return map
 })
 
-// Croise les groupes/classes depuis sectionEleve en cherchant par nom d'étab
 function getEleveCgForFonction(f: any): { classes: string[], groupes: string[] } {
   const nomEtab = f.struct?.name ?? ''
   return eleveEtabsByName.value.get(nomEtab) ?? { classes: [], groupes: [] }
 }
 
-// Récupère les classes d'une fonction : priorité f.classes > f.cg?.classes > sectionEleve
 function getFonctionClasses(f: any): string[] {
   if (f.classes?.length)
     return f.classes
@@ -94,7 +86,6 @@ function getFonctionClasses(f: any): string[] {
   return getEleveCgForFonction(f).classes
 }
 
-// Récupère les groupes d'une fonction : priorité f.groupes > f.cg?.groupes > sectionEleve
 function getFonctionGroupes(f: any): string[] {
   if (f.groupes?.length)
     return f.groupes
@@ -109,239 +100,111 @@ function getMatiere(item: any) {
 </script>
 
 <template>
-  <section class="page-container">
-    <div class="profile-card">
-      <header class="card-header clickable-header" @click="isOpen = !isOpen">
-        <h2>{{ tGeneral('title-classe-groupe') }}</h2>
-        <span class="collapse-icon">{{ isOpen ? '-' : '+' }}</span>
-      </header>
+  <section class="profile-card">
+    <header class="card-header clickable-header" @click="isOpen = !isOpen">
+      <h3>{{ tGeneral('title-classe-groupe') }}</h3>
+      <span class="collapse-icon">{{ isOpen ? '-' : '+' }}</span>
+    </header>
 
-      <div v-if="!sectionProf && listFonctions.length === 0" class="card-body-grid">
-        <span class="info-value">{{ tProf('no-data') }}</span>
-      </div>
+    <div v-if="!sectionProf && listFonctions.length === 0" class="card-body">
+      <span class="info-value">{{ tProf('no-data') }}</span>
+    </div>
 
-      <div v-else-if="isOpen" class="card-body-grid">
-        <!-- Blocs sectionProf (EPS, etc.) -->
-        <template v-for="([nomEtab, listeItems]) in sections" :key="nomEtab">
-          <div class="etab-block">
-            <div class="etab-info-side">
-              <span class="info-label">{{ tProf('etablissement') }}</span>
-              <div class="info-value name-bold">
-                {{ nomEtab }}
-              </div>
+    <div v-else-if="isOpen" class="card-body">
+      <!-- Blocs sectionProf -->
+      <template v-for="([nomEtab, listeItems]) in sections" :key="nomEtab">
+        <div class="etab-block">
+          <div class="etab-info-side">
+            <span class="info-label">{{ tProf('etablissement') }}</span>
+            <div class="info-value info-value--bold">
+              {{ nomEtab }}
             </div>
+          </div>
 
-            <div class="teachings-list">
-              <div v-for="(item, indexItem) in listeItems" :key="indexItem" class="teaching-entry">
-                <div class="info-item">
-                  <span class="info-label">{{ tProf('discipline') }}</span>
-                  <span class="info-value name-bold">{{ getMatiere(item) }}</span>
-                </div>
+          <div class="teachings-list">
+            <div v-for="(item, indexItem) in listeItems" :key="indexItem" class="teaching-entry">
+              <div class="info-item">
+                <span class="info-label">{{ tProf('discipline') }}</span>
+                <span class="info-value info-value--bold">{{ getMatiere(item) }}</span>
+              </div>
 
-                <div class="badges-row">
-                  <span v-for="c in item.cg?.classes" :key="c" class="pill-tag pill-class">{{ c }}</span>
-                  <span v-for="g in item.cg?.groupes" :key="g" class="pill-tag pill-group">{{ g }}</span>
-                </div>
+              <div class="badges-row">
+                <span v-for="c in item.cg?.classes" :key="c" class="pill-tag pill-tag--class">{{ c }}</span>
+                <span v-for="g in item.cg?.groupes" :key="g" class="pill-tag pill-tag--group">{{ g }}</span>
               </div>
             </div>
           </div>
-        </template>
+        </div>
+      </template>
 
-        <!-- Fonctions restantes (ex : Espagnol) — même design que les blocs du haut -->
-        <template v-if="fonctionsRestantes.length > 0">
-          <div
-            v-for="f in fonctionsRestantes"
-            :key="f.idFonction"
-            class="etab-block"
-          >
-            <div class="etab-info-side">
-              <span class="info-label">{{ tProf('etablissement') }}</span>
-              <div class="info-value name-bold">
-                {{ f.struct?.name || 'N/A' }}
-              </div>
+      <!-- Fonctions restantes -->
+      <template v-if="fonctionsRestantes.length > 0">
+        <div
+          v-for="f in fonctionsRestantes"
+          :key="f.idFonction"
+          class="etab-block"
+        >
+          <div class="etab-info-side">
+            <span class="info-label">{{ tProf('etablissement') }}</span>
+            <div class="info-value info-value--bold">
+              {{ f.struct?.name || 'N/A' }}
             </div>
+          </div>
 
-            <div class="teachings-list">
-              <div class="teaching-entry">
-                <div class="info-item">
-                  <span class="info-label">{{ tProf('discipline') }}</span>
-                  <span class="info-value name-bold">{{ f.discipline }}</span>
-                </div>
+          <div class="teachings-list">
+            <div class="teaching-entry">
+              <div class="info-item">
+                <span class="info-label">{{ tProf('discipline') }}</span>
+                <span class="info-value info-value--bold">{{ f.discipline }}</span>
+              </div>
 
-                <div
-                  v-if="getFonctionClasses(f).length > 0 || getFonctionGroupes(f).length > 0"
-                  class="badges-row"
-                >
-                  <span
-                    v-for="c in getFonctionClasses(f)"
-                    :key="c"
-                    class="pill-tag pill-class"
-                  >{{ c }}</span>
-                  <span
-                    v-for="g in getFonctionGroupes(f)"
-                    :key="g"
-                    class="pill-tag pill-group"
-                  >{{ g }}</span>
-                </div>
+              <div
+                v-if="getFonctionClasses(f).length > 0 || getFonctionGroupes(f).length > 0"
+                class="badges-row"
+              >
+                <span
+                  v-for="c in getFonctionClasses(f)"
+                  :key="c"
+                  class="pill-tag pill-tag--class"
+                >{{ c }}</span>
+                <span
+                  v-for="g in getFonctionGroupes(f)"
+                  :key="g"
+                  class="pill-tag pill-tag--group"
+                >{{ g }}</span>
               </div>
             </div>
           </div>
-        </template>
-      </div>
+        </div>
+      </template>
     </div>
   </section>
 </template>
 
 <style lang="scss" scoped>
+@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
-
-.page-container {
-  //@media (max-width: 576px) {
-  //  padding: 0 0.5rem;
-  //}
-}
+@use '@gip-recia/ui/functions' as *;
+@use '@gip-recia/ui/mixins' as *;
+@use '@gip-recia/ui/components/buttons';
 
 .profile-card {
-  background: var(--#{$prefix}body-bg, #ffffff);
-  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
-  border-radius: 12px;
-  box-shadow: 0 10px 25px -5px var(--#{$prefix}shadow-neutral, rgba(0, 0, 0, 0.1));
+  border: 1px solid var(--#{$prefix}stroke);
+  border-radius: 10px;
+  box-shadow: var(--#{$prefix}shadow-neutral) rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  background-color: var(--#{$prefix}body-bg);
 }
 
 .card-header {
-  padding: 1.5rem;
-  border-bottom: 1px solid var(--#{$prefix}border-color, #dee2e6);
+  padding: 1.5rem 1.25rem;
+  border-bottom: 1px solid var(--#{$prefix}stroke);
 
-  h2 {
+  h3 {
     margin: 0;
-    font-size: 1.1rem;
-    color: var(--#{$prefix}body-color, #212529);
-  }
-}
-
-.card-body-grid {
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-
-  @media (max-width: 576px) {
-    padding: 1rem;
-  }
-}
-
-.etab-block {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 1.5rem 0;
-  border-bottom: 1px solid var(--#{$prefix}border-color, #eee);
-  gap: 2rem;
-
-  &:last-child {
-    border-bottom: none;
-  }
-
-  @media (max-width: 768px) {
-    gap: 1rem;
-  }
-  @media (max-width: 576px) {
-    flex-direction: column;
-    gap: 0.75rem;
-    padding: 1rem 0;
-  }
-}
-
-.etab-info-side {
-  flex: 0 0 35%;
-  @media (max-width: 768px) {
-    flex: 0 0 30%;
-  }
-  @media (max-width: 576px) {
-    flex: none;
-    width: 100%;
-  }
-}
-
-.teachings-list {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  @media (max-width: 576px) {
-    width: 100%;
-  }
-}
-
-.teaching-entry {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--#{$prefix}tertiary-bg, #f8f9fa);
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  border: 1px solid var(--#{$prefix}border-color, #eee);
-  gap: 0.75rem;
-  @media (max-width: 576px) {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-}
-
-.info-item {
-  @media (max-width: 576px) {
-    width: 100%;
-  }
-}
-
-.info-label {
-  display: block;
-  font-size: 0.65rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  color: var(--#{$prefix}secondary-color, #6c757d);
-  margin-bottom: 4px;
-}
-
-.info-value {
-  font-size: 0.95rem;
-  color: var(--#{$prefix}body-color, #212529);
-
-  &.name-bold {
-    font-weight: 600;
-  }
-  @media (max-width: 576px) {
-    font-size: 0.875rem;
-  }
-}
-
-.badges-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  justify-content: flex-end;
-  @media (max-width: 576px) {
-    justify-content: flex-start;
-    width: 100%;
-  }
-}
-
-.pill-tag {
-  padding: 0.25rem 0.75rem;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  font-weight: 700;
-
-  &.pill-class {
-    background: var(--#{$prefix}primary-bg-subtle, #e7f1ff);
-    color: var(--#{$prefix}primary-text-emphasis, #084298);
-  }
-
-  &.pill-group {
-    background: var(--#{$prefix}success-bg-subtle, #d1e7dd);
-    color: var(--#{$prefix}success-text-emphasis, #0a3622);
+    font-size: var(--#{$prefix}font-size-h3);
+    color: var(--#{$prefix}basic-black);
   }
 }
 
@@ -353,12 +216,139 @@ function getMatiere(item: any) {
   user-select: none;
 
   &:hover {
-    background: rgba(0, 0, 0, 0.03);
+    background: var(--#{$prefix}hover);
   }
 }
 
 .collapse-icon {
   font-size: 1.2rem;
   font-weight: 700;
+  color: var(--#{$prefix}basic-black-lighter);
+}
+
+.card-body {
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+
+  @media (width < map.get($grid-breakpoints, sm)) {
+    padding: 1rem;
+  }
+}
+
+.etab-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--#{$prefix}stroke);
+  gap: 2rem;
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  @media (width < map.get($grid-breakpoints, md)) {
+    gap: 1rem;
+  }
+
+  @media (width < map.get($grid-breakpoints, sm)) {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+.etab-info-side {
+  flex: 0 0 35%;
+
+  @media (width < map.get($grid-breakpoints, md)) {
+    flex: 0 0 30%;
+  }
+
+  @media (width < map.get($grid-breakpoints, sm)) {
+    flex: none;
+    width: 100%;
+  }
+}
+
+.teachings-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.teaching-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--#{$prefix}hover);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--#{$prefix}stroke);
+  gap: 0.75rem;
+
+  @media (width < map.get($grid-breakpoints, sm)) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-label {
+  display: block;
+  font-size: var(--#{$prefix}font-size-xxs);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--#{$prefix}basic-black-lighter);
+  margin-bottom: 4px;
+}
+
+.info-value {
+  font-size: var(--#{$prefix}font-size-sm);
+  color: var(--#{$prefix}basic-black);
+
+  &--bold {
+    font-weight: 600;
+  }
+}
+
+.badges-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+
+  @media (width < map.get($grid-breakpoints, sm)) {
+    justify-content: flex-start;
+  }
+}
+
+.pill-tag {
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-size: var(--#{$prefix}font-size-xs);
+  font-weight: 700;
+
+  &--class {
+    background-color: var(--#{$prefix}primary);
+    color: var(--#{$prefix}body-inverted);
+  }
+
+  &--group {
+    background-color: var(--#{$prefix}basic-grey);
+    color: var(--#{$prefix}basic-black);
+    border: 1px solid var(--#{$prefix}stroke);
+  }
 }
 </style>

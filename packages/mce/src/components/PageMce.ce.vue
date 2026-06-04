@@ -163,6 +163,10 @@ function handleEmailUpdated(event: any) {
     userMail: email,
   }
 }
+
+function handleAvatarUpdated() {
+  avatar.value = `${mce.value.avatar}?t=${Date.now()}`
+}
 </script>
 
 <template>
@@ -175,6 +179,9 @@ function handleEmailUpdated(event: any) {
           :user-id="mce.uid"
           :user-name="mce.userName"
           :user-mail="mce.userMail"
+          :user-info-api-url="userInfoApiUrl"
+          :mce-api="mceApi"
+          @avatar-updated="handleAvatarUpdated"
         />
 
         <list-onglet
@@ -222,12 +229,19 @@ function handleEmailUpdated(event: any) {
 </template>
 
 <style lang="scss" scoped>
+@use 'ress/dist/ress.min.css';
+@use 'sass:map';
+@use '@gip-recia/ui/core/variables' as *;
+@use '@gip-recia/ui/functions' as *;
+@use '@gip-recia/ui/mixins' as *;
+@use '@gip-recia/ui/components/buttons';
+
 .parent {
   display: flex;
   flex-direction: column;
   gap: 20px;
 
-  @media (width >= 768px) {
+  @media (width >= map.get($grid-breakpoints, md)) {
     flex-direction: row;
     padding: 1.5rem 2rem;
     align-items: flex-start;
@@ -237,17 +251,24 @@ function handleEmailUpdated(event: any) {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    background-color: white;
-    padding: 20px;
-    border-radius: 28px;
-  }
-
-  .sectionTwo {
+    //padding: 20px;
+    border-radius: 10px;
+    box-shadow: var(--#{$prefix}shadow-neutral) #0000001a;
+    overflow: hidden;
+    flex-shrink: 0;
     width: 100%;
+
+    @media (width >= map.get($grid-breakpoints, md)) {
+      width: 240px;
+    }
+  }
+  .sectionTwo {
+    flex: 1;
+    min-width: 0;
   }
 }
 
-@media (max-width: 340px) {
+@media (width < 340px) {
   .parent {
     padding: 0.5rem;
   }

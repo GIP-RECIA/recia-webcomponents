@@ -24,6 +24,12 @@ const props = defineProps<{
   userId: string
   userName: string
   userMail?: string | null
+  userInfoApiUrl: string
+  mceApi: string
+}>()
+
+const emit = defineEmits<{
+  (e: 'avatarUpdated'): void
 }>()
 
 const { t } = useI18n()
@@ -36,11 +42,15 @@ const m = (key: string): string => t(`user-info.${key}`)
       <avatar-user
         :avatar="props.avatar"
         :user="props.userId"
+        :user-info-api-url="props.userInfoApiUrl"
+        :mce-api="props.mceApi"
+        @avatar-updated="emit('avatarUpdated')"
       />
-      <h1 class="user-name">
+      <h3 class="user-name">
         {{ props.userName }}
-      </h1>
+      </h3>
     </div>
+
     <div v-if="props.userMail" class="profile-info">
       <span class="info-label">{{ m('email') }}</span>
       <span class="info-value">{{ props.userMail }}</span>
@@ -49,19 +59,22 @@ const m = (key: string): string => t(`user-info.${key}`)
 </template>
 
 <style lang="scss" scoped>
+@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
+@use '@gip-recia/ui/components/buttons';
 
 .profile-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 0.5rem 0;
+  padding: 1.25rem;
   text-align: center;
   min-width: 0;
+  box-sizing: border-box;
 }
 
 .profile-picture {
@@ -69,69 +82,50 @@ const m = (key: string): string => t(`user-info.${key}`)
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   width: 100%;
 }
 
 .user-name {
-  font-family: $sora, Arial, sans-serif;
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: var(--#{$prefix}body-color, #212529);
   margin: 0;
+  font-size: var(--#{$prefix}font-size-h3);
+  font-weight: 700;
+  color: var(--#{$prefix}basic-black);
   padding: 0 0.5rem;
-  letter-spacing: -0.025em;
   line-height: 1.3;
-  word-wrap: break-word;
-  word-break: break-word;
   overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .profile-info {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.25rem;
-  background-color: var(--#{$prefix}tertiary-bg, #f8f9fa);
+  gap: 4px;
+  background-color: var(--#{$prefix}basic-grey);
   padding: 0.75rem 1rem;
-  border-radius: 12px;
-  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
+  border-radius: 10px;
+  border: 1px solid var(--#{$prefix}stroke);
   width: 100%;
-  max-width: 100%;
   min-width: 0;
+  box-sizing: border-box;
 }
 
 .info-label {
-  font-family: $sora, Arial, sans-serif;
-  font-size: 0.7rem;
+  display: block;
+  font-size: var(--#{$prefix}font-size-xxs);
   font-weight: 800;
-  color: var(--#{$prefix}secondary-color, #6c757d);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  color: var(--#{$prefix}basic-black-lighter);
+  margin-bottom: 4px;
 }
 
 .info-value {
-  font-size: 0.9rem;
-  color: var(--#{$prefix}body-color, #212529);
+  font-size: var(--#{$prefix}font-size-sm);
+  color: var(--#{$prefix}basic-black);
   font-weight: 500;
   width: 100%;
-
-  word-wrap: break-word;
-  word-break: break-all;
   overflow-wrap: break-word;
-}
-
-@media (max-width: 340px) {
-  .user-name {
-    font-size: 1.15rem;
-  }
-
-  .profile-info {
-    padding: 0.5rem;
-  }
-
-  .info-value {
-    font-size: 0.85rem;
-  }
+  word-break: break-all;
 }
 </style>

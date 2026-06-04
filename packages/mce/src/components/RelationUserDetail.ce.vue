@@ -60,15 +60,12 @@ const sectionEleve = computed(() => {
 const classesList = computed(() => {
   if (!sectionEleve.value?.etabs || !Array.isArray(sectionEleve.value.etabs))
     return []
-
   const classes: string[] = []
   sectionEleve.value.etabs.forEach((etab: any) => {
-    if (etab.classes && Array.isArray(etab.classes)) {
+    if (etab.classes && Array.isArray(etab.classes))
       classes.push(...etab.classes)
-    }
-    else if (etab.classe) {
+    else if (etab.classe)
       classes.push(etab.classe)
-    }
   })
   return [...new Set(classes)]
 })
@@ -76,18 +73,14 @@ const classesList = computed(() => {
 const groupesList = computed(() => {
   if (!sectionEleve.value?.etabs || !Array.isArray(sectionEleve.value.etabs))
     return []
-
   const groupes: string[] = []
   sectionEleve.value.etabs.forEach((etab: any) => {
-    if (etab.listGroupes && Array.isArray(etab.listGroupes)) {
+    if (etab.listGroupes && Array.isArray(etab.listGroupes))
       groupes.push(...etab.listGroupes)
-    }
-    else if (etab.groupes && Array.isArray(etab.groupes)) {
+    else if (etab.groupes && Array.isArray(etab.groupes))
       groupes.push(...etab.groupes)
-    }
-    else if (etab.groupe) {
+    else if (etab.groupe)
       groupes.push(etab.groupe)
-    }
   })
   return [...new Set(groupes)]
 })
@@ -99,15 +92,19 @@ const enseignementsList = computed(() => {
 
 <template>
   <div class="detail-panel">
-    <div v-if="isLoading" class="detail-loading alert-message info">
+    <!-- Chargement -->
+    <div v-if="isLoading" class="alert-message alert-message--info">
       {{ t('loading') }}
     </div>
 
-    <div v-else-if="hasError" class="detail-error alert-message error">
+    <!-- Erreur -->
+    <div v-else-if="hasError" class="alert-message alert-message--error">
       {{ t('error') }}
     </div>
 
+    <!-- Contenu -->
     <template v-else-if="personne">
+      <!-- En-tête -->
       <div class="detail-header">
         <div class="avatar-container">
           <img
@@ -124,10 +121,10 @@ const enseignementsList = computed(() => {
         <div class="detail-header-meta">
           <span class="detail-name">{{ personne.userName }}</span>
           <div class="badge-container">
-            <span v-if="personne.etat" class="status-badge" :class="personne.etat.toLowerCase()">
+            <span v-if="personne.etat" class="status-badge" :class="`status-badge--${personne.etat.toLowerCase()}`">
               {{ personne.etat }}
             </span>
-            <span v-if="personne.mdp === false" class="status-badge external">
+            <span v-if="personne.mdp === false" class="status-badge status-badge--external">
               {{ t('external-account') }}
             </span>
           </div>
@@ -138,46 +135,48 @@ const enseignementsList = computed(() => {
         </button>
       </div>
 
+      <!-- Infos principales -->
       <div class="detail-grid">
-        <div v-if="personne.userMail" class="info-item full-width">
+        <div v-if="personne.userMail" class="info-item info-item--full">
           <span class="info-label">{{ t('email') }}</span>
-          <div class="info-value-container">
+          <div class="info-value-box">
             <span class="info-value">{{ personne.userMail }}</span>
           </div>
         </div>
 
-        <div v-if="personne.etab" class="info-item full-width">
+        <div v-if="personne.etab" class="info-item info-item--full">
           <span class="info-label">{{ t('etab') }}</span>
-          <div class="info-value-container">
+          <div class="info-value-box">
             <span class="info-value">{{ personne.etab }}</span>
           </div>
         </div>
 
         <div v-if="formatDate" class="info-item">
           <span class="info-label">{{ t('bod') }}</span>
-          <div class="info-value-container">
+          <div class="info-value-box">
             <span class="info-value">{{ formatDate }}</span>
           </div>
         </div>
 
         <div v-if="personne.uid" class="info-item">
           <span class="info-label">{{ t('uid') }}</span>
-          <div class="info-value-container">
+          <div class="info-value-box">
             <span class="info-value">{{ personne.uid }}</span>
           </div>
         </div>
       </div>
 
+      <!-- Classes & groupes -->
       <div v-if="classesList.length || groupesList.length" class="sub-section">
-        <h3 class="section-title">
+        <h3 class="sub-section-title">
           {{ t('classes-groupes') }}
         </h3>
 
         <div class="detail-grid">
           <div v-if="classesList.length" class="info-item">
             <span class="info-label">{{ t('classes') }}</span>
-            <div class="info-value-container tags-container">
-              <span v-for="(classe, i) in classesList" :key="i" class="data-tag classe">
+            <div class="info-value-box info-value-box--tags">
+              <span v-for="(classe, i) in classesList" :key="i" class="pill-tag pill-tag--class">
                 {{ classe }}
               </span>
             </div>
@@ -185,8 +184,8 @@ const enseignementsList = computed(() => {
 
           <div v-if="groupesList.length" class="info-item">
             <span class="info-label">{{ t('groupes') }}</span>
-            <div class="info-value-container tags-container">
-              <span v-for="(groupe, i) in groupesList" :key="i" class="data-tag groupe">
+            <div class="info-value-box info-value-box--tags">
+              <span v-for="(groupe, i) in groupesList" :key="i" class="pill-tag pill-tag--group">
                 {{ groupe }}
               </span>
             </div>
@@ -194,21 +193,21 @@ const enseignementsList = computed(() => {
         </div>
       </div>
 
+      <!-- Enseignements -->
       <div v-if="enseignementsList.length" class="sub-section">
-        <h3 class="section-title">
+        <h3 class="sub-section-title">
           {{ t('enseignements') }}
         </h3>
-        <div class="info-value-container matrix-container">
-          <div class="disciplines-grid">
-            <span v-for="(matiere, i) in enseignementsList" :key="i" class="discipline-tag">
-              {{ matiere }}
-            </span>
-          </div>
+        <div class="enseignements-grid">
+          <span v-for="(matiere, i) in enseignementsList" :key="i" class="discipline-tag">
+            {{ matiere }}
+          </span>
         </div>
       </div>
 
+      <!-- Personnes en relation -->
       <div v-if="personne.parentEleve?.length" class="sub-section">
-        <h3 class="section-title">
+        <h3 class="sub-section-title">
           {{ t('personnes-relation') }}
         </h3>
         <div class="relations-list">
@@ -218,12 +217,12 @@ const enseignementsList = computed(() => {
             class="relation-card"
           >
             <div class="relation-info">
-              <span class="relation-name">{{ parent.displayNameRelation }}</span>
+              <span class="info-value info-value--bold">{{ parent.displayNameRelation }}</span>
               <small v-if="parent.lienParente" class="relation-type">
                 {{ t('lien') }} : {{ parent.lienParente }}
               </small>
             </div>
-            <span v-if="parent.autoriteParental" class="status-badge valide">
+            <span v-if="parent.autoriteParental" class="ap-tag">
               {{ t('autorite-parentale') }}
             </span>
           </div>
@@ -234,26 +233,45 @@ const enseignementsList = computed(() => {
 </template>
 
 <style lang="scss" scoped>
+@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
+@use '@gip-recia/ui/components/buttons';
+
+@mixin label-style {
+  font-size: var(--#{$prefix}font-size-xxs);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+@mixin tag-base {
+  @include label-style;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin tinted-tag($token) {
+  @include tag-base;
+  background-color: color-mix(in srgb, var(--#{$prefix}#{$token}) 10%, transparent);
+  color: var(--#{$prefix}#{$token});
+  border: 1px solid color-mix(in srgb, var(--#{$prefix}#{$token}) 30%, transparent);
+}
 
 .detail-panel {
-  grid-column: 1 / -1;
-  background-color: var(--#{$prefix}body-bg, #ffffff);
-  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
-  border-radius: 16px;
-  padding: 1rem;
-  box-shadow: 0 10px 25px -5px var(--#{$prefix}shadow-neutral, rgba(0, 0, 0, 0.05));
+  border: 1px solid var(--#{$prefix}stroke);
+  border-radius: 10px;
+  padding: 1.25rem;
+  box-shadow: var(--#{$prefix}shadow-neutral) rgba(0, 0, 0, 0.1);
+  background-color: var(--#{$prefix}body-bg);
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  overflow-x: hidden;
-  box-sizing: border-box;
+  overflow: hidden;
   animation: fadeIn 0.2s ease;
 
   @media (width >= map.get($grid-breakpoints, md)) {
@@ -273,74 +291,40 @@ const enseignementsList = computed(() => {
   }
 }
 
-.sub-section {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  border-top: 1px solid var(--#{$prefix}border-color, #dee2e6);
-  padding-top: 1.25rem;
-  min-width: 0;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.section-title {
-  margin: 0;
-  font-weight: 800;
-  text-transform: uppercase;
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
-  color: var(--#{$prefix}secondary-color, #6c757d);
-}
-
-.alert-message {
-  padding: 0.75rem;
-  border-radius: var(--#{$prefix}border-radius, 8px);
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-align: center;
-
-  &.info {
-    background-color: var(--#{$prefix}tertiary-bg, #f8f9fa);
-    color: var(--#{$prefix}secondary-color, #6c757d);
-    border: 1px solid var(--#{$prefix}border-color, #dee2e6);
-  }
-
-  &.error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-  }
-}
-
 .detail-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: 1rem;
   position: relative;
-  width: 100%;
+
+  @media (width <= 400px) {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+  }
 }
 
 .avatar-container {
   flex-shrink: 0;
 }
 
-.avatar-img {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
-}
-
+.avatar-img,
 .avatar-fallback {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background-color: var(--#{$prefix}primary-bg, #e7f1ff);
-  color: var(--#{$prefix}primary, #0056b3);
-  border: 1px solid var(--#{$prefix}primary-border-subtle, #b6d4fe);
+  border: 1px solid var(--#{$prefix}stroke);
+}
+
+.avatar-img {
+  object-fit: cover;
+}
+
+.avatar-fallback {
+  background-color: color-mix(in srgb, var(--#{$prefix}primary) 10%, transparent);
+  color: var(--#{$prefix}primary);
+  border-color: color-mix(in srgb, var(--#{$prefix}primary) 30%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -354,14 +338,19 @@ const enseignementsList = computed(() => {
   flex-direction: column;
   gap: 0.25rem;
   min-width: 0;
+
+  @media (width <= 400px) {
+    align-items: center;
+    width: 100%;
+  }
 }
 
 .detail-name {
-  font-weight: 800;
-  text-transform: uppercase;
-  font-size: 0.95rem;
-  color: var(--#{$prefix}body-color, #212529);
+  font-weight: 700;
+  font-size: var(--#{$prefix}font-size-sm);
+  color: var(--#{$prefix}basic-black);
   overflow-wrap: break-word;
+  text-transform: uppercase;
 }
 
 .badge-container {
@@ -369,60 +358,85 @@ const enseignementsList = computed(() => {
   flex-wrap: wrap;
   gap: 0.35rem;
   align-items: center;
-}
 
-.status-badge {
-  background-color: var(--#{$prefix}secondary-bg, #ced4da);
-  color: var(--#{$prefix}secondary-color, #6c757d);
-  padding: 0.2rem 0.6rem;
-  border-radius: var(--#{$prefix}border-radius, 6px);
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  display: inline-block;
-  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
-  white-space: normal;
-  text-align: center;
-  max-width: 100%;
-
-  &.valide,
-  &.active {
-    background-color: var(--#{$prefix}success-bg-subtle, #d1e7dd);
-    color: var(--#{$prefix}success, #0f5132);
-    border: 1px solid var(--#{$prefix}success-border-subtle, #badbcc);
-  }
-
-  &.external {
-    background-color: var(--#{$prefix}tertiary-bg, #f8f9fa);
-    color: var(--#{$prefix}secondary-color, #6c757d);
+  @media (width <= 400px) {
+    justify-content: center;
   }
 }
 
 .btn-close {
   background: transparent;
-  color: var(--#{$prefix}body-color, #212529);
-  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
-  font-size: 0.85rem;
+  color: var(--#{$prefix}basic-black);
+  border: 1px solid var(--#{$prefix}stroke);
+  font-size: var(--#{$prefix}font-size-xs);
   font-weight: 800;
   cursor: pointer;
-  padding: 0.5rem 0.75rem;
-  border-radius: var(--#{$prefix}border-radius, 8px);
+  padding: 0.4rem 0.65rem;
+  border-radius: 8px;
   flex-shrink: 0;
   transition:
     background-color 0.2s,
     border-color 0.2s;
 
   &:hover {
-    background-color: var(--#{$prefix}tertiary-bg, #f8f9fa);
-    border-color: var(--#{$prefix}secondary-color, #6c757d);
+    background-color: var(--#{$prefix}hover);
+    border-color: var(--#{$prefix}basic-black-lighter);
   }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--#{$prefix}primary) 20%, transparent);
+  }
+
+  @media (width <= 400px) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.25rem 0.4rem;
+  }
+}
+
+.status-badge {
+  @include tag-base;
+  background-color: var(--#{$prefix}basic-grey);
+  color: var(--#{$prefix}basic-black-lighter);
+  border: 1px solid var(--#{$prefix}stroke);
+
+  &--valide,
+  &--active {
+    @include tinted-tag(system-blue);
+  }
+}
+
+.pill-tag {
+  @include tag-base;
+  font-size: var(--#{$prefix}font-size-xs);
+
+  &--class {
+    background-color: var(--#{$prefix}primary);
+    color: var(--#{$prefix}body-inverted);
+  }
+
+  &--group {
+    background-color: var(--#{$prefix}basic-grey);
+    color: var(--#{$prefix}basic-black);
+    border: 1px solid var(--#{$prefix}stroke);
+  }
+}
+
+.discipline-tag {
+  @include tinted-tag(primary);
+}
+
+.ap-tag {
+  @include tinted-tag(system-blue);
+  flex-shrink: 0;
 }
 
 .detail-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
-  width: 100%;
 
   @media (width >= map.get($grid-breakpoints, sm)) {
     grid-template-columns: repeat(2, 1fr);
@@ -433,31 +447,28 @@ const enseignementsList = computed(() => {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  width: 100%;
 
-  &.full-width {
+  &--full {
     grid-column: 1 / -1;
   }
 }
 
 .info-label {
-  font-size: 0.75rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  margin-bottom: 0.4rem;
-  color: var(--#{$prefix}secondary-color, #6c757d);
+  @include label-style;
+  display: block;
+  color: var(--#{$prefix}basic-black-lighter);
+  margin-bottom: 4px;
 }
 
-.info-value-container {
-  background-color: var(--#{$prefix}tertiary-bg, #f8f9fa);
+.info-value-box {
+  background-color: var(--#{$prefix}basic-grey);
+  border: 1px solid var(--#{$prefix}stroke);
   border-radius: 8px;
   padding: 0.75rem;
-  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
   min-width: 0;
-  width: 100%;
   box-sizing: border-box;
 
-  &.tags-container {
+  &--tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
@@ -465,77 +476,42 @@ const enseignementsList = computed(() => {
 }
 
 .info-value {
-  font-weight: 700;
-  font-size: 0.85rem;
-  color: var(--#{$prefix}body-color, #212529);
+  font-size: var(--#{$prefix}font-size-sm);
+  color: var(--#{$prefix}basic-black);
   display: block;
   overflow-wrap: break-word;
-  word-break: normal;
-}
 
-.btn-external-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: var(--#{$prefix}primary-bg-subtle, #e8f0fe);
-  color: var(--#{$prefix}primary, #1a73e8);
-  border: 1px dashed var(--#{$prefix}primary-border-subtle, #b6d4fe);
-  padding: 0.75rem;
-  border-radius: 8px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-decoration: none;
-  transition: background-color 0.2s;
-
-  span {
-    font-size: 0.9rem;
-  }
-  &:hover {
-    background-color: var(--#{$prefix}border-color, #dee2e6);
+  &--bold {
+    font-weight: 600;
   }
 }
 
-.data-tag {
-  font-size: 0.75rem;
-  font-weight: 800;
-  padding: 0.25rem 0.5rem;
-  border-radius: 6px;
-  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
-  background-color: var(--#{$prefix}body-bg, #ffffff);
-  color: var(--#{$prefix}body-color, #212529);
-  max-width: 100%;
-  overflow-wrap: break-word;
+.sub-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border-top: 1px solid var(--#{$prefix}stroke);
+  padding-top: 1.25rem;
+  min-width: 0;
 }
 
-.disciplines-grid {
-  display: grid;
-  grid-template-columns: 1fr;
+.sub-section-title {
+  @include label-style;
+  margin: 0;
+  color: var(--#{$prefix}basic-black-lighter);
+  letter-spacing: 0.05em;
+}
+
+.enseignements-grid {
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
-  width: 100%;
-
-  @media (width >= map.get($grid-breakpoints, sm)) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.discipline-tag {
-  background-color: var(--#{$prefix}primary-bg, #e7f1ff);
-  color: var(--#{$prefix}primary, #0056b3);
-  border: 1px solid var(--#{$prefix}primary-border-subtle, #b6d4fe);
-  padding: 0.4rem 0.6rem;
-  border-radius: var(--#{$prefix}border-radius, 6px);
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  max-width: 100%;
-  overflow-wrap: break-word;
 }
 
 .relations-list {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  width: 100%;
 }
 
 .relation-card {
@@ -543,96 +519,47 @@ const enseignementsList = computed(() => {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: 0.5rem;
-  background-color: var(--#{$prefix}tertiary-bg, #f8f9fa);
-  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
-  padding: 0.75rem;
+  gap: 0.75rem;
+  background-color: var(--#{$prefix}hover);
+  border: 1px solid var(--#{$prefix}stroke);
+  padding: 0.75rem 1rem;
   border-radius: 8px;
+
+  @media (width <= 400px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.relation-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
   min-width: 0;
-  width: 100%;
-  box-sizing: border-box;
-
-  .relation-info {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-
-    .relation-name {
-      font-weight: 700;
-      font-size: 0.85rem;
-      color: var(--#{$prefix}body-color, #212529);
-      overflow-wrap: break-word;
-      word-break: normal;
-    }
-    .relation-type {
-      font-size: 0.75rem;
-      color: var(--#{$prefix}secondary-color, #6c757d);
-    }
-  }
-
-  .status-badge {
-    flex-shrink: 0;
-  }
 }
 
-@media (width <= 400px) {
-  .detail-panel {
-    padding: 0.5rem;
-    border-radius: 8px;
-    gap: 0.85rem;
-    width: 100% !important;
-    left: 0 !important;
-    right: 0 !important;
-  }
-
-  .info-value-container {
-    padding: 0.5rem;
-  }
-
-  .info-value {
-    font-size: 0.8rem;
-  }
-
-  .detail-header {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 0.5rem;
-
-    .btn-close {
-      position: absolute;
-      top: -4px;
-      right: -4px;
-      padding: 0.25rem 0.4rem;
-      font-size: 0.7rem;
-    }
-  }
-
-  .detail-header-meta {
-    width: 100%;
-    align-items: center;
-    padding-right: 0;
-  }
-
-  .badge-container {
-    justify-content: center;
-    width: 100%;
-  }
-
-  .relation-card {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 0.5rem;
-
-    .status-badge {
-      align-self: center;
-      width: auto;
-    }
-  }
+.relation-type {
+  font-size: var(--#{$prefix}font-size-xs);
+  color: var(--#{$prefix}basic-black-lighter);
 }
 
-:deep(*) {
-  box-sizing: border-box !important;
+.alert-message {
+  padding: 0.75rem;
+  border-radius: 10px;
+  font-size: var(--#{$prefix}font-size-sm);
+  font-weight: 600;
+  text-align: center;
+
+  &--info {
+    background-color: var(--#{$prefix}basic-grey);
+    color: var(--#{$prefix}basic-black-lighter);
+    border: 1px solid var(--#{$prefix}stroke);
+  }
+
+  &--error {
+    @include tinted-tag(system-red);
+    padding: 0.75rem;
+    border-radius: 10px;
+  }
 }
 </style>

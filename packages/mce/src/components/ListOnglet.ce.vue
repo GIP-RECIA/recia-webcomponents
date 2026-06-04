@@ -19,21 +19,17 @@ import { inject } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 
 defineOptions({ name: 'ListeOnglet' })
-
 defineProps<{
   list: Array<string>
   ongletCurrent: string
   classBtn: string
   userInfoApiUrl: string
 }>()
-
 const emit = defineEmits<(e: 'selectOnglet', payload: any) => void>()
-
 const i18n = inject(I18nInjectionKey)
 function m(key: string): string {
   return i18n ? (i18n.global.t as (k: string) => string)(`list-onglet.${key}`) : key
 }
-
 function selected(onglet: string) {
   emit('selectOnglet', onglet)
 }
@@ -57,73 +53,54 @@ function selected(onglet: string) {
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
-@use '@gip-recia/ui/mixins' as *;
 
 .list-menu {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  align-items: center;
 }
 
 .onglet-item {
   width: 100%;
-  max-width: 280px;
 }
 
 .btn-secondary-toggle {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
   padding: 0.75rem 1.25rem;
-  font-size: 0.95rem;
+  font-size: var(--#{$prefix}font-size-sm);
   font-weight: 600;
-  text-align: center;
-  text-decoration: none;
+  text-align: left;
   cursor: pointer;
   user-select: none;
-  border-radius: var(--#{$prefix}border-radius, 8px);
-
-  color: var(--#{$prefix}secondary-color, #6c757d);
+  border-radius: 8px;
+  color: var(--#{$prefix}basic-black-lighter);
   background-color: transparent;
   border: 1px solid transparent;
   transition:
     background-color 0.2s,
     border-color 0.2s,
     color 0.2s;
+
   &.active {
     font-weight: 700;
-    color: var(--#{$prefix}primary, #0056b3);
-    background-color: var(--#{$prefix}primary-bg-subtle, #e7f1ff);
-    border-color: var(--#{$prefix}primary-border-subtle, #b6d4fe);
+    color: var(--#{$prefix}primary);
+    background-color: color-mix(in srgb, var(--#{$prefix}primary) 10%, transparent);
+    border-color: color-mix(in srgb, var(--#{$prefix}primary) 30%, transparent);
   }
+
   &:hover:not(.active) {
-    color: var(--#{$prefix}body-color, #212529);
-    background-color: var(--#{$prefix}tertiary-bg, #f8f9fa);
-    border-color: var(--#{$prefix}border-color, #dee2e6);
+    color: var(--#{$prefix}basic-black);
+    background-color: var(--#{$prefix}hover);
+    border-color: var(--#{$prefix}stroke);
   }
 
   &:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 2px var(--#{$prefix}primary-focus, rgba(0, 86, 179, 0.15));
-  }
-}
-
-@media (width >= map.get($grid-breakpoints, md)) {
-  .list-menu {
-    align-items: flex-start;
-  }
-
-  .onglet-item {
-    max-width: 100%;
-  }
-
-  .btn-secondary-toggle {
-    justify-content: flex-start;
-    text-align: left;
-    padding: 0.85rem 1.5rem;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--#{$prefix}primary) 20%, transparent);
   }
 }
 </style>

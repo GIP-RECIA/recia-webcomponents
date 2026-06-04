@@ -21,7 +21,6 @@ import ChangePasswordCe from '@/components/ChangePassword.ce.vue'
 import I18nHostCe from '@/components/I18nHost.ce.vue'
 import InfoGeneralCe from '@/components/InfoGeneral.ce.vue'
 import ListOngletCe from '@/components/ListOnglet.ce.vue'
-import OngletContentCe from '@/components/OngletContent.ce.vue'
 import PageMceCe from '@/components/PageMce.ce.vue'
 import RelationUserCe from '@/components/RelationUser.ce.vue'
 import SectionOngletCe from '@/components/SectionOnglet.ce.vue'
@@ -33,7 +32,6 @@ const ChangePassword = defineCustomElement(ChangePasswordCe)
 const I18nHost = defineCustomElement(I18nHostCe)
 const InfoGeneral = defineCustomElement(InfoGeneralCe)
 const ListOnglet = defineCustomElement(ListOngletCe)
-const OngletContent = defineCustomElement(OngletContentCe)
 const PageMce = defineCustomElement(PageMceCe)
 const RelationUser = defineCustomElement(RelationUserCe)
 const SectionOnglet = defineCustomElement(SectionOngletCe)
@@ -47,7 +45,6 @@ declare module 'vue' {
     I18nHost: typeof I18nHost
     InfoGeneral: typeof InfoGeneral
     ListOnglet: typeof ListOnglet
-    OngletContent: typeof OngletContent
     PageMce: typeof PageMce
     RelationUser: typeof RelationUser
     SectionOnglet: typeof SectionOnglet
@@ -62,7 +59,6 @@ function register() {
   customElements.define('i18n-host', I18nHost)
   customElements.define('info-general', InfoGeneral)
   customElements.define('list-onglet', ListOnglet)
-  customElements.define('onglet-content', OngletContent)
   customElements.define('mce-ui', PageMce)
   customElements.define('relation-user', RelationUser)
   customElements.define('section-onglet', SectionOnglet)
@@ -76,7 +72,6 @@ export {
   I18nHost,
   InfoGeneral,
   ListOnglet,
-  OngletContent,
   PageMce,
   register,
   RelationUser,

@@ -94,101 +94,91 @@ async function handleChangePassword() {
 </script>
 
 <template>
-  <section class="page-container">
-    <div class="profile-card">
-      <header class="card-header">
-        <h2>{{ tPwd('title') }}</h2>
-      </header>
+  <section class="profile-card">
+    <header class="card-header">
+      <h3>{{ tPwd('title') }}</h3>
+    </header>
 
-      <div class="card-body-grid">
-        <form class="password-form" @submit.prevent="handleChangePassword">
-          <div class="form-group">
-            <label class="info-label" for="current-password">{{ tPwd('current-password') }}</label>
-            <input
-              id="current-password"
-              v-model="currentPassword"
-              type="password"
-              :placeholder="tPwd('placeholder-current')"
-              required
-              class="custom-input"
-            >
-          </div>
+    <div class="card-body">
+      <form class="password-form" @submit.prevent="handleChangePassword">
+        <div class="form-group">
+          <label class="info-label" for="current-password">{{ tPwd('current-password') }}</label>
+          <input
+            id="current-password"
+            v-model="currentPassword"
+            type="password"
+            :placeholder="tPwd('placeholder-current')"
+            required
+            class="custom-input"
+          >
+        </div>
 
-          <div class="form-group">
-            <label class="info-label" for="new-password">{{ tPwd('new-password') }}</label>
-            <input
-              id="new-password"
-              v-model="newPassword"
-              type="password"
-              :placeholder="tPwd('placeholder-new')"
-              required
-              class="custom-input"
-            >
-          </div>
+        <div class="form-group">
+          <label class="info-label" for="new-password">{{ tPwd('new-password') }}</label>
+          <input
+            id="new-password"
+            v-model="newPassword"
+            type="password"
+            :placeholder="tPwd('placeholder-new')"
+            required
+            class="custom-input"
+          >
+        </div>
 
-          <div class="form-group">
-            <label class="info-label" for="confirm-password">{{ tPwd('confirm-password') }}</label>
-            <input
-              id="confirm-password"
-              v-model="confirmPassword"
-              type="password"
-              :placeholder="tPwd('placeholder-confirm')"
-              required
-              class="custom-input"
-            >
-          </div>
+        <div class="form-group">
+          <label class="info-label" for="confirm-password">{{ tPwd('confirm-password') }}</label>
+          <input
+            id="confirm-password"
+            v-model="confirmPassword"
+            type="password"
+            :placeholder="tPwd('placeholder-confirm')"
+            required
+            class="custom-input"
+          >
+        </div>
 
-          <div v-if="message" class="alert-message" :class="messageType">
-            {{ message }}
-          </div>
+        <div v-if="message" class="alert-message" :class="messageType">
+          {{ message }}
+        </div>
 
-          <div class="action-row">
-            <button type="submit" :disabled="isLoading" class="btn-outline-modify">
-              {{ isLoading ? tPwd('loading') : tPwd('submit') }}
-            </button>
-          </div>
-        </form>
-      </div>
+        <div class="action-row">
+          <button type="submit" :disabled="isLoading" class="btn-primary small">
+            {{ isLoading ? tPwd('loading') : tPwd('submit') }}
+          </button>
+        </div>
+      </form>
     </div>
   </section>
 </template>
 
 <style lang="scss" scoped>
+@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
-
-.page-container {
-  display: flex;
-  justify-content: center;
-
-  @media (width >= map.get($grid-breakpoints, md)) {
-    padding: 2.5rem;
-  }
-}
+@use '@gip-recia/ui/components/buttons';
 
 .profile-card {
-  width: 100%;
-  background-color: var(--#{$prefix}body-bg, #ffffff);
-  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
-  border-radius: 16px;
-  box-shadow: 0 10px 25px -5px var(--#{$prefix}shadow-neutral, rgba(0, 0, 0, 0.1));
+  border: 1px solid var(--#{$prefix}stroke);
+  border-radius: 10px;
+  box-shadow: var(--#{$prefix}shadow-neutral) rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  background-color: var(--#{$prefix}body-bg);
 }
 
 .card-header {
-  padding: 1.5rem 1.25rem 0;
-  background-color: var(--#{$prefix}body-bg, #ffffff);
-  border-bottom: 1px solid var(--#{$prefix}border-color, #dee2e6);
+  padding: 1.5rem 1.25rem;
+  border-bottom: 1px solid var(--#{$prefix}stroke);
 
-  h2 {
+  h3 {
     margin: 0;
-    padding-bottom: 1.25rem;
+    font-size: var(--#{$prefix}font-size-h3);
+    color: var(--#{$prefix}basic-black);
   }
 }
 
-.card-body-grid {
+.card-body {
   padding: 1.25rem;
 }
 
@@ -204,32 +194,32 @@ async function handleChangePassword() {
 }
 
 .info-label {
-  font-size: 0.75rem;
+  display: block;
+  font-size: var(--#{$prefix}font-size-xxs);
   font-weight: 800;
   text-transform: uppercase;
-  margin-bottom: 0.5rem;
-  color: var(--#{$prefix}secondary-color, #6c757d);
+  color: var(--#{$prefix}basic-black-lighter);
+  margin-bottom: 4px;
 }
 
 .custom-input {
   padding: 0.75rem;
-  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
-  border-radius: var(--#{$prefix}border-radius, 8px);
-  background-color: var(--#{$prefix}secondary-bg, #ffffff);
-  color: var(--#{$prefix}body-color, #212529);
+  border: 1px solid var(--#{$prefix}stroke);
+  border-radius: 10px;
+  color: var(--#{$prefix}basic-black);
   transition:
     border-color 0.2s,
     box-shadow 0.2s;
 
   &::placeholder {
-    color: var(--#{$prefix}secondary-color, #6c757d);
+    color: var(--#{$prefix}basic-black-lighter);
     opacity: 0.7;
   }
 
   &:focus {
     outline: none;
-    border-color: var(--#{$prefix}primary, #0056b3);
-    box-shadow: 0 0 0 3px var(--#{$prefix}primary-focus, rgba(0, 86, 179, 0.25));
+    border-color: var(--#{$prefix}primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--#{$prefix}primary) 20%, transparent);
   }
 }
 
@@ -237,8 +227,8 @@ async function handleChangePassword() {
   display: flex;
   flex-direction: column;
   margin-top: 0.5rem;
-  border-top: 1px solid var(--#{$prefix}border-color, #dee2e6);
   padding-top: 1.25rem;
+  border-top: 1px solid var(--#{$prefix}stroke);
 
   @media (width >= map.get($grid-breakpoints, sm)) {
     flex-direction: row;
@@ -246,56 +236,22 @@ async function handleChangePassword() {
   }
 }
 
-.btn-outline-modify {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--#{$prefix}border-radius, 8px);
-  font-size: 0.85rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition:
-    background-color 0.2s,
-    border-color 0.2s;
-  width: 100%;
-
-  background-color: transparent;
-  color: var(--#{$prefix}body-color, #212529);
-  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
-
-  @media (width >= map.get($grid-breakpoints, sm)) {
-    width: auto;
-  }
-
-  &:hover:not(:disabled) {
-    background-color: var(--#{$prefix}tertiary-bg, #f8f9fa);
-    border-color: var(--#{$prefix}secondary-color, #6c757d);
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-}
-
 .alert-message {
   padding: 0.75rem;
-  border-radius: var(--#{$prefix}border-radius, 8px);
-  font-size: 0.85rem;
+  border-radius: 10px;
+  font-size: var(--#{$prefix}font-size-sm);
   font-weight: 600;
 
   &.success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
+    background-color: color-mix(in srgb, var(--#{$prefix}system-blue) 10%, transparent);
+    color: var(--#{$prefix}system-blue);
+    border: 1px solid color-mix(in srgb, var(--#{$prefix}system-blue) 30%, transparent);
   }
 
   &.error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
+    background-color: color-mix(in srgb, var(--#{$prefix}system-red) 10%, transparent);
+    color: var(--#{$prefix}system-red);
+    border: 1px solid color-mix(in srgb, var(--#{$prefix}system-red) 30%, transparent);
   }
 }
 </style>

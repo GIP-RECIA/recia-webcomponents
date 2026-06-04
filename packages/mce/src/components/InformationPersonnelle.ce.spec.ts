@@ -22,7 +22,6 @@ import { createI18n, I18nInjectionKey } from 'vue-i18n'
 import ChangeEmail from '@/components/ChangeEmail.ce.vue'
 import InformationPersonnelle from './InformationPersonnelle.ce.vue'
 
-// 1. Mocks
 vi.mock('@/components/ChangeEmail.ce.vue', () => ({
   default: {
     name: 'ChangeEmail',
@@ -67,40 +66,45 @@ describe('informationPersonnelle', () => {
       props: defaultProps,
       global: {
         plugins: [i18n],
-        provide: { [I18nInjectionKey as symbol]: i18n },
+        provide: { [I18nInjectionKey as symbol]: { global: i18n.global } },
         stubs: { ChangeEmail: true },
       },
     })
   })
 
   // --------------------------------------------------
-  // RENDU INITIAL & TRADUCTIONS
+  // RENDU DES DONNÉES ET LABELS
   // --------------------------------------------------
   describe('rendu des données et labels', () => {
-    it('affiche le titre de la section traduit', () => {
-      expect(wrapper.find('h2').text()).toBe('Informations personnelles')
+    it('affiche le titre dans un h3', () => {
+      // Template : <h3>{{ tUser('informations-personnelles') }}</h3>
+      expect(wrapper.find('h3').text()).toBe('Informations personnelles')
     })
 
-    it('affiche correctement tous les labels et valeurs utilisateur', () => {
+    it('affiche les labels UID et Mail', () => {
       const labels = wrapper.findAll('.info-label').map(el => el.text())
       expect(labels).toContain('UID')
       expect(labels).toContain('Mail')
+    })
 
+    it('affiche les valeurs recia-999 et l\'email', () => {
       const values = wrapper.findAll('.info-value').map(el => el.text())
       expect(values).toContain('recia-999')
       expect(values).toContain('jean.dupont@recia.fr')
     })
 
-    it('affiche un tiret si les propriétés sont absentes', () => {
+    it('affiche un tiret "—" si les propriétés uid/nom/prenom/dateNaissance sont absentes', () => {
       const i18n = createI18n({ legacy: false, locale: 'fr', messages })
       const wrapperEmpty = mount(InformationPersonnelle, {
         props: { userId: '123', userInfoApiUrl: '', mceApi: '', uid: '' },
         global: {
           plugins: [i18n],
-          provide: { [I18nInjectionKey as symbol]: i18n },
+          provide: { [I18nInjectionKey as symbol]: { global: i18n.global } },
         },
       })
-      wrapperEmpty.findAll('.info-value').forEach(val => expect(val.text()).toBe('—'))
+      // uid='' → '—', nom absent → '—', prenom absent → '—', dateNaissance absent → '—'
+      const ddValues = wrapperEmpty.findAll('dd.info-value').map(el => el.text())
+      ddValues.forEach(val => expect(val).toBe('—'))
     })
 
     it('renvoie les clés brutes si i18n est absent', () => {
@@ -109,46 +113,56 @@ describe('informationPersonnelle', () => {
         props: defaultProps,
         global: { provide: {} },
       })
-      expect(wrapperNoI18n.find('h2').text()).toBe('informations-personnelles')
+      expect(wrapperNoI18n.find('h3').text()).toBe('informations-personnelles')
       warnSpy.mockRestore()
     })
   })
 
   // --------------------------------------------------
-  // GESTION DES DROITS
+  // GESTION DES DROITS (canModifyEmail)
   // --------------------------------------------------
   describe('gestion des droits (canModifyEmail)', () => {
-    it('affiche le bouton "Modifier" si autorisé', () => {
-      expect(wrapper.find('.btn-outline-modify').text()).toBe('Modifier')
+    it('affiche le bouton "Modifier" si canModifyEmail est false', () => {
+      // Template : v-if="!props.canModifyEmail" → bouton .btn-primary affiché
+      const btn = wrapper.find('.btn-primary')
+      expect(btn.exists()).toBe(true)
+      expect(btn.text()).toBe('Modifier')
     })
 
     it('masque le bouton si canModifyEmail est true', () => {
       const i18n = createI18n({ legacy: false, locale: 'fr', messages })
       const wrapperNoModify = mount(InformationPersonnelle, {
         props: { ...defaultProps, canModifyEmail: true },
-        global: { plugins: [i18n], provide: { [I18nInjectionKey as symbol]: i18n } },
+        global: {
+          plugins: [i18n],
+          provide: { [I18nInjectionKey as symbol]: { global: i18n.global } },
+        },
       })
-      expect(wrapperNoModify.find('.btn-outline-modify').exists()).toBe(false)
+      expect(wrapperNoModify.find('.btn-primary').exists()).toBe(false)
     })
   })
 
   // --------------------------------------------------
-  // INTERACTIONS PANNEAU EMAIL
+  // OUVERTURE ET FERMETURE DU PANNEAU
   // --------------------------------------------------
-  describe('ouverture et fermeture du panneau', () => {
-    it('ouvre/ferme le panneau et bascule le texte du bouton', async () => {
-      const btn = wrapper.find('.btn-outline-modify')
+  describe('ouverture et fermeture du panneau email', () => {
+    it('ouvre le panneau au premier clic et bascule le texte du bouton sur "Annuler"', async () => {
+      const btn = wrapper.find('.btn-primary')
       await btn.trigger('click')
       expect(wrapper.find('.edit-section-panel').exists()).toBe(true)
       expect(btn.text()).toBe('Annuler')
+    })
 
+    it('ferme le panneau au second clic et remet "Modifier"', async () => {
+      const btn = wrapper.find('.btn-primary')
+      await btn.trigger('click')
       await btn.trigger('click')
       expect(wrapper.find('.edit-section-panel').exists()).toBe(false)
       expect(btn.text()).toBe('Modifier')
     })
 
-    it('ferme le panneau sur réception de l\'événement "close"', async () => {
-      await wrapper.find('.btn-outline-modify').trigger('click')
+    it('ferme le panneau sur réception de l\'événement "close" émis par ChangeEmail', async () => {
+      await wrapper.find('.btn-primary').trigger('click')
       await wrapper.findComponent(ChangeEmail).vm.$emit('close')
       await nextTick()
       expect(wrapper.find('.edit-section-panel').exists()).toBe(false)
@@ -156,29 +170,38 @@ describe('informationPersonnelle', () => {
   })
 
   // --------------------------------------------------
-  // ÉVÉNEMENTS & RÉACTIVITÉ
+  // ÉVÉNEMENTS ET RÉACTIVITÉ
   // --------------------------------------------------
   describe('propagation et réactivité', () => {
-    it('émet "emailUpdated" et met à jour l\'affichage local lors de la réussite', async () => {
-      await wrapper.find('.btn-outline-modify').trigger('click')
+    it('met à jour l\'email affiché et émet "emailUpdated" lors de la réussite', async () => {
+      await wrapper.find('.btn-primary').trigger('click')
       const fakeMail = 'nouveau@recia.fr'
       await wrapper.findComponent(ChangeEmail).vm.$emit('updated', fakeMail)
       await nextTick()
 
-      expect(wrapper.find('.email-bold').text()).toBe(fakeMail)
+      // L'email courant est dans .info-value--bold (currentEmail)
+      expect(wrapper.find('.info-value--bold').text()).toBe(fakeMail)
       expect(wrapper.emitted('emailUpdated')?.[0]).toEqual([fakeMail])
     })
 
-    it('actualise l\'affichage via le watcher props.userMail', async () => {
-      await wrapper.setProps({ userMail: 'mutation@recia.fr' })
+    it('ferme le panneau après handleEmailUpdated', async () => {
+      await wrapper.find('.btn-primary').trigger('click')
+      await wrapper.findComponent(ChangeEmail).vm.$emit('updated', 'test@test.fr')
       await nextTick()
-      expect(wrapper.find('.email-bold').text()).toBe('mutation@recia.fr')
+      expect(wrapper.find('.edit-section-panel').exists()).toBe(false)
     })
 
-    it('ignore la mise à jour vide dans le watcher', async () => {
+    it('actualise l\'email affiché via le watcher props.userMail', async () => {
+      await wrapper.setProps({ userMail: 'mutation@recia.fr' })
+      await nextTick()
+      expect(wrapper.find('.info-value--bold').text()).toBe('mutation@recia.fr')
+    })
+
+    it('ignore une mise à jour vide dans le watcher (garde la valeur précédente)', async () => {
       await wrapper.setProps({ userMail: '' })
       await nextTick()
-      expect(wrapper.find('.email-bold').text()).toBe('jean.dupont@recia.fr')
+      // La valeur initiale 'jean.dupont@recia.fr' doit rester (watch ignore les falsy)
+      expect(wrapper.find('.info-value--bold').text()).toBe('jean.dupont@recia.fr')
     })
   })
 })

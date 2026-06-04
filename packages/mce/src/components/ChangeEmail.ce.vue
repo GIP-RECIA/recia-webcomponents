@@ -103,11 +103,11 @@ async function handleSubmit() {
 
 <template>
   <div class="change-email-panel">
-    <header class="panel-header">
+    <header class="card-header">
       <h3>{{ tEmail('title') }}</h3>
     </header>
 
-    <div class="panel-body">
+    <div class="card-body">
       <div class="form-group">
         <label class="info-label">{{ tEmail('current-email') }}</label>
         <div class="static-value">
@@ -140,13 +140,13 @@ async function handleSubmit() {
         {{ message }}
       </div>
 
-      <div class="panel-actions">
-        <button class="btn-secondary" @click="handleClose">
+      <div class="action-row">
+        <button class="btn-secondary small" @click="handleClose">
           {{ tEmail('cancel') }}
         </button>
 
         <button
-          class="btn-primary"
+          class="btn-primary small"
           :disabled="isLoading"
           @click="handleSubmit"
         >
@@ -159,33 +159,32 @@ async function handleSubmit() {
 </template>
 
 <style scoped lang="scss">
+@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
+@use '@gip-recia/ui/components/buttons';
 
 .change-email-panel {
-  background-color: var(--#{$prefix}body-bg, #ffffff);
-  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
-  border-radius: 16px;
-  box-shadow: 0 10px 25px -5px var(--#{$prefix}shadow-neutral, rgba(0, 0, 0, 0.1));
+  border: 1px solid var(--#{$prefix}stroke);
+  border-radius: 10px;
+  box-shadow: var(--#{$prefix}shadow-neutral) rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
-.panel-header {
-  padding: 1.25rem;
-  border-bottom: 1px solid var(--#{$prefix}border-color, #dee2e6);
+.card-header {
+  padding: 1.5rem 1.25rem;
+  border-bottom: 1px solid var(--#{$prefix}stroke);
 
   h3 {
     margin: 0;
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--#{$prefix}body-color, #212529);
+    font-size: var(--#{$prefix}font-size-h3);
+    color: var(--#{$prefix}basic-black);
   }
 }
 
-.panel-body {
+.card-body {
   padding: 1.25rem;
   display: flex;
   flex-direction: column;
@@ -199,53 +198,51 @@ async function handleSubmit() {
 }
 
 .info-label {
-  font-size: 0.75rem;
+  display: block;
+  font-size: var(--#{$prefix}font-size-xxs);
   font-weight: 800;
   text-transform: uppercase;
-  margin-bottom: 0.5rem;
-  color: var(--#{$prefix}body-color, #212529);
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  color: var(--#{$prefix}basic-black-lighter);
+  margin-bottom: 4px;
 }
 
 .static-value {
   padding: 0.75rem;
-  background-color: var(--#{$prefix}tertiary-bg, #f8f9fa);
-  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
-  border-radius: var(--#{$prefix}border-radius, 8px);
-  color: var(--#{$prefix}body-color, #212529);
-  font-size: 0.9rem;
-
-  word-wrap: break-word;
+  background-color: var(--#{$prefix}basic-grey);
+  border: 1px solid var(--#{$prefix}stroke);
+  border-radius: 10px;
+  font-size: var(--#{$prefix}font-size-sm);
+  color: var(--#{$prefix}basic-black);
   overflow-wrap: break-word;
   word-break: break-all;
 }
 
 .custom-input {
   padding: 0.75rem;
-  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
-  border-radius: var(--#{$prefix}border-radius, 8px);
-  background-color: var(--#{$prefix}secondary-bg, #ffffff);
-  color: var(--#{$prefix}body-color, #212529);
-  width: 100%;
-  box-sizing: border-box;
-  font-size: 0.95rem;
+  border: 1px solid var(--#{$prefix}stroke);
+  border-radius: 10px;
+  color: var(--#{$prefix}basic-black);
   transition:
     border-color 0.2s,
     box-shadow 0.2s;
 
+  &::placeholder {
+    color: var(--#{$prefix}basic-black-lighter);
+    opacity: 0.7;
+  }
+
   &:focus {
     outline: none;
-    border-color: var(--#{$prefix}primary, #0056b3);
-    box-shadow: 0 0 0 3px var(--#{$prefix}primary-focus, rgba(0, 86, 179, 0.25));
+    border-color: var(--#{$prefix}primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--#{$prefix}primary) 20%, transparent);
   }
 }
 
-.panel-actions {
+.action-row {
   display: flex;
-  flex-direction: column;
   gap: 0.75rem;
   margin-top: 0.5rem;
+  flex-direction: column;
 
   @media (width >= map.get($grid-breakpoints, sm)) {
     flex-direction: row;
@@ -253,101 +250,23 @@ async function handleSubmit() {
   }
 }
 
-.btn-primary,
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--#{$prefix}border-radius, 8px);
-  font-size: 0.85rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  cursor: pointer;
-  box-sizing: border-box;
-  transition:
-    background-color 0.2s,
-    border-color 0.2s,
-    opacity 0.2s;
-  width: 100%;
-
-  @media (width >= map.get($grid-breakpoints, sm)) {
-    width: auto;
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-}
-
-.btn-primary {
-  background-color: var(--#{$prefix}primary, #0056b3);
-  color: var(--#{$prefix}primary-contrast, #ffffff);
-  border: 1px solid transparent;
-
-  &:hover:not(:disabled) {
-    background-color: var(--#{$prefix}primary-hover, var(--#{$prefix}primary));
-    filter: brightness(90%);
-  }
-}
-
-.btn-secondary {
-  background-color: transparent;
-  color: var(--#{$prefix}body-color, #212529);
-  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
-
-  &:hover:not(:disabled) {
-    background-color: var(--#{$prefix}tertiary-bg, #f8f9fa);
-    border-color: var(--#{$prefix}secondary-color, #6c757d);
-  }
-}
-
 .alert-message {
   padding: 0.75rem;
-  border-radius: var(--#{$prefix}border-radius, 8px);
-  font-size: 0.85rem;
+  border-radius: 10px;
+  font-size: var(--#{$prefix}font-size-sm);
   font-weight: 600;
-  word-wrap: break-word;
   overflow-wrap: break-word;
 
   &.success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
+    background-color: color-mix(in srgb, var(--#{$prefix}system-blue) 10%, transparent);
+    color: var(--#{$prefix}system-blue);
+    border: 1px solid color-mix(in srgb, var(--#{$prefix}system-blue) 30%, transparent);
   }
 
   &.error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-  }
-}
-
-@media (max-width: 330px) {
-  .panel-header,
-  .panel-body {
-    padding: 0.85rem;
-  }
-
-  .panel-header h3 {
-    font-size: 0.9rem;
-  }
-
-  .info-label {
-    font-size: 0.7rem;
-  }
-
-  .static-value,
-  .custom-input {
-    padding: 0.65rem;
-    font-size: 0.85rem;
-  }
-
-  .btn-primary,
-  .btn-secondary {
-    padding: 0.65rem 1rem;
-    font-size: 0.8rem;
+    background-color: color-mix(in srgb, var(--#{$prefix}system-red) 10%, transparent);
+    color: var(--#{$prefix}system-red);
+    border: 1px solid color-mix(in srgb, var(--#{$prefix}system-red) 30%, transparent);
   }
 }
 </style>
