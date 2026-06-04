@@ -26,8 +26,21 @@ import { name } from './package.json'
 export default ({ mode }: ConfigEnv) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
 
+  const { VITE_BASE_URI, VITE_ALLOWED_HOSTS } = process.env
+
   return defineConfig({
-    base: process.env.VITE_BASE_URI,
+    base: mode === 'development' ? VITE_BASE_URI : undefined,
+    server: {
+      allowedHosts: JSON.parse(VITE_ALLOWED_HOSTS ?? '[]'),
+      proxy: {
+        '/debug-uri': {
+          target: 'http://localhost:3000',
+          changeOrigin: true,
+          rewrite: path => path.replace(/^\/debug-uri/, ''),
+        },
+      },
+    },
+    publicDir: mode === 'development' ? undefined : false,
     plugins: [
       vue({
         template: {
@@ -52,7 +65,6 @@ export default ({ mode }: ConfigEnv) => {
       }),
       VueI18nPlugin({}),
     ],
-    publicDir: mode === 'development' ? undefined : false,
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -66,21 +78,11 @@ export default ({ mode }: ConfigEnv) => {
       },
     },
     build: {
+      sourcemap: true,
       lib: {
         entry: './src/main.ts',
         formats: ['es'],
         name,
-      },
-      sourcemap: true,
-    },
-    server: {
-      allowedHosts: true,
-      proxy: {
-        '/debug-uri': {
-          target: 'http://localhost:3000',
-          changeOrigin: true,
-          rewrite: path => path.replace(/^\/debug-uri/, ''),
-        },
       },
     },
     define: {
