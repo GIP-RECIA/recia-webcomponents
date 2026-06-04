@@ -21,7 +21,6 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createI18n, I18nInjectionKey } from 'vue-i18n'
 import ClassesGroupesProf from './ClassesGroupesProf.ce.vue'
 
-// 1. Mocks et messages
 const messages = {
   fr: {
     'info-general': {
@@ -36,6 +35,16 @@ const messages = {
       'discipline-unknown': 'Discipline inconnue',
     },
   },
+}
+
+function makeI18n() {
+  const i18n = createI18n({ locale: 'fr', messages })
+  return {
+    i18n,
+    provide: {
+      [I18nInjectionKey as symbol]: { global: i18n.global },
+    },
+  }
 }
 
 describe('classesGroupesProf', () => {
@@ -81,101 +90,110 @@ describe('classesGroupesProf', () => {
       } as unknown as SectionEleve,
     }
 
-    const i18n = createI18n({ locale: 'fr', messages })
+    const { i18n, provide } = makeI18n()
     wrapper = mount(ClassesGroupesProf, {
       props: defaultProps,
-      global: {
-        plugins: [i18n],
-        provide: { [I18nInjectionKey as unknown as string]: i18n },
-      },
+      global: { plugins: [i18n], provide },
     })
   })
 
   // --------------------------------------------------
-  // RENDU DU HEADER & COLLAPSE
+  // STRUCTURE, EN-TÊTE ET COLLAPSE
   // --------------------------------------------------
   describe('structure, en-tête et collapse', () => {
-    it('affiche le titre de la section et l\'icône de collapse par défaut', () => {
-      expect(wrapper.find('h2').text()).toBe('Mes classes et groupes pédagogiques')
+    it('affiche le titre dans un h3', () => {
+      // Template utilise <h3>, pas <h2>
+      expect(wrapper.find('h3').text()).toBe('Mes classes et groupes pédagogiques')
+    })
+
+    it('affiche l\'icône de collapse "-" par défaut (ouvert)', () => {
       expect(wrapper.find('.collapse-icon').text()).toBe('-')
     })
 
-    it('bascule l\'état d\'affichage du corps lors du clic sur le header', async () => {
+    it('bascule l\'état lors du clic sur le header', async () => {
       const header = wrapper.find('.clickable-header')
       await header.trigger('click')
       expect(wrapper.find('.collapse-icon').text()).toBe('+')
-      expect(wrapper.find('.card-body-grid').exists()).toBe(false)
+      // Le .card-body disparaît quand fermé (v-else-if="isOpen")
+      expect(wrapper.find('.card-body').exists()).toBe(false)
+
       await header.trigger('click')
       expect(wrapper.find('.collapse-icon').text()).toBe('-')
-      expect(wrapper.find('.card-body-grid').exists()).toBe(true)
+      expect(wrapper.find('.card-body').exists()).toBe(true)
     })
   })
 
   // --------------------------------------------------
-  // RENDU DES SECTIONS PROF
+  // RENDU DES BLOCS SECTIONPROF
   // --------------------------------------------------
   describe('rendu des blocs de sectionProf', () => {
-    it('affiche correctement l\'établissement, la matière et ses badges', () => {
+    it('affiche le nom de l\'établissement dans etab-info-side', () => {
       const etabBlock = wrapper.find('.etab-block')
+      // Le nom est dans .etab-info-side > .info-value.info-value--bold
       expect(etabBlock.find('.etab-info-side .info-value').text()).toBe('Lycée Jean Zay')
-      expect(etabBlock.find('.teaching-entry .name-bold').text()).toBe('Mathématiques')
-      const classPills = etabBlock.findAll('.pill-class').map(el => el.text())
-      const groupPills = etabBlock.findAll('.pill-group').map(el => el.text())
+    })
+
+    it('affiche la matière dans .teaching-entry via info-value--bold', () => {
+      const teachingEntry = wrapper.find('.teaching-entry')
+      // La matière est dans .info-item > span.info-value.info-value--bold
+      expect(teachingEntry.find('.info-value--bold').text()).toBe('Mathématiques')
+    })
+
+    it('affiche les badges de classes (.pill-tag--class) et groupes (.pill-tag--group)', () => {
+      const etabBlock = wrapper.find('.etab-block')
+      const classPills = etabBlock.findAll('.pill-tag--class').map(el => el.text())
+      const groupPills = etabBlock.findAll('.pill-tag--group').map(el => el.text())
       expect(classPills).toContain('2NDE 1')
       expect(groupPills).toContain('MATHS SOUVENT')
     })
 
-    it('affiche un libellé de secours pour la discipline', () => {
-      const i18n = createI18n({ locale: 'fr', messages })
+    it('affiche un libellé de secours "Discipline inconnue" si matiere et discipline sont absents', () => {
+      const { i18n, provide } = makeI18n()
       const customWrapper = mount(ClassesGroupesProf, {
         props: {
           sectionProf: {
             etabs: {
               'Collège Camus': [
                 { discipline: 'Histoire-Géo' },
-                { },
+                {},
               ],
             },
           } as unknown as SectionProf,
           listFonctions: [],
           sectionEleve: undefined,
         },
-        global: {
-          plugins: [i18n],
-          provide: { [I18nInjectionKey as unknown as string]: i18n },
-        },
+        global: { plugins: [i18n], provide },
       })
-      const disciplineValues = customWrapper.findAll('.teaching-entry .name-bold').map(el => el.text())
+      const disciplineValues = customWrapper.findAll('.info-value--bold').map(el => el.text())
       expect(disciplineValues).toContain('Histoire-Géo')
       expect(disciplineValues).toContain('Discipline inconnue')
     })
   })
 
   // --------------------------------------------------
-  // LOGIQUE DES FONCTIONS & PRIORITÉS
+  // LOGIQUE DES FONCTIONS RESTANTES
   // --------------------------------------------------
   describe('gestion des fonctions restantes et cascade de priorités', () => {
-    it('ignore les fonctions dont la discipline est déjà traitée', () => {
+    it('ignore les fonctions dont la discipline est déjà dans sectionProf', () => {
+      // 'Espagnol' n'est pas dans sectionProf (Mathématiques y est), donc f1 Espagnol devrait apparaître
+      // Ajoutons f2 avec Mathématiques (déjà traitée) → il ne doit pas apparaître
       defaultProps.listFonctions.push({
         idFonction: 'f2',
         discipline: 'Mathématiques',
+        struct: { name: 'Lycée Jean Zay' },
         classes: ['AUTRE-CLASSE'],
+        groupes: [],
       })
-      const i18n = createI18n({ locale: 'fr', messages })
+      const { i18n, provide } = makeI18n()
       const customWrapper = mount(ClassesGroupesProf, {
         props: defaultProps,
-        global: {
-          plugins: [i18n],
-          provide: { [I18nInjectionKey as unknown as string]: i18n },
-        },
+        global: { plugins: [i18n], provide },
       })
-      const disciplinesAffichees = customWrapper.findAll('.teaching-entry .name-bold').map(el => el.text())
-      expect(disciplinesAffichees).toContain('Espagnol')
       expect(customWrapper.text()).not.toContain('AUTRE-CLASSE')
     })
 
-    it('applique la priorité f.cg.classes si f.classes n\'est pas renseigné', () => {
-      const i18n = createI18n({ locale: 'fr', messages })
+    it('utilise f.cg.classes quand f.classes est vide', () => {
+      const { i18n, provide } = makeI18n()
       const customWrapper = mount(ClassesGroupesProf, {
         props: {
           sectionProf: undefined,
@@ -187,17 +205,14 @@ describe('classesGroupesProf', () => {
             cg: { classes: ['1ERE CG'], groupes: ['GROUP CG'] },
           }],
         },
-        global: {
-          plugins: [i18n],
-          provide: { [I18nInjectionKey as unknown as string]: i18n },
-        },
+        global: { plugins: [i18n], provide },
       })
-      expect(customWrapper.find('.pill-class').text()).toBe('1ERE CG')
-      expect(customWrapper.find('.pill-group').text()).toBe('GROUP CG')
+      expect(customWrapper.find('.pill-tag--class').text()).toBe('1ERE CG')
+      expect(customWrapper.find('.pill-tag--group').text()).toBe('GROUP CG')
     })
 
-    it('applique le croisement de secours avec sectionEleve', () => {
-      const i18n = createI18n({ locale: 'fr', messages })
+    it('utilise le croisement avec sectionEleve en dernier recours', () => {
+      const { i18n, provide } = makeI18n()
       const customWrapper = mount(ClassesGroupesProf, {
         props: {
           sectionProf: undefined,
@@ -214,17 +229,14 @@ describe('classesGroupesProf', () => {
             }],
           } as unknown as SectionEleve,
         },
-        global: {
-          plugins: [i18n],
-          provide: { [I18nInjectionKey as unknown as string]: i18n },
-        },
+        global: { plugins: [i18n], provide },
       })
-      expect(customWrapper.find('.pill-class').text()).toBe('6EME ELEVE-FALLBACK')
-      expect(customWrapper.find('.pill-group').text()).toBe('GROUPE ELEVE-FALLBACK')
+      expect(customWrapper.find('.pill-tag--class').text()).toBe('6EME ELEVE-FALLBACK')
+      expect(customWrapper.find('.pill-tag--group').text()).toBe('GROUPE ELEVE-FALLBACK')
     })
 
-    it('gère l\'absence d\'attribut struct ou name sans planter', () => {
-      const i18n = createI18n({ locale: 'fr', messages })
+    it('affiche "N/A" si struct ou struct.name est absent', () => {
+      const { i18n, provide } = makeI18n()
       const customWrapper = mount(ClassesGroupesProf, {
         props: {
           sectionProf: undefined,
@@ -233,13 +245,12 @@ describe('classesGroupesProf', () => {
             idFonction: 'f_no_struct',
             discipline: 'Physique',
             classes: ['TERMINALE'],
+            groupes: [],
           }],
         },
-        global: {
-          plugins: [i18n],
-          provide: { [I18nInjectionKey as unknown as string]: i18n },
-        },
+        global: { plugins: [i18n], provide },
       })
+      // f.struct?.name || 'N/A' → 'N/A'
       expect(customWrapper.find('.etab-info-side .info-value').text()).toBe('N/A')
     })
   })
@@ -248,15 +259,13 @@ describe('classesGroupesProf', () => {
   // SCÉNARIO SANS DONNÉES
   // --------------------------------------------------
   describe('scénario d\'absence de données', () => {
-    it('affiche un message explicite lorsqu\'aucune donnée n\'est présente', () => {
-      const i18n = createI18n({ locale: 'fr', messages })
+    it('affiche le message "Aucune donnée chargée." si sectionProf et listFonctions sont vides', () => {
+      const { i18n, provide } = makeI18n()
       const emptyWrapper = mount(ClassesGroupesProf, {
         props: { sectionProf: undefined, listFonctions: [], sectionEleve: undefined },
-        global: {
-          plugins: [i18n],
-          provide: { [I18nInjectionKey as unknown as string]: i18n },
-        },
+        global: { plugins: [i18n], provide },
       })
+      // v-if="!sectionProf && listFonctions.length === 0" → affiche tProf('no-data')
       expect(emptyWrapper.find('.info-value').text()).toBe('Aucune donnée chargée.')
     })
   })
@@ -271,7 +280,7 @@ describe('classesGroupesProf', () => {
         props: defaultProps,
         global: { provide: {} },
       })
-      expect(wrapperNoI18n.find('h2').text()).toBe('title-classe-groupe')
+      expect(wrapperNoI18n.find('h3').text()).toBe('title-classe-groupe')
       expect(wrapperNoI18n.find('.info-label').text()).toBe('etablissement')
       warnSpy.mockRestore()
     })

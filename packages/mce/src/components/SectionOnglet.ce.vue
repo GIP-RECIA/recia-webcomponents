@@ -65,7 +65,7 @@ defineEmits<{
 
 <template>
   <div class="section-content-wrapper">
-    <div v-if="showChangeEmail" class="full-width-pane">
+    <div v-if="showChangeEmail" class="tab-pane animate-fade">
       <ChangeEmail
         :user-info-api-url="userInfoApiUrl"
         :mce-api="mceApi"
@@ -125,7 +125,7 @@ defineEmits<{
         />
       </div>
 
-      <!-- ONGLET LISTE DES FONCTIONS / ROLES -->
+      <!-- ONGLET LISTE DES FONCTIONS / RÔLES -->
       <div v-else-if="listMenu === 'FONCTION_LIST'" key="fonctions" class="tab-pane animate-fade">
         <FonctionsList
           :fonctions="fonctionClassesGroupe.listFonctions ?? []"
@@ -138,6 +138,9 @@ defineEmits<{
 </template>
 
 <style scoped lang="scss">
+@use 'sass:map';
+@use '@gip-recia/ui/core/variables' as *;
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -156,27 +159,19 @@ defineEmits<{
   min-width: 0;
 }
 
-.full-width-pane {
-  width: 100%;
-  min-width: 0;
-  animation: fadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
 .tab-pane {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1.25rem;
   width: 100%;
   min-width: 0;
+
+  @media (width < map.get($grid-breakpoints, sm)) {
+    gap: 0.75rem;
+  }
 }
 
 .animate-fade {
   animation: fadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@media (max-width: 340px) {
-  .tab-pane {
-    gap: 12px;
-  }
 }
 </style>

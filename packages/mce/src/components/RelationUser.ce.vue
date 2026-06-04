@@ -33,7 +33,6 @@ const props = withDefaults(defineProps<{
 const { t } = useI18n()
 const m = (key: string): string => t(`relation-user.${key}`)
 
-// Utilisation sécurisée
 const relations = computed(() => props.details ?? [])
 
 const selectedUid = ref<string | null>(null)
@@ -53,10 +52,7 @@ async function selectRelation(uid: string): Promise<void> {
   showDetail.value = true
 
   try {
-    const response = await getDetailEnfant(
-      props.mceApi + uid,
-      props.userInfoApiUrl,
-    )
+    const response = await getDetailEnfant(props.mceApi + uid, props.userInfoApiUrl)
     personne.value = response.data
     selectedUid.value = uid
   }
@@ -79,191 +75,170 @@ function closeDetail(): void {
 </script>
 
 <template>
-  <section class="page-container">
-    <div class="profile-card">
-      <header class="card-header">
-        <h2>{{ m(`title-relation-${titre}`) }}</h2>
-      </header>
-      <div class="card-body-grid">
-        <template v-for="(val, index) in relations" :key="index">
-          <div
-            class="relation-row-item"
-            :class="{ active: selectedUid === val.uidRelation }"
-            role="button"
-            tabindex="0"
-            @click.prevent="selectRelation(val.uidRelation)"
-            @keydown.enter.prevent="selectRelation(val.uidRelation)"
-          >
-            <div class="info-item entry-container">
-              <span class="info-label">{{ val.typeRelation || m('relation-default') }}</span>
-              <span class="info-value name-bold">{{ val.displayNameRelation }}</span>
-            </div>
-            <div v-if="val.autoriteParental" class="tag-container">
-              <span class="ap-tag">{{ m('parental-authority') }}</span>
-            </div>
-            <span class="chevron" :class="{ open: selectedUid === val.uidRelation }">›</span>
-          </div>
-        </template>
+  <section class="profile-card">
+    <header class="card-header">
+      <h3>{{ m(`title-relation-${titre}`) }}</h3>
+    </header>
 
-        <RelationUserDetail
-          v-if="showDetail"
-          :personne="personne"
-          :is-loading="isLoading"
-          :has-error="hasError"
-          @close="closeDetail"
-        />
-      </div>
+    <div class="card-body">
+      <template v-for="(val, index) in relations" :key="index">
+        <div
+          class="relation-row-item"
+          :class="{ 'relation-row-item--active': selectedUid === val.uidRelation }"
+          role="button"
+          tabindex="0"
+          @click.prevent="selectRelation(val.uidRelation)"
+          @keydown.enter.prevent="selectRelation(val.uidRelation)"
+        >
+          <div class="info-item">
+            <span class="info-label">{{ val.typeRelation || m('relation-default') }}</span>
+            <span class="info-value info-value--bold">{{ val.displayNameRelation }}</span>
+          </div>
+
+          <div v-if="val.autoriteParental" class="tag-container">
+            <span class="ap-tag">{{ m('parental-authority') }}</span>
+          </div>
+
+          <span class="chevron" :class="{ 'chevron--open': selectedUid === val.uidRelation }">›</span>
+        </div>
+      </template>
+
+      <RelationUserDetail
+        v-if="showDetail"
+        :personne="personne"
+        :is-loading="isLoading"
+        :has-error="hasError"
+        @close="closeDetail"
+      />
     </div>
   </section>
 </template>
 
 <style lang="scss" scoped>
+@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
-
-.page-container {
-  padding: 0.75rem;
-  display: flex;
-  width: 100%;
-  box-sizing: border-box;
-}
+@use '@gip-recia/ui/components/buttons';
 
 .profile-card {
-  width: 100%;
-  max-width: 100%;
-  background-color: var(--#{$prefix}body-bg, #ffffff);
-  border: 1px solid var(--#{$prefix}border-color, #dee2e6);
-  border-radius: 16px;
+  border: 1px solid var(--#{$prefix}stroke);
+  border-radius: 10px;
+  margin-bottom: 20px;
   overflow: hidden;
-  box-shadow: 0 10px 25px -5px var(--#{$prefix}shadow-neutral, rgba(0, 0, 0, 0.1));
-  box-sizing: border-box;
+  box-shadow: var(--#{$prefix}shadow-neutral) rgba(0, 0, 0, 0.1);
+  background-color: var(--#{$prefix}body-bg);
 }
 
 .card-header {
-  padding: 1.5rem 1.25rem 0;
-  background-color: var(--#{$prefix}body-bg, #ffffff);
+  padding: 1.5rem 1.25rem;
+  border-bottom: 1px solid var(--#{$prefix}stroke);
 
-  h2 {
+  h3 {
     margin: 0;
-    font-size: 1.25rem;
-    color: var(--#{$prefix}body-color, #212529);
-  }
-
-  @media (width <= 320px) {
-    padding: 1rem 0.75rem 0;
-    h2 {
-      font-size: 1.1rem;
-    }
+    font-size: var(--#{$prefix}font-size-h3);
+    color: var(--#{$prefix}basic-black);
   }
 }
 
-.card-body-grid {
+.card-body {
   padding: 1.25rem;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.25rem;
-  background-color: var(--#{$prefix}body-bg, #ffffff);
-  box-sizing: border-box;
-  min-width: 0;
-
-  @media (width >= map.get($grid-breakpoints, md)) {
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 3rem;
-    padding: 1.5rem 2rem 2rem;
-  }
-
-  @media (width <= 320px) {
-    padding: 0.75rem 0.5rem;
-    gap: 1rem;
-  }
+  display: flex;
+  flex-direction: column;
 }
 
 .info-item {
   display: flex;
   flex-direction: column;
+  flex: 1;
   min-width: 0;
-  width: 100%;
 }
 
 .info-label {
-  font-size: 0.75rem;
+  display: block;
+  font-size: var(--#{$prefix}font-size-xxs);
   font-weight: 800;
   text-transform: uppercase;
-  margin-bottom: 0.25rem;
-  color: var(--#{$prefix}secondary-color, #6c757d);
-  word-break: normal !important;
-  white-space: normal !important;
+  color: var(--#{$prefix}basic-black-lighter);
+  margin-bottom: 4px;
 }
 
 .info-value {
-  font-size: 0.95rem;
-  color: var(--#{$prefix}body-color, #212529);
-  word-break: normal !important;
-  overflow-wrap: normal !important;
-  white-space: normal !important;
-  display: block;
-  width: 100%;
+  font-size: var(--#{$prefix}font-size-sm);
+  color: var(--#{$prefix}basic-black);
 
-  &.name-bold {
-    font-weight: 700;
+  &--bold {
+    font-weight: 600;
   }
 }
 
 .relation-row-item {
-  grid-column: 1 / -1;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 1rem;
-  margin-top: 0.25rem;
-  border-top: 1px dashed var(--#{$prefix}border-color, #dee2e6);
-  padding: 1rem 0.5rem 0;
+  padding: 1.25rem 0;
+  border-bottom: 1px dashed var(--#{$prefix}stroke);
   cursor: pointer;
-  border-radius: var(--#{$prefix}border-radius, 8px);
+  border-radius: 8px;
   transition: background-color 0.2s;
-  box-sizing: border-box;
   min-width: 0;
 
   &:first-of-type {
-    border-top: none;
-    margin-top: 0;
     padding-top: 0;
   }
 
+  &:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
   &:hover,
-  &.active {
-    background-color: var(--#{$prefix}tertiary-bg, #f8f9fa);
+  &--active {
+    background-color: var(--#{$prefix}hover);
   }
 
   &:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 2px var(--#{$prefix}primary-focus, rgba(0, 86, 179, 0.15));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--#{$prefix}primary) 20%, transparent);
   }
-}
 
-.entry-container {
-  flex: 1 1 auto;
-  min-width: 0;
+  @media (width <= 400px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+    position: relative;
+    padding-right: 2rem;
+  }
 }
 
 .tag-container {
   display: flex;
   align-items: center;
-  min-width: 0;
+  flex-shrink: 0;
+
+  @media (width <= 400px) {
+    width: 100%;
+  }
 }
 
 .chevron {
-  font-size: 1.25rem;
-  color: var(--#{$prefix}secondary-color, #6c757d);
+  font-size: var(--#{$prefix}font-size-lg);
+  color: var(--#{$prefix}basic-black-lighter);
   transform: rotate(0deg);
   transition: transform 0.2s;
   line-height: 1;
   flex-shrink: 0;
 
-  &.open {
+  &--open {
     transform: rotate(90deg);
+  }
+
+  @media (width <= 400px) {
+    position: absolute;
+    right: 8px;
+    top: 1rem;
   }
 }
 
@@ -271,51 +246,13 @@ function closeDetail(): void {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.4rem 0.8rem;
-  border-radius: var(--#{$prefix}border-radius, 6px);
-  font-size: 0.7rem;
-  font-weight: 800;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-size: var(--#{$prefix}font-size-xxs);
+  font-weight: 700;
   text-transform: uppercase;
-  background-color: var(--#{$prefix}success-bg-subtle, #d1e7dd);
-  color: var(--#{$prefix}success, #0f5132);
-  border: 1px solid var(--#{$prefix}success-border-subtle, #badbcc);
-}
-
-@media (width <= 400px) {
-  .relation-row-item {
-    flex-direction: column;
-    align-items: stretch;
-
-    gap: 0.5rem;
-    position: relative;
-    padding: 0.75rem 2rem 0.75rem 0.4rem;
-  }
-
-  .entry-container {
-    width: 100%;
-    flex: 1 1 100%;
-  }
-
-  .tag-container {
-    width: 100%;
-  }
-
-  .ap-tag {
-    white-space: normal;
-    text-align: left;
-    width: fit-content;
-    padding: 0.3rem 0.6rem;
-  }
-
-  .chevron {
-    position: absolute;
-    right: 8px;
-    top: 1rem;
-    transform: rotate(0deg);
-
-    &.open {
-      transform: rotate(90deg);
-    }
-  }
+  background-color: color-mix(in srgb, var(--#{$prefix}system-blue) 10%, transparent);
+  color: var(--#{$prefix}system-blue);
+  border: 1px solid color-mix(in srgb, var(--#{$prefix}system-blue) 30%, transparent);
 }
 </style>

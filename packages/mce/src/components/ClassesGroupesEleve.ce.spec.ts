@@ -21,7 +21,6 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createI18n, I18nInjectionKey } from 'vue-i18n'
 import ClassesGroupesEleve from './ClassesGroupesEleve.ce.vue'
 
-// 1. Mocks et messages
 const messages = {
   fr: {
     'info-general': {
@@ -50,7 +49,7 @@ describe('classesGroupesEleve', () => {
         classes: ['3EME 2'],
         groupes: [],
       },
-    ],
+    ] as Etabs[],
     sectionEleve: {
       enseignementSuivis: ['Mathématiques', 'Physique-Chimie', 'Histoire-Géographie'],
     } as unknown as SectionEleve,
@@ -65,7 +64,11 @@ describe('classesGroupesEleve', () => {
       props: defaultProps,
       global: {
         plugins: [i18n],
-        provide: { [I18nInjectionKey as unknown as string]: i18n },
+        provide: {
+          [I18nInjectionKey as symbol]: {
+            global: i18n.global,
+          },
+        },
       },
     })
   })
@@ -74,8 +77,9 @@ describe('classesGroupesEleve', () => {
   // RENDU INITIAL
   // --------------------------------------------------
   describe('rendu initial', () => {
+    // Les titres sont dans des <h3>, pas <h2>
     it('affiche les titres des deux sections traduits correctement', () => {
-      const headers = wrapper.findAll('h2').map(el => el.text())
+      const headers = wrapper.findAll('h3').map(el => el.text())
       expect(headers).toContain('Mes classes et groupes pédagogiques')
       expect(headers).toContain('Enseignements suivis')
     })
@@ -85,17 +89,26 @@ describe('classesGroupesEleve', () => {
   // DONNÉES COMPLÈTES
   // --------------------------------------------------
   describe('rendu avec des données complètes', () => {
-    it('affiche la liste des établissements avec leurs classes et groupes respectifs', () => {
+    it('affiche la liste des établissements', () => {
       const rows = wrapper.findAll('.etab-row-item')
       expect(rows).toHaveLength(2)
-      expect(rows[0].find('.etab-name-bold').text()).toBe('Lycée Jean Zay')
+    })
+
+    it('affiche le nom de l\'établissement via info-value--bold', () => {
+      const rows = wrapper.findAll('.etab-row-item')
+      // Le nom de l'étab est dans .info-value.info-value--bold
+      expect(rows[0].find('.info-value--bold').text()).toBe('Lycée Jean Zay')
+    })
+
+    it('affiche les labels Classe et Groupe et leurs valeurs', () => {
+      const rows = wrapper.findAll('.etab-row-item')
       expect(rows[0].text()).toContain('Classe')
       expect(rows[0].text()).toContain('2NDE 1')
       expect(rows[0].text()).toContain('Groupe')
       expect(rows[0].text()).toContain('ANGLAIS LV1')
     })
 
-    it('affiche la liste des matières suivies sous forme de badges', () => {
+    it('affiche la liste des matières suivies sous forme de badges .pill-tag', () => {
       const pills = wrapper.findAll('.pill-tag').map(el => el.text())
       expect(pills).toHaveLength(3)
       expect(pills).toContain('Mathématiques')
@@ -108,9 +121,11 @@ describe('classesGroupesEleve', () => {
   // GESTION DES VALEURS VIDES (FALLBACKS)
   // --------------------------------------------------
   describe('gestion des valeurs vides ou manquantes', () => {
-    it('affiche un tiret de secours si une classe ou un groupe est manquant', () => {
+    it('affiche un tiret si la liste des groupes est vide', () => {
       const rows = wrapper.findAll('.etab-row-item')
-      expect(rows[1].find('.etab-name-bold').text()).toBe('Collège Albert Camus')
+      // Collège Albert Camus a groupes: [] → affiche '—'
+      expect(rows[1].find('.info-value--bold').text()).toBe('Collège Albert Camus')
+      // Les .info-value dans la ligne incluent la classe et '—' pour le groupe
       const values = rows[1].findAll('.info-value').map(el => el.text())
       expect(values).toContain('3EME 2')
       expect(values).toContain('—')
@@ -125,7 +140,7 @@ describe('classesGroupesEleve', () => {
         },
         global: {
           plugins: [i18n],
-          provide: { [I18nInjectionKey as unknown as string]: i18n },
+          provide: { [I18nInjectionKey as symbol]: { global: i18n.global } },
         },
       })
       expect(wrapperEmpty.find('.pill-tag').exists()).toBe(false)
@@ -138,7 +153,7 @@ describe('classesGroupesEleve', () => {
         props: { etabs: [] as Etabs[], sectionEleve: undefined },
         global: {
           plugins: [i18n],
-          provide: { [I18nInjectionKey as unknown as string]: i18n },
+          provide: { [I18nInjectionKey as symbol]: { global: i18n.global } },
         },
       })
       expect(wrapperUndefined.find('.pill-tag').exists()).toBe(false)
@@ -156,7 +171,9 @@ describe('classesGroupesEleve', () => {
         props: defaultProps,
         global: { provide: {} },
       })
-      expect(wrapperNoI18n.find('h2').text()).toBe('title-classe-groupe')
+      // Sans i18n, tGeneral retourne la clé brute
+      expect(wrapperNoI18n.find('h3').text()).toBe('title-classe-groupe')
+      // tEleve retourne 'etablissement'
       expect(wrapperNoI18n.find('.info-label').text()).toBe('etablissement')
       warnSpy.mockRestore()
     })

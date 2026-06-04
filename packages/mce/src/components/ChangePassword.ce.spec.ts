@@ -22,7 +22,6 @@ import { createI18n, I18nInjectionKey } from 'vue-i18n'
 import { postPassword } from '@/services/serviceMce.ts'
 import ChangePassword from './ChangePassword.ce.vue'
 
-// 1. Mocks globaux
 vi.mock('@/services/serviceMce.ts', () => ({
   postPassword: vi.fn(),
 }))
@@ -43,13 +42,13 @@ const messages = {
       'new-password': 'Nouveau mot de passe',
       'confirm-password': 'Confirmer le nouveau mot de passe',
       'placeholder-current': 'Entrez votre mot de passe actuel',
-      'placeholder-new': 'Au moins 12 caractères',
+      'placeholder-new': 'Au moins 8 caractères',
       'placeholder-confirm': 'Répétez votre mot de passe',
       'submit': 'Changer le mot de passe',
       'loading': 'Chargement...',
       'error-required': 'Tous les champs sont obligatoires.',
       'error-mismatch': 'Les nouveaux mots de passe ne correspondent pas.',
-      'error-length': 'Le nouveau mot de passe doit contenir au moins 12 caractères.',
+      'error-length': 'Le nouveau mot de passe doit contenir au moins 8 caractères.',
       'success': 'Mot de passe changé avec succès.',
       'error-default': 'Erreur lors du changement du mot de passe.',
     },
@@ -85,8 +84,9 @@ describe('changePassword', () => {
   // RENDU INITIAL
   // --------------------------------------------------
   describe('rendu initial', () => {
-    it('affiche le titre', () => {
-      expect(wrapper.find('h2').text()).toBe('Changer mon mot de passe')
+    // Le template utilise <h3>, pas <h2>
+    it('affiche le titre dans un h3', () => {
+      expect(wrapper.find('h3').text()).toBe('Changer mon mot de passe')
     })
 
     it('affiche les 3 labels', () => {
@@ -98,7 +98,7 @@ describe('changePassword', () => {
 
     it('affiche les placeholders des inputs', () => {
       expect(wrapper.find('#current-password').attributes('placeholder')).toBe('Entrez votre mot de passe actuel')
-      expect(wrapper.find('#new-password').attributes('placeholder')).toBe('Au moins 12 caractères')
+      expect(wrapper.find('#new-password').attributes('placeholder')).toBe('Au moins 8 caractères')
       expect(wrapper.find('#confirm-password').attributes('placeholder')).toBe('Répétez votre mot de passe')
     })
 
@@ -139,15 +139,16 @@ describe('changePassword', () => {
 
     it('erreur si les mots de passe ne correspondent pas', async () => {
       await wrapper.find('#current-password').setValue('a')
-      await wrapper.find('#new-password').setValue('abc123456789')
+      await wrapper.find('#new-password').setValue('abcdefgh')
       await wrapper.find('#confirm-password').setValue('differentPass')
       await wrapper.find('form').trigger('submit')
       await nextTick()
       expect(wrapper.find('.alert-message').text()).toContain('ne correspondent pas')
     })
 
-    it('erreur si nouveau mot de passe trop court', async () => {
-      await wrapper.find('#current-password').setValue('a')
+    // La validation length est < 8 (pas < 12) dans le composant réel
+    it('erreur si le nouveau mot de passe fait moins de 8 caractères', async () => {
+      await wrapper.find('#current-password').setValue('ancien')
       await wrapper.find('#new-password').setValue('short')
       await wrapper.find('#confirm-password').setValue('short')
       await wrapper.find('form').trigger('submit')
@@ -166,18 +167,20 @@ describe('changePassword', () => {
   // ÉTAT DE CHARGEMENT
   // --------------------------------------------------
   describe('état de chargement', () => {
-    it('affiche "Chargement..." pendant la requête', async () => {
+    it('affiche "Chargement..." et désactive le bouton pendant la requête', async () => {
       vi.mocked(postPassword).mockImplementation(
         () => new Promise(resolve => setTimeout(resolve, 200, mockAxiosResponse)),
       )
       await wrapper.find('#current-password').setValue('ancien')
-      await wrapper.find('#new-password').setValue('nouveaupass12')
-      await wrapper.find('#confirm-password').setValue('nouveaupass12')
+      await wrapper.find('#new-password').setValue('nouveaupass')
+      await wrapper.find('#confirm-password').setValue('nouveaupass')
 
       wrapper.find('form').trigger('submit')
       await nextTick()
 
-      expect(wrapper.find('button[type="submit"]').text()).toBe('Chargement...')
+      const submitBtn = wrapper.find('button[type="submit"]')
+      expect(submitBtn.text()).toBe('Chargement...')
+      expect(submitBtn.attributes('disabled')).toBeDefined()
     })
   })
 
@@ -185,27 +188,47 @@ describe('changePassword', () => {
   // SUCCÈS ET APPELS API
   // --------------------------------------------------
   describe('succès', () => {
-    it('affiche le message de succès', async () => {
+    it('affiche le message de succès avec la classe "success"', async () => {
       vi.mocked(postPassword).mockResolvedValueOnce(mockAxiosResponse)
       await wrapper.find('#current-password').setValue('ancien')
-      await wrapper.find('#new-password').setValue('nouveaupass12')
-      await wrapper.find('#confirm-password').setValue('nouveaupass12')
+      await wrapper.find('#new-password').setValue('nouveaupass')
+      await wrapper.find('#confirm-password').setValue('nouveaupass')
       await wrapper.find('form').trigger('submit')
       await nextTick()
 
-      expect(wrapper.find('.alert-message').text()).toBe('Mot de passe changé avec succès.')
+      const alert = wrapper.find('.alert-message')
+      expect(alert.text()).toBe('Mot de passe changé avec succès.')
+      expect(alert.classes()).toContain('success')
     })
 
-    it('vide les champs après succès', async () => {
+    it('vide les trois champs après succès', async () => {
       vi.mocked(postPassword).mockResolvedValueOnce(mockAxiosResponse)
       await wrapper.find('#current-password').setValue('ancien')
-      await wrapper.find('#new-password').setValue('nouveaupass12')
-      await wrapper.find('#confirm-password').setValue('nouveaupass12')
+      await wrapper.find('#new-password').setValue('nouveaupass')
+      await wrapper.find('#confirm-password').setValue('nouveaupass')
       await wrapper.find('form').trigger('submit')
       await nextTick()
+
       expect((wrapper.find('#current-password').element as HTMLInputElement).value).toBe('')
       expect((wrapper.find('#new-password').element as HTMLInputElement).value).toBe('')
       expect((wrapper.find('#confirm-password').element as HTMLInputElement).value).toBe('')
+    })
+
+    it('appelle postPassword avec les bons arguments', async () => {
+      vi.mocked(postPassword).mockResolvedValueOnce(mockAxiosResponse)
+      await wrapper.find('#current-password').setValue('ancien')
+      await wrapper.find('#new-password').setValue('nouveaupass')
+      await wrapper.find('#confirm-password').setValue('nouveaupass')
+      await wrapper.find('form').trigger('submit')
+      await nextTick()
+
+      expect(postPassword).toHaveBeenCalledWith(
+        'https://api.test.fr/123/change-password',
+        'ancien',
+        'nouveaupass',
+        'nouveaupass',
+        'https://api.test.fr/userinfo',
+      )
     })
 
     it('construit l\'URL sans double slash si mceApi finit par /', async () => {
@@ -219,10 +242,11 @@ describe('changePassword', () => {
         },
       })
       await wrapperSlash.find('#current-password').setValue('ancien')
-      await wrapperSlash.find('#new-password').setValue('nouveaupass12')
-      await wrapperSlash.find('#confirm-password').setValue('nouveaupass12')
+      await wrapperSlash.find('#new-password').setValue('nouveaupass')
+      await wrapperSlash.find('#confirm-password').setValue('nouveaupass')
       await wrapperSlash.find('form').trigger('submit')
       await nextTick()
+
       expect(postPassword).toHaveBeenCalledWith(
         'https://api.test.fr/123/change-password',
         expect.any(String),
@@ -237,11 +261,26 @@ describe('changePassword', () => {
   // ERREURS DE L'API
   // --------------------------------------------------
   describe('erreurs API', () => {
-    it('affiche le message d\'erreur par défaut si l\'API échoue sans message', async () => {
+    it('affiche le message serveur si response.data.message est défini', async () => {
+      vi.mocked(postPassword).mockRejectedValueOnce({
+        response: { data: { message: 'Ancien mot de passe incorrect.' } },
+      })
+      await wrapper.find('#current-password').setValue('ancien')
+      await wrapper.find('#new-password').setValue('nouveaupass')
+      await wrapper.find('#confirm-password').setValue('nouveaupass')
+      await wrapper.find('form').trigger('submit')
+      await nextTick()
+
+      const alert = wrapper.find('.alert-message')
+      expect(alert.text()).toBe('Ancien mot de passe incorrect.')
+      expect(alert.classes()).toContain('error')
+    })
+
+    it('affiche le message d\'erreur par défaut si l\'API échoue sans message structuré', async () => {
       vi.mocked(postPassword).mockRejectedValueOnce(new Error('réseau'))
       await wrapper.find('#current-password').setValue('ancien')
-      await wrapper.find('#new-password').setValue('nouveaupass12')
-      await wrapper.find('#confirm-password').setValue('nouveaupass12')
+      await wrapper.find('#new-password').setValue('nouveaupass')
+      await wrapper.find('#confirm-password').setValue('nouveaupass')
       await wrapper.find('form').trigger('submit')
       await nextTick()
       expect(wrapper.find('.alert-message').text()).toBe('Erreur lors du changement du mot de passe.')

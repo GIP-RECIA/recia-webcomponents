@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -37,75 +37,43 @@ const messages = {
   },
 }
 
-function createFonction(
-  overrides: Partial<PersonneFonction> = {},
-): PersonneFonction {
+function createFonction(overrides: Partial<PersonneFonction> = {}): PersonneFonction {
   return {
     idFonction: 1,
     fonction: 'Professeur',
     discipline: 'Mathématiques',
-
-    // attendu par le type
     structure: 'Lycée Jean Zay',
-
-    // utilisé dans le template
-    struct: {
-      name: 'Lycée Jean Zay',
-      type: 'LYC',
-    },
-
+    struct: { name: 'Lycée Jean Zay', type: 'LYC' },
     codeF: 'f1',
     codeD: 'd1',
-
-    // attendu en number
     siren: 123456789,
-
     source: 'TEST',
     active: true,
-
     ...overrides,
   } as unknown as PersonneFonction
 }
 
-describe('fonctionsList.ce.vue', () => {
+describe('fonctionsList', () => {
   let wrapper: VueWrapper
 
-  const i18n = createI18n({
-    legacy: false,
-    locale: 'fr',
-    messages,
-  })
+  const i18n = createI18n({ legacy: false, locale: 'fr', messages })
 
   const props = {
     fonctions: [
-      createFonction({
-        idFonction: 1,
-        active: true,
-      }),
-
-      createFonction({
-        idFonction: 2,
-        active: false,
-        discipline: 'Physique',
-      }),
+      createFonction({ idFonction: 1, active: true }),
+      createFonction({ idFonction: 2, active: false, discipline: 'Physique' }),
     ],
-
     userInfoApiUrl: 'https://api.test.fr/userinfo',
     mceApi: 'https://api.test.fr/mce/',
   }
 
   beforeEach(() => {
     vi.clearAllMocks()
-
     wrapper = mount(FonctionsList, {
       props,
-
       global: {
         plugins: [i18n],
-
-        provide: {
-          [I18nInjectionKey as symbol]: i18n,
-        },
+        provide: { [I18nInjectionKey as symbol]: { global: i18n.global } },
       },
     })
   })
@@ -113,134 +81,139 @@ describe('fonctionsList.ce.vue', () => {
   // --------------------------------------------------
   // RENDU
   // --------------------------------------------------
+  describe('rendu', () => {
+    it('affiche le titre dans un h3', () => {
+      // Template : <h3>{{ tGeneral('title-fonction') }}</h3>
+      expect(wrapper.find('h3').text()).toBe('Mes fonctions')
+    })
 
-  it('affiche le titre correctement', () => {
-    expect(wrapper.find('h2.titre').text())
-      .toBe('Mes fonctions')
-  })
+    it('affiche toutes les cartes .card-fonction', () => {
+      expect(wrapper.findAll('.card-fonction')).toHaveLength(2)
+    })
 
-  it('affiche toutes les cartes', () => {
-    expect(wrapper.findAll('.card-fonction'))
-      .toHaveLength(2)
-  })
+    it('affiche le nom de la structure via .info-value--bold', () => {
+      const firstCard = wrapper.findAll('.card-fonction')[0]
+      // Template : <span class="info-value info-value--bold">{{ it.struct.name }} ...</span>
+      expect(firstCard.find('.info-value--bold').text()).toContain('Lycée Jean Zay')
+    })
 
-  it('affiche les informations de fonction', () => {
-    const firstCard = wrapper.findAll('.card-fonction')[0]
+    it('affiche le type de la structure via .struct-type', () => {
+      const firstCard = wrapper.findAll('.card-fonction')[0]
+      expect(firstCard.find('.struct-type').text()).toBe('(LYC)')
+    })
 
-    expect(firstCard.find('.struct-name').text())
-      .toContain('Lycée Jean Zay')
+    it('affiche la fonction via .fonction-tag', () => {
+      const firstCard = wrapper.findAll('.card-fonction')[0]
+      expect(firstCard.find('.fonction-tag').text()).toBe('Professeur')
+    })
 
-    expect(firstCard.find('.fonction-tag').text())
-      .toBe('Professeur')
+    it('affiche la discipline via .discipline-tag', () => {
+      const firstCard = wrapper.findAll('.card-fonction')[0]
+      expect(firstCard.find('.discipline-tag').text()).toBe('Mathématiques')
+    })
 
-    expect(firstCard.find('.discipline-tag').text())
-      .toBe('Mathématiques')
-  })
-
-  it('affiche le label correctement', () => {
-    expect(wrapper.find('.card-label').text())
-      .toBe('Fonctions')
+    it('affiche le label dans .info-label', () => {
+      // Template : <span class="info-label">{{ tFonctions('card-label') }}</span>
+      expect(wrapper.find('.info-label').text()).toBe('Fonctions')
+    })
   })
 
   // --------------------------------------------------
   // CAS VIDE
   // --------------------------------------------------
-
-  it('ne rend rien si fonctions est vide', () => {
-    const emptyWrapper = mount(FonctionsList, {
-      props: {
-        fonctions: [],
-        userInfoApiUrl: '',
-        mceApi: '',
-      },
-
-      global: {
-        plugins: [i18n],
-
-        provide: {
-          [I18nInjectionKey as symbol]: i18n,
+  describe('cas vide', () => {
+    it('ne rend rien si fonctions est vide (v-if)', () => {
+      const emptyWrapper = mount(FonctionsList, {
+        props: { fonctions: [], userInfoApiUrl: '', mceApi: '' },
+        global: {
+          plugins: [i18n],
+          provide: { [I18nInjectionKey as symbol]: { global: i18n.global } },
         },
-      },
+      })
+      // v-if="fonctions?.length" → pas de section rendue
+      expect(emptyWrapper.find('.profile-card').exists()).toBe(false)
+    })
+  })
+
+  // --------------------------------------------------
+  // TOGGLE – SUCCÈS
+  // --------------------------------------------------
+  describe('toggle – succès', () => {
+    it('appelle updateFonctionDateFin avec le bon URL (supprime /mce/ du mceApi)', async () => {
+      vi.mocked(updateFonctionDateFin).mockResolvedValueOnce(undefined as any)
+
+      const checkbox = wrapper.findAll('.toggle-input')[1]
+      await checkbox.setValue(true)
+      await checkbox.trigger('change')
+
+      // mceApi = 'https://api.test.fr/mce/' → baseUrl = 'https://api.test.fr'
+      // fullUrl = 'https://api.test.fr/fonction/2/dateFin'
+      expect(updateFonctionDateFin).toHaveBeenCalledWith(
+        'https://api.test.fr/fonction/2/dateFin',
+        true,
+        'https://api.test.fr/userinfo',
+      )
+    })
+  })
+
+  // --------------------------------------------------
+  // TOGGLE – ERREUR (ROLLBACK)
+  // --------------------------------------------------
+  describe('toggle – erreur et rollback', () => {
+    it('restaure la valeur précédente si l\'API échoue', async () => {
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+      vi.mocked(updateFonctionDateFin).mockRejectedValueOnce(new Error('fail'))
+
+      const checkbox = wrapper.findAll('.toggle-input')[0]
+      const initialChecked = (checkbox.element as HTMLInputElement).checked // true
+
+      await checkbox.setValue(!initialChecked)
+      await checkbox.trigger('change')
+      await wrapper.vm.$nextTick()
+      await wrapper.vm.$nextTick()
+
+      const updated = wrapper.findAll('.toggle-input')[0]
+      expect((updated.element as HTMLInputElement).checked).toBe(initialChecked)
+
+      consoleSpy.mockRestore()
     })
 
-    expect(emptyWrapper.find('.section-fonction').exists())
-      .toBe(false)
-  })
-
-  // --------------------------------------------------
-  // TOGGLE SUCCESS
-  // --------------------------------------------------
-
-  it('appelle l’API avec le bon identifiant numérique', async () => {
-    const checkbox = wrapper.findAll('.toggle-input')[1]
-
-    await checkbox.setValue(true)
-    await checkbox.trigger('change')
-
-    expect(updateFonctionDateFin).toHaveBeenCalledWith(
-      'https://api.test.fr/fonction/2/dateFin',
-      true,
-      'https://api.test.fr/userinfo',
-    )
-  })
-
-  // --------------------------------------------------
-  // TOGGLE ERROR
-  // --------------------------------------------------
-
-  it('rollback la valeur si erreur API', async () => {
-    const consoleSpy = vi
-      .spyOn(console, 'error')
-      .mockImplementation(() => {})
-
-    vi.mocked(updateFonctionDateFin)
-      .mockRejectedValueOnce(new Error('fail'))
-
-    const checkbox = wrapper.findAll('.toggle-input')[0]
-
-    const initialValue = (
-      checkbox.element as HTMLInputElement
-    ).checked
-
-    await checkbox.setValue(!initialValue)
-
-    await checkbox.trigger('change')
-
-    await wrapper.vm.$nextTick()
-    await wrapper.vm.$nextTick()
-
-    const updatedCheckbox = wrapper.findAll('.toggle-input')[0]
-
-    expect(
-      (updatedCheckbox.element as HTMLInputElement).checked,
-    ).toBe(initialValue)
-
-    consoleSpy.mockRestore()
-  })
-
-  // --------------------------------------------------
-  // I18N ABSENT
-  // --------------------------------------------------
-
-  it('fallback i18n si absent', () => {
-    const warnSpy = vi
-      .spyOn(console, 'warn')
-      .mockImplementation(() => {})
-
-    const noI18nWrapper = mount(FonctionsList, {
-      props,
-
-      global: {
-        provide: {},
-      },
+    it('log une erreur si idFonction est absent', async () => {
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+      const wrapperNoId = mount(FonctionsList, {
+        props: {
+          fonctions: [createFonction({ idFonction: undefined as any })],
+          userInfoApiUrl: '',
+          mceApi: '',
+        },
+        global: {
+          plugins: [i18n],
+          provide: { [I18nInjectionKey as symbol]: { global: i18n.global } },
+        },
+      })
+      const checkbox = wrapperNoId.find('.toggle-input')
+      await checkbox.setValue(true)
+      await checkbox.trigger('change')
+      expect(consoleSpy).toHaveBeenCalledWith('Missing idFonction', expect.anything())
+      consoleSpy.mockRestore()
     })
+  })
 
-    expect(noI18nWrapper.find('.titre').text())
-      .toBe('title-fonction')
-
-    expect(noI18nWrapper.find('.card-label').text())
-      .toBe('card-label')
-
-    warnSpy.mockRestore()
+  // --------------------------------------------------
+  // SANS I18N
+  // --------------------------------------------------
+  describe('sans i18n', () => {
+    it('renvoie les clés brutes si i18n est absent', () => {
+      const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+      const noI18nWrapper = mount(FonctionsList, {
+        props,
+        global: { provide: {} },
+      })
+      // tGeneral sans i18n retourne la clé : 'title-fonction'
+      expect(noI18nWrapper.find('h3').text()).toBe('title-fonction')
+      // tFonctions sans i18n retourne : 'card-label'
+      expect(noI18nWrapper.find('.info-label').text()).toBe('card-label')
+      warnSpy.mockRestore()
+    })
   })
 })
