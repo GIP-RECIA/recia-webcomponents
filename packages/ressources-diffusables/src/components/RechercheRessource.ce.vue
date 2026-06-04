@@ -15,7 +15,7 @@
 -->
 
 <script setup lang="ts">
-import debounce from 'lodash.debounce'
+import { debounce } from 'lodash-es'
 import { ref, watch } from 'vue'
 import i18n from '@/plugins/i18n'
 import { RechercheFilter } from '@/utils/RechercheFilter'

@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import type { DistributeursCom } from '@/types/disctibuteurComType'
 import type { Ressource } from '@/types/ressourceType'
-import debounce from 'lodash.debounce'
+import { debounce } from 'lodash-es'
 import { onMounted, ref } from 'vue'
 import i18n from '@/plugins/i18n'
 
