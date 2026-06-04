@@ -33,6 +33,7 @@ export default ({ mode }: ConfigEnv) => {
     server: {
       allowedHosts: JSON.parse(VITE_ALLOWED_HOSTS ?? '[]'),
     },
+    publicDir: mode === 'development' ? undefined : false,
     plugins: [
       vue({
         template: {
