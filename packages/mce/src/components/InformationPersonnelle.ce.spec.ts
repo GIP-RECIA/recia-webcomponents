@@ -77,7 +77,6 @@ describe('informationPersonnelle', () => {
   // --------------------------------------------------
   describe('rendu des données et labels', () => {
     it('affiche le titre dans un h3', () => {
-      // Template : <h3>{{ tUser('informations-personnelles') }}</h3>
       expect(wrapper.find('h3').text()).toBe('Informations personnelles')
     })
 
@@ -102,7 +101,6 @@ describe('informationPersonnelle', () => {
           provide: { [I18nInjectionKey as symbol]: { global: i18n.global } },
         },
       })
-      // uid='' → '—', nom absent → '—', prenom absent → '—', dateNaissance absent → '—'
       const ddValues = wrapperEmpty.findAll('dd.info-value').map(el => el.text())
       ddValues.forEach(val => expect(val).toBe('—'))
     })
@@ -122,8 +120,8 @@ describe('informationPersonnelle', () => {
   // GESTION DES DROITS (canModifyEmail)
   // --------------------------------------------------
   describe('gestion des droits (canModifyEmail)', () => {
-    it('affiche le bouton "Modifier" si canModifyEmail est false', () => {
-      // Template : v-if="!props.canModifyEmail" → bouton .btn-primary affiché
+    it('affiche le bouton "Modifier" si canModifyEmail est false et le panneau est fermé', () => {
+      // v-if="!isEmailOpen && !props.canModifyEmail" → bouton visible initialement
       const btn = wrapper.find('.btn-primary')
       expect(btn.exists()).toBe(true)
       expect(btn.text()).toBe('Modifier')
@@ -138,6 +136,7 @@ describe('informationPersonnelle', () => {
           provide: { [I18nInjectionKey as symbol]: { global: i18n.global } },
         },
       })
+      // canModifyEmail=true → !canModifyEmail est false → bouton masqué
       expect(wrapperNoModify.find('.btn-primary').exists()).toBe(false)
     })
   })
@@ -146,26 +145,29 @@ describe('informationPersonnelle', () => {
   // OUVERTURE ET FERMETURE DU PANNEAU
   // --------------------------------------------------
   describe('ouverture et fermeture du panneau email', () => {
-    it('ouvre le panneau au premier clic et bascule le texte du bouton sur "Annuler"', async () => {
+    it('ouvre le panneau au premier clic et masque le bouton', async () => {
+      // v-if="!isEmailOpen && !props.canModifyEmail" :
+      // après le clic isEmailOpen=true → le bouton disparaît
       const btn = wrapper.find('.btn-primary')
       await btn.trigger('click')
       expect(wrapper.find('.edit-section-panel').exists()).toBe(true)
-      expect(btn.text()).toBe('Annuler')
+      expect(wrapper.find('.btn-primary').exists()).toBe(false)
     })
 
-    it('ferme le panneau au second clic et remet "Modifier"', async () => {
-      const btn = wrapper.find('.btn-primary')
-      await btn.trigger('click')
-      await btn.trigger('click')
-      expect(wrapper.find('.edit-section-panel').exists()).toBe(false)
-      expect(btn.text()).toBe('Modifier')
-    })
-
-    it('ferme le panneau sur réception de l\'événement "close" émis par ChangeEmail', async () => {
+    it('ferme le panneau sur réception de l\'événement "close" émis par ChangeEmail et réaffiche le bouton "Modifier"', async () => {
       await wrapper.find('.btn-primary').trigger('click')
+      // Le panneau est ouvert, le bouton est masqué
+      expect(wrapper.find('.edit-section-panel').exists()).toBe(true)
+      expect(wrapper.find('.btn-primary').exists()).toBe(false)
+
+      // ChangeEmail émet "close" → isEmailOpen = false
       await wrapper.findComponent(ChangeEmail).vm.$emit('close')
       await nextTick()
+
       expect(wrapper.find('.edit-section-panel').exists()).toBe(false)
+      // Le bouton réapparaît avec le texte "Modifier"
+      expect(wrapper.find('.btn-primary').exists()).toBe(true)
+      expect(wrapper.find('.btn-primary').text()).toBe('Modifier')
     })
   })
 
@@ -176,19 +178,24 @@ describe('informationPersonnelle', () => {
     it('met à jour l\'email affiché et émet "emailUpdated" lors de la réussite', async () => {
       await wrapper.find('.btn-primary').trigger('click')
       const fakeMail = 'nouveau@recia.fr'
+
+      // ChangeEmail émet "updated" → handleEmailUpdated appelé
       await wrapper.findComponent(ChangeEmail).vm.$emit('updated', fakeMail)
       await nextTick()
 
-      // L'email courant est dans .info-value--bold (currentEmail)
       expect(wrapper.find('.info-value--bold').text()).toBe(fakeMail)
       expect(wrapper.emitted('emailUpdated')?.[0]).toEqual([fakeMail])
     })
 
-    it('ferme le panneau après handleEmailUpdated', async () => {
+    it('ferme le panneau et réaffiche le bouton "Modifier" après handleEmailUpdated', async () => {
       await wrapper.find('.btn-primary').trigger('click')
       await wrapper.findComponent(ChangeEmail).vm.$emit('updated', 'test@test.fr')
       await nextTick()
+
       expect(wrapper.find('.edit-section-panel').exists()).toBe(false)
+      // isEmailOpen repasse à false → bouton visible à nouveau
+      expect(wrapper.find('.btn-primary').exists()).toBe(true)
+      expect(wrapper.find('.btn-primary').text()).toBe('Modifier')
     })
 
     it('actualise l\'email affiché via le watcher props.userMail', async () => {
@@ -200,7 +207,7 @@ describe('informationPersonnelle', () => {
     it('ignore une mise à jour vide dans le watcher (garde la valeur précédente)', async () => {
       await wrapper.setProps({ userMail: '' })
       await nextTick()
-      // La valeur initiale 'jean.dupont@recia.fr' doit rester (watch ignore les falsy)
+      // watch ignore les valeurs falsy → 'jean.dupont@recia.fr' reste
       expect(wrapper.find('.info-value--bold').text()).toBe('jean.dupont@recia.fr')
     })
   })

@@ -116,7 +116,7 @@ function handleEmailUpdated(email: string) {
         </div>
 
         <button
-          v-if="!props.canModifyEmail"
+          v-if="!isEmailOpen && !props.canModifyEmail"
           class="btn-primary small"
           @click="toggleEmail"
         >
