@@ -138,9 +138,9 @@ onMounted(async () => {
 })
 
 function select(payload: CustomEvent) {
-  const getOnglet = payload.detail[0]
-  if (getOnglet !== ongletCurrent.value) {
-    ongletCurrent.value = getOnglet
+  const onglet = Array.isArray(payload.detail) ? payload.detail[0] : payload.detail
+  if (onglet !== ongletCurrent.value) {
+    ongletCurrent.value = onglet
   }
 }
 
@@ -152,12 +152,7 @@ function handleCloseChangeEmail() {
   showChangeEmail.value = false
 }
 
-function handleEmailUpdated(event: any) {
-  const value = event?.detail ?? event
-
-  const email
-    = Array.isArray(value) ? value[0] : value
-
+function handleEmailUpdated(email: string) {
   mce.value = {
     ...mce.value,
     userMail: email,
@@ -220,7 +215,7 @@ function handleAvatarUpdated() {
             :mdp="mce.mdp"
             @open-change-email="handleOpenChangeEmail"
             @close-change-email="handleCloseChangeEmail"
-            @email-updated="(e: { detail: string; }) => handleEmailUpdated(e.detail)"
+            @email-updated="handleEmailUpdated"
           />
         </div>
       </main>
