@@ -102,7 +102,6 @@ defineEmits<{
           :relation-eleve="relationEleve"
           :apprentis="apprentis"
           :user-info-api-url="userInfoApiUrl"
-          :can-modify-email="canModifyEmail"
         />
       </div>
 
