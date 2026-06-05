@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import type { PersonneFonction } from '@/types/fonctionType'
-import { inject } from 'vue'
+import { inject, ref, watch } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 import { updateFonctionDateFin } from '@/services/serviceMce.ts'
 
@@ -29,6 +29,13 @@ const props = defineProps<{
 }>()
 
 const MCE_SUFFIX = /\/mce\/?$/
+
+const localFonctions = ref(props.fonctions.map(f => ({ ...f })))
+
+watch(
+  () => props.fonctions,
+  (val) => { localFonctions.value = val.map(f => ({ ...f })) },
+)
 
 const i18n = inject(I18nInjectionKey)
 function tFonctions(key: string): string {
@@ -62,14 +69,14 @@ async function onToggle(it: PersonneFonction): Promise<void> {
 </script>
 
 <template>
-  <section v-if="fonctions?.length" class="profile-card">
+  <section v-if="localFonctions?.length" class="profile-card">
     <header class="card-header">
       <h3>{{ tGeneral('title-fonction') }}</h3>
     </header>
 
     <div class="card-body">
       <div class="grid-fonctions">
-        <div v-for="(it, index) in fonctions" :key="index" class="card-fonction">
+        <div v-for="(it, index) in localFonctions" :key="index" class="card-fonction">
           <div class="fonction-header">
             <span class="info-label">{{ tFonctions('card-label') }}</span>
             <input
