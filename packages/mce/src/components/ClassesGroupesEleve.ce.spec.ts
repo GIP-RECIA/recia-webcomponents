@@ -77,7 +77,6 @@ describe('classesGroupesEleve', () => {
   // RENDU INITIAL
   // --------------------------------------------------
   describe('rendu initial', () => {
-    // Les titres sont dans des <h3>, pas <h2>
     it('affiche les titres des deux sections traduits correctement', () => {
       const headers = wrapper.findAll('h3').map(el => el.text())
       expect(headers).toContain('Mes classes et groupes pédagogiques')
@@ -96,7 +95,6 @@ describe('classesGroupesEleve', () => {
 
     it('affiche le nom de l\'établissement via info-value--bold', () => {
       const rows = wrapper.findAll('.etab-row-item')
-      // Le nom de l'étab est dans .info-value.info-value--bold
       expect(rows[0].find('.info-value--bold').text()).toBe('Lycée Jean Zay')
     })
 
@@ -109,11 +107,63 @@ describe('classesGroupesEleve', () => {
     })
 
     it('affiche la liste des matières suivies sous forme de badges .pill-tag', () => {
-      const pills = wrapper.findAll('.pill-tag').map(el => el.text())
+      const pills = wrapper.findAll('.enseignements-list .pill-tag').map(el => el.text())
       expect(pills).toHaveLength(3)
       expect(pills).toContain('Mathématiques')
       expect(pills).toContain('Physique-Chimie')
       expect(pills).toContain('Histoire-Géographie')
+    })
+  })
+
+  // --------------------------------------------------
+  // MULTI-VALEURS (correction bug [0])
+  // --------------------------------------------------
+  describe('affichage de toutes les classes et groupes', () => {
+    it('affiche toutes les classes d\'un établissement quand il y en a plusieurs', () => {
+      const i18n = createI18n({ locale: 'fr', messages })
+      const wrapperMulti = mount(ClassesGroupesEleve, {
+        props: {
+          etabs: [{
+            nameEtab: 'Lycée Test',
+            classes: ['2NDE 1', '2NDE 2', 'CPGE'],
+            groupes: ['ANGLAIS LV1', 'ESPAGNOL LV2'],
+          }] as Etabs[],
+          sectionEleve: { enseignementSuivis: [] } as unknown as SectionEleve,
+        },
+        global: {
+          plugins: [i18n],
+          provide: { [I18nInjectionKey as symbol]: { global: i18n.global } },
+        },
+      })
+      const row = wrapperMulti.find('.etab-row-item')
+      const classPills = row.findAll('.pills-list').at(0)!.findAll('.pill-tag').map(el => el.text())
+      expect(classPills).toHaveLength(3)
+      expect(classPills).toContain('2NDE 1')
+      expect(classPills).toContain('2NDE 2')
+      expect(classPills).toContain('CPGE')
+    })
+
+    it('affiche tous les groupes d\'un établissement quand il y en a plusieurs', () => {
+      const i18n = createI18n({ locale: 'fr', messages })
+      const wrapperMulti = mount(ClassesGroupesEleve, {
+        props: {
+          etabs: [{
+            nameEtab: 'Lycée Test',
+            classes: ['2NDE 1'],
+            groupes: ['ANGLAIS LV1', 'ESPAGNOL LV2'],
+          }] as Etabs[],
+          sectionEleve: { enseignementSuivis: [] } as unknown as SectionEleve,
+        },
+        global: {
+          plugins: [i18n],
+          provide: { [I18nInjectionKey as symbol]: { global: i18n.global } },
+        },
+      })
+      const row = wrapperMulti.find('.etab-row-item')
+      const groupPills = row.findAll('.pills-list').at(1)!.findAll('.pill-tag').map(el => el.text())
+      expect(groupPills).toHaveLength(2)
+      expect(groupPills).toContain('ANGLAIS LV1')
+      expect(groupPills).toContain('ESPAGNOL LV2')
     })
   })
 
@@ -123,12 +173,28 @@ describe('classesGroupesEleve', () => {
   describe('gestion des valeurs vides ou manquantes', () => {
     it('affiche un tiret si la liste des groupes est vide', () => {
       const rows = wrapper.findAll('.etab-row-item')
-      // Collège Albert Camus a groupes: [] → affiche '—'
       expect(rows[1].find('.info-value--bold').text()).toBe('Collège Albert Camus')
-      // Les .info-value dans la ligne incluent la classe et '—' pour le groupe
-      const values = rows[1].findAll('.info-value').map(el => el.text())
-      expect(values).toContain('3EME 2')
-      expect(values).toContain('—')
+      const groupPillsList = rows[1].findAll('.pills-list').at(1)!
+      expect(groupPillsList.find('.pill-tag').exists()).toBe(false)
+      expect(groupPillsList.find('.info-value').text()).toBe('—')
+    })
+
+    it('affiche un tiret si la liste des classes est vide', () => {
+      const i18n = createI18n({ locale: 'fr', messages })
+      const wrapperEmpty = mount(ClassesGroupesEleve, {
+        props: {
+          etabs: [{ nameEtab: 'Lycée Test', classes: [], groupes: [] }] as Etabs[],
+          sectionEleve: { enseignementSuivis: [] } as unknown as SectionEleve,
+        },
+        global: {
+          plugins: [i18n],
+          provide: { [I18nInjectionKey as symbol]: { global: i18n.global } },
+        },
+      })
+      const row = wrapperEmpty.find('.etab-row-item')
+      const classPillsList = row.findAll('.pills-list').at(0)!
+      expect(classPillsList.find('.pill-tag').exists()).toBe(false)
+      expect(classPillsList.find('.info-value').text()).toBe('—')
     })
 
     it('affiche un tiret de secours si la liste des enseignements suivis est vide', () => {
@@ -143,7 +209,7 @@ describe('classesGroupesEleve', () => {
           provide: { [I18nInjectionKey as symbol]: { global: i18n.global } },
         },
       })
-      expect(wrapperEmpty.find('.pill-tag').exists()).toBe(false)
+      expect(wrapperEmpty.find('.enseignements-list .pill-tag').exists()).toBe(false)
       expect(wrapperEmpty.find('.enseignements-list').text()).toBe('—')
     })
 
@@ -156,7 +222,7 @@ describe('classesGroupesEleve', () => {
           provide: { [I18nInjectionKey as symbol]: { global: i18n.global } },
         },
       })
-      expect(wrapperUndefined.find('.pill-tag').exists()).toBe(false)
+      expect(wrapperUndefined.find('.enseignements-list .pill-tag').exists()).toBe(false)
       expect(wrapperUndefined.find('.enseignements-list').text()).toBe('—')
     })
   })
@@ -171,9 +237,7 @@ describe('classesGroupesEleve', () => {
         props: defaultProps,
         global: { provide: {} },
       })
-      // Sans i18n, tGeneral retourne la clé brute
       expect(wrapperNoI18n.find('h3').text()).toBe('title-classe-groupe')
-      // tEleve retourne 'etablissement'
       expect(wrapperNoI18n.find('.info-label').text()).toBe('etablissement')
       warnSpy.mockRestore()
     })

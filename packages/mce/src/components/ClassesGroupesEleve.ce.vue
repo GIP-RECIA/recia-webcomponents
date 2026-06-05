@@ -50,14 +50,21 @@ function tGeneral(key: string): string {
           </div>
 
           <div class="classes-data-group">
+            <div>jndazjndkj</div>
             <div class="info-item">
               <span class="info-label">{{ tGeneral('class') }}</span>
-              <span class="info-value">{{ classgroup.classes[0] || '—' }}</span>
+              <div class="pills-list">
+                <span v-for="(cls, i) in classgroup.classes" :key="i" class="pill-tag">{{ cls }}</span>
+                <span v-if="!classgroup.classes?.length" class="info-value">—</span>
+              </div>
             </div>
 
             <div class="info-item">
               <span class="info-label">{{ tGeneral('group') }}</span>
-              <span class="info-value">{{ classgroup.groupes[0] || '—' }}</span>
+              <div class="pills-list">
+                <span v-for="(grp, i) in classgroup.groupes" :key="i" class="pill-tag">{{ grp }}</span>
+                <span v-if="!classgroup.groupes?.length" class="info-value">—</span>
+              </div>
             </div>
           </div>
         </div>
@@ -185,10 +192,18 @@ function tGeneral(key: string): string {
 .classes-data-group {
   display: flex;
   gap: 1.5rem;
+  flex-wrap: wrap;
 
   @media (width >= map.get($grid-breakpoints, sm)) {
     gap: 3rem;
   }
+}
+
+.pills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 2px;
 }
 
 .enseignements-row {
