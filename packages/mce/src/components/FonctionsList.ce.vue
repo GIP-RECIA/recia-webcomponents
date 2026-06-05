@@ -28,6 +28,8 @@ const props = defineProps<{
   mceApi: string
 }>()
 
+const MCE_SUFFIX = /\/mce\/?$/
+
 const i18n = inject(I18nInjectionKey)
 function tFonctions(key: string): string {
   return i18n ? (i18n.global.t as (k: string) => string)(`fonctions-list.${key}`) : key
@@ -48,8 +50,7 @@ async function onToggle(it: PersonneFonction): Promise<void> {
   const previous = !newValue
 
   try {
-    // eslint-disable-next-line e18e/prefer-static-regex
-    const baseUrl = props.mceApi.replace(/\/mce\/?$/, '')
+    const baseUrl = props.mceApi.replace(MCE_SUFFIX, '')
     const fullUrl = `${baseUrl}/fonction/${id}/dateFin`
     await updateFonctionDateFin(fullUrl, newValue, props.userInfoApiUrl)
   }

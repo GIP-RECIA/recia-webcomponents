@@ -33,6 +33,9 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{ (e: 'avatarUpdated'): void }>()
+
+const TRAILING_SLASH = /\/$/
+
 const i18n = inject(I18nInjectionKey)
 
 function t(key: string): string {
@@ -127,8 +130,7 @@ async function applyCrop() {
     )
     const file = new File([blob], selectedFile.value.name, { type: 'image/jpeg' })
 
-    // eslint-disable-next-line e18e/prefer-static-regex
-    const baseUrl = props.mceApi.replace(/\/$/, '')
+    const baseUrl = props.mceApi.replace(TRAILING_SLASH, '')
     await updateAvatar(props.user, file, baseUrl, props.userInfoApiUrl)
     message.value = t('success')
     messageType.value = 'success'
