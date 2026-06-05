@@ -141,7 +141,8 @@ function handleEmailUpdated(event: CustomEvent<string[]>) {
 }
 
 function handleAvatarUpdated() {
-  avatar.value = `${mce.value.avatar}?t=${Date.now()}`
+  const baseAvatar = avatar.value.split('?')[0]
+  avatar.value = `${baseAvatar}?t=${Date.now()}`
 }
 </script>
 
