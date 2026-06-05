@@ -98,8 +98,6 @@ onMounted(async () => {
     const res = await getMCE(props.mceApi, props.userInfoApiUrl)
     mce.value = res.data
 
-    ongletCurrent.value = mce.value.listMenu[0]
-
     listOnglets.value = [
       'GENERALE',
       ...(mce.value.fonctionClassesGroupe?.listFonctions?.length > 0
@@ -107,6 +105,8 @@ onMounted(async () => {
         : []),
       ...(mce.value.mdp === true ? [] : ['CHANGE_PASSWORD']),
     ]
+
+    ongletCurrent.value = listOnglets.value[0]
 
     avatar.value = mce.value.avatar ?? props.avatarDefault
 
