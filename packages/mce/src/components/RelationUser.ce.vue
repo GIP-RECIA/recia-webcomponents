@@ -13,8 +13,8 @@
 
 <script setup lang="ts">
 import type { Relation } from '@/types/relationType'
-import { computed, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
+import { computed, inject, ref } from 'vue'
+import { I18nInjectionKey } from 'vue-i18n'
 import { getDetailEnfant } from '@/services/serviceMce'
 import RelationUserDetail from './RelationUserDetail.ce.vue'
 
@@ -30,8 +30,10 @@ const props = withDefaults(defineProps<{
   details: () => [],
 })
 
-const { t } = useI18n()
-const m = (key: string): string => t(`relation-user.${key}`)
+const i18n = inject(I18nInjectionKey)
+function m(key: string): string {
+  return i18n ? (i18n.global.t as (k: string) => string)(`relation-user.${key}`) : key
+}
 
 const relations = computed(() => props.details ?? [])
 
