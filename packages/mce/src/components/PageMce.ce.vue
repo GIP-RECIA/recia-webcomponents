@@ -132,7 +132,8 @@ function handleCloseChangeEmail() {
   showChangeEmail.value = false
 }
 
-function handleEmailUpdated(email: string) {
+function handleEmailUpdated(event: CustomEvent<string[]>) {
+  const email = Array.isArray(event.detail) ? event.detail[0] : event.detail
   mce.value = {
     ...mce.value,
     userMail: email,
