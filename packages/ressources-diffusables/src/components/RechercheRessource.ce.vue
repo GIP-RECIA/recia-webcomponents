@@ -165,16 +165,16 @@ const recommencerRechercheAvancee = debounce(
 </template>
 
 <style lang="scss">
-@use '@/assets/main.scss' as *;
+@use '@/assets/scss/global.scss' as *;
 
 .cadre {
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 16px;
-  background-color: $body-bg;
+  background-color: var(--#{$prefix}body-bg);
   border-radius: 10px;
-  box-shadow: $shadow-neutral;
+  box-shadow: var(--#{$prefix}shadow-neutral) HEXToRGBA($black, 0.1);
   margin-bottom: 24px;
 }
 
@@ -189,7 +189,7 @@ const recommencerRechercheAvancee = debounce(
 .toggle-checkbox {
   width: 1.5em;
   height: 1.5em;
-  accent-color: $primary;
+  accent-color: var(--#{$prefix}primary);
   margin-left: 8px;
 }
 
@@ -206,7 +206,7 @@ const recommencerRechercheAvancee = debounce(
   font-size: small;
   font-weight: bold;
   outline: none;
-  border: thin solid $stroke;
+  border: thin solid var(--#{$prefix}stroke);
   border-right: none;
   border-radius: 8px 0 0 8px;
 }
@@ -217,17 +217,17 @@ const recommencerRechercheAvancee = debounce(
   align-items: center;
   padding: 8px;
   background-color: transparent;
-  color: $body-color;
-  border: thin solid $stroke;
+  color: var(--#{$prefix}body);
+  border: thin solid var(--#{$prefix}stroke);
   border-left: none;
   border-radius: 0 8px 8px 0;
-  border-color: $stroke;
+  border-color: var(--#{$prefix}stroke);
   cursor: pointer;
 }
 
 .reinitialiser-recherche-ressource:disabled {
   background-color: transparent;
-  color: $stroke;
+  color: var(--#{$prefix}stroke);
   cursor: not-allowed;
 }
 

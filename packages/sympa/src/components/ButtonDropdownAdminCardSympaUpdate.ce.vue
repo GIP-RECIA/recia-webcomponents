@@ -165,12 +165,7 @@ function closeList(): void {
 </template>
 
 <style lang="scss">
-@use 'ress/dist/ress.min.css';
-@use '@gip-recia/ui/core/variables' as *;
-@use '@gip-recia/ui/core/typo' as *;
-@use '@gip-recia/ui/functions' as *;
-@use '@gip-recia/ui/mixins' as *;
-@use '@gip-recia/ui/global';
+@use '@/assets/scss/global.scss' as *;
 @use '@gip-recia/ui/components';
 
 .dropdown {

@@ -118,6 +118,8 @@ function sendUpdateFavorite(event: CustomEvent) {
 </template>
 
 <style lang="scss">
+@use '@/assets/scss/global.scss' as *;
+
 .cadre-liste-ressources-mediacentre {
   height: auto;
   box-sizing: border-box;

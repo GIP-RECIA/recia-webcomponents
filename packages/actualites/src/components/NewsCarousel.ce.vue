@@ -133,7 +133,7 @@ function closeModal() {
         </h2>
         <div class="carousel-header-see-all-news computer">
           <a
-            class="carousel-header-see-all-news-button"
+            class="btn-tertiary"
             :href="allNewsPageUrl"
             @click="dnmaService.openAll(props.dnmaFname)"
           >
@@ -165,6 +165,7 @@ function closeModal() {
           <button
             :aria-label="t('button.prev')"
             :disabled="currentIndex === 0"
+            class="btn-primary circle"
             @click="prev"
           >
             <font-awesome-icon icon="fa-solid fa-arrow-left" />
@@ -200,6 +201,7 @@ function closeModal() {
           <button
             :aria-label="t('button.next')"
             :disabled="currentIndex >= (result?.actualite?.items?.length ?? 0) - 3"
+            class="btn-primary circle"
             @click="next"
           >
             <font-awesome-icon icon="fa-solid fa-arrow-right" />
@@ -209,8 +211,9 @@ function closeModal() {
 
       <div class="carousel-header-see-all-news mobile">
         <a
-          class="carousel-header-see-all-news-button"
+          class="btn-tertiary"
           :href="allNewsPageUrl"
+          @click="dnmaService.openAll(props.dnmaFname)"
         >
           {{ t('text.normal.see-all-news') }}
           <font-awesome-icon icon="fa-solid fa-arrow-right" />
@@ -231,7 +234,7 @@ function closeModal() {
 </template>
 
 <style lang="scss">
-@use '@/assets/global.scss' as *;
+@use '@/assets/scss/global.scss' as *;
 
 .carousel {
   display: flex;
@@ -252,10 +255,6 @@ function closeModal() {
       &.computer {
         display: none;
       }
-
-      &-button {
-        @extend %button-tertiary;
-      }
     }
   }
 
@@ -267,7 +266,7 @@ function closeModal() {
   }
 
   .empty {
-    background-color: $basic-grey;
+    background-color: var(--#{$prefix}basic-grey);
     border-radius: 10px;
     display: flex;
     height: 175px;
@@ -290,7 +289,6 @@ function closeModal() {
     display: none;
 
     > button {
-      @extend %button-primary-circle;
       width: 42px;
       height: 42px;
       position: absolute;
@@ -298,6 +296,8 @@ function closeModal() {
       bottom: 0;
       margin-top: auto;
       margin-bottom: auto;
+      align-items: center;
+      justify-content: center;
     }
 
     &.left > button {

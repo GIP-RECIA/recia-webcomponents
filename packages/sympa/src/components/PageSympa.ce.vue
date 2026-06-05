@@ -106,6 +106,8 @@ const displayWarning = computed<boolean>(() => {
 </template>
 
 <style lang="scss">
+@use '@/assets/scss/global.scss' as *;
+
 filter-sympa {
   display: block;
   margin-bottom: 20px;

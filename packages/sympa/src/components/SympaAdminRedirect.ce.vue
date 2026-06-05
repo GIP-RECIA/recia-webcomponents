@@ -47,6 +47,9 @@ onMounted(() => {
 </template>
 
 <style lang="scss">
+@use '@/assets/scss/global.scss' as *;
+@use '@gip-recia/ui/components/buttons';
+
 a {
   text-decoration: none;
   color: var(--recia-primary, #0062bc);

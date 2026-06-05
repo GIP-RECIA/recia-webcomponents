@@ -109,7 +109,7 @@ function docSizeToUse() {
 </template>
 
 <style lang="scss">
-@use '@/assets/global.scss' as *;
+@use '@/assets/scss/global.scss' as *;
 
 article {
   position: relative;
@@ -119,7 +119,7 @@ article {
   height: 138px;
   width: auto;
   flex-direction: row;
-  box-shadow: $shadow-neutral rgba(0, 0, 0, 0.1);
+  box-shadow: var(--#{$prefix}shadow-neutral) rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition:
     outline 0.15s ease-out,
@@ -148,7 +148,7 @@ article {
   }
 
   &:not(.active) {
-    background-color: $basic-grey;
+    background-color: var(--#{$prefix}basic-grey);
     box-shadow: unset;
 
     &:hover {
@@ -200,7 +200,7 @@ article {
       flex-shrink: 0;
       display: flex;
       font-family: $dm-sans;
-      color: $basic-black;
+      color: var(--#{$prefix}basic-black);
       font-size: 12px;
       opacity: 50%;
       justify-content: space-between;
@@ -214,7 +214,7 @@ article {
     .infos {
       display: flex;
       font-family: $dm-sans;
-      color: $basic-black;
+      color: var(--#{$prefix}basic-black);
       font-size: 12px;
       opacity: 75%;
       justify-content: space-between;
@@ -241,34 +241,34 @@ article {
     height: 170px;
 
     h3 {
-      color: $basic-black;
+      color: var(--#{$prefix}basic-black);
     }
   }
 
   &:has(h3 > button:hover),
   &:focus-visible,
   &:has(:focus-visible) {
-    outline: 2px solid $primary;
-    box-shadow: $shadow-hover $primary-20;
+    outline: 2px solid var(--#{$prefix}primary);
+    box-shadow: var(--#{$prefix}shadow-hover) var(--#{$prefix}primary-20);
 
     .image {
       transform: scale(1.3);
     }
 
     &:not(.active) {
-      outline: 2px solid $lighter-black;
+      outline: 2px solid var(--#{$prefix}lighter-black);
       box-shadow: unset;
     }
 
     h3 {
-      color: $primary;
+      color: var(--#{$prefix}primary);
     }
   }
 
   @media (hover: none) or (pointer: coarse) {
     &.pageOrigin.active h3,
     &.active h3 {
-      color: $primary;
+      color: var(--#{$prefix}primary);
     }
   }
 }

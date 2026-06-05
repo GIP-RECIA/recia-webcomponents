@@ -137,6 +137,8 @@ function toggleFavoris(): void {
 </template>
 
 <style lang="scss">
+@use '@/assets/scss/global.scss' as *;
+
 .cadre-carte-ressource-mediacentre {
   display: flex;
   flex-direction: column;

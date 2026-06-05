@@ -21,7 +21,7 @@ import fr from '@/locales/fr.json'
 export default createI18n({
   legacy: false,
   locale: window.navigator.language,
-  fallbackLocale: 'en',
+  fallbackLocale: 'fr',
   messages: {
     en,
     'en-US': en,

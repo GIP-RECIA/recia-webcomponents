@@ -47,7 +47,7 @@ const {
 
 <style lang="scss">
 @use 'sass:map';
-@use '@/assets/global.scss' as *;
+@use '@/assets/scss/global.scss' as *;
 
 #app {
   width: 100%;

@@ -149,7 +149,7 @@ function select(payload: CustomEvent, isBoolean: boolean) {
 </template>
 
 <style lang="scss">
-@use '../assets/base.scss' as *;
+@use '@/assets/scss/global.scss' as *;
 
 #app {
   display: flex;

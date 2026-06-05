@@ -14,32 +14,10 @@
  * limitations under the License.
  */
 
-@forward 'variables';
+@use 'ress/dist/ress.min.css';
 
-@use 'resset';
-@use 'typo';
-@use 'buttons';
-
-* {
-  box-sizing: border-box;
-}
-
-h1,
-.h1 {
-  @extend %h1;
-}
-
-h2,
-.h2 {
-  @extend %h2;
-}
-
-h3,
-.h3 {
-  @extend %h3;
-}
-
-h4,
-.h4 {
-  @extend %h4;
-}
+@forward '@gip-recia/ui/core/variables';
+@forward '@gip-recia/ui/core/typo';
+@forward '@gip-recia/ui/functions';
+@forward '@gip-recia/ui/mixins';
+@forward '@gip-recia/ui/global';

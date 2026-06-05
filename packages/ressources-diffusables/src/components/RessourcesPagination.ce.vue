@@ -192,7 +192,7 @@ function labelFromPaginationNumber(paginationNumber: PaginationNumber): string |
 </template>
 
 <style lang="scss">
-@use '@/assets/main.scss' as *;
+@use '@/assets/scss/global.scss' as *;
 
 button {
   height: 25px;

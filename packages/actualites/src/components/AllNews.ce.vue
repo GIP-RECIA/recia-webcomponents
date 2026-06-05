@@ -147,7 +147,7 @@ function closeModal() {
       <div class="allNews-header">
         <div class="allNews-header-title">
           <a
-            class="allNews-header-title-button"
+            class="btn-tertiary circle"
             :href="backUrl"
             title="Retour à l'acceuil"
           >
@@ -233,7 +233,7 @@ function closeModal() {
 </template>
 
 <style lang="scss">
-@use '@/assets/global.scss' as *;
+@use '@/assets/scss/global.scss' as *;
 
 .allNews {
   display: flex;
@@ -248,16 +248,12 @@ function closeModal() {
     justify-items: center;
 
     &-title {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 1em;
-      padding-top: 1em;
-      padding-bottom: 1em;
+      gap: 16px;
 
-      &-button {
-        @extend %button-tertiary-circle;
-        font-size: 16px; // 1rem
+      > a {
+        font-size: var(--recia-font-size-md);
       }
     }
   }

@@ -76,10 +76,7 @@ const filteredListLength = computed<number>(() => {
 
 <style lang="scss">
 @use 'sass:map';
-@use 'ress/dist/ress.min.css';
-@use '@gip-recia/ui/core/variables' as *;
-@use '@gip-recia/ui/functions' as *;
-@use '@gip-recia/ui/mixins' as *;
+@use '@/assets/scss/global.scss' as *;
 
 .wrapper {
   display: grid !important;

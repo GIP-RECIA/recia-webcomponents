@@ -14,20 +14,23 @@
  * limitations under the License.
  */
 
-import { createApp } from 'vue'
-import { registerElements as registerCustomElements } from '@/ce'
-import { register as registerFontAwsome } from '@/plugins/fontawesome'
-import 'regenerator-runtime/runtime.js'
-import '@gip-recia/info-modal'
+@use 'sass:map';
+@use '@gip-recia/ui' as *;
 
-registerCustomElements()
-registerFontAwsome()
+@include dm-sans;
+@include sora;
 
-if (import.meta.env.DEV) {
-  import('@/assets/scss/dev.scss')
+html,
+body {
+  height: 100%;
+}
 
-  import('@/AppDev.vue').then(({ default: App }) => {
-    const app = createApp(App)
-    app.mount('#app')
-  })
+body {
+  background-color: var(--#{$prefix}body-bg);
+  font-family: $dm-sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: var(--#{$prefix}body-font-size);
+  letter-spacing: 0;
+  color: var(--#{$prefix}body);
 }

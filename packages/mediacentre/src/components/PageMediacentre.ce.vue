@@ -486,7 +486,9 @@ watch(() => displayedEtablissementUai.value, async (newUaiEtabDisplayed) => {
   </i18n-host>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@use '@/assets/scss/global.scss' as *;
+
 .spinner-container {
   display: flex;
   flex-direction: row;

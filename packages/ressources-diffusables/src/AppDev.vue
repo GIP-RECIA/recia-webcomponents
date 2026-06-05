@@ -14,6 +14,24 @@
  limitations under the License.
 -->
 
+<script setup lang="ts">
+const {
+  VITE_BASE_API_URL,
+  VITE_RESSOURCES_DIFFUSABLES_API_URI,
+  VITE_USER_INFO_API_URI,
+  VITE_RESOURCES_PER_PAGE_DEFAULT,
+} = import.meta.env
+</script>
+
 <template>
-  <div />
+  <ui-ressources-gar
+    :base-api-url="VITE_BASE_API_URL"
+    :ressources-diffusables-api-uri="VITE_RESSOURCES_DIFFUSABLES_API_URI"
+    :user-info-api-url="VITE_USER_INFO_API_URI"
+    :resources-per-page-default="VITE_RESOURCES_PER_PAGE_DEFAULT"
+  />
 </template>
+
+<style lang="scss">
+
+</style>

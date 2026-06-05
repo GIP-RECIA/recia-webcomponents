@@ -14,8 +14,18 @@
  * limitations under the License.
  */
 
+import { createApp } from 'vue'
 import { register as registerCustomElements } from '@/ce'
 import '@fortawesome/fontawesome-free/css/solid.css'
 import 'regenerator-runtime/runtime.js'
 
 registerCustomElements()
+
+if (import.meta.env.DEV) {
+  import('@/assets/scss/dev.scss')
+
+  import('@/AppDev.vue').then(({ default: App }) => {
+    const app = createApp(App)
+    app.mount('#app')
+  })
+}

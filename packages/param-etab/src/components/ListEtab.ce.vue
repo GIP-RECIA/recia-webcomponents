@@ -98,7 +98,7 @@ const filteredData = computed(() => filteredList())
 </template>
 
 <style lang="scss">
-@use '../assets/base.scss' as *;
+@use '@/assets/scss/global.scss' as *;
 
 .search-bar {
   background-color: white;

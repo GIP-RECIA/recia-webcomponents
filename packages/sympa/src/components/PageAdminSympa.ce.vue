@@ -192,6 +192,8 @@ async function initiateCloseListFromCard(event: CustomEvent): Promise<void> {
 </template>
 
 <style lang="scss">
+@use '@/assets/scss/global.scss' as *;
+
 .block {
   display: block;
 }

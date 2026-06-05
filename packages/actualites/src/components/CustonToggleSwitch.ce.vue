@@ -41,6 +41,7 @@ function setState(state: string) {
       :key="state"
     >
       <button
+        class="tag"
         :class="{ active: currentState === state }"
         @click="setState(state)"
       >
@@ -51,24 +52,25 @@ function setState(state: string) {
 </template>
 
 <style lang="scss">
-@use '@/assets/global.scss' as *;
+@use '@/assets/scss/global.scss' as *;
 
 ul {
   list-style-type: none;
   display: inline-flex;
-  background-color: rgba(from $basic-black r g b / 0.05);
+  background-color: rgba(from var(--#{$prefix}basic-black) r g b / 0.05);
   border-radius: 50px;
   padding: 4px;
+  margin-top: 16px;
   gap: 8px;
-
-  > li > button {
-    @extend %tag;
-  }
 }
 
 @media only screen and (width > 1024px) {
-  ul > li > button {
-    padding: 4px 12px;
+  ul {
+    margin-top: unset;
+
+    > li > button.tag {
+      padding: 4px 12px;
+    }
   }
 }
 </style>

@@ -273,6 +273,8 @@ function cropImage() {
 </template>
 
 <style lang="scss">
+@use '@/assets/scss/global.scss' as *;
+
 @import 'cropperjs/dist/cropper.css';
 
 .avatar-upload {
@@ -309,7 +311,7 @@ function cropImage() {
           font-family: 'FontAwesome';
           color: #757575;
           position: absolute;
-          top: 10px;
+          top: 7px;
           left: 0;
           right: 0;
           text-align: center;

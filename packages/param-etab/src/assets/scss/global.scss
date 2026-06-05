@@ -13,7 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 @use 'ress/dist/ress.min.css';
 
-@forward 'variables';
-@forward 'ent-ui';
+@forward '@gip-recia/ui/core/variables';
+@forward '@gip-recia/ui/core/typo';
+@forward '@gip-recia/ui/functions';
+@forward '@gip-recia/ui/mixins';
+@forward '@gip-recia/ui/global';

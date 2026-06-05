@@ -152,18 +152,18 @@ ${t('carte-ressource.editeur')}: ${props.ressource.editeur.nom}`
 </template>
 
 <style lang="scss">
-@use '@/assets/main.scss' as *;
+@use '@/assets/scss/global.scss' as *;
 
 .cadre-carte-ressource {
   text-align: left;
-  background-color: $body-bg;
+  background-color: var(--#{$prefix}body-bg);
   padding: 16px;
   border-radius: 10px;
-  box-shadow: $shadow-neutral;
+  box-shadow: var(--#{$prefix}shadow-neutral) HEXToRGBA($black, 0.1);
 }
 
 .nom-ressource-carte-ressource {
-  color: $primary;
+  color: var(--#{$prefix}primary);
 }
 
 .liste-attributs-ressource-carte-ressource {
@@ -173,17 +173,17 @@ ${t('carte-ressource.editeur')}: ${props.ressource.editeur.nom}`
 }
 
 .intitule-attribut-ressource-carte-ressource {
-  color: $body-color;
+  color: var(--#{$prefix}body);
   font-weight: bold;
 }
 
 .id-principal-ressource-carte-ressource {
-  color: $body-color;
+  color: var(--#{$prefix}body);
   word-wrap: break-word;
 }
 
 .id-attribut-ressource-carte-ressource {
-  color: $body-color;
+  color: var(--#{$prefix}body);
   opacity: 0.5;
   font-size: smaller;
   word-wrap: break-word;

@@ -14,19 +14,22 @@
  * limitations under the License.
  */
 
-import { createApp } from 'vue'
-import App from '@/AppDev.vue'
-import { registerElements as registerCustomElements } from '@/ce'
-import { register as registerFontAwsome } from '@/plugins/fontawesome'
-import i18n from '@/plugins/i18n'
-import 'regenerator-runtime/runtime.js'
-import '@gip-recia/info-modal'
+@use 'ress/dist/ress.min.css';
 
-const app = createApp(App)
+@forward '@gip-recia/ui/core/variables';
+@forward '@gip-recia/ui/core/typo';
+@forward '@gip-recia/ui/functions';
+@forward '@gip-recia/ui/mixins';
+@forward '@gip-recia/ui/global';
 
-registerCustomElements()
-registerFontAwsome()
+@forward '@gip-recia/ui/components/buttons';
+@forward '@gip-recia/ui/components/tags';
 
-app.use(i18n)
-
-app.mount('#app')
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0 !important;
+}

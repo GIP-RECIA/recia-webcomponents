@@ -22,7 +22,7 @@ import { findLanguage } from '@/utils/i18nUtils.ts'
 export default createI18n({
   legacy: false,
   locale: findLanguage('fr'),
-  fallbackLocale: 'en',
+  fallbackLocale: 'fr',
   messages: {
     en,
     'en-US': en,

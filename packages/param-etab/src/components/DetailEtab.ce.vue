@@ -194,7 +194,7 @@ onMounted((): void => initForm())
 </template>
 
 <style lang="scss">
-@use '../assets/base.scss' as *;
+@use '@/assets/scss/global.scss' as *;
 
 .warn {
   font-style: italic;

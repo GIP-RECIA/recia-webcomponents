@@ -23,10 +23,12 @@ import {
 
 function register() {
   library.add(
-    faMagnifyingGlass,
     faChevronDown,
+    faMagnifyingGlass,
     faXmark,
   )
 }
 
-export { register }
+export {
+  register,
+}
