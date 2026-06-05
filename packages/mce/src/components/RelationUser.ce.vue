@@ -35,6 +35,8 @@ function m(key: string): string {
   return i18n ? (i18n.global.t as (k: string) => string)(`relation-user.${key}`) : key
 }
 
+const TRAILING_SLASH = /\/$/
+
 const relations = computed(() => props.details ?? [])
 
 const selectedUid = ref<string | null>(null)
@@ -54,7 +56,8 @@ async function selectRelation(uid: string): Promise<void> {
   showDetail.value = true
 
   try {
-    const response = await getDetailEnfant(props.mceApi + uid, props.userInfoApiUrl)
+    const baseUrl = props.mceApi.replace(TRAILING_SLASH, '')
+    const response = await getDetailEnfant(`${baseUrl}/${uid}`, props.userInfoApiUrl)
     personne.value = response.data
     selectedUid.value = uid
   }
