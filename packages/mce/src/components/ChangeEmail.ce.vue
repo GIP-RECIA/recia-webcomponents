@@ -15,7 +15,7 @@
 -->
 
 <script setup lang="ts">
-import { inject, ref } from 'vue'
+import { inject, onUnmounted, ref } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 import { updateEmail } from '@/services/serviceMce.ts'
 
@@ -45,8 +45,14 @@ const confirmEmail = ref('')
 const message = ref('')
 const messageType = ref<'success' | 'error'>('error')
 const isLoading = ref(false)
+const successTimer = ref<ReturnType<typeof setTimeout> | null>(null)
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@][^\s.@]*\.[^\s@]+$/
+
+onUnmounted(() => {
+  if (successTimer.value)
+    clearTimeout(successTimer.value)
+})
 
 function handleClose() {
   emit('close')
@@ -83,7 +89,7 @@ async function handleSubmit() {
     message.value = tEmail('success')
     messageType.value = 'success'
 
-    setTimeout(() => {
+    successTimer.value = setTimeout(() => {
       emit('updated', newEmail.value)
     }, 1000)
   }
