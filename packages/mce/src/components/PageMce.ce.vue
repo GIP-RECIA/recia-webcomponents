@@ -226,7 +226,7 @@ function handleAvatarUpdated() {
 .parent {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1.25rem; // 20px
 
   @media (width >= map.get($grid-breakpoints, md)) {
     flex-direction: row;
@@ -237,21 +237,27 @@ function handleAvatarUpdated() {
   .user-details {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    //padding: 20px;
-    border-radius: 10px;
+    gap: 1.25rem; // 20px
+    border-radius: 0.625rem; // 10px
     box-shadow: var(--#{$prefix}shadow-neutral) #0000001a;
     overflow: hidden;
     flex-shrink: 0;
     width: 100%;
 
     @media (width >= map.get($grid-breakpoints, md)) {
-      width: 240px;
+      width: 15rem; // 240px
     }
   }
+
   .sectionTwo {
     flex: 1;
     min-width: 0;
+  }
+}
+
+@media (width < 340px) {
+  .parent {
+    padding: 0.5rem;
   }
 }
 
