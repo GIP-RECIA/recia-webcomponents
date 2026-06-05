@@ -94,6 +94,22 @@ function getFonctionGroupes(f: any): string[] {
   return getEleveCgForFonction(f).groupes
 }
 
+function getSectionClasses(item: any, nomEtab: string): string[] {
+  if (item.classes?.length)
+    return item.classes
+  if (item.cg?.classes?.length)
+    return item.cg.classes
+  return eleveEtabsByName.value.get(nomEtab)?.classes ?? []
+}
+
+function getSectionGroupes(item: any, nomEtab: string): string[] {
+  if (item.groupes?.length)
+    return item.groupes
+  if (item.cg?.groupes?.length)
+    return item.cg.groupes
+  return eleveEtabsByName.value.get(nomEtab)?.groupes ?? []
+}
+
 function getMatiere(item: any) {
   return item.matiere ? item.matiere : (item.discipline || tProf('discipline-unknown'))
 }
@@ -129,8 +145,8 @@ function getMatiere(item: any) {
               </div>
 
               <div class="badges-row">
-                <span v-for="c in item.cg?.classes" :key="c" class="pill-tag pill-tag--class">{{ c }}</span>
-                <span v-for="g in item.cg?.groupes" :key="g" class="pill-tag pill-tag--group">{{ g }}</span>
+                <span v-for="c in getSectionClasses(item, nomEtab)" :key="c" class="pill-tag pill-tag--class">{{ c }}</span>
+                <span v-for="g in getSectionGroupes(item, nomEtab)" :key="g" class="pill-tag pill-tag--group">{{ g }}</span>
               </div>
             </div>
           </div>
