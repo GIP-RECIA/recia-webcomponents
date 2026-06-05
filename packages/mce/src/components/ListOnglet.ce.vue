@@ -18,7 +18,7 @@
 import { inject } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 
-defineOptions({ name: 'ListeOnglet' })
+defineOptions({ name: 'ListOnglet' })
 defineProps<{
   list: Array<string>
   ongletCurrent: string
