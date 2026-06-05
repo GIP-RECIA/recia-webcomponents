@@ -120,7 +120,7 @@ function handleEmailUpdated(email: string) {
           class="btn-primary small"
           @click="toggleEmail"
         >
-          {{ isEmailOpen ? tUser('annuler') : tUser('modifier') }}
+          {{ tUser('modifier') }}
         </button>
       </div>
     </dl>
