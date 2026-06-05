@@ -118,4 +118,9 @@ const hasApprentis = computed<boolean>(() => {
 </template>
 
 <style lang="scss">
+.sectionPersonnelles {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
 </style>
