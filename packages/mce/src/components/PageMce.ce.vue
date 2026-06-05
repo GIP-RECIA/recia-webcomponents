@@ -54,16 +54,6 @@ const mce = ref<any>({
 const ongletCurrent = ref<string>('')
 const listOnglets = ref<Array<string>>([])
 const avatar = ref<string>('')
-
-interface Service {
-  id: number
-  title: string
-  fname: string
-}
-
-const jsonSubcategories = ref<any[]>([])
-const servicesList = ref<Service[]>([])
-const portletsSet = ref<Set<string>>(new Set())
 const portlets = ref<string[]>([])
 
 const nom = computed<string>(() => {
@@ -87,26 +77,16 @@ const prenom = computed<string>(() => {
 async function getAllPortlets(uri: string, token: string) {
   try {
     const services = await getServicesEnt(uri, token)
+    const subcategories = services.data.registry.categories[0].subcategories
+    const set = new Set<string>()
 
-    jsonSubcategories.value = services.data.registry.categories[0].subcategories
-
-    const localPortletsSet = new Set<string>()
-    const localServicesList: Service[] = []
-
-    for (const subcategory of jsonSubcategories.value) {
+    for (const subcategory of subcategories) {
       for (const portlet of subcategory.portlets) {
-        localServicesList.push({
-          id: portlet.id,
-          title: portlet.title,
-          fname: portlet.fname,
-        })
-        localPortletsSet.add(portlet.title)
+        set.add(portlet.title)
       }
     }
 
-    servicesList.value = localServicesList
-    portletsSet.value = localPortletsSet
-    portlets.value = Array.from(localPortletsSet)
+    portlets.value = Array.from(set)
   }
   catch (error: any) {
     console.error(error)
@@ -200,7 +180,7 @@ function handleAvatarUpdated() {
             :parent-eleve="mce.parentEleve ?? {}"
             :relation-eleve="mce.relationEleve ?? {}"
             :apprentis="mce.apprentis ?? {}"
-            :services="portlets ?? []"
+            :services="portlets"
             :etab-current="mce.etab ?? ''"
             :user-name="mce.userName ?? ''"
             :user-mail="mce.userMail ?? ''"
@@ -209,7 +189,6 @@ function handleAvatarUpdated() {
             :bod="mce.bod ?? ''"
             :nom="nom"
             :prenom="prenom"
-            :date-naissance="mce.dateNaissance ?? ''"
             :can-modify-email="mce.mailEditable ?? false"
             :show-change-email="showChangeEmail"
             :mdp="mce.mdp"
