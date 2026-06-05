@@ -33,6 +33,8 @@ const emit = defineEmits<{
   (e: 'updated', email: string): void
 }>()
 
+const TRAILING_SLASH = /\/$/
+
 const i18n = inject(I18nInjectionKey)
 function tEmail(key: string): string {
   return i18n ? (i18n.global.t as (k: string) => string)(`change-email.${key}`) : key
@@ -73,8 +75,7 @@ async function handleSubmit() {
   message.value = ''
 
   try {
-    // eslint-disable-next-line e18e/prefer-static-regex
-    const baseUrl = props.mceApi.replace(/\/$/, '')
+    const baseUrl = props.mceApi.replace(TRAILING_SLASH, '')
     const fullUrl = `${baseUrl}/${props.userId}/update-email`
 
     await updateEmail(fullUrl, newEmail.value, confirmEmail.value, props.userInfoApiUrl)
