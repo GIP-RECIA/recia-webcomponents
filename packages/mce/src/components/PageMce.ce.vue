@@ -77,19 +77,30 @@ const prenom = computed<string>(() => {
 async function getAllPortlets(uri: string, token: string) {
   try {
     const services = await getServicesEnt(uri, token)
-    const subcategories = services.data.registry.categories[0].subcategories
+
+    const subcategories
+      = services?.data?.registry?.categories?.[0]?.subcategories
+
+    if (!Array.isArray(subcategories)) {
+      console.warn(
+        '[getAllPortlets] Invalid registry structure: categories[0].subcategories is missing',
+      )
+      portlets.value = []
+      return
+    }
+
     const set = new Set<string>()
 
     for (const subcategory of subcategories) {
-      for (const portlet of subcategory.portlets) {
+      for (const portlet of subcategory.portlets ?? []) {
         set.add(portlet.title)
       }
     }
 
     portlets.value = Array.from(set)
   }
-  catch (error: any) {
-    console.error(error)
+  catch (error) {
+    console.error('[getAllPortlets] ERROR =>', error)
   }
 }
 
