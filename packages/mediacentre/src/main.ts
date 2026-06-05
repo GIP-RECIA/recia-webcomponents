@@ -15,16 +15,19 @@
  */
 
 import { createApp } from 'vue'
-import App from '@/AppUI.vue'
 import { registerElements as registerCustomElements } from '@/ce'
 import { register as registerFontAwsome } from '@/plugins/fontawesome'
-import i18n from '@/plugins/i18n'
 import 'regenerator-runtime/runtime.js'
 import '@gip-recia/info-modal'
-
-const app = createApp(App)
 
 registerCustomElements()
 registerFontAwsome()
 
-app.use(i18n)
+if (import.meta.env.DEV) {
+  import('@/assets/scss/dev.scss')
+
+  import('@/AppDev.vue').then(({ default: App }) => {
+    const app = createApp(App)
+    app.mount('#app')
+  })
+}

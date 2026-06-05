@@ -47,6 +47,12 @@ onMounted(() => {
 </template>
 
 <style lang="scss">
+@use 'ress/dist/ress.min.css';
+
+@use '@gip-recia/ui/core/variables' as *;
+@use '@gip-recia/ui/functions' as *;
+@use '@gip-recia/ui/mixins' as *;
+
 a {
   text-decoration: none;
   color: var(--recia-primary, #0062bc);

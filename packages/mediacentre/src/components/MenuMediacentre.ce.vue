@@ -259,7 +259,7 @@ function accesRessourceGarClicked(): void {
         >
           <template v-if="gestionAffectation.link">
             <a
-              class="gestion-link"
+              class="btn-primary small"
               :href="gestionAffectation.description"
               target="_blank"
               rel="noopener noreferrer"
@@ -270,7 +270,7 @@ function accesRessourceGarClicked(): void {
           </template>
           <template v-else>
             <button
-              class="gestion-button"
+              class="btn-primary small"
               @click.prevent="openGestionModal(gestionAffectation, $event)"
             >
               {{ gestionAffectation.title }}
@@ -283,25 +283,8 @@ function accesRessourceGarClicked(): void {
 </template>
 
 <style lang="scss">
+@use '@/assets/scss/global.scss' as *;
 @import '@vueform/multiselect/themes/default.css';
-
-.gestion-button {
-  @extend %button-primary;
-  border: none;
-  font-size: 14px;
-  width: 100%;
-  padding: 8px 16px;
-}
-
-a.gestion-link {
-  @extend %button-primary;
-  border: none;
-  font-size: 14px;
-  width: 100%;
-  display: inline-block;
-  text-decoration: none;
-  padding: 8px 16px;
-}
 
 .gestion-label {
   font-size: 18px;
@@ -347,7 +330,6 @@ a.gestion-link {
   text-align: start;
   justify-content: space-between;
   background-color: $background-color-menu;
-  width: 100%;
   padding: 1em;
   border: none;
   border-left: 0.5em solid transparent;

@@ -273,6 +273,12 @@ function cropImage() {
 </template>
 
 <style lang="scss">
+@use 'ress/dist/ress.min.css';
+
+@use '@gip-recia/ui/core/variables' as *;
+@use '@gip-recia/ui/functions' as *;
+@use '@gip-recia/ui/mixins' as *;
+
 @import 'cropperjs/dist/cropper.css';
 
 .avatar-upload {

@@ -71,6 +71,7 @@ const visiblePages = computed(() => {
         <button
           :aria-label="t('button.firstPage')"
           :disabled="currentPage === 1"
+          class="tag small circle"
           @click="goToPage(1)"
         >
           <font-awesome-icon :icon="['fas', 'angles-left']" />
@@ -80,6 +81,7 @@ const visiblePages = computed(() => {
         <button
           :aria-label="t('button.previousPage')"
           :disabled="currentPage === 1"
+          class="tag small circle"
           @click="goToPage(currentPage - 1)"
         >
           <font-awesome-icon :icon="['fas', 'angle-left']" />
@@ -92,6 +94,7 @@ const visiblePages = computed(() => {
         <button
           :aria-label="t('button.page', { page })"
           :aria-current="page === currentPage"
+          class="tag small circle"
           :class="{ active: page === currentPage }"
           @click="goToPage(page)"
         >
@@ -102,6 +105,7 @@ const visiblePages = computed(() => {
         <button
           :aria-label="t('button.nextPage')"
           :disabled="currentPage === totalPages"
+          class="tag small circle"
           @click="goToPage(currentPage + 1)"
         >
           <font-awesome-icon :icon="['fas', 'angle-right']" />
@@ -111,6 +115,7 @@ const visiblePages = computed(() => {
         <button
           :aria-label="t('button.lastPage')"
           :disabled="currentPage === totalPages"
+          class="tag small circle"
           @click="goToPage(totalPages)"
         >
           <font-awesome-icon :icon="['fas', 'angles-right']" />
@@ -131,8 +136,6 @@ ul {
   gap: 0.5em;
 
   > li > button {
-    @extend %tag-circle;
-
     &[aria-current='true'] {
       cursor: default;
       pointer-events: none;

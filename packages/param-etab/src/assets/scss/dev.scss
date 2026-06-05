@@ -13,34 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@function HEXToRGBA($hex, $alpha) {
-  @return rgba(from $hex r g b / $alpha);
+
+@use 'sass:map';
+@use '@gip-recia/ui' as *;
+
+@include dm-sans;
+@include sora;
+
+html,
+body {
+  height: 100%;
 }
 
-$black: #000;
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
+body {
+  background-color: var(--#{$prefix}body-bg);
+  font-family: $dm-sans;
+  font-style: normal;
   font-weight: normal;
-}
-
-* {
-  line-height: 1.6;
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
-    sans-serif;
-  font-size: 15px;
+  font-size: var(--#{$prefix}body-font-size);
+  letter-spacing: 0;
+  color: var(--#{$prefix}body);
 }

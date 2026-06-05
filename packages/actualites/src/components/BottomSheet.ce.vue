@@ -239,14 +239,10 @@ function isNews(): boolean {
         <div class="bottomsheet-content-header-close-btn">
           <button
             :aria-label="t('button.close')"
+            class="btn-tertiary circle"
             @click="closeModal"
           >
-            <div
-              class="test"
-              style="width: 20px;"
-            >
-              <font-awesome-icon icon="fa-solid fa-xmark" />
-            </div>
+            <font-awesome-icon icon="fa-solid fa-xmark" />
           </button>
         </div>
 
@@ -460,7 +456,7 @@ function isNews(): boolean {
                 <a
                   :href="file.uri"
                   :download="file.fileName"
-                  class="download-button"
+                  class="btn-secondary download-button"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -486,14 +482,14 @@ function isNews(): boolean {
           <div class="bottomsheet-content-footer-button-group">
             <button
               v-if="isUserConnected && !isError && isNews() && useReadingState"
-              class="mark-has-not-read-btn"
+              class="btn-secondary"
               @click="changeReadingState(!isReadingButton)"
             >
               {{ t(`button.mark-as${isReadingButton ? '-not' : ''}-read`) }}
             </button>
             <div v-else />
             <button
-              class="close-btn"
+              class="btn-primary"
               @click="closeModal"
             >
               {{ t('button.close') }}
@@ -533,16 +529,8 @@ function isNews(): boolean {
 <style lang="scss">
 @use 'sass:map';
 @use '@/assets/global.scss' as *;
-@import '@fortawesome/fontawesome-free/css/all.css';
+@import '@fortawesome/fontawesome-free/css/all.css'; // Pour les fichier de publisher
 @import '@/assets/ckeditor.css';
-
-.mark-has-not-read-btn {
-  @extend %button-secondary;
-}
-
-.close-btn {
-  @extend %button-primary;
-}
 
 .bottomsheet {
   &-overlay {
@@ -606,7 +594,7 @@ function isNews(): boolean {
               border: none;
               border-radius: 50px;
               background-color: $white;
-              box-shadow: $shadow-strong rgba(0, 0, 0, 0.1);
+              box-shadow: var(--#{$prefix}shadow-strong) rgba(0, 0, 0, 0.1);
             }
 
             &-icon {
@@ -638,7 +626,7 @@ function isNews(): boolean {
             width: auto;
             height: auto;
             border-radius: 10px;
-            box-shadow: $shadow-strong rgba(0, 0, 0, 0.1);
+            box-shadow: var(--#{$prefix}shadow-strong) rgba(0, 0, 0, 0.1);
 
             &-overlay {
               position: fixed;
@@ -711,7 +699,7 @@ function isNews(): boolean {
             height: 40px;
             border: none;
             border-radius: 40px;
-            background-color: $primary-05;
+            background-color: rgba(from $primary r g b / 0.05);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -719,7 +707,7 @@ function isNews(): boolean {
             z-index: 100;
 
             &.active {
-              background-color: $primary;
+              background-color: var(--#{$prefix}primary);
 
               .bottomsheet-content-header-informations-info-modal-icon {
                 color: $white;
@@ -735,14 +723,14 @@ function isNews(): boolean {
             font-family: $sora;
             font-weight: bold;
             font-size: 14px;
-            color: $primary;
+            color: var(--#{$prefix}primary);
             padding-top: 1px;
 
             &-container {
               position: relative;
               width: 24px;
               height: 24px;
-              border: 2px solid $primary;
+              border: 2px solid var(--#{$prefix}primary);
               border-radius: 20px;
               display: flex;
               justify-content: center;
@@ -783,7 +771,6 @@ function isNews(): boolean {
         right: 2em;
 
         > button {
-          @extend %button-tertiary-circle;
           font-size: 24px;
         }
       }
@@ -841,11 +828,11 @@ function isNews(): boolean {
 
         &:hover,
         &:focus-visible {
-          color: $primary;
+          color: var(--#{$prefix}primary);
         }
 
         @media (hover: none) {
-          color: $primary;
+          color: var(--#{$prefix}primary);
         }
       }
 
@@ -874,7 +861,7 @@ function isNews(): boolean {
       &-separator {
         width: 100%;
         height: 1px;
-        background-color: $basic-grey;
+        background-color: var(--#{$prefix}basic-grey);
         border: none;
       }
 
@@ -899,7 +886,7 @@ function isNews(): boolean {
       &-handle-bar {
         width: 104px;
         height: 6px;
-        background-color: $lighter-black;
+        background-color: var(--#{$prefix}lighter-black);
         opacity: 33%;
         border-radius: 3px;
         justify-self: center;
@@ -916,9 +903,9 @@ function isNews(): boolean {
   font-weight: bold;
   text-wrap: nowrap;
   color: $white;
-  background-color: $basic-black;
+  background-color: var(--#{$prefix}basic-black);
   border-radius: 4px;
-  box-shadow: $shadow-low-elevation rgba(0, 0, 0, 0.2);
+  box-shadow: var(--#{$prefix}shadow-low-elevation) rgba(0, 0, 0, 0.2);
 
   &-container {
     position: absolute;
@@ -935,7 +922,7 @@ function isNews(): boolean {
     height: 0;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
-    border-top: 6px solid $basic-black;
+    border-top: 6px solid var(--#{$prefix}basic-black);
   }
 }
 
@@ -951,7 +938,7 @@ function isNews(): boolean {
     padding-right: 58px;
     border-radius: 10px;
     border-top-right-radius: 20px;
-    box-shadow: $shadow-strong rgba(0, 0, 0, 0.25);
+    box-shadow: var(--#{$prefix}shadow-strong) rgba(0, 0, 0, 0.25);
     display: flex;
     flex-direction: column;
     row-gap: 12px;
@@ -978,7 +965,7 @@ function isNews(): boolean {
 
         &:hover,
         &:focus-visible {
-          color: $primary;
+          color: var(--#{$prefix}primary);
         }
       }
     }
@@ -1048,7 +1035,7 @@ function isNews(): boolean {
     &-container {
       overflow: hidden;
       position: relative;
-      box-shadow: $shadow-strong rgba(#000000, 0.1);
+      box-shadow: var(--#{$prefix}shadow-strong) rgba(#000000, 0.1);
 
       &-background-desktop-image {
         position: absolute;
@@ -1093,7 +1080,7 @@ function isNews(): boolean {
             height: 220px;
             display: flex;
             outline: 3px solid $white;
-            box-shadow: $shadow-strong rgba(0, 0, 0, 0.1);
+            box-shadow: var(--#{$prefix}shadow-strong) rgba(0, 0, 0, 0.1);
             border-radius: 10px;
 
             &-img {
@@ -1117,14 +1104,14 @@ function isNews(): boolean {
             }
 
             &.enlarge {
-              outline-color: $primary;
+              outline-color: var(--#{$prefix}primary);
 
               .bottomsheet-content-header-image-container-img.enlarge {
                 transform-origin: top left;
                 animation: enlarge 0.3s forwards;
                 border-radius: 5px;
                 outline: 2px solid $white;
-                box-shadow: $shadow-strong rgba(0, 0, 0, 0.1);
+                box-shadow: var(--#{$prefix}shadow-strong) rgba(0, 0, 0, 0.1);
                 z-index: 1000;
               }
 
@@ -1139,7 +1126,7 @@ function isNews(): boolean {
                   border: none;
                   border-radius: 50px;
                   background-color: $white;
-                  box-shadow: $shadow-strong rgba(0, 0, 0, 0.1);
+                  box-shadow: var(--#{$prefix}shadow-strong) rgba(0, 0, 0, 0.1);
                   display: flex;
                   justify-content: center;
                   align-items: center;
@@ -1156,7 +1143,7 @@ function isNews(): boolean {
             &:not(.enlarge) {
               &:hover,
               &:focus-visible {
-                outline-color: $primary;
+                outline-color: var(--#{$prefix}primary);
 
                 .bottomsheet-content-header-image-container-img {
                   opacity: 0.4;
@@ -1205,20 +1192,20 @@ function isNews(): boolean {
 
               &:hover,
               &:focus-visible {
-                background-color: $primary-05;
+                background-color: rgba(from $primary r g b / 0.05);
 
                 .bottomsheet-content-header-informations-info-modal-icon {
-                  color: $primary;
+                  color: var(--#{$prefix}primary);
                 }
 
                 .bottomsheet-content-header-informations-info-modal-icon-container {
-                  border: 2px solid $primary;
+                  border: 2px solid var(--#{$prefix}primary);
                 }
               }
 
               &.active {
-                background-color: $primary;
-                box-shadow: $shadow-hover $primary-20;
+                background-color: var(--#{$prefix}primary);
+                box-shadow: var(--#{$prefix}shadow-hover) var(--#{$prefix}primary-20);
 
                 .bottomsheet-content-header-informations-info-modal-icon {
                   color: $white;
@@ -1231,10 +1218,10 @@ function isNews(): boolean {
             }
 
             &-icon {
-              color: $basic-black;
+              color: var(--#{$prefix}basic-black);
 
               &-container {
-                border: 2px solid $basic-black;
+                border: 2px solid var(--#{$prefix}basic-black);
               }
             }
           }
@@ -1281,17 +1268,18 @@ function isNews(): boolean {
 
         &::-webkit-scrollbar-thumb {
           border-radius: 8px;
-          background-color: $stroke;
+          background-color: var(--#{$prefix}stroke);
         }
       }
 
       &-footer {
-        width: 100%;
         background-color: $white;
         display: flex;
         flex-direction: column;
         position: absolute;
         bottom: 0;
+        right: 0;
+        left: 0;
         padding: 2em 3em 3em 3em;
 
         &-separator {
@@ -1324,19 +1312,20 @@ function isNews(): boolean {
   padding: 16px;
   gap: 16px;
   border-radius: 8px;
-  box-shadow: $shadow-neutral rgba(0, 0, 0, 0.1);
-  border: 1px solid $stroke;
+  box-shadow: var(--#{$prefix}shadow-neutral) rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--#{$prefix}stroke);
   text-align: center;
   word-break: break-word;
+
   .file-name {
     font-family: 'sora';
     font-weight: 600;
   }
+
   .download-button {
-    @extend %button-secondary;
     @media (hover: none) {
-      background-color: $secondary-hover;
-      color: $primary;
+      background-color: var(--#{$prefix}secondary-hover);
+      color: var(--#{$prefix}primary);
     }
   }
 }

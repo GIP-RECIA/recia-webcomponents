@@ -124,6 +124,8 @@ async function getResourceToRedirectTo(
 </template>
 
 <style lang="scss">
+@use '@/assets/scss/global.scss' as *;
+
 .preserve-breaks {
   white-space: pre-wrap;
   text-align: start;

@@ -14,13 +14,23 @@
  * limitations under the License.
  */
 
-import { createApp } from 'vue'
-import App from '@/App.vue'
-import { register as registerCustomElements } from '@/ce'
-import '@fortawesome/fontawesome-free/css/solid.css'
-import 'regenerator-runtime/runtime.js'
+@use 'sass:map';
+@use '@gip-recia/ui' as *;
 
-const app = createApp(App)
-registerCustomElements()
+@include dm-sans;
+@include sora;
 
-app.mount('#app')
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--#{$prefix}body-bg);
+  font-family: $dm-sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: var(--#{$prefix}body-font-size);
+  letter-spacing: 0;
+  color: var(--#{$prefix}body);
+}

@@ -70,13 +70,6 @@ export default ({ mode }: ConfigEnv) => {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
     },
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: `@use '@gip-recia/ui' as *;`,
-        },
-      },
-    },
     build: {
       sourcemap: true,
       lib: {

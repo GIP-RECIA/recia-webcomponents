@@ -194,7 +194,11 @@ onMounted((): void => initForm())
 </template>
 
 <style lang="scss">
-@use '../assets/base.scss' as *;
+@use 'ress/dist/ress.min.css';
+
+@use '@gip-recia/ui/core/variables' as *;
+@use '@gip-recia/ui/functions' as *;
+@use '@gip-recia/ui/mixins' as *;
 
 .warn {
   font-style: italic;

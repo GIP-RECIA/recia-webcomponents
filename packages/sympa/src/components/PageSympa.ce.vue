@@ -106,6 +106,12 @@ const displayWarning = computed<boolean>(() => {
 </template>
 
 <style lang="scss">
+@use 'ress/dist/ress.min.css';
+
+@use '@gip-recia/ui/core/variables' as *;
+@use '@gip-recia/ui/functions' as *;
+@use '@gip-recia/ui/mixins' as *;
+
 filter-sympa {
   display: block;
   margin-bottom: 20px;

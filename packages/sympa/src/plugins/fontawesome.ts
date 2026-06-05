@@ -15,23 +15,40 @@
  */
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCopy as farCopy, faPaperPlane as farPaperPlane } from '@fortawesome/free-regular-svg-icons'
-import { faArchive, faExclamationTriangle, faMinus, faRedoAlt, faArrowRight as fasArrowRight, faEllipsisH as fasEllipsisH, faPlus as fasPlus, faWrench as fasWrench, faTimes } from '@fortawesome/free-solid-svg-icons'
+import {
+  faCopy as farCopy,
+  faPaperPlane as farPaperPlane,
+} from '@fortawesome/free-regular-svg-icons'
+import {
+  faArchive,
+  faArrowRight,
+  faEllipsisH,
+  faExclamationTriangle,
+  faMinus,
+  faPlus,
+  faRedoAlt,
+  faTimes,
+  faWrench,
+} from '@fortawesome/free-solid-svg-icons'
 
 function register() {
   library.add(
-    fasArrowRight,
-    fasEllipsisH,
     faArchive,
-    fasWrench,
-    farCopy,
-    farPaperPlane,
-    fasPlus,
+    faArrowRight,
+    faEllipsisH,
+    faExclamationTriangle,
+    faMinus,
+    faPlus,
     faRedoAlt,
     faTimes,
-    faMinus,
-    faExclamationTriangle,
+    faWrench,
+  )
+  library.add(
+    farCopy,
+    farPaperPlane,
   )
 }
 
-export { register }
+export {
+  register,
+}

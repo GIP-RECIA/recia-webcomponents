@@ -14,19 +14,12 @@
  * limitations under the License.
  */
 
+@use 'ress/dist/ress.min.css';
+
+@forward '@gip-recia/ui/core/variables';
+@forward '@gip-recia/ui/functions';
+@forward '@gip-recia/ui/mixins';
+
+@forward '@gip-recia/ui/components/buttons';
+
 @forward 'variables';
-@use 'variables' as *;
-@use 'buttons';
-
-* {
-  box-sizing: border-box;
-}
-
-a {
-  color: $blue-link;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}

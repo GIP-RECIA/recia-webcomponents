@@ -14,10 +14,30 @@
  * limitations under the License.
  */
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faAngleLeft, faAngleRight, faAnglesLeft, faAnglesRight, faChevronLeft, faChevronRight, faEllipsisH, faXmark } from '@fortawesome/free-solid-svg-icons'
+import {
+  faAngleLeft,
+  faAngleRight,
+  faAnglesLeft,
+  faAnglesRight,
+  faChevronLeft,
+  faChevronRight,
+  faEllipsisH,
+  faXmark,
+} from '@fortawesome/free-solid-svg-icons'
 
 function register() {
-  library.add(faXmark, faEllipsisH, faChevronLeft, faChevronRight, faAnglesRight, faAnglesLeft, faAngleLeft, faAngleRight)
+  library.add(
+    faXmark,
+    faEllipsisH,
+    faChevronLeft,
+    faChevronRight,
+    faAnglesRight,
+    faAnglesLeft,
+    faAngleLeft,
+    faAngleRight,
+  )
 }
 
-export { register }
+export {
+  register,
+}

@@ -22,49 +22,21 @@ import { register as registerFontAwsome } from '@/plugins/fontawesome'
 import 'regenerator-runtime/runtime.js'
 import 'vue3-toastify/dist/index.css'
 
-const app = createApp(defineComponent({}))
-
 registerCustomElements()
 registerFontAwsome()
 
+const app = createApp(defineComponent({}))
 app.use(Vue3Toasity, {
   limit: 0,
   newestOnTop: true,
   theme: 'colored',
 } as ToastContainerOptions)
 
-declare global {
-  interface DocumentEventMap {
-    'click-portlet-card': CustomEvent<{
-      fname: string
-      SERVICE: string
-    }>
-  }
-}
-
 if (import.meta.env.DEV) {
-  const {
-    VITE_BASE_API_URL,
-    VITE_PARAMETAB_API_URI,
-    VITE_USER_INFO_API_URI,
-    VITE_DEFAULT_LOGO_ICON,
-  } = import.meta.env
+  import ('@/assets/scss/dev.scss')
 
-  const component = document.createElement('param-etab')
-  component.setAttribute('base-api-url', VITE_BASE_API_URL)
-  component.setAttribute('param-etab-api', VITE_PARAMETAB_API_URI)
-  component.setAttribute('user-info-api-url', VITE_USER_INFO_API_URI)
-  component.setAttribute('default-logo-icon', VITE_DEFAULT_LOGO_ICON)
-  document.body.appendChild(component)
-
-  document.addEventListener('click-portlet-card', (e) => {
-    if (!e.detail) {
-      // eslint-disable-next-line no-console
-      console.log(e.type)
-      return
-    }
-
-    // eslint-disable-next-line no-console
-    console.log(e.type, e.detail)
+  import('@/AppDev.vue').then(({ default: App }) => {
+    const app = createApp(App)
+    app.mount('#app')
   })
 }

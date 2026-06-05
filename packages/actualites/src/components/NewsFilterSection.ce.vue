@@ -150,7 +150,7 @@ function openMenuFilter() {
               :key="source"
             >
               <button
-                class="filter-section-span"
+                class="tag"
                 :class="{
                   active: source === currentSource,
                   mobile: !disableButton,
@@ -204,7 +204,7 @@ function openMenuFilter() {
   flex-direction: column;
   width: 100%;
   background-color: $white;
-  box-shadow: $shadow-neutral rgba(0, 0, 0, 0.1);
+  box-shadow: var(--#{$prefix}shadow-neutral) rgba(0, 0, 0, 0.1);
   border: none;
   border-radius: 10px;
 
@@ -218,7 +218,7 @@ function openMenuFilter() {
     align-items: center;
 
     &:focus-visible {
-      outline: 4px solid $primary;
+      outline: 4px solid var(--#{$prefix}primary);
       border-radius: 10px;
     }
 
@@ -244,7 +244,7 @@ function openMenuFilter() {
     padding: 1px 10px 1px 10px;
     border-radius: 20px;
     color: $white;
-    background-color: $primary;
+    background-color: var(--#{$prefix}primary);
   }
 
   .grid-container {
@@ -276,11 +276,9 @@ function openMenuFilter() {
     }
 
     &-span {
-      @extend %tag;
-
       &.mobile:not(.active) {
-        background-color: $primary-05;
-        color: $primary;
+        background-color: rgba(from $primary r g b / 0.05);
+        color: var(--#{$prefix}primary);
       }
 
       &-container {
@@ -311,7 +309,7 @@ function openMenuFilter() {
     }
 
     .filter-title.disabled {
-      color: $basic-black, 100%;
+      color: var(--#{$prefix}basic-black), 100%;
     }
 
     .filter-counter {

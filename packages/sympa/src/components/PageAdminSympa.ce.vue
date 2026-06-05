@@ -192,6 +192,12 @@ async function initiateCloseListFromCard(event: CustomEvent): Promise<void> {
 </template>
 
 <style lang="scss">
+@use 'ress/dist/ress.min.css';
+
+@use '@gip-recia/ui/core/variables' as *;
+@use '@gip-recia/ui/functions' as *;
+@use '@gip-recia/ui/mixins' as *;
+
 .block {
   display: block;
 }

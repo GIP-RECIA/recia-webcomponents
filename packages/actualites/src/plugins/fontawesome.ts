@@ -47,4 +47,6 @@ function register() {
   )
 }
 
-export { register }
+export {
+  register,
+}
