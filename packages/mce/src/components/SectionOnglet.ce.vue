@@ -50,7 +50,6 @@ defineProps<{
   civilite?: string
   nom?: string
   prenom?: string
-  dateNaissance?: string
   canModifyEmail?: boolean
   showChangeEmail?: boolean
   mdp?: boolean
