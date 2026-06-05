@@ -50,7 +50,6 @@ function tGeneral(key: string): string {
           </div>
 
           <div class="classes-data-group">
-            <div>jndazjndkj</div>
             <div class="info-item">
               <span class="info-label">{{ tGeneral('class') }}</span>
               <div class="pills-list">
