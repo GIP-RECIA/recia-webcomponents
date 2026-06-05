@@ -27,6 +27,8 @@ const props = defineProps<{
   mceApi: string
 }>()
 
+const TRAILING_SLASH = /\/$/
+
 const i18n = inject(I18nInjectionKey)
 function tPwd(key: string): string {
   return i18n ? (i18n.global.t as (k: string) => string)(`change-password.${key}`) : key
@@ -63,8 +65,7 @@ async function handleChangePassword() {
   message.value = ''
 
   try {
-    // eslint-disable-next-line e18e/prefer-static-regex
-    const baseUrl = props.mceApi.replace(/\/$/, '')
+    const baseUrl = props.mceApi.replace(TRAILING_SLASH, '')
     const fullUrl = `${baseUrl}/${props.userId}/change-password`
 
     await postPassword(
