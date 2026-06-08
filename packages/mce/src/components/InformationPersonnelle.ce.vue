@@ -15,7 +15,7 @@
 -->
 
 <script setup lang="ts">
-import { inject, ref, watch } from 'vue'
+import { inject, nextTick, ref, watch } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 import ChangeEmail from '@/components/ChangeEmail.ce.vue'
 
@@ -43,6 +43,11 @@ function tUser(key: string): string {
 const currentEmail = ref(props.userMail || '')
 const isEmailOpen = ref(false)
 
+// Ref pour restituer le focus sur le bouton "Modifier" après fermeture du panneau
+const editEmailBtn = ref<HTMLButtonElement | null>(null)
+// Ref pour déplacer le focus vers le panneau à l'ouverture
+const editPanelRef = ref<HTMLDivElement | null>(null)
+
 watch(
   () => props.userMail,
   (newVal) => {
@@ -51,23 +56,37 @@ watch(
   },
 )
 
-function toggleEmail() {
+async function toggleEmail() {
   isEmailOpen.value = !isEmailOpen.value
+  if (isEmailOpen.value) {
+    // Déplace le focus vers le panneau ChangeEmail à l'ouverture
+    await nextTick()
+    editPanelRef.value?.focus()
+  }
 }
 
 function handleEmailUpdated(email: string) {
   currentEmail.value = email
   isEmailOpen.value = false
   emit('emailUpdated', email)
+  // Restitue le focus sur le bouton "Modifier" après la mise à jour
+  nextTick(() => editEmailBtn.value?.focus())
+}
+
+function handleCloseEmail() {
+  isEmailOpen.value = false
+  // Restitue le focus sur le bouton "Modifier" à la fermeture
+  nextTick(() => editEmailBtn.value?.focus())
 }
 </script>
 
 <template>
-  <section class="profile-card">
+  <section class="profile-card" aria-labelledby="personal-info-title">
     <header class="card-header">
-      <h3>{{ tUser('informations-personnelles') }}</h3>
+      <h3 id="personal-info-title">
+        {{ tUser('informations-personnelles') }}
+      </h3>
     </header>
-
     <dl class="card-body-grid">
       <div class="info-item">
         <dt class="info-label">
@@ -101,13 +120,22 @@ function handleEmailUpdated(email: string) {
           {{ tUser('bod') }}
         </dt>
         <dd class="info-value">
-          {{ props.dateNaissance || '—' }}
+          <time
+            v-if="props.dateNaissance"
+            :datetime="props.dateNaissance"
+          >
+            {{ props.dateNaissance }}
+          </time>
+          <span v-else :aria-label="`${tUser('bod')} : ${tUser('not-available')}`">—</span>
         </dd>
       </div>
-
-      <div class="email-row">
+      <div
+        class="email-row"
+        role="group"
+        aria-labelledby="email-group-label"
+      >
         <div class="info-item email-container">
-          <dt class="info-label">
+          <dt id="email-group-label" class="info-label">
             {{ tUser('email') }}
           </dt>
           <dd class="info-value info-value--bold">
@@ -117,22 +145,33 @@ function handleEmailUpdated(email: string) {
 
         <button
           v-if="!isEmailOpen && !props.canModifyEmail"
+          ref="editEmailBtn"
           class="btn-primary small"
+          type="button"
+          :aria-expanded="isEmailOpen"
+          aria-controls="edit-email-panel"
+          :aria-label="`${tUser('modifier')} ${tUser('email')} : ${currentEmail || tUser('not-available')}`"
           @click="toggleEmail"
         >
           {{ tUser('modifier') }}
         </button>
       </div>
     </dl>
-
-    <div v-if="isEmailOpen" class="edit-section-panel">
+    <div
+      v-if="isEmailOpen"
+      id="edit-email-panel"
+      ref="editPanelRef"
+      class="edit-section-panel"
+      tabindex="-1"
+      aria-live="polite"
+    >
       <ChangeEmail
         :user-info-api-url="props.userInfoApiUrl"
         :mce-api="props.mceApi"
         :user-id="props.userId"
         :current-email="currentEmail"
         @updated="handleEmailUpdated"
-        @close="isEmailOpen = false"
+        @close="handleCloseEmail"
       />
     </div>
   </section>
@@ -221,5 +260,8 @@ function handleEmailUpdated(email: string) {
 
 .edit-section-panel {
   padding: 0 1.25rem 1.25rem;
+  &:focus {
+    outline: none;
+  }
 }
 </style>

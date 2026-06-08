@@ -67,7 +67,8 @@
     "error-required": "Tous les champs sont obligatoires.",
     "error-format": "Le format de l'email est invalide.",
     "error-mismatch": "Les emails ne correspondent pas.",
-    "error-default": "Erreur lors de la modification."
+    "error-default": "Erreur lors de la modification.",
+    "no-email": "Aucune adresse email renseignée."
   },
 
   "change-password": {

@@ -67,7 +67,8 @@
     "error-required": "All fields are required.",
     "error-format": "Invalid email format.",
     "error-mismatch": "Emails do not match.",
-    "error-default": "Error while updating."
+    "error-default": "Error while updating.",
+    "no-email": "No email address provided."
   },
   "change-password": {
     "title": "Change my password",

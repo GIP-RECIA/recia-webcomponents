@@ -16,7 +16,7 @@
 
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { createI18n, I18nInjectionKey } from 'vue-i18n'
 import { updateEmail } from '@/services/serviceMce.ts'
@@ -50,8 +50,17 @@ const messages = {
       'error-format': 'Le format de l\'email est invalide.',
       'error-mismatch': 'Les emails ne correspondent pas.',
       'error-default': 'Erreur lors de la modification.',
+      'no-email': 'No email address provided.',
     },
   },
+}
+
+async function submitForm(w: VueWrapper) {
+  await w.find('form').trigger('submit')
+  // Premier nextTick : handleSubmit s'exécute (validations synchrones ou résolution Promise)
+  await nextTick()
+  // Deuxième nextTick : les await nextTick() internes au composant mettent à jour le DOM
+  await nextTick()
 }
 
 describe('changeEmail', () => {
@@ -84,7 +93,6 @@ describe('changeEmail', () => {
   // RENDU INITIAL
   // --------------------------------------------------
   describe('rendu initial', () => {
-    // Le template utilise <h3> dans .card-header
     it('affiche le titre dans un h3', () => {
       expect(wrapper.find('h3').text()).toBe('Modifier l\'adresse email')
     })
@@ -110,7 +118,6 @@ describe('changeEmail', () => {
     })
 
     it('les boutons ont les bons textes initiaux', () => {
-      // Le template contient .btn-secondary et .btn-primary côte à côte dans .action-row
       const buttons = wrapper.findAll('button')
       const cancelBtn = buttons.find(b => b.text() === 'Annuler')
       const submitBtn = buttons.find(b => b.text() === 'Valider')
@@ -138,30 +145,26 @@ describe('changeEmail', () => {
   // --------------------------------------------------
   describe('validations', () => {
     it('erreur si les deux champs sont vides', async () => {
-      await wrapper.find('.btn-primary').trigger('click')
-      await nextTick()
+      await submitForm(wrapper)
       expect(wrapper.find('.alert-message').text()).toBe('Tous les champs sont obligatoires.')
     })
 
     it('erreur si le format du nouvel email est invalide', async () => {
       await wrapper.find('#newEmail').setValue('mauvais-format')
       await wrapper.find('#confirmEmail').setValue('mauvais-format')
-      await wrapper.find('.btn-primary').trigger('click')
-      await nextTick()
+      await submitForm(wrapper)
       expect(wrapper.find('.alert-message').text()).toBe('Le format de l\'email est invalide.')
     })
 
     it('erreur si les deux emails ne correspondent pas', async () => {
       await wrapper.find('#newEmail').setValue('vrai@test.fr')
       await wrapper.find('#confirmEmail').setValue('autre@test.fr')
-      await wrapper.find('.btn-primary').trigger('click')
-      await nextTick()
+      await submitForm(wrapper)
       expect(wrapper.find('.alert-message').text()).toBe('Les emails ne correspondent pas.')
     })
 
     it('le message d\'erreur a la classe CSS "error"', async () => {
-      await wrapper.find('.btn-primary').trigger('click')
-      await nextTick()
+      await submitForm(wrapper)
       expect(wrapper.find('.alert-message').classes()).toContain('error')
     })
   })
@@ -171,18 +174,22 @@ describe('changeEmail', () => {
   // --------------------------------------------------
   describe('état de chargement', () => {
     it('passe en mode loading pendant l\'appel API', async () => {
+      // La promesse ne se résout pas pendant ce test : on observe l'état intermédiaire
       vi.mocked(updateEmail).mockImplementation(
         () => new Promise(resolve => setTimeout(resolve, 200, mockAxiosResponse)),
       )
 
       await wrapper.find('#newEmail').setValue('nouveau@test.fr')
       await wrapper.find('#confirmEmail').setValue('nouveau@test.fr')
-      await wrapper.find('.btn-primary').trigger('click')
+
+      // On déclenche le submit mais on n'attend PAS la fin de handleSubmit
+      await wrapper.find('form').trigger('submit')
       await nextTick()
 
       const submitBtn = wrapper.find('.btn-primary')
       expect(submitBtn.text()).toBe('...')
-      expect(submitBtn.attributes('disabled')).toBeDefined()
+      // attributes('disabled') renvoie "" quand l'attribut est présent
+      expect(submitBtn.attributes('disabled')).toBe('')
     })
   })
 
@@ -194,13 +201,16 @@ describe('changeEmail', () => {
       vi.useFakeTimers()
     })
 
+    afterEach(() => {
+      vi.useRealTimers()
+    })
+
     it('affiche le message de réussite et émet "updated" après 1 seconde', async () => {
       vi.mocked(updateEmail).mockResolvedValueOnce(mockAxiosResponse)
 
       await wrapper.find('#newEmail').setValue('nouveau@test.fr')
       await wrapper.find('#confirmEmail').setValue('nouveau@test.fr')
-      await wrapper.find('.btn-primary').trigger('click')
-      await nextTick()
+      await submitForm(wrapper)
 
       const alert = wrapper.find('.alert-message')
       expect(alert.text()).toBe('Email mis à jour avec succès !')
@@ -217,8 +227,7 @@ describe('changeEmail', () => {
 
       await wrapper.find('#newEmail').setValue('nouveau@test.fr')
       await wrapper.find('#confirmEmail').setValue('nouveau@test.fr')
-      await wrapper.find('.btn-primary').trigger('click')
-      await nextTick()
+      await submitForm(wrapper)
 
       expect(updateEmail).toHaveBeenCalledWith(
         'https://api.test.fr/123/update-email',
@@ -242,8 +251,7 @@ describe('changeEmail', () => {
 
       await wrapperSlash.find('#newEmail').setValue('nouveau@test.fr')
       await wrapperSlash.find('#confirmEmail').setValue('nouveau@test.fr')
-      await wrapperSlash.find('.btn-primary').trigger('click')
-      await nextTick()
+      await submitForm(wrapperSlash)
 
       expect(updateEmail).toHaveBeenCalledWith(
         'https://api.test.fr/123/update-email',
@@ -263,8 +271,7 @@ describe('changeEmail', () => {
 
       await wrapper.find('#newEmail').setValue('nouveau@test.fr')
       await wrapper.find('#confirmEmail').setValue('nouveau@test.fr')
-      await wrapper.find('.btn-primary').trigger('click')
-      await nextTick()
+      await submitForm(wrapper)
 
       const alert = wrapper.find('.alert-message')
       expect(alert.text()).toBe('Erreur de connexion réseau')
@@ -278,8 +285,7 @@ describe('changeEmail', () => {
 
       await wrapper.find('#newEmail').setValue('deja@pris.fr')
       await wrapper.find('#confirmEmail').setValue('deja@pris.fr')
-      await wrapper.find('.btn-primary').trigger('click')
-      await nextTick()
+      await submitForm(wrapper)
 
       expect(wrapper.find('.alert-message').text()).toBe('Cette adresse email est déjà utilisée.')
     })
@@ -289,8 +295,7 @@ describe('changeEmail', () => {
 
       await wrapper.find('#newEmail').setValue('nouveau@test.fr')
       await wrapper.find('#confirmEmail').setValue('nouveau@test.fr')
-      await wrapper.find('.btn-primary').trigger('click')
-      await nextTick()
+      await submitForm(wrapper)
 
       expect(wrapper.find('.alert-message').text()).toBe('Erreur lors de la modification.')
     })
