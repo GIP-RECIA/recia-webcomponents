@@ -15,7 +15,7 @@
  */
 
 import type { VueWrapper } from '@vue/test-utils'
-import { mount } from '@vue/test-utils'
+import { flushPromises, mount } from '@vue/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { createI18n, I18nInjectionKey } from 'vue-i18n'
@@ -171,16 +171,22 @@ describe('changePassword', () => {
       vi.mocked(postPassword).mockImplementation(
         () => new Promise(resolve => setTimeout(resolve, 200, mockAxiosResponse)),
       )
+
       await wrapper.find('#current-password').setValue('ancien')
       await wrapper.find('#new-password').setValue('nouveaupass')
       await wrapper.find('#confirm-password').setValue('nouveaupass')
 
-      wrapper.find('form').trigger('submit')
+      await wrapper.find('form').trigger('submit')
+
+      // attend le passage de isLoading = true + rerender
       await nextTick()
 
-      const submitBtn = wrapper.find('button[type="submit"]')
-      expect(submitBtn.text()).toBe('Chargement...')
-      expect(submitBtn.attributes('disabled')).toBeDefined()
+      const submitBtnLoading = wrapper.find('button[type="submit"]')
+      expect(submitBtnLoading.text()).toBe('Chargement...')
+      expect(submitBtnLoading.attributes('disabled')).toBeDefined()
+
+      // optionnel : finir la promesse pour éviter fuite async
+      await flushPromises()
     })
   })
 
@@ -207,7 +213,7 @@ describe('changePassword', () => {
       await wrapper.find('#new-password').setValue('nouveaupass')
       await wrapper.find('#confirm-password').setValue('nouveaupass')
       await wrapper.find('form').trigger('submit')
-      await nextTick()
+      await flushPromises()
 
       expect((wrapper.find('#current-password').element as HTMLInputElement).value).toBe('')
       expect((wrapper.find('#new-password').element as HTMLInputElement).value).toBe('')
