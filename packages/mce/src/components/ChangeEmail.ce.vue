@@ -15,7 +15,7 @@
 -->
 
 <script setup lang="ts">
-import { inject, onUnmounted, ref } from 'vue'
+import { inject, nextTick, onMounted, onUnmounted, ref } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 import { updateEmail } from '@/services/serviceMce.ts'
 
@@ -47,9 +47,78 @@ const messageType = ref<'success' | 'error'>('error')
 const isLoading = ref(false)
 const successTimer = ref<ReturnType<typeof setTimeout> | null>(null)
 
+const alertRef = ref<HTMLDivElement | null>(null)
+const panelRef = ref<HTMLElement | null>(null)
+
 const EMAIL_REGEX = /^[^\s@]+@[^\s@][^\s.@]*\.[^\s@]+$/
 
+const messageId = 'change-email-message'
+
+function handleKeydown(event: KeyboardEvent) {
+  // Fermeture au clavier avec Échap
+  if (event.key === 'Escape') {
+    emit('close')
+    return
+  }
+  if (event.key === 'Tab') {
+    const panel = panelRef.value
+    if (!panel)
+      return
+
+    const focusableElements = Array.from(
+      panel.querySelectorAll('input:not([disabled]), button:not([disabled]), [tabindex="0"]'),
+    ) as HTMLElement[]
+
+    if (focusableElements.length === 0)
+      return
+
+    const first = focusableElements[0]
+    const last = focusableElements.at(-1) as HTMLElement
+
+    if (event.shiftKey) {
+      if (document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      }
+    }
+    else {
+      if (document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+  }
+}
+
+function handleFocusIn(event: FocusEvent) {
+  const panel = panelRef.value
+  const target = event.target as HTMLElement
+
+  if (panel && !panel.contains(target)) {
+    event.preventDefault()
+    event.stopImmediatePropagation()
+    const firstFocusable = panel.querySelector('button:not([disabled]), input:not([disabled])') as HTMLElement
+    firstFocusable?.focus()
+  }
+}
+
+function focusFirst() {
+  const panel = panelRef.value
+  const focusable = panel?.querySelectorAll('input:not([disabled]), button:not([disabled]), [tabindex="0"]')
+  if (focusable && focusable.length > 1)
+    (focusable[1] as HTMLElement).focus()
+}
+
+function focusLast() {
+  const panel = panelRef.value
+  const focusable = panel?.querySelectorAll('input:not([disabled]), button:not([disabled]), [tabindex="0"]')
+  if (focusable && focusable.length > 2)
+    (focusable[focusable.length - 2] as HTMLElement).focus()
+}
+
+onMounted(() => document.addEventListener('keydown', handleKeydown, true))
 onUnmounted(() => {
+  document.removeEventListener('keydown', handleKeydown, true)
   if (successTimer.value)
     clearTimeout(successTimer.value)
 })
@@ -59,26 +128,34 @@ function handleClose() {
 }
 
 async function handleSubmit() {
+  message.value = ''
+  await nextTick()
+
   if (!newEmail.value || !confirmEmail.value) {
     message.value = tEmail('error-required')
     messageType.value = 'error'
+    await nextTick()
+    alertRef.value?.focus()
     return
   }
 
   if (!EMAIL_REGEX.test(newEmail.value)) {
     message.value = tEmail('error-format')
     messageType.value = 'error'
+    await nextTick()
+    alertRef.value?.focus()
     return
   }
 
   if (newEmail.value !== confirmEmail.value) {
     message.value = tEmail('error-mismatch')
     messageType.value = 'error'
+    await nextTick()
+    alertRef.value?.focus()
     return
   }
 
   isLoading.value = true
-  message.value = ''
 
   try {
     const baseUrl = props.mceApi.replace(TRAILING_SLASH, '')
@@ -88,6 +165,8 @@ async function handleSubmit() {
 
     message.value = tEmail('success')
     messageType.value = 'success'
+    await nextTick()
+    alertRef.value?.focus()
 
     successTimer.value = setTimeout(() => {
       emit('updated', newEmail.value)
@@ -101,6 +180,8 @@ async function handleSubmit() {
 
     message.value = apiMessage ?? tEmail('error-default')
     messageType.value = 'error'
+    await nextTick()
+    alertRef.value?.focus()
   }
   finally {
     isLoading.value = false
@@ -109,58 +190,96 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <div class="change-email-panel">
-    <header class="card-header">
-      <h3>{{ tEmail('title') }}</h3>
-    </header>
+  <div
+    class="change-email-panel"
+    role="region"
+    aria-labelledby="change-email-title"
+    @focusin="handleFocusIn"
+  >
+    <div ref="panelRef">
+      <div tabindex="0" @focus="focusLast" />
 
-    <div class="card-body">
-      <div class="form-group">
-        <label class="info-label">{{ tEmail('current-email') }}</label>
-        <div class="static-value">
-          {{ props.currentEmail || '-' }}
+      <header class="card-header">
+        <h3 id="change-email-title">
+          {{ tEmail('title') }}
+        </h3>
+      </header>
+
+      <form class="card-body" novalidate @submit.prevent="handleSubmit">
+        <!-- Email actuel en lecture seule -->
+        <div class="form-group">
+          <span id="current-email-label" class="info-label">{{ tEmail('current-email') }}</span>
+          <div
+            class="static-value"
+            aria-labelledby="current-email-label"
+            :aria-label="`${tEmail('current-email')} : ${props.currentEmail || tEmail('no-email')}`"
+          >
+            {{ props.currentEmail || '-' }}
+          </div>
         </div>
-      </div>
 
-      <div class="form-group">
-        <label class="info-label" for="newEmail">{{ tEmail('new-email') }}</label>
-        <input
-          id="newEmail"
-          v-model="newEmail"
-          type="email"
-          :placeholder="tEmail('placeholder')"
-          class="custom-input"
+        <!-- Nouvel email -->
+        <div class="form-group">
+          <label class="info-label" for="newEmail">{{ tEmail('new-email') }}</label>
+          <input
+            id="newEmail"
+            v-model="newEmail"
+            type="email"
+            :placeholder="tEmail('placeholder')"
+            class="custom-input"
+            autocomplete="email"
+            aria-required="true"
+            :aria-invalid="message && messageType === 'error' ? 'true' : 'false'"
+            :aria-describedby="message && messageType === 'error' ? messageId : undefined"
+          >
+        </div>
+
+        <!-- Confirmation email -->
+        <div class="form-group">
+          <label class="info-label" for="confirmEmail">{{ tEmail('confirm-email') }}</label>
+          <input
+            id="confirmEmail"
+            v-model="confirmEmail"
+            type="email"
+            class="custom-input"
+            autocomplete="email"
+            aria-required="true"
+            :aria-invalid="message && messageType === 'error' ? 'true' : 'false'"
+            :aria-describedby="message && messageType === 'error' ? messageId : undefined"
+          >
+        </div>
+
+        <div
+          v-if="message"
+          :id="messageId"
+          ref="alertRef"
+          class="alert-message"
+          :class="messageType"
+          role="alert"
+          tabindex="-1"
         >
-      </div>
+          {{ message }}
+        </div>
 
-      <div class="form-group">
-        <label class="info-label" for="confirmEmail">{{ tEmail('confirm-email') }}</label>
-        <input
-          id="confirmEmail"
-          v-model="confirmEmail"
-          type="email"
-          class="custom-input"
-        >
-      </div>
+        <div class="action-row">
+          <button type="button" class="btn-secondary small" @click="handleClose">
+            {{ tEmail('cancel') }}
+          </button>
+          <button
+            type="submit"
+            class="btn-primary small"
+            :disabled="isLoading"
+            :aria-busy="isLoading ? 'true' : undefined"
+            :aria-label="isLoading ? tEmail('loading') : undefined"
+          >
+            <span v-if="isLoading" aria-hidden="true">{{ tEmail('loading') }}</span>
+            <span v-else>{{ tEmail('submit') }}</span>
+          </button>
+        </div>
+      </form>
 
-      <div v-if="message" class="alert-message" :class="messageType">
-        {{ message }}
-      </div>
-
-      <div class="action-row">
-        <button class="btn-secondary small" @click="handleClose">
-          {{ tEmail('cancel') }}
-        </button>
-
-        <button
-          class="btn-primary small"
-          :disabled="isLoading"
-          @click="handleSubmit"
-        >
-          <span v-if="isLoading">{{ tEmail('loading') }}</span>
-          <span v-else>{{ tEmail('submit') }}</span>
-        </button>
-      </div>
+      <!-- Sentinelle fin : Tab depuis le dernier élément revient ici → cycle vers le premier -->
+      <div tabindex="0" @focus="focusFirst" />
     </div>
   </div>
 </template>
@@ -238,10 +357,16 @@ async function handleSubmit() {
     opacity: 0.7;
   }
 
-  &:focus {
+  &:focus-visible {
     outline: none;
     border-color: var(--#{$prefix}primary);
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--#{$prefix}primary) 20%, transparent);
+  }
+
+  // Bordure rouge quand le champ est invalide (signalé via aria-invalid="true")
+  &[aria-invalid='true'] {
+    border-color: var(--#{$prefix}system-red);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--#{$prefix}system-red) 15%, transparent);
   }
 }
 
@@ -263,6 +388,16 @@ async function handleSubmit() {
   font-size: var(--#{$prefix}font-size-sm);
   font-weight: 600;
   overflow-wrap: break-word;
+
+  // Focus visible uniquement en navigation clavier (pas au clic JS)
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
 
   &.success {
     background-color: color-mix(in srgb, var(--#{$prefix}system-blue) 10%, transparent);
