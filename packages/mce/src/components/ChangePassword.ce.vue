@@ -15,7 +15,7 @@
 -->
 
 <script setup lang="ts">
-import { inject, ref } from 'vue'
+import { inject, nextTick, ref } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 import { postPassword } from '@/services/serviceMce.ts'
 
@@ -42,27 +42,39 @@ const message = ref('')
 const messageType = ref<'success' | 'error'>('error')
 const isLoading = ref(false)
 
+const alertRef = ref<HTMLDivElement | null>(null)
+
+const messageId = 'change-password-message'
+
 async function handleChangePassword() {
+  message.value = ''
+  await nextTick()
+
   if (!currentPassword.value || !newPassword.value || !confirmPassword.value) {
     message.value = tPwd('error-required')
     messageType.value = 'error'
+    await nextTick()
+    alertRef.value?.focus()
     return
   }
 
   if (newPassword.value !== confirmPassword.value) {
     message.value = tPwd('error-mismatch')
     messageType.value = 'error'
+    await nextTick()
+    alertRef.value?.focus()
     return
   }
 
   if (newPassword.value.length < 8) {
     message.value = tPwd('error-length')
     messageType.value = 'error'
+    await nextTick()
+    alertRef.value?.focus()
     return
   }
 
   isLoading.value = true
-  message.value = ''
 
   try {
     const baseUrl = props.mceApi.replace(TRAILING_SLASH, '')
@@ -78,6 +90,8 @@ async function handleChangePassword() {
 
     message.value = tPwd('success')
     messageType.value = 'success'
+    await nextTick()
+    alertRef.value?.focus()
 
     currentPassword.value = ''
     newPassword.value = ''
@@ -87,6 +101,8 @@ async function handleChangePassword() {
     const apiMessage = (error as { response?: { data?: { message?: string } } })?.response?.data?.message
     message.value = apiMessage ?? tPwd('error-default')
     messageType.value = 'error'
+    await nextTick()
+    alertRef.value?.focus()
   }
   finally {
     isLoading.value = false
@@ -95,13 +111,15 @@ async function handleChangePassword() {
 </script>
 
 <template>
-  <section class="profile-card">
+  <section class="profile-card" aria-labelledby="change-password-title">
     <header class="card-header">
-      <h3>{{ tPwd('title') }}</h3>
+      <h3 id="change-password-title">
+        {{ tPwd('title') }}
+      </h3>
     </header>
 
     <div class="card-body">
-      <form class="password-form" @submit.prevent="handleChangePassword">
+      <form class="password-form" novalidate @submit.prevent="handleChangePassword">
         <div class="form-group">
           <label class="info-label" for="current-password">{{ tPwd('current-password') }}</label>
           <input
@@ -109,8 +127,11 @@ async function handleChangePassword() {
             v-model="currentPassword"
             type="password"
             :placeholder="tPwd('placeholder-current')"
-            required
             class="custom-input"
+            autocomplete="current-password"
+            aria-required="true"
+            :aria-invalid="message && messageType === 'error' ? 'true' : 'false'"
+            :aria-describedby="message && messageType === 'error' ? messageId : undefined"
           >
         </div>
 
@@ -121,8 +142,11 @@ async function handleChangePassword() {
             v-model="newPassword"
             type="password"
             :placeholder="tPwd('placeholder-new')"
-            required
             class="custom-input"
+            autocomplete="new-password"
+            aria-required="true"
+            :aria-invalid="message && messageType === 'error' ? 'true' : 'false'"
+            :aria-describedby="message && messageType === 'error' ? messageId : undefined"
           >
         </div>
 
@@ -133,18 +157,36 @@ async function handleChangePassword() {
             v-model="confirmPassword"
             type="password"
             :placeholder="tPwd('placeholder-confirm')"
-            required
             class="custom-input"
+            autocomplete="new-password"
+            aria-required="true"
+            :aria-invalid="message && messageType === 'error' ? 'true' : 'false'"
+            :aria-describedby="message && messageType === 'error' ? messageId : undefined"
           >
         </div>
 
-        <div v-if="message" class="alert-message" :class="messageType">
+        <div
+          v-if="message"
+          :id="messageId"
+          ref="alertRef"
+          class="alert-message"
+          :class="messageType"
+          role="alert"
+          tabindex="-1"
+        >
           {{ message }}
         </div>
 
         <div class="action-row">
-          <button type="submit" :disabled="isLoading" class="btn-primary small">
-            {{ isLoading ? tPwd('loading') : tPwd('submit') }}
+          <button
+            type="submit"
+            class="btn-primary small"
+            :disabled="isLoading"
+            :aria-busy="isLoading ? 'true' : undefined"
+            :aria-label="isLoading ? tPwd('loading') : undefined"
+          >
+            <span v-if="isLoading" aria-hidden="true">{{ tPwd('loading') }}</span>
+            <span v-else>{{ tPwd('submit') }}</span>
           </button>
         </div>
       </form>
@@ -217,10 +259,16 @@ async function handleChangePassword() {
     opacity: 0.7;
   }
 
-  &:focus {
+  &:focus-visible {
     outline: none;
     border-color: var(--#{$prefix}primary);
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--#{$prefix}primary) 20%, transparent);
+  }
+
+  // Bordure rouge quand le champ est invalide (signalé via aria-invalid="true")
+  &[aria-invalid='true'] {
+    border-color: var(--#{$prefix}system-red);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--#{$prefix}system-red) 15%, transparent);
   }
 }
 
@@ -242,6 +290,17 @@ async function handleChangePassword() {
   border-radius: 10px;
   font-size: var(--#{$prefix}font-size-sm);
   font-weight: 600;
+  overflow-wrap: break-word;
+
+  // Focus visible uniquement en navigation clavier (pas au clic JS)
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
 
   &.success {
     background-color: color-mix(in srgb, var(--#{$prefix}system-blue) 10%, transparent);
