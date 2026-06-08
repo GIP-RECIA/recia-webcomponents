@@ -41,6 +41,7 @@ function m(key: string): string {
 
 <template>
   <div class="profile-container">
+    <!-- Section profil : avatar + nom -->
     <div class="profile-picture">
       <avatar-user
         :avatar="props.avatar"
@@ -53,11 +54,20 @@ function m(key: string): string {
         {{ props.userName }}
       </h3>
     </div>
-
-    <div v-if="props.userMail" class="profile-info">
-      <span class="info-label">{{ m('email') }}</span>
-      <span class="info-value">{{ props.userMail }}</span>
-    </div>
+    <dl v-if="props.userMail" class="profile-info">
+      <dt class="info-label">
+        {{ m('email') }}
+      </dt>
+      <dd class="info-value">
+        <a
+          :href="`mailto:${props.userMail}`"
+          class="email-link"
+          :aria-label="`${m('email')} : ${props.userMail}`"
+        >
+          {{ props.userMail }}
+        </a>
+      </dd>
+    </dl>
   </div>
 </template>
 
@@ -112,6 +122,7 @@ function m(key: string): string {
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
+  margin: 0; // reset <dl> default margin
 }
 
 .info-label {
@@ -130,5 +141,26 @@ function m(key: string): string {
   width: 100%;
   overflow-wrap: break-word;
   word-break: break-all;
+  margin: 0; // reset <dd> default margin
+}
+
+.email-link {
+  color: inherit;
+  text-decoration: none;
+  overflow-wrap: break-word;
+  word-break: break-all;
+  display: block;
+
+  &:hover,
+  &:focus-visible {
+    text-decoration: underline;
+    color: var(--#{$prefix}primary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--#{$prefix}primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
 }
 </style>
