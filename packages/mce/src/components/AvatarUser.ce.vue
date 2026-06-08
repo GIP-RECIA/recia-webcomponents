@@ -18,7 +18,7 @@
 import type { AxiosError } from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import Cropper from 'cropperjs'
-import { inject, nextTick, ref, watch } from 'vue'
+import { inject, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 import { updateAvatar } from '@/services/serviceMce'
 import 'cropperjs/dist/cropper.css'
@@ -53,6 +53,8 @@ const isLoading = ref(false)
 const imgEl = ref<HTMLImageElement | null>(null)
 const imageInput = ref<HTMLInputElement | null>(null)
 const prevImg = ref<HTMLDivElement | null>(null)
+const triggerButton = ref<HTMLButtonElement | null>(null)
+const modalComponent = ref<HTMLElement | null>(null)
 
 let cropper: Cropper | null = null
 
@@ -103,14 +105,89 @@ function openModal() {
     imageInput.value.value = ''
 }
 
+// Remplacez votre handleKeydown par ceci (simplifié, juste pour Echap)
+function handleKeydown(event: KeyboardEvent) {
+  if (!open.value)
+    return
+
+  // 1. Gestion Echap
+  if (event.key === 'Escape') {
+    closeModal()
+  }
+
+  // 2. Focus Trap (Interception de la touche TAB)
+  if (event.key === 'Tab') {
+    const modal = modalComponent.value
+    if (!modal)
+      return
+
+    const focusableElements = Array.from(
+      modal.querySelectorAll('button, [tabindex="0"]'),
+    ) as HTMLElement[]
+
+    if (focusableElements.length === 0)
+      return
+
+    const first = focusableElements[0]
+    const last = focusableElements.at(-1) as HTMLElement
+
+    if (event.shiftKey) {
+      // Si on est sur le premier et qu'on fait Shift+Tab, on va au dernier
+      if (document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      }
+    }
+    else {
+      // Si on est sur le dernier et qu'on fait Tab, on revient au premier
+      if (document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+  }
+}
+
+function handleFocusIn(event: FocusEvent) {
+  if (!open.value)
+    return
+
+  const modal = modalComponent.value
+  const target = event.target as HTMLElement
+
+  if (modal && !modal.contains(target)) {
+    event.preventDefault()
+    event.stopImmediatePropagation()
+
+    const closeBtn = modal.querySelector('.btn-close') as HTMLElement
+    closeBtn?.focus()
+  }
+}
+
+onMounted(() => document.addEventListener('keydown', handleKeydown, true)) // Le 'true' est le mode capture
+onUnmounted(() => document.removeEventListener('keydown', handleKeydown, true))
+
 function closeModal() {
   open.value = false
   destroyCropper()
   imageSrc.value = null
   selectedFile.value = null
   message.value = ''
-  if (imageInput.value)
+  if (imageInput.value) {
     imageInput.value.value = ''
+  }
+
+  // Utilisation d'un accès sécurisé au DOM
+  nextTick(() => {
+    try {
+      if (triggerButton.value && typeof triggerButton.value.focus === 'function') {
+        triggerButton.value.focus()
+      }
+    }
+    catch (e) {
+      console.warn('Impossible de restaurer le focus', e)
+    }
+  })
 }
 
 async function applyCrop() {
@@ -152,27 +229,59 @@ watch(imageSrc, async (src) => {
   await nextTick()
   initCropper()
 })
+
+function focusFirst() {
+  const modal = modalComponent.value
+  const focusable = modal?.querySelectorAll('button, [tabindex="0"]')
+  if (focusable && focusable.length > 1) {
+    (focusable[1] as HTMLElement).focus()
+  }
+}
+
+function focusLast() {
+  const modal = modalComponent.value
+  const focusable = modal?.querySelectorAll('button, [tabindex="0"]')
+  if (focusable && focusable.length > 2) {
+    (focusable[focusable.length - 2] as HTMLElement).focus()
+  }
+}
 </script>
 
 <template>
   <div class="avatar-component-wrapper">
     <!-- Avatar cliquable -->
-    <div class="image-container" @click="openModal">
-      <img class="avatar" :src="avatar" alt="Avatar utilisateur">
+    <button
+      ref="triggerButton"
+      type="button"
+      class="image-container"
+      aria-label="Modifier l'avatar de l'utilisateur"
+      @click="openModal"
+    >
+      <img class="avatar" :src="avatar" alt="Photo de profil actuelle">
       <input ref="imageInput" type="file" accept="image/jpeg,image/png" hidden @change="onFileChange">
-      <button class="edit-picture">
+
+      <span class="edit-picture" aria-hidden="true">
         <FontAwesomeIcon :icon="['fas', 'pen']" />
-      </button>
-    </div>
+      </span>
+    </button>
 
     <!-- Modale -->
-    <div v-if="open" class="modal-mask" @click.self="closeModal">
-      <div class="modal-component">
+    <div
+      v-if="open"
+      class="modal-mask"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      @click.self="closeModal"
+      @focusin="handleFocusIn"
+    >
+      <div ref="modalComponent" class="modal-component">
+        <div tabindex="0" @focus="focusLast" />
         <header class="modal-header">
-          <h3 class="modal-title">
+          <h3 id="modal-title" class="modal-title">
             {{ t('title-header') }}
           </h3>
-          <button class="btn-close" @click="closeModal">
+          <button class="btn-close" aria-label="Fermer la fenêtre" @click="closeModal">
             ✕
           </button>
         </header>
@@ -181,7 +290,7 @@ watch(imageSrc, async (src) => {
           <!-- Zone crop -->
           <div class="crop-area">
             <img v-if="imageSrc" ref="imgEl" :src="imageSrc" alt="Recadrage">
-            <div v-else class="crop-empty" @click="imageInput?.click()">
+            <div v-else class="crop-empty" role="button" tabindex="0" @click="imageInput?.click()" @keydown.enter="imageInput?.click()">
               <p>{{ t('select-image-hint') }}</p>
             </div>
           </div>
@@ -205,6 +314,7 @@ watch(imageSrc, async (src) => {
             {{ isLoading ? t('loading') : t('apply') }}
           </button>
         </footer>
+        <div tabindex="0" @focus="focusFirst" />
       </div>
     </div>
   </div>
@@ -260,6 +370,7 @@ watch(imageSrc, async (src) => {
     border-radius: 50%;
     opacity: 0;
     transition: all 0.2s ease-in-out;
+    pointer-events: none;
   }
 
   &:hover {
@@ -279,6 +390,11 @@ watch(imageSrc, async (src) => {
     .edit-picture {
       opacity: 1;
     }
+  }
+  &:focus-visible {
+    outline: 3px solid var(--#{$prefix}primary);
+    outline-offset: 4px;
+    border-radius: 50%;
   }
 }
 </style>
