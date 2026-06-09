@@ -32,6 +32,11 @@ const messages = {
     'classes-groupes-eleve': {
       'etablissement': 'Établissement',
       'matieres-suivies': 'Matières suivies',
+
+      'no-class': 'Aucune classe',
+      'no-group': 'Aucun groupe',
+      'no-etab': 'Aucun établissement',
+      'no-course': 'Aucun enseignement',
     },
   },
 }
