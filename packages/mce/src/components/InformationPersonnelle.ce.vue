@@ -87,93 +87,91 @@ function handleCloseEmail() {
         {{ tUser('informations-personnelles') }}
       </h3>
     </header>
+
+    <!-- Données statiques uniquement : dl sémantiquement propre -->
     <dl class="card-body-grid">
-      <div class="info-item">
-        <dt class="info-label">
-          {{ tUser('uid') }}
-        </dt>
-        <dd class="info-value">
-          {{ props.uid || '—' }}
-        </dd>
-      </div>
+      <dt class="info-label">
+        {{ tUser('uid') }}
+      </dt>
+      <dd class="info-value">
+        {{ props.uid || '—' }}
+      </dd>
 
-      <div class="info-item">
-        <dt class="info-label">
-          {{ tUser('nom') }}
-        </dt>
-        <dd class="info-value">
-          {{ props.nom || '—' }}
-        </dd>
-      </div>
+      <dt class="info-label">
+        {{ tUser('nom') }}
+      </dt>
+      <dd class="info-value">
+        {{ props.nom || '—' }}
+      </dd>
 
-      <div class="info-item">
-        <dt class="info-label">
-          {{ tUser('prenom') }}
-        </dt>
-        <dd class="info-value">
-          {{ props.prenom || '—' }}
-        </dd>
-      </div>
+      <dt class="info-label">
+        {{ tUser('prenom') }}
+      </dt>
+      <dd class="info-value">
+        {{ props.prenom || '—' }}
+      </dd>
 
-      <div class="info-item">
-        <dt class="info-label">
-          {{ tUser('bod') }}
-        </dt>
-        <dd class="info-value">
-          <time
-            v-if="props.dateNaissance"
-            :datetime="props.dateNaissance"
-          >
-            {{ props.dateNaissance }}
-          </time>
-          <span v-else :aria-label="`${tUser('bod')} : ${tUser('not-available')}`">—</span>
-        </dd>
-      </div>
-      <div
-        class="email-row"
-        role="group"
-        aria-labelledby="email-group-label"
-      >
-        <div class="info-item email-container">
-          <dt id="email-group-label" class="info-label">
+      <dt class="info-label">
+        {{ tUser('bod') }}
+      </dt>
+      <dd class="info-value">
+        <time v-if="props.dateNaissance" :datetime="props.dateNaissance">
+          {{ props.dateNaissance }}
+        </time>
+        <span v-else :aria-label="`${tUser('bod')} : ${tUser('not-available')}`">—</span>
+      </dd>
+    </dl>
+
+    <!-- Section email : regroupée, autonome, tout au même endroit dans le DOM -->
+    <section
+      class="email-section"
+      aria-labelledby="email-section-label"
+    >
+      <div class="email-row">
+        <div class="email-container">
+          <p id="email-section-label" class="info-label">
             {{ tUser('email') }}
-          </dt>
-          <dd class="info-value info-value--bold">
+          </p>
+          <p class="info-value info-value--bold">
             {{ currentEmail || '—' }}
-          </dd>
+          </p>
         </div>
 
-        <button
-          v-if="!isEmailOpen && !props.canModifyEmail"
-          ref="editEmailBtn"
-          class="btn-primary small"
-          type="button"
-          :aria-expanded="isEmailOpen"
-          aria-controls="edit-email-panel"
-          :aria-label="`${tUser('modifier')} ${tUser('email')} : ${currentEmail || tUser('not-available')}`"
-          @click="toggleEmail"
-        >
-          {{ tUser('modifier') }}
-        </button>
+        <div class="email-actions">
+          <button
+            v-if="!isEmailOpen && !props.canModifyEmail"
+            ref="editEmailBtn"
+            class="btn-primary small"
+            type="button"
+            :aria-expanded="isEmailOpen"
+            aria-controls="edit-email-panel"
+            :aria-label="`${tUser('modifier')} ${tUser('email')} : ${currentEmail || tUser('not-available')}`"
+            @click="toggleEmail"
+          >
+            {{ tUser('modifier') }}
+          </button>
+        </div>
       </div>
-    </dl>
-    <div
-      v-if="isEmailOpen"
-      id="edit-email-panel"
-      ref="editPanelRef"
-      class="edit-section-panel"
-      tabindex="-1"
-      aria-live="polite"
-    >
-      <ChangeEmail
-        :user-info-api-url="props.userInfoApiUrl"
-        :mce-api="props.mceApi"
-        :user-id="props.userId"
-        :current-email="currentEmail"
-        @updated="handleEmailUpdated"
-        @close="handleCloseEmail"
-      />
-    </div>
+
+      <!-- Panneau d'édition adjacent à la valeur qu'il modifie -->
+      <div
+        v-if="isEmailOpen"
+        id="edit-email-panel"
+        ref="editPanelRef"
+        class="edit-section-panel"
+        tabindex="-1"
+        aria-live="polite"
+      >
+        <ChangeEmail
+          :user-info-api-url="props.userInfoApiUrl"
+          :mce-api="props.mceApi"
+          :user-id="props.userId"
+          :current-email="currentEmail"
+          @updated="handleEmailUpdated"
+          @close="handleCloseEmail"
+        />
+      </div>
+    </section>
   </section>
 </template>
 
@@ -184,13 +182,10 @@ function handleCloseEmail() {
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
+@use './mce-shared' as *;
 
 .profile-card {
-  border: 1px solid var(--#{$prefix}stroke);
-  border-radius: 10px;
-  box-shadow: var(--#{$prefix}shadow-neutral) rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  background-color: var(--#{$prefix}body-bg);
+  @include mce-card-base;
 }
 
 .card-header {
@@ -200,6 +195,7 @@ function handleCloseEmail() {
   h3 {
     margin: 0;
     font-size: var(--#{$prefix}font-size-h3);
+    font-weight: 700;
     color: var(--#{$prefix}basic-black);
   }
 }
@@ -216,27 +212,34 @@ function handleCloseEmail() {
 }
 
 .info-item {
-  display: flex;
-  flex-direction: column;
+  @include mce-info-item;
 }
 
 .info-label {
-  display: block;
-  font-size: var(--#{$prefix}font-size-xxs);
-  font-weight: 800;
-  text-transform: uppercase;
-  color: var(--#{$prefix}basic-black-lighter);
-  margin-bottom: 4px;
+  @include mce-info-label;
 }
 
 .info-value {
+  @include mce-info-value;
   margin: 0;
-  font-size: var(--#{$prefix}font-size-sm);
-  color: var(--#{$prefix}basic-black);
 
   &--bold {
-    font-weight: 600;
+    @include mce-info-value-bold;
   }
+}
+
+.email-section {
+  padding: 1.25rem;
+  border-top: 1px dashed var(--#{$prefix}stroke);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.email-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .email-row {
@@ -259,7 +262,6 @@ function handleCloseEmail() {
 }
 
 .edit-section-panel {
-  padding: 0 1.25rem 1.25rem;
   &:focus {
     outline: none;
   }
