@@ -24,6 +24,11 @@
     "uid": "UID"
   },
 
+  "page-mce": {
+    "user-details": "Informations utilisateur",
+    "main-content": "Contenu principal"
+  },
+
   "info-general": {
     "title-fonction": "Mes fonctions",
     "title-classe-groupe": "Mes classes et groupes pédagogiques",
@@ -90,7 +95,11 @@
 
   "classes-groupes-eleve": {
     "etablissement": "Établissement",
-    "matieres-suivies": "Matières suivies"
+    "matieres-suivies": "Matières suivies",
+    "no-class": "Aucune classe",
+    "no-group": "Aucun groupe",
+    "no-etab": "Aucun établissement",
+    "no-course": "Aucun enseignement"
   },
 
   "classes-groupes-prof": {
@@ -99,10 +108,14 @@
     "no-data": "Aucune donnée chargée.",
     "discipline-unknown": "Discipline inconnue",
     "discipline-not-set": "Discipline non renseignée",
+    "collapse-open": "Ouvrir la section",
+    "collapse-close": "Fermer la section",
     "autres-fonctions": "Autres fonctions"
   },
   "fonctions-list": {
-    "card-label": "Fonctions"
+    "card-label": "Fonctions",
+    "toggle-activate": "Activer",
+    "toggle-deactivate": "Désactiver"
   },
 
   "relation-user-detail": {

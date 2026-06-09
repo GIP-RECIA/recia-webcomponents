@@ -15,7 +15,8 @@
 -->
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, inject, onMounted, ref } from 'vue'
+import { I18nInjectionKey } from 'vue-i18n'
 import { getMCE, getServicesEnt } from '@/services/serviceMce'
 
 defineOptions({ name: 'PageMce' })
@@ -26,6 +27,11 @@ const props = defineProps<{
   portailApiUrl: string
   avatarDefault: string
 }>()
+
+const i18n = inject(I18nInjectionKey)
+function tPage(key: string): string {
+  return i18n ? (i18n.global.t as (k: string) => string)(`page-mce.${key}`) : key
+}
 
 const showChangeEmail = ref(false)
 
@@ -160,7 +166,10 @@ function handleAvatarUpdated() {
 <template>
   <i18n-host>
     <div class="parent">
-      <aside class="user-details">
+      <aside class="user-details" aria-labelledby="user-details-heading">
+        <h2 id="user-details-heading" class="sr-only">
+          {{ tPage('user-details') }}
+        </h2>
         <user-base-info
           v-if="mce.uid"
           :avatar="avatar"
@@ -182,7 +191,10 @@ function handleAvatarUpdated() {
         />
       </aside>
 
-      <main class="sectionTwo">
+      <main class="sectionTwo" aria-labelledby="page-content-heading">
+        <h2 id="page-content-heading" class="sr-only">
+          {{ tPage('main-content') }}
+        </h2>
         <div class="content">
           <section-onglet
             v-if="mce?.listMenu?.length"
@@ -222,6 +234,7 @@ function handleAvatarUpdated() {
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
+@use './mce-shared' as *;
 
 .parent {
   display: flex;
@@ -261,9 +274,12 @@ function handleAvatarUpdated() {
   }
 }
 
-@media (width < 340px) {
-  .parent {
-    padding: 0.5rem;
-  }
+.sr-only {
+  @include mce-sr-only;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 </style>
