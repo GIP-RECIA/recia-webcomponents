@@ -86,6 +86,17 @@ describe('listeOnglet', () => {
         expect(btn.classes()).toContain('btn-secondary-toggle')
       })
     })
+
+    it('affiche les onglets dans une liste sémantique', () => {
+      expect(wrapper.find('ul').exists()).toBe(true)
+      expect(wrapper.findAll('li')).toHaveLength(2)
+    })
+
+    it('définit explicitement type="button" sur chaque bouton', () => {
+      wrapper.findAll('button').forEach((btn) => {
+        expect(btn.attributes('type')).toBe('button')
+      })
+    })
   })
 
   // --------------------------------------------------
