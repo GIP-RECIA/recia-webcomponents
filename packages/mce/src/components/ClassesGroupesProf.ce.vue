@@ -21,11 +21,15 @@ import { I18nInjectionKey } from 'vue-i18n'
 
 defineOptions({ name: 'ClassesGroupesProf' })
 
-const props = defineProps<{
-  sectionProf: SectionProf | undefined
-  listFonctions: any[]
-  sectionEleve: SectionEleve | undefined
-}>()
+const props = withDefaults(defineProps<{
+  sectionProf?: SectionProf
+  listFonctions?: any[]
+  sectionEleve?: SectionEleve
+}>(), {
+  sectionProf: undefined,
+  listFonctions: () => [],
+  sectionEleve: undefined,
+})
 
 const i18n = inject(I18nInjectionKey)
 function tProf(key: string): string {
@@ -37,6 +41,9 @@ function tGeneral(key: string): string {
 
 const isOpen = ref(true)
 
+const headerId = 'classes-groupes-prof-title'
+const bodyId = 'classes-groupes-prof-body'
+
 const sections = computed(() => {
   return props.sectionProf?.etabs ? Object.entries(props.sectionProf.etabs) : []
 })
@@ -45,8 +52,9 @@ const disciplinesDansSections = computed(() => {
   const matieres = new Set<string>()
   sections.value.forEach(([_, etabs]) => {
     etabs.forEach((item: any) => {
-      if (item.matiere)
-        matieres.add(item.matiere)
+      const discipline = item.matiere ?? item.discipline
+      if (discipline)
+        matieres.add(discipline)
     })
   })
   return matieres
@@ -111,22 +119,58 @@ function getSectionGroupes(item: any, nomEtab: string): string[] {
 }
 
 function getMatiere(item: any) {
-  return item.matiere ? item.matiere : (item.discipline || tProf('discipline-unknown'))
+  return item?.matiere || item?.discipline || tProf('discipline-unknown')
+}
+
+const hasNoData = computed(() => {
+  const hasProfEtab = props.sectionProf?.etabs && Object.keys(props.sectionProf.etabs).length > 0
+  return !hasProfEtab && props.listFonctions.length === 0
+})
+
+const collapseButtonLabel = computed(() => {
+  return isOpen.value ? tProf('collapse-close') : tProf('collapse-open')
+})
+
+function toggleOpen() {
+  isOpen.value = !isOpen.value
 }
 </script>
 
 <template>
-  <section class="profile-card">
-    <header class="card-header clickable-header" @click="isOpen = !isOpen">
-      <h3>{{ tGeneral('title-classe-groupe') }}</h3>
-      <span class="collapse-icon">{{ isOpen ? '-' : '+' }}</span>
+  <section class="profile-card" aria-labelledby="classes-groupes-prof-heading">
+    <!-- En-tête cliquable : titre et bouton pour plier/déplier -->
+    <header class="card-header">
+      <h3 id="classes-groupes-prof-heading" class="collapse-title">
+        {{ tGeneral('title-classe-groupe') }}
+      </h3>
+      <button
+        :id="headerId"
+        type="button"
+        class="collapse-btn"
+        :aria-expanded="isOpen"
+        :aria-controls="bodyId"
+        :aria-label="collapseButtonLabel"
+        :title="collapseButtonLabel"
+        @click="toggleOpen"
+      >
+        <span class="collapse-icon btn-primary small" aria-hidden="true">{{ isOpen ? '-' : '+' }}</span>
+      </button>
     </header>
 
-    <div v-if="!sectionProf && listFonctions.length === 0" class="card-body">
-      <span class="info-value">{{ tProf('no-data') }}</span>
+    <!-- Aucune donnée -->
+    <div v-if="hasNoData" class="card-body">
+      <p class="info-value">
+        {{ tProf('no-data') }}
+      </p>
     </div>
 
-    <div v-else-if="isOpen" class="card-body">
+    <!-- Contenu dépliable -->
+    <div
+      v-else
+      v-show="isOpen"
+      :id="bodyId"
+      class="card-body"
+    >
       <!-- Blocs sectionProf -->
       <template v-for="([nomEtab, listeItems]) in sections" :key="nomEtab">
         <div class="etab-block">
@@ -138,16 +182,43 @@ function getMatiere(item: any) {
           </div>
 
           <div class="teachings-list">
-            <div v-for="(item, indexItem) in listeItems" :key="indexItem" class="teaching-entry">
+            <div
+              v-for="(item, indexItem) in listeItems"
+              :key="indexItem"
+              class="teaching-entry"
+            >
               <div class="info-item">
-                <span class="info-label">{{ tProf('discipline') }}</span>
-                <span class="info-value info-value--bold">{{ getMatiere(item) }}</span>
+                <span :id="`discipline-label-${nomEtab}-${indexItem}`" class="info-label">
+                  {{ tProf('discipline') }}
+                </span>
+                <span
+                  class="info-value info-value--bold"
+                  :aria-labelledby="`discipline-label-${nomEtab}-${indexItem}`"
+                >
+                  {{ getMatiere(item) }}
+                </span>
               </div>
 
-              <div class="badges-row">
-                <span v-for="c in getSectionClasses(item, nomEtab)" :key="c" class="pill-tag pill-tag--class">{{ c }}</span>
-                <span v-for="g in getSectionGroupes(item, nomEtab)" :key="g" class="pill-tag pill-tag--group">{{ g }}</span>
-              </div>
+              <ul
+                v-if="getSectionClasses(item, nomEtab).length || getSectionGroupes(item, nomEtab).length"
+                class="badges-row"
+                :aria-label="`${tProf('discipline')} ${getMatiere(item)} — ${tGeneral('class')} / ${tGeneral('group')}`"
+              >
+                <li
+                  v-for="c in getSectionClasses(item, nomEtab)"
+                  :key="c"
+                  class="pill-tag pill-tag--class"
+                >
+                  {{ c }}
+                </li>
+                <li
+                  v-for="g in getSectionGroupes(item, nomEtab)"
+                  :key="g"
+                  class="pill-tag pill-tag--group"
+                >
+                  {{ g }}
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -170,25 +241,37 @@ function getMatiere(item: any) {
           <div class="teachings-list">
             <div class="teaching-entry">
               <div class="info-item">
-                <span class="info-label">{{ tProf('discipline') }}</span>
-                <span class="info-value info-value--bold">{{ f.discipline }}</span>
+                <span :id="`discipline-label-fn-${f.idFonction}`" class="info-label">
+                  {{ tProf('discipline') }}
+                </span>
+                <span
+                  class="info-value info-value--bold"
+                  :aria-labelledby="`discipline-label-fn-${f.idFonction}`"
+                >
+                  {{ f.discipline }}
+                </span>
               </div>
 
-              <div
+              <ul
                 v-if="getFonctionClasses(f).length > 0 || getFonctionGroupes(f).length > 0"
                 class="badges-row"
+                :aria-label="`${tProf('discipline')} ${f.discipline} — ${tGeneral('class')} / ${tGeneral('group')}`"
               >
-                <span
+                <li
                   v-for="c in getFonctionClasses(f)"
                   :key="c"
                   class="pill-tag pill-tag--class"
-                >{{ c }}</span>
-                <span
+                >
+                  {{ c }}
+                </li>
+                <li
                   v-for="g in getFonctionGroupes(f)"
                   :key="g"
                   class="pill-tag pill-tag--group"
-                >{{ g }}</span>
-              </div>
+                >
+                  {{ g }}
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -204,48 +287,65 @@ function getMatiere(item: any) {
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
+@use './mce-shared' as *;
 
 .profile-card {
-  border: 1px solid var(--#{$prefix}stroke);
-  border-radius: 10px;
-  box-shadow: var(--#{$prefix}shadow-neutral) rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  background-color: var(--#{$prefix}body-bg);
+  @include mce-card-base;
 }
 
 .card-header {
-  padding: 1.5rem 1.25rem;
-  border-bottom: 1px solid var(--#{$prefix}stroke);
-
-  h3 {
-    margin: 0;
-    font-size: var(--#{$prefix}font-size-h3);
-    color: var(--#{$prefix}basic-black);
-  }
-}
-
-.clickable-header {
+  @include mce-card-header;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.collapse-title {
+  margin: 0;
+  font-size: var(--#{$prefix}font-size-h3);
+  color: var(--#{$prefix}basic-black);
+  font-weight: 700;
+}
+
+.collapse-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  padding: 0.5rem 0.75rem;
   cursor: pointer;
   user-select: none;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 0.75rem;
+  color: var(--#{$prefix}basic-black);
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
 
   &:hover {
     background: var(--#{$prefix}hover);
   }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: inset 0 0 0 3px color-mix(in srgb, var(--#{$prefix}primary) 40%, transparent);
+  }
 }
 
 .collapse-icon {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  color: var(--#{$prefix}basic-black-lighter);
+  color: var(--#{$prefix}body-inverted);
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
 }
 
 .card-body {
-  padding: 1.5rem 1.25rem;
-  display: flex;
-  flex-direction: column;
+  @include mce-card-body;
 
   @media (width < map.get($grid-breakpoints, sm)) {
     padding: 1rem;
@@ -317,29 +417,26 @@ function getMatiere(item: any) {
 }
 
 .info-item {
-  display: flex;
-  flex-direction: column;
+  @include mce-info-item;
 }
 
 .info-label {
-  display: block;
-  font-size: var(--#{$prefix}font-size-xxs);
-  font-weight: 800;
-  text-transform: uppercase;
-  color: var(--#{$prefix}basic-black-lighter);
-  margin-bottom: 4px;
+  @include mce-info-label;
 }
 
 .info-value {
-  font-size: var(--#{$prefix}font-size-sm);
-  color: var(--#{$prefix}basic-black);
+  @include mce-info-value;
 
   &--bold {
-    font-weight: 600;
+    @include mce-info-value-bold;
   }
 }
 
+// Reset liste pour les badges classes/groupes
 .badges-row {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -351,9 +448,14 @@ function getMatiere(item: any) {
 }
 
 .pill-tag {
-  padding: 0.25rem 0.75rem;
-  border-radius: 6px;
-  font-size: var(--#{$prefix}font-size-xs);
+  @include mce-pill-tag(
+    0.25rem 0.75rem,
+    6px,
+    var(--#{$prefix}font-size-xs),
+    var(--#{$prefix}basic-black),
+    transparent,
+    none
+  );
   font-weight: 700;
 
   &--class {
