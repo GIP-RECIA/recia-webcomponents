@@ -190,14 +190,13 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <div
+  <section
     class="change-email-panel"
-    role="region"
     aria-labelledby="change-email-title"
     @focusin="handleFocusIn"
   >
     <div ref="panelRef">
-      <div tabindex="0" @focus="focusLast" />
+      <button type="button" class="sr-only" aria-label="Focus retour" @focus="focusLast" />
 
       <header class="card-header">
         <h3 id="change-email-title">
@@ -279,9 +278,9 @@ async function handleSubmit() {
       </form>
 
       <!-- Sentinelle fin : Tab depuis le dernier élément revient ici → cycle vers le premier -->
-      <div tabindex="0" @focus="focusFirst" />
+      <button type="button" class="sr-only" aria-label="Focus début" @focus="focusFirst" />
     </div>
-  </div>
+  </section>
 </template>
 
 <style scoped lang="scss">
@@ -291,45 +290,29 @@ async function handleSubmit() {
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
+@use './mce-shared' as *;
 
 .change-email-panel {
-  border: 1px solid var(--#{$prefix}stroke);
-  border-radius: 10px;
-  box-shadow: var(--#{$prefix}shadow-neutral) rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  @include mce-card-base;
 }
 
 .card-header {
-  padding: 1.5rem 1.25rem;
-  border-bottom: 1px solid var(--#{$prefix}stroke);
-
-  h3 {
-    margin: 0;
-    font-size: var(--#{$prefix}font-size-h3);
-    color: var(--#{$prefix}basic-black);
-  }
+  @include mce-card-header;
 }
 
 .card-body {
-  padding: 1.25rem;
+  @include mce-card-body;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  box-sizing: border-box;
 }
 
 .form-group {
-  display: flex;
-  flex-direction: column;
+  @include mce-form-group;
 }
 
 .info-label {
-  display: block;
-  font-size: var(--#{$prefix}font-size-xxs);
-  font-weight: 800;
-  text-transform: uppercase;
-  color: var(--#{$prefix}basic-black-lighter);
-  margin-bottom: 4px;
+  @include mce-info-label;
 }
 
 .static-value {
@@ -344,71 +327,14 @@ async function handleSubmit() {
 }
 
 .custom-input {
-  padding: 0.75rem;
-  border: 1px solid var(--#{$prefix}stroke);
-  border-radius: 10px;
-  color: var(--#{$prefix}basic-black);
-  transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
-
-  &::placeholder {
-    color: var(--#{$prefix}basic-black-lighter);
-    opacity: 0.7;
-  }
-
-  &:focus-visible {
-    outline: none;
-    border-color: var(--#{$prefix}primary);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--#{$prefix}primary) 20%, transparent);
-  }
-
-  // Bordure rouge quand le champ est invalide (signalé via aria-invalid="true")
-  &[aria-invalid='true'] {
-    border-color: var(--#{$prefix}system-red);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--#{$prefix}system-red) 15%, transparent);
-  }
+  @include mce-custom-input;
 }
 
 .action-row {
-  display: flex;
-  gap: 0.75rem;
-  margin-top: 0.5rem;
-  flex-direction: column;
-
-  @media (width >= map.get($grid-breakpoints, sm)) {
-    flex-direction: row;
-    justify-content: flex-end;
-  }
+  @include mce-action-row;
 }
 
 .alert-message {
-  padding: 0.75rem;
-  border-radius: 10px;
-  font-size: var(--#{$prefix}font-size-sm);
-  font-weight: 600;
-  overflow-wrap: break-word;
-
-  // Focus visible uniquement en navigation clavier (pas au clic JS)
-  &:focus-visible {
-    outline: 2px solid currentColor;
-    outline-offset: 2px;
-  }
-
-  &:focus:not(:focus-visible) {
-    outline: none;
-  }
-
-  &.success {
-    background-color: color-mix(in srgb, var(--#{$prefix}system-blue) 10%, transparent);
-    color: var(--#{$prefix}system-blue);
-    border: 1px solid color-mix(in srgb, var(--#{$prefix}system-blue) 30%, transparent);
-  }
-
-  &.error {
-    background-color: color-mix(in srgb, var(--#{$prefix}system-red) 10%, transparent);
-    color: var(--#{$prefix}system-red);
-    border: 1px solid color-mix(in srgb, var(--#{$prefix}system-red) 30%, transparent);
-  }
+  @include mce-alert-message;
 }
 </style>
