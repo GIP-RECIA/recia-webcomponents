@@ -33,6 +33,8 @@ const messages = {
     },
     'fonctions-list': {
       'card-label': 'Fonctions',
+      'toggle-activate': 'Activer',
+      'toggle-deactivate': 'Désactiver',
     },
   },
 }
@@ -116,6 +118,12 @@ describe('fonctionsList', () => {
       // Template : <span class="info-label">{{ tFonctions('card-label') }}</span>
       expect(wrapper.find('.info-label').text()).toBe('Fonctions')
     })
+
+    it('ajoute un libellé accessible pour la bascule', () => {
+      const firstLabel = wrapper.findAll('.toggle-switch')[0]
+      expect(firstLabel.exists()).toBe(true)
+      expect(firstLabel.find('.sr-only').text()).toBe('Désactiver Professeur')
+    })
   })
 
   // --------------------------------------------------
@@ -148,6 +156,19 @@ describe('fonctionsList', () => {
 
       // mceApi = 'https://api.test.fr/mce/' → baseUrl = 'https://api.test.fr'
       // fullUrl = 'https://api.test.fr/fonction/2/dateFin'
+      expect(updateFonctionDateFin).toHaveBeenCalledWith(
+        'https://api.test.fr/fonction/2/dateFin',
+        true,
+        'https://api.test.fr/userinfo',
+      )
+    })
+
+    it('permet de basculer avec la touche Entrée', async () => {
+      vi.mocked(updateFonctionDateFin).mockResolvedValueOnce(undefined as any)
+
+      const checkbox = wrapper.findAll('.toggle-input')[1]
+      await checkbox.trigger('keydown.enter')
+
       expect(updateFonctionDateFin).toHaveBeenCalledWith(
         'https://api.test.fr/fonction/2/dateFin',
         true,

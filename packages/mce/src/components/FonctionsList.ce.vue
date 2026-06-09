@@ -45,6 +45,17 @@ function tGeneral(key: string): string {
   return i18n ? (i18n.global.t as (k: string) => string)(`info-general.${key}`) : key
 }
 
+function getToggleLabel(it: PersonneFonction): string {
+  const action = it.active ? tFonctions('toggle-deactivate') : tFonctions('toggle-activate')
+  const fonctionName = it.fonction || it.struct.name || ''
+  return `${action} ${fonctionName}`.trim()
+}
+
+async function toggleFonction(it: PersonneFonction): Promise<void> {
+  it.active = !it.active
+  await onToggle(it)
+}
+
 async function onToggle(it: PersonneFonction): Promise<void> {
   const id = it.idFonction
 
@@ -79,12 +90,17 @@ async function onToggle(it: PersonneFonction): Promise<void> {
         <div v-for="(it, index) in localFonctions" :key="index" class="card-fonction">
           <div class="fonction-header">
             <span class="info-label">{{ tFonctions('card-label') }}</span>
-            <input
-              v-model="it.active"
-              type="checkbox"
-              class="toggle-input"
-              @change="onToggle(it)"
-            >
+            <label class="toggle-switch">
+              <input
+                v-model="it.active"
+                type="checkbox"
+                class="toggle-input"
+                @change="onToggle(it)"
+                @keydown.enter.prevent="toggleFonction(it)"
+                @keydown.space.prevent="toggleFonction(it)"
+              >
+              <span class="sr-only">{{ getToggleLabel(it) }}</span>
+            </label>
           </div>
 
           <div class="fonction-body">
@@ -111,28 +127,18 @@ async function onToggle(it: PersonneFonction): Promise<void> {
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
+@use './mce-shared' as *;
 
 .profile-card {
-  border: 1px solid var(--#{$prefix}stroke);
-  border-radius: 10px;
-  box-shadow: var(--#{$prefix}shadow-neutral) rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  background-color: var(--#{$prefix}body-bg);
+  @include mce-card-base;
 }
 
 .card-header {
-  padding: 1.5rem 1.25rem;
-  border-bottom: 1px solid var(--#{$prefix}stroke);
-
-  h3 {
-    margin: 0;
-    font-size: var(--#{$prefix}font-size-h3);
-    color: var(--#{$prefix}basic-black);
-  }
+  @include mce-card-header;
 }
 
 .card-body {
-  padding: 1.25rem;
+  @include mce-card-body;
 }
 
 .grid-fonctions {
@@ -163,6 +169,24 @@ async function onToggle(it: PersonneFonction): Promise<void> {
   background-color: var(--#{$prefix}hover);
 }
 
+.toggle-switch {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .fonction-body {
   padding: 0.75rem 1rem;
   background-color: var(--#{$prefix}basic-grey);
@@ -176,20 +200,14 @@ async function onToggle(it: PersonneFonction): Promise<void> {
 }
 
 .info-label {
-  display: block;
-  font-size: var(--#{$prefix}font-size-xxs);
-  font-weight: 800;
-  text-transform: uppercase;
-  color: var(--#{$prefix}basic-black-lighter);
-  margin-bottom: 4px;
+  @include mce-info-label;
 }
 
 .info-value {
-  font-size: var(--#{$prefix}font-size-sm);
-  color: var(--#{$prefix}basic-black);
+  @include mce-info-value;
 
   &--bold {
-    font-weight: 600;
+    @include mce-info-value-bold;
   }
 }
 
@@ -241,10 +259,7 @@ async function onToggle(it: PersonneFonction): Promise<void> {
 }
 
 .badge-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  align-items: center;
+  @include mce-badge-container;
 }
 
 .fonction-tag {
