@@ -37,70 +37,72 @@ function selected(onglet: string) {
 
 <template>
   <nav class="list-menu" aria-label="Menu de navigation">
-    <div v-for="item in list" :key="item" class="onglet-item">
-      <button
-        :class="[classBtn, item === ongletCurrent ? 'active' : '']"
-        :aria-current="item === ongletCurrent ? 'page' : undefined"
-        @click="selected(item)"
-      >
-        {{ m(item) }}
-      </button>
-    </div>
+    <ul>
+      <li v-for="item in list" :key="item" class="onglet-item">
+        <button
+          type="button"
+          :class="[classBtn, item === ongletCurrent ? 'active' : '']"
+          :aria-current="item === ongletCurrent ? 'page' : undefined"
+          @click="selected(item)"
+        >
+          {{ m(item) }}
+        </button>
+      </li>
+    </ul>
   </nav>
 </template>
 
 <style lang="scss" scoped>
+@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
+@use '@gip-recia/ui/mixins' as *;
+@use '@gip-recia/ui/components/buttons';
 
-.list-menu {
-  width: 100%;
+.list-menu > ul {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.onglet-item {
+.list-menu button {
+  display: block;
   width: 100%;
-}
-
-.btn-secondary-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-  padding: 0.75rem 1.25rem;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  text-align: start;
+  border-radius: 12px;
+  padding: 0.875rem 1rem;
   font-size: var(--#{$prefix}font-size-sm);
-  font-weight: 600;
-  text-align: left;
-  cursor: pointer;
-  user-select: none;
-  border-radius: 8px;
-  color: var(--#{$prefix}basic-black-lighter);
-  background-color: transparent;
   border: 1px solid transparent;
   transition:
     background-color 0.2s,
     border-color 0.2s,
-    color 0.2s;
+    color 0.2s,
+    box-shadow 0.2s;
+}
 
-  &.active {
-    font-weight: 700;
-    color: var(--#{$prefix}primary);
-    background-color: color-mix(in srgb, var(--#{$prefix}primary) 10%, transparent);
-    border-color: color-mix(in srgb, var(--#{$prefix}primary) 30%, transparent);
-  }
+.list-menu .btn-secondary-toggle:not(.active) {
+  background-color: transparent;
+}
 
-  &:hover:not(.active) {
-    color: var(--#{$prefix}basic-black);
-    background-color: var(--#{$prefix}hover);
-    border-color: var(--#{$prefix}stroke);
-  }
+.list-menu .btn-secondary-toggle.active {
+  background-color: color-mix(in srgb, var(--#{$prefix}primary) 12%, var(--#{$prefix}body-bg));
+  border-color: var(--#{$prefix}primary);
+  color: var(--#{$prefix}primary);
+  box-shadow: none;
+}
 
-  &:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--#{$prefix}primary) 20%, transparent);
-  }
+.list-menu button:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--#{$prefix}primary) 30%, transparent);
+}
+
+.list-menu .btn-secondary-toggle.active:focus-visible {
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--#{$prefix}primary) 30%, transparent);
 }
 </style>
