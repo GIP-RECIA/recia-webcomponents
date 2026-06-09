@@ -16,7 +16,8 @@
 
 <script setup lang="ts">
 import type { Etabs, General, SectionEleve, SectionProf } from '@/types/generalType'
-import { computed } from 'vue'
+import { computed, inject } from 'vue'
+import { I18nInjectionKey } from 'vue-i18n'
 import ClassesGroupesEleve from './ClassesGroupesEleve.ce.vue'
 import ClassesGroupesProf from './ClassesGroupesProf.ce.vue'
 
@@ -42,6 +43,13 @@ const sectionProf = computed<SectionProf | undefined>(
 const etabs = computed<Array<Etabs>>(
   () => sectionEleve.value?.etabs ?? [],
 )
+
+const i18n = inject(I18nInjectionKey)
+function tListMenu(key: string): string {
+  return i18n ? (i18n.global.t as (k: string) => string)(`list-onglet.${key}`) : key
+}
+
+const sectionTitle = computed(() => tListMenu(props.listMenu))
 
 // Condition pour savoir si on a des relations parents / enfants à afficher
 const hasParentEleve = computed<boolean>(() => {
@@ -83,7 +91,10 @@ const hasApprentis = computed<boolean>(() => {
 </script>
 
 <template>
-  <div class="sectionPersonnelles">
+  <div class="sectionPersonnelles" role="region" aria-labelledby="info-general-title">
+    <h3 id="info-general-title" class="sr-only">
+      {{ sectionTitle }}
+    </h3>
     <relation-user
       v-if="hasParentEleve"
       :details="computedParentDetails"
@@ -118,9 +129,25 @@ const hasApprentis = computed<boolean>(() => {
 </template>
 
 <style lang="scss">
+@use 'ress/dist/ress.min.css';
+@use 'sass:map';
+@use '@gip-recia/ui/core/variables' as *;
+@use '@gip-recia/ui/functions' as *;
+@use '@gip-recia/ui/mixins' as *;
+@use '@gip-recia/ui/components/buttons';
+@use './mce-shared' as *;
+
 .sectionPersonnelles {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
+}
+.sr-only {
+  @include mce-sr-only;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 </style>
