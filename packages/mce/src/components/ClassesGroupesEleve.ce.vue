@@ -37,55 +37,97 @@ function tGeneral(key: string): string {
 
 <template>
   <div class="sections-wrapper">
-    <section class="profile-card">
+    <!-- Carte classes & groupes -->
+    <section class="profile-card" aria-labelledby="title-classe-groupe">
       <header class="card-header">
-        <h3>{{ tGeneral('title-classe-groupe') }}</h3>
+        <h3 id="title-classe-groupe">
+          {{ tGeneral('title-classe-groupe') }}
+        </h3>
       </header>
 
       <div class="card-body">
-        <div v-for="(classgroup, index) in etabs" :key="index" class="etab-row-item">
+        <div
+          v-for="(classgroup, index) in etabs"
+          :key="index"
+          class="etab-row-item"
+        >
+          <!-- Établissement -->
           <div class="info-item etab-header-container">
-            <span class="info-label">{{ tEleve('etablissement') }}</span>
-            <span class="info-value info-value--bold">{{ classgroup.nameEtab }}</span>
+            <span :id="`etab-label-${index}`" class="info-label">{{ tEleve('etablissement') }}</span>
+            <span class="info-value info-value--bold" :aria-labelledby="`etab-label-${index}`">
+              {{ classgroup.nameEtab }}
+            </span>
           </div>
 
           <div class="classes-data-group">
+            <!-- Classes -->
             <div class="info-item">
-              <span class="info-label">{{ tGeneral('class') }}</span>
-              <div class="pills-list">
-                <span v-for="(cls, i) in classgroup.classes" :key="i" class="pill-tag">{{ cls }}</span>
-                <span v-if="!classgroup.classes?.length" class="info-value">—</span>
-              </div>
+              <span :id="`classes-label-${index}`" class="info-label">{{ tGeneral('class') }}</span>
+              <ul class="pills-list" :aria-labelledby="`classes-label-${index}`">
+                <li
+                  v-for="(cls, i) in classgroup.classes"
+                  :key="i"
+                  class="pill-tag"
+                >
+                  {{ cls }}
+                </li>
+                <li v-if="!classgroup.classes?.length" class="info-value" :aria-label="tEleve('no-class')">
+                  —
+                </li>
+              </ul>
             </div>
 
+            <!-- Groupes -->
             <div class="info-item">
-              <span class="info-label">{{ tGeneral('group') }}</span>
-              <div class="pills-list">
-                <span v-for="(grp, i) in classgroup.groupes" :key="i" class="pill-tag">{{ grp }}</span>
-                <span v-if="!classgroup.groupes?.length" class="info-value">—</span>
-              </div>
+              <span :id="`groupes-label-${index}`" class="info-label">{{ tGeneral('group') }}</span>
+              <ul class="pills-list" :aria-labelledby="`groupes-label-${index}`">
+                <li
+                  v-for="(grp, i) in classgroup.groupes"
+                  :key="i"
+                  class="pill-tag"
+                >
+                  {{ grp }}
+                </li>
+                <li v-if="!classgroup.groupes?.length" class="info-value" :aria-label="tEleve('no-group')">
+                  —
+                </li>
+              </ul>
             </div>
           </div>
         </div>
+
+        <!-- Aucun établissement -->
+        <p v-if="!etabs?.length" class="info-value" :aria-label="tEleve('no-etab')">
+          —
+        </p>
       </div>
     </section>
 
-    <section class="profile-card">
+    <!-- Carte matières suivies -->
+    <section class="profile-card" aria-labelledby="title-courses">
       <header class="card-header">
-        <h3>{{ tGeneral('title-courses') }}</h3>
+        <h3 id="title-courses">
+          {{ tGeneral('title-courses') }}
+        </h3>
       </header>
 
       <div class="card-body">
         <div class="enseignements-row">
           <div class="info-item label-container">
-            <span class="info-label">{{ tEleve('matieres-suivies') }}</span>
+            <span id="matieres-label" class="info-label">{{ tEleve('matieres-suivies') }}</span>
           </div>
-          <div class="enseignements-list">
-            <span v-for="(ens, index) in sectionEleve?.enseignementSuivis" :key="index" class="pill-tag">
+          <ul class="enseignements-list" aria-labelledby="matieres-label">
+            <li
+              v-for="(ens, index) in sectionEleve?.enseignementSuivis"
+              :key="index"
+              class="pill-tag"
+            >
               {{ ens }}
-            </span>
-            <span v-if="!sectionEleve?.enseignementSuivis?.length" class="info-value">—</span>
-          </div>
+            </li>
+            <li v-if="!sectionEleve?.enseignementSuivis?.length" class="info-value" :aria-label="tEleve('no-course')">
+              —
+            </li>
+          </ul>
         </div>
       </div>
     </section>
@@ -99,6 +141,7 @@ function tGeneral(key: string): string {
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
+@use './mce-shared' as *;
 
 .sections-wrapper {
   display: flex;
@@ -116,48 +159,30 @@ function tGeneral(key: string): string {
 }
 
 .profile-card {
-  border: 1px solid var(--#{$prefix}stroke);
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: var(--#{$prefix}shadow-neutral) rgba(0, 0, 0, 0.1);
-  background-color: var(--#{$prefix}body-bg);
+  @include mce-card-base;
 }
 
 .card-header {
-  padding: 1.5rem 1.25rem;
-  border-bottom: 1px solid var(--#{$prefix}stroke);
-
-  h3 {
-    margin: 0;
-    font-size: var(--#{$prefix}font-size-h3);
-    color: var(--#{$prefix}basic-black);
-  }
+  @include mce-card-header;
 }
 
 .card-body {
-  padding: 1.25rem;
+  @include mce-card-body;
 }
 
 .info-item {
-  display: flex;
-  flex-direction: column;
+  @include mce-info-item;
 }
 
 .info-label {
-  display: block;
-  font-size: var(--#{$prefix}font-size-xxs);
-  font-weight: 800;
-  text-transform: uppercase;
-  color: var(--#{$prefix}basic-black-lighter);
-  margin-bottom: 4px;
+  @include mce-info-label;
 }
 
 .info-value {
-  font-size: var(--#{$prefix}font-size-sm);
-  color: var(--#{$prefix}basic-black);
+  @include mce-info-value;
 
   &--bold {
-    font-weight: 600;
+    @include mce-info-value-bold;
   }
 }
 
@@ -199,6 +224,9 @@ function tGeneral(key: string): string {
 }
 
 .pills-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
@@ -223,6 +251,9 @@ function tGeneral(key: string): string {
 }
 
 .enseignements-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   flex: 1;
   display: flex;
   flex-wrap: wrap;
@@ -230,18 +261,7 @@ function tGeneral(key: string): string {
 }
 
 .pill-tag {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.4rem 1rem;
-  border-radius: 8px;
-  font-size: var(--#{$prefix}font-size-sm);
-  color: var(--#{$prefix}basic-black-lighter);
-  border: 1px solid var(--#{$prefix}stroke);
-  background-color: transparent;
-  transition:
-    background-color 0.2s,
-    border-color 0.2s;
+  @include mce-pill-tag;
 
   &:hover {
     background-color: var(--#{$prefix}hover);
