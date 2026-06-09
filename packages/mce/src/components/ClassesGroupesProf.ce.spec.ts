@@ -33,6 +33,8 @@ const messages = {
       'discipline': 'Discipline / Matière',
       'no-data': 'Aucune donnée chargée.',
       'discipline-unknown': 'Discipline inconnue',
+      'collapse-open': 'Ouvrir la section',
+      'collapse-close': 'Fermer la section',
     },
   },
 }
@@ -111,15 +113,25 @@ describe('classesGroupesProf', () => {
     })
 
     it('bascule l\'état lors du clic sur le header', async () => {
-      const header = wrapper.find('.clickable-header')
-      await header.trigger('click')
-      expect(wrapper.find('.collapse-icon').text()).toBe('+')
-      // Le .card-body disparaît quand fermé (v-else-if="isOpen")
-      expect(wrapper.find('.card-body').exists()).toBe(false)
+      const header = wrapper.find('.collapse-btn')
+      expect(header.exists()).toBe(true)
 
       await header.trigger('click')
+      await wrapper.vm.$nextTick()
+
+      expect(header.attributes('aria-expanded')).toBe('false')
+      expect(wrapper.find('.collapse-icon').text()).toBe('+')
+
+      await header.trigger('click')
+      await wrapper.vm.$nextTick()
+
       expect(wrapper.find('.collapse-icon').text()).toBe('-')
-      expect(wrapper.find('.card-body').exists()).toBe(true)
+      expect(header.attributes('aria-expanded')).toBe('true')
+    })
+    it('ajoute un aria-label accessible au bouton de collapse', () => {
+      const header = wrapper.find('.collapse-btn')
+      expect(header.attributes('aria-label')).toBe('Fermer la section')
+      expect(header.attributes('title')).toBe('Fermer la section')
     })
   })
 
