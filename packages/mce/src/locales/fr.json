@@ -6,12 +6,13 @@
     "APPRENTIS": "Mes apprentis",
     "RELATION_ELEVE": "Mes relations élèves",
     "CHANGE_PASSWORD": "Changer mon mot de passe",
-    "FONCTION_LIST": "Liste des fonctions"
+    "FONCTION_LIST": "Liste des fonctions",
+    "nav-label": "Menu de navigation"
   },
 
   "user-info": {
     "login": "Identifiant",
-    "email": "Mail",
+    "email": "Mail ",
     "bod": "Date de naissance",
     "structure": "Structure rattachement",
     "password": "Mot de passe",
@@ -21,7 +22,8 @@
     "prenom": "Prénom",
     "modifier": "Modifier",
     "annuler": "Annuler",
-    "uid": "UID"
+    "uid": "UID",
+    "not-available": "Non renseigné"
   },
 
   "page-mce": {
@@ -56,7 +58,11 @@
     "loading": "Chargement...",
     "success": "Avatar mis à jour avec succès",
     "error-default": "Une erreur est survenue lors de la mise à jour de l'avatar",
-    "select-image-hint": "Sélectionnez une image"
+    "select-image-hint": "Sélectionnez une image",
+    "edit-avatar": "Modifier l'avatar de l'utilisateur",
+    "close": "Fermer la fenêtre",
+    "avatar-alt": "Photo de profil actuelle",
+    "crop-alt": "Aperçu du recadrage"
   },
 
   "change-email": {
@@ -73,7 +79,9 @@
     "error-format": "Le format de l'email est invalide.",
     "error-mismatch": "Les emails ne correspondent pas.",
     "error-default": "Erreur lors de la modification.",
-    "no-email": "Aucune adresse email renseignée."
+    "no-email": "Aucune adresse email renseignée.",
+    "focus-sentinel-start": "Retour au début du formulaire",
+    "focus-sentinel-end": "Fin du formulaire"
   },
 
   "change-password": {
@@ -119,6 +127,7 @@
   },
 
   "relation-user-detail": {
+    "detail-panel-label": "Panneau de détails de la relation utilisateur",
     "loading": "Chargement…",
     "error": "Impossible de charger les informations.",
     "external-account": "Compte Externe (EduConnect)",
@@ -133,7 +142,9 @@
     "enseignements": "Enseignements suivis",
     "personnes-relation": "Personnes en relation",
     "lien": "Lien",
-    "autorite-parentale": "Autorité parentale"
+    "autorite-parentale": "Autorité parentale",
+    "avatar-alt": "Photo de profil de",
+    "lien-label": "Lien : {lien}"
   },
   "onglet-content": {
     "mes-fonctions": "Mes fonctions",
