@@ -196,7 +196,8 @@ async function handleSubmit() {
     @focusin="handleFocusIn"
   >
     <div ref="panelRef">
-      <button type="button" class="sr-only" aria-label="Focus retour" @focus="focusLast" />
+      <!-- Sentinelle début : Shift+Tab depuis le premier élément cycle vers le dernier -->
+      <span tabindex="0" aria-hidden="true" @focus="focusLast" />
 
       <header class="card-header">
         <h3 id="change-email-title">
@@ -206,17 +207,14 @@ async function handleSubmit() {
 
       <form class="card-body" novalidate @submit.prevent="handleSubmit">
         <!-- Email actuel en lecture seule -->
-        <div class="form-group">
-          <span id="current-email-label" class="info-label">{{ tEmail('current-email') }}</span>
-          <div
-            class="static-value"
-            aria-labelledby="current-email-label"
-            :aria-label="`${tEmail('current-email')} : ${props.currentEmail || tEmail('no-email')}`"
-          >
+        <dl class="form-group">
+          <dt class="info-label">
+            {{ tEmail('current-email') }}
+          </dt>
+          <dd class="static-value">
             {{ props.currentEmail || '-' }}
-          </div>
-        </div>
-
+          </dd>
+        </dl>
         <!-- Nouvel email -->
         <div class="form-group">
           <label class="info-label" for="newEmail">{{ tEmail('new-email') }}</label>
@@ -228,8 +226,10 @@ async function handleSubmit() {
             class="custom-input"
             autocomplete="email"
             aria-required="true"
-            :aria-invalid="message && messageType === 'error' ? 'true' : 'false'"
-            :aria-describedby="message && messageType === 'error' ? messageId : undefined"
+            :aria-describedby="message && messageType === 'error'
+              ? `current-email-value ${messageId}`
+              : 'current-email-value'"
+            :aria-invalid="message && messageType === 'error' ? 'true' : undefined"
           >
         </div>
 
@@ -243,7 +243,7 @@ async function handleSubmit() {
             class="custom-input"
             autocomplete="email"
             aria-required="true"
-            :aria-invalid="message && messageType === 'error' ? 'true' : 'false'"
+            :aria-invalid="message && messageType === 'error' ? 'true' : undefined"
             :aria-describedby="message && messageType === 'error' ? messageId : undefined"
           >
         </div>
@@ -254,7 +254,8 @@ async function handleSubmit() {
           ref="alertRef"
           class="alert-message"
           :class="messageType"
-          role="alert"
+          :role="messageType === 'success' ? 'status' : undefined"
+          :aria-live="messageType === 'success' ? 'polite' : undefined"
           tabindex="-1"
         >
           {{ message }}
@@ -269,16 +270,13 @@ async function handleSubmit() {
             class="btn-primary small"
             :disabled="isLoading"
             :aria-busy="isLoading ? 'true' : undefined"
-            :aria-label="isLoading ? tEmail('loading') : undefined"
           >
             <span v-if="isLoading" aria-hidden="true">{{ tEmail('loading') }}</span>
             <span v-else>{{ tEmail('submit') }}</span>
           </button>
         </div>
       </form>
-
-      <!-- Sentinelle fin : Tab depuis le dernier élément revient ici → cycle vers le premier -->
-      <button type="button" class="sr-only" aria-label="Focus début" @focus="focusFirst" />
+      <span tabindex="0" aria-hidden="true" @focus="focusFirst" />
     </div>
   </section>
 </template>
@@ -321,7 +319,6 @@ async function handleSubmit() {
   border: 1px solid var(--#{$prefix}stroke);
   border-radius: 10px;
   font-size: var(--#{$prefix}font-size-sm);
-  color: var(--#{$prefix}basic-black);
   overflow-wrap: break-word;
   word-break: break-all;
 }
