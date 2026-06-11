@@ -91,14 +91,18 @@ const enseignementsList = computed(() => {
 </script>
 
 <template>
-  <div class="detail-panel">
+  <section
+    class="detail-panel"
+    :aria-labelledby="personne ? 'relation-detail-title' : undefined"
+    :aria-label="!personne ? t('detail-panel-label') : undefined"
+  >
     <!-- Chargement -->
-    <div v-if="isLoading" class="alert-message alert-message--info">
+    <output v-if="isLoading" role="status" class="alert-message alert-message--info" aria-live="polite">
       {{ t('loading') }}
-    </div>
+    </output>
 
     <!-- Erreur -->
-    <div v-else-if="hasError" class="alert-message alert-message--error">
+    <div v-else-if="hasError" class="alert-message alert-message--error" role="alert" aria-live="assertive">
       {{ t('error') }}
     </div>
 
@@ -106,20 +110,22 @@ const enseignementsList = computed(() => {
     <template v-else-if="personne">
       <!-- En-tête -->
       <div class="detail-header">
-        <div class="avatar-container">
+        <div class="avatar-container" aria-hidden="true">
           <img
             v-if="personne.avatar"
             :src="personne.avatar"
-            :alt="personne.userName"
+            alt=""
             class="avatar-img"
           >
-          <div v-else class="avatar-fallback">
+          <div v-else class="avatar-fallback" aria-hidden="true">
             {{ initials }}
           </div>
         </div>
 
         <div class="detail-header-meta">
-          <span class="detail-name">{{ personne.userName }}</span>
+          <h2 id="relation-detail-title" class="detail-name">
+            {{ personne.userName }}
+          </h2>
           <div class="badge-container">
             <span v-if="personne.etat" class="status-badge" :class="`status-badge--${personne.etat.toLowerCase()}`">
               {{ personne.etat }}
@@ -130,41 +136,47 @@ const enseignementsList = computed(() => {
           </div>
         </div>
 
-        <button class="btn-close" :aria-label="t('close')" @click="$emit('close')">
-          ✕
+        <button type="button" class="btn-primary small" :aria-label="t('close')" @click="$emit('close')">
+          <span aria-hidden="true">✕</span>
         </button>
       </div>
-
-      <!-- Infos principales -->
-      <div class="detail-grid">
+      <dl class="detail-grid">
         <div v-if="personne.userMail" class="info-item info-item--full">
-          <span class="info-label">{{ t('email') }}</span>
-          <div class="info-value-box">
+          <dt class="info-label">
+            {{ t('email') }}
+          </dt>
+          <dd class="info-value-box">
             <span class="info-value">{{ personne.userMail }}</span>
-          </div>
+          </dd>
         </div>
 
         <div v-if="personne.etab" class="info-item info-item--full">
-          <span class="info-label">{{ t('etab') }}</span>
-          <div class="info-value-box">
+          <dt class="info-label">
+            {{ t('etab') }}
+          </dt>
+          <dd class="info-value-box">
             <span class="info-value">{{ personne.etab }}</span>
-          </div>
+          </dd>
         </div>
 
         <div v-if="formatDate" class="info-item">
-          <span class="info-label">{{ t('bod') }}</span>
-          <div class="info-value-box">
-            <span class="info-value">{{ formatDate }}</span>
-          </div>
+          <dt class="info-label">
+            {{ t('bod') }}
+          </dt>
+          <dd class="info-value-box">
+            <time class="info-value" :datetime="personne.bod">{{ formatDate }}</time>
+          </dd>
         </div>
 
         <div v-if="personne.uid" class="info-item">
-          <span class="info-label">{{ t('uid') }}</span>
-          <div class="info-value-box">
+          <dt class="info-label">
+            {{ t('uid') }}
+          </dt>
+          <dd class="info-value-box">
             <span class="info-value">{{ personne.uid }}</span>
-          </div>
+          </dd>
         </div>
-      </div>
+      </dl>
 
       <!-- Classes & groupes -->
       <div v-if="classesList.length || groupesList.length" class="sub-section">
@@ -175,20 +187,20 @@ const enseignementsList = computed(() => {
         <div class="detail-grid">
           <div v-if="classesList.length" class="info-item">
             <span class="info-label">{{ t('classes') }}</span>
-            <div class="info-value-box info-value-box--tags">
-              <span v-for="(classe, i) in classesList" :key="i" class="pill-tag pill-tag--class">
+            <ul class="info-value-box info-value-box--tags">
+              <li v-for="(classe, i) in classesList" :key="i" class="pill-tag pill-tag--class">
                 {{ classe }}
-              </span>
-            </div>
+              </li>
+            </ul>
           </div>
 
           <div v-if="groupesList.length" class="info-item">
             <span class="info-label">{{ t('groupes') }}</span>
-            <div class="info-value-box info-value-box--tags">
-              <span v-for="(groupe, i) in groupesList" :key="i" class="pill-tag pill-tag--group">
+            <ul class="info-value-box info-value-box--tags">
+              <li v-for="(groupe, i) in groupesList" :key="i" class="pill-tag pill-tag--group">
                 {{ groupe }}
-              </span>
-            </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -198,11 +210,11 @@ const enseignementsList = computed(() => {
         <h3 class="sub-section-title">
           {{ t('enseignements') }}
         </h3>
-        <div class="enseignements-grid">
-          <span v-for="(matiere, i) in enseignementsList" :key="i" class="discipline-tag">
+        <ul class="enseignements-grid">
+          <li v-for="(matiere, i) in enseignementsList" :key="i" class="discipline-tag">
             {{ matiere }}
-          </span>
-        </div>
+          </li>
+        </ul>
       </div>
 
       <!-- Personnes en relation -->
@@ -210,26 +222,26 @@ const enseignementsList = computed(() => {
         <h3 class="sub-section-title">
           {{ t('personnes-relation') }}
         </h3>
-        <div class="relations-list">
-          <div
+        <ul class="relations-list">
+          <li
             v-for="(parent, i) in personne.parentEleve"
             :key="i"
             class="relation-card"
           >
             <div class="relation-info">
               <span class="info-value info-value--bold">{{ parent.displayNameRelation }}</span>
-              <small v-if="parent.lienParente" class="relation-type">
+              <span v-if="parent.lienParente" class="relation-type">
                 {{ t('lien') }} : {{ parent.lienParente }}
-              </small>
+              </span>
             </div>
             <span v-if="parent.autoriteParental" class="ap-tag">
               {{ t('autorite-parentale') }}
             </span>
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
     </template>
-  </div>
+  </section>
 </template>
 
 <style lang="scss" scoped>
@@ -239,6 +251,7 @@ const enseignementsList = computed(() => {
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
+@use './mce-shared' as *;
 
 @mixin label-style {
   font-size: var(--#{$prefix}font-size-xxs);
@@ -263,15 +276,12 @@ const enseignementsList = computed(() => {
 }
 
 .detail-panel {
-  border: 1px solid var(--#{$prefix}stroke);
-  border-radius: 10px;
+  @include mce-card-base;
   padding: 1.25rem;
-  box-shadow: var(--#{$prefix}shadow-neutral) rgba(0, 0, 0, 0.1);
-  background-color: var(--#{$prefix}body-bg);
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  overflow: hidden;
+  overflow: visible;
   animation: fadeIn 0.2s ease;
 
   @media (width >= map.get($grid-breakpoints, md)) {
@@ -350,49 +360,13 @@ const enseignementsList = computed(() => {
   font-size: var(--#{$prefix}font-size-sm);
   color: var(--#{$prefix}basic-black);
   overflow-wrap: break-word;
-  text-transform: uppercase;
 }
 
 .badge-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  align-items: center;
+  @include mce-badge-container;
 
   @media (width <= 400px) {
     justify-content: center;
-  }
-}
-
-.btn-close {
-  background: transparent;
-  color: var(--#{$prefix}basic-black);
-  border: 1px solid var(--#{$prefix}stroke);
-  font-size: var(--#{$prefix}font-size-xs);
-  font-weight: 800;
-  cursor: pointer;
-  padding: 0.4rem 0.65rem;
-  border-radius: 8px;
-  flex-shrink: 0;
-  transition:
-    background-color 0.2s,
-    border-color 0.2s;
-
-  &:hover {
-    background-color: var(--#{$prefix}hover);
-    border-color: var(--#{$prefix}basic-black-lighter);
-  }
-
-  &:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--#{$prefix}primary) 20%, transparent);
-  }
-
-  @media (width <= 400px) {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 0.25rem 0.4rem;
   }
 }
 
@@ -411,6 +385,7 @@ const enseignementsList = computed(() => {
 .pill-tag {
   @include tag-base;
   font-size: var(--#{$prefix}font-size-xs);
+  list-style: none;
 
   &--class {
     background-color: var(--#{$prefix}primary);
@@ -426,6 +401,7 @@ const enseignementsList = computed(() => {
 
 .discipline-tag {
   @include tinted-tag(primary);
+  list-style: none;
 }
 
 .ap-tag {
@@ -444,9 +420,11 @@ const enseignementsList = computed(() => {
 }
 
 .info-item {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
+  @include mce-info-item;
+  :deep(dt),
+  :deep(dd) {
+    margin: 0;
+  }
 
   &--full {
     grid-column: 1 / -1;
@@ -454,10 +432,7 @@ const enseignementsList = computed(() => {
 }
 
 .info-label {
-  @include label-style;
-  display: block;
-  color: var(--#{$prefix}basic-black-lighter);
-  margin-bottom: 4px;
+  @include mce-info-label;
 }
 
 .info-value-box {
@@ -467,6 +442,8 @@ const enseignementsList = computed(() => {
   padding: 0.75rem;
   min-width: 0;
   box-sizing: border-box;
+  margin: 0;
+  list-style: none;
 
   &--tags {
     display: flex;
@@ -476,13 +453,12 @@ const enseignementsList = computed(() => {
 }
 
 .info-value {
-  font-size: var(--#{$prefix}font-size-sm);
-  color: var(--#{$prefix}basic-black);
+  @include mce-info-value;
   display: block;
   overflow-wrap: break-word;
 
   &--bold {
-    font-weight: 600;
+    @include mce-info-value-bold;
   }
 }
 
@@ -506,9 +482,15 @@ const enseignementsList = computed(() => {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .relations-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -544,22 +526,13 @@ const enseignementsList = computed(() => {
 }
 
 .alert-message {
-  padding: 0.75rem;
-  border-radius: 10px;
-  font-size: var(--#{$prefix}font-size-sm);
-  font-weight: 600;
+  @include mce-alert-message;
   text-align: center;
 
   &--info {
     background-color: var(--#{$prefix}basic-grey);
     color: var(--#{$prefix}basic-black-lighter);
     border: 1px solid var(--#{$prefix}stroke);
-  }
-
-  &--error {
-    @include tinted-tag(system-red);
-    padding: 0.75rem;
-    border-radius: 10px;
   }
 }
 </style>
