@@ -105,7 +105,6 @@ function openModal() {
     imageInput.value.value = ''
 }
 
-// Remplacez votre handleKeydown par ceci (simplifié, juste pour Echap)
 function handleKeydown(event: KeyboardEvent) {
   if (!open.value)
     return
@@ -254,10 +253,10 @@ function focusLast() {
       ref="triggerButton"
       type="button"
       class="image-container"
-      aria-label="Modifier l'avatar de l'utilisateur"
+      :aria-label="t('edit-avatar')"
       @click="openModal"
     >
-      <img class="avatar" :src="avatar" alt="Photo de profil actuelle">
+      <img class="avatar" :src="avatar" :alt="t('avatar-alt')">
       <input ref="imageInput" type="file" accept="image/jpeg,image/png" hidden @change="onFileChange">
 
       <span class="edit-picture" aria-hidden="true">
@@ -281,7 +280,7 @@ function focusLast() {
           <h3 id="modal-title" class="modal-title">
             {{ t('title-header') }}
           </h3>
-          <button class="btn-close" aria-label="Fermer la fenêtre" @click="closeModal">
+          <button class="btn-primary small" :aria-label="t('close')" @click="closeModal">
             ✕
           </button>
         </header>
@@ -289,8 +288,13 @@ function focusLast() {
         <div class="modal-body">
           <!-- Zone crop -->
           <div class="crop-area">
-            <img v-if="imageSrc" ref="imgEl" :src="imageSrc" alt="Recadrage">
-            <div v-else class="crop-empty" role="button" tabindex="0" @click="imageInput?.click()" @keydown.enter="imageInput?.click()">
+            <img v-if="imageSrc" ref="imgEl" :src="imageSrc" :alt="t('crop-alt')">
+            <div
+              v-else class="crop-empty" role="button" tabindex="0"
+              @click="imageInput?.click()"
+              @keydown.enter="imageInput?.click()"
+              @keydown.space.prevent="imageInput?.click()"
+            >
               <p>{{ t('select-image-hint') }}</p>
             </div>
           </div>
@@ -301,7 +305,13 @@ function focusLast() {
           </div>
 
           <!-- Message -->
-          <div v-if="message" class="alert-message" :class="`alert-message--${messageType}`">
+          <div
+            v-if="message"
+            class="alert-message"
+            :class="`alert-message--${messageType}`"
+            role="alert"
+            aria-live="assertive"
+          >
             {{ message }}
           </div>
         </div>
@@ -373,7 +383,8 @@ function focusLast() {
     pointer-events: none;
   }
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     .avatar {
       opacity: 0.85;
     }
@@ -391,6 +402,7 @@ function focusLast() {
       opacity: 1;
     }
   }
+
   &:focus-visible {
     outline: 3px solid var(--#{$prefix}primary);
     outline-offset: 4px;
@@ -404,6 +416,7 @@ function focusLast() {
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/components/buttons';
+@use './mce-shared' as *;
 @import 'cropperjs/dist/cropper.css';
 
 .modal-mask {
@@ -445,30 +458,6 @@ function focusLast() {
   color: var(--#{$prefix}basic-black);
 }
 
-.btn-close {
-  color: var(--#{$prefix}basic-black);
-  border: 1px solid var(--#{$prefix}stroke);
-  font-size: var(--#{$prefix}font-size-xs);
-  font-weight: 800;
-  cursor: pointer;
-  padding: 0.4rem 0.65rem;
-  border-radius: 8px;
-  flex-shrink: 0;
-  transition:
-    background-color 0.2s,
-    border-color 0.2s;
-
-  &:hover {
-    background-color: var(--#{$prefix}hover);
-    border-color: var(--#{$prefix}basic-black);
-  }
-
-  &:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--#{$prefix}primary) 20%, transparent);
-  }
-}
-
 .modal-body {
   padding: 1.25rem;
   display: flex;
@@ -507,7 +496,17 @@ function focusLast() {
   color: var(--#{$prefix}basic-black-lighter);
   font-size: var(--#{$prefix}font-size-sm);
   text-align: center;
+  background: transparent;
+  border: none;
+  padding: 0;
   cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+.crop-empty:focus-visible {
+  outline: 3px solid var(--#{$prefix}primary);
+  outline-offset: 2px;
 }
 
 .preview-wrapper {
@@ -534,23 +533,8 @@ function focusLast() {
 }
 
 .alert-message {
-  padding: 0.75rem;
-  border-radius: 10px;
-  font-size: var(--#{$prefix}font-size-sm);
-  font-weight: 600;
+  @include mce-alert-message;
   width: 100%;
   text-align: center;
-
-  &--success {
-    background-color: color-mix(in srgb, var(--#{$prefix}system-blue) 10%, transparent);
-    color: var(--#{$prefix}system-blue);
-    border: 1px solid color-mix(in srgb, var(--#{$prefix}system-blue) 30%, transparent);
-  }
-
-  &--error {
-    background-color: color-mix(in srgb, var(--#{$prefix}system-red) 10%, transparent);
-    color: var(--#{$prefix}system-red);
-    border: 1px solid color-mix(in srgb, var(--#{$prefix}system-red) 30%, transparent);
-  }
 }
 </style>
