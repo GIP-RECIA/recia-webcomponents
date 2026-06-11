@@ -31,7 +31,7 @@ export interface PersonneRelation {
 
 defineOptions({ name: 'SectionOnglet' })
 
-defineProps<{
+const props = defineProps<{
   mceApi: string
   listMenu: string
   userInfoApiUrl: string
@@ -53,6 +53,8 @@ defineProps<{
   canModifyEmail?: boolean
   showChangeEmail?: boolean
   mdp?: boolean
+  // Liste des onglets disponibles, nécessaire pour calculer l'index
+  listOnglets: string[]
 }>()
 
 defineEmits<{
@@ -64,12 +66,13 @@ defineEmits<{
 
 <template>
   <div class="section-content-wrapper">
-    <div v-if="showChangeEmail" class="tab-pane animate-fade">
+    <!-- Panneau ChangeEmail (hors onglets normaux, pas de tabpanel) -->
+    <div v-if="props.showChangeEmail" class="tab-pane animate-fade">
       <ChangeEmail
-        :user-info-api-url="userInfoApiUrl"
-        :mce-api="mceApi"
-        :user-id="userId"
-        :current-email="userMail"
+        :user-info-api-url="props.userInfoApiUrl"
+        :mce-api="props.mceApi"
+        :user-id="props.userId"
+        :current-email="props.userMail"
         @close="$emit('closeChangeEmail')"
         @updated="(email) => $emit('emailUpdated', email)"
       />
@@ -77,58 +80,89 @@ defineEmits<{
 
     <template v-else>
       <!-- ONGLET GÉNÉRALE -->
-      <div v-if="listMenu === 'GENERALE'" key="generale" class="tab-pane animate-fade">
+      <div
+        v-show="props.listMenu === 'GENERALE'"
+        id="onglet-tabpanel-GENERALE"
+        role="tabpanel"
+        aria-labelledby="onglet-tab-GENERALE"
+        tabindex="0"
+        class="tab-pane"
+        :class="{ 'animate-fade': props.listMenu === 'GENERALE' }"
+      >
         <InformationPersonnelleCe
-          :uid="uid"
-          :nom="nom"
-          :prenom="prenom"
-          :date-naissance="bod"
-          :user-mail="userMail"
-          :user-id="userId"
-          :user-info-api-url="userInfoApiUrl"
-          :mce-api="mceApi"
-          :can-modify-email="canModifyEmail"
+          :uid="props.uid"
+          :nom="props.nom"
+          :prenom="props.prenom"
+          :date-naissance="props.bod"
+          :user-mail="props.userMail"
+          :user-id="props.userId"
+          :user-info-api-url="props.userInfoApiUrl"
+          :mce-api="props.mceApi"
+          :can-modify-email="props.canModifyEmail"
           @open-change-email="$emit('openChangeEmail')"
           @email-updated="(email) => $emit('emailUpdated', email)"
         />
-
         <info-general
-          :details="fonctionClassesGroupe"
-          :list-fonctions="fonctionClassesGroupe.listFonctions ?? []"
-          :user-id="userId"
-          :list-menu="listMenu"
-          :mce-api="mceApi"
-          :parent-eleve="parentEleve"
-          :relation-eleve="relationEleve"
-          :apprentis="apprentis"
-          :user-info-api-url="userInfoApiUrl"
+          :details="props.fonctionClassesGroupe"
+          :list-fonctions="props.fonctionClassesGroupe.listFonctions ?? []"
+          :user-id="props.userId"
+          :list-menu="props.listMenu"
+          :mce-api="props.mceApi"
+          :parent-eleve="props.parentEleve"
+          :relation-eleve="props.relationEleve"
+          :apprentis="props.apprentis"
+          :user-info-api-url="props.userInfoApiUrl"
         />
       </div>
 
       <!-- ONGLET SERVICES ENT -->
-      <div v-else-if="listMenu === 'SERVICE'" key="service" class="tab-pane animate-fade">
+      <div
+        v-show="props.listMenu === 'SERVICE'"
+        id="onglet-tabpanel-SERVICE"
+        role="tabpanel"
+        aria-labelledby="onglet-tab-SERVICE"
+        tabindex="0"
+        class="tab-pane"
+        :class="{ 'animate-fade': props.listMenu === 'SERVICE' }"
+      >
         <services-ent
-          :details="services"
-          :etab="etabCurrent"
-          :onglet="listMenu"
+          :details="props.services"
+          :etab="props.etabCurrent"
+          :onglet="props.listMenu"
         />
       </div>
 
       <!-- ONGLET CHANGEMENT MOT DE PASSE -->
-      <div v-else-if="listMenu === 'CHANGE_PASSWORD'" key="password" class="tab-pane animate-fade">
+      <div
+        v-show="props.listMenu === 'CHANGE_PASSWORD'"
+        id="onglet-tabpanel-CHANGE_PASSWORD"
+        role="tabpanel"
+        aria-labelledby="onglet-tab-CHANGE_PASSWORD"
+        tabindex="0"
+        class="tab-pane"
+        :class="{ 'animate-fade': props.listMenu === 'CHANGE_PASSWORD' }"
+      >
         <ChangePassword
-          :user-info-api-url="userInfoApiUrl"
-          :user-id="userId"
-          :mce-api="mceApi"
+          :user-info-api-url="props.userInfoApiUrl"
+          :user-id="props.userId"
+          :mce-api="props.mceApi"
         />
       </div>
 
       <!-- ONGLET LISTE DES FONCTIONS / RÔLES -->
-      <div v-else-if="listMenu === 'FONCTION_LIST'" key="fonctions" class="tab-pane animate-fade">
+      <div
+        v-show="props.listMenu === 'FONCTION_LIST'"
+        id="onglet-tabpanel-FONCTION_LIST"
+        role="tabpanel"
+        aria-labelledby="onglet-tab-FONCTION_LIST"
+        tabindex="0"
+        class="tab-pane"
+        :class="{ 'animate-fade': props.listMenu === 'FONCTION_LIST' }"
+      >
         <FonctionsList
-          :fonctions="fonctionClassesGroupe.listFonctions ?? []"
-          :user-info-api-url="userInfoApiUrl ?? ''"
-          :mce-api="mceApi"
+          :fonctions="props.fonctionClassesGroupe.listFonctions ?? []"
+          :user-info-api-url="props.userInfoApiUrl ?? ''"
+          :mce-api="props.mceApi"
         />
       </div>
     </template>
@@ -136,8 +170,13 @@ defineEmits<{
 </template>
 
 <style scoped lang="scss">
+@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
+@use '@gip-recia/ui/functions' as *;
+@use '@gip-recia/ui/mixins' as *;
+@use '@gip-recia/ui/components/buttons';
+@use './mce-shared' as *;
 
 @keyframes fadeIn {
   from {
@@ -163,6 +202,16 @@ defineEmits<{
   gap: 1.25rem;
   width: 100%;
   min-width: 0;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px dotted var(--#{$prefix}primary);
+    outline-offset: 8px;
+    border-radius: 10px;
+  }
 
   @media (width < map.get($grid-breakpoints, sm)) {
     gap: 0.75rem;
