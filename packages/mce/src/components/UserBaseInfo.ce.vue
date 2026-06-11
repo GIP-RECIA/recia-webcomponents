@@ -40,7 +40,7 @@ function m(key: string): string {
 </script>
 
 <template>
-  <div class="profile-container">
+  <section class="profile-container" aria-labelledby="user-baseinfo-heading">
     <!-- Section profil : avatar + nom -->
     <div class="profile-picture">
       <avatar-user
@@ -50,7 +50,7 @@ function m(key: string): string {
         :mce-api="props.mceApi"
         @avatar-updated="emit('avatarUpdated')"
       />
-      <h3 class="user-name">
+      <h3 id="user-baseinfo-heading" class="user-name">
         {{ props.userName }}
       </h3>
     </div>
@@ -68,7 +68,7 @@ function m(key: string): string {
         </a>
       </dd>
     </dl>
-  </div>
+  </section>
 </template>
 
 <style lang="scss" scoped>
@@ -78,6 +78,7 @@ function m(key: string): string {
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
+@use './mce-shared' as *;
 
 .profile-container {
   display: flex;
@@ -122,34 +123,29 @@ function m(key: string): string {
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
-  margin: 0; // reset <dl> default margin
+  margin: 0;
 }
 
 .info-label {
-  display: block;
-  font-size: var(--#{$prefix}font-size-xxs);
-  font-weight: 800;
-  text-transform: uppercase;
-  color: var(--#{$prefix}basic-black-lighter);
-  margin-bottom: 4px;
+  @include mce-info-label;
 }
 
 .info-value {
-  font-size: var(--#{$prefix}font-size-sm);
-  color: var(--#{$prefix}basic-black);
+  @include mce-info-value;
   font-weight: 500;
   width: 100%;
-  overflow-wrap: break-word;
-  word-break: break-all;
   margin: 0; // reset <dd> default margin
 }
 
 .email-link {
   color: inherit;
   text-decoration: none;
-  overflow-wrap: break-word;
-  word-break: break-all;
-  display: block;
+  display: inline-block;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+  width: auto;
+  font-size: clamp(0.65rem, 1vw, var(--#{$prefix}font-size-sm));
 
   &:hover,
   &:focus-visible {
