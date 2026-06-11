@@ -1,142 +1,159 @@
 {
   "list-onglet": {
-    "GENERALE": "My general information",
-    "SERVICE": "My ENT services",
-    "PARENT_ELEVE": "My responsibles",
-    "APPRENTIS": "My trainees",
-    "RELATION_ELEVE": "My student relations",
-    "CHANGE_PASSWORD": "Change my password",
-    "FONCTION_LIST": "functions list"
+    "GENERALE": "My General Information",
+    "SERVICE": "My ENT Services",
+    "PARENT_ELEVE": "My Guardians",
+    "APPRENTIS": "My Apprentices",
+    "RELATION_ELEVE": "My Student Relationships",
+    "CHANGE_PASSWORD": "Change My Password",
+    "FONCTION_LIST": "Function List",
+    "nav-label": "Navigation Menu"
   },
 
   "user-info": {
-    "login": "Login",
-    "email": "Email",
-    "bod": "Date of birth",
-    "structure": "Attached structure",
+    "login": "Username",
+    "email": "Email:",
+    "bod": "Date of Birth",
+    "structure": "Associated Organization",
     "password": "Password",
-    "access": "My login",
-    "informations-personnelles": "Personal information",
-    "nom": "Last name",
-    "prenom": "First name",
+    "access": "My Username",
+    "informations-personnelles": "Personal Information",
+    "nom": "Last Name",
+    "prenom": "First Name",
     "modifier": "Edit",
     "annuler": "Cancel",
-    "uid": "UID"
+    "uid": "UID",
+    "not-available": "Not Provided"
   },
 
   "page-mce": {
-    "user-details": "User information",
-    "main-content": "Main content"
+    "user-details": "User Information",
+    "main-content": "Main Content"
   },
 
   "info-general": {
-    "title-fonction": "My functions",
-    "title-classe-groupe": "My classes and educational groups",
-    "title-courses": "Courses taken",
+    "title-fonction": "My Functions",
+    "title-classe-groupe": "My Classes and Educational Groups",
+    "title-courses": "Courses Attended",
     "class": "Class",
     "group": "Group"
   },
 
   "services-ent": {
-    "title-services": "My services available in ENT"
+    "title-services": "Services I Can Access in the ENT"
   },
 
   "relation-user": {
-    "title-relation-parent": "The students in my relationship",
-    "title-relation-student": "Person connected with me",
-    "title-relation-master": "My apprentices",
-    "parental-authority": "Parental authority",
-    "relation-default": "Relation"
+    "title-relation-parent": "Students Related to Me",
+    "title-relation-student": "People Related to Me",
+    "title-relation-master": "My Apprentices",
+    "parental-authority": "Parental Authority",
+    "relation-default": "Relationship"
   },
 
   "avatar-user": {
-    "title-header": "Change avatar",
-    "select-image": "Select image",
+    "title-header": "Edit Avatar",
+    "select-image": "Choose an Image",
     "apply": "Apply",
     "loading": "Loading...",
     "success": "Avatar updated successfully",
     "error-default": "An error occurred while updating the avatar",
-    "select-image-hint": "Select an image"
+    "select-image-hint": "Select an image",
+    "edit-avatar": "Edit User Avatar",
+    "close": "Close Window",
+    "avatar-alt": "Current Profile Picture",
+    "crop-alt": "Crop Preview"
   },
 
   "change-email": {
-    "title": "Change email address",
-    "current-email": "Current email",
-    "new-email": "New email",
-    "confirm-email": "Confirm new email",
+    "title": "Change Email Address",
+    "current-email": "Current Email",
+    "new-email": "New Email",
+    "confirm-email": "Confirm New Email",
     "placeholder": "example{'@'}domain.com",
     "cancel": "Cancel",
-    "submit": "Confirm",
+    "submit": "Submit",
     "loading": "...",
     "success": "Email updated successfully!",
     "error-required": "All fields are required.",
     "error-format": "Invalid email format.",
-    "error-mismatch": "Emails do not match.",
-    "error-default": "Error while updating.",
-    "no-email": "No email address provided."
+    "error-mismatch": "Email addresses do not match.",
+    "error-default": "Error while updating email.",
+    "no-email": "No email address provided.",
+    "focus-sentinel-start": "Back to the beginning of the form",
+    "focus-sentinel-end": "End of the form"
   },
+
   "change-password": {
-    "title": "Change my password",
-    "current-password": "Current password",
-    "new-password": "New password",
-    "confirm-password": "Confirm new password",
+    "title": "Change My Password",
+    "current-password": "Current Password",
+    "new-password": "New Password",
+    "confirm-password": "Confirm New Password",
     "placeholder-current": "Enter your current password",
     "placeholder-new": "At least 12 characters",
     "placeholder-confirm": "Repeat your password",
-    "submit": "Change password",
+    "submit": "Change Password",
     "loading": "Loading...",
     "error-required": "All fields are required.",
-    "error-mismatch": "New passwords do not match.",
+    "error-mismatch": "The new passwords do not match.",
     "error-length": "The new password must contain at least 12 characters.",
     "success": "Password changed successfully.",
-    "error-default": "Error while changing the password."
+    "error-default": "Error while changing password."
   },
+
   "classes-groupes-eleve": {
-    "etablissement": "School",
-    "matieres-suivies": "Subjects taken",
-    "no-class": "No class",
-    "no-group": "No group",
-    "no-etab": "No school",
-    "no-course": "No course"
+    "etablissement": "Institution",
+    "matieres-suivies": "Courses Attended",
+    "no-class": "No Class",
+    "no-group": "No Group",
+    "no-etab": "No Institution",
+    "no-course": "No Course"
   },
+
   "classes-groupes-prof": {
-    "etablissement": "School",
+    "etablissement": "Institution",
     "discipline": "Discipline / Subject",
     "no-data": "No data loaded.",
-    "discipline-unknown": "Unknown discipline",
-    "discipline-not-set": "Discipline not set",
-    "collapse-open": "Open section",
-    "collapse-close": "Close section",
-    "autres-fonctions": "Other functions"
+    "discipline-unknown": "Unknown Discipline",
+    "discipline-not-set": "Discipline Not Provided",
+    "collapse-open": "Expand Section",
+    "collapse-close": "Collapse Section",
+    "autres-fonctions": "Other Functions"
   },
+
   "fonctions-list": {
     "card-label": "Functions",
     "toggle-activate": "Activate",
     "toggle-deactivate": "Deactivate"
   },
+
   "relation-user-detail": {
+    "detail-panel-label": "User Relationship Details Panel",
     "loading": "Loading…",
     "error": "Unable to load information.",
     "external-account": "External Account (EduConnect)",
     "close": "Close",
-    "email": "Email address",
-    "etab": "Attached school",
-    "bod": "Date of birth",
-    "uid": "Unique identifier (UID)",
-    "classes-groupes": "Classes and educational groups",
+    "email": "Email Address",
+    "etab": "Associated Institution",
+    "bod": "Date of Birth",
+    "uid": "Unique Identifier (UID)",
+    "classes-groupes": "Classes and Educational Groups",
     "classes": "Classes",
     "groupes": "Groups",
-    "enseignements": "Courses taken",
-    "personnes-relation": "Related persons",
-    "lien": "Link",
-    "autorite-parentale": "Parental authority"
+    "enseignements": "Courses Attended",
+    "personnes-relation": "Related People",
+    "lien": "Relationship",
+    "autorite-parentale": "Parental Authority",
+    "avatar-alt": "Profile Picture of",
+    "lien-label": "Relationship: {lien}"
   },
+
   "onglet-content": {
-    "mes-fonctions": "My functions",
-    "etab-siren": "School (SIREN)",
+    "mes-fonctions": "My Functions",
+    "etab-siren": "Institution (SIREN)",
     "fonction": "Function",
     "discipline": "Discipline",
     "active": "Active",
-    "active-label": "Function active for"
+    "active-label": "Active Function for"
   }
 }
