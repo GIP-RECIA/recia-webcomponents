@@ -23,8 +23,9 @@ import ListeOnglet from './ListOnglet.ce.vue'
 const messages = {
   fr: {
     'list-onglet': {
-      GENERALE: 'Mes informations générales',
-      SERVICE: 'Mes services ENT',
+      'GENERALE': 'Mes informations générales',
+      'SERVICE': 'Mes services ENT',
+      'nav-label': 'Menu de navigation',
     },
   },
 }
@@ -70,15 +71,15 @@ describe('listeOnglet', () => {
       expect(activeBtn.text()).toBe('Mes informations générales')
     })
 
-    it('applique aria-current="page" à l\'onglet actif', () => {
+    it('applique aria-selected="true" à l\'onglet actif', () => {
       const activeBtn = wrapper.find('button.active')
-      expect(activeBtn.attributes('aria-current')).toBe('page')
+      expect(activeBtn.attributes('aria-selected')).toBe('true')
     })
 
-    it('n\'applique pas aria-current aux onglets inactifs', () => {
+    it('n\'applique pas aria-selected="true" aux onglets inactifs', () => {
       const buttons = wrapper.findAll('button')
       const inactiveBtn = buttons[1]
-      expect(inactiveBtn.attributes('aria-current')).toBeUndefined()
+      expect(inactiveBtn.attributes('aria-selected')).toBe('false')
     })
 
     it('applique la classBtn fournie en prop à chaque bouton', () => {
