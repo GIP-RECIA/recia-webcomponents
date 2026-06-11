@@ -199,12 +199,13 @@ describe('relationUserDetail', () => {
       expect(wrapper.find('.detail-name').text()).toBe('Jean Dupont')
     })
 
-    it('émet l\'événement "close" lors du clic sur .btn-close', async () => {
+    it('émet l\'événement "close" lors du clic sur le bouton de fermeture', async () => {
       const wrapper = mount(RelationUserDetail, {
         props: defaultProps,
         global: mountOptions.global,
       })
-      await wrapper.find('.btn-close').trigger('click')
+      // Le bouton de fermeture est .btn-primary.small avec aria-label="close"
+      await wrapper.find('.detail-header button').trigger('click')
       expect(wrapper.emitted('close')).toBeTruthy()
     })
   })
