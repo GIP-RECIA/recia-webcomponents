@@ -18,7 +18,7 @@ import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createI18n, I18nInjectionKey } from 'vue-i18n'
-import ListeOnglet from './ListOnglet.ce.vue'
+import ListeOnglet from '../components/ListOnglet.ce.vue'
 
 const messages = {
   fr: {

@@ -20,7 +20,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { createI18n, I18nInjectionKey } from 'vue-i18n'
 import { postPassword } from '@/services/serviceMce.ts'
-import ChangePassword from './ChangePassword.ce.vue'
+import ChangePassword from '../components/ChangePassword.ce.vue'
 
 vi.mock('@/services/serviceMce.ts', () => ({
   postPassword: vi.fn(),

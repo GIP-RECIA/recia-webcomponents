@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Relation } from '@/types/relationType'
+import type { Relation } from '@/types/relationType.ts'
 import { mount } from '@vue/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createI18n, I18nInjectionKey } from 'vue-i18n'
-import { getDetailEnfant } from '@/services/serviceMce'
-import RelationUser from './RelationUser.ce.vue'
+import { getDetailEnfant } from '@/services/serviceMce.ts'
+import RelationUser from '../components/RelationUser.ce.vue'
 
 vi.mock('@/services/serviceMce', () => ({
   getDetailEnfant: vi.fn(),
