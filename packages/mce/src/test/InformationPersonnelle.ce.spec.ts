@@ -20,7 +20,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { createI18n, I18nInjectionKey } from 'vue-i18n'
 import ChangeEmail from '@/components/ChangeEmail.ce.vue'
-import InformationPersonnelle from './InformationPersonnelle.ce.vue'
+import InformationPersonnelle from '../components/InformationPersonnelle.ce.vue'
 
 vi.mock('@/components/ChangeEmail.ce.vue', () => ({
   default: {
