@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { General } from '@/types/generalType'
+import type { General } from '@/types/generalType.ts'
 import { shallowMount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import ClassesGroupesEleve from './ClassesGroupesEleve.ce.vue'
-import ClassesGroupesProf from './ClassesGroupesProf.ce.vue'
-import InfoGeneral from './InfoGeneral.ce.vue'
+import ClassesGroupesEleve from '../components/ClassesGroupesEleve.ce.vue'
+import ClassesGroupesProf from '../components/ClassesGroupesProf.ce.vue'
+import InfoGeneral from '../components/InfoGeneral.ce.vue'
 
 describe('infoGeneral', () => {
   const defaultProps = {
