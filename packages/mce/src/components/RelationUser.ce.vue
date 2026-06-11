@@ -94,9 +94,11 @@ function closeDetail(): void {
 </script>
 
 <template>
-  <section class="profile-card">
+  <section class="profile-card" :aria-labelledby="`relation-title-${titre}`">
     <header class="card-header">
-      <h3>{{ m(`title-relation-${titre}`) }}</h3>
+      <h3 :id="`relation-title-${titre}`">
+        {{ m(`title-relation-${titre}`) }}
+      </h3>
     </header>
 
     <div class="card-body">
@@ -116,32 +118,35 @@ function closeDetail(): void {
             - aria-controls pointe vers le bon panneau de détail
             - pas d'id fixe partagé entre tous les boutons
           -->
-          <button
+          <div
             :id="`rel-btn-${val.uidRelation}`"
-            type="button"
+            role="button"
+            tabindex="0"
             class="relation-row-item"
             :class="{ 'relation-row-item--active': selectedUid === val.uidRelation }"
             :aria-expanded="selectedUid === val.uidRelation"
             :aria-controls="`rel-detail-${val.uidRelation}`"
             :aria-label="`${val.typeRelation || m('relation-default')} ${val.displayNameRelation}`"
             @click.prevent="selectRelation(val.uidRelation)"
+            @keydown.enter.prevent="selectRelation(val.uidRelation)"
+            @keydown.space.prevent="selectRelation(val.uidRelation)"
           >
-            <div class="info-item">
+            <span class="info-item">
               <span class="info-label">{{ val.typeRelation || m('relation-default') }}</span>
               <span class="info-value info-value--bold">{{ val.displayNameRelation }}</span>
-            </div>
+            </span>
 
-            <div class="relation-row-actions">
-              <div v-if="val.autoriteParental" class="tag-container">
+            <span class="relation-row-actions">
+              <span v-if="val.autoriteParental" class="tag-container">
                 <span class="ap-tag">{{ m('parental-authority') }}</span>
-              </div>
+              </span>
               <span
                 class="chevron"
                 :class="{ 'chevron--open': selectedUid === val.uidRelation }"
                 aria-hidden="true"
               >›</span>
-            </div>
-          </button>
+            </span>
+          </div>
 
           <!--
             Panneau de détail dans le <li>, adjacent au bouton qui le contrôle.
@@ -203,6 +208,14 @@ function closeDetail(): void {
 
 .info-item {
   @include mce-info-item;
+  display: flex; // nécessaire car span est inline par défaut
+}
+
+.relation-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: auto;
 }
 
 .info-label {
@@ -256,13 +269,6 @@ function closeDetail(): void {
     position: relative;
     padding-right: 2rem;
   }
-}
-
-.relation-row-actions {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-left: auto;
 }
 
 .tag-container {
