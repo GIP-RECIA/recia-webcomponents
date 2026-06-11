@@ -146,14 +146,14 @@ function toggleOpen() {
       <button
         :id="headerId"
         type="button"
-        class="collapse-btn"
+        class="btn-primary small"
         :aria-expanded="isOpen"
         :aria-controls="bodyId"
         :aria-label="collapseButtonLabel"
         :title="collapseButtonLabel"
         @click="toggleOpen"
       >
-        <span class="collapse-icon btn-primary small" aria-hidden="true">{{ isOpen ? '-' : '+' }}</span>
+        <span aria-hidden="true">{{ isOpen ? '-' : '+' }}</span>
       </button>
     </header>
 
@@ -301,36 +301,9 @@ function toggleOpen() {
 }
 
 .collapse-title {
-  margin: 0;
-  font-size: var(--#{$prefix}font-size-h3);
-  color: var(--#{$prefix}basic-black);
-  font-weight: 700;
 }
 
 .collapse-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 2.5rem;
-  padding: 0.5rem 0.75rem;
-  cursor: pointer;
-  user-select: none;
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 0.75rem;
-  color: var(--#{$prefix}basic-black);
-  transition:
-    background-color 0.2s,
-    border-color 0.2s;
-
-  &:hover {
-    background: var(--#{$prefix}hover);
-  }
-
-  &:focus-visible {
-    outline: none;
-    box-shadow: inset 0 0 0 3px color-mix(in srgb, var(--#{$prefix}primary) 40%, transparent);
-  }
 }
 
 .collapse-icon {

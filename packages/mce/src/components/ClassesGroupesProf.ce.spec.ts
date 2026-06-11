@@ -109,27 +109,30 @@ describe('classesGroupesProf', () => {
     })
 
     it('affiche l\'icône de collapse "-" par défaut (ouvert)', () => {
-      expect(wrapper.find('.collapse-icon').text()).toBe('-')
+      // Le <span> dans le bouton n'a pas de classe, on cible le bouton directement
+      expect(wrapper.find('#classes-groupes-prof-title span[aria-hidden]').text()).toBe('-')
     })
 
     it('bascule l\'état lors du clic sur le header', async () => {
-      const header = wrapper.find('.collapse-btn')
+      // Le bouton de collapse a id="classes-groupes-prof-title" et class="btn-primary small"
+      const header = wrapper.find('#classes-groupes-prof-title')
       expect(header.exists()).toBe(true)
 
       await header.trigger('click')
       await wrapper.vm.$nextTick()
 
       expect(header.attributes('aria-expanded')).toBe('false')
-      expect(wrapper.find('.collapse-icon').text()).toBe('+')
+      expect(header.find('span[aria-hidden]').text()).toBe('+')
 
       await header.trigger('click')
       await wrapper.vm.$nextTick()
 
-      expect(wrapper.find('.collapse-icon').text()).toBe('-')
+      expect(header.find('span[aria-hidden]').text()).toBe('-')
       expect(header.attributes('aria-expanded')).toBe('true')
     })
     it('ajoute un aria-label accessible au bouton de collapse', () => {
-      const header = wrapper.find('.collapse-btn')
+      // Le bouton de collapse a id="classes-groupes-prof-title"
+      const header = wrapper.find('#classes-groupes-prof-title')
       expect(header.attributes('aria-label')).toBe('Fermer la section')
       expect(header.attributes('title')).toBe('Fermer la section')
     })
