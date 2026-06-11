@@ -15,8 +15,9 @@
 -->
 
 <script setup lang="ts">
-import { computed, inject, onMounted, ref } from 'vue'
+import { computed, onMounted, provide, ref } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
+import i18n from '@/plugins/i18n'
 import { getMCE, getServicesEnt } from '@/services/serviceMce'
 
 defineOptions({ name: 'PageMce' })
@@ -28,9 +29,10 @@ const props = defineProps<{
   avatarDefault: string
 }>()
 
-const i18n = inject(I18nInjectionKey)
+provide(I18nInjectionKey, i18n)
+
 function tPage(key: string): string {
-  return i18n ? (i18n.global.t as (k: string) => string)(`page-mce.${key}`) : key
+  return (i18n.global.t as (k: string) => string)(`page-mce.${key}`)
 }
 
 const showChangeEmail = ref(false)
@@ -164,67 +166,66 @@ function handleAvatarUpdated() {
 </script>
 
 <template>
-  <i18n-host>
-    <div class="parent">
-      <aside class="user-details" aria-labelledby="user-details-heading">
-        <h2 id="user-details-heading" class="sr-only">
-          {{ tPage('user-details') }}
-        </h2>
-        <user-base-info
-          v-if="mce.uid"
-          :avatar="avatar"
-          :user-id="mce.uid"
-          :user-name="mce.userName"
-          :user-mail="mce.userMail"
-          :user-info-api-url="userInfoApiUrl"
+  <div class="parent">
+    <aside class="user-details" aria-labelledby="user-details-heading">
+      <h2 id="user-details-heading" class="sr-only">
+        {{ tPage('user-details') }}
+      </h2>
+      <user-base-info
+        v-if="mce.uid"
+        :avatar="avatar"
+        :user-id="mce.uid"
+        :user-name="mce.userName"
+        :user-mail="mce.userMail"
+        :user-info-api-url="userInfoApiUrl"
+        :mce-api="mceApi"
+        @avatar-updated="handleAvatarUpdated"
+      />
+
+      <list-onglet
+        v-if="listOnglets.length > 1"
+        :list="listOnglets"
+        :onglet-current="ongletCurrent"
+        :user-info-api-url="userInfoApiUrl"
+        class-btn="btn btn-secondary-toggle"
+        @select-onglet="select($event)"
+      />
+    </aside>
+
+    <main class="sectionTwo" aria-labelledby="page-content-heading">
+      <h2 id="page-content-heading" class="sr-only">
+        {{ tPage('main-content') }}
+      </h2>
+      <div class="content">
+        <section-onglet
+          v-if="mce?.listMenu?.length"
           :mce-api="mceApi"
-          @avatar-updated="handleAvatarUpdated"
-        />
-
-        <list-onglet
-          v-if="listOnglets.length > 1"
-          :list="listOnglets"
-          :onglet-current="ongletCurrent"
+          :list-menu="ongletCurrent"
+          :list-onglets="listOnglets"
           :user-info-api-url="userInfoApiUrl"
-          class-btn="btn btn-secondary-toggle"
-          @select-onglet="select($event)"
+          :fonction-classes-groupe="mce.fonctionClassesGroupe ?? {}"
+          :parent-eleve="mce.parentEleve ?? {}"
+          :relation-eleve="mce.relationEleve ?? {}"
+          :apprentis="mce.apprentis ?? {}"
+          :services="portlets"
+          :etab-current="mce.etab ?? ''"
+          :user-name="mce.userName ?? ''"
+          :user-mail="mce.userMail ?? ''"
+          :user-id="mce.uid ?? ''"
+          :uid="mce.uid ?? ''"
+          :bod="mce.bod ?? ''"
+          :nom="nom"
+          :prenom="prenom"
+          :can-modify-email="mce.mailEditable ?? false"
+          :show-change-email="showChangeEmail"
+          :mdp="mce.mdp"
+          @open-change-email="handleOpenChangeEmail"
+          @close-change-email="handleCloseChangeEmail"
+          @email-updated="handleEmailUpdated"
         />
-      </aside>
-
-      <main class="sectionTwo" aria-labelledby="page-content-heading">
-        <h2 id="page-content-heading" class="sr-only">
-          {{ tPage('main-content') }}
-        </h2>
-        <div class="content">
-          <section-onglet
-            v-if="mce?.listMenu?.length"
-            :mce-api="mceApi"
-            :list-menu="ongletCurrent"
-            :user-info-api-url="userInfoApiUrl"
-            :fonction-classes-groupe="mce.fonctionClassesGroupe ?? {}"
-            :parent-eleve="mce.parentEleve ?? {}"
-            :relation-eleve="mce.relationEleve ?? {}"
-            :apprentis="mce.apprentis ?? {}"
-            :services="portlets"
-            :etab-current="mce.etab ?? ''"
-            :user-name="mce.userName ?? ''"
-            :user-mail="mce.userMail ?? ''"
-            :user-id="mce.uid ?? ''"
-            :uid="mce.uid ?? ''"
-            :bod="mce.bod ?? ''"
-            :nom="nom"
-            :prenom="prenom"
-            :can-modify-email="mce.mailEditable ?? false"
-            :show-change-email="showChangeEmail"
-            :mdp="mce.mdp"
-            @open-change-email="handleOpenChangeEmail"
-            @close-change-email="handleCloseChangeEmail"
-            @email-updated="handleEmailUpdated"
-          />
-        </div>
-      </main>
-    </div>
-  </i18n-host>
+      </div>
+    </main>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -276,10 +277,5 @@ function handleAvatarUpdated() {
 
 .sr-only {
   @include mce-sr-only;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
 }
 </style>
