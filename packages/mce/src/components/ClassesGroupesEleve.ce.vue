@@ -63,42 +63,34 @@ function tGeneral(key: string): string {
             <!-- Classes -->
             <div class="info-item">
               <span :id="`classes-label-${index}`" class="info-label">{{ tGeneral('class') }}</span>
-              <ul class="pills-list" :aria-labelledby="`classes-label-${index}`">
-                <li
-                  v-for="(cls, i) in classgroup.classes"
-                  :key="i"
-                  class="pill-tag"
-                >
+              <ul v-if="classgroup.classes?.length" class="pills-list" :aria-labelledby="`classes-label-${index}`">
+                <li v-for="(cls, i) in classgroup.classes" :key="i" class="pill-tag">
                   {{ cls }}
                 </li>
-                <li v-if="!classgroup.classes?.length" class="info-value" :aria-label="tEleve('no-class')">
-                  —
-                </li>
               </ul>
+              <p v-else class="info-value">
+                {{ tEleve('no-class') }}
+              </p>
             </div>
 
             <!-- Groupes -->
             <div class="info-item">
               <span :id="`groupes-label-${index}`" class="info-label">{{ tGeneral('group') }}</span>
-              <ul class="pills-list" :aria-labelledby="`groupes-label-${index}`">
-                <li
-                  v-for="(grp, i) in classgroup.groupes"
-                  :key="i"
-                  class="pill-tag"
-                >
+              <ul v-if="classgroup.groupes?.length" class="pills-list" :aria-labelledby="`groupes-label-${index}`">
+                <li v-for="(grp, i) in classgroup.groupes" :key="i" class="pill-tag">
                   {{ grp }}
                 </li>
-                <li v-if="!classgroup.groupes?.length" class="info-value" :aria-label="tEleve('no-group')">
-                  —
-                </li>
               </ul>
+              <p v-else class="info-value">
+                {{ tEleve('no-group') }}
+              </p>
             </div>
           </div>
         </div>
 
         <!-- Aucun établissement -->
-        <p v-if="!etabs?.length" class="info-value" :aria-label="tEleve('no-etab')">
-          —
+        <p v-if="!etabs?.length" class="info-value">
+          {{ tEleve('no-etab') }}
         </p>
       </div>
     </section>
@@ -116,18 +108,14 @@ function tGeneral(key: string): string {
           <div class="info-item label-container">
             <span id="matieres-label" class="info-label">{{ tEleve('matieres-suivies') }}</span>
           </div>
-          <ul class="enseignements-list" aria-labelledby="matieres-label">
-            <li
-              v-for="(ens, index) in sectionEleve?.enseignementSuivis"
-              :key="index"
-              class="pill-tag"
-            >
+          <ul v-if="sectionEleve?.enseignementSuivis?.length" class="enseignements-list" aria-labelledby="matieres-label">
+            <li v-for="(ens, index) in sectionEleve.enseignementSuivis" :key="index" class="pill-tag">
               {{ ens }}
             </li>
-            <li v-if="!sectionEleve?.enseignementSuivis?.length" class="info-value" :aria-label="tEleve('no-course')">
-              —
-            </li>
           </ul>
+          <p v-else class="info-value">
+            {{ tEleve('no-course') }}
+          </p>
         </div>
       </div>
     </section>
@@ -225,12 +213,11 @@ function tGeneral(key: string): string {
 
 .pills-list {
   list-style: none;
-  margin: 0;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
-  margin-top: 2px;
+  margin: 2px 0 0;
 }
 
 .enseignements-row {
