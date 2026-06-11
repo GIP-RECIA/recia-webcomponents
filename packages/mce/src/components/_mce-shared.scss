@@ -35,7 +35,6 @@
     margin: 0;
     font-size: var(--#{$prefix}font-size-h3);
     font-weight: 700;
-    color: var(--#{$prefix}basic-black);
   }
 }
 
@@ -50,12 +49,8 @@
 }
 
 @mixin mce-info-label {
-  display: block;
-  font-size: var(--#{$prefix}font-size-xxs);
-  font-weight: 800;
-  text-transform: uppercase;
-  color: var(--#{$prefix}basic-black-lighter);
-  margin-bottom: 4px;
+  font-size: var(--#{$prefix}font-size-h4);
+  font-weight: 600;
 }
 
 @mixin mce-custom-input {
@@ -141,7 +136,6 @@
 
 @mixin mce-info-value {
   font-size: var(--#{$prefix}font-size-sm);
-  color: var(--#{$prefix}basic-black);
 }
 
 @mixin mce-info-value-bold {
