@@ -90,36 +90,44 @@ function handleCloseEmail() {
 
     <!-- Données statiques uniquement : dl sémantiquement propre -->
     <dl class="card-body-grid">
-      <dt class="info-label">
-        {{ tUser('uid') }}
-      </dt>
-      <dd class="info-value">
-        {{ props.uid || '—' }}
-      </dd>
+      <div class="info-item">
+        <dt class="info-label">
+          {{ tUser('uid') }}
+        </dt>
+        <dd class="info-value">
+          {{ props.uid || '—' }}
+        </dd>
+      </div>
 
-      <dt class="info-label">
-        {{ tUser('nom') }}
-      </dt>
-      <dd class="info-value">
-        {{ props.nom || '—' }}
-      </dd>
+      <div class="info-item">
+        <dt class="info-label">
+          {{ tUser('nom') }}
+        </dt>
+        <dd class="info-value">
+          {{ props.nom || '—' }}
+        </dd>
+      </div>
 
-      <dt class="info-label">
-        {{ tUser('prenom') }}
-      </dt>
-      <dd class="info-value">
-        {{ props.prenom || '—' }}
-      </dd>
+      <div class="info-item">
+        <dt class="info-label">
+          {{ tUser('prenom') }}
+        </dt>
+        <dd class="info-value">
+          {{ props.prenom || '—' }}
+        </dd>
+      </div>
 
-      <dt class="info-label">
-        {{ tUser('bod') }}
-      </dt>
-      <dd class="info-value">
-        <time v-if="props.dateNaissance" :datetime="props.dateNaissance">
-          {{ props.dateNaissance }}
-        </time>
-        <span v-else :aria-label="`${tUser('bod')} : ${tUser('not-available')}`">—</span>
-      </dd>
+      <div class="info-item">
+        <dt class="info-label">
+          {{ tUser('bod') }}
+        </dt>
+        <dd class="info-value">
+          <time v-if="props.dateNaissance" :datetime="props.dateNaissance">
+            {{ props.dateNaissance }}
+          </time>
+          <span v-else :aria-label="`${tUser('bod')} : ${tUser('not-available')}`">—</span>
+        </dd>
+      </div>
     </dl>
 
     <!-- Section email : regroupée, autonome, tout au même endroit dans le DOM -->
@@ -145,7 +153,6 @@ function handleCloseEmail() {
             type="button"
             :aria-expanded="isEmailOpen"
             aria-controls="edit-email-panel"
-            :aria-label="`${tUser('modifier')} ${tUser('email')} : ${currentEmail || tUser('not-available')}`"
             @click="toggleEmail"
           >
             {{ tUser('modifier') }}
@@ -189,15 +196,7 @@ function handleCloseEmail() {
 }
 
 .card-header {
-  padding: 1.5rem 1.25rem;
-  border-bottom: 1px solid var(--#{$prefix}stroke);
-
-  h3 {
-    margin: 0;
-    font-size: var(--#{$prefix}font-size-h3);
-    font-weight: 700;
-    color: var(--#{$prefix}basic-black);
-  }
+  @include mce-card-header;
 }
 
 .card-body-grid {
@@ -245,11 +244,6 @@ function handleCloseEmail() {
 .email-row {
   grid-column: 1 / -1;
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding-top: 1.25rem;
-  border-top: 1px dashed var(--#{$prefix}stroke);
-
   @media (width >= map.get($grid-breakpoints, sm)) {
     flex-direction: row;
     align-items: flex-end;
