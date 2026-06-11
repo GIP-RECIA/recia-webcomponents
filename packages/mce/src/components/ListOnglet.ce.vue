@@ -15,41 +15,79 @@
 -->
 
 <script setup lang="ts">
-import { inject } from 'vue'
+import { computed, inject, useTemplateRef, watch } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
+import { useTabs } from './useTabs.ts'
 
 defineOptions({ name: 'ListOnglet' })
-defineProps<{
+
+const props = defineProps<{
   list: Array<string>
   ongletCurrent: string
   classBtn: string
   userInfoApiUrl: string
 }>()
-const emit = defineEmits<(e: 'selectOnglet', payload: any) => void>()
+
+const emit = defineEmits<(e: 'selectOnglet', payload: string) => void>()
+
 const i18n = inject(I18nInjectionKey)
 function m(key: string): string {
   return i18n ? (i18n.global.t as (k: string) => string)(`list-onglet.${key}`) : key
 }
-function selected(onglet: string) {
-  emit('selectOnglet', onglet)
+
+const tabsRefs = useTemplateRef<HTMLButtonElement[]>('tab-refs')
+const listRef = computed(() => props.list)
+
+const { activeTab, setActiveTab, changeActiveTab } = useTabs({
+  tabs: listRef,
+  tabsRefs,
+  // Callback appelé à chaque changement d'onglet (clic ou clavier)
+  onTabChange: (index: number) => {
+    emit('selectOnglet', props.list[index])
+  },
+})
+
+// Synchronise activeTab si ongletCurrent change depuis l'extérieur
+// sans déclencher de focus ni d'émission
+watch(
+  () => props.ongletCurrent,
+  (val) => {
+    const idx = props.list.indexOf(val)
+    if (idx !== -1 && idx !== activeTab.value)
+      activeTab.value = idx
+  },
+  { immediate: true },
+)
+
+function handleClick(index: number): void {
+  setActiveTab(index, false)
 }
 </script>
 
 <template>
-  <nav class="list-menu" aria-label="Menu de navigation">
-    <ul>
-      <li v-for="item in list" :key="item" class="onglet-item">
-        <button
-          type="button"
-          :class="[classBtn, item === ongletCurrent ? 'active' : '']"
-          :aria-current="item === ongletCurrent ? 'page' : undefined"
-          @click="selected(item)"
-        >
-          {{ m(item) }}
-        </button>
-      </li>
-    </ul>
-  </nav>
+  <ul
+    role="tablist"
+    aria-orientation="vertical"
+    :aria-label="m('nav-label')"
+    class="list-menu"
+  >
+    <li v-for="(item, index) in list" :key="item">
+      <button
+        :id="`onglet-tab-${item}`"
+        ref="tab-refs"
+        type="button"
+        role="tab"
+        :class="[classBtn, item === ongletCurrent ? 'active' : '']"
+        :aria-selected="item === ongletCurrent"
+        :aria-controls="`onglet-tabpanel-${item}`"
+        :tabindex="item === ongletCurrent ? 0 : -1"
+        @click="handleClick(index)"
+        @keydown="changeActiveTab"
+      >
+        {{ m(item) }}
+      </button>
+    </li>
+  </ul>
 </template>
 
 <style lang="scss" scoped>
@@ -60,12 +98,12 @@ function selected(onglet: string) {
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
 
-.list-menu > ul {
-  display: flex;
-  flex-direction: column;
+.list-menu {
+  list-style: none;
   margin: 0;
   padding: 0;
-  list-style: none;
+  display: flex;
+  flex-direction: column;
 }
 
 .list-menu button {
