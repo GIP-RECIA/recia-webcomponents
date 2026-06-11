@@ -176,15 +176,16 @@ describe('classesGroupesEleve', () => {
   // GESTION DES VALEURS VIDES (FALLBACKS)
   // --------------------------------------------------
   describe('gestion des valeurs vides ou manquantes', () => {
-    it('affiche un tiret si la liste des groupes est vide', () => {
+    it('affiche le message no-group si la liste des groupes est vide', () => {
       const rows = wrapper.findAll('.etab-row-item')
       expect(rows[1].find('.info-value--bold').text()).toBe('Collège Albert Camus')
-      const groupPillsList = rows[1].findAll('.pills-list').at(1)!
-      expect(groupPillsList.find('.pill-tag').exists()).toBe(false)
-      expect(groupPillsList.find('.info-value').text()).toBe('—')
+      // Le composant rend un <p class="info-value"> hors pills-list quand la liste est vide
+      const groupSection = rows[1].findAll('.info-item').at(2)!
+      expect(groupSection.find('.pill-tag').exists()).toBe(false)
+      expect(groupSection.find('.info-value').text()).toBe('Aucun groupe')
     })
 
-    it('affiche un tiret si la liste des classes est vide', () => {
+    it('affiche le message no-class si la liste des classes est vide', () => {
       const i18n = createI18n({ locale: 'fr', messages })
       const wrapperEmpty = mount(ClassesGroupesEleve, {
         props: {
@@ -197,12 +198,12 @@ describe('classesGroupesEleve', () => {
         },
       })
       const row = wrapperEmpty.find('.etab-row-item')
-      const classPillsList = row.findAll('.pills-list').at(0)!
-      expect(classPillsList.find('.pill-tag').exists()).toBe(false)
-      expect(classPillsList.find('.info-value').text()).toBe('—')
+      // Le composant rend un <p class="info-value"> quand classes est vide
+      expect(row.find('.pill-tag').exists()).toBe(false)
+      expect(row.find('.classes-data-group .info-value').text()).toBe('Aucune classe')
     })
 
-    it('affiche un tiret de secours si la liste des enseignements suivis est vide', () => {
+    it('affiche le message no-course si la liste des enseignements suivis est vide', () => {
       const i18n = createI18n({ locale: 'fr', messages })
       const wrapperEmpty = mount(ClassesGroupesEleve, {
         props: {
@@ -214,11 +215,11 @@ describe('classesGroupesEleve', () => {
           provide: { [I18nInjectionKey as symbol]: { global: i18n.global } },
         },
       })
-      expect(wrapperEmpty.find('.enseignements-list .pill-tag').exists()).toBe(false)
-      expect(wrapperEmpty.find('.enseignements-list').text()).toBe('—')
+      expect(wrapperEmpty.find('.enseignements-list').exists()).toBe(false)
+      expect(wrapperEmpty.find('.enseignements-row .info-value').text()).toBe('Aucun enseignement')
     })
 
-    it('affiche un tiret de secours si sectionEleve est indéfini', () => {
+    it('affiche le message no-course si sectionEleve est indéfini', () => {
       const i18n = createI18n({ locale: 'fr', messages })
       const wrapperUndefined = mount(ClassesGroupesEleve, {
         props: { etabs: [] as Etabs[], sectionEleve: undefined },
@@ -227,8 +228,8 @@ describe('classesGroupesEleve', () => {
           provide: { [I18nInjectionKey as symbol]: { global: i18n.global } },
         },
       })
-      expect(wrapperUndefined.find('.enseignements-list .pill-tag').exists()).toBe(false)
-      expect(wrapperUndefined.find('.enseignements-list').text()).toBe('—')
+      expect(wrapperUndefined.find('.enseignements-list').exists()).toBe(false)
+      expect(wrapperUndefined.find('.enseignements-row .info-value').text()).toBe('Aucun enseignement')
     })
   })
 
