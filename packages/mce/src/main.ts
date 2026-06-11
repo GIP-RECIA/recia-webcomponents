@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
+import { createApp } from 'vue'
 import App from '@/App.vue'
 import { register as registerCustomElements } from '@/ce'
 import { register as registerFontAwsome } from '@/plugins/fontawesome'
 import i18n from '@/plugins/i18n'
-import { createApp } from 'vue'
 import 'regenerator-runtime/runtime.js'
 
 const app = createApp(App)
