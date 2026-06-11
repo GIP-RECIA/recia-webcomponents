@@ -15,12 +15,12 @@
  */
 
 import type { VueWrapper } from '@vue/test-utils'
-import type { PersonneFonction } from '@/types/fonctionType'
+import type { PersonneFonction } from '@/types/fonctionType.ts'
 import { mount } from '@vue/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createI18n, I18nInjectionKey } from 'vue-i18n'
 import { updateFonctionDateFin } from '@/services/serviceMce.ts'
-import FonctionsList from './FonctionsList.ce.vue'
+import FonctionsList from '../components/FonctionsList.ce.vue'
 
 vi.mock('@/services/serviceMce.ts', () => ({
   updateFonctionDateFin: vi.fn(),

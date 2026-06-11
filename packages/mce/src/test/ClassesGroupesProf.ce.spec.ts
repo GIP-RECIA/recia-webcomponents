@@ -15,11 +15,11 @@
  */
 
 import type { VueWrapper } from '@vue/test-utils'
-import type { SectionEleve, SectionProf } from '@/types/generalType'
+import type { SectionEleve, SectionProf } from '@/types/generalType.ts'
 import { mount } from '@vue/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createI18n, I18nInjectionKey } from 'vue-i18n'
-import ClassesGroupesProf from './ClassesGroupesProf.ce.vue'
+import ClassesGroupesProf from '../components/ClassesGroupesProf.ce.vue'
 
 const messages = {
   fr: {

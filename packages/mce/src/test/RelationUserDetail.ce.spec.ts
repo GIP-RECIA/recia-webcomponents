@@ -17,7 +17,7 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 import { I18nInjectionKey } from 'vue-i18n'
-import RelationUserDetail from './RelationUserDetail.ce.vue'
+import RelationUserDetail from '../components/RelationUserDetail.ce.vue'
 
 // Mock i18n minimal : retourne la clé sans préfixe
 const mockI18n = {

@@ -20,7 +20,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { createI18n, I18nInjectionKey } from 'vue-i18n'
 import { updateEmail } from '@/services/serviceMce.ts'
-import ChangeEmail from './ChangeEmail.ce.vue'
+import ChangeEmail from '../components/ChangeEmail.ce.vue'
 
 vi.mock('@/services/serviceMce.ts', () => ({
   updateEmail: vi.fn(),
