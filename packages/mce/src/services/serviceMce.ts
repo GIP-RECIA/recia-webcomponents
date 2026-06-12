@@ -65,7 +65,8 @@ async function getDetailEnfant(url: string, userInfoApiUrl: string) {
 }
 
 async function postPassword(
-  url: string,
+  baseUrl: string,
+  userId: string,
   oldPass: string,
   newPass: string,
   confirmPass: string,
@@ -74,7 +75,7 @@ async function postPassword(
   const token = await getToken(userInfoApiUrl)
 
   return await axios.post(
-    `${url}`,
+    `${baseUrl}/${userId}/change-password`,
     {
       oldPass,
       newPass,

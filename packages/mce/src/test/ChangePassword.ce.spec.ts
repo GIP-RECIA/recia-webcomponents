@@ -229,7 +229,8 @@ describe('changePassword', () => {
       await nextTick()
 
       expect(postPassword).toHaveBeenCalledWith(
-        'https://api.test.fr/123/change-password',
+        'https://api.test.fr',
+        '123',
         'ancien',
         'nouveaupass',
         'nouveaupass',
@@ -254,7 +255,8 @@ describe('changePassword', () => {
       await nextTick()
 
       expect(postPassword).toHaveBeenCalledWith(
-        'https://api.test.fr/123/change-password',
+        'https://api.test.fr',
+        '123',
         expect.any(String),
         expect.any(String),
         expect.any(String),
