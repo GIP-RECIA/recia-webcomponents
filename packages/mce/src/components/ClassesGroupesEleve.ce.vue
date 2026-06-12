@@ -175,20 +175,10 @@ function tGeneral(key: string): string {
 }
 
 .etab-row-item {
+  @include mce-row-separator;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 1.25rem 0;
-  border-bottom: 1px dashed var(--#{$prefix}stroke);
-
-  &:first-of-type {
-    padding-top: 0;
-  }
-
-  &:last-of-type {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
 
   @media (width >= map.get($grid-breakpoints, sm)) {
     flex-direction: row;
@@ -212,11 +202,7 @@ function tGeneral(key: string): string {
 }
 
 .pills-list {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
+  @include mce-tags-list;
   margin: 2px 0 0;
 }
 
@@ -238,13 +224,8 @@ function tGeneral(key: string): string {
 }
 
 .enseignements-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  @include mce-tags-list;
   flex: 1;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
 }
 
 .pill-tag {
