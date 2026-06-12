@@ -9,7 +9,6 @@
     "FONCTION_LIST": "Function List",
     "nav-label": "Navigation Menu"
   },
-
   "user-info": {
     "login": "Username",
     "email": "Email:",
@@ -23,14 +22,17 @@
     "modifier": "Edit",
     "annuler": "Cancel",
     "uid": "UID",
-    "not-available": "Not Provided"
+    "not-available": "Not Provided",
+    "userName": "Full Name",
+    "civilite": "Title",
+    "categorie": "Category",
+    "etat": "Status",
+    "etab": "Institution"
   },
-
   "page-mce": {
     "user-details": "User Information",
     "main-content": "Main Content"
   },
-
   "info-general": {
     "title-fonction": "My Functions",
     "title-classe-groupe": "My Classes and Educational Groups",
@@ -38,11 +40,9 @@
     "class": "Class",
     "group": "Group"
   },
-
   "services-ent": {
     "title-services": "Services I Can Access in the ENT"
   },
-
   "relation-user": {
     "title-relation-parent": "Students Related to Me",
     "title-relation-student": "People Related to Me",
@@ -50,7 +50,6 @@
     "parental-authority": "Parental Authority",
     "relation-default": "Relationship"
   },
-
   "avatar-user": {
     "title-header": "Edit Avatar",
     "select-image": "Choose an Image",
@@ -64,7 +63,6 @@
     "avatar-alt": "Current Profile Picture",
     "crop-alt": "Crop Preview"
   },
-
   "change-email": {
     "title": "Change Email Address",
     "current-email": "Current Email",
@@ -83,7 +81,6 @@
     "focus-sentinel-start": "Back to the beginning of the form",
     "focus-sentinel-end": "End of the form"
   },
-
   "change-password": {
     "title": "Change My Password",
     "current-password": "Current Password",
@@ -100,7 +97,6 @@
     "success": "Password changed successfully.",
     "error-default": "Error while changing password."
   },
-
   "classes-groupes-eleve": {
     "etablissement": "Institution",
     "matieres-suivies": "Courses Attended",
@@ -109,7 +105,6 @@
     "no-etab": "No Institution",
     "no-course": "No Course"
   },
-
   "classes-groupes-prof": {
     "etablissement": "Institution",
     "discipline": "Discipline / Subject",
@@ -120,13 +115,11 @@
     "collapse-close": "Collapse Section",
     "autres-fonctions": "Other Functions"
   },
-
   "fonctions-list": {
     "card-label": "Functions",
     "toggle-activate": "Activate",
     "toggle-deactivate": "Deactivate"
   },
-
   "relation-user-detail": {
     "detail-panel-label": "User Relationship Details Panel",
     "loading": "Loading…",
@@ -147,7 +140,6 @@
     "avatar-alt": "Profile Picture of",
     "lien-label": "Relationship: {lien}"
   },
-
   "onglet-content": {
     "mes-fonctions": "My Functions",
     "etab-siren": "Institution (SIREN)",

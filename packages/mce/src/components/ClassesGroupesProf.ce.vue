@@ -374,14 +374,8 @@ function toggleOpen() {
 }
 
 .teaching-entry {
-  display: flex;
+  @include mce-sub-card;
   justify-content: space-between;
-  align-items: center;
-  background: var(--#{$prefix}hover);
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  border: 1px solid var(--#{$prefix}stroke);
-  gap: 0.75rem;
 
   @media (width < map.get($grid-breakpoints, sm)) {
     flex-direction: column;
@@ -407,12 +401,7 @@ function toggleOpen() {
 
 // Reset liste pour les badges classes/groupes
 .badges-row {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  @include mce-tags-list;
   justify-content: flex-end;
 
   @media (width < map.get($grid-breakpoints, sm)) {
@@ -432,14 +421,11 @@ function toggleOpen() {
   font-weight: 700;
 
   &--class {
-    background-color: var(--#{$prefix}primary);
-    color: var(--#{$prefix}body-inverted);
+    @include mce-pill-class;
   }
 
   &--group {
-    background-color: var(--#{$prefix}basic-grey);
-    color: var(--#{$prefix}basic-black);
-    border: 1px solid var(--#{$prefix}stroke);
+    @include mce-pill-group;
   }
 }
 </style>

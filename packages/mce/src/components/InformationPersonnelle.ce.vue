@@ -21,8 +21,11 @@ import ChangeEmail from '@/components/ChangeEmail.ce.vue'
 
 const props = defineProps<{
   uid?: string
+  userName?: string
+  civilite?: string
   nom?: string
   prenom?: string
+  categorie?: string
   dateNaissance?: string
   userMail?: string
   userId: string
@@ -43,9 +46,7 @@ function tUser(key: string): string {
 const currentEmail = ref(props.userMail || '')
 const isEmailOpen = ref(false)
 
-// Ref pour restituer le focus sur le bouton "Modifier" après fermeture du panneau
 const editEmailBtn = ref<HTMLButtonElement | null>(null)
-// Ref pour déplacer le focus vers le panneau à l'ouverture
 const editPanelRef = ref<HTMLDivElement | null>(null)
 
 watch(
@@ -59,7 +60,6 @@ watch(
 async function toggleEmail() {
   isEmailOpen.value = !isEmailOpen.value
   if (isEmailOpen.value) {
-    // Déplace le focus vers le panneau ChangeEmail à l'ouverture
     await nextTick()
     editPanelRef.value?.focus()
   }
@@ -69,13 +69,11 @@ function handleEmailUpdated(email: string) {
   currentEmail.value = email
   isEmailOpen.value = false
   emit('emailUpdated', email)
-  // Restitue le focus sur le bouton "Modifier" après la mise à jour
   nextTick(() => editEmailBtn.value?.focus())
 }
 
 function handleCloseEmail() {
   isEmailOpen.value = false
-  // Restitue le focus sur le bouton "Modifier" à la fermeture
   nextTick(() => editEmailBtn.value?.focus())
 }
 </script>
@@ -88,7 +86,6 @@ function handleCloseEmail() {
       </h3>
     </header>
 
-    <!-- Données statiques uniquement : dl sémantiquement propre -->
     <dl class="card-body-grid">
       <div class="info-item">
         <dt class="info-label">
@@ -96,6 +93,15 @@ function handleCloseEmail() {
         </dt>
         <dd class="info-value">
           {{ props.uid || '—' }}
+        </dd>
+      </div>
+
+      <div class="info-item">
+        <dt class="info-label">
+          {{ tUser('civilite') }}
+        </dt>
+        <dd class="info-value">
+          {{ props.civilite || '—' }}
         </dd>
       </div>
 
@@ -128,13 +134,18 @@ function handleCloseEmail() {
           <span v-else :aria-label="`${tUser('bod')} : ${tUser('not-available')}`">—</span>
         </dd>
       </div>
+
+      <div class="info-item">
+        <dt class="info-label">
+          {{ tUser('categorie') }}
+        </dt>
+        <dd class="info-value">
+          {{ props.categorie || '—' }}
+        </dd>
+      </div>
     </dl>
 
-    <!-- Section email : regroupée, autonome, tout au même endroit dans le DOM -->
-    <section
-      class="email-section"
-      aria-labelledby="email-section-label"
-    >
+    <section class="email-section" aria-labelledby="email-section-label">
       <div class="email-row">
         <div class="email-container">
           <p id="email-section-label" class="info-label">
@@ -160,7 +171,6 @@ function handleCloseEmail() {
         </div>
       </div>
 
-      <!-- Panneau d'édition adjacent à la valeur qu'il modifie -->
       <div
         v-if="isEmailOpen"
         id="edit-email-panel"
@@ -212,6 +222,10 @@ function handleCloseEmail() {
 
 .info-item {
   @include mce-info-item;
+
+  &--full {
+    grid-column: 1 / -1;
+  }
 }
 
 .info-label {
@@ -235,14 +249,9 @@ function handleCloseEmail() {
   gap: 1rem;
 }
 
-.email-header {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
 .email-row {
   display: flex;
+
   @media (width >= map.get($grid-breakpoints, sm)) {
     flex-direction: row;
     align-items: flex-end;
