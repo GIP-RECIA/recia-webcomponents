@@ -242,7 +242,6 @@ function handleCloseEmail() {
 }
 
 .email-row {
-  grid-column: 1 / -1;
   display: flex;
   @media (width >= map.get($grid-breakpoints, sm)) {
     flex-direction: row;
