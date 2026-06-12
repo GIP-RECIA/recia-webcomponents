@@ -115,15 +115,15 @@ async function updateEmail(
 }
 
 async function updateFonctionDateFin(
-  url: string,
+  baseUrl: string,
+  idFonction: string | number,
   active: boolean,
   userInfoApiUrl: string,
 ) {
   const token = await getToken(userInfoApiUrl)
-
   return await axios.put(
-    url,
-    active, // IMPORTANT: boolean brut
+    `${baseUrl}/fonction/${idFonction}/dateFin`,
+    active,
     {
       headers: {
         'Authorization': `Bearer ${token}`,

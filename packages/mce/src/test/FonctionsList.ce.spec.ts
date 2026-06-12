@@ -155,9 +155,9 @@ describe('fonctionsList', () => {
       await checkbox.trigger('change')
 
       // mceApi = 'https://api.test.fr/mce/' → baseUrl = 'https://api.test.fr'
-      // fullUrl = 'https://api.test.fr/fonction/2/dateFin'
       expect(updateFonctionDateFin).toHaveBeenCalledWith(
-        'https://api.test.fr/fonction/2/dateFin',
+        'https://api.test.fr',
+        2,
         true,
         'https://api.test.fr/userinfo',
       )
@@ -170,7 +170,8 @@ describe('fonctionsList', () => {
       await checkbox.trigger('keydown.enter')
 
       expect(updateFonctionDateFin).toHaveBeenCalledWith(
-        'https://api.test.fr/fonction/2/dateFin',
+        'https://api.test.fr',
+        2,
         true,
         'https://api.test.fr/userinfo',
       )

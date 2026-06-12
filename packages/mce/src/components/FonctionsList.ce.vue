@@ -69,8 +69,7 @@ async function onToggle(it: PersonneFonction): Promise<void> {
 
   try {
     const baseUrl = props.mceApi.replace(MCE_SUFFIX, '')
-    const fullUrl = `${baseUrl}/fonction/${id}/dateFin`
-    await updateFonctionDateFin(fullUrl, newValue, props.userInfoApiUrl)
+    await updateFonctionDateFin(baseUrl, id, newValue, props.userInfoApiUrl)
   }
   catch (e) {
     console.error(e)
