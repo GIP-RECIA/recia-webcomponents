@@ -230,7 +230,8 @@ describe('changeEmail', () => {
       await submitForm(wrapper)
 
       expect(updateEmail).toHaveBeenCalledWith(
-        'https://api.test.fr/123/update-email',
+        'https://api.test.fr',
+        '123',
         'nouveau@test.fr',
         'nouveau@test.fr',
         'https://api.test.fr/userinfo',
@@ -254,7 +255,8 @@ describe('changeEmail', () => {
       await submitForm(wrapperSlash)
 
       expect(updateEmail).toHaveBeenCalledWith(
-        'https://api.test.fr/123/update-email',
+        'https://api.test.fr',
+        '123',
         expect.any(String),
         expect.any(String),
         expect.any(String),

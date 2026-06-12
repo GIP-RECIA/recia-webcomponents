@@ -90,7 +90,8 @@ async function postPassword(
 }
 
 async function updateEmail(
-  url: string,
+  baseUrl: string,
+  userId: string,
   email: string,
   confirmEmail: string,
   userInfoApiUrl: string,
@@ -98,7 +99,7 @@ async function updateEmail(
   const token = await getToken(userInfoApiUrl)
 
   return await axios.put(
-    url,
+    `${baseUrl}/${userId}/update-email`,
     {
       email,
       confirmEmail,
