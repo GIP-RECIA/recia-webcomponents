@@ -64,23 +64,11 @@ const listOnglets = ref<Array<string>>([])
 const avatar = ref<string>('')
 const portlets = ref<string[]>([])
 
-const nom = computed<string>(() => {
-  const value = mce.value.userName?.trim() ?? ''
-  if (!value)
-    return ''
-  // eslint-disable-next-line e18e/prefer-static-regex
-  const parts = value.split(/\s+/)
-  return parts.length > 1 ? parts.slice(0, -1).join(' ') : value
-})
-
-const prenom = computed<string>(() => {
-  const value = mce.value.userName?.trim() ?? ''
-  if (!value)
-    return ''
-  // eslint-disable-next-line e18e/prefer-static-regex
-  const parts = value.split(/\s+/)
-  return parts.length > 1 ? parts.at(-1) : ''
-})
+const apersonne = computed(() => mce.value.parentEleve?.[0]?.eleve?.apersonne ?? null)
+const civilite = computed<string>(() => apersonne.value?.civilite ?? '')
+const nom = computed<string>(() => apersonne.value?.sn ?? '')
+const prenom = computed<string>(() => apersonne.value?.givenName ?? '')
+const categorie = computed<string>(() => apersonne.value?.categorie ?? '')
 
 async function getAllPortlets(uri: string, token: string) {
   try {
@@ -177,6 +165,7 @@ function handleAvatarUpdated() {
         :user-id="mce.uid"
         :user-name="mce.userName"
         :user-mail="mce.userMail"
+        :etat="mce.etat ?? ''"
         :user-info-api-url="userInfoApiUrl"
         :mce-api="mceApi"
         @avatar-updated="handleAvatarUpdated"
@@ -214,8 +203,10 @@ function handleAvatarUpdated() {
           :user-id="mce.uid ?? ''"
           :uid="mce.uid ?? ''"
           :bod="mce.bod ?? ''"
+          :civilite="civilite"
           :nom="nom"
           :prenom="prenom"
+          :categorie="categorie"
           :can-modify-email="mce.mailEditable ?? false"
           :show-change-email="showChangeEmail"
           :mdp="mce.mdp"

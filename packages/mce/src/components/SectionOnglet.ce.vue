@@ -50,10 +50,10 @@ const props = defineProps<{
   civilite?: string
   nom?: string
   prenom?: string
+  categorie?: string
   canModifyEmail?: boolean
   showChangeEmail?: boolean
   mdp?: boolean
-  // Liste des onglets disponibles, nécessaire pour calculer l'index
   listOnglets: string[]
 }>()
 
@@ -66,7 +66,7 @@ defineEmits<{
 
 <template>
   <div class="section-content-wrapper">
-    <!-- Panneau ChangeEmail (hors onglets normaux, pas de tabpanel) -->
+    <!-- Panneau ChangeEmail -->
     <div v-if="props.showChangeEmail" class="tab-pane animate-fade">
       <ChangeEmail
         :user-info-api-url="props.userInfoApiUrl"
@@ -91,13 +91,16 @@ defineEmits<{
       >
         <InformationPersonnelleCe
           :uid="props.uid"
-          :nom="props.nom"
-          :prenom="props.prenom"
+          :user-name="props.userName"
           :date-naissance="props.bod"
           :user-mail="props.userMail"
           :user-id="props.userId"
           :user-info-api-url="props.userInfoApiUrl"
           :mce-api="props.mceApi"
+          :civilite="props.civilite"
+          :nom="props.nom"
+          :prenom="props.prenom"
+          :categorie="props.categorie"
           :can-modify-email="props.canModifyEmail"
           @open-change-email="$emit('openChangeEmail')"
           @email-updated="(email) => $emit('emailUpdated', email)"

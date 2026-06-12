@@ -9,7 +9,6 @@
     "FONCTION_LIST": "Liste des fonctions",
     "nav-label": "Menu de navigation"
   },
-
   "user-info": {
     "login": "Identifiant",
     "email": "Mail ",
@@ -23,14 +22,17 @@
     "modifier": "Modifier",
     "annuler": "Annuler",
     "uid": "UID",
-    "not-available": "Non renseigné"
+    "not-available": "Non renseigné",
+    "userName": "Nom complet",
+    "civilite": "Civilité",
+    "categorie": "Catégorie",
+    "etat": "Statut",
+    "etab": "Établissement"
   },
-
   "page-mce": {
     "user-details": "Informations utilisateur",
     "main-content": "Contenu principal"
   },
-
   "info-general": {
     "title-fonction": "Mes fonctions",
     "title-classe-groupe": "Mes classes et groupes pédagogiques",
@@ -38,11 +40,9 @@
     "class": "Classe",
     "group": "Groupe"
   },
-
   "services-ent": {
     "title-services": "Services auxquels j'ai accès dans l'ENT"
   },
-
   "relation-user": {
     "title-relation-parent": "Les élèves de ma relation",
     "title-relation-student": "Personne en relation avec moi",
@@ -50,7 +50,6 @@
     "parental-authority": "Autorité parentale",
     "relation-default": "Relation"
   },
-
   "avatar-user": {
     "title-header": "Modifier l'avatar",
     "select-image": "Choisir une image",
@@ -64,7 +63,6 @@
     "avatar-alt": "Photo de profil actuelle",
     "crop-alt": "Aperçu du recadrage"
   },
-
   "change-email": {
     "title": "Modifier l'adresse email",
     "current-email": "Email actuel",
@@ -83,7 +81,6 @@
     "focus-sentinel-start": "Retour au début du formulaire",
     "focus-sentinel-end": "Fin du formulaire"
   },
-
   "change-password": {
     "title": "Changer mon mot de passe",
     "current-password": "Mot de passe actuel",
@@ -100,7 +97,6 @@
     "success": "Mot de passe changé avec succès.",
     "error-default": "Erreur lors du changement du mot de passe."
   },
-
   "classes-groupes-eleve": {
     "etablissement": "Établissement",
     "matieres-suivies": "Matières suivies",
@@ -109,7 +105,6 @@
     "no-etab": "Aucun établissement",
     "no-course": "Aucun enseignement"
   },
-
   "classes-groupes-prof": {
     "etablissement": "Établissement",
     "discipline": "Discipline / Matière",
@@ -125,7 +120,6 @@
     "toggle-activate": "Activer",
     "toggle-deactivate": "Désactiver"
   },
-
   "relation-user-detail": {
     "detail-panel-label": "Panneau de détails de la relation utilisateur",
     "loading": "Chargement…",

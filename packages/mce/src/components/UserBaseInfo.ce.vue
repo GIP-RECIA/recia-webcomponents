@@ -24,6 +24,7 @@ const props = defineProps<{
   avatar: string
   userId: string
   userName: string
+  etat?: string
   userMail?: string | null
   userInfoApiUrl: string
   mceApi: string
@@ -41,7 +42,6 @@ function m(key: string): string {
 
 <template>
   <section class="profile-container" aria-labelledby="user-baseinfo-heading">
-    <!-- Section profil : avatar + nom -->
     <div class="profile-picture">
       <avatar-user
         :avatar="props.avatar"
@@ -50,9 +50,19 @@ function m(key: string): string {
         :mce-api="props.mceApi"
         @avatar-updated="emit('avatarUpdated')"
       />
-      <h3 id="user-baseinfo-heading" class="user-name">
-        {{ props.userName }}
-      </h3>
+      <div class="user-name-block">
+        <h3 id="user-baseinfo-heading" class="user-name">
+          {{ props.userName }}
+        </h3>
+        <span
+          v-if="props.etat"
+          class="etat-badge"
+          :class="`etat-badge--${props.etat.toLowerCase()}`"
+          :aria-label="`${m('etat')} : ${props.etat}`"
+        >
+          {{ props.etat }}
+        </span>
+      </div>
     </div>
     <dl v-if="props.userMail" class="profile-info">
       <dt class="info-label">
@@ -100,6 +110,13 @@ function m(key: string): string {
   width: 100%;
 }
 
+.user-name-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
 .user-name {
   margin: 0;
   font-size: var(--#{$prefix}font-size-h3);
@@ -108,6 +125,10 @@ function m(key: string): string {
   line-height: 1.3;
   overflow-wrap: break-word;
   word-break: break-word;
+}
+
+.etat-badge {
+  @include mce-status-badge;
 }
 
 .profile-info {
