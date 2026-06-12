@@ -301,17 +301,7 @@ function closeDetail(): void {
 }
 
 .ap-tag {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.25rem 0.75rem;
-  border-radius: 6px;
-  font-size: var(--#{$prefix}font-size-xxs);
-  font-weight: 700;
-  text-transform: uppercase;
-  background-color: color-mix(in srgb, var(--#{$prefix}system-blue) 10%, transparent);
-  color: var(--#{$prefix}system-blue);
-  border: 1px solid color-mix(in srgb, var(--#{$prefix}system-blue) 30%, transparent);
+  @include mce-ap-tag;
 }
 
 .relation-detail-panel {

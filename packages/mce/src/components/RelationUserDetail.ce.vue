@@ -371,15 +371,7 @@ const enseignementsList = computed(() => {
 }
 
 .status-badge {
-  @include tag-base;
-  background-color: var(--#{$prefix}basic-grey);
-  color: var(--#{$prefix}basic-black-lighter);
-  border: 1px solid var(--#{$prefix}stroke);
-
-  &--valide,
-  &--active {
-    @include tinted-tag(system-blue);
-  }
+  @include mce-status-badge;
 }
 
 .pill-tag {
@@ -388,24 +380,21 @@ const enseignementsList = computed(() => {
   list-style: none;
 
   &--class {
-    background-color: var(--#{$prefix}primary);
-    color: var(--#{$prefix}body-inverted);
+    @include mce-pill-class;
   }
 
   &--group {
-    background-color: var(--#{$prefix}basic-grey);
-    color: var(--#{$prefix}basic-black);
-    border: 1px solid var(--#{$prefix}stroke);
+    @include mce-pill-group;
   }
 }
 
 .discipline-tag {
-  @include tinted-tag(primary);
+  @include mce-discipline-tag;
   list-style: none;
 }
 
 .ap-tag {
-  @include tinted-tag(system-blue);
+  @include mce-ap-tag;
   flex-shrink: 0;
 }
 
@@ -479,12 +468,7 @@ const enseignementsList = computed(() => {
 }
 
 .enseignements-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  @include mce-tags-list;
 }
 
 .relations-list {
@@ -497,15 +481,9 @@ const enseignementsList = computed(() => {
 }
 
 .relation-card {
-  display: flex;
+  @include mce-sub-card;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
-  gap: 0.75rem;
-  background-color: var(--#{$prefix}hover);
-  border: 1px solid var(--#{$prefix}stroke);
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
 
   @media (width <= 400px) {
     flex-direction: column;

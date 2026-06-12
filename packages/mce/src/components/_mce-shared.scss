@@ -176,3 +176,118 @@
     background-color 0.2s,
     border-color 0.2s;
 }
+
+// Badge de statut générique (Valide, Invalide, etc.)
+@mixin mce-status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-size: var(--#{$prefix}font-size-xxs);
+  font-weight: 700;
+  text-transform: uppercase;
+  background-color: var(--#{$prefix}basic-grey);
+  color: var(--#{$prefix}basic-black-lighter);
+  border: 1px solid var(--#{$prefix}stroke);
+
+  &--valide,
+  &--active {
+    background-color: color-mix(in srgb, var(--#{$prefix}system-blue) 10%, transparent);
+    color: var(--#{$prefix}system-blue);
+    border-color: color-mix(in srgb, var(--#{$prefix}system-blue) 30%, transparent);
+  }
+}
+
+// Badge autorité parentale / lien bleu
+@mixin mce-ap-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-size: var(--#{$prefix}font-size-xxs);
+  font-weight: 700;
+  text-transform: uppercase;
+  background-color: color-mix(in srgb, var(--#{$prefix}system-blue) 10%, transparent);
+  color: var(--#{$prefix}system-blue);
+  border: 1px solid color-mix(in srgb, var(--#{$prefix}system-blue) 30%, transparent);
+}
+
+// Conteneur de liste de tags (flex wrap)
+@mixin mce-tags-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+// Tag discipline/matière (teinté primary)
+@mixin mce-discipline-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-size: var(--#{$prefix}font-size-xxs);
+  font-weight: 700;
+  text-transform: uppercase;
+  background-color: color-mix(in srgb, var(--#{$prefix}primary) 10%, transparent);
+  color: var(--#{$prefix}primary);
+  border: 1px solid color-mix(in srgb, var(--#{$prefix}primary) 30%, transparent);
+}
+
+// Pill class (fond primary plein)
+@mixin mce-pill-class {
+  @include mce-pill-tag(
+    0.25rem 0.75rem,
+    6px,
+    var(--#{$prefix}font-size-xs),
+    var(--#{$prefix}body-inverted),
+    var(--#{$prefix}primary),
+    none
+  );
+  font-weight: 700;
+  list-style: none;
+}
+
+// Pill groupe (fond gris)
+@mixin mce-pill-group {
+  @include mce-pill-tag(
+    0.25rem 0.75rem,
+    6px,
+    var(--#{$prefix}font-size-xs),
+    var(--#{$prefix}basic-black),
+    var(--#{$prefix}basic-grey),
+    1px solid var(--#{$prefix}stroke)
+  );
+  font-weight: 700;
+  list-style: none;
+}
+
+// Ligne séparateur entre items (padding + dashed border)
+@mixin mce-row-separator {
+  padding: 1.25rem 0;
+  border-bottom: 1px dashed var(--#{$prefix}stroke);
+
+  &:first-of-type {
+    padding-top: 0;
+  }
+  &:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+// Carte sub-item (fond hover + border + radius)
+@mixin mce-sub-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: var(--#{$prefix}hover);
+  border: 1px solid var(--#{$prefix}stroke);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+}

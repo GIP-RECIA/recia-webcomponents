@@ -161,12 +161,10 @@ async function onToggle(it: PersonneFonction): Promise<void> {
 }
 
 .fonction-header {
-  display: flex;
+  @include mce-sub-card;
   justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 1rem;
+  border-radius: 0;
   border-bottom: 1px solid var(--#{$prefix}stroke);
-  background-color: var(--#{$prefix}hover);
 }
 
 .toggle-switch {
@@ -176,15 +174,7 @@ async function onToggle(it: PersonneFonction): Promise<void> {
 }
 
 .sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+  @include mce-sr-only;
 }
 
 .fonction-body {
@@ -269,14 +259,7 @@ async function onToggle(it: PersonneFonction): Promise<void> {
 }
 
 .discipline-tag {
-  background-color: color-mix(in srgb, var(--#{$prefix}primary) 10%, transparent);
-  color: var(--#{$prefix}primary);
-  border: 1px solid color-mix(in srgb, var(--#{$prefix}primary) 30%, transparent);
-  padding: 0.2rem 0.6rem;
-  border-radius: 6px;
-  font-size: var(--#{$prefix}font-size-xxs);
-  font-weight: 700;
-  text-transform: uppercase;
-  display: inline-block;
+  @include mce-discipline-tag;
+  display: inline-flex;
 }
 </style>
