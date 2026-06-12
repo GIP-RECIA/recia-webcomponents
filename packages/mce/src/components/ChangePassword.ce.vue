@@ -78,10 +78,9 @@ async function handleChangePassword() {
 
   try {
     const baseUrl = props.mceApi.replace(TRAILING_SLASH, '')
-    const fullUrl = `${baseUrl}/${props.userId}/change-password`
-
     await postPassword(
-      fullUrl,
+      baseUrl,
+      props.userId,
       currentPassword.value,
       newPassword.value,
       confirmPassword.value,
