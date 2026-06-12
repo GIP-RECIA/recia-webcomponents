@@ -104,7 +104,6 @@ function m(key: string): string {
   margin: 0;
   font-size: var(--#{$prefix}font-size-h3);
   font-weight: 700;
-  color: var(--#{$prefix}basic-black);
   padding: 0 0.5rem;
   line-height: 1.3;
   overflow-wrap: break-word;
@@ -134,7 +133,7 @@ function m(key: string): string {
   @include mce-info-value;
   font-weight: 500;
   width: 100%;
-  margin: 0; // reset <dd> default margin
+  margin: 0;
 }
 
 .email-link {

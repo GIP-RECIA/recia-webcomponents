@@ -138,6 +138,9 @@ const hasApprentis = computed<boolean>(() => {
 @use './mce-shared' as *;
 
 .sectionPersonnelles {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 .sr-only {
   @include mce-sr-only;

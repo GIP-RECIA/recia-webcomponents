@@ -212,10 +212,6 @@ defineEmits<{
     outline-offset: 8px;
     border-radius: 10px;
   }
-
-  @media (width < map.get($grid-breakpoints, sm)) {
-    gap: 0.75rem;
-  }
 }
 
 .animate-fade {
