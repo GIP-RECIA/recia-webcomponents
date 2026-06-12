@@ -159,9 +159,8 @@ async function handleSubmit() {
 
   try {
     const baseUrl = props.mceApi.replace(TRAILING_SLASH, '')
-    const fullUrl = `${baseUrl}/${props.userId}/update-email`
 
-    await updateEmail(fullUrl, newEmail.value, confirmEmail.value, props.userInfoApiUrl)
+    await updateEmail(baseUrl, props.userId, newEmail.value, confirmEmail.value, props.userInfoApiUrl)
 
     message.value = tEmail('success')
     messageType.value = 'success'
