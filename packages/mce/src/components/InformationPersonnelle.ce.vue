@@ -216,7 +216,7 @@ function handleCloseEmail() {
   margin: 0;
 
   @media (width >= map.get($grid-breakpoints, md)) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
