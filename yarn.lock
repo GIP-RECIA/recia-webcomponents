@@ -1034,7 +1034,7 @@ __metadata:
     "@vue/tsconfig": "npm:^0.9.1"
     axios: "npm:^1.16.0"
     dotenv-checker: "npm:^1.1.7"
-    eslint: "npm:^10.4.1"
+    eslint: "npm:^10.5.0"
     eslint-plugin-format: "npm:^2.0.1"
     lint-staged: "npm:^17.0.7"
     lodash.debounce: "npm:^4.0.8"
@@ -1068,7 +1068,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": "npm:^7.2.0"
     "@tsconfig/node24": "npm:^24.0.4"
     "@types/node": "npm:^24"
-    eslint: "npm:^10.4.1"
+    eslint: "npm:^10.5.0"
     eslint-plugin-format: "npm:^2.0.1"
     lit: "npm:^3.3.3"
     lit-analyzer: "npm:^2.0.3"
@@ -1112,7 +1112,7 @@ __metadata:
     "@vueuse/core": "npm:^14.3.0"
     axios: "npm:^1.16.0"
     dotenv-checker: "npm:^1.1.7"
-    eslint: "npm:^10.4.1"
+    eslint: "npm:^10.5.0"
     eslint-plugin-format: "npm:^2.0.1"
     lint-staged: "npm:^17.0.7"
     lodash.debounce: "npm:^4.0.8"
@@ -1147,7 +1147,7 @@ __metadata:
     axios: "npm:^1.16.0"
     cropperjs: "npm:^1.6.2"
     dotenv-checker: "npm:^1.1.7"
-    eslint: "npm:^10.4.1"
+    eslint: "npm:^10.5.0"
     eslint-plugin-format: "npm:^2.0.1"
     lint-staged: "npm:^17.0.7"
     npm-run-all2: "npm:^9.0.2"
@@ -1188,7 +1188,7 @@ __metadata:
     "@vueform/multiselect": "npm:^2.6.11"
     "@vueuse/core": "npm:^14.3.0"
     dotenv-checker: "npm:^1.1.7"
-    eslint: "npm:^10.4.1"
+    eslint: "npm:^10.5.0"
     eslint-plugin-format: "npm:^2.0.1"
     lint-staged: "npm:^17.0.7"
     npm-run-all2: "npm:^9.0.2"
@@ -1221,7 +1221,7 @@ __metadata:
     "@vue/tsconfig": "npm:^0.9.1"
     axios: "npm:^1.16.0"
     dotenv-checker: "npm:^1.1.7"
-    eslint: "npm:^10.4.1"
+    eslint: "npm:^10.5.0"
     eslint-plugin-format: "npm:^2.0.1"
     lint-staged: "npm:^17.0.7"
     lodash.debounce: "npm:^4.0.8"
@@ -4634,9 +4634,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^10.4.1":
-  version: 10.4.1
-  resolution: "eslint@npm:10.4.1"
+"eslint@npm:^10.5.0":
+  version: 10.5.0
+  resolution: "eslint@npm:10.5.0"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.8.0"
     "@eslint-community/regexpp": "npm:^4.12.2"
@@ -4675,7 +4675,7 @@ __metadata:
       optional: true
   bin:
     eslint: bin/eslint.js
-  checksum: 10/5722bd0ec1a87f49ee4511c7549dcfa69df0076927b0290b0a3b145425fd357906ffe6dc1307214a0bd344131bf53795fa2cdebfd36ee9146c01d98147044679
+  checksum: 10/28882f9b00803fca938015894d6e1ac2c80e00c1349385764f54ac4c0707c33fd0e32b678845c54ea0bc8ae04d59d7aa93d68dbd835e5e4833c65bf9b15ea91f
   languageName: node
   linkType: hard
 
