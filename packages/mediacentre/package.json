@@ -57,7 +57,7 @@
     "@vue/tsconfig": "^0.9.1",
     "@vueform/multiselect": "^2.6.11",
     "@vueuse/core": "^14.3.0",
-    "axios": "^1.16.0",
+    "axios": "^1.17.0",
     "dotenv-checker": "^1.1.7",
     "eslint": "^10.5.0",
     "eslint-plugin-format": "^2.0.1",
