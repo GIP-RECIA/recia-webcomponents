@@ -95,11 +95,11 @@ function closeDetail(): void {
 
 <template>
   <section class="profile-card" :aria-labelledby="`relation-title-${titre}`">
-    <header class="card-header">
+    <div class="card-header">
       <h3 :id="`relation-title-${titre}`">
         {{ m(`title-relation-${titre}`) }}
       </h3>
-    </header>
+    </div>
 
     <div class="card-body">
       <!-- Liste vide -->
@@ -118,18 +118,15 @@ function closeDetail(): void {
             - aria-controls pointe vers le bon panneau de détail
             - pas d'id fixe partagé entre tous les boutons
           -->
-          <div
+          <button
             :id="`rel-btn-${val.uidRelation}`"
-            role="button"
-            tabindex="0"
+            type="button"
             class="relation-row-item"
             :class="{ 'relation-row-item--active': selectedUid === val.uidRelation }"
             :aria-expanded="selectedUid === val.uidRelation"
             :aria-controls="`rel-detail-${val.uidRelation}`"
-            :aria-label="`${val.typeRelation || m('relation-default')} ${val.displayNameRelation}`"
+            :aria-label="`${val.typeRelation || m('relation-default')} : ${val.displayNameRelation}${val.autoriteParental ? ` — ${m('parental-authority')}` : ''}`"
             @click.prevent="selectRelation(val.uidRelation)"
-            @keydown.enter.prevent="selectRelation(val.uidRelation)"
-            @keydown.space.prevent="selectRelation(val.uidRelation)"
           >
             <span class="info-item">
               <span class="info-label">{{ val.typeRelation || m('relation-default') }}</span>
@@ -146,19 +143,15 @@ function closeDetail(): void {
                 aria-hidden="true"
               >›</span>
             </span>
-          </div>
+          </button>
 
           <!--
-            Panneau de détail dans le <li>, adjacent au bouton qui le contrôle.
-            Avec N relations, chaque détail apparaît exactement sous sa propre ligne.
-            aria-controls et cet id sont cohérents et uniques.
+            beaucoup de relations. Si tu as peu de relations (< 10), ça vaut le coup de tester.
           -->
           <div
             v-if="selectedUid === val.uidRelation && showDetail"
             :id="`rel-detail-${val.uidRelation}`"
             class="relation-detail-panel"
-            role="region"
-            :aria-labelledby="`rel-btn-${val.uidRelation}`"
             aria-live="polite"
           >
             <RelationUserDetail
@@ -235,13 +228,17 @@ function closeDetail(): void {
   flex-direction: row;
   align-items: center;
   gap: 1rem;
-  padding: 1.25rem 0;
-  border-bottom: 1px dashed var(--#{$prefix}stroke);
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 10px;
   transition: background-color 0.2s;
   min-width: 0;
   width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+  font: inherit;
+  color: inherit;
 
   &:first-of-type {
     padding-top: 0;

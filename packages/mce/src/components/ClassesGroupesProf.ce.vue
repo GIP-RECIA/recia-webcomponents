@@ -137,9 +137,9 @@ function toggleOpen() {
 </script>
 
 <template>
-  <section class="profile-card" aria-labelledby="classes-groupes-prof-heading">
+  <section class="profile-card" tabindex="0" aria-labelledby="classes-groupes-prof-heading">
     <!-- En-tête cliquable : titre et bouton pour plier/déplier -->
-    <header class="card-header">
+    <div class="card-header">
       <h3 id="classes-groupes-prof-heading" class="collapse-title">
         {{ tGeneral('title-classe-groupe') }}
       </h3>
@@ -155,7 +155,7 @@ function toggleOpen() {
       >
         <span aria-hidden="true">{{ isOpen ? '-' : '+' }}</span>
       </button>
-    </header>
+    </div>
 
     <!-- Aucune donnée -->
     <div v-if="hasNoData" class="card-body">
@@ -187,17 +187,14 @@ function toggleOpen() {
               :key="indexItem"
               class="teaching-entry"
             >
-              <div class="info-item">
-                <span :id="`discipline-label-${nomEtab}-${indexItem}`" class="info-label">
+              <dl class="info-item">
+                <dt class="info-label">
                   {{ tProf('discipline') }}
-                </span>
-                <span
-                  class="info-value info-value--bold"
-                  :aria-labelledby="`discipline-label-${nomEtab}-${indexItem}`"
-                >
+                </dt>
+                <dd class="info-value info-value--bold">
                   {{ getMatiere(item) }}
-                </span>
-              </div>
+                </dd>
+              </dl>
 
               <ul
                 v-if="getSectionClasses(item, nomEtab).length || getSectionGroupes(item, nomEtab).length"

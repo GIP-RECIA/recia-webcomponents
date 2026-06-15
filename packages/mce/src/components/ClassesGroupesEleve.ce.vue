@@ -38,12 +38,12 @@ function tGeneral(key: string): string {
 <template>
   <div class="sections-wrapper">
     <!-- Carte classes & groupes -->
-    <section class="profile-card" aria-labelledby="title-classe-groupe">
-      <header class="card-header">
+    <section class="profile-card" tabindex="0" aria-labelledby="title-classe-groupe">
+      <div class="card-header">
         <h3 id="title-classe-groupe">
           {{ tGeneral('title-classe-groupe') }}
         </h3>
-      </header>
+      </div>
 
       <div class="card-body">
         <div
@@ -52,18 +52,20 @@ function tGeneral(key: string): string {
           class="etab-row-item"
         >
           <!-- Établissement -->
-          <div class="info-item etab-header-container">
-            <span :id="`etab-label-${index}`" class="info-label">{{ tEleve('etablissement') }}</span>
-            <span class="info-value info-value--bold" :aria-labelledby="`etab-label-${index}`">
+          <dl class="info-item etab-header-container">
+            <dt class="info-label">
+              {{ tEleve('etablissement') }}
+            </dt>
+            <dd class="info-value info-value--bold">
               {{ classgroup.nameEtab }}
-            </span>
-          </div>
+            </dd>
+          </dl>
 
           <div class="classes-data-group">
             <!-- Classes -->
             <div class="info-item">
-              <span :id="`classes-label-${index}`" class="info-label">{{ tGeneral('class') }}</span>
-              <ul v-if="classgroup.classes?.length" class="pills-list" :aria-labelledby="`classes-label-${index}`">
+              <span class="info-label" role="term">{{ tGeneral('class') }}</span>
+              <ul v-if="classgroup.classes?.length" class="pills-list" :aria-label="tGeneral('class')">
                 <li v-for="(cls, i) in classgroup.classes" :key="i" class="pill-tag">
                   {{ cls }}
                 </li>
@@ -75,8 +77,12 @@ function tGeneral(key: string): string {
 
             <!-- Groupes -->
             <div class="info-item">
-              <span :id="`groupes-label-${index}`" class="info-label">{{ tGeneral('group') }}</span>
-              <ul v-if="classgroup.groupes?.length" class="pills-list" :aria-labelledby="`groupes-label-${index}`">
+              <span class="info-label" role="term">{{ tGeneral('group') }}</span>
+              <ul
+                v-if="classgroup.groupes?.length"
+                class="pills-list"
+                :aria-label="`${tGeneral('group')} ${index + 1}`"
+              >
                 <li v-for="(grp, i) in classgroup.groupes" :key="i" class="pill-tag">
                   {{ grp }}
                 </li>
@@ -96,12 +102,12 @@ function tGeneral(key: string): string {
     </section>
 
     <!-- Carte matières suivies -->
-    <section class="profile-card" aria-labelledby="title-courses">
-      <header class="card-header">
+    <section class="profile-card" tabindex="0" aria-labelledby="title-courses">
+      <div class="card-header">
         <h3 id="title-courses">
           {{ tGeneral('title-courses') }}
         </h3>
-      </header>
+      </div>
 
       <div class="card-body">
         <div class="enseignements-row">
