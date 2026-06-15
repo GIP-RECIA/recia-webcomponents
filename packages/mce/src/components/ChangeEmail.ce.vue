@@ -102,20 +102,6 @@ function handleFocusIn(event: FocusEvent) {
   }
 }
 
-function focusFirst() {
-  const panel = panelRef.value
-  const focusable = panel?.querySelectorAll('input:not([disabled]), button:not([disabled]), [tabindex="0"]')
-  if (focusable && focusable.length > 1)
-    (focusable[1] as HTMLElement).focus()
-}
-
-function focusLast() {
-  const panel = panelRef.value
-  const focusable = panel?.querySelectorAll('input:not([disabled]), button:not([disabled]), [tabindex="0"]')
-  if (focusable && focusable.length > 2)
-    (focusable[focusable.length - 2] as HTMLElement).focus()
-}
-
 onMounted(() => document.addEventListener('keydown', handleKeydown, true))
 onUnmounted(() => {
   document.removeEventListener('keydown', handleKeydown, true)
@@ -189,20 +175,16 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <section
+  <div
     class="change-email-panel"
-    aria-labelledby="change-email-title"
     @focusin="handleFocusIn"
   >
     <div ref="panelRef">
-      <!-- Sentinelle début : Shift+Tab depuis le premier élément cycle vers le dernier -->
-      <span tabindex="0" aria-hidden="true" @focus="focusLast" />
-
-      <header class="card-header">
+      <div class="card-header">
         <h3 id="change-email-title">
           {{ tEmail('title') }}
         </h3>
-      </header>
+      </div>
 
       <form class="card-body" novalidate @submit.prevent="handleSubmit">
         <!-- Email actuel en lecture seule -->
@@ -225,6 +207,7 @@ async function handleSubmit() {
             class="custom-input"
             autocomplete="email"
             aria-required="true"
+            :aria-label="tEmail('new-email')"
             :aria-describedby="message && messageType === 'error'
               ? `current-email-value ${messageId}`
               : 'current-email-value'"
@@ -242,6 +225,7 @@ async function handleSubmit() {
             class="custom-input"
             autocomplete="email"
             aria-required="true"
+            :aria-label="tEmail('confirm-email')"
             :aria-invalid="message && messageType === 'error' ? 'true' : undefined"
             :aria-describedby="message && messageType === 'error' ? messageId : undefined"
           >
@@ -275,9 +259,8 @@ async function handleSubmit() {
           </button>
         </div>
       </form>
-      <span tabindex="0" aria-hidden="true" @focus="focusFirst" />
     </div>
-  </section>
+  </div>
 </template>
 
 <style scoped lang="scss">

@@ -231,7 +231,7 @@ function handleAvatarUpdated() {
 .parent {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem; // 20px
+  gap: 1.25rem;
 
   @media (width >= map.get($grid-breakpoints, md)) {
     flex-direction: row;
@@ -242,15 +242,19 @@ function handleAvatarUpdated() {
   .user-details {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem; // 20px
+    gap: 1.25rem;
     border-radius: 0.625rem; // 10px
     box-shadow: var(--#{$prefix}shadow-neutral) #0000001a;
-    overflow: hidden;
+    overflow: clip;
     flex-shrink: 0;
     width: 100%;
 
     @media (width >= map.get($grid-breakpoints, md)) {
       width: 15rem; // 240px
+    }
+    &:focus-within {
+      outline: 2px solid var(--#{$prefix}primary);
+      outline-offset: 2px;
     }
   }
 

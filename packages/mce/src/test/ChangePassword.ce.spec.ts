@@ -42,18 +42,20 @@ const messages = {
       'new-password': 'Nouveau mot de passe',
       'confirm-password': 'Confirmer le nouveau mot de passe',
       'placeholder-current': 'Entrez votre mot de passe actuel',
-      'placeholder-new': 'Au moins 8 caractères',
+      'placeholder-new': 'Au moins 12 caractères',
       'placeholder-confirm': 'Répétez votre mot de passe',
       'submit': 'Changer le mot de passe',
       'loading': 'Chargement...',
       'error-required': 'Tous les champs sont obligatoires.',
       'error-mismatch': 'Les nouveaux mots de passe ne correspondent pas.',
-      'error-length': 'Le nouveau mot de passe doit contenir au moins 8 caractères.',
+      'error-length': 'Le nouveau mot de passe doit contenir au moins 12 caractères.',
       'success': 'Mot de passe changé avec succès.',
       'error-default': 'Erreur lors du changement du mot de passe.',
     },
   },
 }
+
+const VALID_PASSWORD = 'nouveaupassword'
 
 describe('changePassword', () => {
   const props = {
@@ -84,7 +86,6 @@ describe('changePassword', () => {
   // RENDU INITIAL
   // --------------------------------------------------
   describe('rendu initial', () => {
-    // Le template utilise <h3>, pas <h2>
     it('affiche le titre dans un h3', () => {
       expect(wrapper.find('h3').text()).toBe('Changer mon mot de passe')
     })
@@ -98,7 +99,7 @@ describe('changePassword', () => {
 
     it('affiche les placeholders des inputs', () => {
       expect(wrapper.find('#current-password').attributes('placeholder')).toBe('Entrez votre mot de passe actuel')
-      expect(wrapper.find('#new-password').attributes('placeholder')).toBe('Au moins 8 caractères')
+      expect(wrapper.find('#new-password').attributes('placeholder')).toBe('Au moins 12 caractères')
       expect(wrapper.find('#confirm-password').attributes('placeholder')).toBe('Répétez votre mot de passe')
     })
 
@@ -139,21 +140,21 @@ describe('changePassword', () => {
 
     it('erreur si les mots de passe ne correspondent pas', async () => {
       await wrapper.find('#current-password').setValue('a')
-      await wrapper.find('#new-password').setValue('abcdefgh')
-      await wrapper.find('#confirm-password').setValue('differentPass')
+      await wrapper.find('#new-password').setValue(VALID_PASSWORD)
+      await wrapper.find('#confirm-password').setValue('motdepassedifferent')
       await wrapper.find('form').trigger('submit')
       await nextTick()
       expect(wrapper.find('.alert-message').text()).toContain('ne correspondent pas')
     })
 
-    // La validation length est < 8 (pas < 12) dans le composant réel
-    it('erreur si le nouveau mot de passe fait moins de 8 caractères', async () => {
+    // On utilise un mot de passe de 8 à 11 caractères pour déclencher l'erreur.
+    it('erreur si le nouveau mot de passe fait moins de 12 caractères', async () => {
       await wrapper.find('#current-password').setValue('ancien')
-      await wrapper.find('#new-password').setValue('short')
-      await wrapper.find('#confirm-password').setValue('short')
+      await wrapper.find('#new-password').setValue('short123') // 8 chars → < 12 → erreur
+      await wrapper.find('#confirm-password').setValue('short123')
       await wrapper.find('form').trigger('submit')
       await nextTick()
-      expect(wrapper.find('.alert-message').text()).toContain('caractères')
+      expect(wrapper.find('.alert-message').text()).toContain('12 caractères')
     })
 
     it('le message d\'erreur a la classe CSS "error"', async () => {
@@ -173,8 +174,8 @@ describe('changePassword', () => {
       )
 
       await wrapper.find('#current-password').setValue('ancien')
-      await wrapper.find('#new-password').setValue('nouveaupass')
-      await wrapper.find('#confirm-password').setValue('nouveaupass')
+      await wrapper.find('#new-password').setValue(VALID_PASSWORD)
+      await wrapper.find('#confirm-password').setValue(VALID_PASSWORD)
 
       await wrapper.find('form').trigger('submit')
 
@@ -185,7 +186,7 @@ describe('changePassword', () => {
       expect(submitBtnLoading.text()).toBe('Chargement...')
       expect(submitBtnLoading.attributes('disabled')).toBeDefined()
 
-      // optionnel : finir la promesse pour éviter fuite async
+      // finir la promesse pour éviter fuite async
       await flushPromises()
     })
   })
@@ -197,8 +198,8 @@ describe('changePassword', () => {
     it('affiche le message de succès avec la classe "success"', async () => {
       vi.mocked(postPassword).mockResolvedValueOnce(mockAxiosResponse)
       await wrapper.find('#current-password').setValue('ancien')
-      await wrapper.find('#new-password').setValue('nouveaupass')
-      await wrapper.find('#confirm-password').setValue('nouveaupass')
+      await wrapper.find('#new-password').setValue(VALID_PASSWORD)
+      await wrapper.find('#confirm-password').setValue(VALID_PASSWORD)
       await wrapper.find('form').trigger('submit')
       await nextTick()
 
@@ -210,8 +211,8 @@ describe('changePassword', () => {
     it('vide les trois champs après succès', async () => {
       vi.mocked(postPassword).mockResolvedValueOnce(mockAxiosResponse)
       await wrapper.find('#current-password').setValue('ancien')
-      await wrapper.find('#new-password').setValue('nouveaupass')
-      await wrapper.find('#confirm-password').setValue('nouveaupass')
+      await wrapper.find('#new-password').setValue(VALID_PASSWORD)
+      await wrapper.find('#confirm-password').setValue(VALID_PASSWORD)
       await wrapper.find('form').trigger('submit')
       await flushPromises()
 
@@ -223,8 +224,8 @@ describe('changePassword', () => {
     it('appelle postPassword avec les bons arguments', async () => {
       vi.mocked(postPassword).mockResolvedValueOnce(mockAxiosResponse)
       await wrapper.find('#current-password').setValue('ancien')
-      await wrapper.find('#new-password').setValue('nouveaupass')
-      await wrapper.find('#confirm-password').setValue('nouveaupass')
+      await wrapper.find('#new-password').setValue(VALID_PASSWORD)
+      await wrapper.find('#confirm-password').setValue(VALID_PASSWORD)
       await wrapper.find('form').trigger('submit')
       await nextTick()
 
@@ -232,8 +233,8 @@ describe('changePassword', () => {
         'https://api.test.fr',
         '123',
         'ancien',
-        'nouveaupass',
-        'nouveaupass',
+        VALID_PASSWORD,
+        VALID_PASSWORD,
         'https://api.test.fr/userinfo',
       )
     })
@@ -249,8 +250,8 @@ describe('changePassword', () => {
         },
       })
       await wrapperSlash.find('#current-password').setValue('ancien')
-      await wrapperSlash.find('#new-password').setValue('nouveaupass')
-      await wrapperSlash.find('#confirm-password').setValue('nouveaupass')
+      await wrapperSlash.find('#new-password').setValue(VALID_PASSWORD)
+      await wrapperSlash.find('#confirm-password').setValue(VALID_PASSWORD)
       await wrapperSlash.find('form').trigger('submit')
       await nextTick()
 
@@ -274,8 +275,8 @@ describe('changePassword', () => {
         response: { data: { message: 'Ancien mot de passe incorrect.' } },
       })
       await wrapper.find('#current-password').setValue('ancien')
-      await wrapper.find('#new-password').setValue('nouveaupass')
-      await wrapper.find('#confirm-password').setValue('nouveaupass')
+      await wrapper.find('#new-password').setValue(VALID_PASSWORD)
+      await wrapper.find('#confirm-password').setValue(VALID_PASSWORD)
       await wrapper.find('form').trigger('submit')
       await nextTick()
 
@@ -287,8 +288,8 @@ describe('changePassword', () => {
     it('affiche le message d\'erreur par défaut si l\'API échoue sans message structuré', async () => {
       vi.mocked(postPassword).mockRejectedValueOnce(new Error('réseau'))
       await wrapper.find('#current-password').setValue('ancien')
-      await wrapper.find('#new-password').setValue('nouveaupass')
-      await wrapper.find('#confirm-password').setValue('nouveaupass')
+      await wrapper.find('#new-password').setValue(VALID_PASSWORD)
+      await wrapper.find('#confirm-password').setValue(VALID_PASSWORD)
       await wrapper.find('form').trigger('submit')
       await nextTick()
       expect(wrapper.find('.alert-message').text()).toBe('Erreur lors du changement du mot de passe.')

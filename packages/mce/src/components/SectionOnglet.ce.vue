@@ -16,6 +16,8 @@
 
 <script setup lang="ts">
 import type { PersonneFonction } from '@/types/fonctionType'
+import { inject } from 'vue'
+import { I18nInjectionKey } from 'vue-i18n'
 import ChangeEmail from '@/components/ChangeEmail.ce.vue'
 import FonctionsList from '@/components/FonctionsList.ce.vue'
 import ChangePassword from './ChangePassword.ce.vue'
@@ -56,12 +58,15 @@ const props = defineProps<{
   mdp?: boolean
   listOnglets: string[]
 }>()
-
 defineEmits<{
   (e: 'closeChangeEmail'): void
   (e: 'openChangeEmail'): void
   (e: 'emailUpdated', email: string): void
 }>()
+const i18n = inject(I18nInjectionKey)
+function tOnglet(key: string): string {
+  return i18n ? (i18n.global.t as (k: string) => string)(`list-onglet.${key}`) : key
+}
 </script>
 
 <template>
@@ -79,13 +84,14 @@ defineEmits<{
     </div>
 
     <template v-else>
-      <!-- ONGLET GÉNÉRALE -->
+      <!-- ONGLET GÉNÉRALE : v-show pour préserver l'état du formulaire email -->
       <div
         v-show="props.listMenu === 'GENERALE'"
         id="onglet-tabpanel-GENERALE"
+        :inert="props.listMenu !== 'GENERALE'"
         role="tabpanel"
-        aria-labelledby="onglet-tab-GENERALE"
-        tabindex="0"
+        :aria-label="tOnglet('GENERALE')"
+        tabindex="-1"
         class="tab-pane"
         :class="{ 'animate-fade': props.listMenu === 'GENERALE' }"
       >
@@ -102,6 +108,7 @@ defineEmits<{
           :prenom="props.prenom"
           :categorie="props.categorie"
           :can-modify-email="props.canModifyEmail"
+          :show-change-email="props.showChangeEmail"
           @open-change-email="$emit('openChangeEmail')"
           @email-updated="(email) => $emit('emailUpdated', email)"
         />
@@ -120,13 +127,12 @@ defineEmits<{
 
       <!-- ONGLET SERVICES ENT -->
       <div
-        v-show="props.listMenu === 'SERVICE'"
+        v-if="props.listMenu === 'SERVICE'"
         id="onglet-tabpanel-SERVICE"
         role="tabpanel"
-        aria-labelledby="onglet-tab-SERVICE"
-        tabindex="0"
-        class="tab-pane"
-        :class="{ 'animate-fade': props.listMenu === 'SERVICE' }"
+        :aria-label="tOnglet('SERVICE')"
+        tabindex="-1"
+        class="tab-pane animate-fade"
       >
         <services-ent
           :details="props.services"
@@ -137,13 +143,12 @@ defineEmits<{
 
       <!-- ONGLET CHANGEMENT MOT DE PASSE -->
       <div
-        v-show="props.listMenu === 'CHANGE_PASSWORD'"
+        v-if="props.listMenu === 'CHANGE_PASSWORD'"
         id="onglet-tabpanel-CHANGE_PASSWORD"
         role="tabpanel"
-        aria-labelledby="onglet-tab-CHANGE_PASSWORD"
-        tabindex="0"
-        class="tab-pane"
-        :class="{ 'animate-fade': props.listMenu === 'CHANGE_PASSWORD' }"
+        :aria-label="tOnglet('CHANGE_PASSWORD')"
+        tabindex="-1"
+        class="tab-pane animate-fade"
       >
         <ChangePassword
           :user-info-api-url="props.userInfoApiUrl"
@@ -154,13 +159,12 @@ defineEmits<{
 
       <!-- ONGLET LISTE DES FONCTIONS / RÔLES -->
       <div
-        v-show="props.listMenu === 'FONCTION_LIST'"
+        v-if="props.listMenu === 'FONCTION_LIST'"
         id="onglet-tabpanel-FONCTION_LIST"
         role="tabpanel"
-        aria-labelledby="onglet-tab-FONCTION_LIST"
-        tabindex="0"
-        class="tab-pane"
-        :class="{ 'animate-fade': props.listMenu === 'FONCTION_LIST' }"
+        :aria-label="tOnglet('FONCTION_LIST')"
+        tabindex="-1"
+        class="tab-pane animate-fade"
       >
         <FonctionsList
           :fonctions="props.fonctionClassesGroupe.listFonctions ?? []"

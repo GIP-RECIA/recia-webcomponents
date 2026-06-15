@@ -25,6 +25,11 @@
   box-shadow: var(--#{$prefix}shadow-neutral) rgba(0, 0, 0, 0.1);
   overflow: hidden;
   background-color: var(--#{$prefix}body-bg);
+
+  &:focus-within {
+    outline: 2px solid var(--#{$prefix}primary);
+    outline-offset: 2px;
+  }
 }
 
 @mixin mce-card-header {
@@ -290,4 +295,33 @@
   border: 1px solid var(--#{$prefix}stroke);
   padding: 0.75rem 1rem;
   border-radius: 8px;
+}
+
+// Boîte grise "valeur" (fond gris + border + radius), pour afficher
+// des informations en lecture seule (email, établissement, etc.)
+@mixin mce-value-box($radius: 8px) {
+  background-color: var(--#{$prefix}basic-grey);
+  border: 1px solid var(--#{$prefix}stroke);
+  border-radius: $radius;
+  padding: 0.75rem;
+  min-width: 0;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+// Style de label en petites majuscules (titres de sous-sections, tags)
+@mixin mce-label-style {
+  font-size: var(--#{$prefix}font-size-xxs);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+// Tag de base (label-style + forme pill compacte)
+@mixin mce-tag-base {
+  @include mce-label-style;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
