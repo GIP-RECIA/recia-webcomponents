@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.3.1](https://github.com/GIP-RECIA/recia-webcomponents/compare/param-etab/v1.3.0...param-etab/v1.3.1) (2026-06-15)
+
 ## [1.3.0](https://github.com/GIP-RECIA/recia-webcomponents/compare/param-etab/v1.2.1...param-etab/v1.3.0) (2026-05-28)
 
 
