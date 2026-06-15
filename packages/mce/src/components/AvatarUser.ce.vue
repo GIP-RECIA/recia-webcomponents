@@ -51,12 +51,21 @@ const messageType = ref<'success' | 'error'>('error')
 const isLoading = ref(false)
 
 const imgEl = ref<HTMLImageElement | null>(null)
-const imageInput = ref<HTMLInputElement | null>(null)
 const prevImg = ref<HTMLDivElement | null>(null)
 const triggerButton = ref<HTMLButtonElement | null>(null)
 const modalComponent = ref<HTMLElement | null>(null)
 
 let cropper: Cropper | null = null
+
+// Crée un input file temporaire dans le DOM uniquement au moment du clic,
+// puis le détruit aussitôt — jamais persistant dans le DOM
+function pickFile() {
+  const input = document.createElement('input')
+  input.type = 'file'
+  input.accept = 'image/jpeg,image/png'
+  input.addEventListener('change', onFileChange, { once: true })
+  input.click()
+}
 
 function initCropper() {
   if (!imgEl.value)
@@ -101,8 +110,6 @@ function openModal() {
   imageSrc.value = null
   selectedFile.value = null
   message.value = ''
-  if (imageInput.value)
-    imageInput.value.value = ''
 }
 
 function handleKeydown(event: KeyboardEvent) {
@@ -172,9 +179,6 @@ function closeModal() {
   imageSrc.value = null
   selectedFile.value = null
   message.value = ''
-  if (imageInput.value) {
-    imageInput.value.value = ''
-  }
 
   // Utilisation d'un accès sécurisé au DOM
   nextTick(() => {
@@ -257,8 +261,6 @@ function focusLast() {
       @click="openModal"
     >
       <img class="avatar" :src="avatar" :alt="t('avatar-alt')">
-      <input ref="imageInput" type="file" accept="image/jpeg,image/png" hidden @change="onFileChange">
-
       <span class="edit-picture" aria-hidden="true">
         <FontAwesomeIcon :icon="['fas', 'pen']" />
       </span>
@@ -291,9 +293,9 @@ function focusLast() {
             <img v-if="imageSrc" ref="imgEl" :src="imageSrc" :alt="t('crop-alt')">
             <div
               v-else class="crop-empty" role="button" tabindex="0"
-              @click="imageInput?.click()"
-              @keydown.enter="imageInput?.click()"
-              @keydown.space.prevent="imageInput?.click()"
+              @click="pickFile()"
+              @keydown.enter="pickFile()"
+              @keydown.space.prevent="pickFile()"
             >
               <p>{{ t('select-image-hint') }}</p>
             </div>
@@ -317,7 +319,7 @@ function focusLast() {
         </div>
 
         <footer class="modal-footer">
-          <button class="btn-primary small" :disabled="isLoading" @click="imageInput?.click()">
+          <button class="btn-primary small" :disabled="isLoading" @click="pickFile()">
             {{ t('select-image') }}
           </button>
           <button v-if="imageSrc" class="btn-primary small" :disabled="isLoading" @click="applyCrop">

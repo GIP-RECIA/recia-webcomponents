@@ -15,9 +15,10 @@
 -->
 
 <script setup lang="ts">
-import { inject, nextTick, ref, watch } from 'vue'
+import { computed, inject, ref, watch } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
-import ChangeEmail from '@/components/ChangeEmail.ce.vue'
+
+defineOptions({ name: 'InformationPersonnelle' })
 
 const props = defineProps<{
   uid?: string
@@ -32,60 +33,52 @@ const props = defineProps<{
   userInfoApiUrl: string
   mceApi: string
   canModifyEmail?: boolean
+  showChangeEmail?: boolean
 }>()
 
 const emit = defineEmits<{
   (e: 'emailUpdated', email: string): void
+  (e: 'openChangeEmail'): void
 }>()
 
 const i18n = inject(I18nInjectionKey)
+
 function tUser(key: string): string {
   return i18n ? (i18n.global.t as (k: string) => string)(`user-info.${key}`) : key
 }
 
 const currentEmail = ref(props.userMail || '')
-const isEmailOpen = ref(false)
 
-const editEmailBtn = ref<HTMLButtonElement | null>(null)
-const editPanelRef = ref<HTMLDivElement | null>(null)
+watch(() => props.userMail, (newVal) => {
+  if (newVal)
+    currentEmail.value = newVal
+})
 
-watch(
-  () => props.userMail,
-  (newVal) => {
-    if (newVal)
-      currentEmail.value = newVal
-  },
-)
-
-async function toggleEmail() {
-  isEmailOpen.value = !isEmailOpen.value
-  if (isEmailOpen.value) {
-    await nextTick()
-    editPanelRef.value?.focus()
+const formattedDate = computed(() => {
+  if (!props.dateNaissance)
+    return null
+  try {
+    return new Intl.DateTimeFormat('fr-FR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    }).format(new Date(props.dateNaissance))
   }
-}
-
-function handleEmailUpdated(email: string) {
-  currentEmail.value = email
-  isEmailOpen.value = false
-  emit('emailUpdated', email)
-  nextTick(() => editEmailBtn.value?.focus())
-}
-
-function handleCloseEmail() {
-  isEmailOpen.value = false
-  nextTick(() => editEmailBtn.value?.focus())
-}
+  catch {
+    return props.dateNaissance
+  }
+})
 </script>
 
 <template>
   <section class="profile-card" aria-labelledby="personal-info-title">
-    <header class="card-header">
+    <div class="card-header">
       <h3 id="personal-info-title">
         {{ tUser('informations-personnelles') }}
       </h3>
-    </header>
+    </div>
 
+    <!-- Improved Definition List -->
     <dl class="card-body-grid">
       <div class="info-item">
         <dt class="info-label">
@@ -95,7 +88,6 @@ function handleCloseEmail() {
           {{ props.uid || '—' }}
         </dd>
       </div>
-
       <div class="info-item">
         <dt class="info-label">
           {{ tUser('civilite') }}
@@ -104,7 +96,6 @@ function handleCloseEmail() {
           {{ props.civilite || '—' }}
         </dd>
       </div>
-
       <div class="info-item">
         <dt class="info-label">
           {{ tUser('nom') }}
@@ -113,7 +104,6 @@ function handleCloseEmail() {
           {{ props.nom || '—' }}
         </dd>
       </div>
-
       <div class="info-item">
         <dt class="info-label">
           {{ tUser('prenom') }}
@@ -122,19 +112,17 @@ function handleCloseEmail() {
           {{ props.prenom || '—' }}
         </dd>
       </div>
-
       <div class="info-item">
         <dt class="info-label">
           {{ tUser('bod') }}
         </dt>
         <dd class="info-value">
-          <time v-if="props.dateNaissance" :datetime="props.dateNaissance">
-            {{ props.dateNaissance }}
+          <time v-if="formattedDate" :datetime="props.dateNaissance">
+            {{ formattedDate }}
           </time>
-          <span v-else :aria-label="`${tUser('bod')} : ${tUser('not-available')}`">—</span>
+          <span v-else aria-hidden="true">—</span>
         </dd>
       </div>
-
       <div class="info-item">
         <dt class="info-label">
           {{ tUser('categorie') }}
@@ -145,50 +133,30 @@ function handleCloseEmail() {
       </div>
     </dl>
 
-    <section class="email-section" aria-labelledby="email-section-label">
+    <!-- Email Section -->
+    <div class="email-section" role="group" aria-labelledby="email-section-label">
       <div class="email-row">
         <div class="email-container">
-          <p id="email-section-label" class="info-label">
+          <span id="email-section-label" class="info-label email-section-label">
             {{ tUser('email') }}
-          </p>
-          <p class="info-value info-value--bold">
+          </span>
+          <p class="info-value info-value--bold" :title="currentEmail">
             {{ currentEmail || '—' }}
           </p>
         </div>
 
         <div class="email-actions">
           <button
-            v-if="!isEmailOpen && !props.canModifyEmail"
-            ref="editEmailBtn"
+            v-if="!props.canModifyEmail"
             class="btn-primary small"
             type="button"
-            :aria-expanded="isEmailOpen"
-            aria-controls="edit-email-panel"
-            @click="toggleEmail"
+            @click="emit('openChangeEmail')"
           >
             {{ tUser('modifier') }}
           </button>
         </div>
       </div>
-
-      <div
-        v-if="isEmailOpen"
-        id="edit-email-panel"
-        ref="editPanelRef"
-        class="edit-section-panel"
-        tabindex="-1"
-        aria-live="polite"
-      >
-        <ChangeEmail
-          :user-info-api-url="props.userInfoApiUrl"
-          :mce-api="props.mceApi"
-          :user-id="props.userId"
-          :current-email="currentEmail"
-          @updated="handleEmailUpdated"
-          @close="handleCloseEmail"
-        />
-      </div>
-    </section>
+    </div>
   </section>
 </template>
 
@@ -222,14 +190,15 @@ function handleCloseEmail() {
 
 .info-item {
   @include mce-info-item;
-
-  &--full {
-    grid-column: 1 / -1;
-  }
 }
 
 .info-label {
   @include mce-info-label;
+}
+
+.email-section-label {
+  display: block;
+  font-size: var(--#{$prefix}font-size-h4);
 }
 
 .info-value {
@@ -238,6 +207,9 @@ function handleCloseEmail() {
 
   &--bold {
     @include mce-info-value-bold;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    max-width: 100%;
   }
 }
 
@@ -251,16 +223,22 @@ function handleCloseEmail() {
 
 .email-row {
   display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 
   @media (width >= map.get($grid-breakpoints, sm)) {
     flex-direction: row;
     align-items: flex-end;
-    gap: 1.5rem;
   }
 }
 
 .email-container {
   flex: 1;
+  min-width: 0;
+}
+
+.email-actions {
+  flex-shrink: 0;
 }
 
 .edit-section-panel {

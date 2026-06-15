@@ -42,17 +42,6 @@ const formatDate = computed(() => {
   return parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : props.personne.bod
 })
 
-const initials = computed(() => {
-  const name = props.personne?.userName?.trim() ?? ''
-  if (!name)
-    return '?'
-  // eslint-disable-next-line e18e/prefer-static-regex
-  const parts = name.split(/\s+/)
-  return parts.length > 1
-    ? `${parts[0].charAt(0)}${parts.at(-1).charAt(0)}`.toUpperCase()
-    : name.charAt(0).toUpperCase()
-})
-
 const sectionEleve = computed(() => {
   return props.personne?.fonctionClassesGroupe?.sectionClassesGroupes?.sectionEleve ?? null
 })
@@ -93,6 +82,7 @@ const enseignementsList = computed(() => {
 <template>
   <section
     class="detail-panel"
+    tabindex="0"
     :aria-labelledby="personne ? 'relation-detail-title' : undefined"
     :aria-label="!personne ? t('detail-panel-label') : undefined"
   >
@@ -110,18 +100,6 @@ const enseignementsList = computed(() => {
     <template v-else-if="personne">
       <!-- En-tête -->
       <div class="detail-header">
-        <div class="avatar-container" aria-hidden="true">
-          <img
-            v-if="personne.avatar"
-            :src="personne.avatar"
-            alt=""
-            class="avatar-img"
-          >
-          <div v-else class="avatar-fallback" aria-hidden="true">
-            {{ initials }}
-          </div>
-        </div>
-
         <div class="detail-header-meta">
           <h2 id="relation-detail-title" class="detail-name">
             {{ personne.userName }}
@@ -253,28 +231,6 @@ const enseignementsList = computed(() => {
 @use '@gip-recia/ui/components/buttons';
 @use './mce-shared' as *;
 
-@mixin label-style {
-  font-size: var(--#{$prefix}font-size-xxs);
-  font-weight: 800;
-  text-transform: uppercase;
-}
-
-@mixin tag-base {
-  @include label-style;
-  padding: 0.25rem 0.75rem;
-  border-radius: 6px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-@mixin tinted-tag($token) {
-  @include tag-base;
-  background-color: color-mix(in srgb, var(--#{$prefix}#{$token}) 10%, transparent);
-  color: var(--#{$prefix}#{$token});
-  border: 1px solid color-mix(in srgb, var(--#{$prefix}#{$token}) 30%, transparent);
-}
-
 .detail-panel {
   @include mce-card-base;
   padding: 1.25rem;
@@ -315,33 +271,6 @@ const enseignementsList = computed(() => {
   }
 }
 
-.avatar-container {
-  flex-shrink: 0;
-}
-
-.avatar-img,
-.avatar-fallback {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid var(--#{$prefix}stroke);
-}
-
-.avatar-img {
-  object-fit: cover;
-}
-
-.avatar-fallback {
-  background-color: color-mix(in srgb, var(--#{$prefix}primary) 10%, transparent);
-  color: var(--#{$prefix}primary);
-  border-color: color-mix(in srgb, var(--#{$prefix}primary) 30%, transparent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  font-weight: 700;
-}
-
 .detail-header-meta {
   flex: 1;
   display: flex;
@@ -375,7 +304,7 @@ const enseignementsList = computed(() => {
 }
 
 .pill-tag {
-  @include tag-base;
+  @include mce-tag-base;
   font-size: var(--#{$prefix}font-size-xs);
   list-style: none;
 
@@ -425,13 +354,7 @@ const enseignementsList = computed(() => {
 }
 
 .info-value-box {
-  background-color: var(--#{$prefix}basic-grey);
-  border: 1px solid var(--#{$prefix}stroke);
-  border-radius: 8px;
-  padding: 0.75rem;
-  min-width: 0;
-  box-sizing: border-box;
-  margin: 0;
+  @include mce-value-box;
   list-style: none;
 
   &--tags {
@@ -461,7 +384,7 @@ const enseignementsList = computed(() => {
 }
 
 .sub-section-title {
-  @include label-style;
+  @include mce-label-style;
   margin: 0;
   color: var(--#{$prefix}basic-black-lighter);
   letter-spacing: 0.05em;

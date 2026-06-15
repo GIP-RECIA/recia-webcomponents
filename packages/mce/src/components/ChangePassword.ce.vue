@@ -66,7 +66,7 @@ async function handleChangePassword() {
     return
   }
 
-  if (newPassword.value.length < 8) {
+  if (newPassword.value.length < 12) {
     message.value = tPwd('error-length')
     messageType.value = 'error'
     await nextTick()
@@ -111,11 +111,11 @@ async function handleChangePassword() {
 
 <template>
   <section class="change-password-panel" aria-labelledby="change-password-title">
-    <header class="card-header">
+    <div class="card-header">
       <h3 id="change-password-title">
         {{ tPwd('title') }}
       </h3>
-    </header>
+    </div>
 
     <form class="card-body" novalidate @submit.prevent="handleChangePassword">
       <div class="form-group">
@@ -128,6 +128,7 @@ async function handleChangePassword() {
           class="custom-input"
           autocomplete="current-password"
           aria-required="true"
+          :aria-label="tPwd('current-password')"
           :aria-invalid="message && messageType === 'error' ? 'true' : 'false'"
           :aria-describedby="message && messageType === 'error' ? messageId : undefined"
         >
@@ -143,6 +144,7 @@ async function handleChangePassword() {
           class="custom-input"
           autocomplete="new-password"
           aria-required="true"
+          :aria-label="tPwd('new-password')"
           :aria-invalid="message && messageType === 'error' ? 'true' : 'false'"
           :aria-describedby="message && messageType === 'error' ? messageId : undefined"
         >
@@ -158,6 +160,7 @@ async function handleChangePassword() {
           class="custom-input"
           autocomplete="new-password"
           aria-required="true"
+          :aria-label="tPwd('confirm-password')"
           :aria-invalid="message && messageType === 'error' ? 'true' : 'false'"
           :aria-describedby="message && messageType === 'error' ? messageId : undefined"
         >

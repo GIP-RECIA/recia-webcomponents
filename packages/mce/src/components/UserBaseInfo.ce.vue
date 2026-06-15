@@ -43,13 +43,6 @@ function m(key: string): string {
 <template>
   <section class="profile-container" aria-labelledby="user-baseinfo-heading">
     <div class="profile-picture">
-      <avatar-user
-        :avatar="props.avatar"
-        :user="props.userId"
-        :user-info-api-url="props.userInfoApiUrl"
-        :mce-api="props.mceApi"
-        @avatar-updated="emit('avatarUpdated')"
-      />
       <div class="user-name-block">
         <h3 id="user-baseinfo-heading" class="user-name">
           {{ props.userName }}
@@ -63,6 +56,13 @@ function m(key: string): string {
           {{ props.etat }}
         </span>
       </div>
+      <avatar-user
+        :avatar="props.avatar"
+        :user="props.userId"
+        :user-info-api-url="props.userInfoApiUrl"
+        :mce-api="props.mceApi"
+        @avatar-updated="emit('avatarUpdated')"
+      />
     </div>
     <dl v-if="props.userMail" class="profile-info">
       <dt class="info-label">
@@ -103,7 +103,7 @@ function m(key: string): string {
 
 .profile-picture {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: center;
   gap: 1rem;
   margin-bottom: 1.25rem;
@@ -160,12 +160,13 @@ function m(key: string): string {
 .email-link {
   color: inherit;
   text-decoration: none;
-  display: inline-block;
-  white-space: nowrap;
-  overflow-wrap: normal;
-  word-break: normal;
-  width: auto;
-  font-size: clamp(0.65rem, 1vw, var(--#{$prefix}font-size-sm));
+  display: block;
+  width: 100%;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-all;
+
+  font-size: var(--#{$prefix}font-size-sm);
 
   &:hover,
   &:focus-visible {
