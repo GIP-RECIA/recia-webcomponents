@@ -1175,7 +1175,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": "npm:^7.2.0"
     "@fortawesome/vue-fontawesome": "npm:^3.2.0"
     "@gip-recia/js-tree": "npm:^0.0.18"
-    "@gip-recia/ui": "npm:^1.0.4"
+    "@gip-recia/ui": "npm:^1.0.5"
     "@gip-recia/ui-webcomponents": "npm:^1.14.0"
     "@intlify/unplugin-vue-i18n": "npm:^11.2.3"
     "@tsconfig/node24": "npm:^24.0.4"
@@ -1245,16 +1245,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gip-recia/ui@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "@gip-recia/ui@npm:1.0.4"
-  peerDependencies:
-    "@antfu/eslint-config": ^7.6.1
-    eslint: ^10.0.2
-    eslint-plugin-format: ^2.0.1
-    ress: ^5.0.2
-    sass: ^1.97.3
-  checksum: 10/fa9100ab70461fde4017781f1d23275061950d929a6b078e6f97c6863f9d1b618b15f6a2a9eae286d9b71a956144dded199ce2f9ad02c06642a780aaa9bab5e0
+"@gip-recia/ui@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "@gip-recia/ui@npm:1.0.5"
+  checksum: 10/fd703c2ae5d61d440ebc6792545c50ee787fe3161f32a19515130e05027a3aa8e47e0749b564388b1f4b3a60316dff4b7db352a7fdb1cf69f387bba8939a726e
   languageName: node
   linkType: hard
 
