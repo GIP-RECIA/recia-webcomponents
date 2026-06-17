@@ -260,7 +260,7 @@ function focusLast() {
       :aria-label="t('edit-avatar')"
       @click="openModal"
     >
-      <img class="avatar" :src="avatar" :alt="t('avatar-alt')">
+      <img class="avatar" :src="avatar" alt="">
       <span class="edit-picture" aria-hidden="true">
         <FontAwesomeIcon :icon="['fas', 'pen']" />
       </span>
@@ -270,35 +270,33 @@ function focusLast() {
     <div
       v-if="open"
       class="modal-mask"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modal-title"
       @click.self="closeModal"
       @focusin="handleFocusIn"
     >
       <div ref="modalComponent" class="modal-component">
-        <div tabindex="0" @focus="focusLast" />
-        <header class="modal-header">
-          <h3 id="modal-title" class="modal-title">
+        <div tabindex="0" aria-hidden="true" @focus="focusLast" />
+        <div class="modal-header">
+          <h3 class="modal-title" aria-hidden="true">
             {{ t('title-header') }}
           </h3>
           <button class="btn-primary small" :aria-label="t('close')" @click="closeModal">
-            ✕
+            <span aria-hidden="true">✕</span>
           </button>
-        </header>
+        </div>
 
         <div class="modal-body">
           <!-- Zone crop -->
           <div class="crop-area">
-            <img v-if="imageSrc" ref="imgEl" :src="imageSrc" :alt="t('crop-alt')">
-            <div
-              v-else class="crop-empty" role="button" tabindex="0"
+            <img v-if="imageSrc" ref="imgEl" :src="imageSrc" alt="">
+            <button
+              v-else class="crop-empty" type="button"
+              :aria-label="t('select-image-hint')"
               @click="pickFile()"
               @keydown.enter="pickFile()"
               @keydown.space.prevent="pickFile()"
             >
-              <p>{{ t('select-image-hint') }}</p>
-            </div>
+              <span aria-hidden="true">{{ t('select-image-hint') }}</span>
+            </button>
           </div>
 
           <!-- Preview circulaire -->
@@ -318,15 +316,15 @@ function focusLast() {
           </div>
         </div>
 
-        <footer class="modal-footer">
-          <button class="btn-primary small" :disabled="isLoading" @click="pickFile()">
+        <div class="modal-footer">
+          <button v-if="imageSrc" class="btn-primary small" :disabled="isLoading" @click="pickFile()">
             {{ t('select-image') }}
           </button>
           <button v-if="imageSrc" class="btn-primary small" :disabled="isLoading" @click="applyCrop">
             {{ isLoading ? t('loading') : t('apply') }}
           </button>
-        </footer>
-        <div tabindex="0" @focus="focusFirst" />
+        </div>
+        <div tabindex="0" aria-hidden="true" @focus="focusFirst" />
       </div>
     </div>
   </div>
@@ -481,6 +479,11 @@ function focusLast() {
   overflow: hidden;
   position: relative;
 
+  &:focus-within {
+    outline: 3px solid var(--#{$prefix}primary);
+    outline-offset: 0;
+  }
+
   img {
     width: 100%;
     height: 100%;
@@ -506,9 +509,9 @@ function focusLast() {
   height: 100%;
 }
 
-.crop-empty:focus-visible {
-  outline: 3px solid var(--#{$prefix}primary);
-  outline-offset: 2px;
+.crop-empty:focus-visible,
+button.crop-empty:focus-visible {
+  outline: none;
 }
 
 .preview-wrapper {
