@@ -31,12 +31,6 @@ const props = defineProps<{
 
 provide(I18nInjectionKey, i18n)
 
-function tPage(key: string): string {
-  return (i18n.global.t as (k: string) => string)(`page-mce.${key}`)
-}
-
-const showChangeEmail = ref(false)
-
 const mce = ref<any>({
   id: null,
   uid: '',
@@ -111,6 +105,7 @@ onMounted(async () => {
         ? ['FONCTION_LIST']
         : []),
       ...(mce.value.mdp === true ? [] : ['CHANGE_PASSWORD']),
+      ...(!mce.value.mailEditable ? ['CHANGE_EMAIL'] : []),
     ]
 
     ongletCurrent.value = listOnglets.value[0]
@@ -131,14 +126,6 @@ function select(payload: CustomEvent) {
   }
 }
 
-function handleOpenChangeEmail() {
-  showChangeEmail.value = true
-}
-
-function handleCloseChangeEmail() {
-  showChangeEmail.value = false
-}
-
 function handleEmailUpdated(event: CustomEvent<string[]>) {
   const email = Array.isArray(event.detail) ? event.detail[0] : event.detail
   mce.value = {
@@ -155,10 +142,7 @@ function handleAvatarUpdated() {
 
 <template>
   <div class="parent">
-    <aside class="user-details" aria-labelledby="user-details-heading">
-      <h2 id="user-details-heading" class="sr-only">
-        {{ tPage('user-details') }}
-      </h2>
+    <aside class="user-details">
       <user-base-info
         v-if="mce.uid"
         :avatar="avatar"
@@ -181,10 +165,7 @@ function handleAvatarUpdated() {
       />
     </aside>
 
-    <main class="sectionTwo" aria-labelledby="page-content-heading">
-      <h2 id="page-content-heading" class="sr-only">
-        {{ tPage('main-content') }}
-      </h2>
+    <main class="sectionTwo">
       <div class="content">
         <section-onglet
           v-if="mce?.listMenu?.length"
@@ -208,10 +189,7 @@ function handleAvatarUpdated() {
           :prenom="prenom"
           :categorie="categorie"
           :can-modify-email="mce.mailEditable ?? false"
-          :show-change-email="showChangeEmail"
           :mdp="mce.mdp"
-          @open-change-email="handleOpenChangeEmail"
-          @close-change-email="handleCloseChangeEmail"
           @email-updated="handleEmailUpdated"
         />
       </div>
@@ -220,7 +198,6 @@ function handleAvatarUpdated() {
 </template>
 
 <style lang="scss" scoped>
-@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
@@ -238,36 +215,24 @@ function handleAvatarUpdated() {
     padding: 1.5rem 2rem;
     align-items: flex-start;
   }
+}
 
-  .user-details {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    border-radius: 0.625rem; // 10px
-    box-shadow: var(--#{$prefix}shadow-neutral) #0000001a;
-    overflow: clip;
-    flex-shrink: 0;
-    width: 100%;
+.user-details {
+  @include mce-card-base;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  flex-shrink: 0;
+  width: 100%;
 
-    @media (width >= map.get($grid-breakpoints, md)) {
-      width: 15rem; // 240px
-    }
-    &:focus-within {
-      outline: 2px solid var(--#{$prefix}primary);
-      outline-offset: 2px;
-    }
-  }
-
-  .sectionTwo {
-    flex: 1;
-    min-width: 0;
+  @media (width >= map.get($grid-breakpoints, md)) {
+    width: 15rem;
   }
 }
 
-@media (width < 340px) {
-  .parent {
-    padding: 0.5rem;
-  }
+.sectionTwo {
+  flex: 1;
+  min-width: 0;
 }
 
 .sr-only {
