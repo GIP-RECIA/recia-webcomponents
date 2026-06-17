@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import type { SectionEleve, SectionProf } from '@/types/generalType'
-import { computed, inject, ref } from 'vue'
+import { computed, inject } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 
 defineOptions({ name: 'ClassesGroupesProf' })
@@ -38,11 +38,6 @@ function tProf(key: string): string {
 function tGeneral(key: string): string {
   return i18n ? (i18n.global.t as (k: string) => string)(`info-general.${key}`) : key
 }
-
-const isOpen = ref(true)
-
-const headerId = 'classes-groupes-prof-title'
-const bodyId = 'classes-groupes-prof-body'
 
 const sections = computed(() => {
   return props.sectionProf?.etabs ? Object.entries(props.sectionProf.etabs) : []
@@ -126,159 +121,118 @@ const hasNoData = computed(() => {
   const hasProfEtab = props.sectionProf?.etabs && Object.keys(props.sectionProf.etabs).length > 0
   return !hasProfEtab && props.listFonctions.length === 0
 })
-
-const collapseButtonLabel = computed(() => {
-  return isOpen.value ? tProf('collapse-close') : tProf('collapse-open')
-})
-
-function toggleOpen() {
-  isOpen.value = !isOpen.value
-}
 </script>
 
 <template>
-  <section class="profile-card" tabindex="0" aria-labelledby="classes-groupes-prof-heading">
-    <!-- En-tête cliquable : titre et bouton pour plier/déplier -->
-    <div class="card-header">
-      <h3 id="classes-groupes-prof-heading" class="collapse-title">
-        {{ tGeneral('title-classe-groupe') }}
-      </h3>
-      <button
-        :id="headerId"
-        type="button"
-        class="btn-primary small"
-        :aria-expanded="isOpen"
-        :aria-controls="bodyId"
-        :aria-label="collapseButtonLabel"
-        :title="collapseButtonLabel"
-        @click="toggleOpen"
+  <div class="card-wrapper">
+    <section class="profile-card" aria-labelledby="classes-groupes-prof-heading">
+      <div class="card-header">
+        <h3 id="classes-groupes-prof-heading" class="collapse-title" tabindex="0">
+          {{ tGeneral('title-classe-groupe') }}
+        </h3>
+      </div>
+
+      <!-- Aucune donnée -->
+      <div v-if="hasNoData" class="card-body">
+        <p class="info-value">
+          {{ tProf('no-data') }}
+        </p>
+      </div>
+
+      <!-- Contenu -->
+      <div
+        v-else
+        class="card-body"
       >
-        <span aria-hidden="true">{{ isOpen ? '-' : '+' }}</span>
-      </button>
-    </div>
-
-    <!-- Aucune donnée -->
-    <div v-if="hasNoData" class="card-body">
-      <p class="info-value">
-        {{ tProf('no-data') }}
-      </p>
-    </div>
-
-    <!-- Contenu dépliable -->
-    <div
-      v-else
-      v-show="isOpen"
-      :id="bodyId"
-      class="card-body"
-    >
-      <!-- Blocs sectionProf -->
-      <template v-for="([nomEtab, listeItems]) in sections" :key="nomEtab">
-        <div class="etab-block">
-          <div class="etab-info-side">
-            <span class="info-label">{{ tProf('etablissement') }}</span>
-            <div class="info-value info-value--bold">
-              {{ nomEtab }}
-            </div>
-          </div>
-
-          <div class="teachings-list">
-            <div
-              v-for="(item, indexItem) in listeItems"
-              :key="indexItem"
-              class="teaching-entry"
-            >
-              <dl class="info-item">
-                <dt class="info-label">
-                  {{ tProf('discipline') }}
-                </dt>
-                <dd class="info-value info-value--bold">
-                  {{ getMatiere(item) }}
-                </dd>
-              </dl>
-
-              <ul
-                v-if="getSectionClasses(item, nomEtab).length || getSectionGroupes(item, nomEtab).length"
-                class="badges-row"
-                :aria-label="`${tProf('discipline')} ${getMatiere(item)} — ${tGeneral('class')} / ${tGeneral('group')}`"
-              >
-                <li
-                  v-for="c in getSectionClasses(item, nomEtab)"
-                  :key="c"
-                  class="pill-tag pill-tag--class"
-                >
-                  {{ c }}
-                </li>
-                <li
-                  v-for="g in getSectionGroupes(item, nomEtab)"
-                  :key="g"
-                  class="pill-tag pill-tag--group"
-                >
-                  {{ g }}
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </template>
-
-      <!-- Fonctions restantes -->
-      <template v-if="fonctionsRestantes.length > 0">
-        <div
-          v-for="f in fonctionsRestantes"
-          :key="f.idFonction"
-          class="etab-block"
-        >
-          <div class="etab-info-side">
-            <span class="info-label">{{ tProf('etablissement') }}</span>
-            <div class="info-value info-value--bold">
-              {{ f.struct?.name || 'N/A' }}
-            </div>
-          </div>
-
-          <div class="teachings-list">
-            <div class="teaching-entry">
-              <div class="info-item">
-                <span :id="`discipline-label-fn-${f.idFonction}`" class="info-label">
-                  {{ tProf('discipline') }}
-                </span>
-                <span
-                  class="info-value info-value--bold"
-                  :aria-labelledby="`discipline-label-fn-${f.idFonction}`"
-                >
-                  {{ f.discipline }}
-                </span>
+        <!-- Blocs sectionProf -->
+        <template v-for="([nomEtab, listeItems]) in sections" :key="nomEtab">
+          <div class="etab-block">
+            <div class="etab-info-side">
+              <span class="info-label">{{ tProf('etablissement') }}</span>
+              <div class="info-value info-value--bold">
+                {{ nomEtab }}
               </div>
+            </div>
 
-              <ul
-                v-if="getFonctionClasses(f).length > 0 || getFonctionGroupes(f).length > 0"
-                class="badges-row"
-                :aria-label="`${tProf('discipline')} ${f.discipline} — ${tGeneral('class')} / ${tGeneral('group')}`"
+            <div class="teachings-list">
+              <div
+                v-for="(item, indexItem) in listeItems"
+                :key="indexItem"
+                class="teaching-entry"
               >
-                <li
-                  v-for="c in getFonctionClasses(f)"
-                  :key="c"
-                  class="pill-tag pill-tag--class"
+                <div class="info-item">
+                  <span class="info-label">{{ tProf('discipline') }}</span>
+                  <span class="info-value info-value--bold">{{ getMatiere(item) }}</span>
+                </div>
+
+                <div
+                  v-if="getSectionClasses(item, nomEtab).length || getSectionGroupes(item, nomEtab).length"
+                  class="badges-row"
+                  role="none"
                 >
-                  {{ c }}
-                </li>
-                <li
-                  v-for="g in getFonctionGroupes(f)"
-                  :key="g"
-                  class="pill-tag pill-tag--group"
-                >
-                  {{ g }}
-                </li>
-              </ul>
+                  <span
+                    v-for="c in getSectionClasses(item, nomEtab)"
+                    :key="c"
+                    class="pill-tag pill-tag--class"
+                  >{{ c }}</span>
+                  <span
+                    v-for="g in getSectionGroupes(item, nomEtab)"
+                    :key="g"
+                    class="pill-tag pill-tag--group"
+                  >{{ g }}</span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </template>
-    </div>
-  </section>
+        </template>
+
+        <!-- Fonctions restantes -->
+        <template v-if="fonctionsRestantes.length > 0">
+          <div
+            v-for="f in fonctionsRestantes"
+            :key="f.idFonction"
+            class="etab-block"
+          >
+            <div class="etab-info-side">
+              <span class="info-label">{{ tProf('etablissement') }}</span>
+              <div class="info-value info-value--bold">
+                {{ f.struct?.name || 'N/A' }}
+              </div>
+            </div>
+
+            <div class="teachings-list">
+              <div class="teaching-entry">
+                <div class="info-item">
+                  <span class="info-label">{{ tProf('discipline') }}</span>
+                  <span class="info-value info-value--bold">{{ f.discipline }}</span>
+                </div>
+
+                <div
+                  v-if="getFonctionClasses(f).length > 0 || getFonctionGroupes(f).length > 0"
+                  class="badges-row"
+                  role="none"
+                >
+                  <span
+                    v-for="c in getFonctionClasses(f)"
+                    :key="c"
+                    class="pill-tag pill-tag--class"
+                  >{{ c }}</span>
+                  <span
+                    v-for="g in getFonctionGroupes(f)"
+                    :key="g"
+                    class="pill-tag pill-tag--group"
+                  >{{ g }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </section>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
@@ -286,32 +240,16 @@ function toggleOpen() {
 @use '@gip-recia/ui/components/buttons';
 @use './mce-shared' as *;
 
+.card-wrapper {
+  display: block;
+}
+
 .profile-card {
   @include mce-card-base;
 }
 
 .card-header {
   @include mce-card-header;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.collapse-title {
-}
-
-.collapse-btn {
-}
-
-.collapse-icon {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--#{$prefix}body-inverted);
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 1.5rem;
 }
 
 .card-body {
@@ -396,7 +334,6 @@ function toggleOpen() {
   }
 }
 
-// Reset liste pour les badges classes/groupes
 .badges-row {
   @include mce-tags-list;
   justify-content: flex-end;
@@ -407,22 +344,12 @@ function toggleOpen() {
 }
 
 .pill-tag {
-  @include mce-pill-tag(
-    0.25rem 0.75rem,
-    6px,
-    var(--#{$prefix}font-size-xs),
-    var(--#{$prefix}basic-black),
-    transparent,
-    none
-  );
-  font-weight: 700;
-
   &--class {
-    @include mce-pill-class;
+    @include mce-discipline-tag;
   }
 
   &--group {
-    @include mce-pill-group;
+    @include mce-discipline-tag;
   }
 }
 </style>
