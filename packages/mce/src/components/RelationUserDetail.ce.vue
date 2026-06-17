@@ -82,12 +82,11 @@ const enseignementsList = computed(() => {
 <template>
   <section
     class="detail-panel"
-    tabindex="0"
     :aria-labelledby="personne ? 'relation-detail-title' : undefined"
     :aria-label="!personne ? t('detail-panel-label') : undefined"
   >
     <!-- Chargement -->
-    <output v-if="isLoading" role="status" class="alert-message alert-message--info" aria-live="polite">
+    <output v-if="isLoading" class="alert-message alert-message--info" aria-live="polite">
       {{ t('loading') }}
     </output>
 
@@ -101,9 +100,9 @@ const enseignementsList = computed(() => {
       <!-- En-tête -->
       <div class="detail-header">
         <div class="detail-header-meta">
-          <h2 id="relation-detail-title" class="detail-name">
+          <p id="relation-detail-title" class="detail-name">
             {{ personne.userName }}
-          </h2>
+          </p>
           <div class="badge-container">
             <span v-if="personne.etat" class="status-badge" :class="`status-badge--${personne.etat.toLowerCase()}`">
               {{ personne.etat }}
@@ -118,90 +117,72 @@ const enseignementsList = computed(() => {
           <span aria-hidden="true">✕</span>
         </button>
       </div>
-      <dl class="detail-grid">
-        <div v-if="personne.userMail" class="info-item info-item--full">
-          <dt class="info-label">
-            {{ t('email') }}
-          </dt>
-          <dd class="info-value-box">
-            <span class="info-value">{{ personne.userMail }}</span>
-          </dd>
-        </div>
 
+      <div class="detail-grid">
         <div v-if="personne.etab" class="info-item info-item--full">
-          <dt class="info-label">
-            {{ t('etab') }}
-          </dt>
-          <dd class="info-value-box">
-            <span class="info-value">{{ personne.etab }}</span>
-          </dd>
+          <span class="info-label">{{ t('etab') }}</span>
+          <span class="info-value-box">{{ personne.etab }}</span>
         </div>
 
         <div v-if="formatDate" class="info-item">
-          <dt class="info-label">
-            {{ t('bod') }}
-          </dt>
-          <dd class="info-value-box">
-            <time class="info-value" :datetime="personne.bod">{{ formatDate }}</time>
-          </dd>
+          <span class="info-label">{{ t('bod') }}</span>
+          <span class="info-value-box">
+            <time :datetime="personne.bod">{{ formatDate }}</time>
+          </span>
         </div>
 
         <div v-if="personne.uid" class="info-item">
-          <dt class="info-label">
-            {{ t('uid') }}
-          </dt>
-          <dd class="info-value-box">
-            <span class="info-value">{{ personne.uid }}</span>
-          </dd>
+          <span class="info-label">{{ t('uid') }}</span>
+          <span class="info-value-box">{{ personne.uid }}</span>
         </div>
-      </dl>
+      </div>
 
       <!-- Classes & groupes -->
       <div v-if="classesList.length || groupesList.length" class="sub-section">
-        <h3 class="sub-section-title">
+        <p class="sub-section-title">
           {{ t('classes-groupes') }}
-        </h3>
+        </p>
 
         <div class="detail-grid">
           <div v-if="classesList.length" class="info-item">
             <span class="info-label">{{ t('classes') }}</span>
-            <ul class="info-value-box info-value-box--tags">
-              <li v-for="(classe, i) in classesList" :key="i" class="pill-tag pill-tag--class">
+            <div class="info-value-box info-value-box--tags" role="none">
+              <span v-for="(classe, i) in classesList" :key="i" class="pill-tag pill-tag--class">
                 {{ classe }}
-              </li>
-            </ul>
+              </span>
+            </div>
           </div>
 
           <div v-if="groupesList.length" class="info-item">
             <span class="info-label">{{ t('groupes') }}</span>
-            <ul class="info-value-box info-value-box--tags">
-              <li v-for="(groupe, i) in groupesList" :key="i" class="pill-tag pill-tag--group">
+            <div class="info-value-box info-value-box--tags" role="none">
+              <span v-for="(groupe, i) in groupesList" :key="i" class="pill-tag pill-tag--group">
                 {{ groupe }}
-              </li>
-            </ul>
+              </span>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Enseignements -->
       <div v-if="enseignementsList.length" class="sub-section">
-        <h3 class="sub-section-title">
+        <p class="sub-section-title">
           {{ t('enseignements') }}
-        </h3>
-        <ul class="enseignements-grid">
-          <li v-for="(matiere, i) in enseignementsList" :key="i" class="discipline-tag">
+        </p>
+        <div class="enseignements-grid" role="none">
+          <span v-for="(matiere, i) in enseignementsList" :key="i" class="discipline-tag">
             {{ matiere }}
-          </li>
-        </ul>
+          </span>
+        </div>
       </div>
 
       <!-- Personnes en relation -->
       <div v-if="personne.parentEleve?.length" class="sub-section">
-        <h3 class="sub-section-title">
+        <p class="sub-section-title">
           {{ t('personnes-relation') }}
-        </h3>
-        <ul class="relations-list">
-          <li
+        </p>
+        <div class="relations-list" role="none">
+          <div
             v-for="(parent, i) in personne.parentEleve"
             :key="i"
             class="relation-card"
@@ -215,15 +196,14 @@ const enseignementsList = computed(() => {
             <span v-if="parent.autoriteParental" class="ap-tag">
               {{ t('autorite-parentale') }}
             </span>
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
     </template>
   </section>
 </template>
 
 <style lang="scss" scoped>
-@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
@@ -285,6 +265,7 @@ const enseignementsList = computed(() => {
 }
 
 .detail-name {
+  margin: 0;
   font-weight: 700;
   font-size: var(--#{$prefix}font-size-sm);
   color: var(--#{$prefix}basic-black);
@@ -304,22 +285,17 @@ const enseignementsList = computed(() => {
 }
 
 .pill-tag {
-  @include mce-tag-base;
-  font-size: var(--#{$prefix}font-size-xs);
-  list-style: none;
-
   &--class {
-    @include mce-pill-class;
+    @include mce-discipline-tag;
   }
 
   &--group {
-    @include mce-pill-group;
+    @include mce-discipline-tag;
   }
 }
 
 .discipline-tag {
   @include mce-discipline-tag;
-  list-style: none;
 }
 
 .ap-tag {
@@ -339,10 +315,6 @@ const enseignementsList = computed(() => {
 
 .info-item {
   @include mce-info-item;
-  :deep(dt),
-  :deep(dd) {
-    margin: 0;
-  }
 
   &--full {
     grid-column: 1 / -1;
@@ -355,7 +327,8 @@ const enseignementsList = computed(() => {
 
 .info-value-box {
   @include mce-value-box;
-  list-style: none;
+  font-size: var(--#{$prefix}font-size-sm);
+  overflow-wrap: break-word;
 
   &--tags {
     display: flex;
@@ -397,7 +370,6 @@ const enseignementsList = computed(() => {
 .relations-list {
   margin: 0;
   padding: 0;
-  list-style: none;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
