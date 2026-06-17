@@ -91,7 +91,6 @@ function handleClick(index: number): void {
 </template>
 
 <style lang="scss" scoped>
-@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
@@ -122,25 +121,16 @@ function handleClick(index: number): void {
     border-color 0.2s,
     color 0.2s,
     box-shadow 0.2s;
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--#{$prefix}primary) 30%, transparent);
+  }
 }
 
-.list-menu .btn-secondary-toggle:not(.active) {
-  background-color: transparent;
-}
-
-.list-menu .btn-secondary-toggle.active {
+.list-menu .active {
   background-color: color-mix(in srgb, var(--#{$prefix}primary) 12%, var(--#{$prefix}body-bg));
   border-color: var(--#{$prefix}primary);
   color: var(--#{$prefix}primary);
-  box-shadow: none;
-}
-
-.list-menu button:focus-visible {
-  outline: none;
-  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--#{$prefix}primary) 30%, transparent);
-}
-
-.list-menu .btn-secondary-toggle.active:focus-visible {
-  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--#{$prefix}primary) 30%, transparent);
 }
 </style>
