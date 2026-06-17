@@ -180,7 +180,7 @@ describe('classesGroupesEleve', () => {
       const rows = wrapper.findAll('.etab-row-item')
       expect(rows[1].find('.info-value--bold').text()).toBe('Collège Albert Camus')
       // Le composant rend un <p class="info-value"> hors pills-list quand la liste est vide
-      const groupSection = rows[1].findAll('.info-item').at(2)!
+      const groupSection = rows[1].findAll('.info-item').at(1)!
       expect(groupSection.find('.pill-tag').exists()).toBe(false)
       expect(groupSection.find('.info-value').text()).toBe('Aucun groupe')
     })

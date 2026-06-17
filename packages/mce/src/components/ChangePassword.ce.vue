@@ -110,98 +110,103 @@ async function handleChangePassword() {
 </script>
 
 <template>
-  <section class="change-password-panel" aria-labelledby="change-password-title">
-    <div class="card-header">
-      <h3 id="change-password-title">
-        {{ tPwd('title') }}
-      </h3>
+  <div class="card-wrapper">
+    <div class="change-password-panel">
+      <span class="sr-only" tabindex="-1" data-panel-start>{{ tPwd('title') }}</span>
+      <div class="card-header">
+        <h3 tabindex="0">
+          {{ tPwd('title') }}
+        </h3>
+      </div>
+
+      <form class="card-body" role="none" novalidate @submit.prevent="handleChangePassword">
+        <div class="form-group">
+          <label class="info-label" for="current-password">{{ tPwd('current-password') }}</label>
+          <input
+            id="current-password"
+            v-model="currentPassword"
+            type="password"
+            :placeholder="tPwd('placeholder-current')"
+            class="custom-input"
+            autocomplete="current-password"
+            aria-required="true"
+            :aria-label="tPwd('current-password')"
+            :aria-invalid="message && messageType === 'error' ? 'true' : 'false'"
+            :aria-describedby="message && messageType === 'error' ? messageId : undefined"
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="info-label" for="new-password">{{ tPwd('new-password') }}</label>
+          <input
+            id="new-password"
+            v-model="newPassword"
+            type="password"
+            :placeholder="tPwd('placeholder-new')"
+            class="custom-input"
+            autocomplete="new-password"
+            aria-required="true"
+            :aria-label="tPwd('new-password')"
+            :aria-invalid="message && messageType === 'error' ? 'true' : 'false'"
+            :aria-describedby="message && messageType === 'error' ? messageId : undefined"
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="info-label" for="confirm-password">{{ tPwd('confirm-password') }}</label>
+          <input
+            id="confirm-password"
+            v-model="confirmPassword"
+            type="password"
+            :placeholder="tPwd('placeholder-confirm')"
+            class="custom-input"
+            autocomplete="new-password"
+            aria-required="true"
+            :aria-label="tPwd('confirm-password')"
+            :aria-invalid="message && messageType === 'error' ? 'true' : 'false'"
+            :aria-describedby="message && messageType === 'error' ? messageId : undefined"
+          >
+        </div>
+
+        <div
+          v-if="message"
+          :id="messageId"
+          ref="alertRef"
+          class="alert-message"
+          :class="messageType"
+          role="alert"
+          tabindex="-1"
+        >
+          {{ message }}
+        </div>
+
+        <div class="action-row">
+          <button
+            type="submit"
+            class="btn-primary small"
+            :disabled="isLoading"
+            :aria-busy="isLoading ? 'true' : undefined"
+            :aria-label="isLoading ? tPwd('loading') : undefined"
+          >
+            <span v-if="isLoading" aria-hidden="true">{{ tPwd('loading') }}</span>
+            <span v-else>{{ tPwd('submit') }}</span>
+          </button>
+        </div>
+      </form>
     </div>
-
-    <form class="card-body" novalidate @submit.prevent="handleChangePassword">
-      <div class="form-group">
-        <label class="info-label" for="current-password">{{ tPwd('current-password') }}</label>
-        <input
-          id="current-password"
-          v-model="currentPassword"
-          type="password"
-          :placeholder="tPwd('placeholder-current')"
-          class="custom-input"
-          autocomplete="current-password"
-          aria-required="true"
-          :aria-label="tPwd('current-password')"
-          :aria-invalid="message && messageType === 'error' ? 'true' : 'false'"
-          :aria-describedby="message && messageType === 'error' ? messageId : undefined"
-        >
-      </div>
-
-      <div class="form-group">
-        <label class="info-label" for="new-password">{{ tPwd('new-password') }}</label>
-        <input
-          id="new-password"
-          v-model="newPassword"
-          type="password"
-          :placeholder="tPwd('placeholder-new')"
-          class="custom-input"
-          autocomplete="new-password"
-          aria-required="true"
-          :aria-label="tPwd('new-password')"
-          :aria-invalid="message && messageType === 'error' ? 'true' : 'false'"
-          :aria-describedby="message && messageType === 'error' ? messageId : undefined"
-        >
-      </div>
-
-      <div class="form-group">
-        <label class="info-label" for="confirm-password">{{ tPwd('confirm-password') }}</label>
-        <input
-          id="confirm-password"
-          v-model="confirmPassword"
-          type="password"
-          :placeholder="tPwd('placeholder-confirm')"
-          class="custom-input"
-          autocomplete="new-password"
-          aria-required="true"
-          :aria-label="tPwd('confirm-password')"
-          :aria-invalid="message && messageType === 'error' ? 'true' : 'false'"
-          :aria-describedby="message && messageType === 'error' ? messageId : undefined"
-        >
-      </div>
-
-      <div
-        v-if="message"
-        :id="messageId"
-        ref="alertRef"
-        class="alert-message"
-        :class="messageType"
-        role="alert"
-        tabindex="-1"
-      >
-        {{ message }}
-      </div>
-
-      <div class="action-row">
-        <button
-          type="submit"
-          class="btn-primary small"
-          :disabled="isLoading"
-          :aria-busy="isLoading ? 'true' : undefined"
-          :aria-label="isLoading ? tPwd('loading') : undefined"
-        >
-          <span v-if="isLoading" aria-hidden="true">{{ tPwd('loading') }}</span>
-          <span v-else>{{ tPwd('submit') }}</span>
-        </button>
-      </div>
-    </form>
-  </section>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
 @use './mce-shared' as *;
+
+.card-wrapper {
+}
 
 .change-password-panel {
   @include mce-card-base;
@@ -236,5 +241,9 @@ async function handleChangePassword() {
 
 .alert-message {
   @include mce-alert-message;
+}
+
+.sr-only {
+  @include mce-sr-only;
 }
 </style>
