@@ -91,7 +91,7 @@ const hasApprentis = computed<boolean>(() => {
 </script>
 
 <template>
-  <div class="sectionPersonnelles" role="region" aria-labelledby="info-general-title">
+  <div class="sectionPersonnelles">
     <h3 id="info-general-title" class="sr-only">
       {{ sectionTitle }}
     </h3>
