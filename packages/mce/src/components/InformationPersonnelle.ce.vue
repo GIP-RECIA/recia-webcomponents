@@ -21,7 +21,6 @@ import { I18nInjectionKey } from 'vue-i18n'
 defineOptions({ name: 'InformationPersonnelle' })
 
 const props = defineProps<{
-  uid?: string
   userName?: string
   civilite?: string
   nom?: string
@@ -32,13 +31,6 @@ const props = defineProps<{
   userId: string
   userInfoApiUrl: string
   mceApi: string
-  canModifyEmail?: boolean
-  showChangeEmail?: boolean
-}>()
-
-const emit = defineEmits<{
-  (e: 'emailUpdated', email: string): void
-  (e: 'openChangeEmail'): void
 }>()
 
 const i18n = inject(I18nInjectionKey)
@@ -71,93 +63,45 @@ const formattedDate = computed(() => {
 </script>
 
 <template>
-  <section class="profile-card" aria-labelledby="personal-info-title">
-    <div class="card-header">
-      <h3 id="personal-info-title">
-        {{ tUser('informations-personnelles') }}
-      </h3>
-    </div>
+  <div class="card-wrapper">
+    <section class="profile-card">
+      <div class="card-header">
+        <p class="card-title" tabindex="0">
+          {{ tUser('informations-personnelles') }}
+        </p>
+      </div>
 
-    <!-- Improved Definition List -->
-    <dl class="card-body-grid">
-      <div class="info-item">
-        <dt class="info-label">
-          {{ tUser('uid') }}
-        </dt>
-        <dd class="info-value">
-          {{ props.uid || '—' }}
-        </dd>
-      </div>
-      <div class="info-item">
-        <dt class="info-label">
-          {{ tUser('civilite') }}
-        </dt>
-        <dd class="info-value">
-          {{ props.civilite || '—' }}
-        </dd>
-      </div>
-      <div class="info-item">
-        <dt class="info-label">
-          {{ tUser('nom') }}
-        </dt>
-        <dd class="info-value">
-          {{ props.nom || '—' }}
-        </dd>
-      </div>
-      <div class="info-item">
-        <dt class="info-label">
-          {{ tUser('prenom') }}
-        </dt>
-        <dd class="info-value">
-          {{ props.prenom || '—' }}
-        </dd>
-      </div>
-      <div class="info-item">
-        <dt class="info-label">
-          {{ tUser('bod') }}
-        </dt>
-        <dd class="info-value">
-          <time v-if="formattedDate" :datetime="props.dateNaissance">
-            {{ formattedDate }}
-          </time>
-          <span v-else aria-hidden="true">—</span>
-        </dd>
-      </div>
-      <div class="info-item">
-        <dt class="info-label">
-          {{ tUser('categorie') }}
-        </dt>
-        <dd class="info-value">
-          {{ props.categorie || '—' }}
-        </dd>
-      </div>
-    </dl>
-
-    <!-- Email Section -->
-    <div class="email-section" role="group" aria-labelledby="email-section-label">
-      <div class="email-row">
-        <div class="email-container">
-          <span id="email-section-label" class="info-label email-section-label">
-            {{ tUser('email') }}
+      <div class="card-body-grid">
+        <div class="info-item">
+          <span class="info-label">{{ tUser('civilite') }}</span>
+          <span class="info-value">{{ props.civilite || '—' }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">{{ tUser('nom') }}</span>
+          <span class="info-value">{{ props.nom || '—' }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">{{ tUser('prenom') }}</span>
+          <span class="info-value">{{ props.prenom || '—' }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">{{ tUser('bod') }}</span>
+          <span class="info-value">
+            <time v-if="formattedDate" :datetime="props.dateNaissance">{{ formattedDate }}</time>
+            <span v-else>—</span>
           </span>
-          <p class="info-value info-value--bold" :title="currentEmail">
-            {{ currentEmail || '—' }}
-          </p>
         </div>
-
-        <div class="email-actions">
-          <button
-            v-if="!props.canModifyEmail"
-            class="btn-primary small"
-            type="button"
-            @click="emit('openChangeEmail')"
-          >
-            {{ tUser('modifier') }}
-          </button>
+        <div class="info-item">
+          <span class="info-label">{{ tUser('categorie') }}</span>
+          <span class="info-value">{{ props.categorie || '—' }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">{{ tUser('email') }}</span>
+          <span class="info-value">{{ currentEmail || '—' }}</span>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -171,10 +115,22 @@ const formattedDate = computed(() => {
 
 .profile-card {
   @include mce-card-base;
+
+  &:focus,
+  &:focus-within {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--#{$prefix}primary);
+  }
 }
 
 .card-header {
   @include mce-card-header;
+}
+
+.card-title {
+  margin: 0;
+  font-size: var(--#{$prefix}font-size-h3);
+  font-weight: 700;
 }
 
 .card-body-grid {
@@ -189,61 +145,20 @@ const formattedDate = computed(() => {
 }
 
 .info-item {
-  @include mce-info-item;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
 }
 
 .info-label {
   @include mce-info-label;
-}
-
-.email-section-label {
   display: block;
-  font-size: var(--#{$prefix}font-size-h4);
 }
 
 .info-value {
   @include mce-info-value;
-  margin: 0;
-
-  &--bold {
-    @include mce-info-value-bold;
-    overflow-wrap: break-word;
-    word-break: break-all;
-    max-width: 100%;
-  }
-}
-
-.email-section {
-  padding: 1.25rem;
-  border-top: 1px dashed var(--#{$prefix}stroke);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.email-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-
-  @media (width >= map.get($grid-breakpoints, sm)) {
-    flex-direction: row;
-    align-items: flex-end;
-  }
-}
-
-.email-container {
-  flex: 1;
-  min-width: 0;
-}
-
-.email-actions {
-  flex-shrink: 0;
-}
-
-.edit-section-panel {
-  &:focus {
-    outline: none;
-  }
+  display: block;
 }
 </style>
