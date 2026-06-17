@@ -32,6 +32,7 @@ const messages = {
       'title-relation-master': 'Maîtres d\'apprentissage',
       'parental-authority': 'Autorité parentale',
       'relation-default': 'Relation',
+      'no-relation': 'Aucune relation trouvée.',
     },
   },
 }
@@ -182,7 +183,7 @@ describe('relationUser', () => {
       await Promise.resolve()
       await wrapper.vm.$nextTick()
 
-      expect(wrapper.findComponent({ name: 'RelationUserDetail' }).exists()).toBe(false)
+      expect(wrapper.find('.relation-detail-panel').isVisible()).toBe(false)
     })
   })
 
@@ -222,7 +223,7 @@ describe('relationUser', () => {
       await wrapper.findComponent({ name: 'RelationUserDetail' }).vm.$emit('close')
       await wrapper.vm.$nextTick()
 
-      expect(wrapper.findComponent({ name: 'RelationUserDetail' }).exists()).toBe(false)
+      expect(wrapper.find('.relation-detail-panel').isVisible()).toBe(false)
     })
   })
 })
