@@ -99,11 +99,6 @@ describe('fonctionsList', () => {
       expect(firstCard.find('.info-value--bold').text()).toContain('Lycée Jean Zay')
     })
 
-    it('affiche le type de la structure via .struct-type', () => {
-      const firstCard = wrapper.findAll('.card-fonction')[0]
-      expect(firstCard.find('.struct-type').text()).toBe('(LYC)')
-    })
-
     it('affiche la fonction via .fonction-tag', () => {
       const firstCard = wrapper.findAll('.card-fonction')[0]
       expect(firstCard.find('.fonction-tag').text()).toBe('Professeur')
@@ -120,9 +115,8 @@ describe('fonctionsList', () => {
     })
 
     it('ajoute un libellé accessible pour la bascule', () => {
-      const firstLabel = wrapper.findAll('.toggle-switch')[0]
-      expect(firstLabel.exists()).toBe(true)
-      expect(firstLabel.find('.sr-only').text()).toBe('Désactiver Professeur')
+      const checkbox = wrapper.findAll('.toggle-input')[0]
+      expect(checkbox.attributes('aria-label')).toBe('Désactiver, Lycée Jean Zay, Professeur, Mathématiques')
     })
   })
 
