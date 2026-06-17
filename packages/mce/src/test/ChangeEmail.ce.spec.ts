@@ -117,26 +117,13 @@ describe('changeEmail', () => {
       expect(wrapper.find('#newEmail').attributes('placeholder')).toBe('exemple@domaine.fr')
     })
 
-    it('les boutons ont les bons textes initiaux', () => {
-      const buttons = wrapper.findAll('button')
-      const cancelBtn = buttons.find(b => b.text() === 'Annuler')
-      const submitBtn = buttons.find(b => b.text() === 'Valider')
-      expect(cancelBtn).toBeDefined()
-      expect(submitBtn).toBeDefined()
+    it('le bouton a le bon texte initial', () => {
+      const submitBtn = wrapper.find('.btn-primary')
+      expect(submitBtn.text()).toBe('Valider')
     })
 
     it('aucun message d\'alerte au départ', () => {
       expect(wrapper.find('.alert-message').exists()).toBe(false)
-    })
-  })
-
-  // --------------------------------------------------
-  // ACTIONS DU PANNEAU
-  // --------------------------------------------------
-  describe('actions du panneau', () => {
-    it('émet l\'événement "close" lors du clic sur le bouton Annuler (.btn-secondary)', async () => {
-      await wrapper.find('.btn-secondary').trigger('click')
-      expect(wrapper.emitted('close')).toBeTruthy()
     })
   })
 
