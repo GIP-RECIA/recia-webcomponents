@@ -47,8 +47,10 @@ function tGeneral(key: string): string {
 
 function getToggleLabel(it: PersonneFonction): string {
   const action = it.active ? tFonctions('toggle-deactivate') : tFonctions('toggle-activate')
-  const fonctionName = it.fonction || it.struct.name || ''
-  return `${action} ${fonctionName}`.trim()
+  const etab = it.struct.name || ''
+  const fonction = it.fonction || ''
+  const discipline = it.discipline || ''
+  return [action, etab, fonction, discipline].filter(Boolean).join(', ')
 }
 
 async function toggleFonction(it: PersonneFonction): Promise<void> {
@@ -79,33 +81,41 @@ async function onToggle(it: PersonneFonction): Promise<void> {
 </script>
 
 <template>
-  <section v-if="localFonctions?.length" class="profile-card">
-    <header class="card-header">
-      <h3>{{ tGeneral('title-fonction') }}</h3>
-    </header>
+  <section v-if="localFonctions?.length" class="profile-card" aria-labelledby="fonctions-list-heading">
+    <span class="sr-only" tabindex="-1" data-panel-start>{{ tGeneral('title-fonction') }}</span>
+    <div class="card-header">
+      <h3 id="fonctions-list-heading" tabindex="0">
+        {{ tGeneral('title-fonction') }}
+      </h3>
+    </div>
 
     <div class="card-body">
       <div class="grid-fonctions">
-        <div v-for="(it, index) in localFonctions" :key="index" class="card-fonction">
+        <div
+          v-for="(it, index) in localFonctions"
+          :key="index"
+          class="card-fonction"
+          aria-hidden="false"
+        >
           <div class="fonction-header">
-            <span class="info-label">{{ tFonctions('card-label') }}</span>
-            <label class="toggle-switch">
+            <span class="info-label" aria-hidden="true">{{ tFonctions('card-label') }}</span>
+            <div class="toggle-switch">
               <input
                 v-model="it.active"
                 type="checkbox"
                 class="toggle-input"
+                :aria-label="getToggleLabel(it)"
                 @change="onToggle(it)"
                 @keydown.enter.prevent="toggleFonction(it)"
                 @keydown.space.prevent="toggleFonction(it)"
               >
-              <span class="sr-only">{{ getToggleLabel(it) }}</span>
-            </label>
+            </div>
           </div>
 
-          <div class="fonction-body">
+          <div class="fonction-body" aria-hidden="true">
             <div class="info-group">
               <span class="info-value info-value--bold">
-                {{ it.struct.name }} <small class="struct-type">({{ it.struct.type }})</small>
+                {{ it.struct.name }}
               </span>
               <div class="badge-container">
                 <span class="fonction-tag">{{ it.fonction || '-' }}</span>
@@ -119,8 +129,7 @@ async function onToggle(it: PersonneFonction): Promise<void> {
   </section>
 </template>
 
-<style scoped lang="scss">
-@use 'ress/dist/ress.min.css';
+<style lang="scss" scoped>
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
@@ -169,11 +178,6 @@ async function onToggle(it: PersonneFonction): Promise<void> {
 .toggle-switch {
   display: inline-flex;
   align-items: center;
-  cursor: pointer;
-}
-
-.sr-only {
-  @include mce-sr-only;
 }
 
 .fonction-body {
@@ -200,12 +204,6 @@ async function onToggle(it: PersonneFonction): Promise<void> {
   }
 }
 
-.struct-type {
-  font-weight: 400;
-  font-size: var(--#{$prefix}font-size-xs);
-  color: var(--#{$prefix}basic-black-lighter);
-}
-
 .toggle-input {
   appearance: none;
   -webkit-appearance: none;
@@ -216,7 +214,6 @@ async function onToggle(it: PersonneFonction): Promise<void> {
   position: relative;
   cursor: pointer;
   transition: background-color 0.2s;
-  outline: none;
   border: 1px solid var(--#{$prefix}stroke);
   flex-shrink: 0;
 
@@ -242,9 +239,14 @@ async function onToggle(it: PersonneFonction): Promise<void> {
     }
   }
 
-  &:focus {
+  &:focus-visible {
+    outline: none;
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--#{$prefix}primary) 25%, transparent);
   }
+}
+
+.sr-only {
+  @include mce-sr-only;
 }
 
 .badge-container {
@@ -252,13 +254,10 @@ async function onToggle(it: PersonneFonction): Promise<void> {
 }
 
 .fonction-tag {
-  font-size: var(--#{$prefix}font-size-xs);
-  font-weight: 700;
-  color: var(--#{$prefix}basic-black);
+  @include mce-discipline-tag;
 }
 
 .discipline-tag {
   @include mce-discipline-tag;
-  display: inline-flex;
 }
 </style>
