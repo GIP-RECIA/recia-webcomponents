@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import type { PersonneFonction } from '@/types/fonctionType'
-import { inject } from 'vue'
+import { inject, nextTick, watch } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 import ChangeEmail from '@/components/ChangeEmail.ce.vue'
 import FonctionsList from '@/components/FonctionsList.ce.vue'
@@ -54,125 +54,135 @@ const props = defineProps<{
   prenom?: string
   categorie?: string
   canModifyEmail?: boolean
-  showChangeEmail?: boolean
   mdp?: boolean
   listOnglets: string[]
 }>()
 defineEmits<{
-  (e: 'closeChangeEmail'): void
-  (e: 'openChangeEmail'): void
   (e: 'emailUpdated', email: string): void
 }>()
+
 const i18n = inject(I18nInjectionKey)
-function tOnglet(key: string): string {
+function tPage(key: string): string {
   return i18n ? (i18n.global.t as (k: string) => string)(`list-onglet.${key}`) : key
 }
+
+// À chaque changement d'onglet, focus la sentinelle en tête du panneau actif
+// pour que ORCA parte du début du contenu avec les flèches
+watch(() => props.listMenu, async () => {
+  await nextTick()
+  const panelId = `onglet-tabpanel-${props.listMenu}`
+  const panel = document.getElementById(panelId)
+  const sentinel = panel?.querySelector('[data-panel-start]') as HTMLElement | null
+  sentinel?.focus()
+}, { flush: 'post' })
 </script>
 
 <template>
   <div class="section-content-wrapper">
-    <!-- Panneau ChangeEmail -->
-    <div v-if="props.showChangeEmail" class="tab-pane animate-fade">
+    <!-- ONGLET GÉNÉRALE -->
+    <div
+      v-show="props.listMenu === 'GENERALE'"
+      id="onglet-tabpanel-GENERALE"
+      :inert="props.listMenu !== 'GENERALE'"
+      role="tabpanel"
+      aria-labelledby="onglet-tab-GENERALE"
+      class="tab-pane"
+      :class="{ 'animate-fade': props.listMenu === 'GENERALE' }"
+    >
+      <!-- Sentinelle directement dans le panel : querySelector la trouve sans traverser le Shadow DOM -->
+      <span class="sr-only" tabindex="-1" data-panel-start>{{ tPage('GENERALE') }}</span>
+      <InformationPersonnelleCe
+        :uid="props.uid"
+        :user-name="props.userName"
+        :date-naissance="props.bod"
+        :user-mail="props.userMail"
+        :user-id="props.userId"
+        :user-info-api-url="props.userInfoApiUrl"
+        :mce-api="props.mceApi"
+        :civilite="props.civilite"
+        :nom="props.nom"
+        :prenom="props.prenom"
+        :categorie="props.categorie"
+      />
+      <info-general
+        :details="props.fonctionClassesGroupe"
+        :list-fonctions="props.fonctionClassesGroupe.listFonctions ?? []"
+        :user-id="props.userId"
+        :list-menu="props.listMenu"
+        :mce-api="props.mceApi"
+        :parent-eleve="props.parentEleve"
+        :relation-eleve="props.relationEleve"
+        :apprentis="props.apprentis"
+        :user-info-api-url="props.userInfoApiUrl"
+      />
+    </div>
+
+    <!-- ONGLET SERVICES ENT -->
+    <div
+      v-show="props.listMenu === 'SERVICE'"
+      id="onglet-tabpanel-SERVICE"
+      :inert="props.listMenu !== 'SERVICE'"
+      role="tabpanel"
+      aria-labelledby="onglet-tab-SERVICE"
+      class="tab-pane animate-fade"
+    >
+      <services-ent
+        :details="props.services"
+        :etab="props.etabCurrent"
+        :onglet="props.listMenu"
+      />
+    </div>
+
+    <!-- ONGLET CHANGEMENT MOT DE PASSE -->
+    <div
+      v-show="props.listMenu === 'CHANGE_PASSWORD'"
+      id="onglet-tabpanel-CHANGE_PASSWORD"
+      :inert="props.listMenu !== 'CHANGE_PASSWORD'"
+      role="tabpanel"
+      aria-labelledby="onglet-tab-CHANGE_PASSWORD"
+      class="tab-pane animate-fade"
+    >
+      <ChangePassword
+        :user-info-api-url="props.userInfoApiUrl"
+        :user-id="props.userId"
+        :mce-api="props.mceApi"
+      />
+    </div>
+
+    <!-- ONGLET LISTE DES FONCTIONS / RÔLES -->
+    <div
+      v-show="props.listMenu === 'FONCTION_LIST'"
+      id="onglet-tabpanel-FONCTION_LIST"
+      :inert="props.listMenu !== 'FONCTION_LIST'"
+      role="tabpanel"
+      aria-labelledby="onglet-tab-FONCTION_LIST"
+      class="tab-pane animate-fade"
+    >
+      <FonctionsList
+        :fonctions="props.fonctionClassesGroupe.listFonctions ?? []"
+        :user-info-api-url="props.userInfoApiUrl ?? ''"
+        :mce-api="props.mceApi"
+      />
+    </div>
+
+    <!-- ONGLET CHANGEMENT EMAIL -->
+    <div
+      v-show="props.listMenu === 'CHANGE_EMAIL'"
+      id="onglet-tabpanel-CHANGE_EMAIL"
+      :inert="props.listMenu !== 'CHANGE_EMAIL'"
+      role="tabpanel"
+      aria-labelledby="onglet-tab-CHANGE_EMAIL"
+      class="tab-pane animate-fade"
+    >
       <ChangeEmail
         :user-info-api-url="props.userInfoApiUrl"
         :mce-api="props.mceApi"
         :user-id="props.userId"
         :current-email="props.userMail"
-        @close="$emit('closeChangeEmail')"
+        @close="() => {}"
         @updated="(email) => $emit('emailUpdated', email)"
       />
     </div>
-
-    <template v-else>
-      <!-- ONGLET GÉNÉRALE : v-show pour préserver l'état du formulaire email -->
-      <div
-        v-show="props.listMenu === 'GENERALE'"
-        id="onglet-tabpanel-GENERALE"
-        :inert="props.listMenu !== 'GENERALE'"
-        role="tabpanel"
-        :aria-label="tOnglet('GENERALE')"
-        tabindex="-1"
-        class="tab-pane"
-        :class="{ 'animate-fade': props.listMenu === 'GENERALE' }"
-      >
-        <InformationPersonnelleCe
-          :uid="props.uid"
-          :user-name="props.userName"
-          :date-naissance="props.bod"
-          :user-mail="props.userMail"
-          :user-id="props.userId"
-          :user-info-api-url="props.userInfoApiUrl"
-          :mce-api="props.mceApi"
-          :civilite="props.civilite"
-          :nom="props.nom"
-          :prenom="props.prenom"
-          :categorie="props.categorie"
-          :can-modify-email="props.canModifyEmail"
-          :show-change-email="props.showChangeEmail"
-          @open-change-email="$emit('openChangeEmail')"
-          @email-updated="(email) => $emit('emailUpdated', email)"
-        />
-        <info-general
-          :details="props.fonctionClassesGroupe"
-          :list-fonctions="props.fonctionClassesGroupe.listFonctions ?? []"
-          :user-id="props.userId"
-          :list-menu="props.listMenu"
-          :mce-api="props.mceApi"
-          :parent-eleve="props.parentEleve"
-          :relation-eleve="props.relationEleve"
-          :apprentis="props.apprentis"
-          :user-info-api-url="props.userInfoApiUrl"
-        />
-      </div>
-
-      <!-- ONGLET SERVICES ENT -->
-      <div
-        v-if="props.listMenu === 'SERVICE'"
-        id="onglet-tabpanel-SERVICE"
-        role="tabpanel"
-        :aria-label="tOnglet('SERVICE')"
-        tabindex="-1"
-        class="tab-pane animate-fade"
-      >
-        <services-ent
-          :details="props.services"
-          :etab="props.etabCurrent"
-          :onglet="props.listMenu"
-        />
-      </div>
-
-      <!-- ONGLET CHANGEMENT MOT DE PASSE -->
-      <div
-        v-if="props.listMenu === 'CHANGE_PASSWORD'"
-        id="onglet-tabpanel-CHANGE_PASSWORD"
-        role="tabpanel"
-        :aria-label="tOnglet('CHANGE_PASSWORD')"
-        tabindex="-1"
-        class="tab-pane animate-fade"
-      >
-        <ChangePassword
-          :user-info-api-url="props.userInfoApiUrl"
-          :user-id="props.userId"
-          :mce-api="props.mceApi"
-        />
-      </div>
-
-      <!-- ONGLET LISTE DES FONCTIONS / RÔLES -->
-      <div
-        v-if="props.listMenu === 'FONCTION_LIST'"
-        id="onglet-tabpanel-FONCTION_LIST"
-        role="tabpanel"
-        :aria-label="tOnglet('FONCTION_LIST')"
-        tabindex="-1"
-        class="tab-pane animate-fade"
-      >
-        <FonctionsList
-          :fonctions="props.fonctionClassesGroupe.listFonctions ?? []"
-          :user-info-api-url="props.userInfoApiUrl ?? ''"
-          :mce-api="props.mceApi"
-        />
-      </div>
-    </template>
   </div>
 </template>
 
@@ -209,19 +219,13 @@ function tOnglet(key: string): string {
   gap: 1.25rem;
   width: 100%;
   min-width: 0;
-
-  &:focus {
-    outline: none;
-  }
-
-  &:focus-visible {
-    outline: 2px dotted var(--#{$prefix}primary);
-    outline-offset: 8px;
-    border-radius: 10px;
-  }
 }
 
 .animate-fade {
   animation: fadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sr-only {
+  @include mce-sr-only;
 }
 </style>
