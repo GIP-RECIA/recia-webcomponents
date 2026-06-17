@@ -100,41 +100,11 @@ describe('classesGroupesProf', () => {
   })
 
   // --------------------------------------------------
-  // STRUCTURE, EN-TÊTE ET COLLAPSE
+  // STRUCTURE ET EN-TÊTE
   // --------------------------------------------------
-  describe('structure, en-tête et collapse', () => {
+  describe('structure et en-tête', () => {
     it('affiche le titre dans un h3', () => {
-      // Template utilise <h3>, pas <h2>
       expect(wrapper.find('h3').text()).toBe('Mes classes et groupes pédagogiques')
-    })
-
-    it('affiche l\'icône de collapse "-" par défaut (ouvert)', () => {
-      // Le <span> dans le bouton n'a pas de classe, on cible le bouton directement
-      expect(wrapper.find('#classes-groupes-prof-title span[aria-hidden]').text()).toBe('-')
-    })
-
-    it('bascule l\'état lors du clic sur le header', async () => {
-      // Le bouton de collapse a id="classes-groupes-prof-title" et class="btn-primary small"
-      const header = wrapper.find('#classes-groupes-prof-title')
-      expect(header.exists()).toBe(true)
-
-      await header.trigger('click')
-      await wrapper.vm.$nextTick()
-
-      expect(header.attributes('aria-expanded')).toBe('false')
-      expect(header.find('span[aria-hidden]').text()).toBe('+')
-
-      await header.trigger('click')
-      await wrapper.vm.$nextTick()
-
-      expect(header.find('span[aria-hidden]').text()).toBe('-')
-      expect(header.attributes('aria-expanded')).toBe('true')
-    })
-    it('ajoute un aria-label accessible au bouton de collapse', () => {
-      // Le bouton de collapse a id="classes-groupes-prof-title"
-      const header = wrapper.find('#classes-groupes-prof-title')
-      expect(header.attributes('aria-label')).toBe('Fermer la section')
-      expect(header.attributes('title')).toBe('Fermer la section')
     })
   })
 
