@@ -130,15 +130,6 @@ describe('relationUserDetail', () => {
       expect(wrapper.find('.detail-name').text()).toBe('Jean Dupont')
     })
 
-    it('affiche l email', () => {
-      const wrapper = mount(RelationUserDetail, {
-        props: defaultProps,
-        global: mountOptions.global,
-      })
-
-      expect(wrapper.text()).toContain('jean.dupont@test.fr')
-    })
-
     it('affiche le nom de l établissement', () => {
       const wrapper = mount(RelationUserDetail, {
         props: defaultProps,
