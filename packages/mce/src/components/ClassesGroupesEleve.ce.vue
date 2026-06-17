@@ -38,9 +38,9 @@ function tGeneral(key: string): string {
 <template>
   <div class="sections-wrapper">
     <!-- Carte classes & groupes -->
-    <section class="profile-card" tabindex="0" aria-labelledby="title-classe-groupe">
+    <div class="profile-card">
       <div class="card-header">
-        <h3 id="title-classe-groupe">
+        <h3 id="title-classe-groupe" tabindex="0">
           {{ tGeneral('title-classe-groupe') }}
         </h3>
       </div>
@@ -51,45 +51,32 @@ function tGeneral(key: string): string {
           :key="index"
           class="etab-row-item"
         >
-          <!-- Établissement -->
-          <dl class="info-item etab-header-container">
-            <dt class="info-label">
-              {{ tEleve('etablissement') }}
-            </dt>
-            <dd class="info-value info-value--bold">
-              {{ classgroup.nameEtab }}
-            </dd>
-          </dl>
+          <div class="etab-header-container">
+            <span class="info-label">{{ tEleve('etablissement') }}</span>
+            <span class="info-value info-value--bold">{{ classgroup.nameEtab }}</span>
+          </div>
 
           <div class="classes-data-group">
             <!-- Classes -->
             <div class="info-item">
-              <span class="info-label" role="term">{{ tGeneral('class') }}</span>
-              <ul v-if="classgroup.classes?.length" class="pills-list" :aria-label="tGeneral('class')">
-                <li v-for="(cls, i) in classgroup.classes" :key="i" class="pill-tag">
+              <span class="info-label">{{ tGeneral('class') }}</span>
+              <ul v-if="classgroup.classes?.length" class="pills-list" role="none">
+                <li v-for="(cls, i) in classgroup.classes" :key="i" class="pill-tag" role="presentation">
                   {{ cls }}
                 </li>
               </ul>
-              <p v-else class="info-value">
-                {{ tEleve('no-class') }}
-              </p>
+              <span v-else class="info-value">{{ tEleve('no-class') }}</span>
             </div>
 
             <!-- Groupes -->
             <div class="info-item">
-              <span class="info-label" role="term">{{ tGeneral('group') }}</span>
-              <ul
-                v-if="classgroup.groupes?.length"
-                class="pills-list"
-                :aria-label="`${tGeneral('group')} ${index + 1}`"
-              >
-                <li v-for="(grp, i) in classgroup.groupes" :key="i" class="pill-tag">
+              <span class="info-label">{{ tGeneral('group') }}</span>
+              <ul v-if="classgroup.groupes?.length" class="pills-list" role="none">
+                <li v-for="(grp, i) in classgroup.groupes" :key="i" class="pill-tag" role="presentation">
                   {{ grp }}
                 </li>
               </ul>
-              <p v-else class="info-value">
-                {{ tEleve('no-group') }}
-              </p>
+              <span v-else class="info-value">{{ tEleve('no-group') }}</span>
             </div>
           </div>
         </div>
@@ -99,37 +86,38 @@ function tGeneral(key: string): string {
           {{ tEleve('no-etab') }}
         </p>
       </div>
-    </section>
+    </div>
 
     <!-- Carte matières suivies -->
-    <section class="profile-card" tabindex="0" aria-labelledby="title-courses">
+    <div class="profile-card">
       <div class="card-header">
-        <h3 id="title-courses">
+        <h3 id="title-courses" tabindex="0">
           {{ tGeneral('title-courses') }}
         </h3>
       </div>
 
       <div class="card-body">
         <div class="enseignements-row">
-          <div class="info-item label-container">
-            <span id="matieres-label" class="info-label">{{ tEleve('matieres-suivies') }}</span>
+          <div class="enseignements-container label-container">
+            <span class="info-label">{{ tEleve('matieres-suivies') }}</span>
+            <ul
+              v-if="sectionEleve?.enseignementSuivis?.length"
+              class="enseignements-list"
+              role="none"
+            >
+              <li v-for="(ens, index) in sectionEleve.enseignementSuivis" :key="index" class="pill-tag" role="presentation">
+                {{ ens }}
+              </li>
+            </ul>
+            <span v-else class="info-value">{{ tEleve('no-course') }}</span>
           </div>
-          <ul v-if="sectionEleve?.enseignementSuivis?.length" class="enseignements-list" aria-labelledby="matieres-label">
-            <li v-for="(ens, index) in sectionEleve.enseignementSuivis" :key="index" class="pill-tag">
-              {{ ens }}
-            </li>
-          </ul>
-          <p v-else class="info-value">
-            {{ tEleve('no-course') }}
-          </p>
         </div>
       </div>
-    </section>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
@@ -194,6 +182,8 @@ function tGeneral(key: string): string {
 }
 
 .etab-header-container {
+  display: flex;
+  flex-direction: column;
   flex: 1;
 }
 
@@ -215,31 +205,14 @@ function tGeneral(key: string): string {
 .enseignements-row {
   display: flex;
   flex-direction: column;
-
-  @media (width >= map.get($grid-breakpoints, sm)) {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 2rem;
-  }
-}
-
-.label-container {
-  @media (width >= map.get($grid-breakpoints, sm)) {
-    padding-top: 0.35rem;
-  }
 }
 
 .enseignements-list {
   @include mce-tags-list;
-  flex: 1;
+  margin: 2px 0 0;
 }
 
 .pill-tag {
-  @include mce-pill-tag;
-
-  &:hover {
-    background-color: var(--#{$prefix}hover);
-    border-color: var(--#{$prefix}basic-black-lighter);
-  }
+  @include mce-discipline-tag;
 }
 </style>
