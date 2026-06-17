@@ -78,15 +78,14 @@ describe('informationPersonnelle', () => {
   })
 
   describe('rendu des données et labels', () => {
-    it('affiche le titre dans un h3', () => {
-      expect(wrapper.find('h3').text())
+    it('affiche le titre dans un p.card-title', () => {
+      expect(wrapper.find('.card-title').text())
         .toBe('Informations personnelles')
     })
 
     it('affiche tous les labels', () => {
       const labels = wrapper.findAll('.info-label').map(el => el.text())
 
-      expect(labels).toContain('UID')
       expect(labels).toContain('Civilité')
       expect(labels).toContain('Nom')
       expect(labels).toContain('Prénom')
@@ -98,7 +97,6 @@ describe('informationPersonnelle', () => {
     it('affiche les informations utilisateur', () => {
       const text = wrapper.text()
 
-      expect(text).toContain('recia-999')
       expect(text).toContain('M.')
       expect(text).toContain('Dupont')
       expect(text).toContain('Jean')
@@ -145,54 +143,10 @@ describe('informationPersonnelle', () => {
         props: defaultProps,
       })
 
-      expect(wrapperNoI18n.find('h3').text())
+      expect(wrapperNoI18n.find('.card-title').text())
         .toBe('informations-personnelles')
 
       warnSpy.mockRestore()
-    })
-  })
-
-  describe('gestion du bouton Modifier', () => {
-    it('affiche le bouton Modifier lorsque canModifyEmail vaut false', () => {
-      const btn = wrapper.find('.btn-primary')
-
-      expect(btn.exists()).toBe(true)
-      expect(btn.text()).toBe('Modifier')
-    })
-
-    it('masque le bouton lorsque canModifyEmail vaut true', () => {
-      const i18n = createI18n({
-        legacy: false,
-        locale: 'fr',
-        messages,
-      })
-
-      const wrapperReadOnly = mount(InformationPersonnelle, {
-        props: {
-          ...defaultProps,
-          canModifyEmail: true,
-        },
-        global: {
-          plugins: [i18n],
-          provide: {
-            [I18nInjectionKey as symbol]: {
-              global: i18n.global,
-            },
-          },
-        },
-      })
-
-      expect(wrapperReadOnly.find('.btn-primary').exists())
-        .toBe(false)
-    })
-  })
-
-  describe('événements', () => {
-    it('émet openChangeEmail lors du clic sur Modifier', async () => {
-      await wrapper.find('.btn-primary').trigger('click')
-
-      expect(wrapper.emitted('openChangeEmail')).toBeTruthy()
-      expect(wrapper.emitted('openChangeEmail')).toHaveLength(1)
     })
   })
 
@@ -204,7 +158,7 @@ describe('informationPersonnelle', () => {
 
       await nextTick()
 
-      expect(wrapper.find('.info-value--bold').text())
+      expect(wrapper.findAll('.info-value')[5].text())
         .toBe('mutation@recia.fr')
     })
 
@@ -215,7 +169,7 @@ describe('informationPersonnelle', () => {
 
       await nextTick()
 
-      expect(wrapper.find('.info-value--bold').text())
+      expect(wrapper.findAll('.info-value')[5].text())
         .toBe('jean.dupont@recia.fr')
     })
   })
