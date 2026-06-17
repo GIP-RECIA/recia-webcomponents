@@ -15,7 +15,7 @@
 -->
 
 <script setup lang="ts">
-import { inject, nextTick, onMounted, onUnmounted, ref } from 'vue'
+import { inject, nextTick, onUnmounted, ref } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 import { updateEmail } from '@/services/serviceMce.ts'
 
@@ -29,7 +29,6 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'close'): void
   (e: 'updated', email: string): void
 }>()
 
@@ -48,70 +47,15 @@ const isLoading = ref(false)
 const successTimer = ref<ReturnType<typeof setTimeout> | null>(null)
 
 const alertRef = ref<HTMLDivElement | null>(null)
-const panelRef = ref<HTMLElement | null>(null)
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@][^\s.@]*\.[^\s@]+$/
 
 const messageId = 'change-email-message'
 
-function handleKeydown(event: KeyboardEvent) {
-  // Fermeture au clavier avec Échap
-  if (event.key === 'Escape') {
-    emit('close')
-    return
-  }
-  if (event.key === 'Tab') {
-    const panel = panelRef.value
-    if (!panel)
-      return
-
-    const focusableElements = Array.from(
-      panel.querySelectorAll('input:not([disabled]), button:not([disabled]), [tabindex="0"]'),
-    ) as HTMLElement[]
-
-    if (focusableElements.length === 0)
-      return
-
-    const first = focusableElements[0]
-    const last = focusableElements.at(-1) as HTMLElement
-
-    if (event.shiftKey) {
-      if (document.activeElement === first) {
-        event.preventDefault()
-        last.focus()
-      }
-    }
-    else {
-      if (document.activeElement === last) {
-        event.preventDefault()
-        first.focus()
-      }
-    }
-  }
-}
-
-function handleFocusIn(event: FocusEvent) {
-  const panel = panelRef.value
-  const target = event.target as HTMLElement
-
-  if (panel && !panel.contains(target)) {
-    event.preventDefault()
-    event.stopImmediatePropagation()
-    const firstFocusable = panel.querySelector('button:not([disabled]), input:not([disabled])') as HTMLElement
-    firstFocusable?.focus()
-  }
-}
-
-onMounted(() => document.addEventListener('keydown', handleKeydown, true))
 onUnmounted(() => {
-  document.removeEventListener('keydown', handleKeydown, true)
   if (successTimer.value)
     clearTimeout(successTimer.value)
 })
-
-function handleClose() {
-  emit('close')
-}
 
 async function handleSubmit() {
   message.value = ''
@@ -145,7 +89,6 @@ async function handleSubmit() {
 
   try {
     const baseUrl = props.mceApi.replace(TRAILING_SLASH, '')
-
     await updateEmail(baseUrl, props.userId, newEmail.value, confirmEmail.value, props.userInfoApiUrl)
 
     message.value = tEmail('success')
@@ -175,28 +118,22 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <div
-    class="change-email-panel"
-    @focusin="handleFocusIn"
-  >
-    <div ref="panelRef">
+  <div class="card-wrapper">
+    <div class="change-email-panel">
+      <span class="sr-only" tabindex="-1" data-panel-start>{{ tEmail('title') }}</span>
+
       <div class="card-header">
-        <h3 id="change-email-title">
+        <h3 tabindex="0">
           {{ tEmail('title') }}
         </h3>
       </div>
 
-      <form class="card-body" novalidate @submit.prevent="handleSubmit">
-        <!-- Email actuel en lecture seule -->
-        <dl class="form-group">
-          <dt class="info-label">
-            {{ tEmail('current-email') }}
-          </dt>
-          <dd class="static-value">
-            {{ props.currentEmail || '-' }}
-          </dd>
-        </dl>
-        <!-- Nouvel email -->
+      <form class="card-body" role="none" novalidate @submit.prevent="handleSubmit">
+        <div class="form-group">
+          <label class="info-label">{{ tEmail('current-email') }}</label>
+          <span class="static-value">{{ props.currentEmail || '-' }}</span>
+        </div>
+
         <div class="form-group">
           <label class="info-label" for="newEmail">{{ tEmail('new-email') }}</label>
           <input
@@ -208,20 +145,18 @@ async function handleSubmit() {
             autocomplete="email"
             aria-required="true"
             :aria-label="tEmail('new-email')"
-            :aria-describedby="message && messageType === 'error'
-              ? `current-email-value ${messageId}`
-              : 'current-email-value'"
             :aria-invalid="message && messageType === 'error' ? 'true' : undefined"
+            :aria-describedby="message && messageType === 'error' ? messageId : undefined"
           >
         </div>
 
-        <!-- Confirmation email -->
         <div class="form-group">
           <label class="info-label" for="confirmEmail">{{ tEmail('confirm-email') }}</label>
           <input
             id="confirmEmail"
             v-model="confirmEmail"
             type="email"
+            :placeholder="tEmail('placeholder')"
             class="custom-input"
             autocomplete="email"
             aria-required="true"
@@ -237,25 +172,20 @@ async function handleSubmit() {
           ref="alertRef"
           class="alert-message"
           :class="messageType"
-          :role="messageType === 'success' ? 'status' : undefined"
-          :aria-live="messageType === 'success' ? 'polite' : undefined"
+          role="alert"
           tabindex="-1"
         >
           {{ message }}
         </div>
 
         <div class="action-row">
-          <button type="button" class="btn-secondary small" @click="handleClose">
-            {{ tEmail('cancel') }}
-          </button>
           <button
             type="submit"
             class="btn-primary small"
             :disabled="isLoading"
-            :aria-busy="isLoading ? 'true' : undefined"
+            :aria-label="isLoading ? tEmail('loading') : tEmail('submit')"
           >
-            <span v-if="isLoading" aria-hidden="true">{{ tEmail('loading') }}</span>
-            <span v-else>{{ tEmail('submit') }}</span>
+            <span aria-hidden="true">{{ isLoading ? tEmail('loading') : tEmail('submit') }}</span>
           </button>
         </div>
       </form>
@@ -264,7 +194,6 @@ async function handleSubmit() {
 </template>
 
 <style scoped lang="scss">
-@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
@@ -296,10 +225,8 @@ async function handleSubmit() {
 }
 
 .static-value {
+  @include mce-value-box;
   padding: 0.75rem;
-  background-color: var(--#{$prefix}basic-grey);
-  border: 1px solid var(--#{$prefix}stroke);
-  border-radius: 10px;
   font-size: var(--#{$prefix}font-size-sm);
   overflow-wrap: break-word;
   word-break: break-all;
@@ -315,5 +242,9 @@ async function handleSubmit() {
 
 .alert-message {
   @include mce-alert-message;
+}
+
+.sr-only {
+  @include mce-sr-only;
 }
 </style>
