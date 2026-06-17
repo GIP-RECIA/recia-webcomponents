@@ -41,17 +41,17 @@ function m(key: string): string {
 </script>
 
 <template>
-  <section class="profile-container" aria-labelledby="user-baseinfo-heading">
+  <div class="profile-container">
     <div class="profile-picture">
-      <div class="user-name-block">
-        <h3 id="user-baseinfo-heading" class="user-name">
+      <!-- Nom + statut : visuel uniquement, résumé accessible porté par l'avatar-user -->
+      <div class="user-name-block" aria-hidden="true">
+        <p class="user-name">
           {{ props.userName }}
-        </h3>
+        </p>
         <span
           v-if="props.etat"
           class="etat-badge"
           :class="`etat-badge--${props.etat.toLowerCase()}`"
-          :aria-label="`${m('etat')} : ${props.etat}`"
         >
           {{ props.etat }}
         </span>
@@ -64,25 +64,21 @@ function m(key: string): string {
         @avatar-updated="emit('avatarUpdated')"
       />
     </div>
-    <dl v-if="props.userMail" class="profile-info">
-      <dt class="info-label">
-        {{ m('email') }}
-      </dt>
-      <dd class="info-value">
-        <a
-          :href="`mailto:${props.userMail}`"
-          class="email-link"
-          :aria-label="`${m('email')} : ${props.userMail}`"
-        >
-          {{ props.userMail }}
-        </a>
-      </dd>
-    </dl>
-  </section>
+
+    <!-- Email : lien focusable, libellé porté par aria-label pour éviter dl/dt/dd -->
+    <a
+      v-if="props.userMail"
+      :href="`mailto:${props.userMail}`"
+      class="email-link"
+      :aria-label="`${m('email')} ${props.userMail}`"
+    >
+      <span aria-hidden="true" class="email-label">{{ m('email') }}</span>
+      <span aria-hidden="true" class="email-value">{{ props.userMail }}</span>
+    </a>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
@@ -131,53 +127,41 @@ function m(key: string): string {
   @include mce-status-badge;
 }
 
-.profile-info {
+.email-link {
+  @include mce-value-box(10px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  background-color: var(--#{$prefix}basic-grey);
-  padding: 0.75rem 1rem;
-  border-radius: 10px;
-  border: 1px solid var(--#{$prefix}stroke);
+  gap: 0.25rem;
   width: 100%;
-  min-width: 0;
-  box-sizing: border-box;
-  margin: 0;
-}
-
-.info-label {
-  @include mce-info-label;
-}
-
-.info-value {
-  @include mce-info-value;
-  font-weight: 500;
-  width: 100%;
-  margin: 0;
-}
-
-.email-link {
-  color: inherit;
   text-decoration: none;
-  display: block;
-  width: 100%;
-  white-space: normal;
-  overflow-wrap: break-word;
-  word-break: break-all;
+  color: inherit;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
 
-  font-size: var(--#{$prefix}font-size-sm);
-
-  &:hover,
-  &:focus-visible {
-    text-decoration: underline;
-    color: var(--#{$prefix}primary);
+  &:hover {
+    background-color: var(--#{$prefix}hover);
+    border-color: var(--#{$prefix}primary);
   }
 
   &:focus-visible {
     outline: 2px solid var(--#{$prefix}primary);
     outline-offset: 2px;
-    border-radius: 4px;
   }
+}
+
+.email-label {
+  @include mce-info-label;
+  display: block;
+}
+
+.email-value {
+  @include mce-info-value;
+  font-weight: 500;
+  display: block;
+  width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 </style>
