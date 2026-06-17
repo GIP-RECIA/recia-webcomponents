@@ -53,7 +53,6 @@ async function selectRelation(uid: string): Promise<void> {
     return
   }
 
-  // Annule un éventuel appel précédent encore en vol
   currentAbortController.value?.abort()
   const controller = new AbortController()
   currentAbortController.value = controller
@@ -61,11 +60,10 @@ async function selectRelation(uid: string): Promise<void> {
   isLoading.value = true
   hasError.value = false
   showDetail.value = true
-  selectedUid.value = uid // optimiste : active la ligne immédiatement
+  selectedUid.value = uid
 
   try {
     const response = await getDetailEnfant(props.mceApi + uid, props.userInfoApiUrl)
-    // Ignore le résultat si un clic plus récent a déjà remplacé la sélection
     if (controller.signal.aborted)
       return
     personne.value = response.data
@@ -94,87 +92,82 @@ function closeDetail(): void {
 </script>
 
 <template>
-  <section class="profile-card" :aria-labelledby="`relation-title-${titre}`">
-    <div class="card-header">
-      <h3 :id="`relation-title-${titre}`">
-        {{ m(`title-relation-${titre}`) }}
-      </h3>
-    </div>
+  <div class="card-wrapper">
+    <section class="profile-card" :aria-labelledby="`relation-title-${titre}`">
+      <div class="card-header">
+        <h3 :id="`relation-title-${titre}`" tabindex="0">
+          {{ m(`title-relation-${titre}`) }}
+        </h3>
+      </div>
 
-    <div class="card-body">
-      <!-- Liste vide -->
-      <p v-if="relations.length === 0" class="relation-empty">
-        {{ m('no-relation') }}
-      </p>
+      <div class="card-body">
+        <p v-if="relations.length === 0" class="relation-empty">
+          {{ m('no-relation') }}
+        </p>
 
-      <ul v-else class="relation-list" role="list">
-        <li
-          v-for="val in relations"
-          :key="val.uidRelation"
-          class="relation-list-item"
-        >
-          <!--
-            IDs uniques par relation :
-            - aria-controls pointe vers le bon panneau de détail
-            - pas d'id fixe partagé entre tous les boutons
-          -->
-          <button
-            :id="`rel-btn-${val.uidRelation}`"
-            type="button"
-            class="relation-row-item"
-            :class="{ 'relation-row-item--active': selectedUid === val.uidRelation }"
-            :aria-expanded="selectedUid === val.uidRelation"
-            :aria-controls="`rel-detail-${val.uidRelation}`"
-            :aria-label="`${val.typeRelation || m('relation-default')} : ${val.displayNameRelation}${val.autoriteParental ? ` — ${m('parental-authority')}` : ''}`"
-            @click.prevent="selectRelation(val.uidRelation)"
+        <ul v-else class="relation-list">
+          <li
+            v-for="val in relations"
+            :key="val.uidRelation"
           >
-            <span class="info-item">
-              <span class="info-label">{{ val.typeRelation || m('relation-default') }}</span>
-              <span class="info-value info-value--bold">{{ val.displayNameRelation }}</span>
-            </span>
-
-            <span class="relation-row-actions">
-              <span v-if="val.autoriteParental" class="tag-container">
-                <span class="ap-tag">{{ m('parental-authority') }}</span>
+            <button
+              :id="`rel-btn-${val.uidRelation}`"
+              type="button"
+              class="relation-row-item"
+              :class="{ 'relation-row-item--active': selectedUid === val.uidRelation }"
+              :aria-expanded="selectedUid === val.uidRelation"
+              :aria-controls="`rel-detail-${val.uidRelation}`"
+              :aria-label="`${val.typeRelation || m('relation-default')} : ${val.displayNameRelation}${val.autoriteParental ? ` — ${m('parental-authority')}` : ''}`"
+              @click.prevent="selectRelation(val.uidRelation)"
+            >
+              <span class="info-item" aria-hidden="true">
+                <span class="info-label">{{ val.typeRelation || m('relation-default') }}</span>
+                <span class="info-value info-value--bold">{{ val.displayNameRelation }}</span>
               </span>
-              <span
-                class="chevron"
-                :class="{ 'chevron--open': selectedUid === val.uidRelation }"
-                aria-hidden="true"
-              >›</span>
-            </span>
-          </button>
 
-          <!--
-            beaucoup de relations. Si tu as peu de relations (< 10), ça vaut le coup de tester.
-          -->
-          <div
-            v-if="selectedUid === val.uidRelation && showDetail"
-            :id="`rel-detail-${val.uidRelation}`"
-            class="relation-detail-panel"
-            aria-live="polite"
-          >
-            <RelationUserDetail
-              :personne="personne"
-              :is-loading="isLoading"
-              :has-error="hasError"
-              @close="closeDetail"
-            />
-          </div>
-        </li>
-      </ul>
-    </div>
-  </section>
+              <span class="relation-row-actions" aria-hidden="true">
+                <span v-if="val.autoriteParental" class="tag-container">
+                  <span class="ap-tag">{{ m('parental-authority') }}</span>
+                </span>
+                <span
+                  class="chevron"
+                  :class="{ 'chevron--open': selectedUid === val.uidRelation }"
+                >›</span>
+              </span>
+            </button>
+
+            <div
+              v-show="selectedUid === val.uidRelation && showDetail"
+              :id="`rel-detail-${val.uidRelation}`"
+              :inert="selectedUid !== val.uidRelation"
+              class="relation-detail-panel"
+              aria-live="polite"
+            >
+              <RelationUserDetail
+                :personne="personne"
+                :is-loading="isLoading"
+                :has-error="hasError"
+                @close="closeDetail"
+              />
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
 @use './mce-shared' as *;
+
+.card-wrapper {
+  display: block;
+}
 
 .profile-card {
   @include mce-card-base;
@@ -194,14 +187,9 @@ function closeDetail(): void {
   list-style: none;
 }
 
-.relation-list-item {
-  margin: 0;
-  padding: 0;
-}
-
 .info-item {
   @include mce-info-item;
-  display: flex; // nécessaire car span est inline par défaut
+  display: flex;
 }
 
 .relation-row-actions {
@@ -235,19 +223,10 @@ function closeDetail(): void {
   width: 100%;
   background: none;
   border: none;
-  padding: 0;
+  padding: 0.75rem 1rem;
   text-align: left;
   font: inherit;
   color: inherit;
-
-  &:first-of-type {
-    padding-top: 0;
-  }
-
-  &:last-of-type {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
 
   &:hover,
   &--active {
@@ -272,10 +251,6 @@ function closeDetail(): void {
   display: flex;
   align-items: center;
   flex-shrink: 0;
-
-  @media (width <= 400px) {
-    width: 100%;
-  }
 }
 
 .chevron {
@@ -288,12 +263,6 @@ function closeDetail(): void {
 
   &--open {
     transform: rotate(90deg);
-  }
-
-  @media (width <= 400px) {
-    position: absolute;
-    right: 8px;
-    top: 1rem;
   }
 }
 
