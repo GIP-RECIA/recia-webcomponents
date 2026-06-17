@@ -41,14 +41,12 @@ export function useTabs({
 
     switch (e.key) {
       case 'ArrowLeft':
-      case 'ArrowUp':
         e.preventDefault()
         index = active - 1 > -1
           ? active - 1
           : tabs.value.length - 1
         break
       case 'ArrowRight':
-      case 'ArrowDown':
         e.preventDefault()
         index = active + 1 < tabs.value.length
           ? active + 1
