@@ -147,7 +147,7 @@ const enseignementsList = computed(() => {
           <div v-if="classesList.length" class="info-item">
             <span class="info-label">{{ t('classes') }}</span>
             <div class="info-value-box info-value-box--tags" role="none">
-              <span v-for="(classe, i) in classesList" :key="i" class="pill-tag pill-tag--class">
+              <span v-for="(classe, i) in classesList" :key="i" class="badge-tag">
                 {{ classe }}
               </span>
             </div>
@@ -156,7 +156,7 @@ const enseignementsList = computed(() => {
           <div v-if="groupesList.length" class="info-item">
             <span class="info-label">{{ t('groupes') }}</span>
             <div class="info-value-box info-value-box--tags" role="none">
-              <span v-for="(groupe, i) in groupesList" :key="i" class="pill-tag pill-tag--group">
+              <span v-for="(groupe, i) in groupesList" :key="i" class="badge-tag">
                 {{ groupe }}
               </span>
             </div>
@@ -170,7 +170,7 @@ const enseignementsList = computed(() => {
           {{ t('enseignements') }}
         </p>
         <div class="enseignements-grid" role="none">
-          <span v-for="(matiere, i) in enseignementsList" :key="i" class="discipline-tag">
+          <span v-for="(matiere, i) in enseignementsList" :key="i" class="badge-tag">
             {{ matiere }}
           </span>
         </div>
@@ -204,6 +204,7 @@ const enseignementsList = computed(() => {
 </template>
 
 <style lang="scss" scoped>
+@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
@@ -212,28 +213,16 @@ const enseignementsList = computed(() => {
 @use './mce-shared' as *;
 
 .detail-panel {
-  @include mce-card-base;
+  @include mce-card-base($overflow: visible);
+  @include mce-fade-in(0.2s);
   padding: 1.25rem;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  overflow: visible;
-  animation: fadeIn 0.2s ease;
 
   @media (width >= map.get($grid-breakpoints, md)) {
     padding: 1.5rem;
     gap: 1.5rem;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -277,17 +266,7 @@ const enseignementsList = computed(() => {
   @include mce-status-badge;
 }
 
-.pill-tag {
-  &--class {
-    @include mce-discipline-tag;
-  }
-
-  &--group {
-    @include mce-discipline-tag;
-  }
-}
-
-.discipline-tag {
+.badge-tag {
   @include mce-discipline-tag;
 }
 

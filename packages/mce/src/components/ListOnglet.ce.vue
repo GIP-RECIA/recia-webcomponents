@@ -91,6 +91,7 @@ function handleClick(index: number): void {
 </template>
 
 <style lang="scss" scoped>
+@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
@@ -112,7 +113,7 @@ function handleClick(index: number): void {
   max-width: 100%;
   box-sizing: border-box;
   text-align: start;
-  border-radius: 12px;
+  border-radius: 10px;
   padding: 0.875rem 1rem;
   font-size: var(--#{$prefix}font-size-sm);
   border: 1px solid transparent;

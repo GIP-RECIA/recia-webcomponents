@@ -417,7 +417,7 @@ function focusLast() {
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/components/buttons';
 @use './mce-shared' as *;
-@import 'cropperjs/dist/cropper.css';
+@use 'cropperjs/dist/cropper.css';
 
 .modal-mask {
   position: fixed;
