@@ -197,6 +197,11 @@ function closeDetail(): void {
   align-items: center;
   gap: 1rem;
   margin-left: auto;
+
+  @media (width < map.get($grid-breakpoints, sm)) {
+    margin-left: 0;
+    justify-content: flex-start;
+  }
 }
 
 .info-label {
@@ -238,7 +243,7 @@ function closeDetail(): void {
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--#{$prefix}primary) 20%, transparent);
   }
 
-  @media (width <= 400px) {
+  @media (width < map.get($grid-breakpoints, sm)) {
     flex-direction: column;
     align-items: stretch;
     gap: 0.5rem;

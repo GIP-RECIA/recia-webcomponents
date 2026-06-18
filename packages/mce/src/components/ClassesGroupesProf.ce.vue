@@ -261,21 +261,11 @@ const hasNoData = computed(() => {
 }
 
 .etab-block {
+  @include mce-row-separator;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 1.25rem 0;
-  border-bottom: 1px solid var(--#{$prefix}stroke);
   gap: 2rem;
-
-  &:first-child {
-    padding-top: 0;
-  }
-
-  &:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
 
   @media (width < map.get($grid-breakpoints, md)) {
     gap: 1rem;

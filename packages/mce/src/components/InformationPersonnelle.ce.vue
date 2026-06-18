@@ -28,9 +28,6 @@ const props = defineProps<{
   categorie?: string
   dateNaissance?: string
   userMail?: string
-  userId: string
-  userInfoApiUrl: string
-  mceApi: string
 }>()
 
 const i18n = inject(I18nInjectionKey)
@@ -74,30 +71,30 @@ const formattedDate = computed(() => {
       <div class="card-body-grid">
         <div class="info-item">
           <span class="info-label">{{ tUser('civilite') }}</span>
-          <span class="info-value">{{ props.civilite || '—' }}</span>
+          <span class="info-value">{{ props.civilite || tUser('non-renseigne') }}</span>
         </div>
         <div class="info-item">
           <span class="info-label">{{ tUser('nom') }}</span>
-          <span class="info-value">{{ props.nom || '—' }}</span>
+          <span class="info-value">{{ props.nom || tUser('non-renseigne') }}</span>
         </div>
         <div class="info-item">
           <span class="info-label">{{ tUser('prenom') }}</span>
-          <span class="info-value">{{ props.prenom || '—' }}</span>
+          <span class="info-value">{{ props.prenom || tUser('non-renseigne') }}</span>
         </div>
         <div class="info-item">
           <span class="info-label">{{ tUser('bod') }}</span>
           <span class="info-value">
             <time v-if="formattedDate" :datetime="props.dateNaissance">{{ formattedDate }}</time>
-            <span v-else>—</span>
+            <template v-else>{{ tUser('non-renseigne') }}</template>
           </span>
         </div>
         <div class="info-item">
           <span class="info-label">{{ tUser('categorie') }}</span>
-          <span class="info-value">{{ props.categorie || '—' }}</span>
+          <span class="info-value">{{ props.categorie || tUser('non-renseigne') }}</span>
         </div>
         <div class="info-item">
           <span class="info-label">{{ tUser('email') }}</span>
-          <span class="info-value">{{ currentEmail || '—' }}</span>
+          <span class="info-value">{{ currentEmail || tUser('non-renseigne') }}</span>
         </div>
       </div>
     </section>
@@ -115,12 +112,6 @@ const formattedDate = computed(() => {
 
 .profile-card {
   @include mce-card-base;
-
-  &:focus,
-  &:focus-within {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--#{$prefix}primary);
-  }
 }
 
 .card-header {
