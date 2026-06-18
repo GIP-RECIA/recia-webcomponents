@@ -33,23 +33,19 @@ const messages = {
       'categorie': 'Catégorie',
       'email': 'Mail',
       'modifier': 'Modifier',
+      'non-renseigne': 'Non renseigné',
     },
   },
 }
 
 describe('informationPersonnelle', () => {
   const defaultProps = {
-    uid: 'recia-999',
     civilite: 'M.',
     nom: 'Dupont',
     prenom: 'Jean',
     categorie: 'Personnel',
     dateNaissance: '1980-01-01',
     userMail: 'jean.dupont@recia.fr',
-    userId: '123',
-    userInfoApiUrl: 'https://api.test.fr/userinfo',
-    mceApi: 'https://api.test.fr',
-    canModifyEmail: false,
   }
 
   let wrapper: VueWrapper
@@ -112,11 +108,7 @@ describe('informationPersonnelle', () => {
       })
 
       const wrapperEmpty = mount(InformationPersonnelle, {
-        props: {
-          userId: '123',
-          userInfoApiUrl: '',
-          mceApi: '',
-        },
+        props: {},
         global: {
           plugins: [i18n],
           provide: {
@@ -131,7 +123,7 @@ describe('informationPersonnelle', () => {
         .findAll('.info-value')
         .map(el => el.text())
 
-      expect(values).toContain('—')
+      expect(values).toContain('Non renseigné')
     })
 
     it('renvoie les clés brutes si i18n est absent', () => {
@@ -209,7 +201,7 @@ describe('informationPersonnelle', () => {
         .toBe(false)
 
       expect(wrapperWithoutDate.text())
-        .toContain('—')
+        .toContain('Non renseigné')
     })
 
     it('retourne la valeur brute si la date est invalide', () => {

@@ -239,16 +239,9 @@ const enseignementsList = computed(() => {
 
 .detail-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 1rem;
   position: relative;
-
-  @media (width <= 400px) {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 0.5rem;
-  }
 }
 
 .detail-header-meta {
@@ -258,9 +251,9 @@ const enseignementsList = computed(() => {
   gap: 0.25rem;
   min-width: 0;
 
-  @media (width <= 400px) {
+  @media (width < map.get($grid-breakpoints, sm)) {
     align-items: center;
-    width: 100%;
+    text-align: center;
   }
 }
 
@@ -275,7 +268,7 @@ const enseignementsList = computed(() => {
 .badge-container {
   @include mce-badge-container;
 
-  @media (width <= 400px) {
+  @media (width < map.get($grid-breakpoints, sm)) {
     justify-content: center;
   }
 }
@@ -380,7 +373,7 @@ const enseignementsList = computed(() => {
   flex-wrap: wrap;
   justify-content: space-between;
 
-  @media (width <= 400px) {
+  @media (width < map.get($grid-breakpoints, sm)) {
     flex-direction: column;
     align-items: flex-start;
   }

@@ -150,9 +150,9 @@ describe('changeEmail', () => {
       expect(wrapper.find('.alert-message').text()).toBe('Les emails ne correspondent pas.')
     })
 
-    it('le message d\'erreur a la classe CSS "error"', async () => {
+    it('le message d\'erreur a la classe CSS "alert-message--error"', async () => {
       await submitForm(wrapper)
-      expect(wrapper.find('.alert-message').classes()).toContain('error')
+      expect(wrapper.find('.alert-message').classes()).toContain('alert-message--error')
     })
   })
 
@@ -201,7 +201,7 @@ describe('changeEmail', () => {
 
       const alert = wrapper.find('.alert-message')
       expect(alert.text()).toBe('Email mis à jour avec succès !')
-      expect(alert.classes()).toContain('success')
+      expect(alert.classes()).toContain('alert-message--success')
 
       vi.advanceTimersByTime(1000)
 
@@ -264,7 +264,7 @@ describe('changeEmail', () => {
 
       const alert = wrapper.find('.alert-message')
       expect(alert.text()).toBe('Erreur de connexion réseau')
-      expect(alert.classes()).toContain('error')
+      expect(alert.classes()).toContain('alert-message--error')
     })
 
     it('affiche le message spécifique renvoyé par le serveur s\'il existe', async () => {
