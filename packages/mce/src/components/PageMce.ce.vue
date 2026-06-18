@@ -58,11 +58,10 @@ const listOnglets = ref<Array<string>>([])
 const avatar = ref<string>('')
 const portlets = ref<string[]>([])
 
-const apersonne = computed(() => mce.value.parentEleve?.[0]?.eleve?.apersonne ?? null)
-const civilite = computed<string>(() => apersonne.value?.civilite ?? '')
-const nom = computed<string>(() => apersonne.value?.sn ?? '')
-const prenom = computed<string>(() => apersonne.value?.givenName ?? '')
-const categorie = computed<string>(() => apersonne.value?.categorie ?? '')
+const civilite = computed<string>(() => mce.value.civilite ?? '')
+const nom = computed<string>(() => mce.value.nom ?? '')
+const prenom = computed<string>(() => mce.value.prenom ?? '')
+const categorie = computed<string>(() => mce.value.categorie ?? '')
 
 async function getAllPortlets(uri: string, token: string) {
   try {
