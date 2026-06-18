@@ -59,8 +59,8 @@ const avatar = ref<string>('')
 const portlets = ref<string[]>([])
 
 const civilite = computed<string>(() => mce.value.civilite ?? '')
-const nom = computed<string>(() => mce.value.nom ?? '')
-const prenom = computed<string>(() => mce.value.prenom ?? '')
+const nom = computed<string>(() => mce.value.sn ?? '')
+const prenom = computed<string>(() => mce.value.givenName ?? '')
 const categorie = computed<string>(() => mce.value.categorie ?? '')
 
 async function getAllPortlets(uri: string, token: string) {
