@@ -104,7 +104,6 @@ watch(() => props.listMenu, async () => {
       <info-general
         :details="props.fonctionClassesGroupe"
         :list-fonctions="props.fonctionClassesGroupe.listFonctions ?? []"
-        :user-id="props.userId"
         :list-menu="props.listMenu"
         :mce-api="props.mceApi"
         :parent-eleve="props.parentEleve"
