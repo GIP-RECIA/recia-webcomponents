@@ -74,8 +74,8 @@ describe('informationPersonnelle', () => {
   })
 
   describe('rendu des données et labels', () => {
-    it('affiche le titre dans un p.card-title', () => {
-      expect(wrapper.find('.card-title').text())
+    it('affiche le titre dans un h3', () => {
+      expect(wrapper.find('h3').text())
         .toBe('Informations personnelles')
     })
 
@@ -135,7 +135,7 @@ describe('informationPersonnelle', () => {
         props: defaultProps,
       })
 
-      expect(wrapperNoI18n.find('.card-title').text())
+      expect(wrapperNoI18n.find('h3').text())
         .toBe('informations-personnelles')
 
       warnSpy.mockRestore()

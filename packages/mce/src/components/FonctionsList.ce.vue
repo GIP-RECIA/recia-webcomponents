@@ -118,8 +118,8 @@ async function onToggle(it: PersonneFonction): Promise<void> {
                 {{ it.struct.name }}
               </span>
               <div class="badge-container">
-                <span class="fonction-tag">{{ it.fonction || '-' }}</span>
-                <span v-if="it.discipline" class="discipline-tag">{{ it.discipline }}</span>
+                <span class="badge-tag">{{ it.fonction || '-' }}</span>
+                <span v-if="it.discipline" class="badge-tag">{{ it.discipline }}</span>
               </div>
             </div>
           </div>
@@ -130,6 +130,7 @@ async function onToggle(it: PersonneFonction): Promise<void> {
 </template>
 
 <style lang="scss" scoped>
+@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
@@ -160,12 +161,9 @@ async function onToggle(it: PersonneFonction): Promise<void> {
 }
 
 .card-fonction {
-  border-radius: 8px;
-  border: 1px solid var(--#{$prefix}stroke);
-  box-shadow: var(--#{$prefix}shadow-low-elevation) rgba(0, 0, 0, 0.08);
+  @include mce-card-base;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
 .fonction-header {
@@ -253,11 +251,7 @@ async function onToggle(it: PersonneFonction): Promise<void> {
   @include mce-badge-container;
 }
 
-.fonction-tag {
-  @include mce-discipline-tag;
-}
-
-.discipline-tag {
+.badge-tag {
   @include mce-discipline-tag;
 }
 </style>

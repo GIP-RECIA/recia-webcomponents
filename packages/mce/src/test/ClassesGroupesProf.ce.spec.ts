@@ -124,12 +124,11 @@ describe('classesGroupesProf', () => {
       expect(teachingEntry.find('.info-value--bold').text()).toBe('Mathématiques')
     })
 
-    it('affiche les badges de classes (.pill-tag--class) et groupes (.pill-tag--group)', () => {
+    it('affiche les badges de classes (.badge-tag) et groupes (.badge-tag)', () => {
       const etabBlock = wrapper.find('.etab-block')
-      const classPills = etabBlock.findAll('.pill-tag--class').map(el => el.text())
-      const groupPills = etabBlock.findAll('.pill-tag--group').map(el => el.text())
-      expect(classPills).toContain('2NDE 1')
-      expect(groupPills).toContain('MATHS SOUVENT')
+      const tags = etabBlock.findAll('.badge-tag').map(el => el.text())
+      expect(tags).toContain('2NDE 1')
+      expect(tags).toContain('MATHS SOUVENT')
     })
 
     it('affiche un libellé de secours "Discipline inconnue" si matiere et discipline sont absents', () => {
@@ -192,8 +191,9 @@ describe('classesGroupesProf', () => {
         },
         global: { plugins: [i18n], provide },
       })
-      expect(customWrapper.find('.pill-tag--class').text()).toBe('1ERE CG')
-      expect(customWrapper.find('.pill-tag--group').text()).toBe('GROUP CG')
+      const badges = customWrapper.findAll('.badge-tag')
+      expect(badges[0].text()).toBe('1ERE CG')
+      expect(badges[1].text()).toBe('GROUP CG')
     })
 
     it('utilise le croisement avec sectionEleve en dernier recours', () => {
@@ -216,8 +216,9 @@ describe('classesGroupesProf', () => {
         },
         global: { plugins: [i18n], provide },
       })
-      expect(customWrapper.find('.pill-tag--class').text()).toBe('6EME ELEVE-FALLBACK')
-      expect(customWrapper.find('.pill-tag--group').text()).toBe('GROUPE ELEVE-FALLBACK')
+      const badges = customWrapper.findAll('.badge-tag')
+      expect(badges[0].text()).toBe('6EME ELEVE-FALLBACK')
+      expect(badges[1].text()).toBe('GROUPE ELEVE-FALLBACK')
     })
 
     it('affiche "N/A" si struct ou struct.name est absent', () => {

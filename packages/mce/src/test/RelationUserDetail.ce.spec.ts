@@ -204,7 +204,7 @@ describe('relationUserDetail', () => {
         global: mountOptions.global,
       })
 
-      expect(wrapper.find('.pill-tag--class').text()).toBe('6eA')
+      expect(wrapper.findAll('.badge-tag')[0].text()).toBe('6eA')
     })
 
     it('affiche les groupes via listGroupes', () => {
@@ -213,7 +213,7 @@ describe('relationUserDetail', () => {
         global: mountOptions.global,
       })
 
-      expect(wrapper.find('.pill-tag--group').text()).toBe('Anglais')
+      expect(wrapper.findAll('.badge-tag')[1].text()).toBe('Anglais')
     })
 
     it('utilise groupes si listGroupes est absent', () => {
@@ -234,7 +234,7 @@ describe('relationUserDetail', () => {
         global: mountOptions.global,
       })
 
-      expect(wrapper.find('.pill-tag--group').text()).toBe('GroupeB')
+      expect(wrapper.find('.badge-tag').text()).toBe('GroupeB')
     })
 
     it('utilise groupe en dernier recours', () => {
@@ -255,7 +255,7 @@ describe('relationUserDetail', () => {
         global: mountOptions.global,
       })
 
-      expect(wrapper.find('.pill-tag--group').text())
+      expect(wrapper.find('.badge-tag').text())
         .toBe('GroupeSingulier')
     })
 
@@ -277,7 +277,7 @@ describe('relationUserDetail', () => {
         global: mountOptions.global,
       })
 
-      expect(wrapper.find('.pill-tag--class').text())
+      expect(wrapper.find('.badge-tag').text())
         .toBe('5eB')
     })
 
@@ -304,8 +304,7 @@ describe('relationUserDetail', () => {
         global: mountOptions.global,
       })
 
-      expect(wrapper.findAll('.pill-tag--class')).toHaveLength(1)
-      expect(wrapper.findAll('.pill-tag--group')).toHaveLength(1)
+      expect(wrapper.findAll('.badge-tag')).toHaveLength(2)
     })
   })
 
@@ -328,7 +327,7 @@ describe('relationUserDetail', () => {
         global: mountOptions.global,
       })
 
-      const disciplines = wrapper.findAll('.discipline-tag')
+      const disciplines = wrapper.findAll('.badge-tag')
 
       expect(disciplines).toHaveLength(2)
       expect(disciplines[0].text()).toBe('Mathématiques')
