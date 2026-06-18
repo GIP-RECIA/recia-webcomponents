@@ -99,7 +99,6 @@ const hasApprentis = computed<boolean>(() => {
       v-if="hasParentEleve"
       :details="computedParentDetails"
       titre="student"
-      :onglet="listMenu"
       :mce-api="mceApi"
       :user-info-api-url="userInfoApiUrl"
     />
@@ -108,7 +107,6 @@ const hasApprentis = computed<boolean>(() => {
       v-if="hasApprentis"
       :details="apprentis"
       titre="master"
-      :onglet="listMenu"
       :mce-api="mceApi"
       :user-info-api-url="userInfoApiUrl"
     />
