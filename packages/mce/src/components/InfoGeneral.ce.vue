@@ -26,7 +26,7 @@ defineOptions({ name: 'InfoGeneral' })
 const props = defineProps<{
   details: General
   listFonctions: any[]
-  userInfoApiUrl?: string
+  userInfoApiUrl: string
   listMenu: string
   mceApi: string
   parentEleve: any
