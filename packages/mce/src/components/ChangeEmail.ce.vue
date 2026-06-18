@@ -171,7 +171,7 @@ async function handleSubmit() {
           :id="messageId"
           ref="alertRef"
           class="alert-message"
-          :class="messageType"
+          :class="`alert-message--${messageType}`"
           role="alert"
           tabindex="-1"
         >

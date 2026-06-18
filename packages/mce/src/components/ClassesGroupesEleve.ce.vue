@@ -98,7 +98,7 @@ function tGeneral(key: string): string {
 
       <div class="card-body">
         <div class="enseignements-row">
-          <div class="enseignements-container label-container">
+          <div class="enseignements-container">
             <span class="info-label">{{ tEleve('matieres-suivies') }}</span>
             <ul
               v-if="sectionEleve?.enseignementSuivis?.length"
@@ -171,13 +171,17 @@ function tGeneral(key: string): string {
 .etab-row-item {
   @include mce-row-separator;
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
 
-  @media (width >= map.get($grid-breakpoints, sm)) {
-    flex-direction: row;
-    align-items: flex-end;
-    gap: 2rem;
+  @media (width < map.get($grid-breakpoints, md)) {
+    gap: 1rem;
+  }
+
+  @media (width < map.get($grid-breakpoints, sm)) {
+    flex-direction: column;
+    gap: 0.75rem;
   }
 }
 

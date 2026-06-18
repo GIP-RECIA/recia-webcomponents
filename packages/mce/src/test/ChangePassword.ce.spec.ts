@@ -157,10 +157,10 @@ describe('changePassword', () => {
       expect(wrapper.find('.alert-message').text()).toContain('12 caractères')
     })
 
-    it('le message d\'erreur a la classe CSS "error"', async () => {
+    it('le message d\'erreur a la classe CSS "alert-message--error"', async () => {
       await wrapper.find('form').trigger('submit')
       await nextTick()
-      expect(wrapper.find('.alert-message').classes()).toContain('error')
+      expect(wrapper.find('.alert-message').classes()).toContain('alert-message--error')
     })
   })
 
@@ -205,7 +205,7 @@ describe('changePassword', () => {
 
       const alert = wrapper.find('.alert-message')
       expect(alert.text()).toBe('Mot de passe changé avec succès.')
-      expect(alert.classes()).toContain('success')
+      expect(alert.classes()).toContain('alert-message--success')
     })
 
     it('vide les trois champs après succès', async () => {
@@ -282,7 +282,7 @@ describe('changePassword', () => {
 
       const alert = wrapper.find('.alert-message')
       expect(alert.text()).toBe('Ancien mot de passe incorrect.')
-      expect(alert.classes()).toContain('error')
+      expect(alert.classes()).toContain('alert-message--error')
     })
 
     it('affiche le message d\'erreur par défaut si l\'API échoue sans message structuré', async () => {

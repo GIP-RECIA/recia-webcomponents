@@ -114,13 +114,13 @@
     outline: none;
   }
 
-  &.success {
+  &--success {
     background-color: color-mix(in srgb, var(--#{$prefix}system-blue) 10%, transparent);
     color: var(--#{$prefix}system-blue);
     border: 1px solid color-mix(in srgb, var(--#{$prefix}system-blue) 30%, transparent);
   }
 
-  &.error {
+  &--error {
     background-color: color-mix(in srgb, var(--#{$prefix}system-red) 10%, transparent);
     color: var(--#{$prefix}system-red);
     border: 1px solid color-mix(in srgb, var(--#{$prefix}system-red) 30%, transparent);
@@ -182,8 +182,8 @@
     border-color 0.2s;
 }
 
-// Badge de statut générique (Valide, Invalide, etc.)
-@mixin mce-status-badge {
+// Base badge
+@mixin mce-badge-base {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -192,6 +192,11 @@
   font-size: var(--#{$prefix}font-size-xxs);
   font-weight: 700;
   text-transform: uppercase;
+}
+
+// Badge de statut générique (Valide, Invalide, etc.)
+@mixin mce-status-badge {
+  @include mce-badge-base;
   background-color: var(--#{$prefix}basic-grey);
   color: var(--#{$prefix}basic-black-lighter);
   border: 1px solid var(--#{$prefix}stroke);
@@ -206,14 +211,7 @@
 
 // Badge autorité parentale / lien bleu
 @mixin mce-ap-tag {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.25rem 0.75rem;
-  border-radius: 6px;
-  font-size: var(--#{$prefix}font-size-xxs);
-  font-weight: 700;
-  text-transform: uppercase;
+  @include mce-badge-base;
   background-color: color-mix(in srgb, var(--#{$prefix}system-blue) 10%, transparent);
   color: var(--#{$prefix}system-blue);
   border: 1px solid color-mix(in srgb, var(--#{$prefix}system-blue) 30%, transparent);
@@ -231,51 +229,16 @@
 
 // Tag discipline/matière (teinté primary)
 @mixin mce-discipline-tag {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.25rem 0.75rem;
-  border-radius: 6px;
-  font-size: var(--#{$prefix}font-size-xxs);
-  font-weight: 700;
-  text-transform: uppercase;
+  @include mce-badge-base;
   background-color: color-mix(in srgb, var(--#{$prefix}primary) 10%, transparent);
   color: var(--#{$prefix}primary);
   border: 1px solid color-mix(in srgb, var(--#{$prefix}primary) 30%, transparent);
 }
 
-// Pill class (fond primary plein)
-@mixin mce-pill-class {
-  @include mce-pill-tag(
-    0.25rem 0.75rem,
-    6px,
-    var(--#{$prefix}font-size-xs),
-    var(--#{$prefix}body-inverted),
-    var(--#{$prefix}primary),
-    none
-  );
-  font-weight: 700;
-  list-style: none;
-}
-
-// Pill groupe (fond gris)
-@mixin mce-pill-group {
-  @include mce-pill-tag(
-    0.25rem 0.75rem,
-    6px,
-    var(--#{$prefix}font-size-xs),
-    var(--#{$prefix}basic-black),
-    var(--#{$prefix}basic-grey),
-    1px solid var(--#{$prefix}stroke)
-  );
-  font-weight: 700;
-  list-style: none;
-}
-
-// Ligne séparateur entre items (padding + dashed border)
+// Ligne séparateur entre items (padding + solid border)
 @mixin mce-row-separator {
   padding: 1.25rem 0;
-  border-bottom: 1px dashed var(--#{$prefix}stroke);
+  border-bottom: 1px solid var(--#{$prefix}stroke);
 
   &:first-of-type {
     padding-top: 0;
