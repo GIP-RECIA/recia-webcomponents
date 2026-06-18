@@ -63,38 +63,40 @@ const formattedDate = computed(() => {
   <div class="card-wrapper">
     <section class="profile-card">
       <div class="card-header">
-        <p class="card-title" tabindex="0">
+        <h3 tabindex="0">
           {{ tUser('informations-personnelles') }}
-        </p>
+        </h3>
       </div>
 
-      <div class="card-body-grid">
-        <div class="info-item">
-          <span class="info-label">{{ tUser('civilite') }}</span>
-          <span class="info-value">{{ props.civilite || tUser('non-renseigne') }}</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">{{ tUser('nom') }}</span>
-          <span class="info-value">{{ props.nom || tUser('non-renseigne') }}</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">{{ tUser('prenom') }}</span>
-          <span class="info-value">{{ props.prenom || tUser('non-renseigne') }}</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">{{ tUser('bod') }}</span>
-          <span class="info-value">
-            <time v-if="formattedDate" :datetime="props.dateNaissance">{{ formattedDate }}</time>
-            <template v-else>{{ tUser('non-renseigne') }}</template>
-          </span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">{{ tUser('categorie') }}</span>
-          <span class="info-value">{{ props.categorie || tUser('non-renseigne') }}</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">{{ tUser('email') }}</span>
-          <span class="info-value">{{ currentEmail || tUser('non-renseigne') }}</span>
+      <div class="card-body">
+        <div class="card-body-grid">
+          <div class="info-item">
+            <span class="info-label">{{ tUser('civilite') }}</span>
+            <span class="info-value">{{ props.civilite || tUser('non-renseigne') }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">{{ tUser('nom') }}</span>
+            <span class="info-value">{{ props.nom || tUser('non-renseigne') }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">{{ tUser('prenom') }}</span>
+            <span class="info-value">{{ props.prenom || tUser('non-renseigne') }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">{{ tUser('bod') }}</span>
+            <span class="info-value">
+              <time v-if="formattedDate" :datetime="props.dateNaissance">{{ formattedDate }}</time>
+              <template v-else>{{ tUser('non-renseigne') }}</template>
+            </span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">{{ tUser('categorie') }}</span>
+            <span class="info-value">{{ props.categorie || tUser('non-renseigne') }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">{{ tUser('email') }}</span>
+            <span class="info-value">{{ currentEmail || tUser('non-renseigne') }}</span>
+          </div>
         </div>
       </div>
     </section>
@@ -118,14 +120,11 @@ const formattedDate = computed(() => {
   @include mce-card-header;
 }
 
-.card-title {
-  margin: 0;
-  font-size: var(--#{$prefix}font-size-h3);
-  font-weight: 700;
+.card-body {
+  @include mce-card-body;
 }
 
 .card-body-grid {
-  padding: 1.25rem;
   display: grid;
   gap: 1.25rem;
   margin: 0;
@@ -136,11 +135,7 @@ const formattedDate = computed(() => {
 }
 
 .info-item {
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  padding: 0;
-  min-width: 0;
+  @include mce-info-item;
 }
 
 .info-label {

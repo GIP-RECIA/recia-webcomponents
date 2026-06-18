@@ -157,6 +157,7 @@ function closeDetail(): void {
 </template>
 
 <style lang="scss" scoped>
+@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;

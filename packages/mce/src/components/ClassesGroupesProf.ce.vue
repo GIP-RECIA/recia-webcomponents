@@ -167,18 +167,18 @@ const hasNoData = computed(() => {
 
                 <div
                   v-if="getSectionClasses(item, nomEtab).length || getSectionGroupes(item, nomEtab).length"
-                  class="badges-row"
+                  class="badge-row"
                   role="none"
                 >
                   <span
                     v-for="c in getSectionClasses(item, nomEtab)"
                     :key="c"
-                    class="pill-tag pill-tag--class"
+                    class="badge-tag"
                   >{{ c }}</span>
                   <span
                     v-for="g in getSectionGroupes(item, nomEtab)"
                     :key="g"
-                    class="pill-tag pill-tag--group"
+                    class="badge-tag"
                   >{{ g }}</span>
                 </div>
               </div>
@@ -209,18 +209,18 @@ const hasNoData = computed(() => {
 
                 <div
                   v-if="getFonctionClasses(f).length > 0 || getFonctionGroupes(f).length > 0"
-                  class="badges-row"
+                  class="badge-row"
                   role="none"
                 >
                   <span
                     v-for="c in getFonctionClasses(f)"
                     :key="c"
-                    class="pill-tag pill-tag--class"
+                    class="badge-tag"
                   >{{ c }}</span>
                   <span
                     v-for="g in getFonctionGroupes(f)"
                     :key="g"
-                    class="pill-tag pill-tag--group"
+                    class="badge-tag"
                   >{{ g }}</span>
                 </div>
               </div>
@@ -233,6 +233,7 @@ const hasNoData = computed(() => {
 </template>
 
 <style lang="scss" scoped>
+@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
@@ -324,7 +325,7 @@ const hasNoData = computed(() => {
   }
 }
 
-.badges-row {
+.badge-row {
   @include mce-tags-list;
   justify-content: flex-end;
 
@@ -333,13 +334,7 @@ const hasNoData = computed(() => {
   }
 }
 
-.pill-tag {
-  &--class {
-    @include mce-discipline-tag;
-  }
-
-  &--group {
-    @include mce-discipline-tag;
-  }
+.badge-tag {
+  @include mce-discipline-tag;
 }
 </style>
