@@ -28,7 +28,6 @@ const props = withDefaults(defineProps<{
   userInfoApiUrl: string
   details?: Relation[]
   titre: string
-  onglet: string
 }>(), {
   details: () => [],
 })
