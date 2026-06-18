@@ -99,14 +99,14 @@ describe('fonctionsList', () => {
       expect(firstCard.find('.info-value--bold').text()).toContain('Lycée Jean Zay')
     })
 
-    it('affiche la fonction via .fonction-tag', () => {
+    it('affiche la fonction via .badge-tag', () => {
       const firstCard = wrapper.findAll('.card-fonction')[0]
-      expect(firstCard.find('.fonction-tag').text()).toBe('Professeur')
+      expect(firstCard.findAll('.badge-tag')[0].text()).toBe('Professeur')
     })
 
-    it('affiche la discipline via .discipline-tag', () => {
+    it('affiche la discipline via .badge-tag', () => {
       const firstCard = wrapper.findAll('.card-fonction')[0]
-      expect(firstCard.find('.discipline-tag').text()).toBe('Mathématiques')
+      expect(firstCard.findAll('.badge-tag')[1].text()).toBe('Mathématiques')
     })
 
     it('affiche le label dans .info-label', () => {

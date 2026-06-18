@@ -194,6 +194,7 @@ async function handleSubmit() {
 </template>
 
 <style scoped lang="scss">
+@use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
