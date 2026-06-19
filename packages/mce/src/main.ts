@@ -15,15 +15,17 @@
  */
 
 import { createApp } from 'vue'
-import App from '@/App.vue'
 import { register as registerCustomElements } from '@/ce'
-import { register as registerFontAwsome } from '@/plugins/fontawesome'
-import i18n from '@/plugins/i18n'
+import '@fortawesome/fontawesome-free/css/solid.css'
 import 'regenerator-runtime/runtime.js'
 
-const app = createApp(App)
-
 registerCustomElements()
-registerFontAwsome()
 
-app.use(i18n)
+if (import.meta.env.DEV) {
+  import('@/assets/scss/dev.scss')
+
+  import('@/AppDev.vue').then(({ default: App }) => {
+    const app = createApp(App)
+    app.mount('#app')
+  })
+}
