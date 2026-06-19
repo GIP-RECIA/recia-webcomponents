@@ -16,8 +16,7 @@
 
 <script setup lang="ts">
 import type { Etabs, General, SectionEleve, SectionProf } from '@/types/generalType'
-import { computed, inject } from 'vue'
-import { I18nInjectionKey } from 'vue-i18n'
+import { computed } from 'vue'
 import ClassesGroupesEleve from './ClassesGroupesEleve.ce.vue'
 import ClassesGroupesProf from './ClassesGroupesProf.ce.vue'
 
@@ -43,13 +42,6 @@ const sectionProf = computed<SectionProf | undefined>(
 const etabs = computed<Array<Etabs>>(
   () => sectionEleve.value?.etabs ?? [],
 )
-
-const i18n = inject(I18nInjectionKey)
-function tListMenu(key: string): string {
-  return i18n ? (i18n.global.t as (k: string) => string)(`list-onglet.${key}`) : key
-}
-
-const sectionTitle = computed(() => tListMenu(props.listMenu))
 
 // Condition pour savoir si on a des relations parents / enfants à afficher
 const hasParentEleve = computed<boolean>(() => {
@@ -92,9 +84,6 @@ const hasApprentis = computed<boolean>(() => {
 
 <template>
   <div class="sectionPersonnelles">
-    <h3 id="info-general-title" class="sr-only">
-      {{ sectionTitle }}
-    </h3>
     <relation-user
       v-if="hasParentEleve"
       :details="computedParentDetails"
@@ -133,14 +122,11 @@ const hasApprentis = computed<boolean>(() => {
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
-@use './mce-shared' as *;
+@use '../assets/mce-shared' as *;
 
 .sectionPersonnelles {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-}
-.sr-only {
-  @include mce-sr-only;
 }
 </style>

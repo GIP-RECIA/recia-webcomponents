@@ -204,7 +204,7 @@ function handleAvatarUpdated() {
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
-@use './mce-shared' as *;
+@use '../assets/mce-shared' as *;
 
 .parent {
   display: flex;
@@ -234,9 +234,5 @@ function handleAvatarUpdated() {
 .sectionTwo {
   flex: 1;
   min-width: 0;
-}
-
-.sr-only {
-  @include mce-sr-only;
 }
 </style>

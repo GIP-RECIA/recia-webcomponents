@@ -127,17 +127,17 @@
   }
 }
 
-@mixin mce-sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
+//@mixin mce-sr-only {
+//  position: absolute;
+//  width: 1px;
+//  height: 1px;
+//  padding: 0;
+//  margin: -1px;
+//  overflow: hidden;
+//  clip: rect(0, 0, 0, 0);
+//  white-space: nowrap;
+//  border: 0;
+//}
 
 @mixin mce-info-value {
   font-size: var(--#{$prefix}font-size-sm);
@@ -209,9 +209,9 @@
   }
 
   &--external {
-    background-color: color-mix(in srgb, var(--#{$prefix}system-orange) 10%, transparent);
-    color: var(--#{$prefix}system-orange);
-    border-color: color-mix(in srgb, var(--#{$prefix}system-orange) 30%, transparent);
+    background-color: color-mix(in srgb, var(--#{$prefix}favorite) 10%, transparent);
+    color: var(--#{$prefix}favorite);
+    border-color: color-mix(in srgb, var(--#{$prefix}favorite) 35%, transparent);
   }
 }
 
