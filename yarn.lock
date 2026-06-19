@@ -1268,10 +1268,10 @@ __metadata:
     typescript: "npm:^5.9.3"
     vite: "npm:^7.3.2"
     vitest: "npm:^4.1.7"
-    vue: "npm:^3.5.31"
+    vue: "npm:^3.5.38"
     vue-advanced-cropper: "npm:^2.8.9"
-    vue-i18n: "npm:^11.3.0"
-    vue-tsc: "npm:^3.2.6"
+    vue-i18n: "npm:^11.4.5"
+    vue-tsc: "npm:^3.3.5"
   languageName: unknown
   linkType: soft
 
@@ -10221,7 +10221,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-i18n@npm:^11.3.0, vue-i18n@npm:^11.4.5":
+"vue-i18n@npm:^11.4.5":
   version: 11.4.6
   resolution: "vue-i18n@npm:11.4.6"
   dependencies:
@@ -10235,7 +10235,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-tsc@npm:^3.2.6, vue-tsc@npm:^3.3.5":
+"vue-tsc@npm:^3.3.5":
   version: 3.3.5
   resolution: "vue-tsc@npm:3.3.5"
   dependencies:
@@ -10261,7 +10261,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue@npm:^3.5.31, vue@npm:^3.5.38, vue@npm:~3.5.34":
+"vue@npm:^3.5.38, vue@npm:~3.5.34":
   version: 3.5.38
   resolution: "vue@npm:3.5.38"
   dependencies:
