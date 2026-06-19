@@ -20,19 +20,19 @@ import { I18nInjectionKey } from 'vue-i18n'
 
 defineOptions({ name: 'RelationUserDetail' })
 
-const props = defineProps<{
-  personne: any
-  isLoading: boolean
-  hasError: boolean
-}>()
+const props = defineProps({
+  personne: { type: Object as () => any, default: null },
+  isLoading: { type: Boolean },
+  hasError: { type: Boolean },
+})
 
 defineEmits<{
   (e: 'close'): void
 }>()
 
 const i18n = inject(I18nInjectionKey)
-function t(key: string): string {
-  return i18n ? (i18n.global.t as (k: string) => string)(`relation-user-detail.${key}`) : key
+function t(key: string, params?: Record<string, unknown>): string {
+  return i18n ? (i18n.global.t as (k: string, p?: Record<string, unknown>) => string)(`relation-user-detail.${key}`, params) : key
 }
 
 const formatDate = computed(() => {
@@ -114,7 +114,7 @@ const enseignementsList = computed(() => {
         </div>
 
         <button type="button" class="btn-primary small" :aria-label="t('close')" @click="$emit('close')">
-          <span aria-hidden="true">✕</span>
+          <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
@@ -190,7 +190,7 @@ const enseignementsList = computed(() => {
             <div class="relation-info">
               <span class="info-value info-value--bold">{{ parent.displayNameRelation }}</span>
               <span v-if="parent.lienParente" class="relation-type">
-                {{ t('lien') }} : {{ parent.lienParente }}
+                {{ t('lien-label', { lien: parent.lienParente }) }}
               </span>
             </div>
             <span v-if="parent.autoriteParental" class="ap-tag">

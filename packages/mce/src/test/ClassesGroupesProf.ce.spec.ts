@@ -33,6 +33,7 @@ const messages = {
       'discipline': 'Discipline / Matière',
       'no-data': 'Aucune donnée chargée.',
       'discipline-unknown': 'Discipline inconnue',
+      'not-available': 'N/A',
       'collapse-open': 'Ouvrir la section',
       'collapse-close': 'Fermer la section',
     },
