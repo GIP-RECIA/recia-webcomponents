@@ -416,7 +416,7 @@ function focusLast() {
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/components/buttons';
-@use './mce-shared' as *;
+@use '../assets/mce-shared' as *;
 @use 'cropperjs/dist/cropper.css';
 
 .modal-mask {

@@ -16,8 +16,7 @@
 
 <script setup lang="ts">
 import type { PersonneFonction } from '@/types/fonctionType'
-import { inject, nextTick, watch } from 'vue'
-import { I18nInjectionKey } from 'vue-i18n'
+import { nextTick, watch } from 'vue'
 import ChangeEmail from '@/components/ChangeEmail.ce.vue'
 import FonctionsList from '@/components/FonctionsList.ce.vue'
 import ChangePassword from './ChangePassword.ce.vue'
@@ -58,11 +57,6 @@ defineEmits<{
   (e: 'emailUpdated', email: string): void
 }>()
 
-const i18n = inject(I18nInjectionKey)
-function tPage(key: string): string {
-  return i18n ? (i18n.global.t as (k: string) => string)(`list-onglet.${key}`) : key
-}
-
 // À chaque changement d'onglet, focus la sentinelle en tête du panneau actif
 // pour que ORCA parte du début du contenu avec les flèches
 watch(() => props.listMenu, async () => {
@@ -87,7 +81,6 @@ watch(() => props.listMenu, async () => {
       :class="{ 'animate-fade': props.listMenu === 'GENERALE' }"
     >
       <!-- Sentinelle directement dans le panel : querySelector la trouve sans traverser le Shadow DOM -->
-      <span class="sr-only" tabindex="-1" data-panel-start>{{ tPage('GENERALE') }}</span>
       <InformationPersonnelleCe
         :uid="props.uid"
         :date-naissance="props.bod"
@@ -186,7 +179,7 @@ watch(() => props.listMenu, async () => {
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
-@use './mce-shared' as *;
+@use '../assets/mce-shared' as *;
 
 .section-content-wrapper {
   width: 100%;
@@ -205,9 +198,5 @@ watch(() => props.listMenu, async () => {
 
 .animate-fade {
   @include mce-fade-in(0.25s);
-}
-
-.sr-only {
-  @include mce-sr-only;
 }
 </style>

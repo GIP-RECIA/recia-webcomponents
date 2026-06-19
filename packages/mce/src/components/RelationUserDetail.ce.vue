@@ -210,7 +210,7 @@ const enseignementsList = computed(() => {
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
-@use './mce-shared' as *;
+@use '../assets/mce-shared' as *;
 
 .detail-panel {
   @include mce-card-base($overflow: visible);

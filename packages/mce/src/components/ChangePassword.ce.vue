@@ -111,7 +111,6 @@ async function handleChangePassword() {
 
 <template>
   <div class="change-password-panel">
-    <span class="sr-only" tabindex="-1" data-panel-start>{{ tPwd('title') }}</span>
     <div class="card-header">
       <h3 tabindex="0">
         {{ tPwd('title') }}
@@ -202,7 +201,7 @@ async function handleChangePassword() {
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
-@use './mce-shared' as *;
+@use '../assets/mce-shared' as *;
 
 .change-password-panel {
   @include mce-card-base;
@@ -237,9 +236,5 @@ async function handleChangePassword() {
 
 .alert-message {
   @include mce-alert-message;
-}
-
-.sr-only {
-  @include mce-sr-only;
 }
 </style>

@@ -85,7 +85,7 @@ function m(key: string): string {
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
-@use './mce-shared' as *;
+@use '../assets/mce-shared' as *;
 
 .profile-container {
   display: flex;
