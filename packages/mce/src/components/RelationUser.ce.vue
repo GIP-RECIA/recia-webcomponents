@@ -92,19 +92,31 @@ function closeDetail(): void {
 
 <template>
   <div class="card-wrapper">
-    <section class="profile-card" :aria-labelledby="`relation-title-${titre}`">
+    <section
+      class="profile-card"
+      :aria-labelledby="`relation-title-${titre}`"
+    >
       <div class="card-header">
-        <h3 :id="`relation-title-${titre}`" tabindex="0">
+        <h3
+          :id="`relation-title-${titre}`"
+          tabindex="0"
+        >
           {{ m(`title-relation-${titre}`) }}
         </h3>
       </div>
 
       <div class="card-body">
-        <p v-if="relations.length === 0" class="relation-empty">
+        <p
+          v-if="relations.length === 0"
+          class="relation-empty"
+        >
           {{ m('no-relation') }}
         </p>
 
-        <ul v-else class="relation-list">
+        <ul
+          v-else
+          class="relation-list"
+        >
           <li
             v-for="val in relations"
             :key="val.uidRelation"
@@ -119,13 +131,22 @@ function closeDetail(): void {
               :aria-label="`${val.typeRelation || m('relation-default')} : ${val.displayNameRelation}${val.autoriteParental ? ` — ${m('parental-authority')}` : ''}`"
               @click.prevent="selectRelation(val.uidRelation)"
             >
-              <span class="info-item" aria-hidden="true">
+              <span
+                class="info-item"
+                aria-hidden="true"
+              >
                 <span class="info-label">{{ val.typeRelation || m('relation-default') }}</span>
                 <span class="info-value info-value--bold">{{ val.displayNameRelation }}</span>
               </span>
 
-              <span class="relation-row-actions" aria-hidden="true">
-                <span v-if="val.autoriteParental" class="tag-container">
+              <span
+                class="relation-row-actions"
+                aria-hidden="true"
+              >
+                <span
+                  v-if="val.autoriteParental"
+                  class="tag-container"
+                >
                   <span class="ap-tag">{{ m('parental-authority') }}</span>
                 </span>
                 <span

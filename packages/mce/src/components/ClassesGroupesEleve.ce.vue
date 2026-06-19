@@ -40,7 +40,10 @@ function tGeneral(key: string): string {
     <!-- Carte classes & groupes -->
     <div class="profile-card">
       <div class="card-header">
-        <h3 id="title-classe-groupe" tabindex="0">
+        <h3
+          id="title-classe-groupe"
+          tabindex="0"
+        >
           {{ tGeneral('title-classe-groupe') }}
         </h3>
       </div>
@@ -60,29 +63,56 @@ function tGeneral(key: string): string {
             <!-- Classes -->
             <div class="info-item">
               <span class="info-label">{{ tGeneral('class') }}</span>
-              <ul v-if="classgroup.classes?.length" class="pills-list" role="none">
-                <li v-for="(cls, i) in classgroup.classes" :key="i" class="pill-tag" role="presentation">
+              <ul
+                v-if="classgroup.classes?.length"
+                class="pills-list"
+                role="none"
+              >
+                <li
+                  v-for="(cls, i) in classgroup.classes"
+                  :key="i"
+                  class="pill-tag"
+                  role="presentation"
+                >
                   {{ cls }}
                 </li>
               </ul>
-              <span v-else class="info-value">{{ tEleve('no-class') }}</span>
+              <span
+                v-else
+                class="info-value"
+              >{{ tEleve('no-class') }}</span>
             </div>
 
             <!-- Groupes -->
             <div class="info-item">
               <span class="info-label">{{ tGeneral('group') }}</span>
-              <ul v-if="classgroup.groupes?.length" class="pills-list" role="none">
-                <li v-for="(grp, i) in classgroup.groupes" :key="i" class="pill-tag" role="presentation">
+              <ul
+                v-if="classgroup.groupes?.length"
+                class="pills-list"
+                role="none"
+              >
+                <li
+                  v-for="(grp, i) in classgroup.groupes"
+                  :key="i"
+                  class="pill-tag"
+                  role="presentation"
+                >
                   {{ grp }}
                 </li>
               </ul>
-              <span v-else class="info-value">{{ tEleve('no-group') }}</span>
+              <span
+                v-else
+                class="info-value"
+              >{{ tEleve('no-group') }}</span>
             </div>
           </div>
         </div>
 
         <!-- Aucun établissement -->
-        <p v-if="!etabs?.length" class="info-value">
+        <p
+          v-if="!etabs?.length"
+          class="info-value"
+        >
           {{ tEleve('no-etab') }}
         </p>
       </div>
@@ -91,7 +121,10 @@ function tGeneral(key: string): string {
     <!-- Carte matières suivies -->
     <div class="profile-card">
       <div class="card-header">
-        <h3 id="title-courses" tabindex="0">
+        <h3
+          id="title-courses"
+          tabindex="0"
+        >
           {{ tGeneral('title-courses') }}
         </h3>
       </div>
@@ -105,11 +138,19 @@ function tGeneral(key: string): string {
               class="enseignements-list"
               role="none"
             >
-              <li v-for="(ens, index) in sectionEleve.enseignementSuivis" :key="index" class="pill-tag" role="presentation">
+              <li
+                v-for="(ens, index) in sectionEleve.enseignementSuivis"
+                :key="index"
+                class="pill-tag"
+                role="presentation"
+              >
                 {{ ens }}
               </li>
             </ul>
-            <span v-else class="info-value">{{ tEleve('no-course') }}</span>
+            <span
+              v-else
+              class="info-value"
+            >{{ tEleve('no-course') }}</span>
           </div>
         </div>
       </div>

@@ -125,15 +125,25 @@ const hasNoData = computed(() => {
 
 <template>
   <div class="card-wrapper">
-    <section class="profile-card" aria-labelledby="classes-groupes-prof-heading">
+    <section
+      class="profile-card"
+      aria-labelledby="classes-groupes-prof-heading"
+    >
       <div class="card-header">
-        <h3 id="classes-groupes-prof-heading" class="collapse-title" tabindex="0">
+        <h3
+          id="classes-groupes-prof-heading"
+          class="collapse-title"
+          tabindex="0"
+        >
           {{ tGeneral('title-classe-groupe') }}
         </h3>
       </div>
 
       <!-- Aucune donnée -->
-      <div v-if="hasNoData" class="card-body">
+      <div
+        v-if="hasNoData"
+        class="card-body"
+      >
         <p class="info-value">
           {{ tProf('no-data') }}
         </p>
@@ -145,7 +155,10 @@ const hasNoData = computed(() => {
         class="card-body"
       >
         <!-- Blocs sectionProf -->
-        <template v-for="([nomEtab, listeItems]) in sections" :key="nomEtab">
+        <template
+          v-for="([nomEtab, listeItems]) in sections"
+          :key="nomEtab"
+        >
           <div class="etab-block">
             <div class="etab-info-side">
               <span class="info-label">{{ tProf('etablissement') }}</span>

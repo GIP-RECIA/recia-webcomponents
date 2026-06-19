@@ -81,9 +81,16 @@ async function onToggle(it: PersonneFonction): Promise<void> {
 </script>
 
 <template>
-  <section v-if="localFonctions?.length" class="profile-card" aria-labelledby="fonctions-list-heading">
+  <section
+    v-if="localFonctions?.length"
+    class="profile-card"
+    aria-labelledby="fonctions-list-heading"
+  >
     <div class="card-header">
-      <h3 id="fonctions-list-heading" tabindex="0">
+      <h3
+        id="fonctions-list-heading"
+        tabindex="0"
+      >
         {{ tGeneral('title-fonction') }}
       </h3>
     </div>
@@ -97,7 +104,10 @@ async function onToggle(it: PersonneFonction): Promise<void> {
           aria-hidden="false"
         >
           <div class="fonction-header">
-            <span class="info-label" aria-hidden="true">{{ tFonctions('card-label') }}</span>
+            <span
+              class="info-label"
+              aria-hidden="true"
+            >{{ tFonctions('card-label') }}</span>
             <div class="toggle-switch">
               <input
                 v-model="it.active"
@@ -111,14 +121,20 @@ async function onToggle(it: PersonneFonction): Promise<void> {
             </div>
           </div>
 
-          <div class="fonction-body" aria-hidden="true">
+          <div
+            class="fonction-body"
+            aria-hidden="true"
+          >
             <div class="info-group">
               <span class="info-value info-value--bold">
                 {{ it.struct.name }}
               </span>
               <div class="badge-container">
                 <span class="badge-tag">{{ it.fonction || tGeneral('not-set') }}</span>
-                <span v-if="it.discipline" class="badge-tag">{{ it.discipline }}</span>
+                <span
+                  v-if="it.discipline"
+                  class="badge-tag"
+                >{{ it.discipline }}</span>
               </div>
             </div>
           </div>

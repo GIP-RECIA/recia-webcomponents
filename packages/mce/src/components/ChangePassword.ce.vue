@@ -117,9 +117,17 @@ async function handleChangePassword() {
       </h3>
     </div>
 
-    <form class="card-body" role="none" novalidate @submit.prevent="handleChangePassword">
+    <form
+      class="card-body"
+      role="none"
+      novalidate
+      @submit.prevent="handleChangePassword"
+    >
       <div class="form-group">
-        <label class="info-label" for="current-password">{{ tPwd('current-password') }}</label>
+        <label
+          class="info-label"
+          for="current-password"
+        >{{ tPwd('current-password') }}</label>
         <input
           id="current-password"
           v-model="currentPassword"
@@ -135,7 +143,10 @@ async function handleChangePassword() {
       </div>
 
       <div class="form-group">
-        <label class="info-label" for="new-password">{{ tPwd('new-password') }}</label>
+        <label
+          class="info-label"
+          for="new-password"
+        >{{ tPwd('new-password') }}</label>
         <input
           id="new-password"
           v-model="newPassword"
@@ -151,7 +162,10 @@ async function handleChangePassword() {
       </div>
 
       <div class="form-group">
-        <label class="info-label" for="confirm-password">{{ tPwd('confirm-password') }}</label>
+        <label
+          class="info-label"
+          for="confirm-password"
+        >{{ tPwd('confirm-password') }}</label>
         <input
           id="confirm-password"
           v-model="confirmPassword"
@@ -186,7 +200,10 @@ async function handleChangePassword() {
           :aria-busy="isLoading ? 'true' : undefined"
           :aria-label="isLoading ? tPwd('loading') : undefined"
         >
-          <span v-if="isLoading" aria-hidden="true">{{ tPwd('loading') }}</span>
+          <span
+            v-if="isLoading"
+            aria-hidden="true"
+          >{{ tPwd('loading') }}</span>
           <span v-else>{{ tPwd('submit') }}</span>
         </button>
       </div>
