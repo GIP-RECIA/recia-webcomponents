@@ -1255,7 +1255,6 @@ __metadata:
     "@vitejs/plugin-vue": "npm:^6.0.7"
     "@vue/test-utils": "npm:^2.4.10"
     "@vue/tsconfig": "npm:^0.9.1"
-    axios: "npm:^1.17.0"
     dotenv-checker: "npm:^1.1.7"
     eslint: "npm:^10.5.0"
     eslint-plugin-format: "npm:^2.0.1"
