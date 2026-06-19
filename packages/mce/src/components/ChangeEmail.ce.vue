@@ -129,14 +129,22 @@ async function handleSubmit() {
         </h3>
       </div>
 
-      <form class="card-body" role="none" novalidate @submit.prevent="handleSubmit">
+      <form
+        class="card-body"
+        role="none"
+        novalidate
+        @submit.prevent="handleSubmit"
+      >
         <div class="form-group">
           <label class="info-label">{{ tEmail('current-email') }}</label>
           <span class="static-value">{{ displayedCurrentEmail }}</span>
         </div>
 
         <div class="form-group">
-          <label class="info-label" for="newEmail">{{ tEmail('new-email') }}</label>
+          <label
+            class="info-label"
+            for="newEmail"
+          >{{ tEmail('new-email') }}</label>
           <input
             id="newEmail"
             v-model="newEmail"
@@ -152,7 +160,10 @@ async function handleSubmit() {
         </div>
 
         <div class="form-group">
-          <label class="info-label" for="confirmEmail">{{ tEmail('confirm-email') }}</label>
+          <label
+            class="info-label"
+            for="confirmEmail"
+          >{{ tEmail('confirm-email') }}</label>
           <input
             id="confirmEmail"
             v-model="confirmEmail"
