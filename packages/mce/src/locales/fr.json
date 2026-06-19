@@ -30,7 +30,10 @@
     "etat": "Statut",
     "etab": "Établissement",
     "non-renseigne": "Non renseigné",
-    "modifier-email": "Modifier l'adresse e-mail"
+    "modifier-email": "Modifier l'adresse e-mail",
+    "educonnect": "EduConnect",
+    "not-set": "Non renseigné",
+    "email-personnel": "E-mail personnel"
   },
   "page-mce": {
     "user-details": "Informations utilisateur",
@@ -148,7 +151,8 @@
     "lien": "Lien",
     "autorite-parentale": "Autorité parentale",
     "avatar-alt": "Photo de profil de",
-    "lien-label": "Lien : {lien}"
+    "lien-label": "Lien : {lien}",
+    "mdp-label": "Mot de passe : {mdp}"
   },
   "onglet-content": {
     "mes-fonctions": "Mes fonctions",
@@ -156,6 +160,9 @@
     "fonction": "Fonction",
     "discipline": "Discipline",
     "active": "Activé",
-    "active-label": "Fonction active pour"
+    "active-label": "Fonction active pour",
+    "not-available": "N/A",
+    "student": "Les élèves de ma relation",
+    "master": "Mes apprentis"
   }
 }

@@ -21,13 +21,14 @@ import { I18nInjectionKey } from 'vue-i18n'
 defineOptions({ name: 'InformationPersonnelle' })
 
 const props = defineProps<{
-  userName?: string
   civilite?: string
   nom?: string
   prenom?: string
   categorie?: string
   dateNaissance?: string
   userMail?: string
+  userPublic?: string[]
+  uid?: string
 }>()
 
 const i18n = inject(I18nInjectionKey)
@@ -97,6 +98,21 @@ const formattedDate = computed(() => {
             <span class="info-label">{{ tUser('email') }}</span>
             <span class="info-value">{{ currentEmail || tUser('non-renseigne') }}</span>
           </div>
+          <div v-if="props.userPublic?.length" class="info-item">
+            <span class="info-label">{{ tUser('login') }}</span>
+            <div class="info-value">
+              <a
+                v-for="(url, i) in props.userPublic"
+                :key="i"
+                :href="url"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="public-link"
+              >
+                {{ tUser('educonnect') }}
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -146,5 +162,16 @@ const formattedDate = computed(() => {
 .info-value {
   @include mce-info-value;
   display: block;
+}
+
+.public-link {
+  color: var(--#{$prefix}primary);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: var(--#{$prefix}font-size-sm);
+
+  &:hover {
+    color: color-mix(in srgb, var(--#{$prefix}primary) 80%, black);
+  }
 }
 </style>

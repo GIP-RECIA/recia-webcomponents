@@ -118,7 +118,7 @@ async function onToggle(it: PersonneFonction): Promise<void> {
                 {{ it.struct.name }}
               </span>
               <div class="badge-container">
-                <span class="badge-tag">{{ it.fonction || '-' }}</span>
+                <span class="badge-tag">{{ it.fonction || tGeneral('not-set') }}</span>
                 <span v-if="it.discipline" class="badge-tag">{{ it.discipline }}</span>
               </div>
             </div>

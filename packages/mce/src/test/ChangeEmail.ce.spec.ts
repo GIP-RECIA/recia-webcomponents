@@ -110,7 +110,7 @@ describe('changeEmail', () => {
           provide: { [I18nInjectionKey as symbol]: { global: i18n.global } },
         },
       })
-      expect(wrapperEmpty.find('.static-value').text()).toBe('-')
+      expect(wrapperEmpty.find('.static-value').text()).toBe('No email address provided.')
     })
 
     it('applique le bon placeholder sur le champ newEmail', () => {

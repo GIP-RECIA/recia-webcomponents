@@ -70,9 +70,9 @@ function m(key: string): string {
       v-if="props.userMail"
       :href="`mailto:${props.userMail}`"
       class="email-link"
-      :aria-label="`${m('email')} ${props.userMail}`"
+      :aria-label="`${m('email-personnel')} ${props.userMail}`"
     >
-      <span aria-hidden="true" class="email-label">{{ m('email') }}</span>
+      <span aria-hidden="true" class="email-label">{{ m('email-personnel') }}</span>
       <span aria-hidden="true" class="email-value">{{ props.userMail }}</span>
     </a>
   </div>

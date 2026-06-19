@@ -36,6 +36,7 @@ const mce = ref<any>({
   uid: '',
   userName: '',
   userMail: '',
+  emailPersonnel: '',
   avatar: '',
   bod: '',
   etab: '',
@@ -50,7 +51,7 @@ const mce = ref<any>({
 
   userPublic: [],
   mdp: null,
-  mailEditable: null,
+  canEditEmail: null,
 })
 
 const ongletCurrent = ref<string>('')
@@ -62,6 +63,7 @@ const civilite = computed<string>(() => mce.value.civilite ?? '')
 const nom = computed<string>(() => mce.value.sn ?? '')
 const prenom = computed<string>(() => mce.value.givenName ?? '')
 const categorie = computed<string>(() => mce.value.categorie ?? '')
+const userMailPerso = computed<string>(() => mce.value.emailPersonnel || mce.value.email || '')
 
 async function getAllPortlets(uri: string, token: string) {
   try {
@@ -103,8 +105,8 @@ onMounted(async () => {
       ...(mce.value.fonctionClassesGroupe?.listFonctions?.length > 0
         ? ['FONCTION_LIST']
         : []),
-      ...(mce.value.mdp === true ? [] : ['CHANGE_PASSWORD']),
-      ...(!mce.value.mailEditable ? ['CHANGE_EMAIL'] : []),
+      ...(mce.value.mdp === true ? ['CHANGE_PASSWORD'] : []),
+      ...(mce.value.canEditEmail === true ? ['CHANGE_EMAIL'] : []),
     ]
 
     ongletCurrent.value = listOnglets.value[0]
@@ -130,6 +132,7 @@ function handleEmailUpdated(event: CustomEvent<string[]>) {
   mce.value = {
     ...mce.value,
     userMail: email,
+    emailPersonnel: email,
   }
 }
 
@@ -147,7 +150,7 @@ function handleAvatarUpdated() {
         :avatar="avatar"
         :user-id="mce.uid"
         :user-name="mce.userName"
-        :user-mail="mce.userMail"
+        :user-mail="userMailPerso"
         :etat="mce.etat ?? ''"
         :user-info-api-url="userInfoApiUrl"
         :mce-api="mceApi"
@@ -158,7 +161,6 @@ function handleAvatarUpdated() {
         v-if="listOnglets.length > 1"
         :list="listOnglets"
         :onglet-current="ongletCurrent"
-        :user-info-api-url="userInfoApiUrl"
         class-btn="btn btn-secondary-toggle"
         @select-onglet="select($event)"
       />
@@ -170,7 +172,6 @@ function handleAvatarUpdated() {
           v-if="mce?.listMenu?.length"
           :mce-api="mceApi"
           :list-menu="ongletCurrent"
-          :list-onglets="listOnglets"
           :user-info-api-url="userInfoApiUrl"
           :fonction-classes-groupe="mce.fonctionClassesGroupe ?? {}"
           :parent-eleve="mce.parentEleve ?? {}"
@@ -179,16 +180,16 @@ function handleAvatarUpdated() {
           :services="portlets"
           :etab-current="mce.etab ?? ''"
           :user-name="mce.userName ?? ''"
-          :user-mail="mce.userMail ?? ''"
+          :user-mail="mce.email ?? ''"
+          :user-mail-perso="userMailPerso"
           :user-id="mce.uid ?? ''"
+          :user-public="mce.userPublic ?? []"
           :uid="mce.uid ?? ''"
           :bod="mce.bod ?? ''"
           :civilite="civilite"
           :nom="nom"
           :prenom="prenom"
           :categorie="categorie"
-          :can-modify-email="mce.mailEditable ?? false"
-          :mdp="mce.mdp"
           @email-updated="handleEmailUpdated"
         />
       </div>

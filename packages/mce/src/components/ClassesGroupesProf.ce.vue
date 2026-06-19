@@ -196,7 +196,7 @@ const hasNoData = computed(() => {
             <div class="etab-info-side">
               <span class="info-label">{{ tProf('etablissement') }}</span>
               <div class="info-value info-value--bold">
-                {{ f.struct?.name || 'N/A' }}
+                {{ f.struct?.name || tProf('not-available') }}
               </div>
             </div>
 
