@@ -82,7 +82,6 @@ async function onToggle(it: PersonneFonction): Promise<void> {
 
 <template>
   <section v-if="localFonctions?.length" class="profile-card" aria-labelledby="fonctions-list-heading">
-    <span class="sr-only" tabindex="-1" data-panel-start>{{ tGeneral('title-fonction') }}</span>
     <div class="card-header">
       <h3 id="fonctions-list-heading" tabindex="0">
         {{ tGeneral('title-fonction') }}
@@ -136,7 +135,7 @@ async function onToggle(it: PersonneFonction): Promise<void> {
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
-@use './mce-shared' as *;
+@use '../assets/mce-shared' as *;
 
 .profile-card {
   @include mce-card-base;
@@ -241,10 +240,6 @@ async function onToggle(it: PersonneFonction): Promise<void> {
     outline: none;
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--#{$prefix}primary) 25%, transparent);
   }
-}
-
-.sr-only {
-  @include mce-sr-only;
 }
 
 .badge-container {

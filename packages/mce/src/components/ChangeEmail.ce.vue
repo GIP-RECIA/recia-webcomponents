@@ -123,8 +123,6 @@ async function handleSubmit() {
 <template>
   <div class="card-wrapper">
     <div class="change-email-panel">
-      <span class="sr-only" tabindex="-1" data-panel-start>{{ tEmail('title') }}</span>
-
       <div class="card-header">
         <h3 tabindex="0">
           {{ tEmail('title') }}
@@ -203,7 +201,7 @@ async function handleSubmit() {
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
-@use './mce-shared' as *;
+@use '../assets/mce-shared' as *;
 
 .change-email-panel {
   @include mce-card-base;
@@ -246,9 +244,5 @@ async function handleSubmit() {
 
 .alert-message {
   @include mce-alert-message;
-}
-
-.sr-only {
-  @include mce-sr-only;
 }
 </style>

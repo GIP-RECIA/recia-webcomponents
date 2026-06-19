@@ -124,7 +124,7 @@ function tGeneral(key: string): string {
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
-@use './mce-shared' as *;
+@use '../assets/mce-shared' as *;
 
 .sections-wrapper {
   display: flex;

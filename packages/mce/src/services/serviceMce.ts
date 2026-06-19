@@ -13,55 +13,56 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import oidc from '@uportal/open-id-connect'
-import axios from 'axios'
+
+class ApiError extends Error {
+  response: { data: any, status: number }
+
+  constructor(data: any, status: number) {
+    super(`API error ${status}`)
+    this.response = { data, status }
+  }
+}
 
 async function getToken(userInfoApiUrl: string): Promise<string | undefined> {
   try {
-    const { encoded } = await oidc({
-      userInfoApiUrl,
-    })
+    const { encoded } = await oidc({ userInfoApiUrl })
     return encoded
   }
   catch (error) {
     console.error('error: ', error)
   }
 }
-async function getMCE(url: string, userInfoApiUrl: string) {
-  return await axios.get(`${url}`, {
-    headers: {
-      'Authorization': `Bearer ${await getToken(userInfoApiUrl)}`,
-      'content-type': 'application/jwt',
-    },
-  })
+
+async function throwIfNotOk(response: Response): Promise<void> {
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}))
+    throw new ApiError(data, response.status)
+  }
 }
 
-async function getContentOnglet(url: string, userInfoApiUrl: string) {
-  return await axios.get(`${url}`, {
+async function fetchJson(url: string, userInfoApiUrl: string): Promise<{ data: any }> {
+  const token = await getToken(userInfoApiUrl)
+  const response = await fetch(url, {
     headers: {
-      'Authorization': `Bearer ${await getToken(userInfoApiUrl)}`,
+      'Authorization': `Bearer ${token}`,
       'content-type': 'application/jwt',
     },
   })
+  await throwIfNotOk(response)
+  return { data: await response.json() }
+}
+
+async function getMCE(url: string, userInfoApiUrl: string) {
+  return fetchJson(url, userInfoApiUrl)
 }
 
 async function getServicesEnt(url: string, userInfoApiUrl: string) {
-  return await axios.get(`${url}`, {
-    headers: {
-      'Authorization': `Bearer ${await getToken(userInfoApiUrl)}`,
-      'content-type': 'application/jwt',
-    },
-  })
+  return fetchJson(url, userInfoApiUrl)
 }
 
 async function getDetailEnfant(url: string, userInfoApiUrl: string) {
-  return await axios.get(`${url}`, {
-    headers: {
-      'Authorization': `Bearer ${await getToken(userInfoApiUrl)}`,
-      'content-type': 'application/jwt',
-    },
-  })
+  return fetchJson(url, userInfoApiUrl)
 }
 
 async function postPassword(
@@ -73,21 +74,16 @@ async function postPassword(
   userInfoApiUrl: string,
 ) {
   const token = await getToken(userInfoApiUrl)
-
-  return await axios.post(
-    `${baseUrl}/${userId}/change-password`,
-    {
-      oldPass,
-      newPass,
-      confirmPass,
+  const response = await fetch(`${baseUrl}/${userId}/change-password`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'content-type': 'application/json',
     },
-    {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'content-type': 'application/json',
-      },
-    },
-  )
+    body: JSON.stringify({ oldPass, newPass, confirmPass }),
+  })
+  await throwIfNotOk(response)
+  return { data: await response.json().catch(() => null) }
 }
 
 async function updateEmail(
@@ -98,20 +94,16 @@ async function updateEmail(
   userInfoApiUrl: string,
 ) {
   const token = await getToken(userInfoApiUrl)
-
-  return await axios.put(
-    `${baseUrl}/${userId}/update-email`,
-    {
-      email,
-      confirmEmail,
+  const response = await fetch(`${baseUrl}/${userId}/update-email`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'content-type': 'application/json',
     },
-    {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'content-type': 'application/json',
-      },
-    },
-  )
+    body: JSON.stringify({ email, confirmEmail }),
+  })
+  await throwIfNotOk(response)
+  return { data: await response.json().catch(() => null) }
 }
 
 async function updateFonctionDateFin(
@@ -121,16 +113,16 @@ async function updateFonctionDateFin(
   userInfoApiUrl: string,
 ) {
   const token = await getToken(userInfoApiUrl)
-  return await axios.put(
-    `${baseUrl}/fonction/${idFonction}/dateFin`,
-    active,
-    {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'content-type': 'application/json',
-      },
+  const response = await fetch(`${baseUrl}/fonction/${idFonction}/dateFin`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'content-type': 'application/json',
     },
-  )
+    body: JSON.stringify(active),
+  })
+  await throwIfNotOk(response)
+  return { data: await response.json().catch(() => null) }
 }
 
 /**
@@ -147,19 +139,25 @@ async function updateAvatar(
   userInfoApiUrl: string,
 ) {
   const token = await getToken(userInfoApiUrl)
-
   const formData = new FormData()
   formData.append('file', file)
-
-  return axios.post(
-    `${baseUrl}/${uid}/avatar`,
-    formData,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+  const response = await fetch(`${baseUrl}/${uid}/avatar`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
-  )
+    body: formData,
+  })
+  await throwIfNotOk(response)
+  return { data: await response.json().catch(() => null) }
 }
 
-export { getContentOnglet, getDetailEnfant, getMCE, getServicesEnt, postPassword, updateAvatar, updateEmail, updateFonctionDateFin }
+export {
+  getDetailEnfant,
+  getMCE,
+  getServicesEnt,
+  postPassword,
+  updateAvatar,
+  updateEmail,
+  updateFonctionDateFin,
+}

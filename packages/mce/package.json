@@ -2,7 +2,6 @@
   "name": "@gip-recia/mce",
   "type": "module",
   "version": "0.0.0",
-  "private": true,
   "description": "",
   "contributors": [
     {
@@ -42,11 +41,9 @@
     "build:min": "npm exec terser -- -c -m --module -f comments=false -o dist/mce.min.js -- dist/mce.js",
     "lint": "eslint src/*",
     "preview": "vite preview",
-    "test:unit": "echo No tests available",
+    "test:unit": "vitest",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",
-    "test": "vitest",
-    "test:run": "vitest run",
     "release": "yarn run -T commit-and-tag-version -t 'mce/v' --path . --release-as $1 || echo 'Please specify a version type (yarn run release -- [patch, minor, major])'"
   },
   "devDependencies": {
@@ -63,7 +60,6 @@
     "@vitejs/plugin-vue": "^6.0.7",
     "@vue/test-utils": "^2.4.10",
     "@vue/tsconfig": "^0.9.1",
-    "axios": "^1.17.0",
     "dotenv-checker": "^1.1.7",
     "eslint": "^10.5.0",
     "eslint-plugin-format": "^2.0.1",

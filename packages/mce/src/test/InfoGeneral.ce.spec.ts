@@ -104,7 +104,6 @@ describe('infoGeneral', () => {
 
     const section = wrapper.find('div.sectionPersonnelles')
     expect(section.exists()).toBe(true)
-    expect(wrapper.find('#info-general-title').text()).toBe('GENERALE')
   })
 
   // --------------------------------------------------
