@@ -43,9 +43,8 @@ const props = defineProps<{
   apprentis: PersonneRelation
   services: Array<string>
   etabCurrent: string
-  userName: string
   userMail?: string
-  identifiant?: string
+  userMailPerso?: string
   uid?: string
   bod: string
   userId: string
@@ -53,9 +52,7 @@ const props = defineProps<{
   nom?: string
   prenom?: string
   categorie?: string
-  canModifyEmail?: boolean
-  mdp?: boolean
-  listOnglets: string[]
+  userPublic?: string[]
 }>()
 defineEmits<{
   (e: 'emailUpdated', email: string): void
@@ -93,9 +90,9 @@ watch(() => props.listMenu, async () => {
       <span class="sr-only" tabindex="-1" data-panel-start>{{ tPage('GENERALE') }}</span>
       <InformationPersonnelleCe
         :uid="props.uid"
-        :user-name="props.userName"
         :date-naissance="props.bod"
         :user-mail="props.userMail"
+        :user-public="props.userPublic"
         :civilite="props.civilite"
         :nom="props.nom"
         :prenom="props.prenom"
@@ -175,7 +172,7 @@ watch(() => props.listMenu, async () => {
         :mce-api="props.mceApi"
         :user-id="props.userId"
         :current-email="props.userMail"
-        @close="() => {}"
+        :current-email-perso="props.userMailPerso"
         @updated="(email) => $emit('emailUpdated', email)"
       />
     </div>

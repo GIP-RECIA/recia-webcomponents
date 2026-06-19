@@ -21,13 +21,14 @@ import RelationUserDetail from '../components/RelationUserDetail.ce.vue'
 
 const mockI18n = {
   global: {
-    t: (key: string) => {
+    t: (key: string, params?: Record<string, unknown>) => {
       const translations: Record<string, string> = {
         'relation-user-detail.loading': 'Chargement',
         'relation-user-detail.error': 'Erreur',
         'relation-user-detail.close': 'Fermer',
         'relation-user-detail.external-account': 'Compte externe',
         'relation-user-detail.lien': 'Lien',
+        'relation-user-detail.lien-label': `Lien : ${params?.lien ?? ''}`,
         'relation-user-detail.autorite-parentale': 'Autorité parentale',
       }
 
