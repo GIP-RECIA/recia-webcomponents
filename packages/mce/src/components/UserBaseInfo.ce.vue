@@ -44,7 +44,10 @@ function m(key: string): string {
   <div class="profile-container">
     <div class="profile-picture">
       <!-- Nom + statut : visuel uniquement, résumé accessible porté par l'avatar-user -->
-      <div class="user-name-block" aria-hidden="true">
+      <div
+        class="user-name-block"
+        aria-hidden="true"
+      >
         <p class="user-name">
           {{ props.userName }}
         </p>
@@ -72,8 +75,14 @@ function m(key: string): string {
       class="email-link"
       :aria-label="`${m('email-personnel')} ${props.userMail}`"
     >
-      <span aria-hidden="true" class="email-label">{{ m('email-personnel') }}</span>
-      <span aria-hidden="true" class="email-value">{{ props.userMail }}</span>
+      <span
+        aria-hidden="true"
+        class="email-label"
+      >{{ m('email-personnel') }}</span>
+      <span
+        aria-hidden="true"
+        class="email-value"
+      >{{ props.userMail }}</span>
     </a>
   </div>
 </template>

@@ -260,8 +260,15 @@ function focusLast() {
       :aria-label="t('edit-avatar')"
       @click="openModal"
     >
-      <img class="avatar" :src="avatar" alt="">
-      <span class="edit-picture" aria-hidden="true">
+      <img
+        class="avatar"
+        :src="avatar"
+        alt=""
+      >
+      <span
+        class="edit-picture"
+        aria-hidden="true"
+      >
         <FontAwesomeIcon :icon="['fas', 'pen']" />
       </span>
     </button>
@@ -273,13 +280,27 @@ function focusLast() {
       @click.self="closeModal"
       @focusin="handleFocusIn"
     >
-      <div ref="modalComponent" class="modal-component">
-        <div tabindex="0" aria-hidden="true" @focus="focusLast" />
+      <div
+        ref="modalComponent"
+        class="modal-component"
+      >
+        <div
+          tabindex="0"
+          aria-hidden="true"
+          @focus="focusLast"
+        />
         <div class="modal-header">
-          <h3 class="modal-title" aria-hidden="true">
+          <h3
+            class="modal-title"
+            aria-hidden="true"
+          >
             {{ t('title-header') }}
           </h3>
-          <button class="btn-primary small" :aria-label="t('close')" @click="closeModal">
+          <button
+            class="btn-primary small"
+            :aria-label="t('close')"
+            @click="closeModal"
+          >
             <span aria-hidden="true">✕</span>
           </button>
         </div>
@@ -287,9 +308,16 @@ function focusLast() {
         <div class="modal-body">
           <!-- Zone crop -->
           <div class="crop-area">
-            <img v-if="imageSrc" ref="imgEl" :src="imageSrc" alt="">
+            <img
+              v-if="imageSrc"
+              ref="imgEl"
+              :src="imageSrc"
+              alt=""
+            >
             <button
-              v-else class="crop-empty" type="button"
+              v-else
+              class="crop-empty"
+              type="button"
               :aria-label="t('select-image-hint')"
               @click="pickFile()"
               @keydown.enter="pickFile()"
@@ -301,7 +329,10 @@ function focusLast() {
 
           <!-- Preview circulaire -->
           <div class="preview-wrapper">
-            <div ref="prevImg" class="circular-preview" />
+            <div
+              ref="prevImg"
+              class="circular-preview"
+            />
           </div>
 
           <!-- Message -->
@@ -317,14 +348,28 @@ function focusLast() {
         </div>
 
         <div class="modal-footer">
-          <button v-if="imageSrc" class="btn-primary small" :disabled="isLoading" @click="pickFile()">
+          <button
+            v-if="imageSrc"
+            class="btn-primary small"
+            :disabled="isLoading"
+            @click="pickFile()"
+          >
             {{ t('select-image') }}
           </button>
-          <button v-if="imageSrc" class="btn-primary small" :disabled="isLoading" @click="applyCrop">
+          <button
+            v-if="imageSrc"
+            class="btn-primary small"
+            :disabled="isLoading"
+            @click="applyCrop"
+          >
             {{ isLoading ? t('loading') : t('apply') }}
           </button>
         </div>
-        <div tabindex="0" aria-hidden="true" @focus="focusFirst" />
+        <div
+          tabindex="0"
+          aria-hidden="true"
+          @focus="focusFirst"
+        />
       </div>
     </div>
   </div>

@@ -70,7 +70,10 @@ function handleClick(index: number): void {
     :aria-label="m('nav-label')"
     class="list-menu"
   >
-    <li v-for="(item, index) in list" :key="item">
+    <li
+      v-for="(item, index) in list"
+      :key="item"
+    >
       <button
         :id="`onglet-tab-${item}`"
         ref="tab-refs"

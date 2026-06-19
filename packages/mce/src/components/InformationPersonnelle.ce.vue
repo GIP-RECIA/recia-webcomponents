@@ -86,7 +86,10 @@ const formattedDate = computed(() => {
           <div class="info-item">
             <span class="info-label">{{ tUser('bod') }}</span>
             <span class="info-value">
-              <time v-if="formattedDate" :datetime="props.dateNaissance">{{ formattedDate }}</time>
+              <time
+                v-if="formattedDate"
+                :datetime="props.dateNaissance"
+              >{{ formattedDate }}</time>
               <template v-else>{{ tUser('non-renseigne') }}</template>
             </span>
           </div>
@@ -98,7 +101,10 @@ const formattedDate = computed(() => {
             <span class="info-label">{{ tUser('email') }}</span>
             <span class="info-value">{{ currentEmail || tUser('non-renseigne') }}</span>
           </div>
-          <div v-if="props.userPublic?.length" class="info-item">
+          <div
+            v-if="props.userPublic?.length"
+            class="info-item"
+          >
             <span class="info-label">{{ tUser('login') }}</span>
             <div class="info-value">
               <a
