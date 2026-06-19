@@ -1,0 +1,168 @@
+{
+  "list-onglet": {
+    "GENERALE": "Mes informations générales",
+    "SERVICE": "Mes services ENT",
+    "PARENT_ELEVE": "Mes responsables",
+    "APPRENTIS": "Mes apprentis",
+    "RELATION_ELEVE": "Mes relations élèves",
+    "CHANGE_PASSWORD": "Changer mon mot de passe",
+    "CHANGE_EMAIL": "Changer mon adresse email",
+    "FONCTION_LIST": "Liste des fonctions",
+    "nav-label": "Menu de navigation"
+  },
+  "user-info": {
+    "login": "Identifiant",
+    "email": "Mail ",
+    "bod": "Date de naissance",
+    "structure": "Structure rattachement",
+    "password": "Mot de passe",
+    "access": "Mon identifiant",
+    "informations-personnelles": "Informations personnelles",
+    "nom": "Nom",
+    "prenom": "Prénom",
+    "modifier": "Modifier",
+    "annuler": "Annuler",
+    "uid": "UID",
+    "not-available": "Non renseigné",
+    "userName": "Nom complet",
+    "civilite": "Civilité",
+    "categorie": "Catégorie",
+    "etat": "Statut",
+    "etab": "Établissement",
+    "non-renseigne": "Non renseigné",
+    "modifier-email": "Modifier l'adresse e-mail",
+    "educonnect": "EduConnect",
+    "not-set": "Non renseigné",
+    "email-personnel": "E-mail personnel"
+  },
+  "page-mce": {
+    "user-details": "Informations utilisateur",
+    "main-content": "Contenu principal"
+  },
+  "info-general": {
+    "title-fonction": "Mes fonctions",
+    "title-classe-groupe": "Mes classes et groupes pédagogiques",
+    "title-courses": "Enseignements suivis",
+    "class": "Classe",
+    "group": "Groupe"
+  },
+  "services-ent": {
+    "title-services": "Services auxquels j'ai accès dans l'ENT"
+  },
+  "relation-user": {
+    "title-relation-parent": "Les élèves de ma relation",
+    "title-relation-student": "Personne en relation avec moi",
+    "title-relation-master": "Mes apprentis",
+    "parental-authority": "Autorité parentale",
+    "relation-default": "Relation",
+    "no-relation": "Aucune relation trouvée.",
+    "type": {
+      "autorite_parentale": "Autorité parentale",
+      "pere": "Père",
+      "mere": "Mère"
+    }
+
+  },
+  "avatar-user": {
+    "title-header": "Modifier l'avatar",
+    "select-image": "Choisir une image",
+    "apply": "Appliquer",
+    "loading": "Chargement...",
+    "success": "Avatar mis à jour avec succès",
+    "error-default": "Une erreur est survenue lors de la mise à jour de l'avatar",
+    "select-image-hint": "Sélectionnez une image",
+    "edit-avatar": "Modifier l'avatar",
+    "close": "Fermer la fenêtre",
+    "avatar-alt": "Photo de profil actuelle",
+    "crop-alt": "Aperçu du recadrage"
+  },
+  "change-email": {
+    "title": "Modifier l'adresse email",
+    "current-email": "Email actuel",
+    "new-email": "Nouvel email",
+    "confirm-email": "Confirmation du nouvel email",
+    "placeholder": "exemple{'@'}domaine.fr",
+    "cancel": "Annuler",
+    "submit": "Valider",
+    "loading": "...",
+    "success": "Email mis à jour avec succès !",
+    "error-required": "Tous les champs sont obligatoires.",
+    "error-format": "Le format de l'email est invalide.",
+    "error-mismatch": "Les emails ne correspondent pas.",
+    "error-default": "Erreur lors de la modification.",
+    "no-email": "Aucune adresse email renseignée.",
+    "focus-sentinel-start": "Retour au début du formulaire",
+    "focus-sentinel-end": "Fin du formulaire"
+  },
+  "change-password": {
+    "title": "Changer mon mot de passe",
+    "current-password": "Mot de passe actuel",
+    "new-password": "Nouveau mot de passe",
+    "confirm-password": "Confirmer le nouveau mot de passe",
+    "placeholder-current": "Entrez votre mot de passe actuel",
+    "placeholder-new": "Au moins 12 caractères",
+    "placeholder-confirm": "Répétez votre mot de passe",
+    "submit": "Changer le mot de passe",
+    "loading": "Chargement...",
+    "error-required": "Tous les champs sont obligatoires.",
+    "error-mismatch": "Les nouveaux mots de passe ne correspondent pas.",
+    "error-length": "Le nouveau mot de passe doit contenir au moins 12 caractères.",
+    "success": "Mot de passe changé avec succès.",
+    "error-default": "Erreur lors du changement du mot de passe."
+  },
+  "classes-groupes-eleve": {
+    "etablissement": "Établissement",
+    "matieres-suivies": "Matières suivies",
+    "no-class": "Aucune classe",
+    "no-group": "Aucun groupe",
+    "no-etab": "Aucun établissement",
+    "no-course": "Aucun enseignement"
+  },
+  "classes-groupes-prof": {
+    "etablissement": "Établissement",
+    "discipline": "Discipline / Matière",
+    "no-data": "Aucune donnée chargée.",
+    "discipline-unknown": "Discipline inconnue",
+    "discipline-not-set": "Discipline non renseignée",
+    "collapse-open": "Ouvrir la section",
+    "collapse-close": "Fermer la section",
+    "autres-fonctions": "Autres fonctions"
+  },
+  "fonctions-list": {
+    "card-label": "Fonctions",
+    "toggle-activate": "Activer",
+    "toggle-deactivate": "Désactiver"
+  },
+  "relation-user-detail": {
+    "detail-panel-label": "Panneau de détails de la relation utilisateur",
+    "loading": "Chargement…",
+    "error": "Impossible de charger les informations.",
+    "external-account": "Compte Externe (EduConnect)",
+    "close": "Fermer",
+    "email": "Adresse e-mail",
+    "etab": "Établissement rattaché",
+    "bod": "Date de naissance",
+    "uid": "Identifiant unique (UID)",
+    "classes-groupes": "Classes et groupes pédagogiques",
+    "classes": "Classes",
+    "groupes": "Groupes",
+    "enseignements": "Enseignements suivis",
+    "personnes-relation": "Personnes en relation",
+    "lien": "Lien",
+    "autorite-parentale": "Autorité parentale",
+    "avatar-alt": "Photo de profil de",
+    "lien-label": "Lien : {lien}",
+    "mdp-label": "Mot de passe : {mdp}"
+  },
+  "onglet-content": {
+    "mes-fonctions": "Mes fonctions",
+    "etab-siren": "Établissement (SIREN)",
+    "fonction": "Fonction",
+    "discipline": "Discipline",
+    "active": "Activé",
+    "active-label": "Fonction active pour",
+    "not-available": "N/A",
+    "student": "Les élèves de ma relation",
+    "master": "Mes apprentis"
+  }
+}

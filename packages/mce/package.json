@@ -1,0 +1,80 @@
+{
+  "name": "@gip-recia/mce",
+  "type": "module",
+  "version": "0.0.0",
+  "description": "",
+  "contributors": [
+    {
+      "name": "Quentin Guillemin",
+      "email": "quentin.guillemin@recia.fr",
+      "url": "https://github.com/Quentin-Guillemin"
+    }
+  ],
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/GIP-RECIA/recia-webcomponents/tree/main/packages/mce/#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GIP-RECIA/recia-webcomponents.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GIP-RECIA/recia-webcomponents/issues"
+  },
+  "keywords": [
+    "mce",
+    "gip-recia"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/mce.js"
+    }
+  },
+  "module": "./dist/mce.js",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "dotenv-checker && vite --host",
+    "build": "run-p type-check build-only",
+    "build:min": "npm exec terser -- -c -m --module -f comments=false -o dist/mce.min.js -- dist/mce.js",
+    "lint": "eslint src/*",
+    "preview": "vite preview",
+    "test:unit": "vitest",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --noEmit",
+    "release": "yarn run -T commit-and-tag-version -t 'mce/v' --path . --release-as $1 || echo 'Please specify a version type (yarn run release -- [patch, minor, major])'"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^9.0.0",
+    "@fortawesome/fontawesome-svg-core": "^7.2.0",
+    "@fortawesome/free-solid-svg-icons": "^7.2.0",
+    "@fortawesome/vue-fontawesome": "^3.2.0",
+    "@gip-recia/ui": "^1.0.5",
+    "@intlify/unplugin-vue-i18n": "^11.2.3",
+    "@tsconfig/node24": "^24.0.4",
+    "@types/node": "^24",
+    "@types/regenerator-runtime": "^0",
+    "@uportal/open-id-connect": "^1.40.2",
+    "@vitejs/plugin-vue": "^6.0.7",
+    "@vue/test-utils": "^2.4.10",
+    "@vue/tsconfig": "^0.9.1",
+    "dotenv-checker": "^1.1.7",
+    "eslint": "^10.5.0",
+    "eslint-plugin-format": "^2.0.1",
+    "jsdom": "^29.1.1",
+    "npm-run-all2": "^9.0.2",
+    "regenerator-runtime": "^0.14.1",
+    "ress": "^5.0.2",
+    "sass": "^1.101.0",
+    "terser": "^5.48.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.2",
+    "vitest": "^4.1.7",
+    "vue": "^3.5.38",
+    "vue-advanced-cropper": "^2.8.9",
+    "vue-i18n": "^11.4.5",
+    "vue-tsc": "^3.3.5"
+  }
+}
