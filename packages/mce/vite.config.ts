@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 /* eslint-disable node/prefer-global/process */
 
 import type { ConfigEnv, PluginOption } from 'vite'
@@ -23,6 +24,7 @@ import { loadEnv } from 'vite'
 import { defineConfig } from 'vitest/config'
 import { name } from './package.json'
 
+// https://vitejs.dev/config/
 export default ({ mode }: ConfigEnv) => {
   const env = loadEnv(mode, process.cwd(), '')
 
