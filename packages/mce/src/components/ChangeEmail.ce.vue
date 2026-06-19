@@ -15,7 +15,7 @@
 -->
 
 <script setup lang="ts">
-import { inject, nextTick, onUnmounted, ref } from 'vue'
+import { computed, inject, nextTick, onUnmounted, ref } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 import { updateEmail } from '@/services/serviceMce.ts'
 
@@ -25,6 +25,7 @@ const props = defineProps<{
   userInfoApiUrl: string
   userId: string
   currentEmail?: string
+  currentEmailPerso?: string
   mceApi: string
 }>()
 
@@ -51,6 +52,8 @@ const alertRef = ref<HTMLDivElement | null>(null)
 const EMAIL_REGEX = /^[^\s@]+@[^\s@][^\s.@]*\.[^\s@]+$/
 
 const messageId = 'change-email-message'
+
+const displayedCurrentEmail = computed(() => props.currentEmailPerso || props.currentEmail || tEmail('no-email'))
 
 onUnmounted(() => {
   if (successTimer.value)
@@ -131,7 +134,7 @@ async function handleSubmit() {
       <form class="card-body" role="none" novalidate @submit.prevent="handleSubmit">
         <div class="form-group">
           <label class="info-label">{{ tEmail('current-email') }}</label>
-          <span class="static-value">{{ props.currentEmail || '-' }}</span>
+          <span class="static-value">{{ displayedCurrentEmail }}</span>
         </div>
 
         <div class="form-group">

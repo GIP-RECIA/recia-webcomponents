@@ -25,7 +25,6 @@ const props = defineProps<{
   list: Array<string>
   ongletCurrent: string
   classBtn: string
-  userInfoApiUrl: string
 }>()
 
 const emit = defineEmits<(e: 'selectOnglet', payload: string) => void>()
