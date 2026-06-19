@@ -86,12 +86,21 @@ const enseignementsList = computed(() => {
     :aria-label="!personne ? t('detail-panel-label') : undefined"
   >
     <!-- Chargement -->
-    <output v-if="isLoading" class="alert-message alert-message--info" aria-live="polite">
+    <output
+      v-if="isLoading"
+      class="alert-message alert-message--info"
+      aria-live="polite"
+    >
       {{ t('loading') }}
     </output>
 
     <!-- Erreur -->
-    <div v-else-if="hasError" class="alert-message alert-message--error" role="alert" aria-live="assertive">
+    <div
+      v-else-if="hasError"
+      class="alert-message alert-message--error"
+      role="alert"
+      aria-live="assertive"
+    >
       {{ t('error') }}
     </div>
 
@@ -100,63 +109,110 @@ const enseignementsList = computed(() => {
       <!-- En-tête -->
       <div class="detail-header">
         <div class="detail-header-meta">
-          <p id="relation-detail-title" class="detail-name">
+          <p
+            id="relation-detail-title"
+            class="detail-name"
+          >
             {{ personne.userName }}
           </p>
           <div class="badge-container">
-            <span v-if="personne.etat" class="status-badge" :class="`status-badge--${personne.etat.toLowerCase()}`">
+            <span
+              v-if="personne.etat"
+              class="status-badge"
+              :class="`status-badge--${personne.etat.toLowerCase()}`"
+            >
               {{ personne.etat }}
             </span>
-            <span v-if="personne.mdp === false" class="status-badge status-badge--external">
+            <span
+              v-if="personne.mdp === false"
+              class="status-badge status-badge--external"
+            >
               {{ t('external-account') }}
             </span>
           </div>
         </div>
 
-        <button type="button" class="btn-primary small" :aria-label="t('close')" @click="$emit('close')">
+        <button
+          type="button"
+          class="btn-primary small"
+          :aria-label="t('close')"
+          @click="$emit('close')"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
       <div class="detail-grid">
-        <div v-if="personne.etab" class="info-item info-item--full">
+        <div
+          v-if="personne.etab"
+          class="info-item info-item--full"
+        >
           <span class="info-label">{{ t('etab') }}</span>
           <span class="info-value-box">{{ personne.etab }}</span>
         </div>
 
-        <div v-if="formatDate" class="info-item">
+        <div
+          v-if="formatDate"
+          class="info-item"
+        >
           <span class="info-label">{{ t('bod') }}</span>
           <span class="info-value-box">
             <time :datetime="personne.bod">{{ formatDate }}</time>
           </span>
         </div>
 
-        <div v-if="personne.uid" class="info-item">
+        <div
+          v-if="personne.uid"
+          class="info-item"
+        >
           <span class="info-label">{{ t('uid') }}</span>
           <span class="info-value-box">{{ personne.uid }}</span>
         </div>
       </div>
 
       <!-- Classes & groupes -->
-      <div v-if="classesList.length || groupesList.length" class="sub-section">
+      <div
+        v-if="classesList.length || groupesList.length"
+        class="sub-section"
+      >
         <p class="sub-section-title">
           {{ t('classes-groupes') }}
         </p>
 
         <div class="detail-grid">
-          <div v-if="classesList.length" class="info-item">
+          <div
+            v-if="classesList.length"
+            class="info-item"
+          >
             <span class="info-label">{{ t('classes') }}</span>
-            <div class="info-value-box info-value-box--tags" role="none">
-              <span v-for="(classe, i) in classesList" :key="i" class="badge-tag">
+            <div
+              class="info-value-box info-value-box--tags"
+              role="none"
+            >
+              <span
+                v-for="(classe, i) in classesList"
+                :key="i"
+                class="badge-tag"
+              >
                 {{ classe }}
               </span>
             </div>
           </div>
 
-          <div v-if="groupesList.length" class="info-item">
+          <div
+            v-if="groupesList.length"
+            class="info-item"
+          >
             <span class="info-label">{{ t('groupes') }}</span>
-            <div class="info-value-box info-value-box--tags" role="none">
-              <span v-for="(groupe, i) in groupesList" :key="i" class="badge-tag">
+            <div
+              class="info-value-box info-value-box--tags"
+              role="none"
+            >
+              <span
+                v-for="(groupe, i) in groupesList"
+                :key="i"
+                class="badge-tag"
+              >
                 {{ groupe }}
               </span>
             </div>
@@ -165,23 +221,39 @@ const enseignementsList = computed(() => {
       </div>
 
       <!-- Enseignements -->
-      <div v-if="enseignementsList.length" class="sub-section">
+      <div
+        v-if="enseignementsList.length"
+        class="sub-section"
+      >
         <p class="sub-section-title">
           {{ t('enseignements') }}
         </p>
-        <div class="enseignements-grid" role="none">
-          <span v-for="(matiere, i) in enseignementsList" :key="i" class="badge-tag">
+        <div
+          class="enseignements-grid"
+          role="none"
+        >
+          <span
+            v-for="(matiere, i) in enseignementsList"
+            :key="i"
+            class="badge-tag"
+          >
             {{ matiere }}
           </span>
         </div>
       </div>
 
       <!-- Personnes en relation -->
-      <div v-if="personne.parentEleve?.length" class="sub-section">
+      <div
+        v-if="personne.parentEleve?.length"
+        class="sub-section"
+      >
         <p class="sub-section-title">
           {{ t('personnes-relation') }}
         </p>
-        <div class="relations-list" role="none">
+        <div
+          class="relations-list"
+          role="none"
+        >
           <div
             v-for="(parent, i) in personne.parentEleve"
             :key="i"
@@ -189,11 +261,17 @@ const enseignementsList = computed(() => {
           >
             <div class="relation-info">
               <span class="info-value info-value--bold">{{ parent.displayNameRelation }}</span>
-              <span v-if="parent.lienParente" class="relation-type">
+              <span
+                v-if="parent.lienParente"
+                class="relation-type"
+              >
                 {{ t('lien-label', { lien: parent.lienParente }) }}
               </span>
             </div>
-            <span v-if="parent.autoriteParental" class="ap-tag">
+            <span
+              v-if="parent.autoriteParental"
+              class="ap-tag"
+            >
               {{ t('autorite-parentale') }}
             </span>
           </div>
