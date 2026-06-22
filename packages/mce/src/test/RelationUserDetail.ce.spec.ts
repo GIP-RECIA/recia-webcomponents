@@ -101,19 +101,19 @@ describe('relationUserDetail', () => {
       expect(wrapper.find('.detail-header').exists()).toBe(false)
     })
 
-    it('affiche le bloc erreur si hasError est true', () => {
+    it('affiche le bloc erreur si errorMessage est défini', () => {
       const wrapper = mount(RelationUserDetail, {
-        props: { ...defaultProps, hasError: true },
+        props: { ...defaultProps, errorMessage: 'Erreur de connexion réseau' },
         global: mountOptions.global,
       })
 
       expect(wrapper.find('.alert-message--error').exists()).toBe(true)
-      expect(wrapper.text()).toContain('Erreur')
+      expect(wrapper.text()).toContain('Erreur de connexion réseau')
     })
 
-    it('n affiche pas le contenu si hasError est true', () => {
+    it('n affiche pas le contenu si errorMessage est défini', () => {
       const wrapper = mount(RelationUserDetail, {
-        props: { ...defaultProps, hasError: true },
+        props: { ...defaultProps, errorMessage: 'Erreur de connexion réseau' },
         global: mountOptions.global,
       })
 
@@ -388,7 +388,7 @@ describe('relationUserDetail', () => {
         props: {
           personne: null,
           isLoading: false,
-          hasError: false,
+          errorMessage: undefined,
         },
         global: mountOptions.global,
       })

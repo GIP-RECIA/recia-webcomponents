@@ -37,7 +37,8 @@
   },
   "page-mce": {
     "user-details": "Informations utilisateur",
-    "main-content": "Contenu principal"
+    "main-content": "Contenu principal",
+    "error-default": "Erreur lors du chargement de vos informations."
   },
   "info-general": {
     "title-fonction": "Mes fonctions",
@@ -56,6 +57,7 @@
     "parental-authority": "Autorité parentale",
     "relation-default": "Relation",
     "no-relation": "Aucune relation trouvée.",
+    "error-default": "Impossible de charger les informations.",
     "type": {
       "autorite_parentale": "Autorité parentale",
       "pere": "Père",

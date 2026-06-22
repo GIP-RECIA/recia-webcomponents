@@ -23,7 +23,7 @@ defineOptions({ name: 'RelationUserDetail' })
 const props = defineProps({
   personne: { type: Object as () => any, default: null },
   isLoading: { type: Boolean },
-  hasError: { type: Boolean },
+  errorMessage: { type: String, default: undefined },
 })
 
 defineEmits<{
@@ -96,12 +96,12 @@ const enseignementsList = computed(() => {
 
     <!-- Erreur -->
     <div
-      v-else-if="hasError"
+      v-else-if="errorMessage"
       class="alert-message alert-message--error"
       role="alert"
       aria-live="assertive"
     >
-      {{ t('error') }}
+      {{ errorMessage }}
     </div>
 
     <!-- Contenu -->

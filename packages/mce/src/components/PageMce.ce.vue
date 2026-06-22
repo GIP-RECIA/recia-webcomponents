@@ -15,7 +15,7 @@
 -->
 
 <script setup lang="ts">
-import { computed, onMounted, provide, ref } from 'vue'
+import { computed, nextTick, onMounted, provide, ref } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 import i18n from '@/plugins/i18n'
 import { getMCE } from '@/services/serviceMce'
@@ -29,6 +29,11 @@ const props = defineProps<{
 }>()
 
 provide(I18nInjectionKey, i18n)
+
+const hasError = ref(false)
+const errorMessage = ref('')
+const alertRef = ref<HTMLDivElement | null>(null)
+const errorMessageId = 'page-mce-error'
 
 const mce = ref<any>({
   id: null,
@@ -80,8 +85,14 @@ onMounted(async () => {
 
     avatar.value = mce.value.avatar ?? props.avatarDefault
   }
-  catch (error: any) {
+  catch (error: unknown) {
     console.error('[onMounted] ERROR =>', error)
+    hasError.value = true
+    errorMessage.value = (error as { response?: { data?: { message?: string } } })?.response?.data?.message
+      ?? (error instanceof Error ? error.message : undefined)
+      ?? i18n.global.t('page-mce.error-default') as string
+    await nextTick()
+    alertRef.value?.focus()
   }
 })
 
@@ -108,7 +119,21 @@ function handleAvatarUpdated() {
 </script>
 
 <template>
-  <div class="parent">
+  <div
+    v-if="hasError"
+    :id="errorMessageId"
+    ref="alertRef"
+    class="alert-message alert-message--error"
+    role="alert"
+    tabindex="-1"
+  >
+    {{ errorMessage }}
+  </div>
+
+  <div
+    v-else
+    class="parent"
+  >
     <aside class="user-details">
       <user-base-info
         v-if="mce.uid"
