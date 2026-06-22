@@ -16,7 +16,6 @@
 
 <script setup lang="ts">
 import type { AxiosError } from 'axios'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import Cropper from 'cropperjs'
 import { inject, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
@@ -265,12 +264,6 @@ function focusLast() {
         :src="avatar"
         alt=""
       >
-      <span
-        class="edit-picture"
-        aria-hidden="true"
-      >
-        <FontAwesomeIcon :icon="['fas', 'pen']" />
-      </span>
     </button>
 
     <!-- Modale -->
@@ -375,8 +368,7 @@ function focusLast() {
   </div>
 </template>
 
-<!-- Scoped : uniquement l'avatar -->
-<style lang="scss" scoped>
+<style lang="scss">
 @use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
@@ -410,7 +402,8 @@ function focusLast() {
     display: block;
   }
 
-  .edit-picture {
+  &::after {
+    content: '\270E';
     position: absolute;
     bottom: -4px;
     right: -4px;
@@ -419,32 +412,21 @@ function focusLast() {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: clamp(14px, 3vw, 18px);
     background-color: var(--#{$prefix}primary);
     color: var(--#{$prefix}btn-primary);
     border: 3px solid var(--#{$prefix}body-bg);
     border-radius: 50%;
-    opacity: 0;
     transition: all 0.2s ease-in-out;
-    pointer-events: none;
   }
 
-  &:hover,
-  &:focus-visible {
-    .avatar {
-      opacity: 0.85;
-    }
-
-    .edit-picture {
-      opacity: 1;
-      transform: scale(1.08);
-    }
+  &:hover::after {
+    transform: scale(1.08);
   }
 
   @media (width < map.get($grid-breakpoints, sm)) {
-    border-width: 3px;
-
-    .edit-picture {
-      opacity: 1;
+    &::after {
+      transform: scale(1.08);
     }
   }
 
