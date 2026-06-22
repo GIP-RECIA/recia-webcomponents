@@ -15,7 +15,7 @@
 -->
 
 <script setup lang="ts">
-import { computed, inject, nextTick, onUnmounted, ref } from 'vue'
+import { computed, inject, nextTick, onUnmounted, ref, watch } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 import { updateEmail } from '@/services/serviceMce.ts'
 
@@ -54,6 +54,11 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@][^\s.@]*\.[^\s@]+$/
 const messageId = 'change-email-message'
 
 const displayedCurrentEmail = computed(() => props.currentEmailPerso || props.currentEmail || tEmail('no-email'))
+
+watch([newEmail, confirmEmail], ([n, c]) => {
+  if (n || c)
+    message.value = ''
+})
 
 onUnmounted(() => {
   if (successTimer.value)
@@ -101,6 +106,8 @@ async function handleSubmit() {
 
     successTimer.value = setTimeout(() => {
       emit('updated', newEmail.value)
+      newEmail.value = ''
+      confirmEmail.value = ''
     }, 1000)
   }
   catch (error: unknown) {
