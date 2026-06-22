@@ -15,7 +15,7 @@
 -->
 
 <script setup lang="ts">
-import { inject, nextTick, ref } from 'vue'
+import { inject, nextTick, ref, watch } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 import { postPassword } from '@/services/serviceMce.ts'
 
@@ -45,6 +45,11 @@ const isLoading = ref(false)
 const alertRef = ref<HTMLDivElement | null>(null)
 
 const messageId = 'change-password-message'
+
+watch([currentPassword, newPassword, confirmPassword], ([c, n, cf]) => {
+  if (c || n || cf)
+    message.value = ''
+})
 
 async function handleChangePassword() {
   message.value = ''

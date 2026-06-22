@@ -111,6 +111,7 @@ watch(() => props.listMenu, async () => {
       class="tab-pane animate-fade"
     >
       <ChangePassword
+        :key="`pwd-${props.listMenu}`"
         :user-info-api-url="props.userInfoApiUrl"
         :user-id="props.userId"
         :mce-api="props.mceApi"
@@ -127,6 +128,7 @@ watch(() => props.listMenu, async () => {
       class="tab-pane animate-fade"
     >
       <FonctionsList
+        :key="`fn-${props.listMenu}`"
         :fonctions="props.fonctionClassesGroupe.listFonctions ?? []"
         :user-info-api-url="props.userInfoApiUrl ?? ''"
         :mce-api="props.mceApi"
@@ -143,6 +145,7 @@ watch(() => props.listMenu, async () => {
       class="tab-pane animate-fade"
     >
       <ChangeEmail
+        :key="`email-${props.listMenu}`"
         :user-info-api-url="props.userInfoApiUrl"
         :mce-api="props.mceApi"
         :user-id="props.userId"
