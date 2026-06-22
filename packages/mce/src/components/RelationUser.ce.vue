@@ -42,7 +42,7 @@ const relations = computed(() => props.details ?? [])
 const selectedUid = ref<string | null>(null)
 const personne = ref<any>(null)
 const isLoading = ref(false)
-const hasError = ref(false)
+const errorMessage = ref<string | undefined>(undefined)
 const showDetail = ref(false)
 const currentAbortController = ref<AbortController | null>(null)
 
@@ -57,7 +57,7 @@ async function selectRelation(uid: string): Promise<void> {
   currentAbortController.value = controller
 
   isLoading.value = true
-  hasError.value = false
+  errorMessage.value = undefined
   showDetail.value = true
   selectedUid.value = uid
 
@@ -71,7 +71,9 @@ async function selectRelation(uid: string): Promise<void> {
     if (controller.signal.aborted)
       return
     console.error('[RelationUser] Erreur getDetailEnfant :', error)
-    hasError.value = true
+    errorMessage.value = (error as { response?: { data?: { message?: string } } })?.response?.data?.message
+      ?? (error instanceof Error ? error.message : undefined)
+      ?? m('error-default')
   }
   finally {
     if (!controller.signal.aborted)
@@ -84,7 +86,7 @@ function closeDetail(): void {
   currentAbortController.value = null
   selectedUid.value = null
   personne.value = null
-  hasError.value = false
+  errorMessage.value = undefined
   isLoading.value = false
   showDetail.value = false
 }
@@ -166,7 +168,7 @@ function closeDetail(): void {
               <RelationUserDetail
                 :personne="personne"
                 :is-loading="isLoading"
-                :has-error="hasError"
+                :error-message="errorMessage"
                 @close="closeDetail"
               />
             </div>
