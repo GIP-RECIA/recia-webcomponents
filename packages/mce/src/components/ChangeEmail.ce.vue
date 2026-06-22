@@ -104,10 +104,8 @@ async function handleSubmit() {
     }, 1000)
   }
   catch (error: unknown) {
-    const apiMessage
-      = error instanceof Error
-        ? error.message
-        : (error as { response?: { data?: { message?: string } } })?.response?.data?.message
+    const apiMessage = (error as { response?: { data?: { message?: string } } })?.response?.data?.message
+      ?? (error instanceof Error ? error.message : undefined)
 
     message.value = apiMessage ?? tEmail('error-default')
     messageType.value = 'error'

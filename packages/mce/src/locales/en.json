@@ -130,7 +130,8 @@
   "fonctions-list": {
     "card-label": "Roles",
     "toggle-activate": "Activate",
-    "toggle-deactivate": "Deactivate"
+    "toggle-deactivate": "Deactivate",
+    "error-default": "An error occurred."
   },
   "relation-user-detail": {
     "detail-panel-label": "User relationship details panel",

@@ -131,7 +131,8 @@
   "fonctions-list": {
     "card-label": "Fonctions",
     "toggle-activate": "Activer",
-    "toggle-deactivate": "Désactiver"
+    "toggle-deactivate": "Désactiver",
+    "error-default": "Une erreur est survenue."
   },
   "relation-user-detail": {
     "detail-panel-label": "Panneau de détails de la relation utilisateur",
