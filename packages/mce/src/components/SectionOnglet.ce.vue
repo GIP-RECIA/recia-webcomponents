@@ -40,8 +40,6 @@ const props = defineProps<{
   parentEleve: PersonneRelation
   relationEleve: PersonneRelation
   apprentis: PersonneRelation
-  services: Array<string>
-  etabCurrent: string
   userMail?: string
   userMailPerso?: string
   uid?: string
@@ -100,22 +98,6 @@ watch(() => props.listMenu, async () => {
         :relation-eleve="props.relationEleve"
         :apprentis="props.apprentis"
         :user-info-api-url="props.userInfoApiUrl"
-      />
-    </div>
-
-    <!-- ONGLET SERVICES ENT -->
-    <div
-      v-show="props.listMenu === 'SERVICE'"
-      id="onglet-tabpanel-SERVICE"
-      :inert="props.listMenu !== 'SERVICE'"
-      role="tabpanel"
-      aria-labelledby="onglet-tab-SERVICE"
-      class="tab-pane animate-fade"
-    >
-      <services-ent
-        :details="props.services"
-        :etab="props.etabCurrent"
-        :onglet="props.listMenu"
       />
     </div>
 
