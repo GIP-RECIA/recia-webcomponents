@@ -191,7 +191,7 @@ describe('relationUser', () => {
   // ACTIONS – ERREUR API
   // --------------------------------------------------
   describe('erreur API', () => {
-    it('affiche RelationUserDetail avec hasError=true si l\'API échoue', async () => {
+    it('affiche RelationUserDetail avec errorMessage si l\'API échoue', async () => {
       vi.mocked(getDetailEnfant).mockRejectedValueOnce(new Error('Erreur'))
       const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 
@@ -202,7 +202,7 @@ describe('relationUser', () => {
 
       const detail = wrapper.findComponent({ name: 'RelationUserDetail' })
       expect(detail.exists()).toBe(true)
-      expect(detail.props('hasError')).toBe(true)
+      expect(detail.props('errorMessage')).toBe('Erreur')
 
       consoleSpy.mockRestore()
     })

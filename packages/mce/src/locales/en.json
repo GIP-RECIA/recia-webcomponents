@@ -37,7 +37,8 @@
   },
   "page-mce": {
     "user-details": "User information",
-    "main-content": "Main content"
+    "main-content": "Main content",
+    "error-default": "Error loading your information."
   },
   "info-general": {
     "title-fonction": "My roles",
@@ -56,6 +57,7 @@
     "parental-authority": "Parental authority",
     "relation-default": "Relationship",
     "no-relation": "No relationship found.",
+    "error-default": "Unable to load information.",
     "type": {
       "autorite_parentale": "Parental authority",
       "pere": "Father",
