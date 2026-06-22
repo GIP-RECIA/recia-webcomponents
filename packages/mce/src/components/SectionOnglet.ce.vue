@@ -172,7 +172,7 @@ watch(() => props.listMenu, async () => {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 @use 'ress/dist/ress.min.css';
 @use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
