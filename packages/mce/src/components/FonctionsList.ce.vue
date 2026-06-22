@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import type { PersonneFonction } from '@/types/fonctionType'
-import { inject, ref, watch } from 'vue'
+import { inject, nextTick, ref, watch } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 import { updateFonctionDateFin } from '@/services/serviceMce.ts'
 
@@ -29,6 +29,11 @@ const props = defineProps<{
 }>()
 
 const MCE_SUFFIX = /\/mce\/?$/
+
+const message = ref('')
+const messageType = ref<'success' | 'error'>('error')
+const alertRef = ref<HTMLDivElement | null>(null)
+const messageId = 'fonctions-list-message'
 
 const localFonctions = ref(props.fonctions.map(f => ({ ...f })))
 
@@ -73,9 +78,13 @@ async function onToggle(it: PersonneFonction): Promise<void> {
     const baseUrl = props.mceApi.replace(MCE_SUFFIX, '')
     await updateFonctionDateFin(baseUrl, id, newValue, props.userInfoApiUrl)
   }
-  catch (e) {
-    console.error(e)
+  catch (error: unknown) {
+    console.error(error)
     it.active = previous
+    message.value = (error as { response?: { data?: { message?: string } } })?.response?.data?.message ?? tFonctions('error-default')
+    messageType.value = 'error'
+    await nextTick()
+    alertRef.value?.focus()
   }
 }
 </script>
@@ -96,6 +105,18 @@ async function onToggle(it: PersonneFonction): Promise<void> {
     </div>
 
     <div class="card-body">
+      <div
+        v-if="message"
+        :id="messageId"
+        ref="alertRef"
+        class="alert-message"
+        :class="`alert-message--${messageType}`"
+        role="alert"
+        tabindex="-1"
+      >
+        {{ message }}
+      </div>
+
       <div class="grid-fonctions">
         <div
           v-for="(it, index) in localFonctions"
