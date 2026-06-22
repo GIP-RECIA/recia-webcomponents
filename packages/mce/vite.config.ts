@@ -72,7 +72,6 @@ export default ({ mode }: ConfigEnv) => {
                 'onglet-content',
                 'relation-user',
                 'section-onglet',
-                'services-ent',
                 'user-base-info',
                 'info-modal',
               ].includes(tag),

@@ -18,14 +18,13 @@
 import { computed, onMounted, provide, ref } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 import i18n from '@/plugins/i18n'
-import { getMCE, getServicesEnt } from '@/services/serviceMce'
+import { getMCE } from '@/services/serviceMce'
 
 defineOptions({ name: 'PageMce' })
 
 const props = defineProps<{
   mceApi: string
   userInfoApiUrl: string
-  portailApiUrl: string
   avatarDefault: string
 }>()
 
@@ -57,43 +56,11 @@ const mce = ref<any>({
 const ongletCurrent = ref<string>('')
 const listOnglets = ref<Array<string>>([])
 const avatar = ref<string>('')
-const portlets = ref<string[]>([])
-
 const civilite = computed<string>(() => mce.value.civilite ?? '')
 const nom = computed<string>(() => mce.value.sn ?? '')
 const prenom = computed<string>(() => mce.value.givenName ?? '')
 const categorie = computed<string>(() => mce.value.categorie ?? '')
 const userMailPerso = computed<string>(() => mce.value.emailPersonnel || mce.value.email || '')
-
-async function getAllPortlets(uri: string, token: string) {
-  try {
-    const services = await getServicesEnt(uri, token)
-
-    const subcategories
-      = services?.data?.registry?.categories?.[0]?.subcategories
-
-    if (!Array.isArray(subcategories)) {
-      console.warn(
-        '[getAllPortlets] Invalid registry structure: categories[0].subcategories is missing',
-      )
-      portlets.value = []
-      return
-    }
-
-    const set = new Set<string>()
-
-    for (const subcategory of subcategories) {
-      for (const portlet of subcategory.portlets ?? []) {
-        set.add(portlet.title)
-      }
-    }
-
-    portlets.value = Array.from(set)
-  }
-  catch (error) {
-    console.error('[getAllPortlets] ERROR =>', error)
-  }
-}
 
 onMounted(async () => {
   try {
@@ -112,8 +79,6 @@ onMounted(async () => {
     ongletCurrent.value = listOnglets.value[0]
 
     avatar.value = mce.value.avatar ?? props.avatarDefault
-
-    await getAllPortlets(props.portailApiUrl, props.userInfoApiUrl)
   }
   catch (error: any) {
     console.error('[onMounted] ERROR =>', error)
@@ -177,8 +142,6 @@ function handleAvatarUpdated() {
           :parent-eleve="mce.parentEleve ?? {}"
           :relation-eleve="mce.relationEleve ?? {}"
           :apprentis="mce.apprentis ?? {}"
-          :services="portlets"
-          :etab-current="mce.etab ?? ''"
           :user-name="mce.userName ?? ''"
           :user-mail="mce.email ?? ''"
           :user-mail-perso="userMailPerso"
