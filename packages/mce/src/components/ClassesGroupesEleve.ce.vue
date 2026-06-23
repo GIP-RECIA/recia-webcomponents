@@ -66,20 +66,18 @@ function tGeneral(key: string): string {
               <ul
                 v-if="classgroup.classes?.length"
                 class="pills-list"
-                role="none"
               >
                 <li
                   v-for="(cls, i) in classgroup.classes"
                   :key="i"
                   class="pill-tag"
-                  role="presentation"
                 >
                   {{ cls }}
                 </li>
               </ul>
               <span
                 v-else
-                class="info-value"
+                class="pill-tag"
               >{{ tEleve('no-class') }}</span>
             </div>
 
@@ -89,20 +87,18 @@ function tGeneral(key: string): string {
               <ul
                 v-if="classgroup.groupes?.length"
                 class="pills-list"
-                role="none"
               >
                 <li
                   v-for="(grp, i) in classgroup.groupes"
                   :key="i"
                   class="pill-tag"
-                  role="presentation"
                 >
                   {{ grp }}
                 </li>
               </ul>
               <span
                 v-else
-                class="info-value"
+                class="pill-tag"
               >{{ tEleve('no-group') }}</span>
             </div>
           </div>
@@ -136,13 +132,11 @@ function tGeneral(key: string): string {
             <ul
               v-if="sectionEleve?.enseignementSuivis?.length"
               class="enseignements-list"
-              role="none"
             >
               <li
                 v-for="(ens, index) in sectionEleve.enseignementSuivis"
                 :key="index"
                 class="pill-tag"
-                role="presentation"
               >
                 {{ ens }}
               </li>

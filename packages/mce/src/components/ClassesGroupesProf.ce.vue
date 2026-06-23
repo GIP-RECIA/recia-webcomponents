@@ -181,7 +181,6 @@ const hasNoData = computed(() => {
                 <div
                   v-if="getSectionClasses(item, nomEtab).length || getSectionGroupes(item, nomEtab).length"
                   class="badge-row"
-                  role="none"
                 >
                   <span
                     v-for="c in getSectionClasses(item, nomEtab)"
@@ -223,7 +222,6 @@ const hasNoData = computed(() => {
                 <div
                   v-if="getFonctionClasses(f).length > 0 || getFonctionGroupes(f).length > 0"
                   class="badge-row"
-                  role="none"
                 >
                   <span
                     v-for="c in getFonctionClasses(f)"

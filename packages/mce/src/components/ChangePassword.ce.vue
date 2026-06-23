@@ -124,7 +124,6 @@ async function handleChangePassword() {
 
     <form
       class="card-body"
-      role="none"
       novalidate
       @submit.prevent="handleChangePassword"
     >

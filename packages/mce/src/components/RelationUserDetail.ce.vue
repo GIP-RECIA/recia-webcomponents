@@ -109,12 +109,12 @@ const enseignementsList = computed(() => {
       <!-- En-tête -->
       <div class="detail-header">
         <div class="detail-header-meta">
-          <p
+          <h3
             id="relation-detail-title"
             class="detail-name"
           >
             {{ personne.userName }}
-          </p>
+          </h3>
           <div class="badge-container">
             <span
               v-if="personne.etat"
@@ -175,9 +175,9 @@ const enseignementsList = computed(() => {
         v-if="classesList.length || groupesList.length"
         class="sub-section"
       >
-        <p class="sub-section-title">
+        <h4 class="sub-section-title">
           {{ t('classes-groupes') }}
-        </p>
+        </h4>
 
         <div class="detail-grid">
           <div
@@ -185,10 +185,7 @@ const enseignementsList = computed(() => {
             class="info-item"
           >
             <span class="info-label">{{ t('classes') }}</span>
-            <div
-              class="info-value-box info-value-box--tags"
-              role="none"
-            >
+            <div class="info-value-box info-value-box--tags">
               <span
                 v-for="(classe, i) in classesList"
                 :key="i"
@@ -204,10 +201,7 @@ const enseignementsList = computed(() => {
             class="info-item"
           >
             <span class="info-label">{{ t('groupes') }}</span>
-            <div
-              class="info-value-box info-value-box--tags"
-              role="none"
-            >
+            <div class="info-value-box info-value-box--tags">
               <span
                 v-for="(groupe, i) in groupesList"
                 :key="i"
@@ -225,13 +219,10 @@ const enseignementsList = computed(() => {
         v-if="enseignementsList.length"
         class="sub-section"
       >
-        <p class="sub-section-title">
+        <h4 class="sub-section-title">
           {{ t('enseignements') }}
-        </p>
-        <div
-          class="enseignements-grid"
-          role="none"
-        >
+        </h4>
+        <div class="enseignements-grid">
           <span
             v-for="(matiere, i) in enseignementsList"
             :key="i"
@@ -247,13 +238,10 @@ const enseignementsList = computed(() => {
         v-if="personne.parentEleve?.length"
         class="sub-section"
       >
-        <p class="sub-section-title">
+        <h4 class="sub-section-title">
           {{ t('personnes-relation') }}
-        </p>
-        <div
-          class="relations-list"
-          role="none"
-        >
+        </h4>
+        <div class="relations-list">
           <div
             v-for="(parent, i) in personne.parentEleve"
             :key="i"
