@@ -16,7 +16,6 @@
 
 <script setup lang="ts">
 import type { PersonneFonction } from '@/types/fonctionType'
-import { nextTick, watch } from 'vue'
 import ChangeEmail from '@/components/ChangeEmail.ce.vue'
 import FonctionsList from '@/components/FonctionsList.ce.vue'
 import ChangePassword from './ChangePassword.ce.vue'
@@ -54,16 +53,6 @@ const props = defineProps<{
 defineEmits<{
   (e: 'emailUpdated', email: string): void
 }>()
-
-// À chaque changement d'onglet, focus la sentinelle en tête du panneau actif
-// pour que ORCA parte du début du contenu avec les flèches
-watch(() => props.listMenu, async () => {
-  await nextTick()
-  const panelId = `onglet-tabpanel-${props.listMenu}`
-  const panel = document.getElementById(panelId)
-  const sentinel = panel?.querySelector('[data-panel-start]') as HTMLElement | null
-  sentinel?.focus()
-}, { flush: 'post' })
 </script>
 
 <template>
@@ -78,7 +67,6 @@ watch(() => props.listMenu, async () => {
       class="tab-pane"
       :class="{ 'animate-fade': props.listMenu === 'GENERALE' }"
     >
-      <!-- Sentinelle directement dans le panel : querySelector la trouve sans traverser le Shadow DOM -->
       <InformationPersonnelleCe
         :uid="props.uid"
         :date-naissance="props.bod"

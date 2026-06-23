@@ -62,9 +62,15 @@ const formattedDate = computed(() => {
 
 <template>
   <div class="card-wrapper">
-    <section class="profile-card">
+    <section
+      class="profile-card"
+      aria-labelledby="info-personnelle-title"
+    >
       <div class="card-header">
-        <h3 tabindex="0">
+        <h3
+          id="info-personnelle-title"
+          tabindex="0"
+        >
           {{ tUser('informations-personnelles') }}
         </h3>
       </div>
