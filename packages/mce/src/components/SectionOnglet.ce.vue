@@ -116,7 +116,6 @@ defineEmits<{
       class="tab-pane animate-fade"
     >
       <FonctionsList
-        :key="`fn-${props.listMenu}`"
         :fonctions="props.fonctionClassesGroupe.listFonctions ?? []"
         :user-info-api-url="props.userInfoApiUrl ?? ''"
         :mce-api="props.mceApi"
