@@ -136,7 +136,6 @@ async function handleSubmit() {
 
       <form
         class="card-body"
-        role="none"
         novalidate
         @submit.prevent="handleSubmit"
       >

@@ -210,7 +210,11 @@ function cropImage() {
 
   <div
     v-if="open"
+    role="dialog"
+    aria-modal="true"
+    :aria-label="m('editer')"
     class="modal"
+    @keydown.escape="closeModal"
   >
     <input
       id="idEtab"

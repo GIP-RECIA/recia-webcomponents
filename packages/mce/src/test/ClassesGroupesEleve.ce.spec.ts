@@ -179,10 +179,9 @@ describe('classesGroupesEleve', () => {
     it('affiche le message no-group si la liste des groupes est vide', () => {
       const rows = wrapper.findAll('.etab-row-item')
       expect(rows[1].find('.info-value--bold').text()).toBe('Collège Albert Camus')
-      // Le composant rend un <p class="info-value"> hors pills-list quand la liste est vide
+      // Le composant rend un <span class="pill-tag"> quand la liste est vide
       const groupSection = rows[1].findAll('.info-item').at(1)!
-      expect(groupSection.find('.pill-tag').exists()).toBe(false)
-      expect(groupSection.find('.info-value').text()).toBe('Aucun groupe')
+      expect(groupSection.find('.pill-tag').text()).toBe('Aucun groupe')
     })
 
     it('affiche le message no-class si la liste des classes est vide', () => {
@@ -198,9 +197,8 @@ describe('classesGroupesEleve', () => {
         },
       })
       const row = wrapperEmpty.find('.etab-row-item')
-      // Le composant rend un <p class="info-value"> quand classes est vide
-      expect(row.find('.pill-tag').exists()).toBe(false)
-      expect(row.find('.classes-data-group .info-value').text()).toBe('Aucune classe')
+      // Le composant rend un <span class="pill-tag"> quand classes est vide
+      expect(row.find('.pill-tag').text()).toBe('Aucune classe')
     })
 
     it('affiche le message no-course si la liste des enseignements suivis est vide', () => {

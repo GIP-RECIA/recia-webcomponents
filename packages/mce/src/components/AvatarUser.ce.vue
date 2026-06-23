@@ -275,17 +275,19 @@ function focusLast() {
     >
       <div
         ref="modalComponent"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="avatar-modal-title"
         class="modal-component"
       >
         <div
           tabindex="0"
-          aria-hidden="true"
           @focus="focusLast"
         />
         <div class="modal-header">
           <h3
+            id="avatar-modal-title"
             class="modal-title"
-            aria-hidden="true"
           >
             {{ t('title-header') }}
           </h3>
@@ -360,7 +362,6 @@ function focusLast() {
         </div>
         <div
           tabindex="0"
-          aria-hidden="true"
           @focus="focusFirst"
         />
       </div>
