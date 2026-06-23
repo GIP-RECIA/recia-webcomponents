@@ -65,7 +65,7 @@ const civilite = computed<string>(() => mce.value.civilite ?? '')
 const nom = computed<string>(() => mce.value.sn ?? '')
 const prenom = computed<string>(() => mce.value.givenName ?? '')
 const categorie = computed<string>(() => mce.value.categorie ?? '')
-const userMailPerso = computed<string>(() => mce.value.emailPersonnel || mce.value.email || '')
+const userMailPerso = computed<string>(() => mce.value.emailPersonnel ?? '')
 
 onMounted(async () => {
   try {
