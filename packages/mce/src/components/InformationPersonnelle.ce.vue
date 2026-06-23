@@ -103,9 +103,12 @@ const formattedDate = computed(() => {
             <span class="info-label">{{ tUser('categorie') }}</span>
             <span class="info-value">{{ props.categorie || tUser('non-renseigne') }}</span>
           </div>
-          <div class="info-item">
+          <div
+            v-if="currentEmail"
+            class="info-item"
+          >
             <span class="info-label">{{ tUser('email') }}</span>
-            <span class="info-value">{{ currentEmail || tUser('non-renseigne') }}</span>
+            <span class="info-value">{{ currentEmail }}</span>
           </div>
           <div
             v-if="props.userPublic?.length"
