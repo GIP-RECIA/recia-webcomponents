@@ -115,7 +115,7 @@ const formattedDate = computed(() => {
             class="info-item"
           >
             <span class="info-label">{{ tUser('login') }}</span>
-            <div class="info-value">
+            <div class="info-value public-links">
               <a
                 v-for="(url, i) in props.userPublic"
                 :key="i"
@@ -123,9 +123,7 @@ const formattedDate = computed(() => {
                 target="_blank"
                 rel="noopener noreferrer"
                 class="public-link"
-              >
-                {{ tUser('educonnect') }}
-              </a>
+              >{{ /educonnect/i.test(url) ? tUser('educonnect') : tUser('etab') }}</a>
             </div>
           </div>
         </div>
@@ -177,6 +175,12 @@ const formattedDate = computed(() => {
 .info-value {
   @include mce-info-value;
   display: block;
+}
+
+.public-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .public-link {
