@@ -50,7 +50,14 @@ async function fetchJson(url: string, userInfoApiUrl: string): Promise<{ data: a
     },
   })
   await throwIfNotOk(response)
-  return { data: await response.json() }
+
+  const text = await response.text()
+  try {
+    return { data: JSON.parse(text) }
+  }
+  catch {
+    throw new Error(`L'API a retourné une réponse invalide (attendu JSON). URL: ${url}`)
+  }
 }
 
 async function getMCE(url: string, userInfoApiUrl: string) {

@@ -90,7 +90,7 @@ export default ({ mode }: ConfigEnv) => {
 
     // ==================== BUILD ====================
     build: {
-      sourcemap: true,
+      sourcemap: false,
       lib: {
         entry: fileURLToPath(new URL('./src/main.ts', import.meta.url)),
         formats: ['es'],
