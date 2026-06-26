@@ -1,63 +1,87 @@
 # mce-ui
 
-This template should help get you started developing with Vue 3 in Vite.
+- [mce-ui](#mce-ui)
+  - [Installation](#installation)
+  - [Paramètres](#paramètres)
+  - [Variables CSS](#variables-css)
+    - [Modification de style](#modification-de-style)
 
-## Recommended IDE Setup
+## Installation
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+1. Installation via npm :
 
 ```sh
-npm install
+npm install @gip-recia/mce
 ```
 
-### Compile and Hot-Reload for Development
+2. Importation du composant :
 
-```sh
-npm run dev
+Dans un module JavaScript :
+
+```js
+import '@gip-recia/mce'
 ```
 
-### Type-Check, Compile and Minify for Production
+Dans une page HTML :
 
-```sh
-npm run build
+```html
+<script src="./path/to/mce.min.js"></script>
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+3. Ajout du composant sur une page HTML :
 
-```sh
-npm run lint
+```js
+const component = document.createElement('mce-ui')
+document.body.appendChild(component)
 ```
 
-# Architecture des composants Vue — Projet MCE
+## Paramètres
 
-## Vue d'ensemble
+mce-ui:
 
+| Nom | Type | Obligatoire | Default | Description |
+| --- | :-: | :-: | :-: | --- |
+| `mce-api` | `string` | `oui` | | URL de l'API REST MCE. |
+| `user-info-api-url` | `string` | `oui` | | URL de l'API des informations utilisateurs. |
+| `avatar-default` | `string` | `non` | | URL de l'avatar par défaut. |
+
+<br/>
+
+```html
+<mce-ui
+  mce-api=""
+  user-info-api-url=""
+  avatar-default=""
+/>
 ```
-PageMce.ce.vue  (point d'entrée)
-├── I18nHost.vue
-├── UserBaseInfo.vue
-│   └── AvatarUser.ce.vue
-├── ListeOnglet.vue.ce ( menu de navigation )
-│  
-├──                   InformationPersonnelle.ce.vue
-│                         └── ChangeEmail.ce.vue
-│                     InfoGeneral.vue
-│                         ├── ClassesGroupesEleve.ce.vue
-│                         ├── ClassesGroupesProf.ce.vue
-│                         └── RelationUser.ce.vue
-│                                └── RelationUserDetail.ce.vue
-│                     
-├──                   ServicesEnt.vue
-├──                   ChangePassword.ce.vue
-└──                   FonctionsList.ce.vue
-```
+
+## Variables CSS
+
+### Modification de style
+
+Plusieurs variables CSS peuvent être définies pour personnaliser le webcomponent :
+
+| Nom | Description |
+| --- | --- |
+| `--recia-body` | Couleur du texte par défaut. |
+| `--recia-body-bg` | Couleur de fond de la page. |
+| `--recia-basic-black` | Noir principal. |
+| `--recia-basic-black-lighter` | Noir clair (texte secondaire). |
+| `--recia-basic-grey` | Fond gris. |
+| `--recia-primary` | Couleur principale. |
+| `--recia-btn-primary` | Couleur des boutons primaires. |
+| `--recia-stroke` | Couleur des bordures/séparateurs. |
+| `--recia-hover` | Couleur de fond au survol. |
+| `--recia-favorite` | Couleur des favoris. |
+| `--recia-system-blue` | Bleu système (info/succès). |
+| `--recia-system-red` | Rouge système (erreur). |
+| `--recia-body-font-size` | Taille de police de base. |
+| `--recia-font-size-h3` | Taille de police des titres h3. |
+| `--recia-font-size-h4` | Taille de police des titres h4. |
+| `--recia-font-size-lg` | Texte large. |
+| `--recia-font-size-sm` | Texte petit. |
+| `--recia-font-size-xs` | Texte très petit. |
+| `--recia-font-size-xxs` | Texte extra petit. |
+| `--recia-shadow-neutral` | Ombre neutre des cartes. |
+| `--recia-shadow-low-elevation` | Ombre basse. |
+| `--recia-shadow-strong` | Ombre forte (modale). |
