@@ -113,8 +113,13 @@ function handleEmailUpdated(event: CustomEvent<string[]>) {
 }
 
 function handleAvatarUpdated() {
-  const baseAvatar = avatar.value.split('?')[0]
-  avatar.value = `${baseAvatar}?t=${Date.now()}`
+  if (mce.value.avatar) {
+    const baseAvatar = avatar.value.split('?')[0]
+    avatar.value = `${baseAvatar}?t=${Date.now()}`
+  }
+  else {
+    window.location.reload()
+  }
 }
 </script>
 
