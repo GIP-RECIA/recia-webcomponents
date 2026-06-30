@@ -43,4 +43,4 @@ jobs:
         run: yarn workspaces foreach -At run build
 
       - name: Tests frontend (unit tests)
-        run: yarn workspace mce test:unit
+        run: yarn workspace @gip-recia/mce test:unit
