@@ -55,7 +55,7 @@
     "@gip-recia/js-tree": "^0.0.18",
     "@gip-recia/ui": "^1.0.5",
     "@gip-recia/ui-webcomponents": "^1.14.0",
-    "@intlify/unplugin-vue-i18n": "^11.2.3",
+    "@intlify/unplugin-vue-i18n": "^11.2.4",
     "@tsconfig/node24": "^24.0.4",
     "@types/node": "^24",
     "@types/regenerator-runtime": "^0",
