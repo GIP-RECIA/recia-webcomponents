@@ -994,13 +994,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/vue-fontawesome@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "@fortawesome/vue-fontawesome@npm:3.2.0"
+"@fortawesome/vue-fontawesome@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "@fortawesome/vue-fontawesome@npm:3.3.0"
   peerDependencies:
     "@fortawesome/fontawesome-svg-core": ~1 || ~6 || ~7
     vue: ">= 3.0.0 < 4"
-  checksum: 10/a8503c9c1385008045ab1ecfb6d445f1fadbeb96c7ebdc90051a61562b3a824a3e7a70ec00cd9730dc5fdc7108273a4992107dbaf1cbfa67693b99725466a8e1
+  checksum: 10/a09a2d1949fd81096b78fb7742e143e80a7995b9be75dfdaa2dd971c1b19b8c35f007f75b347ebe092dee285f0ccfa1c32db56690ad82e49c8e9d48077f29279
   languageName: node
   linkType: hard
 
@@ -1012,7 +1012,7 @@ __metadata:
     "@fortawesome/fontawesome-free": "npm:^7.3.0"
     "@fortawesome/fontawesome-svg-core": "npm:^7.3.0"
     "@fortawesome/free-solid-svg-icons": "npm:^7.3.0"
-    "@fortawesome/vue-fontawesome": "npm:^3.2.0"
+    "@fortawesome/vue-fontawesome": "npm:^3.3.0"
     "@gip-recia/ui": "npm:^1.0.5"
     "@intlify/unplugin-vue-i18n": "npm:^11.2.3"
     "@tsconfig/node24": "npm:^24.0.4"
@@ -1087,7 +1087,7 @@ __metadata:
     "@fortawesome/fontawesome-svg-core": "npm:^7.3.0"
     "@fortawesome/free-regular-svg-icons": "npm:^7.3.0"
     "@fortawesome/free-solid-svg-icons": "npm:^7.3.0"
-    "@fortawesome/vue-fontawesome": "npm:^3.2.0"
+    "@fortawesome/vue-fontawesome": "npm:^3.3.0"
     "@gip-recia/info-modal": "npm:^0.0.1"
     "@gip-recia/ui": "npm:^1.0.5"
     "@intlify/unplugin-vue-i18n": "npm:^11.2.3"
@@ -1123,7 +1123,7 @@ __metadata:
     "@antfu/eslint-config": "npm:^9.1.0"
     "@fortawesome/fontawesome-svg-core": "npm:^7.3.0"
     "@fortawesome/free-solid-svg-icons": "npm:^7.3.0"
-    "@fortawesome/vue-fontawesome": "npm:^3.2.0"
+    "@fortawesome/vue-fontawesome": "npm:^3.3.0"
     "@gip-recia/ui": "npm:^1.0.5"
     "@intlify/unplugin-vue-i18n": "npm:^11.2.3"
     "@tsconfig/node24": "npm:^24.0.4"
@@ -1161,7 +1161,7 @@ __metadata:
     "@fortawesome/fontawesome-free": "npm:^7.3.0"
     "@fortawesome/fontawesome-svg-core": "npm:^7.3.0"
     "@fortawesome/free-solid-svg-icons": "npm:^7.3.0"
-    "@fortawesome/vue-fontawesome": "npm:^3.2.0"
+    "@fortawesome/vue-fontawesome": "npm:^3.3.0"
     "@gip-recia/js-tree": "npm:^0.0.18"
     "@gip-recia/ui": "npm:^1.0.5"
     "@gip-recia/ui-webcomponents": "npm:^1.14.0"
@@ -1197,7 +1197,7 @@ __metadata:
     "@antfu/eslint-config": "npm:^9.1.0"
     "@fortawesome/fontawesome-svg-core": "npm:^7.3.0"
     "@fortawesome/free-solid-svg-icons": "npm:^7.3.0"
-    "@fortawesome/vue-fontawesome": "npm:^3.2.0"
+    "@fortawesome/vue-fontawesome": "npm:^3.3.0"
     "@gip-recia/ui": "npm:^1.0.5"
     "@intlify/unplugin-vue-i18n": "npm:^11.2.3"
     "@tsconfig/node24": "npm:^24.0.4"
