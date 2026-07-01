@@ -19,6 +19,7 @@ import type { AxiosError } from 'axios'
 import Cropper from 'cropperjs'
 import { inject, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
+import { dnmaService } from '@/services/dnmaService'
 import { updateAvatar } from '@/services/serviceMce'
 import 'cropperjs/dist/cropper.css'
 
@@ -213,6 +214,7 @@ async function applyCrop() {
     await updateAvatar(props.user, file, baseUrl, props.userInfoApiUrl)
     message.value = t('success')
     messageType.value = 'success'
+    dnmaService.changeAvatar()
     emit('avatarUpdated')
     setTimeout(closeModal, 1600)
   }

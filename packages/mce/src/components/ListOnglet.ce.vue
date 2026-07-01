@@ -17,6 +17,7 @@
 <script setup lang="ts">
 import { computed, inject, useTemplateRef, watch } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
+import { dnmaService } from '@/services/dnmaService'
 import { useTabs } from './useTabs.ts'
 
 defineOptions({ name: 'ListOnglet' })
@@ -42,6 +43,7 @@ const { activeTab, setActiveTab, changeActiveTab } = useTabs({
   tabsRefs,
   // Callback appelé à chaque changement d'onglet (clic ou clavier)
   onTabChange: (index: number) => {
+    dnmaService.selectOnglet(props.list[index])
     emit('selectOnglet', props.list[index])
   },
 })
