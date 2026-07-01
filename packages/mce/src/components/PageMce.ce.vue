@@ -18,6 +18,7 @@
 import { computed, nextTick, onMounted, provide, ref } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 import i18n from '@/plugins/i18n'
+import { dnmaService } from '@/services/dnmaService'
 import { getMCE } from '@/services/serviceMce'
 
 defineOptions({ name: 'PageMce' })
@@ -84,6 +85,7 @@ onMounted(async () => {
     ongletCurrent.value = listOnglets.value[0]
 
     avatar.value = mce.value.avatar ?? props.avatarDefault
+    dnmaService.consult()
   }
   catch (error: unknown) {
     console.error('[onMounted] ERROR =>', error)

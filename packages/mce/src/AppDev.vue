@@ -15,7 +15,18 @@
 -->
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
+
 defineOptions({ name: 'AppDev' })
+
+declare global {
+  interface DocumentEventMap {
+    'click-portlet-card': CustomEvent<{
+      fname: string
+      SERVICE: string
+    }>
+  }
+}
 
 const {
   VITE_MCE_API_URI,
@@ -23,6 +34,18 @@ const {
   VITE_PORTAIL_API_URI,
   VITE_AVATAR_DEFAULT,
 } = import.meta.env
+
+onMounted(() => {
+  document.addEventListener('click-portlet-card', (e) => {
+    if (!e.detail) {
+      // eslint-disable-next-line no-console
+      console.log(e.type)
+      return
+    }
+    // eslint-disable-next-line no-console
+    console.log(e.type, e.detail)
+  })
+})
 </script>
 
 <template>
