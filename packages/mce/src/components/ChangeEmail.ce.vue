@@ -17,6 +17,7 @@
 <script setup lang="ts">
 import { computed, inject, nextTick, onUnmounted, ref, watch } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
+import { dnmaService } from '@/services/dnmaService'
 import { updateEmail } from '@/services/serviceMce.ts'
 
 defineOptions({ name: 'ChangeEmail' })
@@ -104,6 +105,7 @@ async function handleSubmit() {
     await nextTick()
     alertRef.value?.focus()
 
+    dnmaService.changeEmail()
     successTimer.value = setTimeout(() => {
       emit('updated', newEmail.value)
       newEmail.value = ''

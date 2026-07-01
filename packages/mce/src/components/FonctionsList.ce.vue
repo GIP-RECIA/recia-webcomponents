@@ -18,6 +18,7 @@
 import type { PersonneFonction } from '@/types/fonctionType'
 import { inject, nextTick, ref, watch } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
+import { dnmaService } from '@/services/dnmaService'
 import { updateFonctionDateFin } from '@/services/serviceMce.ts'
 
 defineOptions({ name: 'FonctionsList' })
@@ -77,6 +78,7 @@ async function onToggle(it: PersonneFonction): Promise<void> {
   try {
     const baseUrl = props.mceApi.replace(MCE_SUFFIX, '')
     await updateFonctionDateFin(baseUrl, id, newValue, props.userInfoApiUrl)
+    dnmaService.toggleFonction(it.fonction ?? it.discipline)
   }
   catch (error: unknown) {
     console.error(error)

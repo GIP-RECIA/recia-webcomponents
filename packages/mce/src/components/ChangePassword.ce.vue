@@ -17,6 +17,7 @@
 <script setup lang="ts">
 import { inject, nextTick, ref, watch } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
+import { dnmaService } from '@/services/dnmaService'
 import { postPassword } from '@/services/serviceMce.ts'
 
 defineOptions({ name: 'ChangePassword' })
@@ -97,6 +98,7 @@ async function handleChangePassword() {
     await nextTick()
     alertRef.value?.focus()
 
+    dnmaService.changePassword()
     currentPassword.value = ''
     newPassword.value = ''
     confirmPassword.value = ''
