@@ -42,7 +42,7 @@ export class dnmaService {
   }
 
   static selectOnglet(onglet?: string) {
-    this.sendEvent('SELECT_ONGLET', onglet ? { ONGLET: onglet } : undefined)
+    this.sendEvent('SELECT_ONGLET', onglet ? { SOURCE: onglet } : undefined)
   }
 
   private static sendEvent(service: string, extra?: Record<string, string>) {
