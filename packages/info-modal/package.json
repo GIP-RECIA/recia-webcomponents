@@ -45,7 +45,7 @@
     "@fortawesome/free-solid-svg-icons": "^7.2.0",
     "@gip-recia/ui": "^1.0.5",
     "@tsconfig/node24": "^24.0.4",
-    "@types/node": "^24",
+    "@types/node": "^26",
     "eslint": "^10.5.0",
     "eslint-plugin-format": "^2.0.1",
     "lit": "^3.3.3",
