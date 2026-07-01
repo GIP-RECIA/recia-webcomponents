@@ -38,7 +38,7 @@ export class dnmaService {
   }
 
   static toggleFonction(fonction?: string) {
-    this.sendEvent('FONCTION_TOGGLE', fonction ? { FONCTION: fonction } : undefined)
+    this.sendEvent('FONCTION_TOGGLE', fonction ? { SOURCE: fonction } : undefined)
   }
 
   static selectOnglet(onglet?: string) {
