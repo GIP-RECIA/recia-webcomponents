@@ -95,7 +95,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Build web components
-        run: yarn each build
+        run: yarn workspaces foreach -A --topological-dev run build
 
       - name: Tests
-        run: yarn each test:unit
+        run: yarn workspaces foreach -A --topological-dev run test:unit
