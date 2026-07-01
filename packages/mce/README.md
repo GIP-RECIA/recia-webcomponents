@@ -6,12 +6,28 @@
   - [Variables CSS](#variables-css)
     - [Modification de style](#modification-de-style)
 
-## Installation
+## Development
 
-1. Installation via npm :
+1. Cloner le projet et installer les dépendances :
 
 ```sh
-npm install @gip-recia/mce
+nvm use
+yarn install
+```
+
+2. Lancer le serveur de développement (depuis le dossier `packages/mce`) :
+
+```sh
+cd packages/mce
+yarn dev
+```
+
+## Installation
+
+1. Installation via yarn :
+
+```sh
+yarn add @gip-recia/mce
 ```
 
 2. Importation du composant :
