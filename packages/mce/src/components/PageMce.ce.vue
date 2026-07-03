@@ -105,15 +105,6 @@ function select(payload: CustomEvent) {
   }
 }
 
-function handleEmailUpdated(event: CustomEvent<string[]>) {
-  const email = Array.isArray(event.detail) ? event.detail[0] : event.detail
-  mce.value = {
-    ...mce.value,
-    userMail: email,
-    emailPersonnel: email,
-  }
-}
-
 function handleAvatarUpdated() {
   if (mce.value.avatar) {
     const baseAvatar = avatar.value.split('?')[0]
@@ -185,7 +176,6 @@ function handleAvatarUpdated() {
           :nom="nom"
           :prenom="prenom"
           :categorie="categorie"
-          @email-updated="handleEmailUpdated"
         />
       </div>
     </main>

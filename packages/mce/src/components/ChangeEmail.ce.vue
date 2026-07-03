@@ -15,10 +15,10 @@
 -->
 
 <script setup lang="ts">
-import { computed, inject, nextTick, onUnmounted, ref, watch } from 'vue'
+import { computed, inject, nextTick, ref, watch } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 import { dnmaService } from '@/services/dnmaService'
-import { updateEmail } from '@/services/serviceMce.ts'
+import { updateEmail } from '@/services/serviceMce'
 
 defineOptions({ name: 'ChangeEmail' })
 
@@ -30,10 +30,6 @@ const props = defineProps<{
   mceApi: string
 }>()
 
-const emit = defineEmits<{
-  (e: 'updated', email: string): void
-}>()
-
 const TRAILING_SLASH = /\/$/
 
 const i18n = inject(I18nInjectionKey)
@@ -43,10 +39,10 @@ function tEmail(key: string): string {
 
 const newEmail = ref('')
 const confirmEmail = ref('')
+const emailSent = ref(false)
 const message = ref('')
 const messageType = ref<'success' | 'error'>('error')
 const isLoading = ref(false)
-const successTimer = ref<ReturnType<typeof setTimeout> | null>(null)
 
 const alertRef = ref<HTMLDivElement | null>(null)
 
@@ -59,11 +55,6 @@ const displayedCurrentEmail = computed(() => props.currentEmailPerso || props.cu
 watch([newEmail, confirmEmail], ([n, c]) => {
   if (n || c)
     message.value = ''
-})
-
-onUnmounted(() => {
-  if (successTimer.value)
-    clearTimeout(successTimer.value)
 })
 
 async function handleSubmit() {
@@ -100,17 +91,12 @@ async function handleSubmit() {
     const baseUrl = props.mceApi.replace(TRAILING_SLASH, '')
     await updateEmail(baseUrl, props.userId, newEmail.value, confirmEmail.value, props.userInfoApiUrl)
 
-    message.value = tEmail('success')
+    emailSent.value = true
+    message.value = tEmail('verification-sent')
     messageType.value = 'success'
+    dnmaService.changeEmail()
     await nextTick()
     alertRef.value?.focus()
-
-    dnmaService.changeEmail()
-    successTimer.value = setTimeout(() => {
-      emit('updated', newEmail.value)
-      newEmail.value = ''
-      confirmEmail.value = ''
-    }, 1000)
   }
   catch (error: unknown) {
     const apiMessage = (error as { response?: { data?: { message?: string } } })?.response?.data?.message
@@ -137,6 +123,7 @@ async function handleSubmit() {
       </div>
 
       <form
+        v-if="!emailSent"
         class="card-body"
         novalidate
         @submit.prevent="handleSubmit"
@@ -207,6 +194,18 @@ async function handleSubmit() {
           </button>
         </div>
       </form>
+
+      <div
+        v-else
+        class="card-body"
+      >
+        <p class="verification-info">
+          {{ tEmail('verification-sent') }}
+        </p>
+        <p class="verification-email">
+          <strong>{{ newEmail }}</strong>
+        </p>
+      </div>
     </div>
   </div>
 </template>

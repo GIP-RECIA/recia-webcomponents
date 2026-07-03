@@ -93,7 +93,8 @@
     "error-default": "Error while updating email.",
     "no-email": "No email address provided.",
     "focus-sentinel-start": "Back to the beginning of the form",
-    "focus-sentinel-end": "End of the form"
+    "focus-sentinel-end": "End of the form",
+    "verification-sent": "A verification email has been sent. Click the link in the email to confirm your new address."
   },
   "change-password": {
     "title": "Change my password",

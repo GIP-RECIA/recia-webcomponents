@@ -24,7 +24,7 @@ import ListOngletCe from '@/components/ListOnglet.ce.vue'
 import PageMceCe from '@/components/PageMce.ce.vue'
 import RelationUserCe from '@/components/RelationUser.ce.vue'
 import SectionOngletCe from '@/components/SectionOnglet.ce.vue'
-import UserBaseInfoCe from './components/UserBaseInfo.ce.vue'
+import UserBaseInfoCe from '@/components/UserBaseInfo.ce.vue'
 
 const AvatarUser = defineCustomElement(AvatarUserCe)
 const ChangeEmail = defineCustomElement(ChangeEmailCe)
