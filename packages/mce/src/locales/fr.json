@@ -94,7 +94,8 @@
     "error-default": "Erreur lors de la modification.",
     "no-email": "Aucune adresse email renseignée.",
     "focus-sentinel-start": "Retour au début du formulaire",
-    "focus-sentinel-end": "Fin du formulaire"
+    "focus-sentinel-end": "Fin du formulaire",
+    "verification-sent": "Un email de vérification vous a été envoyé. Cliquez sur le lien contenu dans l'email pour confirmer votre nouvelle adresse."
   },
   "change-password": {
     "title": "Changer mon mot de passe",

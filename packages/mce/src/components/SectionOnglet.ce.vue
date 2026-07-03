@@ -50,9 +50,6 @@ const props = defineProps<{
   categorie?: string
   userPublic?: string[]
 }>()
-defineEmits<{
-  (e: 'emailUpdated', email: string): void
-}>()
 </script>
 
 <template>
@@ -138,7 +135,6 @@ defineEmits<{
         :user-id="props.userId"
         :current-email="props.userMail"
         :current-email-perso="props.userMailPerso"
-        @updated="(email) => $emit('emailUpdated', email)"
       />
     </div>
   </div>
