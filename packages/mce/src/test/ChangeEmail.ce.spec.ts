@@ -16,22 +16,18 @@
 
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { createI18n, I18nInjectionKey } from 'vue-i18n'
-import { updateEmail } from '@/services/serviceMce.ts'
+import { updateEmail } from '@/services/serviceMce'
 import ChangeEmail from '../components/ChangeEmail.ce.vue'
 
 vi.mock('@/services/serviceMce.ts', () => ({
   updateEmail: vi.fn(),
 }))
 
-const mockAxiosResponse = {
-  data: {},
-  status: 200,
-  statusText: 'OK',
-  headers: {},
-  config: { headers: {} as any },
+const mockApiResponse = {
+  data: { code: 'VERIFICATION_SENT', message: 'Un email de vérification a été envoyé' },
 }
 
 const messages = {
@@ -45,21 +41,19 @@ const messages = {
       'cancel': 'Annuler',
       'submit': 'Valider',
       'loading': '...',
-      'success': 'Email mis à jour avec succès !',
       'error-required': 'Tous les champs sont obligatoires.',
       'error-format': 'Le format de l\'email est invalide.',
       'error-mismatch': 'Les emails ne correspondent pas.',
       'error-default': 'Erreur lors de la modification.',
       'no-email': 'No email address provided.',
+      'verification-sent': 'Un email de vérification vous a été envoyé.',
     },
   },
 }
 
 async function submitForm(w: VueWrapper) {
   await w.find('form').trigger('submit')
-  // Premier nextTick : handleSubmit s'exécute (validations synchrones ou résolution Promise)
   await nextTick()
-  // Deuxième nextTick : les await nextTick() internes au composant mettent à jour le DOM
   await nextTick()
 }
 
@@ -89,9 +83,6 @@ describe('changeEmail', () => {
     })
   })
 
-  // --------------------------------------------------
-  // RENDU INITIAL
-  // --------------------------------------------------
   describe('rendu initial', () => {
     it('affiche le titre dans un h3', () => {
       expect(wrapper.find('h3').text()).toBe('Modifier l\'adresse email')
@@ -101,7 +92,7 @@ describe('changeEmail', () => {
       expect(wrapper.find('.static-value').text()).toBe('ancien@test.fr')
     })
 
-    it('affiche un tiret par défaut si aucun email actuel n\'est transmis', () => {
+    it('affiche le texte par défaut si aucun email actuel n\'est transmis', () => {
       const i18n = createI18n({ locale: 'fr', messages })
       const wrapperEmpty = mount(ChangeEmail, {
         props: { ...props, currentEmail: undefined },
@@ -127,9 +118,6 @@ describe('changeEmail', () => {
     })
   })
 
-  // --------------------------------------------------
-  // VALIDATIONS
-  // --------------------------------------------------
   describe('validations', () => {
     it('erreur si les deux champs sont vides', async () => {
       await submitForm(wrapper)
@@ -156,61 +144,39 @@ describe('changeEmail', () => {
     })
   })
 
-  // --------------------------------------------------
-  // ÉTAT DE CHARGEMENT
-  // --------------------------------------------------
   describe('état de chargement', () => {
     it('passe en mode loading pendant l\'appel API', async () => {
-      // La promesse ne se résout pas pendant ce test : on observe l'état intermédiaire
       vi.mocked(updateEmail).mockImplementation(
-        () => new Promise(resolve => setTimeout(resolve, 200, mockAxiosResponse)),
+        () => new Promise(resolve => setTimeout(resolve, 200, mockApiResponse)),
       )
 
       await wrapper.find('#newEmail').setValue('nouveau@test.fr')
       await wrapper.find('#confirmEmail').setValue('nouveau@test.fr')
 
-      // On déclenche le submit mais on n'attend PAS la fin de handleSubmit
       await wrapper.find('form').trigger('submit')
       await nextTick()
 
       const submitBtn = wrapper.find('.btn-primary')
       expect(submitBtn.text()).toBe('...')
-      // attributes('disabled') renvoie "" quand l'attribut est présent
       expect(submitBtn.attributes('disabled')).toBe('')
     })
   })
 
-  // --------------------------------------------------
-  // SUCCÈS ET APPELS API
-  // --------------------------------------------------
   describe('succès et appels API', () => {
-    beforeEach(() => {
-      vi.useFakeTimers()
-    })
-
-    afterEach(() => {
-      vi.useRealTimers()
-    })
-
-    it('affiche le message de réussite et émet "updated" après 1 seconde', async () => {
-      vi.mocked(updateEmail).mockResolvedValueOnce(mockAxiosResponse)
+    it('affiche le message de vérification après envoi réussi', async () => {
+      vi.mocked(updateEmail).mockResolvedValueOnce(mockApiResponse)
 
       await wrapper.find('#newEmail').setValue('nouveau@test.fr')
       await wrapper.find('#confirmEmail').setValue('nouveau@test.fr')
       await submitForm(wrapper)
 
-      const alert = wrapper.find('.alert-message')
-      expect(alert.text()).toBe('Email mis à jour avec succès !')
-      expect(alert.classes()).toContain('alert-message--success')
-
-      vi.advanceTimersByTime(1000)
-
-      expect(wrapper.emitted('updated')).toBeTruthy()
-      expect(wrapper.emitted('updated')?.[0]).toEqual(['nouveau@test.fr'])
+      expect(wrapper.find('.verification-info').exists()).toBe(true)
+      expect(wrapper.find('.verification-email').text()).toContain('nouveau@test.fr')
+      expect(wrapper.find('form').exists()).toBe(false)
     })
 
     it('appelle updateEmail avec les bons arguments', async () => {
-      vi.mocked(updateEmail).mockResolvedValueOnce(mockAxiosResponse)
+      vi.mocked(updateEmail).mockResolvedValueOnce(mockApiResponse)
 
       await wrapper.find('#newEmail').setValue('nouveau@test.fr')
       await wrapper.find('#confirmEmail').setValue('nouveau@test.fr')
@@ -225,8 +191,8 @@ describe('changeEmail', () => {
       )
     })
 
-    it('nettoie le slash final de mceApi pour éviter un double slash dans l\'URL', async () => {
-      vi.mocked(updateEmail).mockResolvedValueOnce(mockAxiosResponse)
+    it('nettoie le slash final de mceApi', async () => {
+      vi.mocked(updateEmail).mockResolvedValueOnce(mockApiResponse)
 
       const i18n = createI18n({ locale: 'fr', messages })
       const wrapperSlash = mount(ChangeEmail, {
@@ -243,7 +209,7 @@ describe('changeEmail', () => {
 
       expect(updateEmail).toHaveBeenCalledWith(
         'https://api.test.fr',
-        '123',
+        expect.any(String),
         expect.any(String),
         expect.any(String),
         expect.any(String),
@@ -251,11 +217,8 @@ describe('changeEmail', () => {
     })
   })
 
-  // --------------------------------------------------
-  // ERREURS DE L'API
-  // --------------------------------------------------
   describe('erreurs de l\'API', () => {
-    it('affiche le message d\'une erreur de type Error (instanceof Error)', async () => {
+    it('affiche le message d\'une erreur de type Error', async () => {
       vi.mocked(updateEmail).mockRejectedValueOnce(new Error('Erreur de connexion réseau'))
 
       await wrapper.find('#newEmail').setValue('nouveau@test.fr')
@@ -267,7 +230,7 @@ describe('changeEmail', () => {
       expect(alert.classes()).toContain('alert-message--error')
     })
 
-    it('affiche le message spécifique renvoyé par le serveur s\'il existe', async () => {
+    it('affiche le message spécifique renvoyé par le serveur', async () => {
       vi.mocked(updateEmail).mockRejectedValueOnce({
         response: { data: { message: 'Cette adresse email est déjà utilisée.' } },
       })
@@ -279,7 +242,7 @@ describe('changeEmail', () => {
       expect(wrapper.find('.alert-message').text()).toBe('Cette adresse email est déjà utilisée.')
     })
 
-    it('affiche le message de traduction par défaut si la structure de l\'erreur est inconnue', async () => {
+    it('affiche le message par défaut si la structure de l\'erreur est inconnue', async () => {
       vi.mocked(updateEmail).mockRejectedValueOnce({ structure: 'inattendue' })
 
       await wrapper.find('#newEmail').setValue('nouveau@test.fr')
