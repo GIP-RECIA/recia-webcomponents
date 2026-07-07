@@ -19,11 +19,12 @@ import { mount } from '@vue/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { createI18n, I18nInjectionKey } from 'vue-i18n'
-import { updateEmail } from '@/services/serviceMce'
+import { updateEmail, verifyEmail } from '@/services/serviceMce'
 import ChangeEmail from '../components/ChangeEmail.ce.vue'
 
 vi.mock('@/services/serviceMce.ts', () => ({
   updateEmail: vi.fn(),
+  verifyEmail: vi.fn(),
 }))
 
 const mockApiResponse = {
@@ -47,6 +48,13 @@ const messages = {
       'error-default': 'Erreur lors de la modification.',
       'no-email': 'No email address provided.',
       'verification-sent': 'Un email de vérification vous a été envoyé.',
+      'code-sent': 'Un code de vérification à 6 chiffres vous a été envoyé.',
+      'verification-code': 'Code de vérification',
+      'code-placeholder': 'Entrez le code à 6 chiffres',
+      'verify': 'Vérifier',
+      'verified': 'Adresse email vérifiée avec succès !',
+      'code-error-format': 'Le code doit contenir exactement 6 chiffres.',
+      'resend': 'Renvoyer le code',
     },
   },
 }
@@ -163,7 +171,7 @@ describe('changeEmail', () => {
   })
 
   describe('succès et appels API', () => {
-    it('affiche le message de vérification après envoi réussi', async () => {
+    it('affiche le formulaire de code après envoi réussi', async () => {
       vi.mocked(updateEmail).mockResolvedValueOnce(mockApiResponse)
 
       await wrapper.find('#newEmail').setValue('nouveau@test.fr')
@@ -173,6 +181,7 @@ describe('changeEmail', () => {
       expect(wrapper.find('.verification-info').exists()).toBe(true)
       expect(wrapper.find('.verification-email').text()).toContain('nouveau@test.fr')
       expect(wrapper.find('form').exists()).toBe(false)
+      expect(wrapper.find('#verificationCode').exists()).toBe(true)
     })
 
     it('appelle updateEmail avec les bons arguments', async () => {
@@ -214,6 +223,70 @@ describe('changeEmail', () => {
         expect.any(String),
         expect.any(String),
       )
+    })
+  })
+
+  describe('vérification du code', () => {
+    beforeEach(() => {
+      vi.mocked(updateEmail).mockResolvedValue(mockApiResponse)
+    })
+
+    async function goToCodeStep(w: VueWrapper) {
+      await w.find('#newEmail').setValue('nouveau@test.fr')
+      await w.find('#confirmEmail').setValue('nouveau@test.fr')
+      await submitForm(w)
+    }
+
+    it('affiche le champ de code après envoi réussi', async () => {
+      await goToCodeStep(wrapper)
+
+      expect(wrapper.find('#verificationCode').exists()).toBe(true)
+      expect(wrapper.find('.btn-primary').text()).toBe('Vérifier')
+    })
+
+    it('affiche une erreur si le code ne fait pas 6 chiffres', async () => {
+      await goToCodeStep(wrapper)
+
+      await wrapper.find('#verificationCode').setValue('123')
+      await wrapper.find('.btn-primary').trigger('click')
+      await nextTick()
+      await nextTick()
+
+      expect(wrapper.find('.alert-message').text()).toBe('Le code doit contenir exactement 6 chiffres.')
+    })
+
+    it('appelle verifyEmail et affiche le succès', async () => {
+      vi.mocked(verifyEmail).mockResolvedValueOnce({ data: { code: 'SUCCESS' } })
+
+      await goToCodeStep(wrapper)
+      await wrapper.find('#verificationCode').setValue('123456')
+      await wrapper.find('.btn-primary').trigger('click')
+      await nextTick()
+      await nextTick()
+
+      expect(verifyEmail).toHaveBeenCalledWith(
+        'https://api.test.fr',
+        '123',
+        '123456',
+        'https://api.test.fr/userinfo',
+      )
+      expect(wrapper.find('.success-message').exists()).toBe(true)
+      expect(wrapper.find('.success-message').text()).toBe('Adresse email vérifiée avec succès !')
+    })
+
+    it('affiche une erreur si la vérification échoue', async () => {
+      vi.mocked(verifyEmail).mockRejectedValueOnce({
+        response: { data: { message: 'Code de verification invalide' } },
+      })
+
+      await goToCodeStep(wrapper)
+      await wrapper.find('#verificationCode').setValue('000000')
+      await wrapper.find('.btn-primary').trigger('click')
+      await nextTick()
+      await nextTick()
+
+      expect(wrapper.find('.alert-message').text()).toBe('Code de verification invalide')
+      expect(wrapper.find('.alert-message').classes()).toContain('alert-message--error')
     })
   })
 
