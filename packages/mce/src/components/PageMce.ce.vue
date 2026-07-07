@@ -78,7 +78,7 @@ onMounted(async () => {
       ...(mce.value.fonctionClassesGroupe?.listFonctions?.length > 0
         ? ['FONCTION_LIST']
         : []),
-      ...(mce.value.mdp === true ? ['CHANGE_PASSWORD'] : []),
+      ...(mce.value.mdp === false ? ['CHANGE_PASSWORD'] : []),
       ...(mce.value.canEditEmail === true ? ['CHANGE_EMAIL'] : []),
     ]
 

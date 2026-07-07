@@ -94,7 +94,14 @@
     "no-email": "No email address provided.",
     "focus-sentinel-start": "Back to the beginning of the form",
     "focus-sentinel-end": "End of the form",
-    "verification-sent": "A verification email has been sent. Click the link in the email to confirm your new address."
+    "verification-sent": "A verification email has been sent. Click the link in the email to confirm your new address.",
+    "code-sent": "A 6-digit verification code has been sent to your email.",
+    "verification-code": "Verification code",
+    "code-placeholder": "Enter the 6-digit code",
+    "verify": "Verify",
+    "verified": "Email address verified successfully!",
+    "code-error-format": "The code must be exactly 6 digits.",
+    "resend": "Resend code"
   },
   "change-password": {
     "title": "Change my password",
