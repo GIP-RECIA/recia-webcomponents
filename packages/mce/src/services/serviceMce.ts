@@ -159,6 +159,25 @@ async function updateAvatar(
   return { data: await response.json().catch(() => null) }
 }
 
+async function verifyEmail(
+  baseUrl: string,
+  uid: string,
+  code: string,
+  userInfoApiUrl: string,
+) {
+  const token = await getToken(userInfoApiUrl)
+  const response = await fetch(`${baseUrl}/verify-email`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({ uid, code }),
+  })
+  await throwIfNotOk(response)
+  return { data: await response.json().catch(() => null) }
+}
+
 export {
   getDetailEnfant,
   getMCE,
@@ -167,4 +186,5 @@ export {
   updateAvatar,
   updateEmail,
   updateFonctionDateFin,
+  verifyEmail,
 }

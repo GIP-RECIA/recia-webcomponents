@@ -18,7 +18,7 @@
 import { computed, inject, nextTick, ref, watch } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 import { dnmaService } from '@/services/dnmaService'
-import { updateEmail } from '@/services/serviceMce'
+import { updateEmail, verifyEmail } from '@/services/serviceMce'
 
 defineOptions({ name: 'ChangeEmail' })
 
@@ -39,7 +39,8 @@ function tEmail(key: string): string {
 
 const newEmail = ref('')
 const confirmEmail = ref('')
-const emailSent = ref(false)
+const verificationCode = ref('')
+const step = ref<'form' | 'code' | 'verified'>('form')
 const message = ref('')
 const messageType = ref<'success' | 'error'>('error')
 const isLoading = ref(false)
@@ -47,6 +48,7 @@ const isLoading = ref(false)
 const alertRef = ref<HTMLDivElement | null>(null)
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@][^\s.@]*\.[^\s@]+$/
+const CODE_REGEX = /^\d{6}$/
 
 const messageId = 'change-email-message'
 
@@ -54,6 +56,11 @@ const displayedCurrentEmail = computed(() => props.currentEmailPerso || props.cu
 
 watch([newEmail, confirmEmail], ([n, c]) => {
   if (n || c)
+    message.value = ''
+})
+
+watch(verificationCode, () => {
+  if (verificationCode.value)
     message.value = ''
 })
 
@@ -91,10 +98,78 @@ async function handleSubmit() {
     const baseUrl = props.mceApi.replace(TRAILING_SLASH, '')
     await updateEmail(baseUrl, props.userId, newEmail.value, confirmEmail.value, props.userInfoApiUrl)
 
-    emailSent.value = true
-    message.value = tEmail('verification-sent')
+    step.value = 'code'
+    message.value = tEmail('code-sent')
     messageType.value = 'success'
     dnmaService.changeEmail()
+    await nextTick()
+    alertRef.value?.focus()
+  }
+  catch (error: unknown) {
+    const apiMessage = (error as { response?: { data?: { message?: string } } })?.response?.data?.message
+      ?? (error instanceof Error ? error.message : undefined)
+
+    message.value = apiMessage ?? tEmail('error-default')
+    messageType.value = 'error'
+    await nextTick()
+    alertRef.value?.focus()
+  }
+  finally {
+    isLoading.value = false
+  }
+}
+
+async function handleVerify() {
+  message.value = ''
+  await nextTick()
+
+  if (!CODE_REGEX.test(verificationCode.value)) {
+    message.value = tEmail('code-error-format')
+    messageType.value = 'error'
+    await nextTick()
+    alertRef.value?.focus()
+    return
+  }
+
+  isLoading.value = true
+
+  try {
+    const baseUrl = props.mceApi.replace(TRAILING_SLASH, '')
+    await verifyEmail(baseUrl, props.userId, verificationCode.value, props.userInfoApiUrl)
+
+    step.value = 'verified'
+    message.value = tEmail('verified')
+    messageType.value = 'success'
+    await nextTick()
+    alertRef.value?.focus()
+  }
+  catch (error: unknown) {
+    const apiMessage = (error as { response?: { data?: { message?: string } } })?.response?.data?.message
+      ?? (error instanceof Error ? error.message : undefined)
+
+    message.value = apiMessage ?? tEmail('error-default')
+    messageType.value = 'error'
+    await nextTick()
+    alertRef.value?.focus()
+  }
+  finally {
+    isLoading.value = false
+  }
+}
+
+async function handleResend() {
+  message.value = ''
+  await nextTick()
+
+  isLoading.value = true
+
+  try {
+    const baseUrl = props.mceApi.replace(TRAILING_SLASH, '')
+    await updateEmail(baseUrl, props.userId, newEmail.value, confirmEmail.value, props.userInfoApiUrl)
+
+    message.value = tEmail('code-sent')
+    messageType.value = 'success'
+    verificationCode.value = ''
     await nextTick()
     alertRef.value?.focus()
   }
@@ -123,7 +198,7 @@ async function handleSubmit() {
       </div>
 
       <form
-        v-if="!emailSent"
+        v-if="step === 'form'"
         class="card-body"
         novalidate
         @submit.prevent="handleSubmit"
@@ -196,14 +271,77 @@ async function handleSubmit() {
       </form>
 
       <div
-        v-else
+        v-else-if="step === 'code'"
         class="card-body"
       >
         <p class="verification-info">
-          {{ tEmail('verification-sent') }}
+          {{ tEmail('code-sent') }}
         </p>
         <p class="verification-email">
           <strong>{{ newEmail }}</strong>
+        </p>
+
+        <div class="form-group">
+          <label
+            class="info-label"
+            for="verificationCode"
+          >{{ tEmail('verification-code') }}</label>
+          <input
+            id="verificationCode"
+            v-model="verificationCode"
+            type="text"
+            inputmode="numeric"
+            maxlength="6"
+            :placeholder="tEmail('code-placeholder')"
+            class="custom-input"
+            autocomplete="one-time-code"
+            aria-required="true"
+            :aria-label="tEmail('verification-code')"
+            :aria-invalid="message && messageType === 'error' ? 'true' : undefined"
+            :aria-describedby="message && messageType === 'error' ? messageId : undefined"
+          >
+        </div>
+
+        <div
+          v-if="message"
+          :id="messageId"
+          ref="alertRef"
+          class="alert-message"
+          :class="`alert-message--${messageType}`"
+          role="alert"
+          tabindex="-1"
+        >
+          {{ message }}
+        </div>
+
+        <div class="action-row">
+          <button
+            type="button"
+            class="btn-primary small"
+            :disabled="isLoading"
+            :aria-label="isLoading ? tEmail('loading') : tEmail('verify')"
+            @click="handleVerify"
+          >
+            <span aria-hidden="true">{{ isLoading ? tEmail('loading') : tEmail('verify') }}</span>
+          </button>
+          <button
+            type="button"
+            class="btn-secondary small"
+            :disabled="isLoading"
+            :aria-label="tEmail('resend')"
+            @click="handleResend"
+          >
+            {{ tEmail('resend') }}
+          </button>
+        </div>
+      </div>
+
+      <div
+        v-else
+        class="card-body"
+      >
+        <p class="success-message">
+          {{ tEmail('verified') }}
         </p>
       </div>
     </div>
