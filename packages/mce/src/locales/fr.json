@@ -8,7 +8,8 @@
     "CHANGE_PASSWORD": "Changer mon mot de passe",
     "CHANGE_EMAIL": "Changer mon adresse email",
     "FONCTION_LIST": "Liste des fonctions",
-    "nav-label": "Menu de navigation"
+    "nav-label": "Menu de navigation",
+    "NOTIFICATIONS": "Préférences de communication"
   },
   "user-info": {
     "login": "Identifiant",
