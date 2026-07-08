@@ -20,6 +20,7 @@ import { I18nInjectionKey } from 'vue-i18n'
 import i18n from '@/plugins/i18n'
 import { dnmaService } from '@/services/dnmaService'
 import { getMCE } from '@/services/serviceMce'
+import PreferencesNotification from '@/components/PreferencesNotification.ce.vue' 
 
 defineOptions({ name: 'PageMce' })
 
@@ -27,6 +28,8 @@ const props = defineProps<{
   mceApi: string
   userInfoApiUrl: string
   avatarDefault: string
+  portailApiUrl: string
+  apiPrefsUrl: string
 }>()
 
 provide(I18nInjectionKey, i18n)
@@ -75,6 +78,7 @@ onMounted(async () => {
 
     listOnglets.value = [
       'GENERALE',
+      'NOTIFICATIONS',
       ...(mce.value.fonctionClassesGroupe?.listFonctions?.length > 0
         ? ['FONCTION_LIST']
         : []),
@@ -156,8 +160,15 @@ function handleAvatarUpdated() {
 
     <div class="sectionTwo">
       <div class="content">
+        <preferences-notification
+            v-if="ongletCurrent === 'NOTIFICATIONS'"
+            :api-prefs-url="apiPrefsUrl"
+            :user-info-api-url="userInfoApiUrl"
+            :portail-api-url="portailApiUrl"
+          />
+        
         <section-onglet
-          v-if="mce?.listMenu?.length"
+          v-else-if="mce?.listMenu?.length"
           :mce-api="mceApi"
           :list-menu="ongletCurrent"
           :user-info-api-url="userInfoApiUrl"

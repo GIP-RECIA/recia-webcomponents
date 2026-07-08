@@ -27,6 +27,7 @@ class ApiError extends Error {
 async function getToken(userInfoApiUrl: string): Promise<string | undefined> {
   try {
     const { encoded } = await oidc({ userInfoApiUrl })
+    
     return encoded
   }
   catch (error) {
@@ -178,13 +179,52 @@ async function verifyEmail(
   return { data: await response.json().catch(() => null) }
 }
 
-export {
-  getDetailEnfant,
-  getMCE,
-  getServicesEnt,
-  postPassword,
-  updateAvatar,
-  updateEmail,
-  updateFonctionDateFin,
-  verifyEmail,
+async function getPreferences(url: string, preferencesData: any, userInfoApiUrl: string) {
+  const token = await getToken(userInfoApiUrl)
+
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'content-type': 'application/json',
+    },
+  })
+
+  await throwIfNotOk(response)
+
+  const text = await response.text()
+  try {
+    return { data: JSON.parse(text) }
+  }
+  catch {
+    return { data: text }
+  }
 }
+
+async function postPreferences(url: string, preferencesData: any, userInfoApiUrl: string) {
+  const token = await getToken(userInfoApiUrl)
+
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(preferencesData),
+  })
+
+  await throwIfNotOk(response)
+
+  const text = await response.text()
+  try {
+    return { data: JSON.parse(text) }
+  }
+  catch {
+    return { data: text }
+  }
+}
+
+export {  getDetailEnfant, getMCE, getServicesEnt, postPassword, updateAvatar, updateEmail, updateFonctionDateFin, getPreferences, postPreferences, verifyEmail }
+
