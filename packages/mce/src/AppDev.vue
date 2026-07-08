@@ -33,6 +33,7 @@ const {
   VITE_USER_INFO_API_URI,
   VITE_PORTAIL_API_URI,
   VITE_AVATAR_DEFAULT,
+  VITE_API_PREFS_URL
 } = import.meta.env
 
 onMounted(() => {
@@ -54,7 +55,9 @@ onMounted(() => {
     :user-info-api-url="VITE_USER_INFO_API_URI"
     :portail-api-url="VITE_PORTAIL_API_URI"
     :avatar-default="VITE_AVATAR_DEFAULT"
+    :api-prefs-url="VITE_API_PREFS_URL"
   />
+  
 </template>
 
 <style lang="scss">
