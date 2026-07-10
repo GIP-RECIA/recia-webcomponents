@@ -154,7 +154,7 @@ function handleAvatarUpdated() {
       />
     </aside>
 
-    <main class="sectionTwo">
+    <div class="sectionTwo">
       <div class="content">
         <section-onglet
           v-if="mce?.listMenu?.length"
@@ -178,7 +178,7 @@ function handleAvatarUpdated() {
           :categorie="categorie"
         />
       </div>
-    </main>
+    </div>
   </div>
 </template>
 
