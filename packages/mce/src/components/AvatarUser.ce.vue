@@ -298,11 +298,11 @@ function focusLast() {
             {{ t('title-header') }}
           </h3>
           <button
-            class="btn-primary small btn-close"
+            class="btn-tertiary circle small btn-close"
             :aria-label="t('close')"
             @click="closeModal"
           >
-            <span aria-hidden="true">✕</span>
+            <font-awesome-icon icon="fa-solid fa-xmark" />
           </button>
         </div>
 

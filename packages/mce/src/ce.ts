@@ -18,6 +18,7 @@ import { defineCustomElement } from 'vue'
 import AvatarUserCe from '@/components/AvatarUser.ce.vue'
 import ChangeEmailCe from '@/components/ChangeEmail.ce.vue'
 import ChangePasswordCe from '@/components/ChangePassword.ce.vue'
+import FontAwesomeIconCe from '@/components/FontAwsomeIcon.ce.vue'
 import I18nHostCe from '@/components/I18nHost.ce.vue'
 import InfoGeneralCe from '@/components/InfoGeneral.ce.vue'
 import ListOngletCe from '@/components/ListOnglet.ce.vue'
@@ -29,6 +30,7 @@ import UserBaseInfoCe from '@/components/UserBaseInfo.ce.vue'
 const AvatarUser = defineCustomElement(AvatarUserCe)
 const ChangeEmail = defineCustomElement(ChangeEmailCe)
 const ChangePassword = defineCustomElement(ChangePasswordCe)
+const FontAwesomeIcon = defineCustomElement(FontAwesomeIconCe)
 const I18nHost = defineCustomElement(I18nHostCe)
 const InfoGeneral = defineCustomElement(InfoGeneralCe)
 const ListOnglet = defineCustomElement(ListOngletCe)
@@ -42,6 +44,7 @@ declare module 'vue' {
     AvatarUser: typeof AvatarUser
     ChangeEmail: typeof ChangeEmail
     ChangePassword: typeof ChangePassword
+    FontAwesomeIcon: typeof FontAwesomeIcon
     I18nHost: typeof I18nHost
     InfoGeneral: typeof InfoGeneral
     ListOnglet: typeof ListOnglet
@@ -56,6 +59,7 @@ function register() {
   customElements.define('avatar-user', AvatarUser)
   customElements.define('change-email', ChangeEmail)
   customElements.define('change-password', ChangePassword)
+  customElements.define('font-awesome-icon', FontAwesomeIcon)
   customElements.define('i18n-host', I18nHost)
   customElements.define('info-general', InfoGeneral)
   customElements.define('list-onglet', ListOnglet)
@@ -69,6 +73,7 @@ export {
   AvatarUser,
   ChangeEmail,
   ChangePassword,
+  FontAwesomeIcon,
   I18nHost,
   InfoGeneral,
   ListOnglet,
