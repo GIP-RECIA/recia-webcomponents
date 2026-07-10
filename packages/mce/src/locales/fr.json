@@ -176,5 +176,52 @@
     "not-available": "N/A",
     "student": "Les élèves de ma relation",
     "master": "Mes apprentis"
+  },
+  "preferences-notifications": {
+    "title": "Configuration de Notifications",
+    "info-summary": "Explication des niveaux de notification",
+    "tag": {
+      "critique": "Critiques",
+      "standard": "Standard",
+      "mineure": "Mineures"
+  },
+  "catalog" : {
+    "publisher-normal" : "Une actualité a été publiée par votre établissement",
+    "publisher-high" : "Une actualité doit être modérée",
+    "nextcloud-normal" : "Un utilisateur a partagé un fichier avec vous",
+    "grouper-normal": "Vous avez été ajouté à un nouveau groupe.",
+    "mce-high": "Votre mot de passe a été mis à jour.",
+    "sarapis-high": "Votre compte va bientôt être supprimé.",
+    "grr-low": "Votre réservation va bientôt commencer.",
+    "mce-low": "Votre mail a bien été modifié."
+  },
+  "quick-actions": {
+    "title": "Paramétrage rapide",
+    "ws-activate": "Activer toutes les notifications du portail ENT",
+    "mail-activate": "Activer toutes les notifications par mail",
+    "push-activate": "Activer toutes les notifications mobile",
+    "ws-deactivate": "Désactiver toutes les notifications du portail ENT",
+    "mail-deactivate": "Désactiver toutes les notifications par mail",
+    "push-deactivate": "Désactiver toutes les notifications mobile"
+  },
+  "advanced": {
+    "title": "Paramétrage avancé"
+  },
+  "channel": {
+    "ws": "Portail ENT",
+    "mail": "Mail",
+    "push": "Application mobile"
+  },
+  "badge": {
+    "active": "Activé",
+    "inactive": "Désactivé"
+  },
+  "level": {
+    "ALL": "Critiques, Standard et Mineures",
+    "STANDARD": "Critiques et Standard",
+    "CRITICAL": "Critiques",
+    "NONE": "Aucune"
+  },
+  "submit": "Enregistrer les modifications"
   }
 }

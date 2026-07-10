@@ -25,6 +25,7 @@ import PageMceCe from '@/components/PageMce.ce.vue'
 import RelationUserCe from '@/components/RelationUser.ce.vue'
 import SectionOngletCe from '@/components/SectionOnglet.ce.vue'
 import UserBaseInfoCe from '@/components/UserBaseInfo.ce.vue'
+import FontAwesomeIconSFC from '@/components/FontAwsomeIcon.ce.vue'
 
 const AvatarUser = defineCustomElement(AvatarUserCe)
 const ChangeEmail = defineCustomElement(ChangeEmailCe)
@@ -36,6 +37,7 @@ const PageMce = defineCustomElement(PageMceCe)
 const RelationUser = defineCustomElement(RelationUserCe)
 const SectionOnglet = defineCustomElement(SectionOngletCe)
 const UserBaseInfo = defineCustomElement(UserBaseInfoCe)
+const FontAwesomeIcon = defineCustomElement(FontAwesomeIconSFC)
 
 declare module 'vue' {
   export interface GlobalComponents {
@@ -49,6 +51,7 @@ declare module 'vue' {
     RelationUser: typeof RelationUser
     SectionOnglet: typeof SectionOnglet
     UserBaseInfo: typeof UserBaseInfo
+    FontAwesomeIcon: typeof FontAwesomeIcon
   }
 }
 
@@ -63,6 +66,8 @@ function register() {
   customElements.define('relation-user', RelationUser)
   customElements.define('section-onglet', SectionOnglet)
   customElements.define('user-base-info', UserBaseInfo)
+  customElements.define('font-awesome-icon', FontAwesomeIcon)
+
 }
 
 export {
@@ -76,5 +81,6 @@ export {
   register,
   RelationUser,
   SectionOnglet,
+  FontAwesomeIcon,
   UserBaseInfo,
 }
