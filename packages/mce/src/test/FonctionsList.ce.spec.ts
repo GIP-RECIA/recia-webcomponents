@@ -89,29 +89,22 @@ describe('fonctionsList', () => {
       expect(wrapper.find('h3').text()).toBe('Mes fonctions')
     })
 
-    it('affiche toutes les cartes .card-fonction', () => {
-      expect(wrapper.findAll('.card-fonction')).toHaveLength(2)
+    it('affiche toutes les lignes .fonction-row', () => {
+      expect(wrapper.findAll('.fonction-row')).toHaveLength(2)
     })
 
-    it('affiche le nom de la structure via .info-value--bold', () => {
-      const firstCard = wrapper.findAll('.card-fonction')[0]
-      // Template : <span class="info-value info-value--bold">{{ it.struct.name }} ...</span>
-      expect(firstCard.find('.info-value--bold').text()).toContain('Lycée Jean Zay')
+    it('affiche le nom de l\'établissement via .etab-name', () => {
+      expect(wrapper.find('.etab-name').text()).toContain('Lycée Jean Zay')
     })
 
     it('affiche la fonction via .badge-tag', () => {
-      const firstCard = wrapper.findAll('.card-fonction')[0]
-      expect(firstCard.findAll('.badge-tag')[0].text()).toBe('Professeur')
+      const firstRow = wrapper.findAll('.fonction-row')[0]
+      expect(firstRow.findAll('.badge-tag')[0].text()).toBe('Professeur')
     })
 
     it('affiche la discipline via .badge-tag', () => {
-      const firstCard = wrapper.findAll('.card-fonction')[0]
-      expect(firstCard.findAll('.badge-tag')[1].text()).toBe('Mathématiques')
-    })
-
-    it('affiche le label dans .info-label', () => {
-      // Template : <span class="info-label">{{ tFonctions('card-label') }}</span>
-      expect(wrapper.find('.info-label').text()).toBe('Fonctions')
+      const firstRow = wrapper.findAll('.fonction-row')[0]
+      expect(firstRow.findAll('.badge-tag')[1].text()).toBe('Mathématiques')
     })
 
     it('ajoute un libellé accessible pour la bascule', () => {
@@ -227,8 +220,6 @@ describe('fonctionsList', () => {
       })
       // tGeneral sans i18n retourne la clé : 'title-fonction'
       expect(noI18nWrapper.find('h3').text()).toBe('title-fonction')
-      // tFonctions sans i18n retourne : 'card-label'
-      expect(noI18nWrapper.find('.info-label').text()).toBe('card-label')
       warnSpy.mockRestore()
     })
   })

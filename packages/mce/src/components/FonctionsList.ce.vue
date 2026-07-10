@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import type { PersonneFonction } from '@/types/fonctionType'
-import { inject, nextTick, ref, watch } from 'vue'
+import { computed, inject, nextTick, ref, watch } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 import { dnmaService } from '@/services/dnmaService'
 import { updateFonctionDateFin } from '@/services/serviceMce.ts'
@@ -37,6 +37,17 @@ const alertRef = ref<HTMLDivElement | null>(null)
 const messageId = 'fonctions-list-message'
 
 const localFonctions = ref(props.fonctions.map(f => ({ ...f })))
+
+const fonctionsByEtab = computed(() => {
+  const groups = new Map<string, PersonneFonction[]>()
+  for (const f of localFonctions.value) {
+    const key = f.struct.name || ''
+    if (!groups.has(key))
+      groups.set(key, [])
+    groups.get(key)!.push(f)
+  }
+  return groups
+})
 
 watch(
   () => props.fonctions,
@@ -118,42 +129,41 @@ async function onToggle(it: PersonneFonction): Promise<void> {
         {{ message }}
       </div>
 
-      <div class="grid-fonctions">
+      <div class="fonctions-grouped">
         <div
-          v-for="(it, index) in localFonctions"
-          :key="index"
-          class="card-fonction"
+          v-for="[etab, items] in fonctionsByEtab"
+          :key="etab"
+          class="etab-group"
         >
-          <div class="fonction-header">
-            <span
-              class="info-label"
-            >{{ tFonctions('card-label') }}</span>
-            <div class="toggle-switch">
-              <input
-                v-model="it.active"
-                type="checkbox"
-                class="toggle-input"
-                :aria-label="getToggleLabel(it)"
-                @change="onToggle(it)"
-                @keydown.enter.prevent="toggleFonction(it)"
-                @keydown.space.prevent="toggleFonction(it)"
-              >
-            </div>
-          </div>
-
-          <div
-            class="fonction-body"
-          >
-            <div class="info-group">
-              <span class="info-value info-value--bold">
-                {{ it.struct.name }}
-              </span>
-              <div class="badge-container">
-                <span class="badge-tag">{{ it.fonction || tGeneral('not-set') }}</span>
+          <h4 class="etab-name">
+            {{ etab }}
+          </h4>
+          <div class="fonctions-list">
+            <div
+              v-for="(it, index) in items"
+              :key="index"
+              class="fonction-row"
+            >
+              <div class="fonction-info">
+                <span
+                  v-if="it.fonction"
+                  class="badge-tag"
+                >{{ it.fonction }}</span>
                 <span
                   v-if="it.discipline"
                   class="badge-tag"
                 >{{ it.discipline }}</span>
+              </div>
+              <div class="toggle-switch">
+                <input
+                  v-model="it.active"
+                  type="checkbox"
+                  class="toggle-input"
+                  :aria-label="getToggleLabel(it)"
+                  @change="onToggle(it)"
+                  @keydown.enter.prevent="toggleFonction(it)"
+                  @keydown.space.prevent="toggleFonction(it)"
+                >
               </div>
             </div>
           </div>
@@ -184,44 +194,55 @@ async function onToggle(it: PersonneFonction): Promise<void> {
   @include mce-card-body;
 }
 
-.grid-fonctions {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: 1fr;
-
-  @media (width >= map.get($grid-breakpoints, md)) {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.fonctions-grouped {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
-.card-fonction {
-  @include mce-card-base;
+.etab-group {
+  border: 1px solid var(--#{$prefix}stroke);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.etab-name {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  font-size: var(--#{$prefix}font-size-h4);
+  font-weight: 700;
+  background-color: var(--#{$prefix}basic-grey);
+  border-bottom: 1px solid var(--#{$prefix}stroke);
+}
+
+.fonctions-list {
   display: flex;
   flex-direction: column;
 }
 
-.fonction-header {
-  @include mce-sub-card;
+.fonction-row {
+  display: flex;
+  align-items: center;
   justify-content: space-between;
-  border-radius: 0;
-  border-bottom: 1px solid var(--#{$prefix}stroke);
+  padding: 0.75rem 1rem;
+  gap: 0.75rem;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--#{$prefix}stroke);
+  }
+}
+
+.fonction-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
 }
 
 .toggle-switch {
   display: inline-flex;
   align-items: center;
-}
-
-.fonction-body {
-  padding: 0.75rem 1rem;
-  background-color: var(--#{$prefix}basic-grey);
-  flex: 1;
-}
-
-.info-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  flex-shrink: 0;
 }
 
 .info-label {
