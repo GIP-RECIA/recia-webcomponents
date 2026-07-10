@@ -192,7 +192,7 @@ async function handleResend() {
   <div class="card-wrapper">
     <div class="change-email-panel">
       <div class="card-header">
-        <h3 tabindex="0">
+        <h3>
           {{ tEmail('title') }}
         </h3>
       </div>

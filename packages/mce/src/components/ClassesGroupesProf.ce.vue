@@ -133,7 +133,6 @@ const hasNoData = computed(() => {
         <h3
           id="classes-groupes-prof-heading"
           class="collapse-title"
-          tabindex="0"
         >
           {{ tGeneral('title-classe-groupe') }}
         </h3>
