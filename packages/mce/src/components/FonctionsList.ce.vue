@@ -100,7 +100,6 @@ async function onToggle(it: PersonneFonction): Promise<void> {
     <div class="card-header">
       <h3
         id="fonctions-list-heading"
-        tabindex="0"
       >
         {{ tGeneral('title-fonction') }}
       </h3>

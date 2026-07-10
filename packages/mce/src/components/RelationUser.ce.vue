@@ -101,7 +101,6 @@ function closeDetail(): void {
       <div class="card-header">
         <h3
           :id="`relation-title-${titre}`"
-          tabindex="0"
         >
           {{ m(`title-relation-${titre}`) }}
         </h3>

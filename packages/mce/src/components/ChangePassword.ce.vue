@@ -119,7 +119,7 @@ async function handleChangePassword() {
 <template>
   <div class="change-password-panel">
     <div class="card-header">
-      <h3 tabindex="0">
+      <h3>
         {{ tPwd('title') }}
       </h3>
     </div>

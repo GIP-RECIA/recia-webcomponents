@@ -42,7 +42,6 @@ function tGeneral(key: string): string {
       <div class="card-header">
         <h3
           id="title-classe-groupe"
-          tabindex="0"
         >
           {{ tGeneral('title-classe-groupe') }}
         </h3>
@@ -119,7 +118,6 @@ function tGeneral(key: string): string {
       <div class="card-header">
         <h3
           id="title-courses"
-          tabindex="0"
         >
           {{ tGeneral('title-courses') }}
         </h3>

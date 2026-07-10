@@ -69,7 +69,6 @@ const formattedDate = computed(() => {
       <div class="card-header">
         <h3
           id="info-personnelle-title"
-          tabindex="0"
         >
           {{ tUser('informations-personnelles') }}
         </h3>
