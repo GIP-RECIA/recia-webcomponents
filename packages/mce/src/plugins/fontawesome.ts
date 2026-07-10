@@ -15,10 +15,12 @@
  */
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCircleChevronLeft, faCircleChevronRight, faPen, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
 function register() {
-  library.add(faXmark, faPen, faCircleChevronLeft, faCircleChevronRight)
+  library.add(faXmark)
 }
 
-export { register }
+export {
+  register,
+}
