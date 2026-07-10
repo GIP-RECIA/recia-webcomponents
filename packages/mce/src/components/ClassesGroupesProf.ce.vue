@@ -184,12 +184,12 @@ const hasNoData = computed(() => {
                   <span
                     v-for="c in getSectionClasses(item, nomEtab)"
                     :key="c"
-                    class="badge-tag"
+                    class="tag tag-primary"
                   >{{ c }}</span>
                   <span
                     v-for="g in getSectionGroupes(item, nomEtab)"
                     :key="g"
-                    class="badge-tag"
+                    class="tag tag-primary"
                   >{{ g }}</span>
                 </div>
               </div>
@@ -225,12 +225,12 @@ const hasNoData = computed(() => {
                   <span
                     v-for="c in getFonctionClasses(f)"
                     :key="c"
-                    class="badge-tag"
+                    class="tag tag-primary"
                   >{{ c }}</span>
                   <span
                     v-for="g in getFonctionGroupes(f)"
                     :key="g"
-                    class="badge-tag"
+                    class="tag tag-primary"
                   >{{ g }}</span>
                 </div>
               </div>
@@ -249,6 +249,7 @@ const hasNoData = computed(() => {
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
+@use '@gip-recia/ui/components/tags';
 @use '../assets/mce-shared' as *;
 
 .card-wrapper {
@@ -342,9 +343,5 @@ const hasNoData = computed(() => {
   @media (width < map.get($grid-breakpoints, sm)) {
     justify-content: flex-start;
   }
-}
-
-.badge-tag {
-  @include mce-discipline-tag;
 }
 </style>
