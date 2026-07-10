@@ -97,7 +97,9 @@ describe('changeEmail', () => {
     })
 
     it('affiche l\'email actuel fourni dans les props', () => {
-      expect(wrapper.find('.static-value').text()).toBe('ancien@test.fr')
+      const input = wrapper.find('#currentEmail')
+      expect(input.exists()).toBe(true)
+      expect(input.element.value).toBe('ancien@test.fr')
     })
 
     it('affiche le texte par défaut si aucun email actuel n\'est transmis', () => {
@@ -109,7 +111,9 @@ describe('changeEmail', () => {
           provide: { [I18nInjectionKey as symbol]: { global: i18n.global } },
         },
       })
-      expect(wrapperEmpty.find('.static-value').text()).toBe('No email address provided.')
+      const input = wrapperEmpty.find('#currentEmail')
+      expect(input.exists()).toBe(true)
+      expect(input.element.value).toBe('No email address provided.')
     })
 
     it('le bouton a le bon texte initial', () => {

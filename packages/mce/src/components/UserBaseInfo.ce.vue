@@ -15,8 +15,10 @@
 -->
 
 <script setup lang="ts">
-import { inject } from 'vue'
+import type { Etat } from '@/types/enums/Etat'
+import { computed, inject } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
+import { etatMap } from '@/types/enums/Etat'
 
 defineOptions({ name: 'UserBaseInfo' })
 
@@ -38,6 +40,53 @@ const i18n = inject(I18nInjectionKey)
 function m(key: string): string {
   return i18n ? (i18n.global.t as (k: string) => string)(`user-info.${key}`) : key
 }
+
+function t(key: string): string {
+  return i18n ? (i18n.global.t as (k: string) => string)(key) : key
+}
+
+const etatLabel = computed(() => {
+  if (!props.etat)
+    return ''
+  const etat = props.etat as Etat
+  return etatMap[etat] ? t(etatMap[etat].i18n) : props.etat
+})
+
+const etatBg = computed(() => {
+  if (!props.etat)
+    return ''
+  const etat = props.etat as Etat
+  return etatMap[etat]?.color || ''
+})
+
+const etatTextColor = computed(() => {
+  if (!props.etat)
+    return ''
+  // Calculate contrasting text color (white or dark)
+  const color = etatMap[props.etat as Etat]?.color || ''
+  if (!color)
+    return ''
+  // Simple luminance calculation for contrast
+  const hex = color.replace('#', '')
+  const r = Number.parseInt(hex.substring(0, 2), 16)
+  const g = Number.parseInt(hex.substring(2, 4), 16)
+  const b = Number.parseInt(hex.substring(4, 6), 16)
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255
+  return luminance > 0.5 ? '#000000' : '#ffffff'
+})
+
+const etatBorderColor = computed(() => {
+  if (!props.etat)
+    return ''
+  return etatMap[props.etat as Etat]?.color || ''
+})
+
+const etatIcon = computed(() => {
+  if (!props.etat)
+    return null
+  const etat = props.etat as Etat
+  return etatMap[etat]?.icon || null
+})
 </script>
 
 <template>
@@ -51,11 +100,21 @@ function m(key: string): string {
           {{ props.userName }}
         </p>
         <span
-          v-if="props.etat"
+          v-if="etatLabel"
           class="etat-badge"
-          :class="`etat-badge--${props.etat.toLowerCase()}`"
+          :class="`etat-badge--${props.etat?.toLowerCase()}`"
+          :style="{
+            '--badge-bg': etatBg,
+            '--badge-text': etatTextColor,
+            '--badge-border': etatBorderColor,
+          }"
         >
-          {{ props.etat }}
+          <font-awesome-icon
+            v-if="etatIcon"
+            :icon="etatIcon"
+            class="mr-2"
+          />
+          {{ etatLabel }}
         </span>
       </div>
       <avatar-user

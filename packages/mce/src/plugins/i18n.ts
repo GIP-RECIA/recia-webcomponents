@@ -17,15 +17,17 @@
 import { createI18n } from 'vue-i18n'
 import en from '@/locales/en.json'
 import fr from '@/locales/fr.json'
+import userEn from '@/locales/user-en.json'
+import userFr from '@/locales/user.json'
 
 export default createI18n({
   legacy: false,
   locale: window.navigator.language,
   fallbackLocale: 'en',
   messages: {
-    en,
-    'en-US': en,
-    fr,
-    'fr-FR': fr,
+    'en': { ...en, ...userEn },
+    'en-US': { ...en, ...userEn },
+    'fr': { ...fr, ...userFr },
+    'fr-FR': { ...fr, ...userFr },
   },
 })

@@ -15,8 +15,10 @@
 -->
 
 <script setup lang="ts">
+import type { CategoriePersonne } from '@/types/enums/CategoriePersonne'
 import { computed, inject, ref, watch } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
+import { categoriePersonneMap } from '@/types/enums/CategoriePersonne'
 
 defineOptions({ name: 'InformationPersonnelle' })
 
@@ -35,6 +37,10 @@ const i18n = inject(I18nInjectionKey)
 
 function tUser(key: string): string {
   return i18n ? (i18n.global.t as (k: string) => string)(`user-info.${key}`) : key
+}
+
+function t(key: string): string {
+  return i18n ? (i18n.global.t as (k: string) => string)(key) : key
 }
 
 const currentEmail = ref(props.userMail || '')
@@ -57,6 +63,14 @@ const formattedDate = computed(() => {
   catch {
     return props.dateNaissance
   }
+})
+
+const translatedCategorie = computed(() => {
+  if (!props.categorie)
+    return tUser('non-renseigne')
+  const cat = props.categorie as CategoriePersonne
+  const mapEntry = categoriePersonneMap[cat]
+  return mapEntry ? t(mapEntry.i18n) : props.categorie
 })
 </script>
 
@@ -100,7 +114,7 @@ const formattedDate = computed(() => {
           </div>
           <div class="info-item">
             <span class="info-label">{{ tUser('categorie') }}</span>
-            <span class="info-value">{{ props.categorie || tUser('non-renseigne') }}</span>
+            <span class="info-value">{{ translatedCategorie }}</span>
           </div>
           <div
             v-if="currentEmail"

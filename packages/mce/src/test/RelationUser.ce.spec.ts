@@ -95,17 +95,17 @@ describe('relationUser', () => {
       expect(row.find('.info-label').text()).toBe('Père')
     })
 
-    it('affiche le tag .ap-tag si autoriteParental est true', () => {
+    it('affiche le tag .tag-primary si autoriteParental est true', () => {
       const wrapper = createWrapper()
-      expect(wrapper.find('.ap-tag').exists()).toBe(true)
-      expect(wrapper.find('.ap-tag').text()).toBe('Autorité parentale')
+      expect(wrapper.find('.tag-primary').exists()).toBe(true)
+      expect(wrapper.find('.tag-primary').text()).toBe('Autorité parentale')
     })
 
-    it('n\'affiche pas .ap-tag si autoriteParental est false', () => {
+    it('n\'affiche pas .tag-primary si autoriteParental est false', () => {
       const wrapper = createWrapper({
         details: [{ uidRelation: '1', displayNameRelation: 'A', typeRelation: 'Tuteur', autoriteParental: false }] as Relation[],
       })
-      expect(wrapper.find('.ap-tag').exists()).toBe(false)
+      expect(wrapper.find('.tag-primary').exists()).toBe(false)
     })
   })
 
