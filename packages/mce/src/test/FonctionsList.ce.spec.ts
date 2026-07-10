@@ -97,14 +97,14 @@ describe('fonctionsList', () => {
       expect(wrapper.find('.etab-name').text()).toContain('Lycée Jean Zay')
     })
 
-    it('affiche la fonction via .badge-tag', () => {
+    it('affiche la fonction via .tag.tag-primary', () => {
       const firstRow = wrapper.findAll('.fonction-row')[0]
-      expect(firstRow.findAll('.badge-tag')[0].text()).toBe('Professeur')
+      expect(firstRow.findAll('.tag.tag-primary')[0].text()).toBe('Professeur')
     })
 
-    it('affiche la discipline via .badge-tag', () => {
+    it('affiche la discipline via .tag.tag-primary', () => {
       const firstRow = wrapper.findAll('.fonction-row')[0]
-      expect(firstRow.findAll('.badge-tag')[1].text()).toBe('Mathématiques')
+      expect(firstRow.findAll('.tag.tag-primary')[1].text()).toBe('Mathématiques')
     })
 
     it('ajoute un libellé accessible pour la bascule', () => {

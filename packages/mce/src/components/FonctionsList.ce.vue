@@ -147,11 +147,11 @@ async function onToggle(it: PersonneFonction): Promise<void> {
               <div class="fonction-info">
                 <span
                   v-if="it.fonction"
-                  class="badge-tag"
+                  class="tag tag-primary"
                 >{{ it.fonction }}</span>
                 <span
                   v-if="it.discipline"
-                  class="badge-tag"
+                  class="tag tag-primary"
                 >{{ it.discipline }}</span>
               </div>
               <div class="toggle-switch">
@@ -180,6 +180,7 @@ async function onToggle(it: PersonneFonction): Promise<void> {
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
+@use '@gip-recia/ui/components/tags';
 @use '../assets/mce-shared' as *;
 
 .profile-card {
@@ -296,13 +297,5 @@ async function onToggle(it: PersonneFonction): Promise<void> {
     outline: none;
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--#{$prefix}primary) 25%, transparent);
   }
-}
-
-.badge-container {
-  @include mce-badge-container;
-}
-
-.badge-tag {
-  @include mce-discipline-tag;
 }
 </style>
