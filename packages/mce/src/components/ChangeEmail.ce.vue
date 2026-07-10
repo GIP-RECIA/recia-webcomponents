@@ -208,42 +208,46 @@ async function handleResend() {
           <span class="static-value">{{ displayedCurrentEmail }}</span>
         </div>
 
-        <div class="form-group">
-          <label
-            class="info-label"
-            for="newEmail"
-          >{{ tEmail('new-email') }}</label>
-          <input
-            id="newEmail"
-            v-model="newEmail"
-            type="email"
-            :placeholder="tEmail('placeholder')"
-            class="custom-input"
-            autocomplete="email"
-            aria-required="true"
-            :aria-label="tEmail('new-email')"
-            :aria-invalid="message && messageType === 'error' ? 'true' : undefined"
-            :aria-describedby="message && messageType === 'error' ? messageId : undefined"
-          >
+        <div class="field">
+          <div class="field-layout">
+            <div class="field-container">
+              <div class="middle">
+                <label for="newEmail">{{ tEmail('new-email') }}</label>
+                <input
+                  id="newEmail"
+                  v-model="newEmail"
+                  type="email"
+                  placeholder=" "
+                  autocomplete="email"
+                  aria-required="true"
+                  :aria-invalid="message && messageType === 'error' ? 'true' : undefined"
+                  :aria-describedby="message && messageType === 'error' ? messageId : undefined"
+                >
+              </div>
+            </div>
+            <div class="active-indicator" />
+          </div>
         </div>
 
-        <div class="form-group">
-          <label
-            class="info-label"
-            for="confirmEmail"
-          >{{ tEmail('confirm-email') }}</label>
-          <input
-            id="confirmEmail"
-            v-model="confirmEmail"
-            type="email"
-            :placeholder="tEmail('placeholder')"
-            class="custom-input"
-            autocomplete="email"
-            aria-required="true"
-            :aria-label="tEmail('confirm-email')"
-            :aria-invalid="message && messageType === 'error' ? 'true' : undefined"
-            :aria-describedby="message && messageType === 'error' ? messageId : undefined"
-          >
+        <div class="field">
+          <div class="field-layout">
+            <div class="field-container">
+              <div class="middle">
+                <label for="confirmEmail">{{ tEmail('confirm-email') }}</label>
+                <input
+                  id="confirmEmail"
+                  v-model="confirmEmail"
+                  type="email"
+                  placeholder=" "
+                  autocomplete="email"
+                  aria-required="true"
+                  :aria-invalid="message && messageType === 'error' ? 'true' : undefined"
+                  :aria-describedby="message && messageType === 'error' ? messageId : undefined"
+                >
+              </div>
+            </div>
+            <div class="active-indicator" />
+          </div>
         </div>
 
         <div
@@ -280,25 +284,27 @@ async function handleResend() {
           <strong>{{ newEmail }}</strong>
         </p>
 
-        <div class="form-group">
-          <label
-            class="info-label"
-            for="verificationCode"
-          >{{ tEmail('verification-code') }}</label>
-          <input
-            id="verificationCode"
-            v-model="verificationCode"
-            type="text"
-            inputmode="numeric"
-            maxlength="6"
-            :placeholder="tEmail('code-placeholder')"
-            class="custom-input"
-            autocomplete="one-time-code"
-            aria-required="true"
-            :aria-label="tEmail('verification-code')"
-            :aria-invalid="message && messageType === 'error' ? 'true' : undefined"
-            :aria-describedby="message && messageType === 'error' ? messageId : undefined"
-          >
+        <div class="field">
+          <div class="field-layout">
+            <div class="field-container">
+              <div class="middle">
+                <label for="verificationCode">{{ tEmail('verification-code') }}</label>
+                <input
+                  id="verificationCode"
+                  v-model="verificationCode"
+                  type="text"
+                  inputmode="numeric"
+                  maxlength="6"
+                  placeholder=" "
+                  autocomplete="one-time-code"
+                  aria-required="true"
+                  :aria-invalid="message && messageType === 'error' ? 'true' : undefined"
+                  :aria-describedby="message && messageType === 'error' ? messageId : undefined"
+                >
+              </div>
+            </div>
+            <div class="active-indicator" />
+          </div>
         </div>
 
         <div
@@ -348,11 +354,11 @@ async function handleResend() {
 
 <style lang="scss">
 @use 'ress/dist/ress.min.css';
-@use 'sass:map';
 @use '@gip-recia/ui/core/variables' as *;
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
+@use '@gip-recia/ui/components/fields';
 @use '../assets/mce-shared' as *;
 
 .change-email-panel {
@@ -384,10 +390,6 @@ async function handleResend() {
   font-size: var(--#{$prefix}font-size-sm);
   overflow-wrap: break-word;
   word-break: break-all;
-}
-
-.custom-input {
-  @include mce-custom-input;
 }
 
 .action-row {
