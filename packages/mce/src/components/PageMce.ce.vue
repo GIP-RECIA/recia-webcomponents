@@ -198,7 +198,6 @@ function handleAvatarUpdated() {
 
   @media (width >= map.get($grid-breakpoints, md)) {
     flex-direction: row;
-    padding: 1.5rem 2rem;
     align-items: flex-start;
   }
 }
