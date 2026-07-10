@@ -75,6 +75,7 @@ export default ({ mode }: ConfigEnv) => {
                 'section-onglet',
                 'user-base-info',
                 'info-modal',
+                'font-awesome-icon',
               ].includes(tag),
           },
         },
