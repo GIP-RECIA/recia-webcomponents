@@ -15,38 +15,15 @@
 -->
 
 <script setup lang="ts">
-import { ref, onMounted, computed, onBeforeUnmount } from 'vue'
+import { ref, onMounted, computed, onBeforeUnmount, inject } from 'vue'
 import { getPreferences, postPreferences } from '../services/serviceMce'
 import { getAll } from '@/services/servicePortlet'
+import { faDesktop, faEnvelope, faMailBulk, faMobile } from '@fortawesome/free-solid-svg-icons';
+import { I18nInjectionKey, useI18n } from 'vue-i18n';
+import type { Channel, Priorities, ServicePref, UserPreferencesData, NotificationCatalogItem} from '../types/notificationsType'
 
 defineOptions({ name: 'PreferencesNotification' })
 
-type Channel = 'ws' | 'mail' | 'push';
-
-interface Priorities {
-  HIGH: Record<Channel, boolean>;
-  NORMAL: Record<Channel, boolean>;
-  LOW: Record<Channel, boolean>;
-}
-
-interface ServicePref {
-  enabled: boolean;
-  override: boolean;
-  priorities: Priorities;
-  _displayName?: string;
-  _isAuthorized?: boolean;
-}
-
-interface UserPreferencesData {
-  userId?: string;
-  services: Record<string, ServicePref>;
-}
-
-interface NotificationCatalogItem {
-  service: string;
-  priority: 'HIGH' | 'NORMAL' | 'LOW';
-  description: string;
-}
 
 const props = defineProps<{
   apiPrefsUrl: string
@@ -58,16 +35,21 @@ const isMobile = ref(window.innerWidth <= 640)
 const expandedStates = ref<string[]>([])
 const preferences = ref<UserPreferencesData | null>(null)
 
+const i18n = inject(I18nInjectionKey)
+
+function t(key: string): string {
+  return i18n ? (i18n.global.t as (k: string) => string)(`${key}`) : key
+}
 
 const notificationCatalog = ref<NotificationCatalogItem[]>([
-  { service: 'PUBLISHER', priority: 'NORMAL', description: 'Une actualité a été publiée par votre établissement.' },
-  { service: 'PUBLISHER', priority: 'HIGH', description: 'Une actualité doit être modérée.' },
-  { service: 'NEXTCLOUD', priority: 'NORMAL', description: 'Un utilisateur a partagé un fichier avec vous.' },
-  { service: 'GROUPER', priority: 'NORMAL', description: 'Vous avez été ajouté à un nouveau groupe.' },
-  { service: 'MCE', priority: 'HIGH', description: 'Votre mot de passe a été mis à jour.' },
-  { service: 'SARAPIS', priority: 'HIGH', description: 'Votre  compte va bientôt être supprimé.' },
-  { service: 'GRR', priority: 'LOW', description: 'Votre réservation va bientôt commencer.' },
-  { service: 'MCE', priority: 'LOW', description: 'Votre mail a bien été modifié.' },
+  { service: 'PUBLISHER', priority: 'NORMAL', description: t('preferences-notifications.catalog.publisher-normal') },
+  { service: 'PUBLISHER', priority: 'HIGH', description: t('preferences-notifications.catalog.publisher-high') },
+  { service: 'NEXTCLOUD', priority: 'NORMAL', description: t('preferences-notifications.catalog.nextcloud-normal') },
+  { service: 'GROUPER', priority: 'NORMAL', description: t('preferences-notifications.catalog.grouper-normal') },
+  { service: 'MCE', priority: 'HIGH', description: t('preferences-notifications.catalog.mce-high') },
+  { service: 'SARAPIS', priority: 'HIGH', description: t('preferences-notifications.catalog.sarapis-high') },
+  { service: 'GRR', priority: 'LOW', description: t('preferences-notifications.catalog.grr-low') },
+  { service: 'MCE', priority: 'LOW', description: t('preferences-notifications.catalog.mce-low') },
 
 ]);
 
@@ -183,7 +165,7 @@ async function savePreferences() {
   try {
     await postPreferences(`${props.apiPrefsUrl}/save`, preferences.value, props.userInfoApiUrl)
     console.log('Préférences sauvegardées avec succès.')
-  } catch (error) {
+  } catch (_error) {
     console.error('Erreur lors de la sauvegarde des préférences.')
   }
 }
@@ -240,19 +222,19 @@ onMounted(async () => {
     <form id="prefsForms" v-if="preferences" @submit.prevent="savePreferences">
       
       <header class="form-header">
-        <h1>Configuration de Notifications</h1>
+        <h2>{{ t('preferences-notifications.title') }}</h2>
       </header>
 
       <details class="info-disclosure">
   <summary class="info-summary">
-    <span class="summary-text">Explication des niveaux de notification</span>
+    <span class="summary-text">{{ t('preferences-notifications.info-summary') }}</span>
   </summary>
   
   <div class="info-content">
     
     <div class="priority-category" v-if="criticalNotifs.length > 0">
       <div class="category-header">
-        <span class="tag crit">Critiques</span>
+        <span class="tag crit">{{ t('preferences-notifications.tag.critique') }}</span>
       </div>
       <ul class="dynamic-notif-list">
         <li v-for="(notif, index) in criticalNotifs" :key="'crit-'+index">
@@ -263,7 +245,7 @@ onMounted(async () => {
 
     <div class="priority-category" v-if="standardNotifs.length > 0">
       <div class="category-header">
-        <span class="tag std">Standard</span>
+        <span class="tag std">{{ t('preferences-notifications.tag.standard') }}</span>
       </div>
       <ul class="dynamic-notif-list">
         <li v-for="(notif, index) in standardNotifs" :key="'std-'+index">
@@ -274,7 +256,7 @@ onMounted(async () => {
 
     <div class="priority-category" v-if="minorNotifs.length > 0">
       <div class="category-header">
-        <span class="tag min">Mineures</span>
+        <span class="tag min">{{ t('preferences-notifications.tag.mineure') }}</span>
       </div>
       <ul class="dynamic-notif-list">
         <li v-for="(notif, index) in minorNotifs" :key="'min-'+index">
@@ -287,59 +269,57 @@ onMounted(async () => {
 </details>
 
 <div class="section-header">
-  <h2 class="section-title">
-    <i class="fa fa-bolt icon-section"></i> Paramétrage rapide
-  </h2>
+  <h3 class="section-title">
+    <i class="fa fa-bolt icon-section"></i> {{ t('preferences-notifications.quick-actions.title') }}
+  </h3>
 </div>
 
 <div class="quick-actions-buttons">
   <button 
     type="button" 
-    class="btn-quick" 
+    class="btn-secondary small" 
     :class="{ 'is-all-active': getGlobalChannelState('ws') === 'ALL' }"
     role="switch"
     :aria-checked="getGlobalChannelState('ws') === 'ALL'"
     @click="toggleAll('ws')">
-    <i class="fa fa-desktop channel-icon"></i>
+    <font-awesome-icon :icon="faDesktop"/>
     <span class="btn-text">
-      {{ getGlobalChannelState('ws') === 'ALL' ? 'Désactiver toutes les notifications du portail ENT' : 'Activer toutes les notifications du portail ENT' }}
+      {{ getGlobalChannelState('ws') === 'ALL' ? t('preferences-notifications.quick-actions.ws-deactivate') : t('preferences-notifications.quick-actions.ws-activate') }}
     </span>
-    <i class="fa toggle-icon" :class="getGlobalChannelState('ws') === 'ALL' ? 'fa-toggle-on' : 'fa-toggle-off'"></i>
   </button>
 
   <button 
     type="button" 
-    class="btn-quick" 
+    class="btn-secondary small" 
     :class="{ 'is-all-active': getGlobalChannelState('mail') === 'ALL' }"
     role="switch"
     :aria-checked="getGlobalChannelState('mail') === 'ALL'"
     @click="toggleAll('mail')">
-    <i class="fa fa-envelope channel-icon"></i>
+    <font-awesome-icon :icon="faEnvelope"/>
     <span class="btn-text">
-      {{ getGlobalChannelState('mail') === 'ALL' ? 'Désactiver toutes les notifications par mail' : 'Activer toutes les notifications par mail' }}
+      {{ getGlobalChannelState('mail') === 'ALL' ? t('preferences-notifications.quick-actions.mail-deactivate') : t('preferences-notifications.quick-actions.mail-activate') }}
     </span>
-    <i class="fa toggle-icon" :class="getGlobalChannelState('mail') === 'ALL' ? 'fa-toggle-on' : 'fa-toggle-off'"></i>
+    
   </button>
 
   <button 
     type="button" 
-    class="btn-quick" 
+    class="btn-secondary small" 
     :class="{ 'is-all-active': getGlobalChannelState('push') === 'ALL' }"
     role="switch"
     :aria-checked="getGlobalChannelState('push') === 'ALL'"
     @click="toggleAll('push')">
-    <i class="fa fa-mobile channel-icon" style="font-size: 16px;"></i>
+    <font-awesome-icon :icon="faMobile"/>
     <span class="btn-text">
-      {{ getGlobalChannelState('push') === 'ALL' ? 'Désactiver toutes les notifications mobile' : 'Activer toutes les notifications mobile' }}
+      {{ getGlobalChannelState('push') === 'ALL' ? t('preferences-notifications.quick-actions.push-deactivate') : t('preferences-notifications.quick-actions.push-activate') }}
     </span>
-    <i class="fa toggle-icon" :class="getGlobalChannelState('push') === 'ALL' ? 'fa-toggle-on' : 'fa-toggle-off'"></i>
   </button>
 </div>
 
 <div class="section-header" style="margin-top: 40px;">
-  <h2 class="section-title">
-    <i class="fa fa-sliders icon-section"></i> Paramétrage avancé
-  </h2>
+  <h3  class="section-title">
+    <i class="fa fa-sliders icon-section"></i> {{ t('preferences-notifications.advanced.title') }}
+  </h3>
 </div>
 
 <div class="cards-grid">
@@ -350,53 +330,53 @@ onMounted(async () => {
     class="card-header" 
     @click="toggleCard(serviceName as string)"
     >
-      <h3>{{ servicePref._displayName }}</h3>
+      <h4>{{ servicePref._displayName }}</h4>
       
       <span 
         class="badge" 
         :class="isServiceActive(servicePref.priorities) ? 'badge-active' : 'badge-inactive'">
-        {{ isServiceActive(servicePref.priorities) ? 'Activé' : 'Désactivé' }}
+        {{ isServiceActive(servicePref.priorities) ? t('preferences-notifications.badge.active') : t('preferences-notifications.badge.inactive') }}
       </span>
     </div>
 
     <div v-show="!isMobile || expandedStates.includes(serviceName as string)" class="card-body">
       
       <div class="notif-row">
-        <span class="notif-label">Portail ENT</span>
+        <span class="notif-label">{{ t('preferences-notifications.channel.ws') }}</span>
         <select 
           class="level-select" 
           :value="getLevel(servicePref.priorities, 'ws')" 
           @change="setLevel(servicePref, 'ws', $event)">
-          <option value="ALL">Critiques et Standard et Mineures</option>
-          <option value="STANDARD">Critiques et Standard</option>
-          <option value="CRITICAL">Critiques</option>
-          <option value="NONE">Aucune</option>
+          <option value="ALL">{{ t('preferences-notifications.level.ALL') }}</option>
+          <option value="STANDARD">{{ t('preferences-notifications.level.STANDARD') }}</option>
+          <option value="CRITICAL">{{ t('preferences-notifications.level.CRITICAL') }}</option>
+          <option value="NONE">{{ t('preferences-notifications.level.NONE') }}</option>
         </select>
       </div>
 
       <div class="notif-row">
-        <span class="notif-label">Mail</span>
+        <span class="notif-label">{{ t('preferences-notifications.channel.mail') }}</span>
         <select 
           class="level-select" 
           :value="getLevel(servicePref.priorities, 'mail')" 
           @change="setLevel(servicePref, 'mail', $event)">
-          <option value="ALL">Critiques et Standard et Mineures</option>
-          <option value="STANDARD">Critiques et Standard</option>
-          <option value="CRITICAL">Critiques</option>
-          <option value="NONE">Aucune</option>
+          <option value="ALL">{{ t('preferences-notifications.level.ALL') }}</option>
+          <option value="STANDARD">{{ t('preferences-notifications.level.STANDARD') }}</option>
+          <option value="CRITICAL">{{ t('preferences-notifications.level.CRITICAL') }}</option>
+          <option value="NONE">{{ t('preferences-notifications.level.NONE') }}</option>
         </select>
       </div>
 
       <div class="notif-row">
-        <span class="notif-label">Application mobile</span>
+        <span class="notif-label">{{ t('preferences-notifications.channel.push') }}</span>
         <select 
           class="level-select" 
           :value="getLevel(servicePref.priorities, 'push')" 
           @change="setLevel(servicePref, 'push', $event)">
-          <option value="ALL">Critiques + Standard + Mineures</option>
-          <option value="STANDARD">Critiques + Standard</option>
-          <option value="CRITICAL">Critiques</option>
-          <option value="NONE">Aucune</option>
+          <option value="ALL">{{ t('preferences-notifications.level.ALL') }}</option>
+          <option value="STANDARD">{{ t('preferences-notifications.level.STANDARD') }}</option>
+          <option value="CRITICAL">{{ t('preferences-notifications.level.CRITICAL') }}</option>
+          <option value="NONE">{{ t('preferences-notifications.level.NONE') }}</option>
         </select>
       </div>
 
@@ -406,7 +386,7 @@ onMounted(async () => {
 
 <div class="form-footer">
   <button type="submit" class="btn-primary">
-    Enregistrer les modifications
+    {{ t('preferences-notifications.submit') }}
   </button>
 </div>
 
@@ -415,17 +395,17 @@ onMounted(async () => {
   </div>
 </template>
 
-<style scoped>
-body {
-    font-family: 'FontAwesome', sans-serif;
-    margin-top: 10px;
-    align-items: center;
-    background-color: #000000;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
-}
+<style lang="scss">
+@use 'ress/dist/ress.min.css';
+@use 'sass:map';
+@use '@gip-recia/ui/core/variables' as *;
+@use '@gip-recia/ui/functions' as *;
+@use '@gip-recia/ui/mixins' as *;
+@use '@gip-recia/ui/components/buttons';
+@use '../assets/mce-shared' as *;
+@use '@gip-recia/ui/components/tags';
+
+
 
 .info-disclosure {
     border: 1px solid var(--recia-stroke) !important;
