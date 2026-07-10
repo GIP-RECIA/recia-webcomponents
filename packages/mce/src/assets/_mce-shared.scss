@@ -51,6 +51,8 @@
 @mixin mce-info-label {
   font-size: var(--#{$prefix}font-size-h4);
   font-weight: 600;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 @mixin mce-action-row {
@@ -98,6 +100,8 @@
 
 @mixin mce-info-value {
   font-size: var(--#{$prefix}font-size-sm);
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 @mixin mce-info-value-bold {
