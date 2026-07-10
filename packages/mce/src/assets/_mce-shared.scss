@@ -25,11 +25,6 @@
   box-shadow: var(--#{$prefix}shadow-neutral) rgba(0, 0, 0, 0.1);
   overflow: $overflow;
   background-color: var(--#{$prefix}body-bg);
-
-  &:focus-within {
-    outline: 2px solid var(--#{$prefix}primary);
-    outline-offset: 2px;
-  }
 }
 
 @mixin mce-card-header {
