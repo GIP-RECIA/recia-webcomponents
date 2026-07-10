@@ -144,10 +144,8 @@ function closeDetail(): void {
               >
                 <span
                   v-if="val.autoriteParental"
-                  class="tag-container"
-                >
-                  <span class="ap-tag">{{ m('parental-authority') }}</span>
-                </span>
+                  class="tag tag-primary"
+                >{{ m('parental-authority') }}</span>
                 <span
                   class="chevron"
                   :class="{ 'chevron--open': selectedUid === val.uidRelation }"
@@ -272,12 +270,6 @@ function closeDetail(): void {
   }
 }
 
-.tag-container {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-}
-
 .chevron {
   font-size: var(--#{$prefix}font-size-lg);
   color: var(--#{$prefix}basic-black-lighter);
@@ -289,10 +281,6 @@ function closeDetail(): void {
   &--open {
     transform: rotate(90deg);
   }
-}
-
-.ap-tag {
-  @include mce-ap-tag;
 }
 
 .relation-detail-panel {

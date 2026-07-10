@@ -15,8 +15,10 @@
 -->
 
 <script setup lang="ts">
+import type { Etat } from '@/types/enums/Etat'
 import { computed, inject } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
+import { etatMap } from '@/types/enums/Etat'
 
 defineOptions({ name: 'RelationUserDetail' })
 
@@ -35,11 +37,56 @@ function t(key: string, params?: Record<string, unknown>): string {
   return i18n ? (i18n.global.t as (k: string, p?: Record<string, unknown>) => string)(`relation-user-detail.${key}`, params) : key
 }
 
+function tGlobal(key: string): string {
+  return i18n ? (i18n.global.t as (k: string) => string)(key) : key
+}
+
 const formatDate = computed(() => {
   if (!props.personne?.bod)
     return ''
   const parts = props.personne.bod.split('-')
   return parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : props.personne.bod
+})
+
+const etatLabel = computed(() => {
+  if (!props.personne?.etat)
+    return ''
+  const etat = props.personne.etat as Etat
+  return etatMap[etat] ? tGlobal(etatMap[etat].i18n) : props.personne.etat
+})
+
+const etatBg = computed(() => {
+  if (!props.personne?.etat)
+    return ''
+  const etat = props.personne.etat as Etat
+  return etatMap[etat]?.color || ''
+})
+
+const etatTextColor = computed(() => {
+  if (!props.personne?.etat)
+    return ''
+  const color = etatMap[props.personne.etat as Etat]?.color || ''
+  if (!color)
+    return ''
+  const hex = color.replace('#', '')
+  const r = Number.parseInt(hex.substring(0, 2), 16)
+  const g = Number.parseInt(hex.substring(2, 4), 16)
+  const b = Number.parseInt(hex.substring(4, 6), 16)
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255
+  return luminance > 0.5 ? '#000000' : '#ffffff'
+})
+
+const etatBorderColor = computed(() => {
+  if (!props.personne?.etat)
+    return ''
+  return etatMap[props.personne.etat as Etat]?.color || ''
+})
+
+const etatIcon = computed(() => {
+  if (!props.personne?.etat)
+    return null
+  const etat = props.personne.etat as Etat
+  return etatMap[etat]?.icon || null
 })
 
 const sectionEleve = computed(() => {
@@ -120,12 +167,22 @@ const enseignementsList = computed(() => {
               v-if="personne.etat"
               class="status-badge"
               :class="`status-badge--${personne.etat.toLowerCase()}`"
+              :style="{
+                '--badge-bg': etatBg,
+                '--badge-text': etatTextColor,
+                '--badge-border': etatBorderColor,
+              }"
             >
-              {{ personne.etat }}
+              <font-awesome-icon
+                v-if="etatIcon"
+                :icon="etatIcon"
+                class="mr-2"
+              />
+              {{ etatLabel }}
             </span>
             <span
               v-if="personne.mdp === false"
-              class="status-badge status-badge--external"
+              class="tag tag-primary"
             >
               {{ t('external-account') }}
             </span>
@@ -134,11 +191,11 @@ const enseignementsList = computed(() => {
 
         <button
           type="button"
-          class="btn-primary small"
+          class="btn-tertiary circle small btn-close"
           :aria-label="t('close')"
           @click="$emit('close')"
         >
-          <span aria-hidden="true">&times;</span>
+          <font-awesome-icon icon="fa-solid fa-xmark" />
         </button>
       </div>
 
@@ -159,14 +216,6 @@ const enseignementsList = computed(() => {
           <span class="info-value-box">
             <time :datetime="personne.bod">{{ formatDate }}</time>
           </span>
-        </div>
-
-        <div
-          v-if="personne.uid"
-          class="info-item"
-        >
-          <span class="info-label">{{ t('uid') }}</span>
-          <span class="info-value-box">{{ personne.uid }}</span>
         </div>
       </div>
 

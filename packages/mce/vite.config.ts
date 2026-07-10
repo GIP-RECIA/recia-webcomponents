@@ -64,6 +64,7 @@ export default ({ mode }: ConfigEnv) => {
             isCustomElement: (tag: string) =>
               [
                 'avatar-user',
+                'font-awesome-icon',
                 'i18n-host',
                 'info-general',
                 'list-onglet',

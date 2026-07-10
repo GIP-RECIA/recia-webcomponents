@@ -136,21 +136,21 @@
 // Badge de statut générique (Valide, Invalide, etc.)
 @mixin mce-status-badge {
   @include mce-badge-base;
-  background-color: var(--#{$prefix}basic-grey);
-  color: var(--#{$prefix}basic-black-lighter);
-  border: 1px solid var(--#{$prefix}stroke);
+  background-color: var(--badge-bg, var(--#{$prefix}basic-grey));
+  color: var(--badge-text, var(--#{$prefix}basic-black-lighter));
+  border: 1px solid var(--badge-border, var(--#{$prefix}stroke));
 
   &--valide,
   &--active {
-    background-color: color-mix(in srgb, var(--#{$prefix}system-blue) 10%, transparent);
-    color: var(--#{$prefix}system-blue);
-    border-color: color-mix(in srgb, var(--#{$prefix}system-blue) 30%, transparent);
+    --badge-bg: color-mix(in srgb, var(--#{$prefix}system-blue) 10%, transparent);
+    --badge-text: var(--#{$prefix}system-blue);
+    --badge-border: color-mix(in srgb, var(--#{$prefix}system-blue) 30%, transparent);
   }
 
   &--external {
-    background-color: color-mix(in srgb, var(--#{$prefix}favorite) 10%, transparent);
-    color: var(--#{$prefix}favorite);
-    border-color: color-mix(in srgb, var(--#{$prefix}favorite) 35%, transparent);
+    --badge-bg: color-mix(in srgb, var(--#{$prefix}favorite) 10%, transparent);
+    --badge-text: var(--#{$prefix}favorite);
+    --badge-border: color-mix(in srgb, var(--#{$prefix}favorite) 35%, transparent);
   }
 }
 
