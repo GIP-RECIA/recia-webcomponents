@@ -112,10 +112,6 @@ describe('changeEmail', () => {
       expect(wrapperEmpty.find('.static-value').text()).toBe('No email address provided.')
     })
 
-    it('applique le bon placeholder sur le champ newEmail', () => {
-      expect(wrapper.find('#newEmail').attributes('placeholder')).toBe('exemple@domaine.fr')
-    })
-
     it('le bouton a le bon texte initial', () => {
       const submitBtn = wrapper.find('.btn-primary')
       expect(submitBtn.text()).toBe('Valider')

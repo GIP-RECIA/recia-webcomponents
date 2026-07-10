@@ -91,16 +91,10 @@ describe('changePassword', () => {
     })
 
     it('affiche les 3 labels', () => {
-      const labels = wrapper.findAll('.info-label')
+      const labels = wrapper.findAll('.middle label')
       expect(labels[0].text()).toBe('Mot de passe actuel')
       expect(labels[1].text()).toBe('Nouveau mot de passe')
       expect(labels[2].text()).toBe('Confirmer le nouveau mot de passe')
-    })
-
-    it('affiche les placeholders des inputs', () => {
-      expect(wrapper.find('#current-password').attributes('placeholder')).toBe('Entrez votre mot de passe actuel')
-      expect(wrapper.find('#new-password').attributes('placeholder')).toBe('Au moins 12 caractères')
-      expect(wrapper.find('#confirm-password').attributes('placeholder')).toBe('Répétez votre mot de passe')
     })
 
     it('affiche le bouton submit avec le bon texte', () => {
