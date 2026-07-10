@@ -111,8 +111,8 @@ describe('classesGroupesEleve', () => {
       expect(rows[0].text()).toContain('ANGLAIS LV1')
     })
 
-    it('affiche la liste des matières suivies sous forme de badges .pill-tag', () => {
-      const pills = wrapper.findAll('.enseignements-list .pill-tag').map(el => el.text())
+    it('affiche la liste des matières suivies sous forme de badges .tag.tag-primary', () => {
+      const pills = wrapper.findAll('.enseignements-list .tag.tag-primary').map(el => el.text())
       expect(pills).toHaveLength(3)
       expect(pills).toContain('Mathématiques')
       expect(pills).toContain('Physique-Chimie')
@@ -141,7 +141,7 @@ describe('classesGroupesEleve', () => {
         },
       })
       const row = wrapperMulti.find('.etab-row-item')
-      const classPills = row.findAll('.pills-list').at(0)!.findAll('.pill-tag').map(el => el.text())
+      const classPills = row.findAll('.pills-list').at(0)!.findAll('.tag.tag-primary').map(el => el.text())
       expect(classPills).toHaveLength(3)
       expect(classPills).toContain('2NDE 1')
       expect(classPills).toContain('2NDE 2')
@@ -165,7 +165,7 @@ describe('classesGroupesEleve', () => {
         },
       })
       const row = wrapperMulti.find('.etab-row-item')
-      const groupPills = row.findAll('.pills-list').at(1)!.findAll('.pill-tag').map(el => el.text())
+      const groupPills = row.findAll('.pills-list').at(1)!.findAll('.tag.tag-primary').map(el => el.text())
       expect(groupPills).toHaveLength(2)
       expect(groupPills).toContain('ANGLAIS LV1')
       expect(groupPills).toContain('ESPAGNOL LV2')
@@ -181,7 +181,7 @@ describe('classesGroupesEleve', () => {
       expect(rows[1].find('.info-value--bold').text()).toBe('Collège Albert Camus')
       // Le composant rend un <span class="pill-tag"> quand la liste est vide
       const groupSection = rows[1].findAll('.info-item').at(1)!
-      expect(groupSection.find('.pill-tag').text()).toBe('Aucun groupe')
+      expect(groupSection.find('.tag.tag-primary').text()).toBe('Aucun groupe')
     })
 
     it('affiche le message no-class si la liste des classes est vide', () => {
@@ -198,7 +198,7 @@ describe('classesGroupesEleve', () => {
       })
       const row = wrapperEmpty.find('.etab-row-item')
       // Le composant rend un <span class="pill-tag"> quand classes est vide
-      expect(row.find('.pill-tag').text()).toBe('Aucune classe')
+      expect(row.find('.tag.tag-primary').text()).toBe('Aucune classe')
     })
 
     it('affiche le message no-course si la liste des enseignements suivis est vide', () => {

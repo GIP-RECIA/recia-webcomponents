@@ -155,28 +155,6 @@
   align-items: center;
 }
 
-@mixin mce-pill-tag(
-  $padding: 0.4rem 1rem,
-  $border-radius: 8px,
-  $font-size: var(--#{$prefix}font-size-sm),
-  $color: var(--#{$prefix}basic-black-lighter),
-  $background: transparent,
-  $border: 1px solid var(--#{$prefix}stroke)
-) {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: $padding;
-  border-radius: $border-radius;
-  font-size: $font-size;
-  color: $color;
-  border: $border;
-  background-color: $background;
-  transition:
-    background-color 0.2s,
-    border-color 0.2s;
-}
-
 // Base badge
 @mixin mce-badge-base {
   display: inline-flex;
@@ -226,14 +204,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-}
-
-// Tag discipline/matière (teinté primary)
-@mixin mce-discipline-tag {
-  @include mce-badge-base;
-  background-color: color-mix(in srgb, var(--#{$prefix}primary) 10%, transparent);
-  color: var(--#{$prefix}primary);
-  border: 1px solid color-mix(in srgb, var(--#{$prefix}primary) 30%, transparent);
 }
 
 // Ligne séparateur entre items (padding + solid border)

@@ -69,14 +69,14 @@ function tGeneral(key: string): string {
                 <li
                   v-for="(cls, i) in classgroup.classes"
                   :key="i"
-                  class="pill-tag"
+                  class="tag tag-primary"
                 >
                   {{ cls }}
                 </li>
               </ul>
               <span
                 v-else
-                class="pill-tag"
+                class="tag tag-primary"
               >{{ tEleve('no-class') }}</span>
             </div>
 
@@ -90,14 +90,14 @@ function tGeneral(key: string): string {
                 <li
                   v-for="(grp, i) in classgroup.groupes"
                   :key="i"
-                  class="pill-tag"
+                  class="tag tag-primary"
                 >
                   {{ grp }}
                 </li>
               </ul>
               <span
                 v-else
-                class="pill-tag"
+                class="tag tag-primary"
               >{{ tEleve('no-group') }}</span>
             </div>
           </div>
@@ -134,7 +134,7 @@ function tGeneral(key: string): string {
               <li
                 v-for="(ens, index) in sectionEleve.enseignementSuivis"
                 :key="index"
-                class="pill-tag"
+                class="tag tag-primary"
               >
                 {{ ens }}
               </li>
@@ -157,6 +157,7 @@ function tGeneral(key: string): string {
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
+@use '@gip-recia/ui/components/tags';
 @use '../assets/mce-shared' as *;
 
 .sections-wrapper {
@@ -248,9 +249,5 @@ function tGeneral(key: string): string {
 .enseignements-list {
   @include mce-tags-list;
   margin: 2px 0 0;
-}
-
-.pill-tag {
-  @include mce-discipline-tag;
 }
 </style>

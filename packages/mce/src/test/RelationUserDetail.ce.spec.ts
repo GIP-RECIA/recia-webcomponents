@@ -205,7 +205,7 @@ describe('relationUserDetail', () => {
         global: mountOptions.global,
       })
 
-      expect(wrapper.findAll('.badge-tag')[0].text()).toBe('6eA')
+      expect(wrapper.findAll('.tag.tag-primary')[0].text()).toBe('6eA')
     })
 
     it('affiche les groupes via listGroupes', () => {
@@ -214,7 +214,7 @@ describe('relationUserDetail', () => {
         global: mountOptions.global,
       })
 
-      expect(wrapper.findAll('.badge-tag')[1].text()).toBe('Anglais')
+      expect(wrapper.findAll('.tag.tag-primary')[1].text()).toBe('Anglais')
     })
 
     it('utilise groupes si listGroupes est absent', () => {
@@ -235,7 +235,7 @@ describe('relationUserDetail', () => {
         global: mountOptions.global,
       })
 
-      expect(wrapper.find('.badge-tag').text()).toBe('GroupeB')
+      expect(wrapper.find('.tag.tag-primary').text()).toBe('GroupeB')
     })
 
     it('utilise groupe en dernier recours', () => {
@@ -256,7 +256,7 @@ describe('relationUserDetail', () => {
         global: mountOptions.global,
       })
 
-      expect(wrapper.find('.badge-tag').text())
+      expect(wrapper.find('.tag.tag-primary').text())
         .toBe('GroupeSingulier')
     })
 
@@ -278,7 +278,7 @@ describe('relationUserDetail', () => {
         global: mountOptions.global,
       })
 
-      expect(wrapper.find('.badge-tag').text())
+      expect(wrapper.find('.tag.tag-primary').text())
         .toBe('5eB')
     })
 
@@ -305,7 +305,7 @@ describe('relationUserDetail', () => {
         global: mountOptions.global,
       })
 
-      expect(wrapper.findAll('.badge-tag')).toHaveLength(2)
+      expect(wrapper.findAll('.tag.tag-primary')).toHaveLength(2)
     })
   })
 
@@ -328,7 +328,7 @@ describe('relationUserDetail', () => {
         global: mountOptions.global,
       })
 
-      const disciplines = wrapper.findAll('.badge-tag')
+      const disciplines = wrapper.findAll('.tag.tag-primary')
 
       expect(disciplines).toHaveLength(2)
       expect(disciplines[0].text()).toBe('Mathématiques')

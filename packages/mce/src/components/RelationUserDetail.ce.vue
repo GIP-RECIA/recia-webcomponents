@@ -189,7 +189,7 @@ const enseignementsList = computed(() => {
               <span
                 v-for="(classe, i) in classesList"
                 :key="i"
-                class="badge-tag"
+                class="tag tag-primary"
               >
                 {{ classe }}
               </span>
@@ -205,7 +205,7 @@ const enseignementsList = computed(() => {
               <span
                 v-for="(groupe, i) in groupesList"
                 :key="i"
-                class="badge-tag"
+                class="tag tag-primary"
               >
                 {{ groupe }}
               </span>
@@ -226,7 +226,7 @@ const enseignementsList = computed(() => {
           <span
             v-for="(matiere, i) in enseignementsList"
             :key="i"
-            class="badge-tag"
+            class="tag tag-primary"
           >
             {{ matiere }}
           </span>
@@ -276,6 +276,7 @@ const enseignementsList = computed(() => {
 @use '@gip-recia/ui/functions' as *;
 @use '@gip-recia/ui/mixins' as *;
 @use '@gip-recia/ui/components/buttons';
+@use '@gip-recia/ui/components/tags';
 @use '../assets/mce-shared' as *;
 
 .detail-panel {
@@ -330,10 +331,6 @@ const enseignementsList = computed(() => {
 
 .status-badge {
   @include mce-status-badge;
-}
-
-.badge-tag {
-  @include mce-discipline-tag;
 }
 
 .ap-tag {

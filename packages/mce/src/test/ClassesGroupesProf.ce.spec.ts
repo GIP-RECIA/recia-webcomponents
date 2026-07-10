@@ -125,9 +125,9 @@ describe('classesGroupesProf', () => {
       expect(teachingEntry.find('.info-value--bold').text()).toBe('Mathématiques')
     })
 
-    it('affiche les badges de classes (.badge-tag) et groupes (.badge-tag)', () => {
+    it('affiche les badges de classes (.tag.tag-primary) et groupes (.tag.tag-primary)', () => {
       const etabBlock = wrapper.find('.etab-block')
-      const tags = etabBlock.findAll('.badge-tag').map(el => el.text())
+      const tags = etabBlock.findAll('.tag.tag-primary').map(el => el.text())
       expect(tags).toContain('2NDE 1')
       expect(tags).toContain('MATHS SOUVENT')
     })
@@ -192,7 +192,7 @@ describe('classesGroupesProf', () => {
         },
         global: { plugins: [i18n], provide },
       })
-      const badges = customWrapper.findAll('.badge-tag')
+      const badges = customWrapper.findAll('.tag.tag-primary')
       expect(badges[0].text()).toBe('1ERE CG')
       expect(badges[1].text()).toBe('GROUP CG')
     })
@@ -217,7 +217,7 @@ describe('classesGroupesProf', () => {
         },
         global: { plugins: [i18n], provide },
       })
-      const badges = customWrapper.findAll('.badge-tag')
+      const badges = customWrapper.findAll('.tag.tag-primary')
       expect(badges[0].text()).toBe('6EME ELEVE-FALLBACK')
       expect(badges[1].text()).toBe('GROUPE ELEVE-FALLBACK')
     })
