@@ -263,9 +263,8 @@ async function handleResend() {
             type="submit"
             class="btn-primary small"
             :disabled="isLoading"
-            :aria-label="isLoading ? tEmail('loading') : tEmail('submit')"
           >
-            <span aria-hidden="true">{{ isLoading ? tEmail('loading') : tEmail('submit') }}</span>
+            <span>{{ isLoading ? tEmail('loading') : tEmail('submit') }}</span>
           </button>
         </div>
       </form>
@@ -319,10 +318,9 @@ async function handleResend() {
             type="button"
             class="btn-primary small"
             :disabled="isLoading"
-            :aria-label="isLoading ? tEmail('loading') : tEmail('verify')"
             @click="handleVerify"
           >
-            <span aria-hidden="true">{{ isLoading ? tEmail('loading') : tEmail('verify') }}</span>
+            <span>{{ isLoading ? tEmail('loading') : tEmail('verify') }}</span>
           </button>
           <button
             type="button"

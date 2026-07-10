@@ -208,7 +208,6 @@ async function handleChangePassword() {
         >
           <span
             v-if="isLoading"
-            aria-hidden="true"
           >{{ tPwd('loading') }}</span>
           <span v-else>{{ tPwd('submit') }}</span>
         </button>

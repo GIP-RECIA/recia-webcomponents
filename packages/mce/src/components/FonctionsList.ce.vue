@@ -123,12 +123,10 @@ async function onToggle(it: PersonneFonction): Promise<void> {
           v-for="(it, index) in localFonctions"
           :key="index"
           class="card-fonction"
-          aria-hidden="false"
         >
           <div class="fonction-header">
             <span
               class="info-label"
-              aria-hidden="true"
             >{{ tFonctions('card-label') }}</span>
             <div class="toggle-switch">
               <input
@@ -145,7 +143,6 @@ async function onToggle(it: PersonneFonction): Promise<void> {
 
           <div
             class="fonction-body"
-            aria-hidden="true"
           >
             <div class="info-group">
               <span class="info-value info-value--bold">
