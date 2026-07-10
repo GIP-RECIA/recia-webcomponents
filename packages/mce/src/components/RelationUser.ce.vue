@@ -134,7 +134,6 @@ function closeDetail(): void {
             >
               <span
                 class="info-item"
-                aria-hidden="true"
               >
                 <span class="info-label">{{ val.typeRelation || m('relation-default') }}</span>
                 <span class="info-value info-value--bold">{{ val.displayNameRelation }}</span>
@@ -142,7 +141,6 @@ function closeDetail(): void {
 
               <span
                 class="relation-row-actions"
-                aria-hidden="true"
               >
                 <span
                   v-if="val.autoriteParental"

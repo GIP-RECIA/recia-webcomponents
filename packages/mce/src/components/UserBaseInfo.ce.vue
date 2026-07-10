@@ -46,7 +46,6 @@ function m(key: string): string {
       <!-- Nom + statut : visuel uniquement, résumé accessible porté par l'avatar-user -->
       <div
         class="user-name-block"
-        aria-hidden="true"
       >
         <p class="user-name">
           {{ props.userName }}
