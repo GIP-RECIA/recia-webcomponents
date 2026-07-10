@@ -16,8 +16,10 @@
 
 import { createApp } from 'vue'
 import { register as registerCustomElements } from '@/ce'
+import { register as registerFontAwesome } from '@/plugins/fontawesome'
 import 'regenerator-runtime/runtime.js'
 
+registerFontAwesome()
 registerCustomElements()
 
 if (import.meta.env.DEV) {

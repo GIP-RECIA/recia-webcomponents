@@ -203,9 +203,24 @@ async function handleResend() {
         novalidate
         @submit.prevent="handleSubmit"
       >
-        <div class="form-group">
-          <label class="info-label">{{ tEmail('current-email') }}</label>
-          <span class="static-value">{{ displayedCurrentEmail }}</span>
+        <div class="field">
+          <div class="field-layout">
+            <div class="field-container">
+              <div class="middle">
+                <label for="currentEmail">{{ tEmail('current-email') }}</label>
+                <input
+                  id="currentEmail"
+                  :value="displayedCurrentEmail"
+                  type="email"
+                  placeholder=" "
+                  autocomplete="email"
+                  disabled
+                  aria-disabled="true"
+                >
+              </div>
+            </div>
+            <div class="active-indicator" />
+          </div>
         </div>
 
         <div class="field">
@@ -374,22 +389,6 @@ async function handleResend() {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-}
-
-.form-group {
-  @include mce-form-group;
-}
-
-.info-label {
-  @include mce-info-label;
-}
-
-.static-value {
-  @include mce-value-box;
-  padding: 0.75rem;
-  font-size: var(--#{$prefix}font-size-sm);
-  overflow-wrap: break-word;
-  word-break: break-all;
 }
 
 .action-row {

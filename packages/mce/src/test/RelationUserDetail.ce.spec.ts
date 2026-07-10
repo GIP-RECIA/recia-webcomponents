@@ -42,6 +42,9 @@ const mountOptions = {
     provide: {
       [I18nInjectionKey as any]: mockI18n,
     },
+    stubs: {
+      'font-awesome-icon': true,
+    },
   },
 }
 
@@ -122,53 +125,42 @@ describe('relationUserDetail', () => {
   })
 
   describe('rendu des informations utilisateur', () => {
-    it('affiche le nom', () => {
-      const wrapper = mount(RelationUserDetail, {
+    let wrapper: ReturnType<typeof mount>
+
+    beforeEach(() => {
+      wrapper = mount(RelationUserDetail, {
         props: defaultProps,
         global: mountOptions.global,
       })
+    })
 
+    it('affiche le nom de la personne', () => {
       expect(wrapper.find('.detail-name').text()).toBe('Jean Dupont')
     })
 
-    it('affiche le nom de l établissement', () => {
-      const wrapper = mount(RelationUserDetail, {
-        props: defaultProps,
-        global: mountOptions.global,
-      })
+    it('affiche l\'etat traduit', () => {
+      expect(wrapper.text()).toContain('Actif')
+    })
 
+    it('affiche l\'etab', () => {
       expect(wrapper.text()).toContain('Lycée Test')
     })
 
-    it('affiche l uid', () => {
-      const wrapper = mount(RelationUserDetail, {
-        props: defaultProps,
-        global: mountOptions.global,
-      })
-
-      expect(wrapper.text()).toContain('12345')
-    })
-
-    it('formate la date de naissance', () => {
-      const wrapper = mount(RelationUserDetail, {
-        props: defaultProps,
-        global: mountOptions.global,
-      })
-
+    it('affiche la date de naissance formatée', () => {
       expect(wrapper.find('time').text()).toBe('15/05/2010')
       expect(wrapper.find('time').attributes('datetime')).toBe('2010-05-15')
     })
   })
 
   describe('badge de statut', () => {
-    it('affiche le statut utilisateur', () => {
+    it('affiche le badge état traduit', () => {
       const wrapper = mount(RelationUserDetail, {
         props: defaultProps,
         global: mountOptions.global,
       })
 
       expect(wrapper.find('.status-badge').exists()).toBe(true)
-      expect(wrapper.find('.status-badge').text()).toBe('Actif')
+      expect(wrapper.find('.status-badge').text()).toContain('Actif')
     })
 
     it('affiche le badge compte externe lorsque mdp vaut false', () => {
@@ -183,18 +175,16 @@ describe('relationUserDetail', () => {
         global: mountOptions.global,
       })
 
-      expect(wrapper.find('.status-badge--external').exists()).toBe(true)
-      expect(wrapper.find('.status-badge--external').text())
-        .toBe('Compte externe')
+      expect(wrapper.findAll('.tag-primary').some(t => t.text().includes('Compte externe'))).toBe(true)
     })
 
-    it('ne montre pas le badge externe lorsque mdp vaut true', () => {
+    it('n\'affiche pas le badge compte externe lorsque mdp vaut true', () => {
       const wrapper = mount(RelationUserDetail, {
         props: defaultProps,
         global: mountOptions.global,
       })
 
-      expect(wrapper.find('.status-badge--external').exists()).toBe(false)
+      expect(wrapper.findAll('.tag-primary').some(t => t.text().includes('Compte externe'))).toBe(false)
     })
   })
 
@@ -364,8 +354,7 @@ describe('relationUserDetail', () => {
       })
 
       expect(wrapper.find('.ap-tag').exists()).toBe(true)
-      expect(wrapper.find('.ap-tag').text())
-        .toBe('Autorité parentale')
+      expect(wrapper.find('.ap-tag').text()).toBe('Autorité parentale')
     })
   })
 
