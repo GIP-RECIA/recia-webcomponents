@@ -110,6 +110,10 @@ function openModal() {
   imageSrc.value = null
   selectedFile.value = null
   message.value = ''
+  nextTick(() => {
+    const closeBtn = modalComponent.value?.querySelector('.btn-close') as HTMLElement
+    closeBtn?.focus()
+  })
 }
 
 function handleKeydown(event: KeyboardEvent) {
@@ -294,7 +298,7 @@ function focusLast() {
             {{ t('title-header') }}
           </h3>
           <button
-            class="btn-primary small"
+            class="btn-primary small btn-close"
             :aria-label="t('close')"
             @click="closeModal"
           >
