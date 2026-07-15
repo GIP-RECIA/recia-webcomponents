@@ -17,10 +17,10 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, provide, ref } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
+import PreferencesNotification from '@/components/PreferencesNotification.ce.vue'
 import i18n from '@/plugins/i18n'
 import { dnmaService } from '@/services/dnmaService'
 import { getMCE } from '@/services/serviceMce'
-import PreferencesNotification from '@/components/PreferencesNotification.ce.vue' 
 
 defineOptions({ name: 'PageMce' })
 
@@ -51,7 +51,6 @@ const mce = ref<any>({
   etat: '',
   identifiant: null,
 
-  listMenu: [],
   fonctionClassesGroupe: {},
   parentEleve: [],
   relationEleve: [],
@@ -160,17 +159,17 @@ function handleAvatarUpdated() {
 
     <div class="sectionTwo">
       <div class="content">
-        <preferences-notification
-            v-if="ongletCurrent === 'NOTIFICATIONS'"
-            :api-prefs-url="apiPrefsUrl"
-            :user-info-api-url="userInfoApiUrl"
-            :portail-api-url="portailApiUrl"
-          />
-        
+        <PreferencesNotification
+          v-if="ongletCurrent === 'NOTIFICATIONS'"
+          :api-prefs-url="apiPrefsUrl"
+          :user-info-api-url="userInfoApiUrl"
+          :portail-api-url="portailApiUrl"
+        />
+
         <section-onglet
-          v-else-if="mce?.listMenu?.length"
+          v-else
           :mce-api="mceApi"
-          :list-menu="ongletCurrent"
+          :current-tab="ongletCurrent"
           :user-info-api-url="userInfoApiUrl"
           :fonction-classes-groupe="mce.fonctionClassesGroupe ?? {}"
           :parent-eleve="mce.parentEleve ?? {}"
