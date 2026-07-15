@@ -26,7 +26,6 @@ const props = defineProps<{
   details: General
   listFonctions: any[]
   userInfoApiUrl: string
-  listMenu: string
   mceApi: string
   parentEleve: any
   apprentis: any
