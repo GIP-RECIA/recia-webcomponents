@@ -25,7 +25,6 @@ describe('infoGeneral', () => {
   const defaultProps = {
     details: {} as General,
     listFonctions: [],
-    listMenu: 'GENERALE',
     mceApi: 'https://api.mce.local',
     parentEleve: undefined,
     apprentis: undefined,

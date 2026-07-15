@@ -33,7 +33,7 @@ defineOptions({ name: 'SectionOnglet' })
 
 const props = defineProps<{
   mceApi: string
-  listMenu: string
+  currentTab: string
   userInfoApiUrl: string
   fonctionClassesGroupe: FonctionClassesGroupe
   parentEleve: PersonneRelation
@@ -56,13 +56,13 @@ const props = defineProps<{
   <div class="section-content-wrapper">
     <!-- ONGLET GÉNÉRALE -->
     <div
-      v-show="props.listMenu === 'GENERALE'"
+      v-show="props.currentTab === 'GENERALE'"
       id="onglet-tabpanel-GENERALE"
-      :inert="props.listMenu !== 'GENERALE'"
+      :inert="props.currentTab !== 'GENERALE'"
       role="tabpanel"
       aria-labelledby="onglet-tab-GENERALE"
       class="tab-pane"
-      :class="{ 'animate-fade': props.listMenu === 'GENERALE' }"
+      :class="{ 'animate-fade': props.currentTab === 'GENERALE' }"
     >
       <InformationPersonnelleCe
         :uid="props.uid"
@@ -77,7 +77,6 @@ const props = defineProps<{
       <info-general
         :details="props.fonctionClassesGroupe"
         :list-fonctions="props.fonctionClassesGroupe.listFonctions ?? []"
-        :list-menu="props.listMenu"
         :mce-api="props.mceApi"
         :parent-eleve="props.parentEleve"
         :relation-eleve="props.relationEleve"
@@ -88,15 +87,15 @@ const props = defineProps<{
 
     <!-- ONGLET CHANGEMENT MOT DE PASSE -->
     <div
-      v-show="props.listMenu === 'CHANGE_PASSWORD'"
+      v-show="props.currentTab === 'CHANGE_PASSWORD'"
       id="onglet-tabpanel-CHANGE_PASSWORD"
-      :inert="props.listMenu !== 'CHANGE_PASSWORD'"
+      :inert="props.currentTab !== 'CHANGE_PASSWORD'"
       role="tabpanel"
       aria-labelledby="onglet-tab-CHANGE_PASSWORD"
       class="tab-pane animate-fade"
     >
       <ChangePassword
-        :key="`pwd-${props.listMenu}`"
+        :key="`pwd-${props.currentTab}`"
         :user-info-api-url="props.userInfoApiUrl"
         :user-id="props.userId"
         :mce-api="props.mceApi"
@@ -105,9 +104,9 @@ const props = defineProps<{
 
     <!-- ONGLET LISTE DES FONCTIONS / RÔLES -->
     <div
-      v-show="props.listMenu === 'FONCTION_LIST'"
+      v-show="props.currentTab === 'FONCTION_LIST'"
       id="onglet-tabpanel-FONCTION_LIST"
-      :inert="props.listMenu !== 'FONCTION_LIST'"
+      :inert="props.currentTab !== 'FONCTION_LIST'"
       role="tabpanel"
       aria-labelledby="onglet-tab-FONCTION_LIST"
       class="tab-pane animate-fade"
@@ -121,15 +120,15 @@ const props = defineProps<{
 
     <!-- ONGLET CHANGEMENT EMAIL -->
     <div
-      v-show="props.listMenu === 'CHANGE_EMAIL'"
+      v-show="props.currentTab === 'CHANGE_EMAIL'"
       id="onglet-tabpanel-CHANGE_EMAIL"
-      :inert="props.listMenu !== 'CHANGE_EMAIL'"
+      :inert="props.currentTab !== 'CHANGE_EMAIL'"
       role="tabpanel"
       aria-labelledby="onglet-tab-CHANGE_EMAIL"
       class="tab-pane animate-fade"
     >
       <ChangeEmail
-        :key="`email-${props.listMenu}`"
+        :key="`email-${props.currentTab}`"
         :user-info-api-url="props.userInfoApiUrl"
         :mce-api="props.mceApi"
         :user-id="props.userId"
