@@ -30,7 +30,7 @@
 @mixin mce-card-header {
   padding: 1.5rem 1.25rem;
   border-bottom: 1px solid var(--#{$prefix}stroke);
-
+  background-color: #f8fafc;
   h3 {
     margin: 0;
     font-size: var(--#{$prefix}font-size-h3);
