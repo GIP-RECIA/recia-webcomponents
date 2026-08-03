@@ -49,8 +49,8 @@ Propriétés disponibles :
 
 ```html
 <param-etab
-  param-etab-api="" 
-  user-info-api-url="" 
+  param-etab-api=""
+  user-info-api-url=""
   default-logo-icon=""
 />
 ```

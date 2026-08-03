@@ -2,9 +2,15 @@
 <html lang="">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
     <title>@gip-recia/info-modal</title>
-    <script type="module" src="/src/info-modal.ts"></script>
+    <script
+      type="module"
+      src="/src/info-modal.ts"
+    ></script>
     <script type="text/javascript">
       document.addEventListener('DOMContentLoaded', () => {
         // important pour remettre le focus sur l'élément
@@ -48,10 +54,20 @@
   </head>
   <body>
     <main id="main">
-      <button id="btn-modal" type="button" aria-haspopup="dialog" aria-controls="modal">Afficher la modale</button>
+      <button
+        id="btn-modal"
+        type="button"
+        aria-haspopup="dialog"
+        aria-controls="modal"
+      >
+        Afficher la modale
+      </button>
     </main>
     <info-modal id="modale">
-      <div tabindex="0" slot="modal-body">
+      <div
+        tabindex="0"
+        slot="modal-body"
+      >
         <h2>Un sous-titre</h2>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rutrum nibh massa, vitae dictum ipsum faucibus
@@ -74,7 +90,12 @@
         suscipit eget, dictum vitae ante. Ut imperdiet eleifend ligula, vel ultricies massa venenatis in. Fusce pretium
         libero vitae libero sollicitudin, ac ornare lacus tempor. Suspendisse potenti.
       </div>
-      <div tabindex="0" slot="modal-footer">Le footer de la modale.</div>
+      <div
+        tabindex="0"
+        slot="modal-footer"
+      >
+        Le footer de la modale.
+      </div>
     </info-modal>
   </body>
 </html>

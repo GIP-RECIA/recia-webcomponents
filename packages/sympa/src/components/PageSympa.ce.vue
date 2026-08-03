@@ -71,7 +71,7 @@ function getErrorMessage(code: number): string {
 }
 
 const displayWarning = computed<boolean>(() => {
-  return sympaLists.value.filter(x => x.editor).length > 0
+  return sympaLists.value.some(x => x.editor)
 })
 </script>
 
