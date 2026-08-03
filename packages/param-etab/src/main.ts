@@ -17,13 +17,15 @@
 import type { ToastContainerOptions } from 'vue3-toastify'
 import { createApp, defineComponent } from 'vue'
 import Vue3Toasity from 'vue3-toastify'
+import toastify from 'vue3-toastify/dist/index.css?inline'
 import { register as registerCustomElements } from '@/ce'
 import { register as registerFontAwsome } from '@/plugins/fontawesome'
+import { injectStyle } from './utils/styleUtils.ts'
 import 'regenerator-runtime/runtime.js'
-import 'vue3-toastify/dist/index.css'
 
 registerCustomElements()
 registerFontAwsome()
+injectStyle('param-etabToastify', toastify)
 
 const app = createApp(defineComponent({}))
 app.use(Vue3Toasity, {
