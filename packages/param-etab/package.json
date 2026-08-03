@@ -33,7 +33,7 @@
   "scripts": {
     "dev": "dotenv-checker && vite --host",
     "build": "run-p type-check build-only && yarn run build:min",
-    "build:min": "npm exec terser -- -c -m --module -f comments=false -o dist/param-etab.min.js -- dist/param-etab.js",
+    "build:min": "yarn exec terser -c -m --module -f comments=false -o dist/param-etab.min.js -- dist/param-etab.js",
     "lint": "eslint src/*",
     "preview": "vite preview",
     "test:unit": "echo No tests available",
