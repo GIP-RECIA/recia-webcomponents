@@ -25,9 +25,9 @@ import { name } from './package.json' with { type: 'json' }
 
 // https://vitejs.dev/config/
 export default ({ mode }: ConfigEnv) => {
-  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
+  const env = loadEnv(mode, process.cwd())
 
-  const { VITE_BASE_URI, VITE_ALLOWED_HOSTS } = process.env
+  const { VITE_BASE_URI, VITE_ALLOWED_HOSTS } = env
 
   return defineConfig({
     base: mode === 'development' ? VITE_BASE_URI : undefined,

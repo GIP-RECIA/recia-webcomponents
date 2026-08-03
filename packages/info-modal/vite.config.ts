@@ -21,7 +21,7 @@ import { name } from './package.json' with { type: 'json' }
 
 // https://vitejs.dev/config/
 export default ({ mode }: ConfigEnv) => {
-  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
+  const env = loadEnv(mode, process.cwd())
 
   return defineConfig({
     build: {
