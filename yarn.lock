@@ -3347,19 +3347,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"conventional-commits-parser@npm:^7.0.0":
-  version: 7.1.1
-  resolution: "conventional-commits-parser@npm:7.1.1"
-  dependencies:
-    "@simple-libs/stream-utils": "npm:^2.0.0"
-    argue-cli: "npm:^3.1.0"
-  bin:
-    conventional-commits-parser: ./dist/cli/index.js
-  checksum: 10/6fc5e7c02fb97d9942847d725120f1e9596badd85f36cd66d60187df6ea026b74ff50d60e7e900fdf3ffe27e6512d06dd4779acda8ce167feb02418a96b53d52
-  languageName: node
-  linkType: hard
-
-"conventional-commits-parser@npm:^7.1.0":
+"conventional-commits-parser@npm:^7.0.0, conventional-commits-parser@npm:^7.1.0":
   version: 7.1.2
   resolution: "conventional-commits-parser@npm:7.1.2"
   dependencies:
