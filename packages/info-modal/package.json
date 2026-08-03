@@ -46,6 +46,7 @@
     "@gip-recia/ui": "^1.0.5",
     "@tsconfig/node24": "^24.0.4",
     "@types/node": "^24",
+    "@typescript/native": "npm:typescript@^7.0.2",
     "eslint": "^10.8.0",
     "eslint-plugin-format": "^2.0.1",
     "lit": "^3.3.3",
@@ -54,7 +55,7 @@
     "ress": "^5.0.2",
     "sass": "^1.102.0",
     "terser": "^5.49.0",
-    "typescript": "^7.0.2",
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
     "vite": "^8.2.0",
     "vite-plugin-sass": "^0.1.0"
   }
