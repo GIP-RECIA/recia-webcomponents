@@ -894,7 +894,7 @@ __metadata:
     terser: "npm:^5.49.0"
     typescript: "npm:^5.9.3"
     vite: "npm:^8.2.0"
-    vite-plugin-css-injected-by-js: "npm:^4.0.1"
+    vite-plugin-css-injected-by-js: "npm:^5.0.2"
     vue: "npm:^3.5.40"
     vue-i18n: "npm:^11.4.8"
     vue-tsc: "npm:^3.3.9"
@@ -999,7 +999,7 @@ __metadata:
     terser: "npm:^5.49.0"
     typescript: "npm:^5.9.3"
     vite: "npm:^8.2.0"
-    vite-plugin-css-injected-by-js: "npm:^4.0.1"
+    vite-plugin-css-injected-by-js: "npm:^5.0.2"
     vue: "npm:^3.5.40"
     vue-i18n: "npm:^11.4.8"
     vue-tsc: "npm:^3.3.9"
@@ -7351,12 +7351,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-css-injected-by-js@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "vite-plugin-css-injected-by-js@npm:4.0.1"
+"vite-plugin-css-injected-by-js@npm:^5.0.2":
+  version: 5.0.2
+  resolution: "vite-plugin-css-injected-by-js@npm:5.0.2"
   peerDependencies:
-    vite: ">2.0.0-0"
-  checksum: 10/971469d75f7753a73a787015b78a2e004ebab63d1f30758b6225497e11126cff9b36804852976b531c4c61d35c75085d06d23b81a1788081bb3865f2ffdd2d5a
+    vite: ">8.0.0-0"
+  checksum: 10/1ea4a61e6e1673b9b7b1d73f31045518179aba20a98147586a94bb7772d55212b22532c4879c603546f71d17dfd0b0abacfa10930246a566487fa42c21f01a03
   languageName: node
   linkType: hard
 
