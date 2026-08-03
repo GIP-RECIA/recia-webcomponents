@@ -14,21 +14,17 @@
  * limitations under the License.
  */
 
-import faRegular from '@fortawesome/fontawesome-free/css/regular.css?inline'
-import faSolid from '@fortawesome/fontawesome-free/css/solid.css?inline'
-import { createApp } from 'vue'
-import { register as registerCustomElements } from '@/ce'
-import { injectStyle } from './utils/styleUtils.ts'
-import 'regenerator-runtime/runtime.js'
+function injectStyle(id: string, content: string): void {
+  let style = document.head.querySelector<HTMLStyleElement>(`style#${id}`)
+  if (style)
+    return
 
-registerCustomElements()
-injectStyle('actualitesFa', faSolid + faRegular)
+  style = document.createElement('style')
+  style.id = id
+  style.textContent = content
+  document.head.appendChild(style)
+}
 
-if (import.meta.env.DEV) {
-  import('@/assets/scss/dev.scss')
-
-  import('@/AppDev.vue').then(({ default: App }) => {
-    const app = createApp(App)
-    app.mount('#app')
-  })
+export {
+  injectStyle,
 }

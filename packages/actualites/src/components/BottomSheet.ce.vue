@@ -529,7 +529,7 @@ function isNews(): boolean {
 <style lang="scss">
 @use 'sass:map';
 @use '@/assets/scss/global.scss' as *;
-@import '@fortawesome/fontawesome-free/css/all.css'; // Pour les fichier de publisher
+@import '@fortawesome/fontawesome-free/css/fontawesome.css'; // Pour les fichier de publisher
 @import '@/assets/ckeditor.css';
 
 .bottomsheet {

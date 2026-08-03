@@ -894,7 +894,6 @@ __metadata:
     terser: "npm:^5.49.0"
     typescript: "npm:^5.9.3"
     vite: "npm:^8.2.0"
-    vite-plugin-css-injected-by-js: "npm:^5.0.2"
     vue: "npm:^3.5.40"
     vue-i18n: "npm:^11.4.8"
     vue-tsc: "npm:^3.3.9"
