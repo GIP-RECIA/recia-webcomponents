@@ -27,7 +27,7 @@ class ApiError extends Error {
 async function getToken(userInfoApiUrl: string): Promise<string | undefined> {
   try {
     const { encoded } = await oidc({ userInfoApiUrl })
-    
+
     return encoded
   }
   catch (error) {
@@ -182,7 +182,6 @@ async function verifyEmail(
 async function getPreferences(url: string, preferencesData: any, userInfoApiUrl: string) {
   const token = await getToken(userInfoApiUrl)
 
-
   const response = await fetch(url, {
     method: 'GET',
     headers: {
@@ -205,7 +204,6 @@ async function getPreferences(url: string, preferencesData: any, userInfoApiUrl:
 async function postPreferences(url: string, preferencesData: any, userInfoApiUrl: string) {
   const token = await getToken(userInfoApiUrl)
 
-
   const response = await fetch(url, {
     method: 'POST',
     headers: {
@@ -226,5 +224,4 @@ async function postPreferences(url: string, preferencesData: any, userInfoApiUrl
   }
 }
 
-export {  getDetailEnfant, getMCE, getServicesEnt, postPassword, updateAvatar, updateEmail, updateFonctionDateFin, getPreferences, postPreferences, verifyEmail }
-
+export { getDetailEnfant, getMCE, getPreferences, getServicesEnt, postPassword, postPreferences, updateAvatar, updateEmail, updateFonctionDateFin, verifyEmail }

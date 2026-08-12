@@ -21,79 +21,78 @@ import type {
 } from '../types/registryTypes.ts'
 
 async function getAll(
-    portletApiUrl: string,
-  ): Promise<
-    {
-      portlets: PortletFromRegistry[]
-    }
-    | undefined
-  > {
-    try {
-      const response = await fetch(portletApiUrl, {
-        method: 'GET',
-        credentials: 'include',
-      })
+  portletApiUrl: string,
+): Promise<
+  {
+    portlets: PortletFromRegistry[]
+  }
+  | undefined
+> {
+  try {
+    const response = await fetch(portletApiUrl, {
+      method: 'GET',
+      credentials: 'include',
+    })
 
-      if (!response.ok)
-        throw new Error(response.statusText)
+    if (!response.ok)
+      throw new Error(response.statusText)
 
-      const data: PortletRegistryApiResponse = await response.json()
+    const data: PortletRegistryApiResponse = await response.json()
 
-      if (!data.registry.categories) {
-        console.error(`No data for ${portletApiUrl}`)
-        return undefined
-      }
-
-      return extractPortletsAndCategories(data)
-    }
-    catch (err) {
-      console.error(err, portletApiUrl)
+    if (!data.registry.categories) {
+      console.error(`No data for ${portletApiUrl}`)
       return undefined
     }
+
+    return extractPortletsAndCategories(data)
   }
+  catch (err) {
+    console.error(err, portletApiUrl)
+    return undefined
+  }
+}
 
-    function extractPortletsAndCategories(
-    data: PortletRegistryApiResponse,
-  ): {
-    portlets: PortletFromRegistry[]
-  } {
-    const portletMap = new Map<string, PortletFromRegistry>()
+function extractPortletsAndCategories(
+  data: PortletRegistryApiResponse,
+): {
+  portlets: PortletFromRegistry[]
+} {
+  const portletMap = new Map<string, PortletFromRegistry>()
 
-    const walk = (category: PortletCategory) => {
-      const id = Number(category.id.split('.')[1])
+  const walk = (category: PortletCategory) => {
+    const id = Number(category.id.split('.')[1])
 
+    for (const portlet of category.portlets ?? []) {
+      const existing = portletMap.get(portlet.fname)
 
-      for (const portlet of category.portlets ?? []) {
-        const existing = portletMap.get(portlet.fname)
-
-        if (!existing) {
-          portletMap.set(
-            portlet.fname,
-            {
-              ...portlet,
-              categories: [id],
-            },
-          )
-        }
-        else {
-          existing.categories = Array.from(
-            new Set([...existing.categories, id]),
-          )
-        }
+      if (!existing) {
+        portletMap.set(
+          portlet.fname,
+          {
+            ...portlet,
+            categories: [id],
+          },
+        )
       }
-
-      for (const sub of category.subcategories ?? []) {
-        walk(sub)
+      else {
+        existing.categories = Array.from(
+          new Set([...existing.categories, id]),
+        )
       }
     }
 
-    for (const category of data.registry.categories) {
-      walk(category)
-    }
-
-    return {
-      portlets: Array.from(portletMap.values()),
+    for (const sub of category.subcategories ?? []) {
+      walk(sub)
     }
   }
 
-  export { getAll, extractPortletsAndCategories }
+  for (const category of data.registry.categories) {
+    walk(category)
+  }
+
+  return {
+    portlets: Array.from(portletMap.values()),
+  }
+}
+
+export { extractPortletsAndCategories, getAll }

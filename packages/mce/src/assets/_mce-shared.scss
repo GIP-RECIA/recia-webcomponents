@@ -162,6 +162,13 @@
   border: 1px solid color-mix(in srgb, var(--#{$prefix}system-blue) 30%, transparent);
 }
 
+// Badge/tag "soft" coloré : fond translucide + texte de la couleur donnée
+@mixin mce-soft-badge($color) {
+  background-color: color-mix(in srgb, var(--#{$prefix}#{$color}) 10%, transparent);
+  color: var(--#{$prefix}#{$color});
+  border: 1px solid color-mix(in srgb, var(--#{$prefix}#{$color}) 30%, transparent);
+}
+
 // Conteneur de liste de tags (flex wrap)
 @mixin mce-tags-list {
   list-style: none;

@@ -35,7 +35,7 @@
     "educonnect": "EduConnect",
     "not-set": "Not provided",
     "email-personnel": "Personal email"
-  
+
   },
   "page-mce": {
     "user-details": "User information",
@@ -179,44 +179,44 @@
       "critique": "Critical",
       "standard": "Standard",
       "mineure": "Minor"
-  },
-  "catalog": {
-    "publisher-normal": "A news item has been published by your institution.",
-    "publisher-high": "A news item must be moderated.",
-    "nextcloud-normal": "A user has shared a file with you.",
-    "grouper-normal": "You have been added to a new group.",
-    "mce-high": "Your password has been updated.",
-    "sarapis-high": "Your account will be deleted soon.",
-    "grr-low": "Your reservation will start soon.",
-    "mce-low": "Your email has been updated."
-  },
-  "quick-actions": {
-    "title": "Quick Setup",
-    "ws-activate": "Activate all notifications from the ENT portal",
-    "mail-activate": "Activate all email notifications",
-    "push-activate": "Activate all mobile notifications",
-    "ws-deactivate": "Deactivate all notifications from the ENT portal",
-    "mail-deactivate": "Deactivate all email notifications",
-    "push-deactivate": "Deactivate all mobile notifications"
-  },
-  "advanced": {
-    "title": "Advanced Settings"
-  },
-  "channel": {
-    "ws": "ENT Portal",
-    "mail": "Email",
-    "push": "Mobile App"
-  },
-  "badge": {
-    "active": "Enabled",
-    "inactive": "Disabled"
-  },
-  "level": {
-    "ALL": "Critical, Standard and Minor",
-    "STANDARD": "Critical and Standard",
-    "CRITICAL": "Critical",
-    "NONE": "None"
-  },
-  "submit": "Save Changes"
+    },
+    "catalog": {
+      "publisher-normal": "A news item has been published by your institution.",
+      "publisher-high": "A news item must be moderated.",
+      "nextcloud-normal": "A user has shared a file with you.",
+      "grouper-normal": "You have been added to a new group.",
+      "mce-high": "Your password has been updated.",
+      "sarapis-high": "Your account will be deleted soon.",
+      "grr-low": "Your reservation will start soon.",
+      "mce-low": "Your email has been updated."
+    },
+    "quick-actions": {
+      "title": "Quick Setup",
+      "ws-activate": "Activate all notifications from the ENT portal",
+      "mail-activate": "Activate all email notifications",
+      "push-activate": "Activate all mobile notifications",
+      "ws-deactivate": "Deactivate all notifications from the ENT portal",
+      "mail-deactivate": "Deactivate all email notifications",
+      "push-deactivate": "Deactivate all mobile notifications"
+    },
+    "advanced": {
+      "title": "Advanced Settings"
+    },
+    "channel": {
+      "ws": "ENT Portal",
+      "mail": "Email",
+      "push": "Mobile App"
+    },
+    "badge": {
+      "active": "Enabled",
+      "inactive": "Disabled"
+    },
+    "level": {
+      "ALL": "Critical, Standard and Minor",
+      "STANDARD": "Critical and Standard",
+      "CRITICAL": "Critical",
+      "NONE": "None"
+    },
+    "submit": "Save Changes"
   }
 }
