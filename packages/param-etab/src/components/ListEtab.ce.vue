@@ -67,6 +67,7 @@ const filteredData = computed(() => filteredList())
       :class="classInput"
       type="text"
       :placeholder="m('recherche')"
+      :aria-label="m('recherche')"
     >
   </div>
   <div
