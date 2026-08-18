@@ -22,6 +22,7 @@ import i18n from '@/plugins/i18n.ts'
 import { dnmaService } from '@/services/dnmaService'
 import { getNewsReadingInformations, getPaginatedNews } from '@/services/NewsService.ts'
 import { initToken } from '@/utils/axiosUtils.ts'
+import { notificationEventAction } from '@/utils/eventUtils.ts'
 import { isUserConnected } from '@/utils/soffitUtils.ts'
 import { dnmaFname, titleI18nKey, useReadingState } from '@/utils/store'
 
@@ -67,6 +68,12 @@ onBeforeMount(async () => {
   finally {
     initialLoading.value = false
   }
+
+  document.addEventListener(
+    'notification-event',
+    e => notificationEventAction(e, openModal),
+  )
+
   dnmaFname.value = props.dnmaFname
   titleI18nKey.value = props.localeKey
   useReadingState.value = props.useReadingState

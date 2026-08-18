@@ -22,6 +22,7 @@ import i18n from '@/plugins/i18n.ts'
 import { dnmaService } from '@/services/dnmaService'
 import { getNewsReadingInformations, getPaginatedNews } from '@/services/NewsService.ts'
 import { initToken, instance } from '@/utils/axiosUtils.ts'
+import { notificationEventAction } from '@/utils/eventUtils.ts'
 import { dnmaFname, titleI18nKey, useReadingState } from '@/utils/store'
 
 const props = withDefaults(defineProps<{
@@ -62,6 +63,12 @@ onMounted(async () => {
     'recia-actu-modal',
     (e) => { handleModalEvent(e) },
   )
+
+  document.addEventListener(
+    'notification-event',
+    e => notificationEventAction(e, openModal),
+  )
+
   dnmaFname.value = props.dnmaFname
   titleI18nKey.value = props.localeKey
   useReadingState.value = props.useReadingState
