@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.5.0](https://github.com/GIP-RECIA/recia-webcomponents/compare/actualites/v1.4.3...actualites/v1.5.0) (2026-08-18)
+
+### Features
+
+* **actualites:** handle notification events ([6ea93c2](https://github.com/GIP-RECIA/recia-webcomponents/commit/6ea93c20000dc9920b9e18ed03c22aec3d11cc6c))
+
+### Bug Fixes
+
+* vite 8 process is not defined ([d81ee0c](https://github.com/GIP-RECIA/recia-webcomponents/commit/d81ee0c4493e28a151acbc1633ee2574c0b6f0e1))
 ## [1.4.3](https://github.com/GIP-RECIA/recia-webcomponents/compare/actualites/v1.4.2...actualites/v1.4.3) (2026-06-15)
 
 ## [1.4.2](https://github.com/GIP-RECIA/recia-webcomponents/compare/actualites/v1.4.1...actualites/v1.4.2) (2026-05-28)
