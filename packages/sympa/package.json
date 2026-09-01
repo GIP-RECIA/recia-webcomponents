@@ -71,7 +71,7 @@
     "npm-run-all2": "^9.0.3",
     "regenerator-runtime": "^0.14.1",
     "ress": "^5.0.2",
-    "sass": "^1.102.0",
+    "sass": "^1.103.1",
     "terser": "^5.49.0",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
     "vite": "^8.2.0",
