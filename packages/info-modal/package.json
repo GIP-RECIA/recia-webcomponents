@@ -52,7 +52,7 @@
     "lit": "^3.3.3",
     "lit-analyzer": "^2.0.3",
     "lit-scss-loader": "^2.0.1",
-    "ress": "^5.0.2",
+    "ress": "^6.0.0",
     "sass": "^1.103.1",
     "terser": "^5.49.0",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
