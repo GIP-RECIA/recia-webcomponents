@@ -221,6 +221,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@commitlint/config-conventional@npm:^21.2.2":
+  version: 21.2.2
+  resolution: "@commitlint/config-conventional@npm:21.2.2"
+  dependencies:
+    "@commitlint/types": "npm:^21.2.0"
+    conventional-changelog-conventionalcommits: "npm:^10.0.0"
+  checksum: 10/fc94e15b7337f1b1e19373fc35bb39819ff9e339cacae58cdc3137a9116fa3e3a4160582cc265d1467247ac13371ddec726138aab6782d1478d804952a730a50
+  languageName: node
+  linkType: hard
+
 "@commitlint/config-validator@npm:^21.2.0":
   version: 21.2.0
   resolution: "@commitlint/config-validator@npm:21.2.0"
@@ -6801,7 +6811,7 @@ __metadata:
   resolution: "recia-webcomponents@workspace:."
   dependencies:
     "@commitlint/cli": "npm:^21.2.1"
-    "@commitlint/config-conventional": "npm:^21.2.0"
+    "@commitlint/config-conventional": "npm:^21.2.2"
     commit-and-tag-version: "npm:^13.1.2"
     husky: "npm:^9.1.7"
     lint-staged: "npm:^17.2.0"
