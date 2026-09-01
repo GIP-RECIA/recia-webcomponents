@@ -852,7 +852,7 @@ __metadata:
     "@fortawesome/vue-fontawesome": "npm:^3.3.3"
     "@gip-recia/ui": "npm:^1.0.5"
     "@intlify/unplugin-vue-i18n": "npm:^11.2.5"
-    "@tsconfig/node24": "npm:^24.0.4"
+    "@tsconfig/node24": "npm:^24.0.5"
     "@types/node": "npm:^24"
     "@types/regenerator-runtime": "npm:^0"
     "@typescript/native": "npm:typescript@^7.0.2"
@@ -884,7 +884,7 @@ __metadata:
     "@fortawesome/fontawesome-svg-core": "npm:^7.3.1"
     "@fortawesome/free-solid-svg-icons": "npm:^7.3.1"
     "@gip-recia/ui": "npm:^1.0.5"
-    "@tsconfig/node24": "npm:^24.0.4"
+    "@tsconfig/node24": "npm:^24.0.5"
     "@types/node": "npm:^24"
     "@typescript/native": "npm:typescript@^7.0.2"
     eslint: "npm:^10.9.1"
@@ -922,7 +922,7 @@ __metadata:
     "@gip-recia/info-modal": "npm:^0.0.1"
     "@gip-recia/ui": "npm:^1.0.5"
     "@intlify/unplugin-vue-i18n": "npm:^11.2.5"
-    "@tsconfig/node24": "npm:^24.0.4"
+    "@tsconfig/node24": "npm:^24.0.5"
     "@types/node": "npm:^24"
     "@types/regenerator-runtime": "npm:^0"
     "@typescript/native": "npm:typescript@^7.0.2"
@@ -958,7 +958,7 @@ __metadata:
     "@fortawesome/vue-fontawesome": "npm:^3.3.3"
     "@gip-recia/ui": "npm:^1.0.5"
     "@intlify/unplugin-vue-i18n": "npm:^11.2.5"
-    "@tsconfig/node24": "npm:^24.0.4"
+    "@tsconfig/node24": "npm:^24.0.5"
     "@types/node": "npm:^24"
     "@types/regenerator-runtime": "npm:^0"
     "@typescript/native": "npm:typescript@^7.0.2"
@@ -998,7 +998,7 @@ __metadata:
     "@gip-recia/ui": "npm:^1.0.5"
     "@gip-recia/ui-webcomponents": "npm:^1.18.1"
     "@intlify/unplugin-vue-i18n": "npm:^11.2.5"
-    "@tsconfig/node24": "npm:^24.0.4"
+    "@tsconfig/node24": "npm:^24.0.5"
     "@types/node": "npm:^24"
     "@types/regenerator-runtime": "npm:^0"
     "@typescript/native": "npm:typescript@^7.0.2"
@@ -1033,7 +1033,7 @@ __metadata:
     "@fortawesome/vue-fontawesome": "npm:^3.3.3"
     "@gip-recia/ui": "npm:^1.0.5"
     "@intlify/unplugin-vue-i18n": "npm:^11.2.5"
-    "@tsconfig/node24": "npm:^24.0.4"
+    "@tsconfig/node24": "npm:^24.0.5"
     "@types/lodash-es": "npm:^4"
     "@types/node": "npm:^24"
     "@types/regenerator-runtime": "npm:^0"
@@ -1854,10 +1854,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tsconfig/node24@npm:^24.0.4":
-  version: 24.0.4
-  resolution: "@tsconfig/node24@npm:24.0.4"
-  checksum: 10/e3c011e4589d1d3f8774e6587434bf6d5655ca31c848ac1d173de7949e2f2e1c3dd0be5f97869201e46c4a6dda03003659e1c5078efc580ecefce1d706b8b6a1
+"@tsconfig/node24@npm:^24.0.5":
+  version: 24.0.5
+  resolution: "@tsconfig/node24@npm:24.0.5"
+  checksum: 10/d7b57e0a2065d00b219119746e668016a15547fac5a9c3ac766d0913b543b937dc69d6c9fa703ed32ab559a4bb5f87438fea3cdc0eee96f0bf14adff0829cb77
   languageName: node
   linkType: hard
 

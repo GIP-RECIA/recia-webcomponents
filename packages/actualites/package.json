@@ -54,7 +54,7 @@
     "@fortawesome/vue-fontawesome": "^3.3.3",
     "@gip-recia/ui": "^1.0.5",
     "@intlify/unplugin-vue-i18n": "^11.2.5",
-    "@tsconfig/node24": "^24.0.4",
+    "@tsconfig/node24": "^24.0.5",
     "@types/node": "^24",
     "@types/regenerator-runtime": "^0",
     "@typescript/native": "npm:typescript@^7.0.2",
