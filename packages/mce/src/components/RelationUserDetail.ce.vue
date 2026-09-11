@@ -133,13 +133,26 @@ const enseignementsList = computed(() => {
     :aria-label="!personne ? t('detail-panel-label') : undefined"
   >
     <!-- Chargement -->
-    <output
+    <div
       v-if="isLoading"
-      class="alert-message alert-message--info"
-      aria-live="polite"
+      class="skeleton-detail"
+      aria-busy="true"
+      aria-label="Chargement des informations de la relation"
     >
-      {{ t('loading') }}
-    </output>
+      <div class="skeleton-detail-header">
+        <div class="mce-skeleton mce-skeleton--avatar" />
+        <div class="skeleton-detail-lines">
+          <div class="mce-skeleton mce-skeleton--line mce-skeleton--w70" />
+          <div class="mce-skeleton mce-skeleton--line mce-skeleton--w40" />
+        </div>
+      </div>
+
+      <div class="skeleton-detail-grid">
+        <div class="mce-skeleton mce-skeleton--line mce-skeleton--w90" />
+        <div class="mce-skeleton mce-skeleton--line mce-skeleton--w70" />
+        <div class="mce-skeleton mce-skeleton--line mce-skeleton--w80" />
+      </div>
+    </div>
 
     <!-- Erreur -->
     <div
@@ -490,6 +503,36 @@ const enseignementsList = computed(() => {
     background-color: var(--#{$prefix}basic-grey);
     color: var(--#{$prefix}basic-black-lighter);
     border: 1px solid var(--#{$prefix}stroke);
+  }
+}
+
+.skeleton-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.skeleton-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.skeleton-detail-lines {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.skeleton-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+
+  @media (width >= map.get($grid-breakpoints, sm)) {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 </style>

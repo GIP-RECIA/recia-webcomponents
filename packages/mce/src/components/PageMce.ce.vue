@@ -35,6 +35,7 @@ const props = defineProps<{
 provide(I18nInjectionKey, i18n)
 
 const hasError = ref(false)
+const isLoading = ref(true)
 const errorMessage = ref('')
 const alertRef = ref<HTMLDivElement | null>(null)
 const errorMessageId = 'page-mce-error'
@@ -88,11 +89,13 @@ onMounted(async () => {
     ongletCurrent.value = listOnglets.value[0]
 
     avatar.value = mce.value.avatar ?? props.avatarDefault
+    isLoading.value = false
     dnmaService.consult()
   }
   catch (error: unknown) {
     console.error('[onMounted] ERROR =>', error)
     hasError.value = true
+    isLoading.value = false
     errorMessage.value = (error as { response?: { data?: { message?: string } } })?.response?.data?.message
       ?? (error instanceof Error ? error.message : undefined)
       ?? i18n.global.t('page-mce.error-default') as string
@@ -132,7 +135,27 @@ function handleAvatarUpdated() {
   </div>
 
   <div
-    v-else
+    v-else-if="isLoading"
+    class="parent"
+  >
+    <aside class="user-details">
+      <div class="mce-skeleton mce-skeleton--avatar" />
+      <div class="mce-skeleton mce-skeleton--line mce-skeleton--w80" />
+      <div class="mce-skeleton mce-skeleton--line mce-skeleton--w60" />
+    </aside>
+
+    <div class="sectionTwo">
+      <div class="mce-skeleton mce-skeleton--card">
+        <div class="mce-skeleton mce-skeleton--line mce-skeleton--w40" />
+        <div class="mce-skeleton mce-skeleton--line mce-skeleton--w90" />
+        <div class="mce-skeleton mce-skeleton--line mce-skeleton--w70" />
+        <div class="mce-skeleton mce-skeleton--line mce-skeleton--w80" />
+      </div>
+    </div>
+  </div>
+
+  <div
+    v-else-if="!isLoading"
     class="parent"
   >
     <aside class="user-details">
