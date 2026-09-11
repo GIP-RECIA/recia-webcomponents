@@ -91,8 +91,9 @@ describe('relationUserDetail', () => {
         global: mountOptions.global,
       })
 
-      expect(wrapper.find('.alert-message--info').exists()).toBe(true)
-      expect(wrapper.text()).toContain('Chargement')
+      expect(wrapper.find('.skeleton-detail').exists()).toBe(true)
+      expect(wrapper.find('.mce-skeleton--avatar').exists()).toBe(true)
+      expect(wrapper.find('.skeleton-detail').attributes('aria-busy')).toBe('true')
     })
 
     it('n affiche pas le contenu pendant le chargement', () => {

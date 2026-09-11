@@ -33,6 +33,7 @@ const props = defineProps<{
 const isMobile = ref(window.innerWidth <= 640)
 const expandedStates = ref<string[]>([])
 const preferences = ref<UserPreferencesData | null>(null)
+const isLoading = ref(true)
 
 const i18n = inject(I18nInjectionKey)
 
@@ -218,12 +219,44 @@ onMounted(async () => {
   catch (error) {
     console.error('Error fetching preferences or portlet data:', error)
   }
+  finally {
+    isLoading.value = false
+  }
 })
 </script>
 
 <template>
   <div
-    v-if="preferences"
+    v-if="isLoading"
+    class="preferences-container"
+    aria-busy="true"
+    aria-label="Chargement des préférences de notifications"
+  >
+    <div class="form-header">
+      <div class="mce-skeleton mce-skeleton--line mce-skeleton--w40" />
+    </div>
+
+    <div class="mce-skeleton mce-skeleton--card preferences-loading-card">
+      <div class="mce-skeleton mce-skeleton--line mce-skeleton--w90" />
+      <div class="mce-skeleton mce-skeleton--line mce-skeleton--w70" />
+      <div class="mce-skeleton mce-skeleton--line mce-skeleton--w60" />
+    </div>
+
+    <div class="cards-grid">
+      <div
+        v-for="i in 6"
+        :key="i"
+        class="mce-skeleton mce-skeleton--card preferences-loading-card"
+      >
+        <div class="mce-skeleton mce-skeleton--line mce-skeleton--w80" />
+        <div class="mce-skeleton mce-skeleton--line mce-skeleton--w60" />
+        <div class="mce-skeleton mce-skeleton--line mce-skeleton--w70" />
+      </div>
+    </div>
+  </div>
+
+  <div
+    v-else-if="preferences"
     class="preferences-container"
   >
     <form
@@ -471,6 +504,14 @@ onMounted(async () => {
   max-width: 1800px;
   margin: 0 auto;
   box-sizing: border-box;
+}
+
+.preferences-loading-card {
+  margin-bottom: 1.5rem;
+
+  .cards-grid & {
+    margin-bottom: 0;
+  }
 }
 
 .form-header {

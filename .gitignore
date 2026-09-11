@@ -20,6 +20,9 @@ coverage
 *.local
 workspace
 
+### Docs ###
+packages/mce/doc
+
 ### Tests ###
 playwright-report
 test-results
