@@ -60,7 +60,6 @@ const VALID_PASSWORD = 'nouveaupassword'
 describe('changePassword', () => {
   const props = {
     userInfoApiUrl: 'https://api.test.fr/userinfo',
-    userId: '123',
     mceApi: 'https://api.test.fr',
   }
 
@@ -225,7 +224,6 @@ describe('changePassword', () => {
 
       expect(postPassword).toHaveBeenCalledWith(
         'https://api.test.fr',
-        '123',
         'ancien',
         VALID_PASSWORD,
         VALID_PASSWORD,
@@ -251,7 +249,6 @@ describe('changePassword', () => {
 
       expect(postPassword).toHaveBeenCalledWith(
         'https://api.test.fr',
-        '123',
         expect.any(String),
         expect.any(String),
         expect.any(String),

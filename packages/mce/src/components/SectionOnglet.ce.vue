@@ -41,9 +41,7 @@ const props = defineProps<{
   apprentis: PersonneRelation
   userMail?: string
   userMailPerso?: string
-  uid?: string
   bod: string
-  userId: string
   civilite?: string
   nom?: string
   prenom?: string
@@ -65,7 +63,6 @@ const props = defineProps<{
       :class="{ 'animate-fade': props.currentTab === 'GENERALE' }"
     >
       <InformationPersonnelleCe
-        :uid="props.uid"
         :date-naissance="props.bod"
         :user-mail="props.userMail"
         :user-public="props.userPublic"
@@ -97,7 +94,6 @@ const props = defineProps<{
       <ChangePassword
         :key="`pwd-${props.currentTab}`"
         :user-info-api-url="props.userInfoApiUrl"
-        :user-id="props.userId"
         :mce-api="props.mceApi"
       />
     </div>
@@ -131,7 +127,6 @@ const props = defineProps<{
         :key="`email-${props.currentTab}`"
         :user-info-api-url="props.userInfoApiUrl"
         :mce-api="props.mceApi"
-        :user-id="props.userId"
         :current-email="props.userMail"
         :current-email-perso="props.userMailPerso"
       />

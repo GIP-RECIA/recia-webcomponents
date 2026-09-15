@@ -24,7 +24,6 @@ defineOptions({ name: 'ChangePassword' })
 
 const props = defineProps<{
   userInfoApiUrl: string
-  userId: string
   mceApi: string
 }>()
 
@@ -86,7 +85,6 @@ async function handleChangePassword() {
     const baseUrl = props.mceApi.replace(TRAILING_SLASH, '')
     await postPassword(
       baseUrl,
-      props.userId,
       currentPassword.value,
       newPassword.value,
       confirmPassword.value,

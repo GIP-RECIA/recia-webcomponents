@@ -68,7 +68,6 @@ async function submitForm(w: VueWrapper) {
 describe('changeEmail', () => {
   const props = {
     userInfoApiUrl: 'https://api.test.fr/userinfo',
-    userId: '123',
     currentEmail: 'ancien@test.fr',
     mceApi: 'https://api.test.fr',
   }
@@ -193,7 +192,6 @@ describe('changeEmail', () => {
 
       expect(updateEmail).toHaveBeenCalledWith(
         'https://api.test.fr',
-        '123',
         'nouveau@test.fr',
         'nouveau@test.fr',
         'https://api.test.fr/userinfo',
@@ -218,7 +216,6 @@ describe('changeEmail', () => {
 
       expect(updateEmail).toHaveBeenCalledWith(
         'https://api.test.fr',
-        expect.any(String),
         expect.any(String),
         expect.any(String),
         expect.any(String),
@@ -266,7 +263,6 @@ describe('changeEmail', () => {
 
       expect(verifyEmail).toHaveBeenCalledWith(
         'https://api.test.fr',
-        '123',
         '123456',
         'https://api.test.fr/userinfo',
       )

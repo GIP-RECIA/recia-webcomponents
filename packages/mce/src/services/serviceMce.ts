@@ -75,14 +75,13 @@ async function getDetailEnfant(url: string, userInfoApiUrl: string) {
 
 async function postPassword(
   baseUrl: string,
-  userId: string,
   oldPass: string,
   newPass: string,
   confirmPass: string,
   userInfoApiUrl: string,
 ) {
   const token = await getToken(userInfoApiUrl)
-  const response = await fetch(`${baseUrl}/${userId}/change-password`, {
+  const response = await fetch(`${baseUrl}/change-password`, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${token}`,
@@ -96,13 +95,12 @@ async function postPassword(
 
 async function updateEmail(
   baseUrl: string,
-  userId: string,
   email: string,
   confirmEmail: string,
   userInfoApiUrl: string,
 ) {
   const token = await getToken(userInfoApiUrl)
-  const response = await fetch(`${baseUrl}/${userId}/update-email`, {
+  const response = await fetch(`${baseUrl}/update-email`, {
     method: 'PUT',
     headers: {
       'Authorization': `Bearer ${token}`,
@@ -135,13 +133,11 @@ async function updateFonctionDateFin(
 
 /**
  * Met à jour l'avatar de l'utilisateur
- * @param uid Identifiant de l'utilisateur
  * @param file Le fichier image (File ou Blob)
  * @param baseUrl URL de base de l'API
  * @param userInfoApiUrl URL de configuration OIDC
  */
 async function updateAvatar(
-  uid: string,
   file: File | Blob,
   baseUrl: string,
   userInfoApiUrl: string,
@@ -149,7 +145,7 @@ async function updateAvatar(
   const token = await getToken(userInfoApiUrl)
   const formData = new FormData()
   formData.append('file', file)
-  const response = await fetch(`${baseUrl}/${uid}/avatar`, {
+  const response = await fetch(`${baseUrl}/avatar`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -162,7 +158,6 @@ async function updateAvatar(
 
 async function verifyEmail(
   baseUrl: string,
-  uid: string,
   code: string,
   userInfoApiUrl: string,
 ) {
@@ -173,7 +168,7 @@ async function verifyEmail(
       'Authorization': `Bearer ${token}`,
       'content-type': 'application/json',
     },
-    body: JSON.stringify({ uid, code }),
+    body: JSON.stringify({ code }),
   })
   await throwIfNotOk(response)
   return { data: await response.json().catch(() => null) }

@@ -53,7 +53,6 @@ const defaultPersonne = {
   bod: '2010-05-15',
   userMail: 'jean.dupont@test.fr',
   etab: 'Lycée Test',
-  uid: '12345',
   etat: 'Actif',
   mdp: true,
   fonctionClassesGroupe: {

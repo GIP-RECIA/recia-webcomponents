@@ -27,7 +27,6 @@ defineOptions({ name: 'AvatarUser' })
 
 const props = defineProps<{
   avatar: string
-  user: string
   userInfoApiUrl: string
   mceApi: string
 }>()
@@ -215,7 +214,7 @@ async function applyCrop() {
     const file = new File([blob], selectedFile.value.name, { type: 'image/jpeg' })
 
     const baseUrl = props.mceApi.replace(TRAILING_SLASH, '')
-    await updateAvatar(props.user, file, baseUrl, props.userInfoApiUrl)
+    await updateAvatar(file, baseUrl, props.userInfoApiUrl)
     message.value = t('success')
     messageType.value = 'success'
     dnmaService.changeAvatar()
