@@ -41,8 +41,6 @@ const alertRef = ref<HTMLDivElement | null>(null)
 const errorMessageId = 'page-mce-error'
 
 const mce = ref<any>({
-  id: null,
-  uid: '',
   userName: '',
   userMail: '',
   emailPersonnel: '',
@@ -50,7 +48,6 @@ const mce = ref<any>({
   bod: '',
   etab: '',
   etat: '',
-  identifiant: null,
 
   fonctionClassesGroupe: {},
   parentEleve: [],
@@ -160,9 +157,8 @@ function handleAvatarUpdated() {
   >
     <aside class="user-details">
       <user-base-info
-        v-if="mce.uid"
+        v-if="mce.userName"
         :avatar="avatar"
-        :user-id="mce.uid"
         :user-name="mce.userName"
         :user-mail="userMailPerso"
         :etat="mce.etat ?? ''"
@@ -201,9 +197,7 @@ function handleAvatarUpdated() {
           :user-name="mce.userName ?? ''"
           :user-mail="mce.email ?? ''"
           :user-mail-perso="userMailPerso"
-          :user-id="mce.uid ?? ''"
           :user-public="mce.userPublic ?? []"
-          :uid="mce.uid ?? ''"
           :bod="mce.bod ?? ''"
           :civilite="civilite"
           :nom="nom"

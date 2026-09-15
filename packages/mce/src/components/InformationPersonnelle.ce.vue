@@ -30,7 +30,6 @@ const props = defineProps<{
   dateNaissance?: string
   userMail?: string
   userPublic?: string[]
-  uid?: string
 }>()
 
 const i18n = inject(I18nInjectionKey)

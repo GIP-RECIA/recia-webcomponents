@@ -24,7 +24,6 @@ defineOptions({ name: 'ChangeEmail' })
 
 const props = defineProps<{
   userInfoApiUrl: string
-  userId: string
   currentEmail?: string
   currentEmailPerso?: string
   mceApi: string
@@ -96,7 +95,7 @@ async function handleSubmit() {
 
   try {
     const baseUrl = props.mceApi.replace(TRAILING_SLASH, '')
-    await updateEmail(baseUrl, props.userId, newEmail.value, confirmEmail.value, props.userInfoApiUrl)
+    await updateEmail(baseUrl, newEmail.value, confirmEmail.value, props.userInfoApiUrl)
 
     step.value = 'code'
     message.value = tEmail('code-sent')
@@ -135,7 +134,7 @@ async function handleVerify() {
 
   try {
     const baseUrl = props.mceApi.replace(TRAILING_SLASH, '')
-    await verifyEmail(baseUrl, props.userId, verificationCode.value, props.userInfoApiUrl)
+    await verifyEmail(baseUrl, verificationCode.value, props.userInfoApiUrl)
 
     step.value = 'verified'
     message.value = tEmail('verified')
@@ -165,7 +164,7 @@ async function handleResend() {
 
   try {
     const baseUrl = props.mceApi.replace(TRAILING_SLASH, '')
-    await updateEmail(baseUrl, props.userId, newEmail.value, confirmEmail.value, props.userInfoApiUrl)
+    await updateEmail(baseUrl, newEmail.value, confirmEmail.value, props.userInfoApiUrl)
 
     message.value = tEmail('code-sent')
     messageType.value = 'success'
