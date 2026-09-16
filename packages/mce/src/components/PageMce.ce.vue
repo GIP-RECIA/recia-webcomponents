@@ -91,6 +91,11 @@ onMounted(async () => {
   }
   catch (error: unknown) {
     console.error('[onMounted] ERROR =>', error)
+    // La charte doit être signée : la redirection vers la page de signature est déjà
+    // déclenchée par serviceMce, on évite d'afficher une erreur qui vaisserait un flash.
+    if ((error as { response?: { data?: { code?: string } } })?.response?.data?.code === 'CHARTE_REQUIRED') {
+      return
+    }
     hasError.value = true
     isLoading.value = false
     errorMessage.value = (error as { response?: { data?: { message?: string } } })?.response?.data?.message
