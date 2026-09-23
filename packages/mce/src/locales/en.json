@@ -114,7 +114,12 @@
     "error-mismatch": "The new passwords do not match.",
     "error-length": "The new password must be at least 12 characters long.",
     "success": "Password changed successfully.",
-    "error-default": "Error while changing password."
+    "error-default": "Error while changing password.",
+    "title-network": "Network password",
+    "network-info": "Your account uses a standalone network password: no current password is required.",
+    "submit-network": "Change network password",
+    "success-network": "Your network password has been changed successfully.",
+    "error-network-default": "Error while changing the network password."
   },
   "classes-groupes-eleve": {
     "etablissement": "Institution",

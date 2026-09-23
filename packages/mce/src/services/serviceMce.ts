@@ -142,6 +142,42 @@ async function postPassword(
   return { data: await response.json().catch(() => null) }
 }
 
+export interface NetworkPasswordResetStatus {
+  eligible: boolean
+}
+
+/**
+ * Statut du parcours « mot de passe réseau » (compte CVDL ntPass sans mot de passe local).
+ * L'éligibilité étant calculée côté serveur (groupes LDAP), ce GET détermine l'écran à afficher.
+ */
+async function getNetworkPasswordStatus(
+  baseUrl: string,
+  userInfoApiUrl: string,
+): Promise<{ data: NetworkPasswordResetStatus }> {
+  const url = `${baseUrl}/network-password/status`
+  return getMCE(url, userInfoApiUrl)
+}
+
+/** Change le mot de passe réseau directement (compte authentifié, sans ancien mot de passe ni code). */
+async function resetNetworkPassword(
+  baseUrl: string,
+  newPass: string,
+  confirmPass: string,
+  userInfoApiUrl: string,
+) {
+  const token = await getToken(userInfoApiUrl)
+  const response = await fetch(`${baseUrl}/network-password/reset`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({ newPassword: newPass, confirmPassword: confirmPass }),
+  })
+  await throwIfNotOk(response, `${baseUrl}/network-password/reset`, userInfoApiUrl)
+  return { data: await response.json().catch(() => null) }
+}
+
 async function updateEmail(
   baseUrl: string,
   email: string,
@@ -268,4 +304,4 @@ async function postPreferences(url: string, preferencesData: any, userInfoApiUrl
   }
 }
 
-export { getDetailEnfant, getMCE, getPreferences, getServicesEnt, postPassword, postPreferences, updateAvatar, updateEmail, updateFonctionDateFin, verifyEmail }
+export { getDetailEnfant, getMCE, getNetworkPasswordStatus, getPreferences, getServicesEnt, postPassword, postPreferences, resetNetworkPassword, updateAvatar, updateEmail, updateFonctionDateFin, verifyEmail }

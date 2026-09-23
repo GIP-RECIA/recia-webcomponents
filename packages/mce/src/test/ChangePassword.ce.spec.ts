@@ -19,11 +19,17 @@ import { flushPromises, mount } from '@vue/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { createI18n, I18nInjectionKey } from 'vue-i18n'
-import { postPassword } from '@/services/serviceMce.ts'
+import {
+  getNetworkPasswordStatus,
+  postPassword,
+  resetNetworkPassword,
+} from '@/services/serviceMce.ts'
 import ChangePassword from '../components/ChangePassword.ce.vue'
 
 vi.mock('@/services/serviceMce.ts', () => ({
   postPassword: vi.fn(),
+  getNetworkPasswordStatus: vi.fn(),
+  resetNetworkPassword: vi.fn(),
 }))
 
 const mockAxiosResponse = {
@@ -51,6 +57,11 @@ const messages = {
       'error-length': 'Le nouveau mot de passe doit contenir au moins 12 caractères.',
       'success': 'Mot de passe changé avec succès.',
       'error-default': 'Erreur lors du changement du mot de passe.',
+      'title-network': 'Mot de passe réseau',
+      'network-info': 'Votre compte utilise un mot de passe réseau seul : aucun ancien mot de passe n\'est nécessaire.',
+      'submit-network': 'Modifier le mot de passe réseau',
+      'success-network': 'Votre mot de passe réseau a été modifié avec succès.',
+      'error-network-default': 'Erreur lors de la modification du mot de passe réseau.',
     },
   },
 }
@@ -65,8 +76,9 @@ describe('changePassword', () => {
 
   let wrapper: VueWrapper
 
-  beforeEach(() => {
+  beforeEach(async () => {
     vi.clearAllMocks()
+    vi.mocked(getNetworkPasswordStatus).mockResolvedValue({ data: { eligible: false } })
     const i18n = createI18n({ locale: 'fr', messages })
     wrapper = mount(ChangePassword, {
       props,
@@ -79,6 +91,7 @@ describe('changePassword', () => {
         },
       },
     })
+    await flushPromises()
   })
 
   // --------------------------------------------------
@@ -284,6 +297,146 @@ describe('changePassword', () => {
       await wrapper.find('form').trigger('submit')
       await nextTick()
       expect(wrapper.find('.alert-message').text()).toBe('Erreur lors du changement du mot de passe.')
+    })
+  })
+
+  // --------------------------------------------------
+  // FLUX MOT DE PASSE RÉSEAU (NewPassRezo)
+  // --------------------------------------------------
+  describe('flux mot de passe réseau', () => {
+    async function mountWithStatus(eligible: boolean) {
+      vi.mocked(getNetworkPasswordStatus).mockResolvedValue({ data: { eligible } })
+      const statusI18n = createI18n({ locale: 'fr', messages })
+      const w = mount(ChangePassword, {
+        props,
+        global: {
+          plugins: [statusI18n],
+          provide: { [I18nInjectionKey as symbol]: { global: statusI18n.global } },
+        },
+      })
+      await flushPromises()
+      return w
+    }
+
+    it('appelle getNetworkPasswordStatus au montage avec l\'URL de base (sans double slash)', async () => {
+      await mountWithStatus(false)
+      expect(getNetworkPasswordStatus).toHaveBeenCalledWith(
+        'https://api.test.fr',
+        'https://api.test.fr/userinfo',
+      )
+    })
+
+    it('compte non éligible → flux standard : ancien mot de passe visible', async () => {
+      const w = await mountWithStatus(false)
+      expect(w.find('#current-password').exists()).toBe(true)
+      expect(w.find('h3').text()).toBe('Changer mon mot de passe')
+    })
+
+    it('compte éligible → mode réseau : pas d\'ancien mot de passe, changement direct', async () => {
+      const w = await mountWithStatus(true)
+      expect(w.find('h3').text()).toBe('Mot de passe réseau')
+      expect(w.find('#current-password').exists()).toBe(false)
+      expect(w.find('.network-info').exists()).toBe(true)
+      expect(w.find('#new-password').exists()).toBe(true)
+      expect(w.find('#confirm-password').exists()).toBe(true)
+      expect(w.find('button[type="submit"]').text()).toBe('Modifier le mot de passe réseau')
+    })
+
+    it('changement direct : succès → resetNetworkPassword appelé sans code, message et champs vidés', async () => {
+      vi.mocked(resetNetworkPassword).mockResolvedValue(mockAxiosResponse)
+      const w = await mountWithStatus(true)
+
+      await w.find('#new-password').setValue(VALID_PASSWORD)
+      await w.find('#confirm-password').setValue(VALID_PASSWORD)
+      await w.find('form').trigger('submit')
+      await nextTick()
+
+      expect(resetNetworkPassword).toHaveBeenCalledWith(
+        'https://api.test.fr',
+        VALID_PASSWORD,
+        VALID_PASSWORD,
+        'https://api.test.fr/userinfo',
+      )
+      expect(w.find('.alert-message').text()).toBe('Votre mot de passe réseau a été modifié avec succès.')
+      expect((w.find('#new-password').element as HTMLInputElement).value).toBe('')
+      expect((w.find('#confirm-password').element as HTMLInputElement).value).toBe('')
+    })
+
+    it('champs manquants → erreur, aucun appel API', async () => {
+      const w = await mountWithStatus(true)
+
+      await w.find('form').trigger('submit')
+      await nextTick()
+
+      expect(w.find('.alert-message').text()).toBe('Tous les champs sont obligatoires.')
+      expect(resetNetworkPassword).not.toHaveBeenCalled()
+    })
+
+    it('mots de passe différents → erreur, aucun appel API', async () => {
+      const w = await mountWithStatus(true)
+
+      await w.find('#new-password').setValue(VALID_PASSWORD)
+      await w.find('#confirm-password').setValue('motdepassedifferent')
+      await w.find('form').trigger('submit')
+      await nextTick()
+
+      expect(w.find('.alert-message').text()).toContain('ne correspondent pas')
+      expect(resetNetworkPassword).not.toHaveBeenCalled()
+    })
+
+    it('moins de 12 caractères → erreur, aucun appel API', async () => {
+      const w = await mountWithStatus(true)
+
+      await w.find('#new-password').setValue('short123')
+      await w.find('#confirm-password').setValue('short123')
+      await w.find('form').trigger('submit')
+      await nextTick()
+
+      expect(w.find('.alert-message').text()).toContain('12 caractères')
+      expect(resetNetworkPassword).not.toHaveBeenCalled()
+    })
+
+    it('échec API : message serveur affiché (compte non éligible)', async () => {
+      vi.mocked(resetNetworkPassword).mockRejectedValueOnce({
+        response: { data: { code: 'INVALID_CODE', message: 'Ce parcours est réservé aux comptes à mot de passe réseau seul.' } },
+      })
+      const w = await mountWithStatus(true)
+
+      await w.find('#new-password').setValue(VALID_PASSWORD)
+      await w.find('#confirm-password').setValue(VALID_PASSWORD)
+      await w.find('form').trigger('submit')
+      await nextTick()
+
+      expect(w.find('.alert-message').text()).toBe('Ce parcours est réservé aux comptes à mot de passe réseau seul.')
+      expect(w.find('.alert-message').classes()).toContain('alert-message--error')
+    })
+
+    it('échec API sans message structuré → message par défaut réseau', async () => {
+      vi.mocked(resetNetworkPassword).mockRejectedValueOnce(new Error('réseau'))
+      const w = await mountWithStatus(true)
+
+      await w.find('#new-password').setValue(VALID_PASSWORD)
+      await w.find('#confirm-password').setValue(VALID_PASSWORD)
+      await w.find('form').trigger('submit')
+      await nextTick()
+
+      expect(w.find('.alert-message').text()).toBe('Erreur lors de la modification du mot de passe réseau.')
+    })
+
+    it('statut indisponible → repli sur le flux standard', async () => {
+      vi.mocked(getNetworkPasswordStatus).mockRejectedValueOnce(new Error('réseau'))
+      const i18n = createI18n({ locale: 'fr', messages })
+      const w = mount(ChangePassword, {
+        props,
+        global: {
+          plugins: [i18n],
+          provide: { [I18nInjectionKey as symbol]: { global: i18n.global } },
+        },
+      })
+      await flushPromises()
+
+      expect(w.find('#current-password').exists()).toBe(true)
+      expect(w.find('h3').text()).toBe('Changer mon mot de passe')
     })
   })
 })

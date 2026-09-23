@@ -114,7 +114,12 @@
     "error-mismatch": "Les nouveaux mots de passe ne correspondent pas.",
     "error-length": "Le nouveau mot de passe doit contenir au moins 12 caractères.",
     "success": "Mot de passe changé avec succès.",
-    "error-default": "Erreur lors du changement du mot de passe."
+    "error-default": "Erreur lors du changement du mot de passe.",
+    "title-network": "Mot de passe réseau",
+    "network-info": "Votre compte utilise un mot de passe réseau seul : aucun ancien mot de passe n'est nécessaire.",
+    "submit-network": "Modifier le mot de passe réseau",
+    "success-network": "Votre mot de passe réseau a été modifié avec succès.",
+    "error-network-default": "Erreur lors de la modification du mot de passe réseau."
   },
   "classes-groupes-eleve": {
     "etablissement": "Établissement",

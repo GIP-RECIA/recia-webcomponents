@@ -15,10 +15,14 @@
 -->
 
 <script setup lang="ts">
-import { inject, nextTick, ref, watch } from 'vue'
+import { inject, nextTick, onMounted, ref, watch } from 'vue'
 import { I18nInjectionKey } from 'vue-i18n'
 import { dnmaService } from '@/services/dnmaService'
-import { postPassword } from '@/services/serviceMce.ts'
+import {
+  getNetworkPasswordStatus,
+  postPassword,
+  resetNetworkPassword,
+} from '@/services/serviceMce.ts'
 
 defineOptions({ name: 'ChangePassword' })
 
@@ -34,6 +38,12 @@ function tPwd(key: string): string {
   return i18n ? (i18n.global.t as (k: string) => string)(`change-password.${key}`) : key
 }
 
+// Flux affiché : standard (ancien mot de passe) / réseau (changement direct, compte CVDL ntPass
+// sans mot de passe local — conforme à l'ancienne application, sans code email).
+type FlowMode = 'standard' | 'network'
+
+const mode = ref<FlowMode>('standard')
+
 const currentPassword = ref('')
 const newPassword = ref('')
 const confirmPassword = ref('')
@@ -46,36 +56,53 @@ const alertRef = ref<HTMLDivElement | null>(null)
 
 const messageId = 'change-password-message'
 
-watch([currentPassword, newPassword, confirmPassword], ([c, n, cf]) => {
-  if (c || n || cf)
+watch([currentPassword, newPassword, confirmPassword], () => {
+  if (currentPassword.value || newPassword.value || confirmPassword.value)
     message.value = ''
 })
 
+// L'éligibilité au parcours « mot de passe réseau » est décidée côté serveur (groupes LDAP).
+onMounted(async () => {
+  try {
+    const baseUrl = props.mceApi.replace(TRAILING_SLASH, '')
+    const { data } = await getNetworkPasswordStatus(baseUrl, props.userInfoApiUrl)
+    if (data?.eligible)
+      mode.value = 'network'
+  }
+  catch (error) {
+    // Statut indisponible : repli silencieux sur le flux classique.
+    console.error('Impossible de récupérer le statut du mot de passe réseau.', error)
+  }
+})
+
+function setMessage(text: string, type: 'success' | 'error') {
+  message.value = text
+  messageType.value = type
+  void nextTick().then(() => alertRef.value?.focus())
+}
+
+function apiMessage(error: unknown, fallbackKey: string): string {
+  const data = (error as { response?: { data?: { message?: string } } })?.response?.data
+  return data?.message ?? tPwd(fallbackKey)
+}
+
 async function handleChangePassword() {
-  message.value = ''
-  await nextTick()
+  setMessage('', 'error')
 
-  if (!currentPassword.value || !newPassword.value || !confirmPassword.value) {
-    message.value = tPwd('error-required')
-    messageType.value = 'error'
-    await nextTick()
-    alertRef.value?.focus()
+  if (mode.value === 'standard' && !currentPassword.value) {
+    setMessage(tPwd('error-required'), 'error')
     return
   }
-
+  if (!newPassword.value || !confirmPassword.value) {
+    setMessage(tPwd('error-required'), 'error')
+    return
+  }
   if (newPassword.value !== confirmPassword.value) {
-    message.value = tPwd('error-mismatch')
-    messageType.value = 'error'
-    await nextTick()
-    alertRef.value?.focus()
+    setMessage(tPwd('error-mismatch'), 'error')
     return
   }
-
   if (newPassword.value.length < 12) {
-    message.value = tPwd('error-length')
-    messageType.value = 'error'
-    await nextTick()
-    alertRef.value?.focus()
+    setMessage(tPwd('error-length'), 'error')
     return
   }
 
@@ -83,30 +110,32 @@ async function handleChangePassword() {
 
   try {
     const baseUrl = props.mceApi.replace(TRAILING_SLASH, '')
-    await postPassword(
-      baseUrl,
-      currentPassword.value,
-      newPassword.value,
-      confirmPassword.value,
-      props.userInfoApiUrl,
-    )
-
-    message.value = tPwd('success')
-    messageType.value = 'success'
-    await nextTick()
-    alertRef.value?.focus()
-
+    if (mode.value === 'network') {
+      await resetNetworkPassword(
+        baseUrl,
+        newPassword.value,
+        confirmPassword.value,
+        props.userInfoApiUrl,
+      )
+      setMessage(tPwd('success-network'), 'success')
+    }
+    else {
+      await postPassword(
+        baseUrl,
+        currentPassword.value,
+        newPassword.value,
+        confirmPassword.value,
+        props.userInfoApiUrl,
+      )
+      setMessage(tPwd('success'), 'success')
+      currentPassword.value = ''
+    }
     dnmaService.changePassword()
-    currentPassword.value = ''
     newPassword.value = ''
     confirmPassword.value = ''
   }
   catch (error: unknown) {
-    const apiMessage = (error as { response?: { data?: { message?: string } } })?.response?.data?.message
-    message.value = apiMessage ?? tPwd('error-default')
-    messageType.value = 'error'
-    await nextTick()
-    alertRef.value?.focus()
+    setMessage(apiMessage(error, mode.value === 'network' ? 'error-network-default' : 'error-default'), 'error')
   }
   finally {
     isLoading.value = false
@@ -118,7 +147,7 @@ async function handleChangePassword() {
   <div class="change-password-panel">
     <div class="card-header">
       <h3>
-        {{ tPwd('title') }}
+        {{ mode === 'standard' ? tPwd('title') : tPwd('title-network') }}
       </h3>
     </div>
 
@@ -127,26 +156,34 @@ async function handleChangePassword() {
       novalidate
       @submit.prevent="handleChangePassword"
     >
-      <div class="field">
-        <div class="field-layout">
-          <div class="field-container">
-            <div class="middle">
-              <label for="current-password">{{ tPwd('current-password') }}</label>
-              <input
-                id="current-password"
-                v-model="currentPassword"
-                type="password"
-                placeholder=" "
-                autocomplete="current-password"
-                aria-required="true"
-                :aria-invalid="message && messageType === 'error' ? 'true' : 'false'"
-                :aria-describedby="message && messageType === 'error' ? messageId : undefined"
-              >
+      <template v-if="mode === 'standard'">
+        <div class="field">
+          <div class="field-layout">
+            <div class="field-container">
+              <div class="middle">
+                <label for="current-password">{{ tPwd('current-password') }}</label>
+                <input
+                  id="current-password"
+                  v-model="currentPassword"
+                  type="password"
+                  placeholder=" "
+                  autocomplete="current-password"
+                  aria-required="true"
+                  :aria-invalid="message && messageType === 'error' ? 'true' : 'false'"
+                  :aria-describedby="message && messageType === 'error' ? messageId : undefined"
+                >
+              </div>
             </div>
+            <div class="active-indicator" />
           </div>
-          <div class="active-indicator" />
         </div>
-      </div>
+      </template>
+
+      <template v-else-if="mode === 'network'">
+        <div class="network-info">
+          {{ tPwd('network-info') }}
+        </div>
+      </template>
 
       <div class="field">
         <div class="field-layout">
@@ -213,7 +250,9 @@ async function handleChangePassword() {
           <span
             v-if="isLoading"
           >{{ tPwd('loading') }}</span>
-          <span v-else>{{ tPwd('submit') }}</span>
+          <span v-else>
+            {{ mode === 'network' ? tPwd('submit-network') : tPwd('submit') }}
+          </span>
         </button>
       </div>
     </form>
@@ -250,5 +289,15 @@ async function handleChangePassword() {
 
 .alert-message {
   @include mce-alert-message;
+}
+
+.network-info {
+  padding: 0.75rem;
+  font-size: var(--#{$prefix}font-size-sm);
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  background-color: color-mix(in srgb, var(--#{$prefix}system-blue) 5%, transparent);
+  border: 1px solid color-mix(in srgb, var(--#{$prefix}system-blue) 20%, transparent);
+  border-radius: 10px;
 }
 </style>
