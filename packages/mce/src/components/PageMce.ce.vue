@@ -91,11 +91,12 @@ onMounted(async () => {
   }
   catch (error: unknown) {
     console.error('[onMounted] ERROR =>', error)
-    // La charte doit être signée : la redirection vers la page de signature est déjà
-    // déclenchée par serviceMce, on évite d'afficher une erreur qui vaisserait un flash.
-    if ((error as { response?: { data?: { code?: string } } })?.response?.data?.code === 'CHARTE_REQUIRED') {
-      return
-    }
+    // NEUTRALISÉ (charte) : la redirection vers /activation n'a plus lieu, donc on
+    // n'avale plus l'erreur CHARTE_REQUIRED — elle doit s'afficher comme les autres.
+    // Réactivation : retirer ce commentaire pour rétablir le early-return.
+    // if ((error as { response?: { data?: { code?: string } } })?.response?.data?.code === 'CHARTE_REQUIRED') {
+    //   return
+    // }
     hasError.value = true
     isLoading.value = false
     errorMessage.value = (error as { response?: { data?: { message?: string } } })?.response?.data?.message

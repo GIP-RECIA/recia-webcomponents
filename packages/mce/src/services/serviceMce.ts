@@ -35,17 +35,19 @@ async function getToken(userInfoApiUrl: string): Promise<string | undefined> {
   }
 }
 
-const MCE_API_SEGMENT = '/api/personne/mce'
-const CHARTE_REQUIRED_CODE = 'CHARTE_REQUIRED'
+// const MCE_API_SEGMENT = '/api/personne/mce'
+// NEUTRALISÉ (charte) : constant + helpers de redirection mis en commentaire.
+// Réactivation : décommenter ce bloc, puis le bloc de throwIfNotOk.
+// const CHARTE_REQUIRED_CODE = 'CHARTE_REQUIRED'
 
 /**
  * Calcule l'URL de la page d'activation (où la charte est signée) à partir d'une URL d'API MCE
  * (ex. '/ismail/api/personne/mce/...' → '/ismail/activation').
  */
-function activationPageUrl(apiUrl: string): string {
-  const base = apiUrl.split(MCE_API_SEGMENT)[0]
-  return `${base}/activation`
-}
+// function activationPageUrl(apiUrl: string): string {
+//   const base = apiUrl.split(MCE_API_SEGMENT)[0]
+//   return `${base}/activation`
+// }
 
 /**
  * Clé de stockage du jeton OIDC transmis au SPA d'activation. Le widget et la page
@@ -53,7 +55,7 @@ function activationPageUrl(apiUrl: string): string {
  * et permet de transmettre le jeton sans le faire transiter dans l'URL (logs, proxies,
  * limites de taille). Le SPA le consomme puis l'efface.
  */
-const CHARTE_TOKEN_STORAGE_KEY = 'mce-charte-token'
+// const CHARTE_TOKEN_STORAGE_KEY = 'mce-charte-token'
 
 /**
  * Redirige le navigateur vers la page d'activation (où la charte est signée).
@@ -64,29 +66,35 @@ const CHARTE_TOKEN_STORAGE_KEY = 'mce-charte-token'
  * La charte est acceptée sur /activation : le compte étant déjà activé et l'utilisateur
  * connecté (SSO), seul le bloc charte s'affiche, sans identifiant ni mot de passe.
  */
-async function redirectToCharte(apiUrl?: string, userInfoApiUrl?: string): Promise<void> {
-  const dest = apiUrl ? activationPageUrl(apiUrl) : '/activation'
-  const token = userInfoApiUrl ? await getToken(userInfoApiUrl) : undefined
+// async function redirectToCharte(apiUrl?: string, userInfoApiUrl?: string): Promise<void> {
+//   const dest = apiUrl ? activationPageUrl(apiUrl) : '/activation'
+//   const token = userInfoApiUrl ? await getToken(userInfoApiUrl) : undefined
+//
+//   const params = new URLSearchParams({ returnTo: window.location.href })
+//   if (token) {
+//     try {
+//       sessionStorage.setItem(CHARTE_TOKEN_STORAGE_KEY, token)
+//     }
+//     catch (error) {
+//       console.error('SessionStorage indisponible, repli sur le paramètre d\'URL.', error)
+//       params.set('token', token)
+//     }
+//   }
+//   window.location.assign(`${dest}?${params.toString()}`)
+// }
 
-  const params = new URLSearchParams({ returnTo: window.location.href })
-  if (token) {
-    try {
-      sessionStorage.setItem(CHARTE_TOKEN_STORAGE_KEY, token)
-    }
-    catch (error) {
-      console.error('SessionStorage indisponible, repli sur le paramètre d\'URL.', error)
-      params.set('token', token)
-    }
-  }
-  window.location.assign(`${dest}?${params.toString()}`)
-}
-
-async function throwIfNotOk(response: Response, requestUrl?: string, userInfoApiUrl?: string): Promise<void> {
+// NEUTRALISÉ (charte) : les 2 paramètres ne servent plus qu'à la redirection commentée
+// ci-dessus, d'où le préfixe « _ » imposé par ESLint (unused vars).
+// Réactivation : retirer le préfixe « _ » des 2 paramètres.
+async function throwIfNotOk(response: Response, _requestUrl?: string, _userInfoApiUrl?: string): Promise<void> {
   if (!response.ok) {
     const data = await response.json().catch(() => ({}))
-    if (response.status === 403 && data?.code === CHARTE_REQUIRED_CODE) {
-      await redirectToCharte(requestUrl, userInfoApiUrl)
-    }
+    // NEUTRALISÉ (charte) : plus de redirection vers la page /activation.
+    // L'erreur est propagée telle quelle, l'interface affiche le message d'erreur.
+    // Réactivation : retirer ce commentaire pour rétablir la redirection.
+    // if (response.status === 403 && data?.code === CHARTE_REQUIRED_CODE) {
+    //   await redirectToCharte(requestUrl, userInfoApiUrl)
+    // }
     throw new ApiError(data, response.status)
   }
 }
