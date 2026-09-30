@@ -68,7 +68,7 @@ async function submitForm(w: VueWrapper) {
 describe('changeEmail', () => {
   const props = {
     userInfoApiUrl: 'https://api.test.fr/userinfo',
-    currentEmail: 'ancien@test.fr',
+    currentEmailPerso: 'perso@test.fr',
     mceApi: 'https://api.test.fr',
   }
 
@@ -95,16 +95,16 @@ describe('changeEmail', () => {
       expect(wrapper.find('h3').text()).toBe('Modifier l\'adresse email')
     })
 
-    it('affiche l\'email actuel fourni dans les props', () => {
+    it('affiche l\'email personnel fourni dans les props', () => {
       const input = wrapper.find('#currentEmail')
       expect(input.exists()).toBe(true)
-      expect(input.element.value).toBe('ancien@test.fr')
+      expect(input.element.value).toBe('perso@test.fr')
     })
 
-    it('affiche le texte par défaut si aucun email actuel n\'est transmis', () => {
+    it('affiche le texte par défaut si aucun email personnel n\'est transmis', () => {
       const i18n = createI18n({ locale: 'fr', messages })
       const wrapperEmpty = mount(ChangeEmail, {
-        props: { ...props, currentEmail: undefined },
+        props: { ...props, currentEmailPerso: undefined },
         global: {
           plugins: [i18n],
           provide: { [I18nInjectionKey as symbol]: { global: i18n.global } },

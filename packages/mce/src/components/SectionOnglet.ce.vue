@@ -127,7 +127,6 @@ const props = defineProps<{
         :key="`email-${props.currentTab}`"
         :user-info-api-url="props.userInfoApiUrl"
         :mce-api="props.mceApi"
-        :current-email="props.userMail"
         :current-email-perso="props.userMailPerso"
       />
     </div>

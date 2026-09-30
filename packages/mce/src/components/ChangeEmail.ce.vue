@@ -24,7 +24,6 @@ defineOptions({ name: 'ChangeEmail' })
 
 const props = defineProps<{
   userInfoApiUrl: string
-  currentEmail?: string
   currentEmailPerso?: string
   mceApi: string
 }>()
@@ -51,7 +50,7 @@ const CODE_REGEX = /^\d{6}$/
 
 const messageId = 'change-email-message'
 
-const displayedCurrentEmail = computed(() => props.currentEmailPerso || props.currentEmail || tEmail('no-email'))
+const displayedCurrentEmail = computed(() => props.currentEmailPerso || tEmail('no-email'))
 
 watch([newEmail, confirmEmail], ([n, c]) => {
   if (n || c)
