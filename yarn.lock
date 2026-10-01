@@ -1205,23 +1205,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@intlify/message-compiler@npm:11.4.12":
+"@intlify/message-compiler@npm:11.4.12, @intlify/message-compiler@npm:~11.4.2":
   version: 11.4.12
   resolution: "@intlify/message-compiler@npm:11.4.12"
   dependencies:
     "@intlify/shared": "npm:11.4.12"
     source-map-js: "npm:^1.0.2"
   checksum: 10/4e58c8b9cfbcc8b08407c8ac8e4280f4d46c9e03a05bd839b8e4cdef35bb0b34314e0a25f72afa90b7b71b0355d7bcf33a71160007be2d36e8b7b011de42b003
-  languageName: node
-  linkType: hard
-
-"@intlify/message-compiler@npm:~11.4.2":
-  version: 11.4.10
-  resolution: "@intlify/message-compiler@npm:11.4.10"
-  dependencies:
-    "@intlify/shared": "npm:11.4.10"
-    source-map-js: "npm:^1.0.2"
-  checksum: 10/dc50da1cb31f410ebf05e36066807fd43da05f0ef70dade615ea1e98d7a1cd64e3b9fec3bbe1c0a390930141693845acc2304092534c8d44aab653563e7614cf
   languageName: node
   linkType: hard
 
@@ -1232,14 +1222,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@intlify/shared@npm:11.4.10, @intlify/shared@npm:~11.4.2":
-  version: 11.4.10
-  resolution: "@intlify/shared@npm:11.4.10"
-  checksum: 10/cee6c11a2b69f6c6dfb95d8a021605db165f5002619c824f3fc4d3c550594fa7d2ad32c6952c10a0d3d392a86a54d56a9d1d724e8d4311b48f08dde532da522a
-  languageName: node
-  linkType: hard
-
-"@intlify/shared@npm:11.4.12":
+"@intlify/shared@npm:11.4.12, @intlify/shared@npm:~11.4.2":
   version: 11.4.12
   resolution: "@intlify/shared@npm:11.4.12"
   checksum: 10/59d8091c5b7490c6215bd1f40895cbb1850e1b473c169f98dcd894e9141fd3735918f3b97914fb86098be2fc2ba4b6d6c4a3730cfe152af6f3747e3c1cd3b625
