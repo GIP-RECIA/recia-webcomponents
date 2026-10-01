@@ -54,7 +54,7 @@
     "@fortawesome/vue-fontawesome": "^3.3.3",
     "@gip-recia/js-tree": "^0.0.18",
     "@gip-recia/ui": "^1.1.0",
-    "@gip-recia/ui-webcomponents": "^1.18.1",
+    "@gip-recia/ui-webcomponents": "^1.20.0",
     "@intlify/unplugin-vue-i18n": "^11.2.5",
     "@tsconfig/node24": "^24.0.5",
     "@types/node": "^24",
