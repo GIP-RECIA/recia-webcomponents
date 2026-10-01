@@ -1,0 +1,124 @@
+{
+  "user": {
+    "status": {
+      "header": "État",
+      "inconnu": "Inconnu !",
+      "invalid": "Inactivé",
+      "valid": "Activé",
+      "unpublished": "Non publié",
+      "locked": "Bloqué",
+      "deleted": "Supprimé",
+      "deleting": "En suppression",
+      "deletingDate": "Définitif le {suppressDate}",
+      "uncertain": "Incertain",
+      "uncertainExportAdd": "Erreur export",
+      "uncertainExportDelete": "Erreur suppression",
+      "uncertainExportModify": "Erreur modification"
+    },
+    "category": {
+      "header": "Catégorie",
+      "student": "Élève/Apprenti",
+      "teacher": "Enseignant/Formateur",
+      "nonTeacherLocalCommunity": "Agent de la collectivité",
+      "nonTeacherSchool": "Personnel d’établissement",
+      "nonTeacherAcademicService": "Personnel académique",
+      "personRelationshipStudent": "Parent",
+      "externalStaff": "Extérieur",
+      "companyManager": "Responsable d’entreprise",
+      "internshipTutor": "Tuteur de stage"
+    },
+    "relation": {
+      "header": "Relations",
+      "internshipSupervisor": "Tuteur de stage | Stagiaire",
+      "internshipCoordinator": "Responsable de stage | Stagiaire",
+      "internshipAdvisor": "Maître de stage | Stagiaire",
+      "legalGuardian": "Sous responsabilité | Responsable légal"
+    },
+    "office": {
+      "external": "Identifiant EN",
+      "en": "Systèmes d'information des Personnels de l'Éducation Nationale de l'académie Orléans-Tours",
+      "eduConnect": "Gestion des comptes EduConnect",
+      "eduAgri": "Système d'information des Personnels de l'Enseignement Agricole",
+      "keycloack": "Système d'information de la Région Centre-Val de Loire"
+    },
+    "source": {
+      "AC-DEMO": "Source de démonstration",
+      "AC-ORLEANS-TOURS": "Annuaire Académique Fédérateur (AAF)",
+      "CFA-CENTRE": "SI établissement",
+      "COLL-CD18": "Département 18",
+      "COLL-CD28": "Département 28",
+      "COLL-CD36": "Département 36",
+      "COLL-CD37": "Département 37",
+      "COLL-CD41": "Département 41",
+      "COLL-CD45": "Département 45",
+      "COLL-CVDL": "Région Centre-Val de Loire",
+      "EF2S-CENTRE": "SI établissement",
+      "GIP-RECIA": "GIP RECIA",
+      "LA-CENTRE": "Annuaire Enseignement Agricole",
+      "SarapisUi_AC-DEMO": "Compte local démonstration",
+      "SarapisUi_AC-ORLEANS-TOURS": "Compte local académique",
+      "SarapisUi_CFA-CENTRE": "Compte local établissement",
+      "SarapisUi_COLL-CD18": "Compte local département 18",
+      "SarapisUi_COLL-CD28": "Compte local département 28",
+      "SarapisUi_COLL-CD36": "Compte local département 36",
+      "SarapisUi_COLL-CD37": "Compte local département 37",
+      "SarapisUi_COLL-CD41": "Compte local département 41",
+      "SarapisUi_COLL-CD45": "Compte local département 45",
+      "SarapisUi_COLL-CVDL": "Compte local région Centre-Val de Loire",
+      "SarapisUi_EF2S-CENTRE": "Compte local établissement",
+      "SarapisUi_GIP-RECIA": "Compte local GIP RECIA",
+      "SarapisUi_LA-CENTRE": "Compte local enseignement agricole"
+    },
+    "photo": "Photo de profil",
+    "actions": "Actions",
+    "tab": {
+      "info": "Informations",
+      "administrative": "Affectations"
+    },
+    "info": {
+      "header": "Informations générales",
+      "identity": {
+        "header": "Informations personnelles",
+        "civility": "Civilité",
+        "lastName": "Nom",
+        "firstName": "Prénom",
+        "birthDate": "Date de naissance"
+      },
+      "account": {
+        "header": "Compte & accès",
+        "uid": "UID",
+        "login": "Login",
+        "password": "Mot de passe",
+        "email": "Email",
+        "pronote": {
+          "header": "ID Pronote",
+          "info": "Le compte n'a pas accès au service Pronote"
+        }
+      },
+      "context": {
+        "header": "Contexte",
+        "schoolYear": "Annnée scolaire",
+        "source": "Source",
+        "sourceModificationDate": "Modification de la source"
+      }
+    },
+    "structure": {
+      "header": "Structures",
+      "admin": "Structure de rattachement administrative",
+      "current": "Structure courante"
+    },
+    "administrative": {
+      "function": {
+        "header": "Fonction | Fonctions",
+        "additional": "Fonction complémentaire | Fonctions complémentaires",
+        "hourglass": {
+          "start": "Expirera dans {months} mois ({date})",
+          "half": "Expire dans moins d'un mois ({date}) | Expire dans moins de {months} mois ({date})",
+          "end": "A expiré le {date}"
+        }
+      },
+      "class": "Classe | Classes",
+      "educationalGroup": "Groupe pédagogique | Groupes pédagogiques"
+    }
+  }
+}

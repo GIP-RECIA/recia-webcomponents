@@ -5,6 +5,10 @@
 !.vscode/launch.json
 !.vscode/extensions.json
 
+### IDE ###
+.idea/
+.vtcode/
+
 ### Yarn ###
 .yarn/*
 !.yarn/releases
@@ -19,6 +23,9 @@ coverage
 .env
 *.local
 workspace
+
+### Docs ###
+packages/mce/doc
 
 ### Tests ###
 playwright-report
