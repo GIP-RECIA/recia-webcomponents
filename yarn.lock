@@ -856,7 +856,7 @@ __metadata:
     "@fortawesome/fontawesome-svg-core": "npm:^7.3.1"
     "@fortawesome/free-solid-svg-icons": "npm:^7.3.1"
     "@fortawesome/vue-fontawesome": "npm:^3.3.3"
-    "@gip-recia/ui": "npm:^1.0.5"
+    "@gip-recia/ui": "npm:^1.1.0"
     "@intlify/unplugin-vue-i18n": "npm:^11.2.5"
     "@tsconfig/node24": "npm:^24.0.5"
     "@types/node": "npm:^24"
@@ -889,7 +889,7 @@ __metadata:
     "@antfu/eslint-config": "npm:^9.5.1"
     "@fortawesome/fontawesome-svg-core": "npm:^7.3.1"
     "@fortawesome/free-solid-svg-icons": "npm:^7.3.1"
-    "@gip-recia/ui": "npm:^1.0.5"
+    "@gip-recia/ui": "npm:^1.1.0"
     "@tsconfig/node24": "npm:^24.0.5"
     "@types/node": "npm:^24"
     "@typescript/native": "npm:typescript@^7.0.2"
@@ -926,7 +926,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": "npm:^7.3.1"
     "@fortawesome/vue-fontawesome": "npm:^3.3.3"
     "@gip-recia/info-modal": "npm:^0.0.1"
-    "@gip-recia/ui": "npm:^1.0.5"
+    "@gip-recia/ui": "npm:^1.1.0"
     "@intlify/unplugin-vue-i18n": "npm:^11.2.5"
     "@tsconfig/node24": "npm:^24.0.5"
     "@types/node": "npm:^24"
@@ -962,7 +962,7 @@ __metadata:
     "@fortawesome/fontawesome-svg-core": "npm:^7.3.1"
     "@fortawesome/free-solid-svg-icons": "npm:^7.3.1"
     "@fortawesome/vue-fontawesome": "npm:^3.3.3"
-    "@gip-recia/ui": "npm:^1.0.5"
+    "@gip-recia/ui": "npm:^1.1.0"
     "@intlify/unplugin-vue-i18n": "npm:^11.2.5"
     "@tsconfig/node24": "npm:^24.0.5"
     "@types/node": "npm:^24"
@@ -1001,7 +1001,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": "npm:^7.3.1"
     "@fortawesome/vue-fontawesome": "npm:^3.3.3"
     "@gip-recia/js-tree": "npm:^0.0.18"
-    "@gip-recia/ui": "npm:^1.0.5"
+    "@gip-recia/ui": "npm:^1.1.0"
     "@gip-recia/ui-webcomponents": "npm:^1.18.1"
     "@intlify/unplugin-vue-i18n": "npm:^11.2.5"
     "@tsconfig/node24": "npm:^24.0.5"
@@ -1037,7 +1037,7 @@ __metadata:
     "@fortawesome/fontawesome-svg-core": "npm:^7.3.1"
     "@fortawesome/free-solid-svg-icons": "npm:^7.3.1"
     "@fortawesome/vue-fontawesome": "npm:^3.3.3"
-    "@gip-recia/ui": "npm:^1.0.5"
+    "@gip-recia/ui": "npm:^1.1.0"
     "@intlify/unplugin-vue-i18n": "npm:^11.2.5"
     "@tsconfig/node24": "npm:^24.0.5"
     "@types/lodash-es": "npm:^4"
@@ -1072,10 +1072,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gip-recia/ui@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "@gip-recia/ui@npm:1.0.5"
-  checksum: 10/fd703c2ae5d61d440ebc6792545c50ee787fe3161f32a19515130e05027a3aa8e47e0749b564388b1f4b3a60316dff4b7db352a7fdb1cf69f387bba8939a726e
+"@gip-recia/ui@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@gip-recia/ui@npm:1.1.0"
+  checksum: 10/ab6631bd6567b57a651025a73e73c9206ea1ba9970aaf01295a7f9cd2c828becaab22699fbda81e6d8805255a07a22a2c087efee23e31711a8d1c367762bbfe9
   languageName: node
   linkType: hard
 
