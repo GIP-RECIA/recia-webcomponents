@@ -428,7 +428,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@conventional-changelog/template@npm:^1.2.1":
+"@conventional-changelog/template@npm:1.2.1, @conventional-changelog/template@npm:^1.2.1":
   version: 1.2.1
   resolution: "@conventional-changelog/template@npm:1.2.1"
   checksum: 10/be65738f81cb232a794fc0ab2bbe9af2e32896e0c731fe8bdf8a2ab8dabdcc2645937d1025d6f7ad8878c6a51be1da9cab71e287ac476b8e07fb0b8cb7811425
@@ -3026,10 +3026,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^5.6.2":
-  version: 5.6.2
-  resolution: "chalk@npm:5.6.2"
-  checksum: 10/1b2f48f6fba1370670d5610f9cd54c391d6ede28f4b7062dd38244ea5768777af72e5be6b74fb6c6d54cb84c4a2dff3f3afa9b7cb5948f7f022cfd3d087989e0
+"chalk@npm:^6.0.0":
+  version: 6.0.1
+  resolution: "chalk@npm:6.0.1"
+  checksum: 10/1457692e6327f299da7d7cd6a7774fe1de25bda6c0e33791901d6762a6c0f2409bd3d92bf7695519825c2fbb405c104a0a73fd489e4e9f88af3ef2a1d97455c9
   languageName: node
   linkType: hard
 
@@ -3214,12 +3214,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commit-and-tag-version@npm:^13.1.2":
-  version: 13.1.2
-  resolution: "commit-and-tag-version@npm:13.1.2"
+"commit-and-tag-version@npm:^13.2.1":
+  version: 13.2.1
+  resolution: "commit-and-tag-version@npm:13.2.1"
   dependencies:
     "@conventional-changelog/git-client": "npm:3.1.0"
-    chalk: "npm:^5.6.2"
+    "@conventional-changelog/template": "npm:1.2.1"
+    chalk: "npm:^6.0.0"
     conventional-changelog: "npm:8.1.0"
     conventional-changelog-config-spec: "npm:2.1.0"
     conventional-changelog-conventionalcommits: "npm:10.2.1"
@@ -3227,7 +3228,7 @@ __metadata:
     detect-indent: "npm:^7.0.2"
     detect-newline: "npm:^3.1.0"
     dotgitignore: "npm:^2.1.0"
-    fast-xml-parser: "npm:^5.5.6"
+    fast-xml-parser: "npm:^5.10.1"
     figures: "npm:^3.2.0"
     find-up: "npm:^5.0.0"
     semver: "npm:^7.7.2"
@@ -3235,7 +3236,7 @@ __metadata:
     yargs: "npm:^17.7.2"
   bin:
     commit-and-tag-version: bin/cli.js
-  checksum: 10/ea1311082edb099fedf2c1aa0cab6e1136353808a385ef709ff732130f4d56e066fe660dcf2d58958656e85031ce5a06c1f70593fe7e82fa5d507befc7362e50
+  checksum: 10/346576811a32b600ca74e6523a0a1912a3a54d1fb609070431a8c9bef098f385b4b89ac47c3ae0da8f8e7cd37c085e03470fbce77cf6e2d5d0646dc822bc6452
   languageName: node
   linkType: hard
 
@@ -4490,19 +4491,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-xml-parser@npm:^5.5.6":
-  version: 5.10.1
-  resolution: "fast-xml-parser@npm:5.10.1"
+"fast-xml-parser@npm:^5.10.1":
+  version: 5.11.1
+  resolution: "fast-xml-parser@npm:5.11.1"
   dependencies:
     "@nodable/entities": "npm:^3.0.0"
     fast-xml-builder: "npm:^1.2.0"
     is-unsafe: "npm:^2.0.0"
     path-expression-matcher: "npm:^1.6.2"
-    strnum: "npm:^2.4.1"
+    strnum: "npm:^2.4.2"
     xml-naming: "npm:^0.3.0"
   bin:
     fxparser: src/cli/cli.js
-  checksum: 10/3d2a502efd652fbfacd5beb205f3abb61e065facd9acd6b524aee01bda19765caa47407b7aa3743fc58b3b00da51c18a0ff0ee030ba3b952341ca8717bae2b05
+  checksum: 10/9e0854bb49140bb2bdbe527fd71c74c502d5c8766587e6cad49e0175d5b1ee5e751f896445262d6ecdb7a407a644f7c25da5f20ad0feadd08787d3a9505f7dc4
   languageName: node
   linkType: hard
 
@@ -6870,7 +6871,7 @@ __metadata:
   dependencies:
     "@commitlint/cli": "npm:^21.2.2"
     "@commitlint/config-conventional": "npm:^21.2.3"
-    commit-and-tag-version: "npm:^13.1.2"
+    commit-and-tag-version: "npm:^13.2.1"
     husky: "npm:^9.1.7"
     lint-staged: "npm:^17.4.1"
   languageName: unknown
@@ -7271,12 +7272,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"strnum@npm:^2.4.1":
-  version: 2.4.1
-  resolution: "strnum@npm:2.4.1"
+"strnum@npm:^2.4.2":
+  version: 2.4.2
+  resolution: "strnum@npm:2.4.2"
   dependencies:
     anynum: "npm:^1.0.1"
-  checksum: 10/f0f6d0998608a1ed012ebb07471fbf63b90745ab06d5502fdc87870b57a20f40bc1d0c0a03caa17a3ccb11c3a78a30b3a21ad7728331d03e214b01ce0a70d433
+  checksum: 10/c624b2f1a4ba0962cfa66e645b583782e868d0f0ab2e038c3c554e81c2040c3e48463d1e078ff1d6ab4932a0b352f34bc51fdd4f8bbd9bf8da66bf9332c85cf4
   languageName: node
   linkType: hard
 
