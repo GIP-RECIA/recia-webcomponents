@@ -929,15 +929,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gip-recia/js-tree@npm:^0.0.18":
-  version: 0.0.18
-  resolution: "@gip-recia/js-tree@npm:0.0.18"
-  dependencies:
-    lit: "npm:2.8.0"
-  checksum: 10/c4fd062b5f93086a6e9a836e4375e0fce1a56b4a96bdad9e6009d776120ace34aba5299eb44a7aa78dd3cc439628cd0ccbb06f930d50100685532723167e3a31
-  languageName: node
-  linkType: hard
-
 "@gip-recia/mediacentre-ui@workspace:packages/mediacentre":
   version: 0.0.0-use.local
   resolution: "@gip-recia/mediacentre-ui@workspace:packages/mediacentre"
@@ -1013,44 +1004,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gip-recia/sympa@workspace:packages/sympa":
-  version: 0.0.0-use.local
-  resolution: "@gip-recia/sympa@workspace:packages/sympa"
-  dependencies:
-    "@antfu/eslint-config": "npm:^9.5.1"
-    "@fortawesome/fontawesome-free": "npm:^7.3.1"
-    "@fortawesome/fontawesome-svg-core": "npm:^7.3.1"
-    "@fortawesome/free-solid-svg-icons": "npm:^7.3.1"
-    "@fortawesome/vue-fontawesome": "npm:^3.3.3"
-    "@gip-recia/js-tree": "npm:^0.0.18"
-    "@gip-recia/ui": "npm:^1.1.0"
-    "@gip-recia/ui-webcomponents": "npm:^1.20.0"
-    "@intlify/unplugin-vue-i18n": "npm:^11.2.5"
-    "@tsconfig/node24": "npm:^24.0.5"
-    "@types/node": "npm:^24"
-    "@types/regenerator-runtime": "npm:^0"
-    "@typescript/native": "npm:typescript@^7.0.2"
-    "@uportal/open-id-connect": "npm:^1.40.2"
-    "@vitejs/plugin-vue": "npm:^6.0.9"
-    "@vue/tsconfig": "npm:^0.9.1"
-    "@vueform/multiselect": "npm:^2.6.11"
-    "@vueuse/core": "npm:^15.0.0"
-    dotenv-checker: "npm:^1.1.7"
-    eslint: "npm:^10.11.0"
-    eslint-plugin-format: "npm:^2.0.1"
-    npm-run-all2: "npm:^9.0.3"
-    regenerator-runtime: "npm:^0.14.1"
-    ress: "npm:^6.0.0"
-    sass: "npm:^1.105.0"
-    terser: "npm:^5.51.2"
-    typescript: "npm:@typescript/typescript6@^6.0.2"
-    vite: "npm:^8.3.1"
-    vue: "npm:^3.5.43"
-    vue-i18n: "npm:^11.4.12"
-    vue-tsc: "npm:^3.3.11"
-  languageName: unknown
-  linkType: soft
-
 "@gip-recia/ui-ressources-gar@workspace:packages/ressources-diffusables":
   version: 0.0.0-use.local
   resolution: "@gip-recia/ui-ressources-gar@workspace:packages/ressources-diffusables"
@@ -1086,13 +1039,6 @@ __metadata:
     vue-tsc: "npm:^3.3.11"
   languageName: unknown
   linkType: soft
-
-"@gip-recia/ui-webcomponents@npm:^1.20.0":
-  version: 1.20.0
-  resolution: "@gip-recia/ui-webcomponents@npm:1.20.0"
-  checksum: 10/8ffbc6e2f892f437a0c39e640a34a801109fe34d28eb4bff32e32070b45eca0853fe26e2e3d7435ae8d24682ede27bb6b7b5748f7b7b649e89d66a9ed93da6dd
-  languageName: node
-  linkType: hard
 
 "@gip-recia/ui@npm:^1.1.0":
   version: 1.1.0
@@ -1370,19 +1316,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit-labs/ssr-dom-shim@npm:^1.0.0, @lit-labs/ssr-dom-shim@npm:^1.1.0, @lit-labs/ssr-dom-shim@npm:^1.5.0":
+"@lit-labs/ssr-dom-shim@npm:^1.5.0":
   version: 1.6.0
   resolution: "@lit-labs/ssr-dom-shim@npm:1.6.0"
   checksum: 10/144432432e1749c4878a59baf41b2afaadef565675d64b2a8e088c6f54e36f26f67ef43aa93e49d3e6dd38a5e27c41059e981c33accdb4e8c6d47c1048696b80
-  languageName: node
-  linkType: hard
-
-"@lit/reactive-element@npm:^1.3.0, @lit/reactive-element@npm:^1.6.0":
-  version: 1.6.3
-  resolution: "@lit/reactive-element@npm:1.6.3"
-  dependencies:
-    "@lit-labs/ssr-dom-shim": "npm:^1.0.0"
-  checksum: 10/664c899bb0b144590dc4faf83b358b1504810eac107778c3aeb384affc65a7ef4eda754944bcc34a57237db03dff145332406345ac24da19ca37cf4b3cb343d3
   languageName: node
   linkType: hard
 
@@ -5443,17 +5380,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit-element@npm:^3.3.0":
-  version: 3.3.3
-  resolution: "lit-element@npm:3.3.3"
-  dependencies:
-    "@lit-labs/ssr-dom-shim": "npm:^1.1.0"
-    "@lit/reactive-element": "npm:^1.3.0"
-    lit-html: "npm:^2.8.0"
-  checksum: 10/7968e7f3ce3994911f27c4c54acc956488c91d8af81677cce3d6f0c2eaea45cceb79b064077159392238d6e43d46015a950269db9914fea8913566aacb17eaa1
-  languageName: node
-  linkType: hard
-
 "lit-element@npm:^4.2.0":
   version: 4.2.2
   resolution: "lit-element@npm:4.2.2"
@@ -5462,15 +5388,6 @@ __metadata:
     "@lit/reactive-element": "npm:^2.1.0"
     lit-html: "npm:^3.3.0"
   checksum: 10/268705c5a88c68ceeffb4dc871ffa7a9e5b5405b4907bc408cdc3336ea865b1690b4f4a34155af287200cc0737933c25326ed6816fa2c040b747925717bc21a6
-  languageName: node
-  linkType: hard
-
-"lit-html@npm:^2.8.0":
-  version: 2.8.0
-  resolution: "lit-html@npm:2.8.0"
-  dependencies:
-    "@types/trusted-types": "npm:^2.0.2"
-  checksum: 10/3503e55e2927c2ff94773cf041fc4128f92291869c9192f36eacb7f95132d11f6b329e5b910ab60a4456349cd2e6d23b33d83291b24d557bcd6b904d6314ac1a
   languageName: node
   linkType: hard
 
@@ -5491,17 +5408,6 @@ __metadata:
   peerDependencies:
     webpack: ^5.37.1
   checksum: 10/c150f6b37aa6651883c6a79c0e9eae009db8b8bb4e5f588af9c4de92a78655d1b8074d8b145732691b48ae6a147157f721e075c0cd3ca2f71554468c2c398e2d
-  languageName: node
-  linkType: hard
-
-"lit@npm:2.8.0":
-  version: 2.8.0
-  resolution: "lit@npm:2.8.0"
-  dependencies:
-    "@lit/reactive-element": "npm:^1.6.0"
-    lit-element: "npm:^3.3.0"
-    lit-html: "npm:^2.8.0"
-  checksum: 10/aa64c1136b855ba328d41157dba67657d480345aeec3c1dd829abeb67719d759c9ff2ade9903f9cfb4f9d012b16087034aaa5b33f1182e70c615765562e3251b
   languageName: node
   linkType: hard
 
