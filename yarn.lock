@@ -841,15 +841,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/free-regular-svg-icons@npm:^7.3.1":
-  version: 7.3.1
-  resolution: "@fortawesome/free-regular-svg-icons@npm:7.3.1"
-  dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:7.3.1"
-  checksum: 10/850f43f2c56c3077fee6b5b208a755e11001756c4b886a7d7618afbaed4f71696ad5e3230b83bf15006a632d9b2b4bf0dbc322f771863534708508cd9659e380
-  languageName: node
-  linkType: hard
-
 "@fortawesome/free-solid-svg-icons@npm:^7.3.1":
   version: 7.3.1
   resolution: "@fortawesome/free-solid-svg-icons@npm:7.3.1"
@@ -904,7 +895,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gip-recia/info-modal@npm:^0.0.1, @gip-recia/info-modal@workspace:packages/info-modal":
+"@gip-recia/info-modal@workspace:packages/info-modal":
   version: 0.0.0-use.local
   resolution: "@gip-recia/info-modal@workspace:packages/info-modal"
   dependencies:
@@ -926,44 +917,6 @@ __metadata:
     typescript: "npm:@typescript/typescript6@^6.0.2"
     vite: "npm:^8.3.1"
     vite-plugin-sass: "npm:^0.1.0"
-  languageName: unknown
-  linkType: soft
-
-"@gip-recia/mediacentre-ui@workspace:packages/mediacentre":
-  version: 0.0.0-use.local
-  resolution: "@gip-recia/mediacentre-ui@workspace:packages/mediacentre"
-  dependencies:
-    "@antfu/eslint-config": "npm:^9.5.1"
-    "@fortawesome/fontawesome-svg-core": "npm:^7.3.1"
-    "@fortawesome/free-regular-svg-icons": "npm:^7.3.1"
-    "@fortawesome/free-solid-svg-icons": "npm:^7.3.1"
-    "@fortawesome/vue-fontawesome": "npm:^3.3.3"
-    "@gip-recia/info-modal": "npm:^0.0.1"
-    "@gip-recia/ui": "npm:^1.1.0"
-    "@intlify/unplugin-vue-i18n": "npm:^11.2.5"
-    "@tsconfig/node24": "npm:^24.0.5"
-    "@types/node": "npm:^24"
-    "@types/regenerator-runtime": "npm:^0"
-    "@typescript/native": "npm:typescript@^7.0.2"
-    "@uportal/open-id-connect": "npm:^1.40.2"
-    "@vitejs/plugin-vue": "npm:^6.0.9"
-    "@vue/tsconfig": "npm:^0.9.1"
-    "@vueform/multiselect": "npm:^2.6.11"
-    "@vueuse/core": "npm:^15.0.0"
-    axios: "npm:^1.20.0"
-    dotenv-checker: "npm:^1.1.7"
-    eslint: "npm:^10.11.0"
-    eslint-plugin-format: "npm:^2.0.1"
-    npm-run-all2: "npm:^9.0.3"
-    regenerator-runtime: "npm:^0.14.1"
-    ress: "npm:^6.0.0"
-    sass: "npm:^1.105.0"
-    terser: "npm:^5.51.2"
-    typescript: "npm:@typescript/typescript6@^6.0.2"
-    vite: "npm:^8.3.1"
-    vue: "npm:^3.5.43"
-    vue-i18n: "npm:^11.4.12"
-    vue-tsc: "npm:^3.3.11"
   languageName: unknown
   linkType: soft
 
@@ -1917,13 +1870,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/web-bluetooth@npm:^0.0.21":
-  version: 0.0.21
-  resolution: "@types/web-bluetooth@npm:0.0.21"
-  checksum: 10/f8796dc9f67ee556a2c895ee7d6c4f62b2a8c52963c3d5e81a2938d3313130f9f7330ff82a6a3dceb63217ba615020e1d4cca8842d469ba6d8ac782853d47d0d
-  languageName: node
-  linkType: hard
-
 "@typescript-eslint/eslint-plugin@npm:^8.68.0":
   version: 8.70.1
   resolution: "@typescript-eslint/eslint-plugin@npm:8.70.1"
@@ -2490,42 +2436,6 @@ __metadata:
     vue:
       optional: true
   checksum: 10/2bdf94fbd9df262b0bafa9dcae4bb37d3f042fd858784edd87a52143940f3954e2065829ed151c9ca83bd7f3926cd84b778acd98349561782a951b4d0d0989ca
-  languageName: node
-  linkType: hard
-
-"@vueform/multiselect@npm:^2.6.11":
-  version: 2.6.11
-  resolution: "@vueform/multiselect@npm:2.6.11"
-  checksum: 10/51cdddf1b919fb2f6074182baf258525fe0f4d5f4800d50ea9eb8d16bdf7da23762b9424cfb7c36fef53f1a299dca8e26bc80bd7cf8dcc07159fa3970ef4a6bd
-  languageName: node
-  linkType: hard
-
-"@vueuse/core@npm:^15.0.0":
-  version: 15.0.0
-  resolution: "@vueuse/core@npm:15.0.0"
-  dependencies:
-    "@types/web-bluetooth": "npm:^0.0.21"
-    "@vueuse/metadata": "npm:15.0.0"
-    "@vueuse/shared": "npm:15.0.0"
-  peerDependencies:
-    vue: ^3.5.0
-  checksum: 10/7fb273ae99f72b8f8bb9e845de032afe37996adf85dd0c8e20a3f464cd9ec336e2c105bda65c5d6a26726f54cb387c32ff04395df66f215e590566d3abb36f51
-  languageName: node
-  linkType: hard
-
-"@vueuse/metadata@npm:15.0.0":
-  version: 15.0.0
-  resolution: "@vueuse/metadata@npm:15.0.0"
-  checksum: 10/1c59a0a58820d4067337d3eb68c215336e6a5da17df9314263aca6ba14ea70ecc0d16656300fc8cad5bafc93bb7a6c9854bdec75a6013cc196f31fc1af3183c4
-  languageName: node
-  linkType: hard
-
-"@vueuse/shared@npm:15.0.0":
-  version: 15.0.0
-  resolution: "@vueuse/shared@npm:15.0.0"
-  peerDependencies:
-    vue: ^3.5.0
-  checksum: 10/075af135629bcc0a4d69570709af44a17d6f1c4fa8270d5731b01c87cfef8730d73b1307f8f8c2728d87121b0ae36bba8d4b9199aaec4b72fdbf586dd39ccf2c
   languageName: node
   linkType: hard
 
