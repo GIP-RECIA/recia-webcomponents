@@ -34,5 +34,4 @@ make license-generate
 ## Composants
 
 - [@gip-recia/actualites](packages/actualites)
-- [@gip-recia/info-modal](packages/info-modal/)
 - [@gip-recia/param-etab](packages/param-etab/)
