@@ -4,8 +4,8 @@ name: Dedupe CI
 
 on:
   pull_request:
-    branches: ['main']
-    paths: ['package.json', 'yarn.lock']
+    branches: [ 'main' ]
+    paths: [ 'package.json', 'yarn.lock' ]
   workflow_dispatch:
 
 permissions: write-all
@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.pull_request.head.ref }}
 
