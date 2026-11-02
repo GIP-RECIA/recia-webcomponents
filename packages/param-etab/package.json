@@ -56,7 +56,7 @@
     "@vitejs/plugin-vue": "^6.0.10",
     "@vue/tsconfig": "^0.9.1",
     "axios": "^1.21.0",
-    "cropperjs": "^1.6.2",
+    "cropperjs": "^2.3.1",
     "dotenv-checker": "^1.1.7",
     "eslint": "^10.13.0",
     "eslint-plugin-format": "^2.0.1",
