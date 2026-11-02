@@ -924,7 +924,7 @@ __metadata:
     typescript: "npm:@typescript/typescript6@^6.0.2"
     vite: "npm:^8.3.3"
     vue: "npm:^3.5.44"
-    vue-i18n: "npm:^11.4.14"
+    vue-i18n: "npm:^11.4.16"
     vue-tsc: "npm:^3.3.13"
   languageName: unknown
   linkType: soft
@@ -959,7 +959,7 @@ __metadata:
     typescript: "npm:@typescript/typescript6@^6.0.2"
     vite: "npm:^8.3.3"
     vue: "npm:^3.5.44"
-    vue-i18n: "npm:^11.4.14"
+    vue-i18n: "npm:^11.4.16"
     vue-tsc: "npm:^3.3.13"
     vue3-toastify: "npm:^0.2.9"
     vuejs-clipper: "npm:^4.1.0"
@@ -1046,24 +1046,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@intlify/core-base@npm:11.4.14":
-  version: 11.4.14
-  resolution: "@intlify/core-base@npm:11.4.14"
+"@intlify/core-base@npm:11.4.16":
+  version: 11.4.16
+  resolution: "@intlify/core-base@npm:11.4.16"
   dependencies:
-    "@intlify/devtools-types": "npm:11.4.14"
-    "@intlify/message-compiler": "npm:11.4.14"
-    "@intlify/shared": "npm:11.4.14"
-  checksum: 10/52893156de4097765656de1c1cd35696eb50f3bb9fc0c2395203f266e8015366ae0c39089c183d419a765fa85f5fe7958d109dcee2215d5e94b229ed77ea4869
+    "@intlify/devtools-types": "npm:11.4.16"
+    "@intlify/message-compiler": "npm:11.4.16"
+    "@intlify/shared": "npm:11.4.16"
+  checksum: 10/9262bae25601cf7a8349e1abb171b4ab77b656d37fe7100b14943d2caf3b29113fec3e75e7890987c3fc7a9250c5dbad54cdf2142f6d886852a928ba8dce22c6
   languageName: node
   linkType: hard
 
-"@intlify/devtools-types@npm:11.4.14":
-  version: 11.4.14
-  resolution: "@intlify/devtools-types@npm:11.4.14"
+"@intlify/devtools-types@npm:11.4.16":
+  version: 11.4.16
+  resolution: "@intlify/devtools-types@npm:11.4.16"
   dependencies:
-    "@intlify/core-base": "npm:11.4.14"
-    "@intlify/shared": "npm:11.4.14"
-  checksum: 10/a7494f66d15bf3ec3f7a82b42f71a014465d14dfae10ed79fcba905db0b3121ab830590adaa7903b23dbb7015fdaca17f5988ee0f6fcdbd67dbb1818cfb5e461
+    "@intlify/core-base": "npm:11.4.16"
+    "@intlify/shared": "npm:11.4.16"
+  checksum: 10/1977b9cb82e92d3003da5fa7b8693f86da34407d7da3bbbc1b00163cce964bc458c22a656a994f2d2f8a106ae8f2cbed07bc8a455cb1fd560b72d562017bb62d
   languageName: node
   linkType: hard
 
@@ -1077,7 +1077,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@intlify/message-compiler@npm:11.4.14, @intlify/message-compiler@npm:~11.4.2":
+"@intlify/message-compiler@npm:11.4.16":
+  version: 11.4.16
+  resolution: "@intlify/message-compiler@npm:11.4.16"
+  dependencies:
+    "@intlify/shared": "npm:11.4.16"
+    source-map-js: "npm:^1.0.2"
+  checksum: 10/ed4074becd32202c653d6e48474fe6eb3c0e67b887d0a3d7f3bcbde8b1f5434407dbbdaefbf53fcea0fd96928e7f9e92c0ea923eb8bf74e2fbf98152236ab782
+  languageName: node
+  linkType: hard
+
+"@intlify/message-compiler@npm:~11.4.2":
   version: 11.4.14
   resolution: "@intlify/message-compiler@npm:11.4.14"
   dependencies:
@@ -1098,6 +1108,13 @@ __metadata:
   version: 11.4.14
   resolution: "@intlify/shared@npm:11.4.14"
   checksum: 10/495717e7513805731ae60f612f7e18529e9cb621799e812fb7c19493980df4574008a97597d403c4893b0f2174ad3309525290965f333e2d5116921e23ab3616
+  languageName: node
+  linkType: hard
+
+"@intlify/shared@npm:11.4.16":
+  version: 11.4.16
+  resolution: "@intlify/shared@npm:11.4.16"
+  checksum: 10/c3584af0fa15e8da8941f82eeae99170715a4a5bf9cb937f5d2dc30045a2d2e0ee63802524484e9973b35a5933e78a6d81c572a719db4742bce8c1f7611ee1c3
   languageName: node
   linkType: hard
 
@@ -7311,17 +7328,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-i18n@npm:^11.4.14":
-  version: 11.4.14
-  resolution: "vue-i18n@npm:11.4.14"
+"vue-i18n@npm:^11.4.16":
+  version: 11.4.16
+  resolution: "vue-i18n@npm:11.4.16"
   dependencies:
-    "@intlify/core-base": "npm:11.4.14"
-    "@intlify/devtools-types": "npm:11.4.14"
-    "@intlify/shared": "npm:11.4.14"
+    "@intlify/core-base": "npm:11.4.16"
+    "@intlify/devtools-types": "npm:11.4.16"
+    "@intlify/shared": "npm:11.4.16"
     "@vue/devtools-api": "npm:^6.5.0"
   peerDependencies:
     vue: ^3.0.0
-  checksum: 10/ddec47542ae02d9bb52e76b56e45a6b04e27dd6502b7d1ec1098e77b139b14ca543f990ae664d6c05f1fb16ccdbeea24e27b3aad109c7dc91ce84afa47532c63
+  checksum: 10/8600764d3ca13ada21f185705739c5aef18bbadc9cc92f01ae4f40c36532e0e61a0dcd1166e958a781245439568995b0c0aa9c35b307018e4c9247753eff1caa
   languageName: node
   linkType: hard
 
