@@ -67,7 +67,7 @@ watch(details, (): void => initForm())
 async function fetchDetailData(id: string) {
   if (id !== '') {
     try {
-      const response = await getDetailEtab(props.paramEtabApi + id)
+      const response = await getDetailEtab(props.paramEtabApi + id, props.userInfoApiUrl)
       details.value = response.data
       getDetailsAsString.value = JSON.stringify(details.value)
     }
@@ -80,8 +80,12 @@ async function fetchDetailData(id: string) {
 async function updateInfo() {
   try {
     const structCustomDisplayName
-      = tmp.value.customName && tmp.value.customName.trim().length > 0 ? tmp.value.customName : null
-    const structSiteWeb = tmp.value.siteWeb && tmp.value.siteWeb.trim().length > 0 ? tmp.value.siteWeb : null
+      = tmp.value.customName && tmp.value.customName.trim().length > 0
+        ? tmp.value.customName
+        : null
+    const structSiteWeb = tmp.value.siteWeb && tmp.value.siteWeb.trim().length > 0
+      ? tmp.value.siteWeb
+      : null
 
     const response = await updateEtab(
       `${props.paramEtabApi}update/${props.detail}`,
@@ -111,8 +115,12 @@ async function updateInfo() {
 
 const isButtonDisabled = computed<boolean>(() => {
   const structCustomDisplayName
-    = tmp.value.customName && tmp.value.customName.trim().length > 0 ? tmp.value.customName : null
-  const structSiteWeb = tmp.value.siteWeb && tmp.value.siteWeb.trim().length > 0 ? tmp.value.siteWeb : null
+    = tmp.value.customName && tmp.value.customName.trim().length > 0
+      ? tmp.value.customName
+      : null
+  const structSiteWeb = tmp.value.siteWeb && tmp.value.siteWeb.trim().length > 0
+    ? tmp.value.siteWeb
+    : null
 
   let checkCustomName = true
   const customNameHasChanged = structCustomDisplayName !== details.value.structCustomDisplayName

@@ -39,8 +39,13 @@ async function getParametab(url: string, userInfoApiUrl: string) {
   })
 }
 
-async function getDetailEtab(url: string) {
-  return await axios.get(url)
+async function getDetailEtab(url: string, userInfoApiUrl: string) {
+  return await axios.get(url, {
+    headers: {
+      'Authorization': `Bearer ${await getToken(userInfoApiUrl)}`,
+      'content-type': 'application/jwt',
+    },
+  })
 }
 
 async function updateEtab(url: string, details: StructureDetail, userInfoApiUrl: string) {
