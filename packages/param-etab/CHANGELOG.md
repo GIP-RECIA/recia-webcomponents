@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.3.2](https://github.com/GIP-RECIA/recia-webcomponents/compare/param-etab/v1.3.1...param-etab/v1.3.2) (2026-11-04)
+
+### Bug Fixes
+
+* **param-etab:** add request header in detail request ([9a80c63](https://github.com/GIP-RECIA/recia-webcomponents/commit/9a80c636ae70e1579427ed2fb6ef85492d1fb878))
+* vite 8 process is not defined ([d81ee0c](https://github.com/GIP-RECIA/recia-webcomponents/commit/d81ee0c4493e28a151acbc1633ee2574c0b6f0e1))
+
 ## [1.3.1](https://github.com/GIP-RECIA/recia-webcomponents/compare/param-etab/v1.3.0...param-etab/v1.3.1) (2026-06-15)
 
 ## [1.3.0](https://github.com/GIP-RECIA/recia-webcomponents/compare/param-etab/v1.2.1...param-etab/v1.3.0) (2026-05-28)
